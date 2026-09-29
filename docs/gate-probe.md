@@ -78,4 +78,27 @@ Exact binomial at n = 150 absent-answer cases (`stats.gate_oc`):
 
 ## 4. Results
 
-*Recorded after the live run.*
+Live run on 2026-09-29, committed in `7ed8e05`: 273 requests to `jev-1.13.0`, all HTTP 200, all 273 records scored (`tests/phase0/results/probe9.json`). Nothing in §1–§3 and no label changed after the first live call.
+
+**Fresh cases (deciding).** Wilson 95% intervals.
+
+| measure | with the gate | without (Phase 0 decoding, same answers) |
+|---|---|---|
+| correct commits | 105/150 = 0.700 [0.622, 0.768] | 123/150 = 0.820 |
+| wrong commits when present | 4/150 = 0.027 [0.010, 0.067] | 10/150 = 0.067 |
+| **committed when absent** | **10/139 = 0.072 [0.040, 0.127]** | 29/139 = 0.209 |
+| probe 1′ (correct commits) | 105/150, *conditional* (9 ties) | |
+| probe 2′ (abstain or fail, absent) | 115/139 = 0.827, *go* (14 ties) | |
+| probe 3′ (abstain or fail, present) | **32/150 = 0.213, *stop*** (9 ties) | |
+
+Outcomes, present cases: 105 committed correct, 4 committed wrong, 24 verification failed, 8 abstained, 9 ties. Absent cases: 96 abstained, 19 verification failed, 14 ties, 9 committed wrong, 1 committed partial. Committed when absent by regime: hard 6/52, other 4/87.
+
+How the gate treats each kind of option (the verification `noul` is asked for every option): **correct options pass 124/227 (55%)**, partial 2/96, wrong 40/3,055 (1.3%).
+
+**Verdict: drop** (`stats.gate_verdict`). Probe 3′ is in its stop band (k = 32; the band starts at k = 31). Committed-when-absent (0.072) is also above the 0.05 needed to proceed, but below the 0.10 drop line. Correct commits are exactly 0.70, which is not below 0.70.
+
+**Paired Phase 0 cases (secondary, in-sample, not deciding):** correct commits 109/150 (135 without the gate); wrong when present 4/150 (4); committed when absent 15/150 = 0.100 (33/150 without); probe 3′ 28/150, *conditional*. The rule applied to these cases would give *marginal*.
+
+**Reading.** The gate does what it was meant to do on the absent-answer side: it removes about two thirds of the wrong commits (29 → 10 of 139) and more than half of the wrong commits when the answer is present (10 → 4). It does this by being strict about everything. It rejects 45% of the correct answers, which turns 18 correct commits into verification failures and puts false abstention in the stop band. The residual 7% wrong commits on absent answers is not low enough to proceed either. At this wording, `jev-1.13.0` cannot say "yes, this is the complete value" reliably enough for a single verification `noul` to separate right from wrong.
+
+**Consequence (§3):** *drop* applies Phase 5's abandon criterion now: the product becomes the fallback of `PLAN.md` §1. `PLAN.md` and `DESIGN.md` are not edited in this commit; the owner confirms the scope change first. A differently worded or multi-question gate would be a new pre-registered probe on a new disjoint corpus, not a re-reading of this one.
