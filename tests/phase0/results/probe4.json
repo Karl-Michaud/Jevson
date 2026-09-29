@@ -1,0 +1,144 @@
+{
+ "clusters": 50,
+ "runs": [
+  "A",
+  "B"
+ ],
+ "invalid_cluster_runs": 0,
+ "floor": {
+  "value": 0.05,
+  "qualifying": [
+   0.05
+  ],
+  "share_at_or_below": {
+   "0.05": 0.005555555555555556,
+   "0.10": 0.022222222222222223,
+   "0.15": 0.027777777777777776,
+   "0.20": 0.030555555555555555,
+   "0.25": 0.03611111111111111,
+   "0.30": 0.04722222222222222,
+   "0.35": 0.05,
+   "0.40": 0.058333333333333334,
+   "0.45": 0.058333333333333334
+  },
+  "grid_top_binds": false,
+  "no_value_qualified": false,
+  "same_entity_pairs": 360
+ },
+ "variants": {
+  "internal": {
+   "pooled": {
+    "correct": 300,
+    "merge": 10,
+    "split": 20
+   },
+   "by_run": {
+    "A": {
+     "correct": 150,
+     "merge": 5,
+     "split": 10
+    },
+    "B": {
+     "correct": 150,
+     "merge": 5,
+     "split": 10
+    }
+   },
+   "silently_wrong_rate": 0.09090909090909091,
+   "correct_rate": 0.9090909090909091
+  },
+  "cross": {
+   "pooled": {
+    "correct": 163,
+    "unresolved": 163,
+    "merge": 2,
+    "split": 2
+   },
+   "by_run": {
+    "A": {
+     "correct": 80,
+     "unresolved": 83,
+     "merge": 1,
+     "split": 1
+    },
+    "B": {
+     "correct": 83,
+     "unresolved": 80,
+     "merge": 1,
+     "split": 1
+    }
+   },
+   "silently_wrong_rate": 0.012121212121212121,
+   "correct_rate": 0.49393939393939396
+  }
+ },
+ "chosen_variant": "cross",
+ "pooled": {
+  "components": 330,
+  "correct": 163,
+  "silently_wrong": 4,
+  "correct_rate": 0.49393939393939396,
+  "correct_wilson": [
+   0.4403780673227996,
+   0.5476401973525044
+  ],
+  "wrong_rate": 0.012121212121212121,
+  "wrong_wilson": [
+   0.004723523655744924,
+   0.030746782706216426
+  ]
+ },
+ "per_run": {
+  "A": {
+   "components": 165,
+   "correct": 80,
+   "silently_wrong": 2,
+   "correct_rate": 0.48484848484848486,
+   "correct_wilson": [
+    0.4098084432763384,
+    0.560577977008564
+   ],
+   "wrong_rate": 0.012121212121212121,
+   "wrong_wilson": [
+    0.0033303919097924482,
+    0.04311234126406373
+   ],
+   "verdict": "stop"
+  },
+  "B": {
+   "components": 165,
+   "correct": 83,
+   "silently_wrong": 2,
+   "correct_rate": 0.503030303030303,
+   "correct_wilson": [
+    0.4275440974839724,
+    0.5783786184590471
+   ],
+   "wrong_rate": 0.012121212121212121,
+   "wrong_wilson": [
+    0.0033303919097924482,
+    0.04311234126406373
+   ],
+   "verdict": "stop"
+  }
+ },
+ "verdict": "stop",
+ "pair_accuracy": {
+  "k": 1560,
+  "n": 1592
+ },
+ "non_transitive_triples": {
+  "k": 17,
+  "n": 2920,
+  "clusters_with_one": 11
+ },
+ "clique_completeness": {
+  "k": 152,
+  "n": 168
+ },
+ "pair_flips": {
+  "k": 2,
+  "n": 796
+ },
+ "requests_sent_this_invocation": 100
+}

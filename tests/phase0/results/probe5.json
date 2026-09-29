@@ -1,0 +1,105 @@
+{
+ "conditions": {
+  "IDX-all-150": {
+   "wrong": 198,
+   "n": 320,
+   "invalid": 0,
+   "requests": 3,
+   "rate": 0.61875,
+   "wilson": [
+    0.5644239898677714,
+    0.6702587474097925
+   ]
+  },
+  "IDX-chunk-150": {
+   "wrong": 139,
+   "n": 320,
+   "invalid": 0,
+   "requests": 3,
+   "rate": 0.434375,
+   "wilson": [
+    0.38116216187904445,
+    0.48914474646756495
+   ]
+  },
+  "IDX-all-25": {
+   "wrong": 198,
+   "n": 320,
+   "invalid": 0,
+   "requests": 13,
+   "rate": 0.61875,
+   "wilson": [
+    0.5644239898677714,
+    0.6702587474097925
+   ]
+  },
+  "IDX-chunk-25": {
+   "wrong": 8,
+   "n": 320,
+   "invalid": 0,
+   "requests": 13,
+   "rate": 0.025,
+   "wilson": [
+    0.01272117850740435,
+    0.0485478723823399
+   ]
+  },
+  "IDX-320": {
+   "wrong": 199,
+   "n": 320,
+   "invalid": 0,
+   "requests": 1,
+   "rate": 0.621875,
+   "wilson": [
+    0.5675952668326619,
+    0.6732633319522062
+   ]
+  },
+  "KEY-320": {
+   "wrong": 0,
+   "n": 320,
+   "invalid": 0,
+   "requests": 1,
+   "rate": 0.0,
+   "wilson": [
+    0.0,
+    0.01186215883130973
+   ]
+  },
+  "KEY-150": {
+   "wrong": 0,
+   "n": 320,
+   "invalid": 0,
+   "requests": 3,
+   "rate": 0.0,
+   "wilson": [
+    0.0,
+    0.01186215883130973
+   ]
+  },
+  "INLINE-320": {
+   "wrong": 0,
+   "n": 320,
+   "invalid": 0,
+   "requests": 1,
+   "rate": 0.0,
+   "wilson": [
+    0.0,
+    0.01186215883130973
+   ]
+  },
+  "PER-REQ": {
+   "wrong": 0,
+   "n": 320,
+   "invalid": 0,
+   "requests": 320,
+   "rate": 0.0,
+   "wilson": [
+    0.0,
+    0.01186215883130973
+   ]
+  }
+ },
+ "verdict": "reproduces [P4]",
+ "requests_sent_this_invocation": 358
+}

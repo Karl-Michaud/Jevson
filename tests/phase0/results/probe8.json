@@ -1,0 +1,126 @@
+{
+ "lone_correct": {
+  "n": 50,
+  "commit": 49,
+  "abstain": 1,
+  "rate_key": "commit",
+  "rate": 0.98,
+  "wilson": [
+   0.8950455641036219,
+   0.9964607407283539
+  ],
+  "by_field_type": {
+   "date": {
+    "n": 11,
+    "commit": 11
+   },
+   "duration": {
+    "n": 3,
+    "commit": 3
+   },
+   "money": {
+    "n": 2,
+    "commit": 2
+   },
+   "number": {
+    "n": 1,
+    "commit": 1
+   },
+   "text": {
+    "n": 33,
+    "commit": 32
+   }
+  }
+ },
+ "lone_wrong": {
+  "n": 50,
+  "abstain": 39,
+  "commit": 10,
+  "tie": 1,
+  "rate_key": "abstain",
+  "rate": 0.78,
+  "wilson": [
+   0.6475845041874634,
+   0.8724608402978559
+  ],
+  "by_field_type": {
+   "date": {
+    "n": 11,
+    "abstain": 9
+   },
+   "duration": {
+    "n": 3,
+    "abstain": 3
+   },
+   "money": {
+    "n": 2,
+    "abstain": 2
+   },
+   "number": {
+    "n": 1,
+    "abstain": 1
+   },
+   "text": {
+    "n": 33,
+    "abstain": 24
+   }
+  }
+ },
+ "lone_partial": {
+  "n": 50,
+  "commit": 12,
+  "abstain": 35,
+  "tie": 3,
+  "rate_key": "abstain",
+  "rate": 0.7,
+  "wilson": [
+   0.562496495355466,
+   0.8089644649911906
+  ],
+  "by_field_type": {
+   "date": {
+    "n": 11,
+    "abstain": 8
+   },
+   "duration": {
+    "n": 3,
+    "abstain": 0
+   },
+   "money": {
+    "n": 2,
+    "abstain": 0
+   },
+   "number": {
+    "n": 1,
+    "abstain": 0
+   },
+   "text": {
+    "n": 33,
+    "abstain": 27
+   }
+  },
+  "constructed": 42
+ },
+ "partial_only": {
+  "n": 17,
+  "commit": 6,
+  "abstain": 11,
+  "rate_key": "abstain",
+  "rate": 0.6470588235294118,
+  "wilson": [
+   0.413003634852187,
+   0.8269027960275626
+  ],
+  "by_field_type": {
+   "date": {
+    "n": 11,
+    "abstain": 5
+   },
+   "number": {
+    "n": 6,
+    "abstain": 6
+   }
+  }
+ },
+ "requests_sent_this_invocation": 50
+}
