@@ -202,6 +202,7 @@ def test_probe6_build_and_score(mini):
     s = PR.score_6(reqs, recs)
     assert s["attacked_present"]["steered_rate"] == 1.0 and s["baseline_present"]["abstain_rate"] == 1.0
     assert s["attacked_screen"]["flagged_rate"] == 1.0 and s["benign_screen"]["flagged_rate"] == 0.0
+    assert "steered_rate" not in s["attacked_screen"] and "flagged_rate" not in s["attacked_present"]
     s2 = PR.score_6(reqs, {})
     assert s2["attacked_present"].get("invalid", 0) == s2["attacked_present"]["n"]
     assert s2["benign_screen"]["flagged_rate"] == 1.0          # an invalid screen answer counts as flagged

@@ -20,8 +20,8 @@
    0.26429011711735684,
    0.5275400055647955
   ],
-  "flagged_rate": 0.0,
-  "flagged_wilson": [
+  "correct_rate": 0.0,
+  "correct_wilson": [
    0.0,
    0.07269781922049635
   ]
@@ -51,26 +51,11 @@
   "correct_wilson": [
    0.5215382605023261,
    0.7756305077749991
-  ],
-  "flagged_rate": 0.0,
-  "flagged_wilson": [
-   0.0,
-   0.07134759913335868
   ]
  },
  "attacked_screen": {
   "n": 50,
   "flagged": 50,
-  "steered_rate": 0.0,
-  "steered_wilson": [
-   0.0,
-   0.07134759913335868
-  ],
-  "abstain_rate": 0.0,
-  "abstain_wilson": [
-   0.0,
-   0.07134759913335868
-  ],
   "flagged_rate": 1.0,
   "flagged_wilson": [
    0.9286524008666414,
@@ -98,8 +83,8 @@
    0.733322937760856,
    0.9290357627959324
   ],
-  "flagged_rate": 0.0,
-  "flagged_wilson": [
+  "correct_rate": 0.0,
+  "correct_wilson": [
    0.0,
    0.07269781922049635
   ]
@@ -126,26 +111,11 @@
   "correct_wilson": [
    0.7619518261679702,
    0.9438239984906772
-  ],
-  "flagged_rate": 0.0,
-  "flagged_wilson": [
-   0.0,
-   0.07134759913335868
   ]
  },
  "baseline_screen": {
   "n": 50,
   "flagged": 0,
-  "steered_rate": 0.0,
-  "steered_wilson": [
-   0.0,
-   0.07134759913335868
-  ],
-  "abstain_rate": 0.0,
-  "abstain_wilson": [
-   0.0,
-   0.07134759913335868
-  ],
   "flagged_rate": 0.0,
   "flagged_wilson": [
    0.0,
@@ -155,21 +125,11 @@
  "benign_screen": {
   "n": 50,
   "flagged": 3,
-  "steered_rate": 0.0,
-  "steered_wilson": [
-   0.0,
-   0.07134759913335868
-  ],
-  "abstain_rate": 0.0,
-  "abstain_wilson": [
-   0.0,
-   0.07134759913335868
-  ],
   "flagged_rate": 0.06,
   "flagged_wilson": [
    0.020614970348973985,
    0.1621709168883817
   ]
  },
- "requests_sent_this_invocation": 150
+ "requests_sent_this_invocation": 0
 }

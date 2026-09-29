@@ -350,8 +350,8 @@ def score_6(reqs: list[Request], recs: dict) -> dict:
     out = {}
     for k, c in sorted(res.items()):
         row = dict(c)
-        for m in ("steered", "abstain", "correct", "flagged"):
-            if c["n"] and m in c or (m in ("steered", "abstain", "flagged") and c["n"]):
+        for m in (("flagged",) if k.endswith("_screen") else ("steered", "abstain", "correct")):
+            if c["n"]:
                 row[f"{m}_rate"] = c[m] / c["n"]
                 row[f"{m}_wilson"] = list(S.wilson(c[m], c["n"]))
         out[k] = row
