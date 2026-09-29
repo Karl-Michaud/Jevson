@@ -44,7 +44,7 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 
 Phase 0 is an empirical taxonomy plus probes with pre-registered thresholds, and it is allowed to conclude that the library should be smaller than described above.
 
-**Phase 0 is complete** ([docs/taxonomy.md](docs/taxonomy.md)): candidate selection ships with a second verification gate, and pairwise entity resolution is deferred past v0.
+**Phase 0 has run** ([docs/taxonomy.md](docs/taxonomy.md); one exit criterion is open for the owner): candidate selection ships with a second verification gate, and pairwise entity resolution is deferred past v0.
 
 ## Licence
 

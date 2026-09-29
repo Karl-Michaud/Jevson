@@ -151,12 +151,12 @@ def render_labelling(ds: pathlib.Path = DATASETS) -> str:
         f"| mention ambiguous flag | {m['n_passages']} passages | — | {f(m['kappa_ambiguous'])} |",
         f"| mention role-noun flag | {m['n_passages']} passages | — | {f(m['kappa_role_noun'])} |",
         "", f"**Disagreements:** {len(c['disagreements'])} candidate items and {len(m['disagreements'])} passages; all "
-        f"{len(adj)} were adjudicated ({dict(sorted(kinds.items()))}); the adjudicator agreed with the first labeller "
+        f"{len(adj)} were adjudicated ({', '.join(f'{v} {k}' for k, v in sorted(kinds.items()))}); the adjudicator agreed with the first labeller "
         f"{agreed.get('A', 0)} times, the second {agreed.get('B', 0)} times, and neither {agreed.get('neither', 0)} times. "
         "Every decision and its reason is in `tests/phase0/datasets/labels/adjudication.jsonl`.",
         "", f"**Probe 4 clusters:** {summ['clusters']['passages']} passages extracted, {summ['clusters']['labelled']} with 4-14 "
         f"mentions labelled, {summ['clusters']['eligible']} eligible, {summ['clusters']['excluded_ambiguous']} mentions excluded "
-        f"as ambiguous; 50 sampled ({summ['clusters']['chosen_by_domain']})."])
+        f"as ambiguous; 50 sampled ({', '.join(f'{k} {v}' for k, v in sorted(summ['clusters']['chosen_by_domain'].items()))})."])
 
 
 def render_taxonomy(tax: dict, prov: list[dict]) -> str:
@@ -191,7 +191,7 @@ def render_taxonomy(tax: dict, prov: list[dict]) -> str:
                    f"{r0['provenance']} | {r0['batching']} | {fq['extraction']} / {fq['non_extraction']} / {fq['additional']} | "
                    f"{im['high']}/{im['medium']}/{im['low']} | {r0['alternatives']} | {r0['jev_implementations']} | {v0} |")
     p = s["prediction"]
-    out += ["", f"**v0 reach of the leaf fields** (by the derived v0 column): {dict(sorted(s['v0_leaves'].items()))}.", "",
+    out += ["", f"**v0 reach of the leaf fields** (by the derived v0 column): {'; '.join(f'{k}: {v}' for k, v in sorted(s['v0_leaves'].items()))}.", "",
             "**The prediction's three conditions** (§2.9):", "",
             "| condition | measured | holds? |", "|---|---|---|",
             f"| (a) class A is more than half of all schema nodes | {p['a_A_share_of_all_nodes']:.3f} | {'yes' if p['a_holds'] else 'no'} |",
@@ -250,7 +250,7 @@ def render_results(res: dict) -> str:
                "`tests/phase0/results/probe7.json` |")
     out.append(f"| 8. single candidates and partials | [Z8] | 50 / 50 / 50 / {p8['partial_only']['n']} | see below | see below | "
                "reading only | — | `tests/phase0/out/probe8.jsonl` | `tests/phase0/results/probe8.json` |")
-    out += ["", f"**Candidate selection: {p123['candidate_selection']}.** Abandon criterion fired: "
+    out += ["", f"**Candidate selection: {p123['candidate_selection'].replace('probe', 'probe ')}.** Abandon criterion fired: "
             f"{'yes' if p123['abandon'] else 'no'}.", "", "### 6.1 Probes 1-3 in detail", "",
             "| probe | correct | abstain | tie | partial commit | wrong commit | invalid |", "|---|---|---|---|---|---|---|"]
     for key in ("probe1", "probe2"):

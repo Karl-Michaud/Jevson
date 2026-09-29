@@ -677,7 +677,7 @@ Credit where it is due. **Every mechanism below predates Jevson.**
 | one source per call in v0 | refused at the call boundary; multi-source planned (`PLAN.md` Phase 9) |
 | unbounded array cardinality | source-grounded membership only; generative lists refused in v0 |
 | `anyOf` / `oneOf` with ≥ 2 non-null branches | resolved where the branch is a bounded decision (`PLAN.md` Phase 6), refused loudly otherwise |
-| recursive or dynamic `$ref`, `dict[str, X]`, tuples, `Any`, `bytes` | refused with a named reason (DESIGN §3.5) |
+| recursive or dynamic `$ref`, `dict[str, X]`, tuples, `Any`, `bytes`, arrays of objects | refused with a named reason (DESIGN §3.5) |
 | relative dates ("next Friday") | not resolved in v0; tracked (`PLAN.md` §9) |
 | non-English sources | supported, less well; documented |
 | numbers and dates in other conventions | read under the default `en-US` unless the field declares `locale`; misreadings are silent |
@@ -751,7 +751,7 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 
 ### Revision 9.2 — 2026-09-29, Phase 0 results
 
-Phase 0 ran its eight pre-registered probes on real documents (796 requests; `docs/taxonomy.md`). Candidate selection is *conditional* and ships with the second gate **[Z1–Z3]**; pairwise entity resolution is *stop*, so deduplication is the extractor's contract in v0 (R6, DESIGN §5.7: `conflict_floor` 0.05, cross-component variant) **[Z4]**; R13 is reproduced **[Z5]**; first readings of the source screen, calibration, and single candidates **[Z6–Z8]**. The v0 scope is frozen in DESIGN §10.1. The taxonomy prediction was wrong.
+Phase 0 ran its eight pre-registered probes on real documents (796 requests; `docs/taxonomy.md`). Candidate selection is *conditional* and ships with the second gate **[Z1–Z3]**; pairwise entity resolution is *stop*, so deduplication is the extractor's contract in v0 (R6, DESIGN §5.7: `conflict_floor` 0.05, cross-component variant) **[Z4]**; R13 is reproduced **[Z5]**; first readings of the source screen, calibration, and single candidates **[Z6–Z8]**. The v0 scope is frozen in DESIGN §10.1; it refuses every array of objects in v0 (previously only nested ones were out of scope), since Phase 7 builds arrays of spans only. The taxonomy prediction was wrong.
 
 ### Revision 9.1 — 2026-09-29, red-team round 7 (converged)
 

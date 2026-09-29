@@ -70,10 +70,10 @@ def load_raw(path: pathlib.Path) -> dict[str, dict]:
     """Stored records by request id; an undecodable line (a write cut short) is skipped with a warning."""
     done: dict[str, dict] = {}
     if path.exists():
-        for n, line in enumerate(path.read_text().splitlines(), 1):
+        for n, raw in enumerate(path.read_bytes().splitlines(), 1):
             try:
-                rec = json.loads(line)
-            except ValueError:
+                rec = json.loads(raw.decode("utf-8"))
+            except ValueError:   # includes UnicodeDecodeError: a write cut short inside a character
                 print(f"warning: {path.name}:{n} is not valid JSON and is ignored", file=sys.stderr)
                 continue
             done[rec["rid"]] = rec
@@ -101,13 +101,13 @@ async def execute(client: JevClient, requests: Sequence[Request], raw_path: path
         resp = await client.ask(r.state, r.questions)
         rec = {"rid": r.rid, "request_sha256": hashes[r.rid], "meta": r.meta, "response": resp}
         done[r.rid] = rec
-        with raw_path.open("a+") as f:   # written as soon as it returns: nothing paid for is lost
+        with raw_path.open("ab+") as f:   # written as soon as it returns: nothing paid for is lost
             f.seek(0, 2)
             if f.tell():
-                f.seek(f.tell() - 1)
-                if f.read(1) != "\n":   # a previous write was cut short: start a fresh line
-                    f.write("\n")
-            f.write(client.redact(json.dumps(rec, ensure_ascii=False)) + "\n")
+                f.seek(-1, 2)
+                if f.read(1) != b"\n":   # a previous write was cut short: start a fresh line
+                    f.write(b"\n")
+            f.write((client.redact(json.dumps(rec, ensure_ascii=False)) + "\n").encode("utf-8"))
 
     for _ in range(passes):
         pending = [r for r in requests if not answered(r)]

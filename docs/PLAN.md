@@ -1,6 +1,6 @@
 # Jevson — implementation plan
 
-> **Status:** Planning document, Revision 9.2, 2026-09-29. Pre-implementation; Phase 0 complete (`docs/taxonomy.md`).
+> **Status:** Planning document, Revision 9.2, 2026-09-29. Pre-implementation; Phase 0 run and written up (`docs/taxonomy.md`), with one exit criterion open for the owner (probe 8's partial-only set).
 >
 > **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 9.2. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md).
 >
@@ -592,7 +592,7 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 - [ ] `"Attendees were Dana, John, Sarah, and Michael"` produces a 4-element array in source order
 - [ ] **Enum arrays:** a multi-label enum array emits members in declared order, with ties unresolved and `maxItems` overflow retained; this ships even if Phase 5 abandoned
 - [ ] `maxItems: 5` with six accepted elements returns five and records the sixth in `Result.overflow`
-- [ ] An array declaring semantic order refuses; an array of unbounded items with no `source` refuses
+- [ ] An array declaring semantic order refuses; an array of unbounded items with no `source` refuses; an array of objects still refuses with its own named reason (`DESIGN §3.5`)
 - [ ] A candidate count above `max_candidates` yields `Unresolved(too_many_candidates)` with texts and counts in `detail`, with no membership question asked
 - [ ] **Array holes:** an array with one unresolved member (a membership tie) is emitted with its other elements, and the hole is one `Unresolved` at the array pointer; a tied value in a multi-label enum array likewise
 - [ ] Source ordering is deterministic across runs
@@ -881,7 +881,7 @@ Phase 3   executor + budget + live backend + façade   ~500 lines   ← working 
 Phase 4   generative fields and adjudication          ~450 lines
 Phase 5   candidates and source selection             ~500 lines   ← source-grounded extraction
 Phase 6   union discrimination                        ~300 lines
-Phase 7   source-grounded arrays                      ~500 lines   (cancelled if 5 abandons, except enum arrays)
+Phase 7   source-grounded arrays                      ~350 lines   (cancelled if 5 abandons, except enum arrays)
 Phase 8   packaging and release                       ~250 lines   ← v0
 --- post-v0, planned ---
 Phase 9   multi-source and long-source extraction

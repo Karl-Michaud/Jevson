@@ -194,3 +194,17 @@ def test_duplicate_option_span_rejected():
         M.SelectionCase.model_validate({"case_id": "x", "probe": "p1p3", "doc_id": "d", "field_id": "f", "label": "abc",
                                         "options": opts, "hard": False, "repeated": False, "superseded": False,
                                         "multi_entity": False})
+
+
+@pytest.mark.parametrize("tail", ['{"rid": "zz", "x": "é', b'{"rid": "zz", "x": "\xc3'])
+def test_runner_survives_non_ascii_fragment(tmp_path, tail):
+    raw = tmp_path / "x.jsonl"
+    if isinstance(tail, str):
+        raw.write_text(tail, encoding="utf-8")
+    else:
+        raw.write_bytes(tail)
+    reqs = _reqs(2)
+    asyncio.run(RN.execute(_client(), reqs, raw))
+    c = _client()
+    asyncio.run(RN.execute(c, reqs, raw))
+    assert c.budget.used == 0 and {"r0", "r1"} <= set(RN.load_raw(raw))
