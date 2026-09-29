@@ -162,12 +162,13 @@ def score_4(clusters: list[Cluster], recs: dict, runs: tuple[str, ...] = R.PROBE
     per_run = {}
     for r in runs:
         rv = vs(comp[chosen]["by_run"][r])
+        run_verdict = "stop" if (fl is None or fl.stop) else S.probe4_verdict(rv.correct, rv.silently_wrong, rv.components)
         lo, hi = S.wilson(rv.correct, rv.components)
         wlo, whi = S.wilson(rv.silently_wrong, rv.components)
         per_run[r] = {"components": rv.components, "correct": rv.correct, "silently_wrong": rv.silently_wrong,
                       "correct_rate": rv.correct / rv.components, "correct_wilson": [lo, hi],
                       "wrong_rate": rv.silently_wrong / rv.components, "wrong_wilson": [wlo, whi],
-                      "verdict": S.probe4_verdict(rv.correct, rv.silently_wrong, rv.components)}
+                      "verdict": run_verdict}
     pa = [SC.pair_accuracy(g, p) for (g, p, ok) in per.values() if ok]
     nt = [SC.non_transitive_triples(len(g), p) for (g, p, ok) in per.values() if ok]
     cc = [SC.clique_complete(g, p) for (g, p, ok) in per.values() if ok]
@@ -253,12 +254,12 @@ def score_5(reqs: list[Request], recs: dict, truth: list[bool]) -> dict:
         ans = answers_of(recs.get(r.rid))
         for key, gi in r.meta["items"].items():
             c["n"] += 1
-            p = SC.pair_probability(ans.get(key))
-            if p is None:
+            a = ans.get(key)
+            if SC.pair_probability(a) is None:
                 c["invalid"] += 1
                 c["wrong"] += 1
                 continue
-            c["wrong"] += (p > 50) != truth[gi]
+            c["wrong"] += (a["noul"] > 0.5) != truth[gi]   # the original script's rule, on the raw value
     out = {k: {**v, "rate": v["wrong"] / v["n"], "wilson": list(S.wilson(v["wrong"], v["n"]))} for k, v in by.items()}
     idx, key = out["IDX-320"]["rate"], out["KEY-320"]["rate"]
     if idx >= R.P5_REPRODUCE_IDX_MIN and key <= R.P5_KEY_MAX:
@@ -299,10 +300,12 @@ def _probe6_questions(base: SelectionCase, text: str, h: HostileCase | None) -> 
     opts = _rebuild(base, text, h)
     correct_texts = {o.text for o in base.options if o.label == "correct"}
     absent = [o for o in opts if o["text"] not in correct_texts]
+    # whether the absent question is asked is decided on the unattacked document, so both arms ask the same cases
+    ask_absent = sum(o.text not in correct_texts for o in base.options) >= R.MIN_COMPETITORS
     qs, meta = {}, {}
     q, ids = T.candidate_question(base.label, text, [(o["start"], o["end"]) for o in opts])
     qs["present"], meta["present"] = q, {i: o for i, o in zip(ids, opts)}
-    if len(absent) >= R.MIN_COMPETITORS:   # §2.2 item 6, as §2.6 requires
+    if ask_absent and absent:   # §2.2 item 6, as §2.6 requires
         q, ids = T.candidate_question(base.label, text, [(o["start"], o["end"]) for o in absent])
         qs["absent"], meta["absent"] = q, {i: o for i, o in zip(ids, absent)}
     qs["screen"] = T.screen_question()

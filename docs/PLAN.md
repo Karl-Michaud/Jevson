@@ -224,7 +224,7 @@ Throwaway code in `tests/phase0/`, using the live key and the pinned model `jev-
 - [x] Every class C and D entry specifies primitive, option source, `none_of_these` requirement, dependency pattern, provenance guarantee, and batching behaviour — every construct in `docs/taxonomy.md` §5 (each Appendix A row names its construct); per field in `tests/phase0/results/taxonomy.json`
 - [x] Every entry records **existing alternatives** and **existing Jev implementations** — every construct in `docs/taxonomy.md` §5; per field in `tests/phase0/results/taxonomy.json`
 - [x] The question templates and the decision rule's operating characteristic are recorded **before** any probe runs — commits 6f38415 (templates) and 443234c (rules, OC) precede the first live result, fd78aea
-- [ ] All eight probes run at the stated n on the pinned model, with measured rates and intervals written into `docs/taxonomy.md` **whether or not they are favourable** — **met except one set:** 796 requests, every probe at its stated n **[Z1–Z8]**, but probe 8's partial-only set has 17 of 50 cases, because only 17 of the 932 labelled field instances had a source stating only a partial value (reading only; shortfall pre-registered in `docs/taxonomy.md` §2.8). Open for the owner: accept, or extend the corpus for that set
+- [ ] All eight probes run at the stated n on the pinned model, with measured rates and intervals written into `docs/taxonomy.md` **whether or not they are favourable** — **met except one set:** 796 requests, every probe at its stated n **[Z1–Z8]** (probe 6's absent-answer rows cover 46 of 50 cases, by the pre-registered ≥ 3-option rule, `docs/taxonomy.md` §2.12), but probe 8's partial-only set has 17 of 50 cases, because only 17 of the 932 labelled field instances had a source stating only a partial value (reading only; shortfall pre-registered in `docs/taxonomy.md` §2.8). Open for the owner: accept, or extend the corpus for that set
 - [x] Probes 1–4 are marked **go / conditional / stop**; `conflict_floor` and the entity rule variant are written into `DESIGN §5.7` with the data that chose them — go / conditional / go / stop; floor 0.05, cross variant **[Z4]**
 - [x] The prediction below is marked **CONFIRMED** or **WRONG**, with the numbers — **WRONG** (`docs/taxonomy.md` §8)
 - [x] The v0 scope list is frozen and written into `DESIGN §10` — `DESIGN §10.1`
@@ -593,12 +593,13 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 - [ ] **Enum arrays:** a multi-label enum array emits members in declared order, with ties unresolved and `maxItems` overflow retained; this ships even if Phase 5 abandoned
 - [ ] `maxItems: 5` with six accepted elements returns five and records the sixth in `Result.overflow`
 - [ ] An array declaring semantic order refuses; an array of unbounded items with no `source` refuses
+- [ ] A candidate count above `max_candidates` yields `Unresolved(too_many_candidates)` with texts and counts in `detail`, with no membership question asked
 - [ ] **Array holes:** an array with one unresolved member (a membership tie) is emitted with its other elements, and the hole is one `Unresolved` at the array pointer; a tied value in a multi-label enum array likewise
 - [ ] Source ordering is deterministic across runs
 
 ### Abandon criterion
 
-**If component outcomes on real prose fall below the Phase 0 probe 4 go band, deduplication becomes the extractor's declared contract**: the library stops claiming it, documents that candidates must arrive normalised, and the dedup exit criteria are removed rather than weakened. Membership, ordering, and overflow still ship.
+**If component outcomes on real prose fall below the Phase 0 probe 4 go band, deduplication becomes the extractor's declared contract**: the library stops claiming it, documents that candidates must arrive normalised, and the dedup exit criteria leave this phase rather than being weakened (they moved to PLAN §9.1). Membership, ordering, and overflow still ship.
 
 ### Out of scope
 
@@ -610,7 +611,7 @@ None in v0: the pairwise quality ceiling and pair jitter move with entity resolu
 
 ### PR size
 
-~500 lines. Split entity resolution into its own PR if it grows.
+~350 lines (entity resolution moved to PLAN §9.1).
 
 ---
 
@@ -651,7 +652,7 @@ None in v0: the pairwise quality ceiling and pair jitter move with entity resolu
 
 **Goal:** one call over several sources (an email thread and its attachment) or over one source longer than the per-question limit, with every committed value still traceable to one exact span in one named source.
 
-**Depends on:** Phase 8. Deferred on cost and risk: it multiplies the context budget and interacts with the pairwise cap. `source_id` has been in `Span` since Phase 1. Prior art: `choxos/jev-reviewer` and `gbesse/jev-extract` already do multi-file or chunked extraction for fixed record types **[X3]**.
+**Depends on:** Phase 8. Deferred on cost and risk: it multiplies the context budget (and, once post-v0 entity resolution ships, interacts with its pairwise cap, PLAN §9.1). `source_id` has been in `Span` since Phase 1. Prior art: `choxos/jev-reviewer` and `gbesse/jev-extract` already do multi-file or chunked extraction for fixed record types **[X3]**.
 
 ### Deliverables
 
@@ -659,7 +660,7 @@ None in v0: the pairwise quality ceiling and pair jitter move with entity resolu
 - Chunking of a long source into windows under the per-question limit, with candidates carrying offsets into the original source
 - Candidates carry their `source_id`; verification runs against the named source
 - Budgeting across sources and chunks: split, never truncate
-- Cross-source entity resolution under the Phase 7 rules and cap
+- Cross-source entity resolution only if the post-v0 entity-resolution work (PLAN §9.1) has shipped, under its rules and cap; until then, deduplication across sources is the extractor's declared contract **[Z4]**
 
 ### Exit criteria
 
@@ -886,6 +887,7 @@ Phase 8   packaging and release                       ~250 lines   ← v0
 Phase 9   multi-source and long-source extraction
 Phase 10  JavaScript / TypeScript port
 Phase 11  credentials from Infisical                               (lowest priority)
+(unnumbered) entity resolution, PLAN §9.1 — post-v0, unscheduled; its own probe first; Phase 9's cross-source resolution waits on it
 ```
 
 Every phase starts only after the previous one has merged or abandoned. If Phase 0 or Phase 5's abandon criterion fires, the product is **phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7**.
@@ -917,7 +919,7 @@ Probe 4 was *stop* on real prose, so these Phase 7 items wait for their own phas
 
 **Deliverables:**
 
-- `assemble/entities.py` (`DESIGN §5.7`): lossless pre-merge (casefold opt-in; never initials or first names); pairwise nouls, capped; the internal-consistency rule, plus the cross-component variant if Phase 0 chose it, with `conflict_floor` from Phase 0
+- `assemble/entities.py` (`DESIGN §5.7`): lossless pre-merge (casefold opt-in; never initials or first names); pairwise nouls, capped; the internal-consistency rule, plus the cross-component variant Phase 0 chose, with `conflict_floor` 0.05 **[Z4]**; pair questions share the membership level (R5); the cardinality pipeline becomes membership → pre-merge → pairwise → components ordered by earliest span → `maxItems`, each overflowed component recording its spans and minimum membership probability (R8)
 - `Normalizer` canonical representative: earliest span, longest span, or user-supplied
 - An experiment on reducing pair jitter by asking both orderings of each pair and averaging, measured against single-order asking on ≥ 40 documents × 2 identical runs (`DESIGN §12`); it doubles pair questions, so it is measured only at question counts already covered by keyed-batching evidence
 

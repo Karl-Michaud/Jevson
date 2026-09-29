@@ -319,7 +319,10 @@ def render_results(res: dict) -> str:
         out.append(f"| {k.replace('_', ' ')} | {lab} | {x['n']} | {_r(round(x['rate'] * x['n']), x['n'])} | {x.get('commit', 0)} | "
                    f"{x.get('abstain', 0)} | {x.get('tie', 0)} |")
     out += ["", f"{p8['lone_partial'].get('constructed', 0)} of the 50 lone partials were constructed by the §2.8 rule; the rest "
-            "were labelled partial options. Partial-only sources, by field type: "
+            "were labelled partial options. Only 17 of the 932 labelled field instances had a source stating only a "
+            f"partial value, so the partial-only set has {p8['partial_only']['n']} cases, "
+            f"{max(0, R.N_PROBE8 - p8['partial_only']['n'])} short of the 50 target (reading only; §2.8). "
+            "Partial-only sources, by field type: "
             + "; ".join(f"{ft} {v['abstain']}/{v['n']}" for ft, v in p8["partial_only"]["by_field_type"].items()) + "."]
     return "\n".join(out)
 

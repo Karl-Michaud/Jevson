@@ -14,6 +14,7 @@ import json
 import pathlib
 import random
 import sys
+from collections import Counter
 from dataclasses import dataclass, field
 from typing import Callable, Sequence
 
@@ -89,16 +90,23 @@ async def execute(client: JevClient, requests: Sequence[Request], raw_path: path
     hashes = {r.rid: request_hash(r) for r in requests}
 
     def answered(r: Request) -> bool:
+        """Final unless it failed at transport level (network error, 429, 5xx: §2.1) or the request changed.
+        Records written before hashes were stored carry none and are accepted as they are."""
         rec = done.get(r.rid, {})
-        # records written before hashes were stored carry none and are accepted as they are
-        return (rec.get("response", {}).get("status") in (200, 400)
-                and rec.get("request_sha256", hashes[r.rid]) == hashes[r.rid])
+        status = rec.get("response", {}).get("status")
+        retryable = status is None or status == -1 or status == 429 or status >= 500
+        return not retryable and rec.get("request_sha256", hashes[r.rid]) == hashes[r.rid]
 
     async def one(r: Request) -> None:
         resp = await client.ask(r.state, r.questions)
         rec = {"rid": r.rid, "request_sha256": hashes[r.rid], "meta": r.meta, "response": resp}
         done[r.rid] = rec
-        with raw_path.open("a") as f:   # written as soon as it returns: nothing paid for is lost
+        with raw_path.open("a+") as f:   # written as soon as it returns: nothing paid for is lost
+            f.seek(0, 2)
+            if f.tell():
+                f.seek(f.tell() - 1)
+                if f.read(1) != "\n":   # a previous write was cut short: start a fresh line
+                    f.write("\n")
             f.write(client.redact(json.dumps(rec, ensure_ascii=False)) + "\n")
 
     for _ in range(passes):
@@ -158,6 +166,10 @@ def run_cli(name: str, argv: list[str], build: Callable[[], list[Request]],
     recs = asyncio.run(go())
     summary = score(recs)
     summary["requests_sent_this_invocation"] = client.budget.used
+    summary["models"] = sorted({str((v.get("response") or {}).get("model")) for v in recs.values()})
+    summary["raw_records_scored"] = len(recs)
+    summary["http_status"] = dict(Counter(str((v.get("response") or {}).get("status")) for v in recs.values()))
+    summary["request_ids"] = sorted(str((v.get("response") or {}).get("request_id")) for v in recs.values())
     dest = (out / f"{name}.summary.json") if a.dry_run else (RESULTS / f"{name}.json")
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps(summary, indent=1, ensure_ascii=False, default=str) + "\n")

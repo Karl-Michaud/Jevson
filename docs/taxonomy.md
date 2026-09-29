@@ -246,8 +246,11 @@ Nothing in §1 or §2 and no label, except to fix a genuine bug. A fix is record
 |---|---|---|
 | 9017eef | `probes.score_6` attached steered and abstain rates to screen rows, and a flagged rate to selection rows (always 0, meaningless) | Re-scored from the stored raw responses with no new request; every count and rate reported before is unchanged; only the meaningless keys changed |
 | 57046f5 | `probes.score_7` scored every tie as wrong in the "ties included (argmax)" reading instead of judging the argmax's label | Re-scored from the stored responses: ties-included accuracy 0.807 → 0.853, ECE 0.067 → 0.063 (bound 0.105 → 0.107), Brier 0.106 → 0.118; the primary (committed-decision) reading is unchanged |
-| 57046f5 | probe 6 asked the absent question when fewer than 3 options remained, although §2.6 defines it by §2.2 item 6 (≥ 3) | In all 3, the advocated text was also a correct text at another offset, so same-text removal left 2, 2, and (for one more case, already skipped) 0 options; the 3 cases with fewer than 3 options are now excluded (answers kept in the raw file, not scored): absent-answer rows n 49 → 46; attacked abstention 19/49 → 17/46, steered 19/49 → 19/46; baseline abstention 42/49 → 39/46; present-answer rows and the screen unchanged |
+| 57046f5 | probe 6 asked the absent question when fewer than 3 options remained, although §2.6 defines it by §2.2 item 6 (≥ 3) | Removing the correct and same-text options left 2, 2, and 2 options in three cases (and 0 in a fourth, which was already skipped); in two of them the advocated text is also a correct text elsewhere, in the third a correct text also appears at a wrong offset. The 3 cases with fewer than 3 options are now excluded (answers kept in the raw file, not scored): absent-answer rows n 49 → 46; attacked abstention 19/49 → 17/46, steered 19/49 → 19/46; baseline abstention 42/49 → 39/46; present-answer rows and the screen unchanged |
 | 57046f5 | Robustness fixes with no effect on any reported number: the runner now writes each response as it returns and checks a request hash on resume; `score_5` treats a non-numeric or out-of-range `noul` as invalid; probe 4 pools every valid pair into the floor even when a cluster-run has an invalid pair (there were none); labels are validated after adjudication, with a status/option consistency check; probe 8's paired set requires `present` (all 50 were); the hard-share swap follows §2.2 item 8 without falling back to the other probe (it never did); the probe 8 shortfall is recorded in `build_summary.json` | Case files byte-identical; probes 1–5 and 8 re-scored identically |
+
+| (review round 2) | Robustness fixes with no effect on any reported number: the runner re-sends only transport failures (network, 429, 5xx) and starts a fresh line after a write cut short; probe 4's per-run verdicts honour the no-floor stop; probe 6 decides whether to ask the absent question on the unattacked document for both arms; `score_5` applies the original raw `noul > 0.5` rule; each summary records its model, HTTP statuses, raw-record count, and request ids | Re-scored from the stored raw responses; every number unchanged |
+| 57046f5 (editorial) | Wording only: a cross-reference to the amended cap added to §2.4, and amendment 2 below restated as 12 → 25 → 40, as `rules.py` already recorded before the live run (ad9cb9f) | None |
 
 **Timing note.** Before commit 443234c, sources were only probed for reachability (downloads into a scratch directory, e.g. the GSA listing feed); no document was selected, extracted, labelled, or committed before the rules were.
 
@@ -509,7 +512,7 @@ Reliability (committed decisions, tie-safe equal-mass bins):
 | lone partial | abstain | 50 | 35/50 = 0.700 (0.562–0.809) | 12 | 35 | 3 |
 | partial only | abstain | 17 | 11/17 = 0.647 (0.413–0.827) | 6 | 11 | 0 |
 
-42 of the 50 lone partials were constructed by the §2.8 rule; the rest were labelled partial options. Partial-only sources, by field type: date 5/11; number 6/6.
+42 of the 50 lone partials were constructed by the §2.8 rule; the rest were labelled partial options. Only 17 of the 932 labelled field instances had a source stating only a partial value, so the partial-only set has 17 cases, 33 short of the 50 target (reading only; §2.8). Partial-only sources, by field type: date 5/11; number 6/6.
 <!-- END:results -->
 
 **Reading the results** (observations, not changes to any rule):
@@ -517,6 +520,7 @@ Reliability (committed decisions, tie-safe equal-mass bins):
 - **Abstention fails where the pilot said it would.** Probe 2 is 24/45 on hard-regime cases against 86/105 on the rest, and 20/36 on contracts; the pilot's only abstention failures were in long multi-entity documents **[P5]**. On the absent-answer cases Jev committed a wrong-role span 22 times and a partial 9 times.
 - **Probe 4's two variants fail differently.** The internal rule is silently wrong on 30/330 components (20 splits, 10 merges); the cross-component condition removes most of those (4/330) but, at a floor of 0.05, any other pair between 0.06 and 0.50 blanks both components, leaving 163/330 correct. Pair-level accuracy is high (0.980) and stable (2/796 flips), so the loss is in turning pairs into components. Several internal-rule errors involve role nouns ("Consultant", "Distributor") not linked to the named party, and a few involve gold labels a reader could dispute: labellers linked an SEC filer's header name to the contract party it files for. Labels were fixed before the live run and are not changed.
 - **The source screen did far better on these documents than in the pilot.** It flagged 3/50 benign documents with ordinary processing notes, against 28/60 in the pilot **[P21]**; the benign set here is dominated by GSA listings, whose notes are inspection and pick-up instructions. This is not the Phase 5 bar (≥ 300 benign, held out).
+- **Probe 6 construction caveat.** In 3 of the 50 attacked cases the advocated text (a `wrong` option) is also labelled `correct` at another offset, so a note there advocates the right value in the wrong place; no committed selection in those cases counted as steered. The case file is not changed after the live run.
 - **Lone wrong-role candidates are not reliably refused on real documents.** 39/50 abstained here, against 84/84 in the synthetic pilot **[P11]**; asking a lone candidate (R4) still refuses most of them, and committing it unchecked would refuse none.
 
 ## 7. `conflict_floor` and the entity-rule variant
@@ -548,12 +552,12 @@ Unlike the pilot, where the rule picked the top of its grid on every corpus **[P
 **Scope, applying §2.3–§2.5:**
 
 - **Candidate selection ships in v0 with the second gate.** Probe 2 is conditional, so `PLAN.md` Phase 5 adds an independent verification noul per committed span and measures coverage and false abstention with the gate on, on a fresh corpus, under the same bands.
-- **Pairwise entity resolution does not ship in v0.** Deduplication is the extractor's declared contract: the library does not claim it, and source-grounded arrays (Phase 7) ship membership, source order, and honest overflow. Entity resolution is deferred to a post-v0 phase with its own probe (`PLAN.md` §9).
+- **Pairwise entity resolution does not ship in v0.** Deduplication is the extractor's declared contract: the library does not claim it, and source-grounded arrays (Phase 7) ship membership, source order, and honest overflow. Entity resolution is deferred to a post-v0 phase with its own probe (`PLAN.md` §9.1).
 - **R13 stands.** Indexed references into a long list were wrong on 199/320 items, keyed ones on 0/320.
 - **The source screen is a Phase 5 priority, not a scope change.** Injected notes steered 10/50 present-answer selections and cut abstention from 39/46 to 17/46; the screen flagged every attacked document here.
 - **Calibration:** probabilities stay reported, never gated; on these decisions Jev was about 4 points overconfident (mean p 0.904 against accuracy 0.864).
 
-**The frozen v0 scope list** is written into `DESIGN.md` §10.
+**The frozen v0 scope list** is written into `DESIGN.md` §10.1.
 
 **The prediction on record** ("Classes C and D are a narrow band … not most of a typical schema") is **WRONG** on the pre-registered test of §2.9 (numbers in §5): class A is 0.180 of all schema nodes (needed > 0.5); classes D and E are 0.766 of extraction leaf fields (holds); the median per-schema share of C and D is 0.793 (needed < 0.5). In the sampled schemas, bounded decisions and source selection are most of a typical schema, not a narrow band. What does narrow v0 is structure: arrays of objects (class G in v0) hold most of the resume and receipt fields.
 

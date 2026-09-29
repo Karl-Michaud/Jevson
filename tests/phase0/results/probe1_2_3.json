@@ -4150,5 +4150,12 @@
   "req_01a0ee9ca8e0743d9c0a0ed0f66fdf63",
   "req_01a0ee9ca91a7c9b9526b1fb4efadc2f"
  ],
- "requests_sent_this_invocation": 0
+ "requests_sent_this_invocation": 0,
+ "models": [
+  "jev-1.13.0"
+ ],
+ "raw_records_scored": 138,
+ "http_status": {
+  "200": 138
+ }
 }

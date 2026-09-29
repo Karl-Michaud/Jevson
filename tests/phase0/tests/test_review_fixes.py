@@ -87,7 +87,41 @@ def test_probe4_floor_pools_valid_pairs_of_a_run_with_an_invalid_pair():
 
 
 def test_corr_undefined_is_nan():
-    assert math.isnan(S.corr_probes_1_3(1.0, 0.0)) and math.isnan(S.corr_probes_1_3(0.0, 1.0))
+    for pc, pa in ((1.0, 0.0), (0.0, 1.0), (0.5, 0.0), (0.0, 0.5)):
+        assert math.isnan(S.corr_probes_1_3(pc, pa))
+
+
+def test_options_must_be_in_source_order():
+    opts = [{"id": "c0", "text": "b", "start": 2, "end": 3, "label": "correct"},
+            {"id": "c1", "text": "a", "start": 0, "end": 1, "label": "wrong"},
+            {"id": "c2", "text": "c", "start": 4, "end": 5, "label": "wrong"},
+            {"id": "c3", "text": "d", "start": 6, "end": 7, "label": "wrong"}]
+    with pytest.raises(Exception, match="source order"):
+        M.SelectionCase.model_validate({"case_id": "x", "probe": "p1p3", "doc_id": "d", "field_id": "f", "label": "abc",
+                                        "options": opts, "hard": False, "repeated": False, "superseded": False,
+                                        "multi_entity": False})
+
+
+def test_runner_final_4xx_not_resent_and_fragment_does_not_swallow_next(tmp_path):
+    raw = tmp_path / "x.jsonl"
+    reqs = _reqs(2)
+    c = _client(handler=httpx.MockTransport(lambda req: httpx.Response(401, json={"detail": "no"})))
+    asyncio.run(RN.execute(c, reqs, raw))
+    c2 = _client()
+    asyncio.run(RN.execute(c2, reqs, raw))
+    assert c2.budget.used == 0                                   # 401 is final (§2.1)
+    raw2 = tmp_path / "y.jsonl"
+    raw2.write_text('{"rid": "zz", "resp')                      # cut short, no newline
+    asyncio.run(RN.execute(_client(), reqs, raw2))
+    c3 = _client()
+    asyncio.run(RN.execute(c3, reqs, raw2))
+    assert c3.budget.used == 0 and set(RN.load_raw(raw2)) == {"r0", "r1"}
+
+
+def test_probe4_per_run_verdict_stop_when_no_floor():
+    cl = _cluster()
+    s = PR.score_4([cl], _p4recs(cl, same=0.03))
+    assert all(v["verdict"] == "stop" for v in s["per_run"].values())
 
 
 @pytest.fixture
@@ -147,8 +181,8 @@ def test_over_cap_and_degenerate_partial():
     o = M.Option(id="c0", text="a", start=0, end=1, label="correct")
     inst = CS.Instance("d", "receipt.total_price", (o,), "present", False, False, 10, True)
     assert CS.present_case(inst, "a") is None and CS.absent_case(inst) is None
-    assert CS.constructed_partial("a ,b", 0, 4) is None or True
     assert CS.constructed_partial(" ab", 0, 3) is None
+    assert CS.constructed_partial("ab ,c", 0, 5) == (0, 2)
 
 
 def test_duplicate_option_span_rejected():
