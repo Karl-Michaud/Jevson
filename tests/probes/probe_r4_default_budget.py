@@ -7,7 +7,7 @@ over the same small state; (b) offline: recompute the top-two margin over every 
 answer (r1 p05*, r3 complete_value, r3 mixed_desc) and report the share with margin <= 0.10.
 """
 import asyncio, glob, json, os, random, pathlib
-os.environ.setdefault("REDTEAM_OUT", str(pathlib.Path(__file__).parent / "out"))
+os.environ.setdefault("PROBE_OUT", str(pathlib.Path(__file__).parent / "out"))
 import jevclient as jc
 random.seed(4)
 WORDS = "invoice remit account payable north harbor street suite logistics global holdings limited partner services quarterly net terms due upon receipt".split()

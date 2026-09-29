@@ -25,7 +25,7 @@ For source-selected fields, when the source does not support any candidate you g
 
 ## Where it comes from
 
-Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe's own documented extraction pattern](https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook), and several open projects implement it for single fields or fixed record types. Jevson is designed to generalise it into a compiler: nested objects, unions decided before anything is built, arrays with entity resolution, criteria-gated generative fields, and a typed three-outcome result verified by an adversarial suite. See [DESIGN.md §9](DESIGN.md#9-prior-art) for everything it builds on.
+Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe's own documented extraction pattern](https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook), and several open projects implement it for single fields or fixed record types. Jevson is designed to generalise it into a compiler: nested objects, unions decided before anything is built, arrays with entity resolution, criteria-gated generative fields, and a typed three-outcome result verified by an adversarial suite. See [docs/DESIGN.md §9](docs/DESIGN.md#9-prior-art) for everything it builds on.
 
 ## What it does not claim
 
@@ -38,9 +38,9 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 
 **Design, pre-implementation.** No code yet, by design.
 
-- **[DESIGN.md](DESIGN.md)** — the SSOT: architecture, tiered guarantees, limits, and the evidence behind each claim
-- **[PLAN.md](PLAN.md)** — phases 0–8 to v0, plus planned post-v0 phases 9–11, each with testable exit criteria and abandon criteria
-- **[docs/REDTEAM.md](docs/REDTEAM.md)** — the evidence register: every factual claim in DESIGN and PLAN, and the probe or source that established it
+- **[docs/DESIGN.md](docs/DESIGN.md)** — the SSOT: architecture, tiered guarantees, limits, and the evidence behind each claim
+- **[docs/PLAN.md](docs/PLAN.md)** — phases 0–8 to v0, plus planned post-v0 phases 9–11, each with testable exit criteria and abandon criteria
+- **[docs/EVIDENCE.md](docs/EVIDENCE.md)** — the evidence register: every factual claim in DESIGN and PLAN, and the probe or source that established it
 
 Phase 0 is an empirical taxonomy plus probes with pre-registered thresholds, and it is allowed to conclude that the library should be smaller than described above.
 

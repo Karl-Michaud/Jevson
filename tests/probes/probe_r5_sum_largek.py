@@ -2,7 +2,7 @@
 large K. Method: 10 live choice questions each with K=51 and K=255 options (realistic span texts, one
 correct), over short invoice states; report |sum-1.00| in hundredths, and the argmax/vendor-choice agreement."""
 import asyncio, json, os, pathlib, random
-os.environ.setdefault("REDTEAM_OUT", str(pathlib.Path(__file__).parent / "out"))
+os.environ.setdefault("PROBE_OUT", str(pathlib.Path(__file__).parent / "out"))
 import jevclient as jc
 random.seed(51)
 W="north harbor street suite avenue road plaza west east center tower park lane drive court square bay hill".split()

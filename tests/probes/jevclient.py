@@ -17,7 +17,7 @@ import time
 import httpx
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-SCRATCH = pathlib.Path(os.environ.get("REDTEAM_OUT", pathlib.Path(__file__).resolve().parent / "out"))
+SCRATCH = pathlib.Path(os.environ.get("PROBE_OUT", pathlib.Path(__file__).resolve().parent / "out"))
 RAW = SCRATCH / "raw"
 RAW.mkdir(parents=True, exist_ok=True)
 COUNTER = SCRATCH / "request_count.txt"

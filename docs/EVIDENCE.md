@@ -1,6 +1,6 @@
-# Jevson — red-team evidence register
+# Jevson — evidence register
 
-Every evidence tag in `DESIGN.md` and `PLAN.md` resolves here. (The README states no fact that DESIGN does not; it carries no tags.) A tag names **how** a claim was established: a live probe (**P**), a local check run as code (**L**), the vendor's own documentation (**V**), or an external source (**X**). The scripts live in [`tests/probes/`](../tests/probes/), where they are the starting material for the test suite; each writes to a gitignored `out/` folder beside it. The raw responses and the per-round review reports were not kept: this register records every method, sample size, and result, and re-running a script reproduces the experiment (live answers jitter slightly, DESIGN §2.3).
+Every evidence tag in [`DESIGN.md`](DESIGN.md) and [`PLAN.md`](PLAN.md) resolves here. (The README states no fact that DESIGN does not; it carries no tags.) A tag names **how** a claim was established: a live probe (**P**), a local check run as code (**L**), the vendor's own documentation (**V**), or an external source (**X**). The scripts live in [`tests/probes/`](../tests/probes/), where they are the starting material for the test suite; each writes to a gitignored `out/` folder beside it. The raw responses and the per-round review reports were not kept: this register records every method, sample size, and result, and re-running a script reproduces the experiment (live answers jitter slightly, DESIGN §2.3).
 
 **Conventions**
 

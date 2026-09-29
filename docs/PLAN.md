@@ -2,7 +2,7 @@
 
 > **Status:** Planning document, Revision 9.1, 2026-09-29. Pre-implementation.
 >
-> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 9.1. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** resolve in [`docs/REDTEAM.md`](docs/REDTEAM.md).
+> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 9.1. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md).
 >
 > **Rule numbers** (R1–R16) refer to `DESIGN §7`.
 
@@ -121,10 +121,12 @@ tests/
   integration/          real key, marked, opt-in
   fixtures/schemas/     the Phase 0 sample, checked in with provenance
 
-tests/probes/           the probes and checks behind docs/REDTEAM.md; raw material for the test suite (not part of the package)
+tests/probes/           the probes and checks behind docs/EVIDENCE.md; raw material for the test suite (not part of the package)
 
 docs/
-  REDTEAM.md            evidence register: every tagged claim, its method, its result
+  DESIGN.md             the design SSOT
+  PLAN.md               this plan
+  EVIDENCE.md           evidence register: every tagged claim, its method, its result
   taxonomy.md           Phase 0 output, including measured probe results
   criteria-guide.md     how to write adjudication criteria that work
 
@@ -147,7 +149,7 @@ docs/
 
 **Depends on:** nothing. Requires the live key (available).
 
-No library code. Two deliverables: one document and a set of throwaway probes. **The red-team pilots in `docs/REDTEAM.md` [P1–P23] are not substitutes:** they used synthetic, author-written cases, which the rules below exist to exclude.
+No library code. Two deliverables: one document and a set of throwaway probes. **The red-team pilots in `docs/EVIDENCE.md` [P1–P23] are not substitutes:** they used synthetic, author-written cases, which the rules below exist to exclude.
 
 ### 0a — The taxonomy
 

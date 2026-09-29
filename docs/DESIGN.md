@@ -6,7 +6,7 @@
 >
 > **One line:** Jevson is a general-purpose, open-source schema compiler for source-grounded structured extraction. It turns a Pydantic model or JSON Schema into a graph of bounded decisions, has Jev make them, assembles the result in code, and records for every field how it was decided — with the source span or declared option, and the probability, where Jev decided it — or a typed reason it could not be resolved.
 >
-> **Evidence.** Every factual claim in this document and `PLAN.md` about Jev, about other tools, or about measured behaviour carries an evidence tag such as **[P3]** or **[V-models]**, resolved in [`docs/REDTEAM.md`](docs/REDTEAM.md) to the probe script, vendor page, or source that established it. A claim without a tag is a design decision, or arithmetic shown in place.
+> **Evidence.** Every factual claim in this document and `PLAN.md` about Jev, about other tools, or about measured behaviour carries an evidence tag such as **[P3]** or **[V-models]**, resolved in [`docs/EVIDENCE.md`](EVIDENCE.md) to the probe script, vendor page, or source that established it. A claim without a tag is a design decision, or arithmetic shown in place.
 
 ---
 
@@ -795,7 +795,7 @@ Four reviews of Revision 5: a citation audit (209 tagged claims: 201 supported, 
 
 ### Revision 5 — 2026-09-29, red-team round 2
 
-Four reviews of Revision 4: a citation audit (166 tagged claims, 142 supported), 941 live requests testing the new rules, local statistics and Unicode checks, and a fresh logic review (3 blockers). Evidence in `docs/REDTEAM.md`.
+Four reviews of Revision 4: a citation audit (166 tagged claims, 142 supported), 941 live requests testing the new rules, local statistics and Unicode checks, and a fresh logic review (3 blockers). Evidence in `docs/EVIDENCE.md`.
 
 | changed | was | now | evidence |
 |---|---|---|---|
