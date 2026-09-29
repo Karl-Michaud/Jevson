@@ -1,3 +1,0 @@
-no-close entries surviving after 5 dead loops: 5
-aclose entries surviving after 5 dead loops: 0
-client created, no request: 0

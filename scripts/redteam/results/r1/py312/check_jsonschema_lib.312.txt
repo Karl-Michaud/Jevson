@@ -1,9 +1,0 @@
-jsonschema 4.26.0 | pydantic 2.13.5
-validators: ['Draft201909Validator', 'Draft202012Validator', 'Draft3Validator', 'Draft4Validator', 'Draft6Validator', 'Draft7Validator']
-validator_for(schema without $schema) -> Draft202012Validator
-pydantic emits $schema key? False
-pydantic $ref resolves; invalid instance errors: ["1 is not of type 'string'"]
-pydantic schema passes 2020-12 metaschema check
-format 'email' on 'not-an-email': default valid = True | with FormatChecker valid = False
-jsonschema.validate() default format checking for 'date' 'garbage': valid (format NOT asserted)
-formats checked by bare FormatChecker(): ['date', 'email', 'idn-email', 'ipv4', 'ipv6', 'regex', 'time', 'uuid']

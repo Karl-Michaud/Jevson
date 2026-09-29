@@ -1,7 +1,0 @@
-vendor models.md: | Context length | 64k tokens per request; 32k tokens for `state` plus the longest question |
--> two limits: 64k for state+ALL questions; 32k for state + LONGEST question. DESIGN §2/§8.2 mention only ~64k.
-$0.068 per 1000 decisions at $0.042/Mtok implies 1619 input tokens per decision
-vendor docs mentioning 0.068 / per 1000 decisions: none
-pairwise n=20: 190 questions in one call; §2.1 measured keyed batching up to 320 items/request -> within the measured regime
-pairwise n=30: 435 questions in one call; §2.1 measured keyed batching up to 320 items/request -> OUTSIDE the measured regime
-noul answer fields: ['type', 'noul']

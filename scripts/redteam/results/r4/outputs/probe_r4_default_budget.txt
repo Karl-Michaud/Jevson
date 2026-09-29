@@ -1,2 +1,0 @@
-{"baseline_tokens": 377, "50x120": 1600, "50x120+ctx80": 2521}
-{"candidate_choices": 1282, "margin_le_0.10": 18, "share": 0.014}

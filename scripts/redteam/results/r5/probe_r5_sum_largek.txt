@@ -1,2 +1,0 @@
-51 n= 10 max dev= 0 argmax==choice: 10 correct: 10
-255 n= 10 max dev= 0 argmax==choice: 10 correct: 10

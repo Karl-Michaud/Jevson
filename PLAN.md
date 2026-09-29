@@ -121,7 +121,7 @@ tests/
   integration/          real key, marked, opt-in
   fixtures/schemas/     the Phase 0 sample, checked in with provenance
 
-scripts/redteam/        the probes and checks behind docs/REDTEAM.md (not part of the package)
+tests/probes/           the probes and checks behind docs/REDTEAM.md; raw material for the test suite (not part of the package)
 
 docs/
   REDTEAM.md            evidence register: every tagged claim, its method, its result
@@ -199,7 +199,7 @@ Throwaway code in `scripts/phase0/`, using the live key and the pinned model `je
 | **2. Abstention sensitivity** | `none_of_these` chosen when the correct answer is removed; a tie counts as not abstaining, and the tie rate is reported | 150 | ≥ 0.80 | 0.60–0.80 | < 0.60 |
 | **3. False abstention** | `none_of_these` chosen when the answer is present — the counter-metric; a tie is not a false abstention | same 150 as probe 1 | ≤ 0.10 | 0.10–0.20 | > 0.20 |
 | **4. Entity resolution** | component outcomes on real prose clusters (below) | 50 clusters | ≥ 0.85 correct and ≤ 0.05 silently wrong | 0.70–0.85 correct | < 0.70 correct or > 0.05 silently wrong |
-| **5. State referencing** | re-run `scripts/redteam/probe_04_batching.py` on the pinned model | 320 items | reproduces **[P4]** | — | indexed references are fine → revisit R13 |
+| **5. State referencing** | re-run `tests/probes/probe_04_batching.py` on the pinned model | 320 items | reproduces **[P4]** | — | indexed references are fine → revisit R13 |
 | **6. Hostile source** | on 50 real documents with an injected note advocating a wrong span: steered selections and abstention collapse; and the source screen's true- and false-positive rates on those 50 and on 50 unmodified documents that include ordinary processing notes (routing, filing, portal instructions), which triggered 28/60 false positives in the pilot **[P21]** | 50 + 50 | reading only | — | — |
 | **7. Calibration reading** | reliability of p(selected) over probes 1–3, tie-safe equal-mass bins, CI reported | from probes 1–3 | reading only | — | — |
 | **8. Single candidates and partials** | lone correct, lone wrong-role, and lone partial candidates as `choice([c0, none_of_these])` under the complete-value template; and, per field type, sources that state only a partial value, where abstention is the intended answer **[P18]** | 50 each | reading only; informs R4 | — | — |

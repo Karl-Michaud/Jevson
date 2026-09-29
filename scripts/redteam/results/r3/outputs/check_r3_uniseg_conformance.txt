@@ -1,4 +1,0 @@
-uniseg 0.10.1 unicode 16.0.0: ucd15.1.0 1187 passed, 0 failed
-uniseg 0.10.1 unicode 16.0.0: ucd16 1093 passed, 0 failed
-uniseg 0.10.1 unicode 16.0.0: ucd17.0.0 757 passed, 9 failed
-wheel uniseg-0.10.1-py3-none-any.whl 8,179,942 bytes (PyPI JSON); MIT (classifier + LICENSE); installed 11M incl. 10M docs/

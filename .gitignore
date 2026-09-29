@@ -21,4 +21,4 @@ htmlcov/
 .vscode/
 
 # --- local vendor-doc snapshot (symlink, not committed) ---
-scripts/redteam/jevdocs
+tests/probes/jevdocs
