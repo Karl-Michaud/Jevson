@@ -1,5 +1,23 @@
 # Jevson
 
+## Findings so far (2026-09-29): source selection does not work well enough on `jev-1.13.0`
+
+Before building anything, we tested Jevson's central idea on real documents: contracts, CVs, medical case reports, receipts, product listings and support tickets. Every rule and threshold was fixed before any call to Jev. The idea was to extract candidate spans from a document, have Jev pick the one that is the field's value, and have Jev answer *none of these* when the value is not there.
+
+| what we measured | result |
+|---|---|
+| Jev picks the right span when it is among the options | **good**: 82–88% |
+| Jev says *none of these* when the right span is **not** among the options | **not good enough**: it commits a wrong value 21–27% of the time, often with a probability of 0.95 or more |
+| Adding a second check, a yes/no "is this the complete value?" question on the chosen span | cuts those wrong commits from 21% to 7%, but **rejects 45% of correct answers** |
+
+So the probability Jev reports cannot tell a confident right answer from a confident wrong one when the answer is missing. The verification gate fixes most of that only by throwing away almost half the right answers. Under the rule we fixed in advance, the verdict is **drop source selection**. Pairwise entity resolution (deciding whether two mentions are the same person or company) also failed its probe.
+
+**What still works:** bounded decisions, where the options are declared up front (enums, yes/no, scores), and checking generated text against declared criteria. The likely product is the fallback already in the plan: a compiler for bounded decisions and criteria-checked generative fields, *without* "find this value in the document".
+
+Full record: the numbers, pre-registration, corpus, labels and code are in [PR #2](https://github.com/Project-Asterion/Jevson/pull/2) (`docs/taxonomy.md`, `docs/gate-probe.md`). The design text below predates these results.
+
+---
+
 A schema compiler for source-grounded structured extraction — **in design, not yet built**. Give it a Pydantic model or JSON Schema and a document; it will turn the schema into a graph of bounded decisions, have [Jev](https://docs.typesafe.ai/) make them, assemble the object in code, and record for every field how it was decided — with the source span or declared option, and the probability, where Jev decided it — or a typed reason it could not be resolved.
 
 ## Why not just use structured outputs?
