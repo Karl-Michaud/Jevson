@@ -428,3 +428,85 @@ def dry_answers(reqs: list[Request], seed: int = 0) -> dict:
     rng = random.Random(seed)
     return {r.rid: {"rid": r.rid, "response": {"status": 200, "body": {
         "answers": {k: _fake_answer(q, rng) for k, q in r.questions.items()}}}} for r in reqs}
+
+
+# ---------------------------------------------------------------- probe 9: the second gate (docs/gate-probe.md)
+
+def build_gate(groups: dict[str, list[SelectionCase]], texts: dict[str, str]) -> list[Request]:
+    """One request per (group, document): each case's choice under the §1 template plus one verification noul per
+    candidate option (the gate), all in the same call. Candidates are keyed f{case index}{option id} in state (R13)."""
+    reqs = []
+    for group, cases in groups.items():
+        by_doc: dict[str, list[SelectionCase]] = defaultdict(list)
+        for c in cases:
+            by_doc[c.doc_id].append(c)
+        for doc, cs in sorted(by_doc.items()):
+            text, qs, cand = texts[doc], {}, {}
+            for i, c in enumerate(cs):
+                qs[c.case_id] = T.candidate_question(c.label, text, [(o.start, o.end) for o in c.options])[0]
+                for o in c.options:
+                    key = f"f{i}{o.id}"
+                    cand[key] = T.option_description(text, o.start, o.end)
+                    qs[f"{c.case_id}#v:{o.id}"] = T.gate_question(key, c.label)
+            reqs.append(Request(f"{group}:{doc}", T.level_state(text, cand), qs, {"cases": [c.case_id for c in cs]}))
+    return reqs
+
+
+def gate_rows(cases: list[SelectionCase], recs: dict, group: str) -> list[dict]:
+    rows = []
+    for c in cases:
+        ans = answers_of(recs.get(f"{group}:{c.doc_id}"))
+        offered = [o.id for o in c.options] + [T.NONE_OF_THESE]
+        d = SC.decode_choice(ans.get(c.case_id), offered)
+        labels = {o.id: o.label for o in c.options}
+        base = SC.classify(d, labels)                 # the Phase 0 outcome, without the gate
+        gate_p = None
+        if d.status == "ok" and d.selected != T.NONE_OF_THESE:
+            gate_p = SC.pair_probability(ans.get(f"{c.case_id}#v:{d.selected}"))   # None when invalid: fails
+            out = f"commit_{labels[d.selected]}" if gate_p is not None and gate_p >= R.GATE_PASS_MIN \
+                else "verification_failed"
+        else:
+            out = base
+        passes = {o.id: SC.pair_probability(ans.get(f"{c.case_id}#v:{o.id}")) for o in c.options}
+        rows.append({"case_id": c.case_id, "doc_id": c.doc_id, "hard": c.hard, "no_gate": base, "gated": out,
+                     "gate_p_selected": gate_p, "option_labels": labels, "gate_p_all": passes})
+    return rows
+
+
+def score_gate(present: list[SelectionCase], absent: list[SelectionCase], recs: dict, group_p: str,
+               group_a: str) -> dict:
+    pr, ar = gate_rows(present, recs, group_p), gate_rows(absent, recs, group_a)
+    np_, na = len(pr), len(ar)
+    cp, ca = Counter(r["gated"] for r in pr), Counter(r["gated"] for r in ar)
+    correct = cp["commit_correct"]
+    wrong_p = cp["commit_partial"] + cp["commit_wrong"]
+    committed_a = sum(v for k, v in ca.items() if k.startswith("commit_"))
+    refused_p = cp["abstain"] + cp["verification_failed"]
+    refused_a = ca["abstain"] + ca["verification_failed"]
+    bands = {"probe1_gated": S.rate_summary(correct, np_, S.PROBE1, ties=cp["tie"]),
+             "probe2_gated": S.rate_summary(refused_a, na, S.PROBE2, ties=ca["tie"]),
+             "probe3_gated": S.rate_summary(refused_p, np_, S.PROBE3, ties=cp["tie"])}
+    any_stop = any(b["verdict"] == "stop" for b in bands.values())
+    no_gate_p, no_gate_a = Counter(r["no_gate"] for r in pr), Counter(r["no_gate"] for r in ar)
+    diag = defaultdict(lambda: [0, 0])
+    for r in pr + ar:
+        for oid, p in r["gate_p_all"].items():
+            d = diag[r["option_labels"][oid]]
+            d[1] += 1
+            d[0] += p is not None and p >= R.GATE_PASS_MIN
+    return {
+        "n_present": np_, "n_absent": na,
+        "gated_present": dict(cp), "gated_absent": dict(ca),
+        "no_gate_present": dict(no_gate_p), "no_gate_absent": dict(no_gate_a),
+        "correct_commits": S.rate_summary(correct, np_),
+        "wrong_commits_present": S.rate_summary(wrong_p, np_),
+        "committed_when_absent": S.rate_summary(committed_a, na),
+        "committed_when_absent_no_gate": S.rate_summary(sum(no_gate_a[k] for k in ("correct", "partial", "wrong")), na),
+        "wrong_commits_present_no_gate": S.rate_summary(no_gate_p["partial"] + no_gate_p["wrong"], np_),
+        "correct_commits_no_gate": S.rate_summary(no_gate_p["correct"], np_),
+        "by_hard_committed_when_absent": {h: {"k": sum(r["gated"].startswith("commit_") for r in ar if r["hard"] == hv),
+                                               "n": sum(r["hard"] == hv for r in ar)} for h, hv in (("hard", True), ("other", False))},
+        **bands,
+        "gate_pass_rate_by_option_label": {k: {"passed": v[0], "asked": v[1]} for k, v in sorted(diag.items())},
+        "verdict": S.gate_verdict(correct, wrong_p, np_, committed_a, na, any_stop),
+    }

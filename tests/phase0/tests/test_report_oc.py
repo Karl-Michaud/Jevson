@@ -50,7 +50,11 @@ def test_doc_blocks_match_committed_data():
     doc = (ROOT / "docs" / "taxonomy.md").read_text()
     blocks = report.generated_blocks()
     assert {"corpus", "labelling", "taxonomy", "fields"} <= set(blocks)
+    gate = (ROOT / "docs" / "gate-probe.md").read_text()
     for name, body in blocks.items():
+        if f"<!-- BEGIN:{name} -->" not in doc:
+            assert f"<!-- BEGIN:{name} -->\n{body}\n<!-- END:{name} -->" in gate, name
+            continue
         assert f"<!-- BEGIN:{name} -->\n{body}\n<!-- END:{name} -->" in doc, name
 
 
@@ -66,10 +70,10 @@ def test_replace_block_and_update_doc(tmp_path):
 
 
 def test_generated_blocks_skip_missing_inputs(tmp_path):
-    assert report.generated_blocks(ds=tmp_path, results=tmp_path) == {}
+    assert set(report.generated_blocks(ds=tmp_path, results=tmp_path)) == {"gate_oc"}
 
 
 def test_main_doc(monkeypatch, capsys):
-    monkeypatch.setattr(report, "update_doc", lambda: ["corpus"])
+    monkeypatch.setattr(report, "update_doc", lambda *a: ["corpus"])
     assert report.main(["doc"]) == 0
     assert "updated blocks: corpus" in capsys.readouterr().out

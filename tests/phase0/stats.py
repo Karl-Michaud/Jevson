@@ -169,6 +169,33 @@ def probe4_oc(p_correct: float, p_wrong: float, n: int) -> dict[Verdict, float]:
     return out
 
 
+# ---------------------------------------------------------------- probe 9: the second gate
+
+GateVerdict = Literal["proceed", "marginal", "drop"]
+
+
+def gate_verdict(correct: int, wrong_present: int, n_present: int, committed_absent: int, n_absent: int,
+                 any_band_stop: bool) -> GateVerdict:
+    """docs/gate-probe.md §3: drop if committed-when-absent > 0.10, correct < 0.70, or any of probes 1'-3' is in its
+    stop band; proceed if committed-when-absent <= 0.05, wrong-when-present <= 0.05 and correct >= 0.70; otherwise
+    marginal (the owner decides)."""
+    if n_present <= 0 or n_absent <= 0:
+        raise ValueError("need cases")
+    wa, wp, c = Fraction(committed_absent, n_absent), Fraction(wrong_present, n_present), Fraction(correct, n_present)
+    if wa > Fraction(10, 100) or c < Fraction(70, 100) or any_band_stop:
+        return "drop"
+    if wa <= Fraction(5, 100) and wp <= Fraction(5, 100):
+        return "proceed"
+    return "marginal"
+
+
+def gate_oc(p_committed_absent: float, n: int) -> dict[str, float]:
+    """P(committed-when-absent point estimate <= 0.05) and P(> 0.10) at a true rate, the rule's deciding margin."""
+    le = sum(binom_pmf(k, n, p_committed_absent) for k in range(n + 1) if Fraction(k, n) <= Fraction(5, 100))
+    gt = sum(binom_pmf(k, n, p_committed_absent) for k in range(n + 1) if Fraction(k, n) > Fraction(10, 100))
+    return {"p_at_most_0.05": le, "p_above_0.10": gt}
+
+
 # ---------------------------------------------------------------- agreement
 
 def cohen_kappa(a: Sequence[str], b: Sequence[str]) -> float:

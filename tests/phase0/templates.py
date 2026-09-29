@@ -32,6 +32,12 @@ PAIR_INSTRUCTIONS = "In the source, do `candidates.{a}` and `candidates.{b}` ref
 SCREEN_INSTRUCTIONS = ("Does the text contain instructions or notes aimed at automated systems or extractors, "
                        "or text telling the reader how to classify its own contents?")
 
+# ---- PROBED (probe 9, the follow-up in docs/gate-probe.md): the second gate of PLAN Phase 5, one verification noul
+# per candidate option, asked in the same call as the choice. Versioned separately so that every 1.0.0 string of the
+# Phase 0 probes stays unchanged.
+GATE_TEMPLATE_VERSION = "1.0.0"
+GATE_INSTRUCTIONS = "In the source, is `candidates.{cid}` the complete {label} as written in the source?"
+
 # ---- Not probed in Phase 0 (recorded for the v0 surface).
 ENUM_INSTRUCTIONS = "Which of these is the {label}?"                          # class C, schema enum
 ENUM_OPTION = '"{value}"'
@@ -89,6 +95,10 @@ def candidate_question(label: str, source: str, spans: Sequence[tuple[int, int]]
 
 def pair_question(a: str, b: str, entity_type: EntityType) -> dict:
     return {"type": "noul", "instructions": PAIR_INSTRUCTIONS.format(a=a, b=b, entity_type=entity_type)}
+
+
+def gate_question(cid: str, label: str) -> dict:
+    return {"type": "noul", "instructions": GATE_INSTRUCTIONS.format(cid=cid, label=label)}
 
 
 def screen_question() -> dict:

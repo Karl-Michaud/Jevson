@@ -33,6 +33,12 @@ N_PROBE8 = 50
 CALIBRATION_BINS = 15
 BOOTSTRAP_REPLICATES = 2000
 
+# probe 9 (the second gate, docs/gate-probe.md)
+GATE_PASS_MIN = 56                   # hundredths: a verification noul passes iff p >= 0.56 (the bool rule; ties fail)
+GATE_WRONG_MAX = 0.05                # proceed needs committed-when-absent and wrong-when-present <= 0.05
+GATE_DROP_WRONG = 0.10               # drop source selection if committed-when-absent > 0.10
+GATE_CORRECT_MIN = 0.70              # ... or correct commits < 0.70 (probe 1's stop line)
+
 # budget
 MAX_REQUESTS = 5000
 RATE_PER_MIN = 1000                  # below the vendor's ~1,200/min

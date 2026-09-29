@@ -89,6 +89,7 @@ def render_oc(d: dict) -> str:
 # ---------------------------------------------------------------- generated sections of docs/taxonomy.md
 
 DOC = HERE.parents[1] / "docs" / "taxonomy.md"
+GATE_DOC = HERE.parents[1] / "docs" / "gate-probe.md"
 DATASETS = HERE / "datasets"
 SCHEMAS = HERE.parents[0] / "fixtures" / "schemas"
 SOURCE_NAMES = {"contract": "CUAD v1 contracts (SEC filings)", "receipt": "CORD v2 receipts (Indonesian)",
@@ -339,6 +340,15 @@ def render_floor(p4: dict) -> str:
                                  f"**Probe 4 verdict under the chosen variant: {p4['verdict']}.**"])
 
 
+def render_gate_oc(n: int = R.N_TARGET) -> str:
+    out = [f"Exact binomial at n = {n} absent-answer cases (`stats.gate_oc`):", "",
+           "| true committed-when-absent rate | P(point estimate <= 0.05) | P(point estimate > 0.10: drop) |", "|---|---|---|"]
+    for p in (0.02, 0.03, 0.05, 0.07, 0.10, 0.12, 0.15):
+        o = S.gate_oc(p, n)
+        out.append(f"| {p:.2f} | {o['p_at_most_0.05']:.3f} | {o['p_above_0.10']:.3f} |")
+    return "\n".join(out)
+
+
 def replace_block(doc: str, name: str, body: str) -> str:
     pat = re.compile(rf"(<!-- BEGIN:{name} -->\n).*?(<!-- END:{name} -->)", re.S)
     if not pat.search(doc):
@@ -348,7 +358,7 @@ def replace_block(doc: str, name: str, body: str) -> str:
 
 def generated_blocks(ds: pathlib.Path = DATASETS, results: pathlib.Path = RESULTS,
                      schemas: pathlib.Path = SCHEMAS) -> dict[str, str]:
-    blocks = {}
+    blocks = {"gate_oc": render_gate_oc()}
     if (ds / "cases" / "build_summary.json").exists():
         blocks["corpus"] = render_corpus(ds)
         blocks["labelling"] = render_labelling(ds)
@@ -379,6 +389,8 @@ def update_doc(doc_path: pathlib.Path = DOC, **kw) -> list[str]:
 def main(argv: list[str]) -> int:
     if argv[:1] == ["doc"]:
         print("updated blocks:", ", ".join(update_doc()))
+        if GATE_DOC.exists():
+            print("gate doc blocks:", ", ".join(update_doc(GATE_DOC)))
         return 0
     if argv[:1] == ["oc"]:
         d = oc_data()
