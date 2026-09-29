@@ -1,6 +1,6 @@
 # Jevson — design
 
-> **Status:** Design document, Revision 9.1, 2026-09-29. Pre-implementation.
+> **Status:** Design document, Revision 9.2, 2026-09-29. Pre-implementation. Phase 0 has run; the v0 scope is frozen in DESIGN §10.1.
 >
 > **This document is the SSOT for Jevson.** It carries everything an agent or contributor needs to work on the project: what the library is, what it guarantees, the architecture, the vocabulary, the constraints of the model it sits on, and the rules that are not open for reinterpretation. The build sequence lives in [`PLAN.md`](PLAN.md).
 >
@@ -37,7 +37,7 @@ Perfectly schema-valid. Completely wrong. A grammar cannot see it, and `jsonsche
 
 - arbitrary Pydantic / JSON Schema compiled to a decision graph — nested objects, arrays, and unions decided *before* construction;
 - level-batched execution that respects Jev's two context limits;
-- source-grounded arrays with entity resolution that refuses to merge on contradictory evidence;
+- source-grounded arrays, with entity resolution that refuses to merge on contradictory evidence planned after v0 (Phase 0 measured it below its bar on real prose **[Z4]**; DESIGN §5.7);
 - generative fields admitted only after passing declared criteria;
 - a typed three-outcome result, proven by an adversarial suite.
 
@@ -324,14 +324,14 @@ Question wording decides accuracy, so it is code, not ad hoc prose. `compile/que
 Template rules, each backed by evidence:
 
 - **Demand the complete value.** Candidate questions ask: "Which of these is the complete *<field>* as written in the source? A partial value — for example a street without its city, or a date without its year — is not acceptable.", and `none_of_these` reads "None of the other options is the complete *<field>* as written in the source; a partial value does not count." This exact text was tested out of sample: with the full value among 4 competitors it was chosen 72/72 with and without the wording; when only partial variants were offered, correct abstention rose from 19/72 to 72/72 **[P18]**. An earlier variant cut lone partial commits from 32/42 to 0/42 **[P11]**.
-- **When the source itself states only a partial value**, the intended answer is abstention (the field is then absent). Measured compliance depends on the field: addresses and dates abstained, while names, phones, and venues often committed the longest partial (15/36 abstained overall) **[P18]**. This is a stated limit, re-measured in Phase 0.
+- **When the source itself states only a partial value**, the intended answer is abstention (the field is then absent). Measured compliance depends on the field: addresses and dates abstained, while names, phones, and venues often committed the longest partial (15/36 abstained overall) **[P18]**. This is a stated limit. On real documents, sources stating only a partial value were abstained on 11/17 **[Z8]**.
 - **Positive, direct phrasing; no negations** **[V-jagged]**.
 - **Level state layout.** A level's state is `{"source": …}` plus, when present, `"candidates": {<opaque id>: …}` and `"drafts": {<field node id>: <draft>}`; each question names the entries it is about by key (R13). Candidate texts appear in option descriptions; `candidates` in state is used only when a noul (membership, pair) references a candidate, with ids unique within the level, and preflight counts it in the state size. Injected drafts did not flip verdicts under a single `draft` key **[P7]**; the keyed multi-draft layout is re-measured by the Phase 4 injection regression, and if it does worse, adjudication issues one call per draft.
 - **Scope from the schema.** The field's `description` (or `x-jevson.question`) and `x-jevson.source.scope` are rendered into the question. A generic scoping hint did not improve accuracy measurably (abstention 32/36 → 35/36, present-answer accuracy 36/36 → 33/36) **[P16]**, so no hint is added by default.
 
 ### 5.3 Single candidates still get a question
 
-A lone extracted candidate is **not** committed unchecked by default: the extractor is the weak link, and a lone wrong candidate is exactly the wrong-but-valid failure. The default is a two-option `choice([c0, none_of_these])`, batched into the existing level at near-zero marginal cost **[P3, P8]**. In the pilot it abstained on 84/84 wrong-role lone candidates and falsely abstained on 2/42 correct ones, and behaved the same as the candidate among 2–3 competitors **[P11]**. A field may opt into `direct_extraction: true`: a lone verified candidate then commits without Jev, carries no probability, and is listed in `Result.ungated`; zero candidates follow DESIGN §5.6; two or more distinct candidates (counted after the pre-filter below), or one text occurring at several offsets (DESIGN §5.1), are asked as an ordinary choice with `none_of_these` and the field is not ungated.
+A lone extracted candidate is **not** committed unchecked by default: the extractor is the weak link, and a lone wrong candidate is exactly the wrong-but-valid failure. The default is a two-option `choice([c0, none_of_these])`, batched into the existing level at near-zero marginal cost **[P3, P8]**. In the pilot it abstained on 84/84 wrong-role lone candidates and falsely abstained on 2/42 correct ones, and behaved the same as the candidate among 2–3 competitors **[P11]**. On real documents it abstained on 39/50 wrong-role lone candidates and 35/50 lone partials, and committed 49/50 correct ones **[Z8]**: asking still refuses most lone wrong candidates, and committing them unchecked would refuse none. A field may opt into `direct_extraction: true`: a lone verified candidate then commits without Jev, carries no probability, and is listed in `Result.ungated`; zero candidates follow DESIGN §5.6; two or more distinct candidates (counted after the pre-filter below), or one text occurring at several offsets (DESIGN §5.1), are asked as an ordinary choice with `none_of_these` and the field is not ungated.
 
 **Zero candidates** resolve without a Jev call (DESIGN §5.6). **More than `max_candidates`** (default 50; hard cap 254, leaving one option for `none_of_these`) is a run-time condition — the compiler never sees a source — and yields `Unresolved(too_many_candidates)` rather than silent truncation. **For fields whose value is the verbatim span**, candidates that cannot satisfy the field's own string constraints (`maxLength`, `minLength`, `pattern`) are rejected before the question is asked, and counted. For class F fields the constraints apply to the parsed value after selection, and a failure is reported in `violations`.
 
@@ -346,6 +346,8 @@ SELECT(candidate)   or   ABSTAIN(none_of_these)
 `none_of_these` means *no supplied candidate is sufficiently supported as the answer* — the source may genuinely not contain one, or extraction may have missed it.
 
 **Pilot evidence** (synthetic, author-written; not the pre-registered Phase 0 probe) **[P5]**: on short documents and trap documents (superseded values, negations, near-duplicate names), selection and abstention were at ceiling. In long, multi-entity documents, abstention when the answer was absent fell to 32/36 = 0.89 (95% CI 0.75–0.96); three of the four failures were superseded due dates. A separate yes/no gate ("does any candidate fill this field?") was *worse* (0.56), because in a multi-entity document some candidate usually is *a* seller, just not *the* one. **The choice-with-`none_of_these` design stays; a noul gate is not used as the abstention mechanism.**
+
+**On real documents** (the pre-registered Phase 0 probes): the correct span was chosen on 132/150 present-answer cases and `none_of_these` on 2/150 **[Z1, Z3]**, but abstention with the correct span removed was 110/150 = 0.73 — the *conditional* band — and 24/45 in long multi-entity documents **[Z2]**. Candidate selection therefore ships with the second gate of `PLAN.md` Phase 5.
 
 ### 5.5 Abstention lifecycle
 
@@ -394,12 +396,14 @@ Pairwise `noul` answers are independent, so they can contradict each other: *A =
 1. **Deterministic pre-merge, no model.** Candidates of one entity type whose text is identical under that type's `Normalizer` merge before any question is asked. **The default normaliser is lossless on case:** Unicode NFC plus whitespace collapse. Casefolding is opt-in per entity type, because it silently merges `US`/`us`, `Apple`/`apple`, `IT`/`it`, `CAT`/`cat` **[L1]**. The normaliser never merges initials or first names (`Sam`/`Samuel`, `D. Whitman`), which were the pilot's dominant failure **[P6]**.
 2. **Pairwise `noul`** over the remaining candidates, asked in the same level as membership (capped, DESIGN §8.2). Components are built over **accepted members only**: pair answers involving non-members are recorded in `decisions` and ignored, so a rejected candidate never bridges two members. Components are the connected components of member pairs with p(same) > 0.5.
 3. **Internal consistency (always on).** A component containing a pair at or below `conflict_floor` — a confident "different" — is a possible wrong merge and becomes `Unresolved(entity_conflict)`, naming its spans and the offending pairs. Internal pairs above the floor are tolerated, so a chain such as *Dana* ↔ *Dana Whitfield* ↔ *Ms. Whitfield* still merges.
-4. **Cross-component consistency (a variant, chosen in Phase 0).** Additionally, a component linked to another by a pair in (`conflict_floor`, 0.5] is a possible split, which would emit a duplicate element; under this variant both components become `Unresolved(entity_conflict)`.
+4. **Cross-component consistency (the variant Phase 0 chose **[Z4]**).** Additionally, a component linked to another by a pair in (`conflict_floor`, 0.5] is a possible split, which would emit a duplicate element; under this variant both components become `Unresolved(entity_conflict)`.
 5. Other components are emitted, and an array with any unresolved component is incomplete. A membership tie on a mention likewise leaves its array incomplete. With ~1.1% of pilot yes/no answers and 2.6% of pilot candidate choices inside the margin **[P12, P22]** (membership nouls themselves not yet measured), long arrays will sometimes be incomplete for this reason alone; Phase 7 reports how often.
 
-**Why the variant is not settled.** On 48 pilot documents (1,824 pairs, two identical runs) the internal rule alone was silently wrong on 5/133 and 6/134 components, mostly *splits*, and adding the cross-component condition gave 0/133 and 0/134 at 113/133 and 109/134 correct versus 117 — but that was found and scored in-sample **[P10]**. Out of sample, on 80 new documents in new domains (5,410 pairs, two runs), **no split occurred in 160 document-runs**, both rules were silently wrong on 1/312 components (a consistent-but-wrong merge), and the cross-component condition only blanked 8–9 otherwise-correct components; each uncertain cross pair blanks two components **[P17]**. Plain connected components were silently wrong on 25/312 **[P17]**. The non-transitive rate is template-dependent: 42% of documents in the first pilot, 12% and 60% on two later sets **[P6, P17]**. `PLAN.md` Phase 0 probe 4 chooses between the internal rule and the two-directional variant on real prose by a pre-registered rule.
+**How the variant was chosen.** On 48 pilot documents (1,824 pairs, two identical runs) the internal rule alone was silently wrong on 5/133 and 6/134 components, mostly *splits*, and adding the cross-component condition gave 0/133 and 0/134 at 113/133 and 109/134 correct versus 117 — but that was found and scored in-sample **[P10]**. Out of sample, on 80 new documents in new domains (5,410 pairs, two runs), **no split occurred in 160 document-runs**, both rules were silently wrong on 1/312 components (a consistent-but-wrong merge), and the cross-component condition only blanked 8–9 otherwise-correct components; each uncertain cross pair blanks two components **[P17]**. Plain connected components were silently wrong on 25/312 **[P17]**. The non-transitive rate is template-dependent: 42% of documents in the first pilot, 12% and 60% on two later sets **[P6, P17]**. `PLAN.md` Phase 0 probe 4 then chose between them on real prose by a pre-registered rule (item 6) **[Z4]**.
 
-6. **`conflict_floor` has no default until Phase 0 measures it**, by a rule fixed before the data is seen. The rule selected the top of its grid on every full pilot corpus — 0.30 when the grid ended there (0.20 on one subset), 0.45 when it was extended **[P10, P17]** — so in practice it may mean "any internal pair at or below 0.45 is a conflict". Phase 0 records whether the grid top binds. Until Phase 0 sets it, tests pass an explicit floor.
+6. **`conflict_floor` = 0.05, and the variant is the cross-component rule**, both chosen by the rules fixed before the data was seen **[Z4]**. On 50 real prose clusters (360 same-entity pairs over two runs), 2/360 same-entity pairs were at or below 0.05 and 8/360 at or below 0.10, so the rule selected the *bottom* of its grid, not the top it selected on every pilot corpus **[P10, P17]**; the grid top does not bind. The internal rule was silently wrong on 30/330 components (20 splits, 10 merges); adding the cross-component condition cut that to 4/330 but, with any cross pair in (0.05, 0.5] blanking both components, left 163/330 correct. The lower silently-wrong rate selects the cross-component variant, and under it probe 4 is **stop** (correct 0.494 < 0.70); under the internal rule it would also be stop (silently wrong 0.091 > 0.05). Pair judgements themselves were accurate (1560/1592) and stable (2/796 flips).
+
+**Consequence for v0:** pairwise entity resolution does not ship. Deduplication is the extractor's declared contract (`PLAN.md` Phase 7's abandon criterion, applied from Phase 0), and this section describes the design a post-v0 phase re-measures (`PLAN.md` §9).
 
 **Stated limit:** a partition that is *consistent but wrong* — two people with near-identical names judged the same with high probability and no uncertain link — cannot be detected by any rule of this kind **[P6, P10, P17]**.
 
@@ -410,7 +414,7 @@ Provenance proves **where** a value came from, not that the source is honest. An
 What Jevson does:
 
 - States the limit in the README, the result documentation, and DESIGN §6.
-- Ships an **opt-in source screen**: one `noul` over the source, asked in the first decision level, asking whether the source contains text addressed to automated processors. In the first pilot one wording flagged 40/40 attacks with 0/40 false positives and a second flagged 20/20 *benign* invoices **[P7]**; out of sample, the first wording caught 60/60 attacks (all at p ≥ 0.86) but **flagged 27–28 of 60 benign invoices, e-mails, and contracts**, triggered by ordinary processing notes (EDI and AP-portal routing, "file under"), while plain instructions were flagged 0/66 **[P21]**. **The screen does not work yet**; it stays off by default until `PLAN.md` Phase 5 finds a wording that meets its bar on real documents that include processing notes. It flags at p ≥ 0.56 only — flagging the tie band caught no extra attacks and added 5–8% false positives **[P21]**. A flagged source turns **every field decided from the source** — classes D and E, and class C decisions whose question reads the source — into `Unresolved(source_flagged)`; constants and defaults (class A) are unaffected.
+- Ships an **opt-in source screen**: one `noul` over the source, asked in the first decision level, asking whether the source contains text addressed to automated processors. In the first pilot one wording flagged 40/40 attacks with 0/40 false positives and a second flagged 20/20 *benign* invoices **[P7]**; out of sample, the first wording caught 60/60 attacks (all at p ≥ 0.86) but **flagged 27–28 of 60 benign invoices, e-mails, and contracts**, triggered by ordinary processing notes (EDI and AP-portal routing, "file under"), while plain instructions were flagged 0/66 **[P21]**. **The screen does not work yet**; it stays off by default until `PLAN.md` Phase 5 finds a wording that meets its bar on real documents that include processing notes. A first reading on real documents was far better: it flagged 50/50 attacked documents, 0/50 of the same documents unattacked, and 3/50 benign documents with ordinary processing notes (mostly auction pick-up instructions) **[Z6]** — not the Phase 5 bar, which needs ≥ 300 held-out benign documents. It flags at p ≥ 0.56 only — flagging the tie band caught no extra attacks and added 5–8% false positives **[P21]**. A flagged source turns **every field decided from the source** — classes D and E, and class C decisions whose question reads the source — into `Unresolved(source_flagged)`; constants and defaults (class A) are unaffected.
 - States that **the screen can itself be steered**: it is a Jev question over the same untrusted text.
 - Includes hostile sources in the adversarial suite (`PLAN.md` §4.2).
 
@@ -487,7 +491,7 @@ Calibration on source-span disambiguation is unmeasured, so v0 ships **no defaul
 
 - Every Jev decision's distribution is reported (DESIGN §8.1).
 - `none_of_these` is the one abstention path on by default — a structural signal about the option set, not a calibration claim.
-- **The tie margin**: a decision whose top two outcomes differ by ≤ 0.10 (in hundredths) yields `Unresolved(tie)`. For a noul that is 0.45 ≤ p ≤ 0.55; for a choice or score, the top two options. It is a reproducibility rule — decisions inside it flipped on identical input **[P12, P20]** — not a confidence gate, and it removes most but not all flips (1/180 choice questions still flipped at 0.10 **[P20]**). It applies to every Jev decision that commits a value or admits a draft: bool fields, enum and candidate choices, scores, array membership, criteria (where a tie counts as a failed criterion, DESIGN §6.3), and union discriminators. Two decisions follow their own rules: entity pairs use DESIGN §5.7, which was measured with a plain 0.5 boundary **[P10, P17]**, and the source screen flags at p ≥ 0.56 **[P21]**. The margin is configurable in `JevsonConfig`. Over the 2,154 saved pilot candidate choices that use a `none_of_these` key it would have converted 56 (2.6%) to ties **[P22]**; Phase 0 reports the rate on real documents.
+- **The tie margin**: a decision whose top two outcomes differ by ≤ 0.10 (in hundredths) yields `Unresolved(tie)`. For a noul that is 0.45 ≤ p ≤ 0.55; for a choice or score, the top two options. It is a reproducibility rule — decisions inside it flipped on identical input **[P12, P20]** — not a confidence gate, and it removes most but not all flips (1/180 choice questions still flipped at 0.10 **[P20]**). It applies to every Jev decision that commits a value or admits a draft: bool fields, enum and candidate choices, scores, array membership, criteria (where a tie counts as a failed criterion, DESIGN §6.3), and union discriminators. Two decisions follow their own rules: entity pairs use DESIGN §5.7, which was measured with a plain 0.5 boundary **[P10, P17]**, and the source screen flags at p ≥ 0.56 **[P21]**. The margin is configurable in `JevsonConfig`. Over the 2,154 saved pilot candidate choices that use a `none_of_these` key it would have converted 56 (2.6%) to ties **[P22]**; on real documents it converted 20/300 candidate choices (6.7%) **[Z1, Z2]**.
 - **A default threshold is deferred, with a pre-registered bar** (`PLAN.md` §9). It is adopted in v1 only if, over ≥ 1,000 pre-labelled candidate-backed decisions from a corpus disjoint from Phase 0:
   1. the **one-sided 95% bootstrap upper bound of top-label ECE** on the selected option's probability is ≤ 0.05, using 15 bins with equal-mass quantile edges merged so that tied probability values are never split; and
   2. among decisions with p ≥ τ, the **Wilson 95% lower bound of accuracy** is ≥ the mean p of those decisions minus 0.03, at τ = 0.90, fixed before the corpus is labelled (τ = 0.80 is reported only); and
@@ -517,7 +521,7 @@ Settled. Changing one is a design change that updates this document.
 3. **Independent decisions are level-batched** into one keyed Jev call per topological level, except adjudication's per-draft fallback (DESIGN §5.2).
 4. **A single candidate is still asked** as `choice([candidate, none_of_these])` unless the field opts into direct extraction (DESIGN §5.3).
 5. **Source-grounded arrays are built from membership `noul`s** over a candidate set.
-6. **Array deduplication is an explicit entity-resolution stage**, scoped to an entity type, lossless on case by default, emitting only components with no internal conflict, plus the cross-component condition if Phase 0 selects it (DESIGN §5.7).
+6. **Array deduplication is the extractor's declared contract in v0**: Phase 0 measured pairwise entity resolution below its bar on real prose **[Z4]**, so v0 does not claim it. The entity-resolution stage of DESIGN §5.7 (internal rule plus the cross-component variant, `conflict_floor` 0.05) is the design a post-v0 phase re-measures.
 7. **Arrays are in source order.** Semantic ordering is out of v0 and tracked (`PLAN.md` §9); `x-jevson.order: semantic` refuses rather than silently source-ordering.
 8. **Overflow is never silently discarded.**
 9. **Derived provenance is out of v0**, except class F parsing of one selected span (DESIGN §5.9).
@@ -647,7 +651,7 @@ Credit where it is due. **Every mechanism below predates Jevson.**
 
 ### 9.1 The defensible public claim
 
-> Jevson generalises TypeSafe's "select, don't generate" extraction pattern into a schema compiler: nested objects, unions decided before construction, source-grounded arrays with entity resolution, criteria-gated generative fields, and a typed three-outcome result verified by an adversarial suite.
+> Jevson generalises TypeSafe's "select, don't generate" extraction pattern into a schema compiler: nested objects, unions decided before construction, source-grounded arrays, criteria-gated generative fields, and a typed three-outcome result verified by an adversarial suite.
 
 **Not** "first of its kind." **Not** "nobody catches this." **Not** "guaranteed JSON." Grounding checks and per-field confidence exist elsewhere; the claim is the combination, in an open library, as far as we found.
 
@@ -680,6 +684,27 @@ Credit where it is due. **Every mechanism below predates Jevson.**
 
 **Refusal over invention.** Any construct the compiler cannot map is reported before a single API call, with the offending JSON pointers.
 
+### 10.1 The v0 scope, frozen by Phase 0
+
+Frozen from the Phase 0 verdicts (`docs/taxonomy.md` §8): candidate selection *conditional* **[Z1–Z3]**, entity resolution *stop* **[Z4]**, R13 reproduced **[Z5]**.
+
+| capability | class | in v0? | phase | evidence and condition |
+|---|---|---|---|---|
+| structure, required fields, defaults, constants, nullable | A | yes | 1–3 | — |
+| enums (`choice`), booleans (`noul` with the tie band), declared ordinals (`score`) | C | yes | 2–3 | schema-derived choices have no `none_of_these` in v0 |
+| generative fields adjudicated against declared criteria | E | yes | 4 | — |
+| source selection over verified candidate spans, with `none_of_these`, the complete-value template, context windows for repeated text, and lone candidates asked | D | yes, **with the second gate** | 5 | probe 2 conditional **[Z2]**; Phase 5 re-measures on a fresh corpus under the same bands and abandons on *stop* |
+| parsing one selected span (money, number, date) | F on D | yes | 5 | derived values otherwise out (R9) |
+| union discrimination | C | yes | 6 | — |
+| multi-label enum arrays | C | yes | 7 | ships even if Phase 5 abandons |
+| source-grounded arrays of spans: membership, source order, `maxItems` with overflow | D | yes, if Phase 5 ships | 7 | **without deduplication**: candidates must arrive normalised **[Z4]** |
+| pairwise entity resolution (internal rule, cross-component variant, `conflict_floor` 0.05) | D | **no** | post-v0 | probe 4 stop **[Z4]** (`PLAN.md` §9) |
+| opt-in source screen | C | yes, off by default | 5 | first reading **[Z6]**; default-on only in v1 against its bar |
+| arrays of objects, generative lists, derived values beyond one span, semantic order, multi-source | G | no | post-v0 | `PLAN.md` §9 |
+| state referenced by position | — | never | — | R13 **[Z5]** |
+
+The taxonomy's prediction that classes C and D are a narrow band was **wrong** on the pre-registered test: in the 16 sampled schemas, class C and D fields are the median majority of a schema (0.79), and most extraction fields are class D; what narrows v0 is structure, since arrays of objects hold most of the resume and receipt fields (`docs/taxonomy.md` §5, §8).
+
 ---
 
 ## 11. Glossary
@@ -710,20 +735,23 @@ Credit where it is due. **Every mechanism below predates Jevson.**
 
 Each is recorded in `PLAN.md` §7 against the phase that answers it, with its policy fixed now so the answer changes a setting, not the design.
 
-- **Entity resolution on real prose, `conflict_floor`, and which rule variant** (DESIGN §5.7) — Phase 0 probe 4.
 - **Retry's real value** — Phase 5 (DESIGN §5.5).
-- **Calibration on this task** — Phase 5 (DESIGN §6.2).
-- **Source screening** — whether any detector wording can flag hostile sources without flagging ordinary processing notes; the tested wording flagged 27–28 of 60 benign documents **[P21]**. Phase 0 probe 6, Phase 5.
+- **Calibration on this task** — Phase 5 (DESIGN §6.2). First reading: mean p 0.904 against accuracy 0.864 on 280 committed candidate decisions, ECE 0.046 **[Z7]**.
+- **Source screening** — whether any detector wording can flag hostile sources without flagging ordinary processing notes; the tested wording flagged 27–28 of 60 benign documents **[P21]**, and 3/50 on a first reading on real documents **[Z6]**. Phase 5.
 - **Union execution: level vs. speculative fan-out** (DESIGN §3.2) — Phase 6.
 - **The pairwise quality ceiling** (DESIGN §8.2) — Phase 7.
 - **Whether jitter on pair questions can be reduced** — for example by asking both orderings of a pair — rather than only banded (DESIGN §5.7, **[P12]**). Phase 7.
 - **The name.** "Jevson" couples us to a vendor whose replaceability is a design goal, and `jevapi.dev` asserts Jev is a TypeSafe trademark **[X4]**; no TypeSafe naming policy was found. Decided before the PyPI release in `PLAN.md` Phase 8, after asking TypeSafe.
 
-**Closed by evidence:** level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a noul gate is a worse abstention mechanism than `none_of_these` **[P5]**; a lone candidate is safer asked than committed **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording does not cost accuracy when the full value is present **[P18]**. Mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; Phase 0's repeated-text cases re-check it.
+**Closed by evidence:** level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a noul gate is a worse abstention mechanism than `none_of_these` **[P5]**; a lone candidate is safer asked than committed **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording does not cost accuracy when the full value is present **[P18]**. Mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; on real documents, present cases whose correct text repeats were answered correctly 51/63 **[Z1]**. Entity resolution on real prose: below its bar, out of v0 **[Z4]**. State references by position fail on the pinned model **[Z5]**.
 
 ---
 
 ## 13. Changelog
+
+### Revision 9.2 — 2026-09-29, Phase 0 results
+
+Phase 0 ran its eight pre-registered probes on real documents (796 requests; `docs/taxonomy.md`). Candidate selection is *conditional* and ships with the second gate **[Z1–Z3]**; pairwise entity resolution is *stop*, so deduplication is the extractor's contract in v0 (R6, DESIGN §5.7: `conflict_floor` 0.05, cross-component variant) **[Z4]**; R13 is reproduced **[Z5]**; first readings of the source screen, calibration, and single candidates **[Z6–Z8]**. The v0 scope is frozen in DESIGN §10.1. The taxonomy prediction was wrong.
 
 ### Revision 9.1 — 2026-09-29, red-team round 7 (converged)
 

@@ -8,12 +8,12 @@ Sections, in order:
 
 1. [Question templates](#1-question-templates)
 2. [Decision rules and operating characteristic](#2-decision-rules-and-operating-characteristic)
-3. Corpus — *recorded with the datasets*
-4. Labelling protocol and inter-rater agreement — *recorded with the datasets*
-5. 0a taxonomy tables
-6. Probe results 1–8
-7. `conflict_floor` and the entity-rule variant
-8. Scope verdict and the prediction
+3. [Corpus](#3-corpus)
+4. [Labelling protocol and inter-rater agreement](#4-labelling-protocol-and-inter-rater-agreement)
+5. [0a — the taxonomy](#5-0a--the-taxonomy)
+6. [Probe results 1–8](#6-probe-results-18)
+7. [`conflict_floor` and the entity-rule variant](#7-conflict_floor-and-the-entity-rule-variant)
+8. [Scope verdict and the prediction](#8-scope-verdict-and-the-prediction)
 
 ---
 
@@ -240,7 +240,11 @@ Exact binomial / multinomial enumeration at n = 150 (`tests/phase0/stats.py`, te
 
 Nothing in §1 or §2 and no label, except to fix a genuine bug. A fix is recorded here with its commit hash and its effect on every reported number; the unfixed result is kept beside it. Parameters are never tuned to results, and a *stop* verdict is recorded as a result, not rescued.
 
-**Recorded bug fixes:** none.
+**Recorded bug fixes after the first live call:**
+
+| commit | bug | effect |
+|---|---|---|
+| 9017eef | `probes.score_6` attached steered and abstain rates to screen rows, and a flagged rate to selection rows (always 0, meaningless) | Re-scored from the stored raw responses with no new request; every count and rate reported before is unchanged; only the meaningless keys changed |
 
 **Amendments made before any Jev call** (after commit 443234c, when the datasets were built; none depends on any model output, since none existed):
 
@@ -380,6 +384,172 @@ The protocol is [`tests/phase0/datasets/labels/PROTOCOL.md`](../tests/phase0/dat
 
 **Verdict on the prediction: WRONG.**
 <!-- END:taxonomy -->
+
+---
+
+## 6. Probe results 1–8
+
+All on `jev-1.13.0`, 796 requests (probes 1–3: 138; 4: 100; 5: 358; 6: 150; 8: 50), every one HTTP 200, no 429, templates version 1.0.0. Raw responses (redacted) are in the gitignored `tests/phase0/out/`; the summaries below are rendered from the committed `tests/phase0/results/*.json` (`report.py`), and a test fails if this section drifts from them.
+
+<!-- BEGIN:results -->
+| probe | tag | n | point estimate | Wilson 95% | verdict | ties | raw result | summary |
+|---|---|---|---|---|---|---|---|---|
+| 1. disambiguation accuracy | [Z1] | 150 | 0.880 (132/150) | 0.818–0.923 | **go** | 11 (0.073) | `tests/phase0/out/probe1_2_3.jsonl` | `tests/phase0/results/probe1_2_3.json` |
+| 2. abstention sensitivity | [Z2] | 150 | 0.733 (110/150) | 0.657–0.798 | **conditional** | 9 (0.060) | `tests/phase0/out/probe1_2_3.jsonl` | `tests/phase0/results/probe1_2_3.json` |
+| 3. false abstention | [Z3] | 150 | 0.013 (2/150) | 0.004–0.047 | **go** | 11 (0.073) | `tests/phase0/out/probe1_2_3.jsonl` | `tests/phase0/results/probe1_2_3.json` |
+| 4. entity resolution (cross variant, both runs pooled) | [Z4] | 330 components, 50 clusters | correct 0.494; silently wrong 0.012 | correct 0.440–0.548; wrong 0.005–0.031 | **stop** | — | `tests/phase0/out/probe4.runA.jsonl`, `.runB.jsonl` | `tests/phase0/results/probe4.json` |
+| 5. state referencing | [Z5] | 320 items × 9 conditions | IDX-320 wrong 0.622; KEY-320 wrong 0.000 | IDX-320 0.568–0.673 | **reproduces [P4]** | — | `tests/phase0/out/probe5.jsonl` | `tests/phase0/results/probe5.json` |
+| 6. hostile source | [Z6] | 50 attacked + 50 benign | steered 0.200 (baseline 0.000); screen TP 1.000, FP 0.060 | see below | reading only | — | `tests/phase0/out/probe6.jsonl` | `tests/phase0/results/probe6.json` |
+| 7. calibration reading | [Z7] | 280 decisions | ECE 0.046 (one-sided 95% bound 0.090); Brier 0.102 | per bin, below | reading only | 20 excluded | from probes 1-3 | `tests/phase0/results/probe7.json` |
+| 8. single candidates and partials | [Z8] | 50 / 50 / 50 / 17 | see below | see below | reading only | — | `tests/phase0/out/probe8.jsonl` | `tests/phase0/results/probe8.json` |
+
+**Candidate selection: conditional: Phase 5 ships the second gate (probe2).** Abandon criterion fired: no.
+
+### 6.1 Probes 1-3 in detail
+
+| probe | correct | abstain | tie | partial commit | wrong commit | invalid |
+|---|---|---|---|---|---|---|
+| present (probes 1 and 3) | 132 | 2 | 11 | 0 | 5 | 0 |
+| absent (probe 2) | 0 | 110 | 9 | 9 | 22 | 0 |
+
+| breakdown | probe 1 (correct) | probe 2 (abstain) | probe 3 (false abstention) |
+|---|---|---|---|
+| contract | 37/42 | 20/36 | 0/42 |
+| medical_intake | 3/7 | 8/15 | 1/7 |
+| product_listing | 3/5 | 3/8 | 0/5 |
+| receipt | 48/51 | 37/38 | 1/51 |
+| resume | 36/37 | 41/45 | 0/37 |
+| support_ticket | 5/8 | 1/8 | 0/8 |
+| hard | 37/45 | 24/45 | 0/45 |
+| other | 95/105 | 86/105 | 2/105 |
+| repeated text | 51/63 | — | 1/63 |
+| unique text | 81/87 | — | 1/87 |
+
+The operating characteristic at the achieved n (150 per probe) is the one pre-registered in §2.10.
+
+### 6.2 Probe 4 in detail
+
+| variant | components | correct | unresolved | merges | splits | silently wrong rate | correct rate |
+|---|---|---|---|---|---|---|---|
+| internal | 330 | 300 | 0 | 10 | 20 | 0.091 | 0.909 |
+| cross | 330 | 163 | 163 | 2 | 2 | 0.012 | 0.494 |
+
+| run | components | correct | silently wrong | verdict |
+|---|---|---|---|---|
+| A | 165 | 80/165 = 0.485 (0.410–0.561) | 2/165 = 0.012 (0.003–0.043) | stop |
+| B | 165 | 83/165 = 0.503 (0.428–0.578) | 2/165 = 0.012 (0.003–0.043) | stop |
+
+Pair accuracy at 0.5: 1560/1592 = 0.980 (0.972–0.986). Non-transitive triples: 17/2920 (11 cluster-runs with at least one). Clique completeness: 152/168 = 0.905 (0.851–0.941). Pair decisions flipping between the two identical runs: 2/796.
+
+### 6.3 Probe 5 in detail
+
+| condition | requests | wrong | rate | Wilson 95% |
+|---|---|---|---|---|
+| IDX-all-150 | 3 | 198/320 | 0.619 | 0.564–0.670 |
+| IDX-chunk-150 | 3 | 139/320 | 0.434 | 0.381–0.489 |
+| IDX-all-25 | 13 | 198/320 | 0.619 | 0.564–0.670 |
+| IDX-chunk-25 | 13 | 8/320 | 0.025 | 0.013–0.049 |
+| IDX-320 | 1 | 199/320 | 0.622 | 0.568–0.673 |
+| KEY-320 | 1 | 0/320 | 0.000 | 0.000–0.012 |
+| KEY-150 | 3 | 0/320 | 0.000 | 0.000–0.012 |
+| INLINE-320 | 1 | 0/320 | 0.000 | 0.000–0.012 |
+| PER-REQ | 320 | 0/320 | 0.000 | 0.000–0.012 |
+
+### 6.4 Probe 6 in detail
+
+| question | n | correct | steered to the advocated span | abstained | tie | other commit |
+|---|---|---|---|---|---|---|
+| baseline, present | 50 | 44 | 0/50 = 0.000 (0.000–0.071) | 1/50 = 0.020 (0.004–0.105) | 3 | 2 |
+| attacked, present | 50 | 33 | 10/50 = 0.200 (0.112–0.330) | 1/50 = 0.020 (0.004–0.105) | 5 | 1 |
+| baseline, absent | 49 | 0 | 2/49 = 0.041 (0.011–0.137) | 42/49 = 0.857 (0.733–0.929) | 2 | 3 |
+| attacked, absent | 49 | 0 | 19/49 = 0.388 (0.264–0.528) | 19/49 = 0.388 (0.264–0.528) | 8 | 3 |
+| attacked, present: style A (inline) / B (appended) steered | | | 4/25 / 6/25 | | | |
+| attacked, absent: style A (inline) / B (appended) steered | | | 8/25 / 11/24 | | | |
+
+| source screen (d1, flags at p >= 0.56) | n | flagged |
+|---|---|---|
+| attacked documents (true positives) | 50 | 50/50 = 1.000 (0.929–1.000) |
+| the same documents unattacked | 50 | 0/50 = 0.000 (0.000–0.071) |
+| benign documents with an ordinary processing note (false positives) | 50 | 3/50 = 0.060 (0.021–0.162) |
+
+### 6.5 Probe 7 in detail
+
+| reading | n | mean p | accuracy | ECE | ECE 95% bound | Brier | share at p = 1.00 |
+|---|---|---|---|---|---|---|---|
+| committed decisions (ties excluded) | 280 | 0.904 | 0.864 | 0.046 | 0.090 | 0.102 | 0.296 |
+| ties included (argmax) | 300 | 0.869 | 0.807 | 0.067 | 0.105 | 0.106 | 0.277 |
+
+Reliability (committed decisions, tie-safe equal-mass bins):
+
+| p range | n | mean p | accuracy | Wilson 95% |
+|---|---|---|---|---|
+| 0.43–0.62 | 19 | 0.553 | 0.526 | 0.317–0.727 |
+| 0.63–0.72 | 19 | 0.677 | 0.684 | 0.460–0.846 |
+| 0.73–0.79 | 18 | 0.752 | 0.778 | 0.548–0.910 |
+| 0.80–0.87 | 21 | 0.834 | 0.714 | 0.500–0.862 |
+| 0.88–0.93 | 23 | 0.910 | 0.913 | 0.732–0.976 |
+| 0.94–0.95 | 18 | 0.945 | 0.667 | 0.437–0.837 |
+| 0.96–0.97 | 17 | 0.966 | 0.882 | 0.657–0.967 |
+| 0.98–0.98 | 16 | 0.980 | 1.000 | 0.806–1.000 |
+| 0.99–0.99 | 46 | 0.990 | 0.957 | 0.855–0.988 |
+| 1.00–1.00 | 83 | 1.000 | 0.988 | 0.935–0.998 |
+
+### 6.6 Probe 8 in detail
+
+| set | intended answer | n | rate of the intended answer | commit | abstain | tie |
+|---|---|---|---|---|---|---|
+| lone correct | commit | 50 | 49/50 = 0.980 (0.895–0.996) | 49 | 1 | 0 |
+| lone wrong | abstain | 50 | 39/50 = 0.780 (0.648–0.872) | 10 | 39 | 1 |
+| lone partial | abstain | 50 | 35/50 = 0.700 (0.562–0.809) | 12 | 35 | 3 |
+| partial only | abstain | 17 | 11/17 = 0.647 (0.413–0.827) | 6 | 11 | 0 |
+
+42 of the 50 lone partials were constructed by the §2.8 rule; the rest were labelled partial options. Partial-only sources, by field type: date 5/11; number 6/6.
+<!-- END:results -->
+
+**Reading the results** (observations, not changes to any rule):
+
+- **Abstention fails where the pilot said it would.** Probe 2 is 24/45 on hard-regime cases against 86/105 on the rest, and 20/36 on contracts; the pilot's only abstention failures were in long multi-entity documents **[P5]**. On the absent-answer cases Jev committed a wrong-role span 22 times and a partial 9 times.
+- **Probe 4's two variants fail differently.** The internal rule is silently wrong on 30/330 components (20 splits, 10 merges); the cross-component condition removes most of those (4/330) but, at a floor of 0.05, any other pair between 0.06 and 0.50 blanks both components, leaving 163/330 correct. Pair-level accuracy is high (0.980) and stable (2/796 flips), so the loss is in turning pairs into components. Several internal-rule errors involve role nouns ("Consultant", "Distributor") not linked to the named party, and a few involve gold labels a reader could dispute: labellers linked an SEC filer's header name to the contract party it files for. Labels were fixed before the live run and are not changed.
+- **The source screen did far better on these documents than in the pilot.** It flagged 3/50 benign documents with ordinary processing notes, against 28/60 in the pilot **[P21]**; the benign set here is dominated by GSA listings, whose notes are inspection and pick-up instructions. This is not the Phase 5 bar (≥ 300 benign, held out).
+- **Lone wrong-role candidates are not reliably refused on real documents.** 39/50 abstained here, against 84/84 in the synthetic pilot **[P11]**; asking a lone candidate (R4) still refuses most of them, and committing it unchecked would refuse none.
+
+## 7. `conflict_floor` and the entity-rule variant
+
+Chosen by the rules of §2.4 on the gold same-entity pairs of both runs (`floor.select_floor`, `floor.choose_variant`):
+
+<!-- BEGIN:floor -->
+| floor | same-entity pairs at or below (both runs pooled) | <= 2%? |
+|---|---|---|
+| 0.05 | 0.0056 (2/360) | yes |
+| 0.10 | 0.0222 (8/360) | no |
+| 0.15 | 0.0278 (10/360) | no |
+| 0.20 | 0.0306 (11/360) | no |
+| 0.25 | 0.0361 (13/360) | no |
+| 0.30 | 0.0472 (17/360) | no |
+| 0.35 | 0.0500 (18/360) | no |
+| 0.40 | 0.0583 (21/360) | no |
+| 0.45 | 0.0583 (21/360) | no |
+
+**conflict_floor = 0.05**; qualifying values [0.05]; grid top binds: no; no value qualified: no. **Variant: cross** (lower silently-wrong point estimate: internal 0.091, cross 0.012). **Probe 4 verdict under the chosen variant: stop.**
+<!-- END:floor -->
+
+Unlike the pilot, where the rule picked the top of its grid on every corpus **[P10, P17]**, real prose puts 2.2% of same-entity pairs at or below 0.10, so the rule picks the bottom value. Under either variant probe 4 is **stop**: the internal rule's silently-wrong rate (0.091) exceeds 0.05, and the chosen cross-component variant leaves 0.494 correct. By §2.4, deduplication becomes the extractor's declared contract (`PLAN.md` Phase 7's abandon criterion, applied from Phase 0). The floor and variant are recorded in `DESIGN.md` §5.7 for any later re-measurement.
+
+## 8. Scope verdict and the prediction
+
+**Verdicts:** probe 1 **go** (0.880), probe 2 **conditional** (0.733), probe 3 **go** (0.013), probe 4 **stop**, probe 5 **reproduces [P4]**. The abandon criterion does not fire.
+
+**Scope, applying §2.3–§2.5:**
+
+- **Candidate selection ships in v0 with the second gate.** Probe 2 is conditional, so `PLAN.md` Phase 5 adds an independent verification noul per committed span and measures coverage and false abstention with the gate on, on a fresh corpus, under the same bands.
+- **Pairwise entity resolution does not ship in v0.** Deduplication is the extractor's declared contract: the library does not claim it, and source-grounded arrays (Phase 7) ship membership, source order, and honest overflow. Entity resolution is deferred to a post-v0 phase with its own probe (`PLAN.md` §9).
+- **R13 stands.** Indexed references into a long list were wrong on 199/320 items, keyed ones on 0/320.
+- **The source screen is a Phase 5 priority, not a scope change.** Injected notes steered 10/50 present-answer selections and cut abstention from 42/49 to 19/49; the screen flagged every attacked document here.
+- **Calibration:** probabilities stay reported, never gated; on these decisions Jev was about 4 points overconfident (mean p 0.904 against accuracy 0.864).
+
+**The frozen v0 scope list** is written into `DESIGN.md` §10.
+
+**The prediction on record** ("Classes C and D are a narrow band … not most of a typical schema") is **WRONG** on the pre-registered test of §2.9 (numbers in §5): class A is 0.180 of all schema nodes (needed > 0.5); classes D and E are 0.766 of extraction leaf fields (holds); the median per-schema share of C and D is 0.793 (needed < 0.5). In the sampled schemas, bounded decisions and source selection are most of a typical schema, not a narrow band. What does narrow v0 is structure: arrays of objects (class G in v0) hold most of the resume and receipt fields.
 
 ---
 

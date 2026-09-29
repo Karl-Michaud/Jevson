@@ -212,6 +212,130 @@ def render_field_table(tax: dict) -> str:
     return "\n".join(out)
 
 
+def _w(lo: float, hi: float) -> str:
+    return f"{lo:.3f}–{hi:.3f}"
+
+
+def _r(k: int, n: int) -> str:
+    lo, hi = S.wilson(k, n)
+    return f"{k}/{n} = {k / n:.3f} ({_w(lo, hi)})"
+
+
+def render_results(res: dict) -> str:
+    p123, p4, p5, p6, p7, p8 = (res[k] for k in ("probe1_2_3", "probe4", "probe5", "probe6", "probe7", "probe8"))
+    out = ["| probe | tag | n | point estimate | Wilson 95% | verdict | ties | raw result | summary |",
+           "|---|---|---|---|---|---|---|---|---|"]
+    for i, key in ((1, "probe1"), (2, "probe2"), (3, "probe3")):
+        x = p123[key]
+        out.append(f"| {i}. {x['band'].split(': ', 1)[1]} | [Z{i}] | {x['n']} | {x['rate']:.3f} ({x['k']}/{x['n']}) | "
+                   f"{_w(x['wilson_lo'], x['wilson_hi'])} | **{x['verdict']}** | {x['ties']} ({x['tie_rate']:.3f}) | "
+                   "`tests/phase0/out/probe1_2_3.jsonl` | `tests/phase0/results/probe1_2_3.json` |")
+    pc = p4["pooled"]
+    out.append(f"| 4. entity resolution ({p4['chosen_variant']} variant, both runs pooled) | [Z4] | {pc['components']} components, "
+               f"{p4['clusters']} clusters | correct {pc['correct_rate']:.3f}; silently wrong {pc['wrong_rate']:.3f} | "
+               f"correct {_w(*pc['correct_wilson'])}; wrong {_w(*pc['wrong_wilson'])} | **{p4['verdict']}** | "
+               f"— | `tests/phase0/out/probe4.runA.jsonl`, `.runB.jsonl` | `tests/phase0/results/probe4.json` |")
+    c5 = p5["conditions"]
+    out.append(f"| 5. state referencing | [Z5] | 320 items × 9 conditions | IDX-320 wrong {c5['IDX-320']['rate']:.3f}; "
+               f"KEY-320 wrong {c5['KEY-320']['rate']:.3f} | IDX-320 {_w(*c5['IDX-320']['wilson'])} | **{p5['verdict']}** | — | "
+               "`tests/phase0/out/probe5.jsonl` | `tests/phase0/results/probe5.json` |")
+    ap, bp = p6["attacked_present"], p6["baseline_present"]
+    out.append(f"| 6. hostile source | [Z6] | 50 attacked + 50 benign | steered {ap['steered_rate']:.3f} (baseline "
+               f"{bp['steered_rate']:.3f}); screen TP {p6['attacked_screen']['flagged_rate']:.3f}, FP "
+               f"{p6['benign_screen']['flagged_rate']:.3f} | see below | reading only | — | `tests/phase0/out/probe6.jsonl` | "
+               "`tests/phase0/results/probe6.json` |")
+    q = p7["primary_non_tie"]
+    out.append(f"| 7. calibration reading | [Z7] | {q['n']} decisions | ECE {q['ece']:.3f} (one-sided 95% bound {q['ece_upper_95']:.3f}); "
+               f"Brier {q['brier']:.3f} | per bin, below | reading only | {p7['excluded_ties']} excluded | from probes 1-3 | "
+               "`tests/phase0/results/probe7.json` |")
+    out.append(f"| 8. single candidates and partials | [Z8] | 50 / 50 / 50 / {p8['partial_only']['n']} | see below | see below | "
+               "reading only | — | `tests/phase0/out/probe8.jsonl` | `tests/phase0/results/probe8.json` |")
+    out += ["", f"**Candidate selection: {p123['candidate_selection']}.** Abandon criterion fired: "
+            f"{'yes' if p123['abandon'] else 'no'}.", "", "### 6.1 Probes 1-3 in detail", "",
+            "| probe | correct | abstain | tie | partial commit | wrong commit | invalid |", "|---|---|---|---|---|---|---|"]
+    for key in ("probe1", "probe2"):
+        c = p123[key]["counts"]
+        label = "present (probes 1 and 3)" if key == "probe1" else "absent (probe 2)"
+        out.append(f"| {label} | {c['correct']} | {c['abstain']} | {c['tie']} | {c['partial']} | {c['wrong']} | {c['invalid']} |")
+    out += ["", "| breakdown | probe 1 (correct) | probe 2 (abstain) | probe 3 (false abstention) |", "|---|---|---|---|"]
+    keys = sorted(set(p123["probe1"]["by_domain"]) | set(p123["probe2"]["by_domain"]))
+    for group, rows in (("by_domain", keys), ("by_hard", ["hard", "other"])):
+        for g in rows:
+            cells = []
+            for key in ("probe1", "probe2", "probe3"):
+                b = p123[key][group].get(g)
+                cells.append(f"{b['k']}/{b['n']}" if b else "—")
+            out.append(f"| {g} | " + " | ".join(cells) + " |")
+    for g in ("repeated", "unique"):
+        b1, b3 = p123["probe1"]["by_repeated"].get(g), p123["probe3"]["by_repeated"].get(g)
+        out.append(f"| {g} text | {b1['k']}/{b1['n']} | — | {b3['k']}/{b3['n']} |")
+    out += ["", "The operating characteristic at the achieved n (150 per probe) is the one pre-registered in §2.10.", "",
+            "### 6.2 Probe 4 in detail", "",
+            "| variant | components | correct | unresolved | merges | splits | silently wrong rate | correct rate |",
+            "|---|---|---|---|---|---|---|---|"]
+    for v in ("internal", "cross"):
+        x = p4["variants"][v]["pooled"]
+        out.append(f"| {v} | {sum(x.values())} | {x.get('correct', 0)} | {x.get('unresolved', 0)} | {x.get('merge', 0)} | "
+                   f"{x.get('split', 0)} | {p4['variants'][v]['silently_wrong_rate']:.3f} | {p4['variants'][v]['correct_rate']:.3f} |")
+    out += ["", "| run | components | correct | silently wrong | verdict |", "|---|---|---|---|---|"]
+    for r, x in p4["per_run"].items():
+        out.append(f"| {r} | {x['components']} | {_r(x['correct'], x['components'])} | {_r(x['silently_wrong'], x['components'])} | {x['verdict']} |")
+    pa, nt, cc, fl = p4["pair_accuracy"], p4["non_transitive_triples"], p4["clique_completeness"], p4["pair_flips"]
+    out += ["", f"Pair accuracy at 0.5: {_r(pa['k'], pa['n'])}. Non-transitive triples: {nt['k']}/{nt['n']} "
+            f"({nt['clusters_with_one']} cluster-runs with at least one). Clique completeness: {_r(cc['k'], cc['n'])}. "
+            f"Pair decisions flipping between the two identical runs: {fl['k']}/{fl['n']}.", "",
+            "### 6.3 Probe 5 in detail", "", "| condition | requests | wrong | rate | Wilson 95% |", "|---|---|---|---|---|"]
+    for k, v in c5.items():
+        out.append(f"| {k} | {v['requests']} | {v['wrong']}/{v['n']} | {v['rate']:.3f} | {_w(*v['wilson'])} |")
+    out += ["", "### 6.4 Probe 6 in detail", "",
+            "| question | n | correct | steered to the advocated span | abstained | tie | other commit |", "|---|---|---|---|---|---|---|"]
+    for k in ("baseline_present", "attacked_present", "baseline_absent", "attacked_absent"):
+        x = p6[k]
+        other = x["n"] - x.get("correct", 0) - x.get("steered", 0) - x.get("abstain", 0) - x.get("tie", 0) - x.get("invalid", 0)
+        out.append(f"| {k.replace('_', ', ')} | {x['n']} | {x.get('correct', 0)} | {_r(x.get('steered', 0), x['n'])} | "
+                   f"{_r(x.get('abstain', 0), x['n'])} | {x.get('tie', 0)} | {other} |")
+    for k in ("attacked_present", "attacked_absent"):
+        x = p6[k]
+        out.append(f"| {k.replace('_', ', ')}: style A (inline) / B (appended) steered | | | "
+                   f"{x.get('style_A_steered', 0)}/{x.get('style_A_n', 0)} / {x.get('style_B_steered', 0)}/{x.get('style_B_n', 0)} | | | |")
+    out += ["", "| source screen (d1, flags at p >= 0.56) | n | flagged |", "|---|---|---|"]
+    for k, lab in (("attacked_screen", "attacked documents (true positives)"), ("baseline_screen", "the same documents unattacked"),
+                   ("benign_screen", "benign documents with an ordinary processing note (false positives)")):
+        out.append(f"| {lab} | {p6[k]['n']} | {_r(p6[k]['flagged'], p6[k]['n'])} |")
+    out += ["", "### 6.5 Probe 7 in detail", "", "| reading | n | mean p | accuracy | ECE | ECE 95% bound | Brier | share at p = 1.00 |",
+            "|---|---|---|---|---|---|---|---|"]
+    for k, lab in (("primary_non_tie", "committed decisions (ties excluded)"), ("ties_included", "ties included (argmax)")):
+        x = p7[k]
+        out.append(f"| {lab} | {x['n']} | {x['mean_p']:.3f} | {x['accuracy']:.3f} | {x['ece']:.3f} | {x['ece_upper_95']:.3f} | "
+                   f"{x['brier']:.3f} | {x['share_p_100']:.3f} |")
+    out += ["", "Reliability (committed decisions, tie-safe equal-mass bins):", "",
+            "| p range | n | mean p | accuracy | Wilson 95% |", "|---|---|---|---|---|"]
+    for b in p7["primary_non_tie"]["reliability"]:
+        out.append(f"| {b['p_min']:.2f}–{b['p_max']:.2f} | {b['n']} | {b['mean_p']:.3f} | {b['accuracy']:.3f} | {_w(b['wilson_lo'], b['wilson_hi'])} |")
+    out += ["", "### 6.6 Probe 8 in detail", "", "| set | intended answer | n | rate of the intended answer | commit | abstain | tie |",
+            "|---|---|---|---|---|---|---|"]
+    for k, lab in (("lone_correct", "commit"), ("lone_wrong", "abstain"), ("lone_partial", "abstain"), ("partial_only", "abstain")):
+        x = p8[k]
+        out.append(f"| {k.replace('_', ' ')} | {lab} | {x['n']} | {_r(round(x['rate'] * x['n']), x['n'])} | {x.get('commit', 0)} | "
+                   f"{x.get('abstain', 0)} | {x.get('tie', 0)} |")
+    out += ["", f"{p8['lone_partial'].get('constructed', 0)} of the 50 lone partials were constructed by the §2.8 rule; the rest "
+            "were labelled partial options. Partial-only sources, by field type: "
+            + "; ".join(f"{ft} {v['abstain']}/{v['n']}" for ft, v in p8["partial_only"]["by_field_type"].items()) + "."]
+    return "\n".join(out)
+
+
+def render_floor(p4: dict) -> str:
+    f = p4["floor"]
+    out = ["| floor | same-entity pairs at or below (both runs pooled) | <= 2%? |", "|---|---|---|"]
+    for g, sh in f["share_at_or_below"].items():
+        out.append(f"| {g} | {sh:.4f} ({round(sh * f['same_entity_pairs'])}/{f['same_entity_pairs']}) | {'yes' if sh <= 0.02 else 'no'} |")
+    return "\n".join(out + ["", f"**conflict_floor = {f['value']:.2f}**; qualifying values {f['qualifying']}; grid top binds: "
+                                 f"{'yes' if f['grid_top_binds'] else 'no'}; no value qualified: {'yes' if f['no_value_qualified'] else 'no'}. "
+                                 f"**Variant: {p4['chosen_variant']}** (lower silently-wrong point estimate: internal "
+                                 f"{p4['variants']['internal']['silently_wrong_rate']:.3f}, cross {p4['variants']['cross']['silently_wrong_rate']:.3f}). "
+                                 f"**Probe 4 verdict under the chosen variant: {p4['verdict']}.**"])
+
+
 def replace_block(doc: str, name: str, body: str) -> str:
     pat = re.compile(rf"(<!-- BEGIN:{name} -->\n).*?(<!-- END:{name} -->)", re.S)
     if not pat.search(doc):
@@ -230,6 +354,11 @@ def generated_blocks(ds: pathlib.Path = DATASETS, results: pathlib.Path = RESULT
         prov = json.loads((schemas / "provenance.json").read_text())
         blocks["taxonomy"] = render_taxonomy(tax, prov)
         blocks["fields"] = render_field_table(tax)
+    names = ("probe1_2_3", "probe4", "probe5", "probe6", "probe7", "probe8")
+    if all((results / f"{n}.json").exists() for n in names):
+        res = {n: json.loads((results / f"{n}.json").read_text()) for n in names}
+        blocks["results"] = render_results(res)
+        blocks["floor"] = render_floor(res["probe4"])
     return blocks
 
 
