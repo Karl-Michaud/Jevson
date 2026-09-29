@@ -319,6 +319,11 @@ candidate extraction
               └── budget exhausted ────────► Unresolved(...)
 ```
 
+**Retry only helps if the input changes.** Jev is deterministic (§2) — re-asking the same question over the same state returns the same answer. A retry that does not expand the candidate set, change the state, or alter the question is guaranteed to be wasted spend. Therefore:
+
+- Retry against a **schema-derived** option set (enum, rubric) has a default budget of **zero**. There is nothing to expand.
+- Retry against a **candidate-derived** option set re-runs extraction with a widened brief, producing a genuinely different option set. Default budget **one**.
+
 The terminal outcome is a **typed value, never an exception**:
 
 ```text
@@ -342,6 +347,13 @@ Exactly two kinds in v0, deliberately boring:
 SOURCE_SPAN      source id, start offset, end offset
 DECLARED_OPTION  option identifier (schema enum value, rubric level)
 ```
+
+**Span semantics, pinned so implementations cannot disagree:**
+
+- Offsets are **Python `str` character offsets**, not bytes. The hostile suite includes unicode confusables and multi-byte content; byte offsets would make verification wrong in exactly those cases.
+- Half-open interval `[start, end)`, matching Python slicing.
+- **v0 supports one source per call.** `source_id` exists in the type so multi-source is not a breaking change later, but supplying more than one source refuses at compile time.
+- A span is valid only if `source[start:end]` equals the candidate text exactly. Verification happens **before** the Jev call, not after — an unverifiable span never becomes an option.
 
 Which supports two clean guarantees:
 
@@ -371,6 +383,34 @@ Two further honest limits that belong in user-facing docs:
 
 - **Adjudication only checks the criteria you declare.** Criteria quality is the library's real interface for generative fields.
 - **Jev's confidence is calibrated over the options it was given.** `none_of_these` is what makes a bad option set visible; nothing else does.
+
+### 6.1 The central property, stated precisely
+
+The library's headline claim is that the result survives arbitrary model behaviour. Stated as a binary — *"a valid object or a refusal"* — it is **wrong**, because an abstained optional field is a legitimate third outcome that satisfies neither.
+
+The correct statement, and the one the adversarial suite asserts:
+
+> For any schema and any backend or LLM behaviour whatsoever, a call returns exactly one of:
+>
+> 1. a `Result` whose `.value` validates against the original schema, and `.satisfies_schema is True`;
+> 2. a `Result` carrying one or more `Unresolved` fields, with `.satisfies_schema is False` and every hole named; or
+> 3. a typed refusal (`CompileError` or `SchemaViolation`) naming the reason.
+>
+> Never a fourth outcome. Never a partial object that claims to satisfy the schema. Never an untyped exception from a model's output.
+
+`satisfies_schema` is a required field on `Result` precisely so outcome 2 cannot be mistaken for outcome 1 by a caller who forgets to check.
+
+### 6.2 Confidence is reported, not enforced, by default
+
+Whether Jev's calibration transfers to source-span disambiguation is an **open question** (§12), not an established fact. Shipping a default confidence threshold that silently drops values would be asserting an answer we do not have.
+
+Therefore in v0:
+
+- Confidence and the full distribution are **always reported** per decision.
+- **No default threshold gates a commit.** A caller who wants gating sets one explicitly.
+- `none_of_these` is the one abstention path that is on by default, because it is a *structural* signal about the option set rather than a *calibration* claim about the model.
+
+If Phase 0's spike and Phase 4's measurements show calibration holds on this task, a default threshold becomes defensible in v1 — with the evidence cited.
 
 ---
 
@@ -422,6 +462,37 @@ Five protocols, each earning its place by having a real second implementation. *
 
 **Vendor risk:** Jev is a single-vendor, early-access dependency. `nokia-applied-research/AnyJev` and `kikoncuo/jevfire` provide Jev-style constrained decisions over other models and are the identified substitution path. The `Backend` protocol exists so that substitution never touches the compiler, the graph, or the assembler.
 
+### 8.1 The result type
+
+Pinned here because it is the library's primary interface and every phase touches it.
+
+```text
+Result
+  value             dict — the assembled object
+  satisfies_schema  bool — False whenever any Unresolved is present (§6.1)
+  provenance        {json_pointer: SOURCE_SPAN | DECLARED_OPTION}
+  confidence        {json_pointer: Confidence(value, distribution)}
+  unresolved        [Unresolved(pointer, reason, candidates_seen, abstain_probability)]
+  overflow          [Overflow(pointer, candidate, probability)]   — R8
+  rejections        [Rejection(pointer, criterion, draft)]        — adjudication history
+  cost              Cost(jev_questions, jev_input_tokens, llm_input_tokens,
+                         llm_output_tokens, retries, wall_clock_by_component)
+```
+
+Every field is always present. An empty list is the absence of a condition; `None` is never used to mean "nothing happened."
+
+### 8.2 The context budget
+
+State and questions **share a ~64k token window** (§2). This is a hard constraint that a long source document plus a large candidate set will hit, and nothing in the architecture prevents it implicitly.
+
+The executor therefore budgets before every call:
+
+- Estimate tokens for the state plus the level's question map.
+- If a level exceeds the window, **split the level** — the questions are independent by construction, so splitting is always safe and costs one extra round trip.
+- If a *single* question plus its state exceeds the window, **refuse loudly** with the offending pointer. Silently truncating the state would change the answer without telling anyone.
+
+This also caps pairwise entity resolution (§5, R6), which is O(n²): resolving n candidates costs n(n−1)/2 questions. **Pairwise resolution is capped at n = 30** (435 questions) by default. Above the cap the compiler refuses and directs the caller to narrow candidates upstream — approximating with a cheaper clustering heuristic would make deduplication silently unreliable, which is worse than refusing.
+
 ---
 
 ## 9. Prior art
@@ -460,6 +531,10 @@ Also relevant: 12+ Jev agent skills exist for Claude Code ([madewithjev.com/skil
 | Jev is not a fact-checker | adjudication is only as good as the declared criteria |
 | Jev has no schema awareness | all question design is Jevson's; the compiler is the product |
 | Candidate coverage bounds everything | Jev can only select from the set it is given — §5.3 is the only defence |
+| ~64k shared state + question window | levels split automatically; a single oversized question refuses (§8.2) |
+| Pairwise entity resolution is O(n²) | capped at n = 30 candidates; above it, refuse rather than approximate (§8.2) |
+| Retry is useless against identical input | Jev is deterministic; retry budgets default to zero unless extraction can widen (§5.4) |
+| One source per call in v0 | `source_id` reserved in the type; multiple sources refuse at compile time (§5.5) |
 | Unbounded array cardinality | not a bounded decision; source-grounded membership only, generative lists refused in v0 |
 | `anyOf` / `oneOf` / `$ref` | resolved where the branch is a bounded decision (§3.2); refused loudly where not |
 
@@ -494,12 +569,29 @@ Left open deliberately. Each is recorded in `PLAN.md` against the phase that wil
 - **Retry budget's real value.** Whether a second extraction pass after `none_of_these` actually recovers answers, or merely costs a round trip.
 - **Calibration on this task specifically.** Jev's published calibration is not a claim about source-span disambiguation. Must be measured.
 - **Criteria authoring.** Adjudication is only as good as user-written criteria. Whether we ship templates, a dry-run tool, or documentation is unsettled; the dry-run tool is the current favourite.
+- **Default confidence thresholds.** Deliberately absent in v0 (§6.2). Whether a default gate becomes defensible depends on Phase 0 and Phase 4 calibration evidence.
+- **Level splitting under the context budget.** Splitting a level is safe for correctness (§8.2), but Jev evaluates a state's questions jointly. Whether splitting measurably changes answers is untested.
+- **Multi-source extraction.** One source per call in v0. Whether cross-document candidate selection is a real need or a distraction is unanswered.
+- **Pairwise cap of 30.** Chosen against the context budget, not against measured degradation. The real ceiling may be lower.
 - **JS port.** Deferred to v1. The population exists; splitting v0 across two languages does not.
 - **The name.** "Jevson" couples us to a vendor whose replaceability is an explicit design goal. Kept for now, revisited at v1.
 
 ---
 
 ## 13. Changelog
+
+### Revision 2.1 — 2026-09-28, review pass
+
+Adversarial review of Revision 2 and the build plan. No architectural reversals; six gaps closed where the design was underspecified enough that two implementers would have disagreed.
+
+| added | why it was missing |
+|---|---|
+| **The central property stated as three outcomes** (§6.1) | It was written as a binary — "valid object or refusal" — which silently excluded the legitimate abstained-optional-field case. The headline claim was imprecise. |
+| **Confidence reported, not enforced** (§6.2) | A default threshold would assert calibration on this task, which is an open question, not a finding. |
+| **Retry is useless against identical input** (§5.4) | Jev is deterministic, so retrying an unchanged question is guaranteed waste. Budgets now default to zero unless extraction can genuinely widen. |
+| **Span semantics pinned** (§5.5) | Character vs byte offsets, interval convention, and single-source scope were all unstated; byte offsets would break verification on exactly the unicode cases the hostile suite covers. |
+| **The result type pinned** (§8.1) | Referenced by every phase, defined nowhere. |
+| **Context budget and the O(n²) cap** (§8.2) | The 64k shared window appeared nowhere in the architecture, and pairwise entity resolution had no ceiling — 255 candidates would have been 32,385 questions in one call. |
 
 ### Revision 2 — 2026-09-28
 
