@@ -319,7 +319,7 @@ def build_all(root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION
     dump(p2, out / "probe2.jsonl")
     hostile = hostile_cases(p1, texts=texts)
     dump(hostile, out / "probe6_attacked.jsonl")
-    screen_pool = {d: lab for d, lab in labels.items()}
+    screen_pool = {d: lab for d, lab in labels.items() if docs[d].pool in ("main", "screen")}
     for p in sorted((labels_dir / "screen").glob("*.json")):
         s = json.loads(p.read_text())
         screen_pool[s["doc_id"]] = s
@@ -344,8 +344,33 @@ def build_all(root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION
     return summary
 
 
+def build_gate(root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION, labels_dir: pathlib.Path = LABELS,
+               out: pathlib.Path = CASES, pool: str = "gate") -> dict:
+    """Probe 9's fresh cases (docs/gate-probe.md §2): the §2.2 construction and sampler on the gate pool only."""
+    docs = load_manifest(root)
+    texts = {d: doc_text(r, root) for d, r in docs.items() if r.pool == pool}
+    opts = _read_jsonl(extraction / f"options_{pool}.jsonl")
+    labels = {r["doc_id"]: json.loads((labels_dir / "candidates" / f"{r['doc_id']}.json").read_text()) for r in opts}
+    adj_path = labels_dir / f"adjudication_{pool}.jsonl"
+    labels = apply_adjudication(labels, _read_jsonl(adj_path) if adj_path.exists() else [])
+    for r in opts:
+        validate_candidate_labels(labels[r["doc_id"]], r, texts[r["doc_id"]])
+    sets = split({dom: [d for d, r in docs.items() if r.domain == dom and r.pool == pool]
+                  for dom in {r.domain for r in docs.values() if r.pool == pool}})
+    insts = instances(opts, labels)
+    present_pool = [c for i in insts if sets[i.doc_id] == "P" for c in [present_case(i, texts[i.doc_id])] if c]
+    absent_pool = [c for i in insts if sets[i.doc_id] == "A" for c in [absent_case(i)] if c]
+    p, a, notes = SA.sample(present_pool, absent_pool)
+    dump(p, out / f"{pool}_present.jsonl")
+    dump(a, out / f"{pool}_absent.jsonl")
+    summary = {"sampling": notes, "instances": len(insts), "documents": len(opts),
+               "non_english_cases": sum(docs[c.doc_id].language != "en" for c in p + a)}
+    (out / f"{pool}_build_summary.json").write_text(json.dumps(summary, indent=1) + "\n")
+    return summary
+
+
 def main(argv: list[str]) -> int:  # pragma: no cover
-    print(json.dumps(build_all(), indent=1))
+    print(json.dumps(build_gate() if argv[:1] == ["gate"] else build_all(), indent=1))
     return 0
 
 

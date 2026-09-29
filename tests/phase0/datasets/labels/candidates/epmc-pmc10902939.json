@@ -1,0 +1,50 @@
+{
+ "doc_id": "epmc-pmc10902939",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "right atrial appendage diverticulum",
+   "superseded": false,
+   "rationale": "Imaging and surgery confirmed a diverticulum of the right atrial appendage as the origin of the atrial fibrillation.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "correct",
+    "c14": "wrong",
+    "c15": "correct",
+    "c16": "partial",
+    "c17": "correct",
+    "c18": "partial",
+    "c19": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The diverticulum was treated surgically; the antiarrhythmics named were ineffective pre-diagnosis drugs for AF.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  }
+ }
+}

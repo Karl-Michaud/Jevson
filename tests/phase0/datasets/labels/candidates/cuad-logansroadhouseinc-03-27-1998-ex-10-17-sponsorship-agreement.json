@@ -1,0 +1,89 @@
+{
+ "doc_id": "cuad-logansroadhouseinc-03-27-1998-ex-10-17-sponsorship-agreement",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: Southern Racing Promotions, Inc. (SRP) and Logan's Roadhouse, Inc.; a driver (Brad Baker) is also named.",
+ "processing_note": "All notices required or permitted hereunder shall be in writing and shall be deemed to be properly given: (a) when personally delivered to the party entitled to receive the notice; (b) upon receipt of facsimile message confirmed by first class mail, postage prepaid; (c) upon receipt of package delivered by overnight courier; or (d) when sent by certified or registered mail, postage prepaid properly addressed.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "SPONSORSHIP AGREEMENT",
+   "superseded": false,
+   "rationale": "The contract is titled and calls itself the Sponsorship Agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "24th day of February, 1998",
+   "superseded": false,
+   "rationale": "Made and entered into the 24th day of February, 1998.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "24th day of February, 1998",
+   "superseded": false,
+   "rationale": "The term commences on the date hereof, i.e. 24th day of February, 1998.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "present",
+   "value": "November 30, 1998",
+   "superseded": false,
+   "rationale": "The term continues through November 30, 1998.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "laws of the State of Tennessee",
+   "superseded": false,
+   "rationale": "Article 18: governed by the laws of the State of Tennessee; other Tennessee mentions are incorporation, place of business or market.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "correct",
+    "c6": "correct"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal provision.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal, so no notice period to prevent renewal.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "doc_id": "cuad-bnlfinancialcorp-03-30-2007-ex-10-8-outsourcing-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "OUTSOURCING AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "1 st  day of May 2006",
+   "May 17, 2006",
+   "May 18, 2006"
+  ],
+  "contract.effective_date": [
+   "1st day of May, 2006",
+   "1 st  day of May 2006"
+  ],
+  "contract.expiration_date": [
+   "one year"
+  ],
+  "contract.governing_law": [
+   "State of Oklahoma",
+   "Oklahoma",
+   "State of Arkansas"
+  ],
+  "contract.renewal_term": [
+   "year to year basis",
+   "one year"
+  ],
+  "contract.notice_period": [
+   "six (6) months",
+   "thirty (30) days",
+   "ten (10) days"
+  ]
+ }
+}

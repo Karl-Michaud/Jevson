@@ -1,0 +1,31 @@
+{
+ "doc_id": "cuad-premierbiomedicalinc-05-14-2020-ex-10-2-intellectual-propert",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "INTELLECTUAL PROPERTY AGREEMENT",
+   "Intellectual Property Agreement"
+  ],
+  "contract.agreement_date": [
+   "May 12, 2020",
+   "May 12, 2010"
+  ],
+  "contract.effective_date": [
+   "May 12, 2020"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "Commonwealth of Pennsylvania",
+   "Pennsylvania"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "thirty (30) days",
+   "ninety (90) days",
+   "sixty (60) days",
+   "fourteen (14) days"
+  ]
+ }
+}

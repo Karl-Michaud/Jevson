@@ -39,10 +39,10 @@ def window(text: str, from_end: bool, limit: int = PASSAGE_MAX) -> tuple[int, in
     return (start + 2 if start >= 0 else len(text) - limit), len(text)
 
 
-def extraction_tasks(docs: dict[str, DocRecord]) -> list[dict]:
+def extraction_tasks(docs: dict[str, DocRecord], pool: str = "main") -> list[dict]:
     out = []
     for d in sorted(docs.values(), key=lambda r: r.doc_id):
-        if d.pool != "main":
+        if d.pool != pool:
             continue
         out.append({"doc_id": d.doc_id, "domain": d.domain, "path": f"tests/phase0/datasets/corpus/{d.path}",
                     "fields": [{"field_id": f.field_id, "label": f.label, "guidance": f.guidance}
@@ -68,11 +68,12 @@ def passages(docs: dict[str, DocRecord], root: pathlib.Path = CORPUS) -> list[di
 
 
 def main(argv: list[str], root: pathlib.Path = CORPUS) -> int:
-    if len(argv) != 2 or argv[0] not in ("extraction", "passages"):
-        print("usage: tasks <extraction|passages> <out dir>", file=sys.stderr)
+    if len(argv) not in (2, 3) or argv[0] not in ("extraction", "passages"):
+        print("usage: tasks <extraction|passages> <out dir> [pool]", file=sys.stderr)
         return 2
     docs = load_manifest(root)
-    items = extraction_tasks(docs) if argv[0] == "extraction" else passages(docs, root)
+    pool = argv[2] if len(argv) == 3 else "main"
+    items = extraction_tasks(docs, pool) if argv[0] == "extraction" else passages(docs, root)
     out = pathlib.Path(argv[1])
     out.mkdir(parents=True, exist_ok=True)
     (out / f"{argv[0]}.json").write_text(json.dumps(items, indent=1, ensure_ascii=False))

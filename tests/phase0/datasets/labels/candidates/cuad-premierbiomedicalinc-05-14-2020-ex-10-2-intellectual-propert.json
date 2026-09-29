@@ -1,0 +1,96 @@
+{
+  "doc_id": "cuad-premierbiomedicalinc-05-14-2020-ex-10-2-intellectual-propert",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Three parties: Marv Enterprises, LLC, Premier Biomedical, Inc., and Technology Health, Inc.",
+  "processing_note": "Within such thirty (30) days, THI shall pay in United States dollars to Marv at PO Box 1332, Hermitage, PA 16148, or other address provided by Marv, the royalties payable in accordance with such statement.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "INTELLECTUAL PROPERTY AGREEMENT",
+      "superseded": false,
+      "rationale": "The title and preamble name it Intellectual Property Agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "May 12, 2020",
+      "superseded": false,
+      "rationale": "The agreement is entered into on May 12, 2020; other dates are the 2010 agreement or payment deadlines.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "May 12, 2020",
+      "superseded": false,
+      "rationale": "May 12, 2020 is defined as the Effective Date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No term or expiration date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "Commonwealth of Pennsylvania",
+      "superseded": false,
+      "rationale": "Section 8 selects the laws of the Commonwealth of Pennsylvania; c0/c1 are Marv's organisation and c4 is venue.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal provision.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal, hence no non-renewal notice period.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    }
+  }
+}

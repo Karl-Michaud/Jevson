@@ -1,0 +1,40 @@
+{
+  "doc_id": "cuad-freecook-20180605-s-1-ex-10-3-11233807-ex-10-3-hosting-agree",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: Client (Natalija Tunevic / FreeCook) and Company (Mitchell's Web Advance, PLC).",
+  "processing_note": "Any email or telephone correspondence received after normal business hours will be processed the following business day.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Website Design, Development and Hosting Agreement",
+      "superseded": false,
+      "rationale": "The agreement names itself 'Website Design, Development and Hosting Agreement' in the title, preamble, running footers and exhibit header.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "January 11, 2018",
+      "superseded": false,
+      "rationale": "No separate effective date; the agreement is entered into on January 11, 2018; Feb 8 / May 3 are project dates, the Jan. 11 lines are signature dates and 6/5/2018 is the filing source date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+ "doc_id": "epmc-pmc10900723",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "IgG4-related disease",
+   "superseded": false,
+   "rationale": "The patient was diagnosed with IgG4-related disease (IgG4RD) by ACR/EULAR criteria.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "partial",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "correct",
+    "c17": "correct"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "prednisolone",
+   "superseded": false,
+   "rationale": "He was commenced on steroids, specifically oral prednisolone 0.6 mg/kg/day.",
+   "options": {
+    "c0": "partial",
+    "c1": "partial",
+    "c2": "partial",
+    "c3": "correct",
+    "c4": "correct"
+   }
+  }
+ }
+}

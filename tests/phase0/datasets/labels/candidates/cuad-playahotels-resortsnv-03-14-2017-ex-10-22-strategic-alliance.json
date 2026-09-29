@@ -1,0 +1,131 @@
+{
+  "doc_id": "cuad-playahotels-resortsnv-03-14-2017-ex-10-22-strategic-alliance",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Hyatt Franchising Latin America, L.L.C. and Playa Hotels & Resorts, B.V., plus several franchisee entities and resort addresses.",
+  "processing_note": "Any notice required under this Agreement to be given by either Party to the other Party shall be in writing in the English language.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "STRATEGIC ALLIANCE AGREEMENT",
+      "superseded": false,
+      "rationale": "The title and preamble name it Strategic Alliance Agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "December 14, 2016",
+      "superseded": false,
+      "rationale": "The agreement is made and entered into as of December 14, 2016; other dates relate to prior agreements or the Development Term.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "December 14, 2016",
+      "superseded": false,
+      "rationale": "December 14, 2016 is defined as the Effective Date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "present",
+      "value": "December 31, 2018",
+      "superseded": false,
+      "rationale": "The agreement's operative period (Development Term) runs from the Effective Date to December 31, 2018; no other term is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "correct"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Illinois (U.S.A.)",
+      "superseded": false,
+      "rationale": "Section 4 selects the laws of the State of Illinois (FAA governs arbitration matters only).",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "correct",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal provision.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal, hence no non-renewal notice period.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    }
+  }
+}

@@ -37,7 +37,7 @@ class DocRecord(Strict):
     attribution: str
     notes: str = ""
     retrieved: str
-    pool: Literal["main", "screen"] = "main"
+    pool: Literal["main", "screen", "gate"] = "main"
     meta: dict = Field(default_factory=dict)
     chars: int
     sha256: str

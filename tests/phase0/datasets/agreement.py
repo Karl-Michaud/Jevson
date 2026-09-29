@@ -101,6 +101,23 @@ def _load_dir(d: pathlib.Path, key: str) -> dict[str, dict]:
 
 
 def main(argv: list[str], labels: pathlib.Path = LABELS, extraction: pathlib.Path = EXTRACTION) -> int:
+    if argv[:1] == ["sample-gate"] and len(argv) == 2:
+        opts = [json.loads(x) for x in (extraction / "options_gate.jsonl").read_text().splitlines()]
+        chosen = sample_keys([(r["doc_id"], f["field_id"]) for r in opts for f in r["fields"] if not f["over_cap"]])
+        out = pathlib.Path(argv[1])
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "second_sample_gate.json").write_text(json.dumps({"fields": chosen}, indent=1))
+        print(f"gate second sample: {len(chosen)} field instances")
+        return 0
+    if argv[:1] == ["report-gate"]:
+        opts = [json.loads(x) for x in (extraction / "options_gate.jsonl").read_text().splitlines()]
+        ids = {r["doc_id"] for r in opts}
+        prim = {k: v for k, v in _load_dir(labels / "candidates", "doc_id").items() if k in ids}
+        sec = {k: v for k, v in _load_dir(labels / "second" / "candidates", "doc_id").items() if k in ids}
+        rep = candidate_agreement(prim, sec)
+        (labels / "agreement_gate.json").write_text(json.dumps(rep, indent=1) + "\n")
+        print(json.dumps({k: v for k, v in rep.items() if k != "disagreements"} | {"disagreements": len(rep["disagreements"])}, indent=1))
+        return 0
     if argv[:1] == ["sample"] and len(argv) == 2:
         opts = [json.loads(x) for x in (extraction / "options.jsonl").read_text().splitlines()]
         inst = [(r["doc_id"], f["field_id"]) for r in opts for f in r["fields"] if not f["over_cap"]]

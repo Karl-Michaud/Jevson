@@ -1,0 +1,24 @@
+exFAT Mounted HDD partition not mounting as specified user and instead as root
+
+Forgive me if this question has been asked before but I have tried to find an answer to no avail leading me to write this. Please link me the solution if this or something similar has been asked.
+
+I have a Mac Mini running Ubuntu Server which is host to multiple Docker containers running various services for a home server. Each container has its own user which runs the container and is the owner of their own folders containing the service files. I have both a Jellyfin server and a Samba server which require read and write permissions for their respective folders.
+
+For these servers to have space I have their running off of an external hard drive /dev/sdb, each with their own exFAT partition (for swapping between OSs). These partitions are mounted as sudo mount -t exfat -o uid=115,gid=120 /dev/sdb2 /home/mini/Jellyfin/media and the same concept applies to the Samba mount.
+I do not apply these mounts on startup and I choose to mount them manually, so no changes have been made to /etc/fstab
+
+User and group 115:120 corresponds to jellyfin's user account.
+The output of ls -l /home/mini/Jellyfin/
+
+total 144
+drwxrwxr-x 6 jellyfin mini 4096 Jan 3 08:06 cache
+drwxrwxr-x 12 jellyfin mini 4096 Jun 22 2023 config
+-rw-rw-r-- 1 jellyfin mini 607 Jan 7 11:35 docker-compose.yml
+-rw-rw-r-- 1 jellyfin mini 434 Jun 22 2023 docker-compose.yml.old
+drwxr-xr-x 6 root root 131072 Jan 8 07:35 media
+
+I have attempted to run sudo chown jellyfin /home/mini/Jellyfin/media but receive chown: changing ownership of '/home/mini/Jellyfin/media': Operation not permitted.
+
+I understand that exFAT doesn't have permissions built in which is why I try to mount the partitions as their respective users, but I don't understand why the mount point is mounted as root.
+
+Any help is greatly appreciated. Thank you.

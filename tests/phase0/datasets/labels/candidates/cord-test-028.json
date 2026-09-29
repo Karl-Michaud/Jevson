@@ -1,0 +1,136 @@
+{
+  "doc_id": "cord-test-028",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single restaurant bill; no named parties, one transaction.",
+  "processing_note": null,
+  "fields": {
+    "receipt.total_price": {
+      "status": "present",
+      "value": "426,195",
+      "superseded": false,
+      "rationale": "TOTAL 426,195.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct"
+      }
+    },
+    "receipt.subtotal_price": {
+      "status": "present",
+      "value": "369,000",
+      "superseded": false,
+      "rationale": "Sub Total 369,000.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "receipt.tax_price": {
+      "status": "present",
+      "value": "38,745",
+      "superseded": false,
+      "rationale": "VAT 38,745.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "wrong"
+      }
+    },
+    "receipt.service_price": {
+      "status": "present",
+      "value": "18,450",
+      "superseded": false,
+      "rationale": "Service 18,450.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "receipt.discount_price": {
+      "status": "present",
+      "value": "0",
+      "superseded": false,
+      "rationale": "Discount 0 states a zero discount.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "wrong"
+      }
+    },
+    "receipt.cashprice": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No payment tendered is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "receipt.changeprice": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No change is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "receipt.menuqty_cnt": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No total item count is printed; only per-line quantities appear.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

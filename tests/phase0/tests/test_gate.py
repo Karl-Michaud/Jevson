@@ -94,3 +94,88 @@ def test_score_gate_invalid_gate_fails_and_rejecting_gate_drops(mini):
     assert s2["committed_when_absent"]["k"] == 0          # an invalid verification answer fails the gate
     s3 = PR.score_gate(present, absent, {}, "g1", "g2")
     assert s3["gated_present"].get("invalid") == s3["n_present"]
+
+
+# ---------------------------------------------------------------- gate pool pipeline
+
+import json  # noqa: E402
+
+import httpx  # noqa: E402
+
+from tests.phase0 import runner as RN  # noqa: E402
+from tests.phase0 import run_probe_9  # noqa: E402
+from tests.phase0.datasets import agreement as AG  # noqa: E402
+from tests.phase0.datasets import build as B  # noqa: E402
+from tests.phase0.datasets import fetch as F  # noqa: E402
+from tests.phase0.datasets import tasks as TK  # noqa: E402
+from tests.phase0.datasets.models import load_manifest  # noqa: E402
+
+
+def _gate_corpus(tmp_path):
+    p = MC.make(tmp_path)
+    gate = [F.Doc(f"g{i}", "receipt", "id", MC.RECEIPT.replace("10,000", f"9{i},000"), "u", "cc-by-4.0", "x", pool="gate")
+            for i in range(6)]
+    F.write_docs(gate, p["corpus"])
+    for d in gate:
+        (p["extraction"] / "llm" / f"{d.doc_id}.json").write_text(json.dumps(
+            {"doc_id": d.doc_id, "fields": {"receipt.total_price": ["30,000", "99,000"], "receipt.cashprice": ["50,000"]}}))
+    recs = B.build_options(p["corpus"], p["extraction"], "gate")
+    B.write_jsonl(recs, p["extraction"] / "options_gate.jsonl")
+    texts = {d.doc_id: d.text for d in gate}
+    for r in recs:
+        lab = {"doc_id": r["doc_id"], "multi_entity": False, "processing_note": None,
+               "fields": {f["field_id"]: MC.label_for(r["doc_id"], f, texts[r["doc_id"]]) for f in r["fields"]}}
+        (p["labels"] / "candidates" / f"{r['doc_id']}.json").write_text(json.dumps(lab))
+    return p
+
+
+def test_gate_pool_pipeline_keeps_phase0_separate(tmp_path, capsys):
+    p = _gate_corpus(tmp_path)
+    CS.build_all(p["corpus"], p["extraction"], p["labels"], tmp_path / "c")
+    assert not any(json.loads(x)["doc_id"].startswith("g") for x in (tmp_path / "c" / "probe1_3.jsonl").read_text().splitlines())
+    s = CS.build_gate(p["corpus"], p["extraction"], p["labels"], tmp_path / "c")
+    assert s["documents"] == 6 and (tmp_path / "c" / "gate_present.jsonl").exists()
+    assert len(TK.extraction_tasks(load_manifest(p["corpus"]), "gate")) == 6
+    assert TK.main(["extraction", str(tmp_path / "t"), "gate"], p["corpus"]) == 0
+    assert B.main(["options", "gate"], p["corpus"], p["extraction"]) == 0
+    assert AG.main(["sample-gate", str(tmp_path / "s")], p["labels"], p["extraction"]) == 0
+    (p["labels"] / "second" / "candidates").mkdir(parents=True)
+    first = sorted((p["labels"] / "candidates").glob("g*.json"))[0]
+    (p["labels"] / "second" / "candidates" / first.name).write_text(first.read_text())
+    assert AG.main(["report-gate"], p["labels"], p["extraction"]) == 0
+    assert json.loads((p["labels"] / "agreement_gate.json").read_text())["n_documents"] == 1
+
+
+def test_fetch_gate_mode_is_disjoint_and_tagged(tmp_path):
+    docs = [F.Doc(f"d{i}", "resume", "en", "t", "u", "public-domain-us-gov", "x") for i in range(5)]
+    out = F.fresh(docs, {"d0", "d2"}, 2)
+    assert [d.doc_id for d in out] == ["d1", "d3"] and all(d.pool == "gate" for d in out)
+    from tests.phase0.tests.test_fetch import _router, _cuad, _word
+    client = httpx.Client(transport=httpx.MockTransport(_router))
+    scratch = tmp_path / "s"
+    scratch.mkdir()
+    (scratch / "CUADv1.json").write_text(json.dumps(_cuad(120)))
+    long_gt = {"valid_line": [{"words": [_word(f"L{i}", i, 0, i)]} for i in range(9)]}
+    (scratch / "cord_test_ground_truth.jsonl").write_text("\n".join(json.dumps(long_gt) for _ in range(60)))
+    root = tmp_path / "corpus"
+    assert F.main(["cuad", str(scratch)], client=client, root=root) == 0
+    for src in F.GATE_COUNTS:
+        assert F.main(["gate", str(scratch), src], client=client, root=root) == 0
+    man = [json.loads(x) for x in (root / "manifest.jsonl").read_text().splitlines()]
+    main_ids = {m["doc_id"] for m in man if m["pool"] == "main"}
+    gate = [m for m in man if m["pool"] == "gate"]
+    assert gate and not main_ids & {m["doc_id"] for m in gate}
+    assert sum(m["pool"] == "gate" and m["domain"] == "contract" for m in man) == 50
+
+
+def test_run_probe_9_dry_run(tmp_path, monkeypatch):
+    p = _gate_corpus(tmp_path)
+    CS.build_all(p["corpus"], p["extraction"], p["labels"], tmp_path / "cases")
+    CS.build_gate(p["corpus"], p["extraction"], p["labels"], tmp_path / "cases")
+    monkeypatch.setattr(common, "CASES", tmp_path / "cases")
+    monkeypatch.setattr(common, "CORPUS", p["corpus"])
+    monkeypatch.setattr(RN, "OUT", tmp_path / "out")
+    monkeypatch.setattr(RN, "RESULTS", tmp_path / "results")
+    assert run_probe_9.main(["--dry-run"]) == 0
+    s = json.loads((tmp_path / "out" / "dry" / "probe9.summary.json").read_text())
+    assert s["fresh"]["verdict"] in ("proceed", "marginal", "drop") and "paired_phase0" in s

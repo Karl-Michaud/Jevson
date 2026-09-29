@@ -103,7 +103,7 @@ def _jsonl(p: pathlib.Path) -> list[dict]:
 
 
 def render_corpus(ds: pathlib.Path = DATASETS) -> str:
-    man = _jsonl(ds / "corpus" / "manifest.jsonl")
+    man = [m for m in _jsonl(ds / "corpus" / "manifest.jsonl") if m["pool"] in ("main", "screen")]
     summ = json.loads((ds / "cases" / "build_summary.json").read_text())
     p13 = _jsonl(ds / "cases" / "probe1_3.jsonl")
     p2 = _jsonl(ds / "cases" / "probe2.jsonl")

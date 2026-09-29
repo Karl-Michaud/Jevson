@@ -1,0 +1,28 @@
+{
+  "doc_id": "cord-test-020",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single point-of-sale receipt for one purchase transaction with one merchant and one payment.",
+  "processing_note": null,
+  "fields": {
+    "receipt.subtotal_price": {
+      "status": "present",
+      "value": "325,600",
+      "superseded": false,
+      "rationale": "SUBTOTAL 325,600 is printed before service charge and PB1 tax.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    }
+  }
+}

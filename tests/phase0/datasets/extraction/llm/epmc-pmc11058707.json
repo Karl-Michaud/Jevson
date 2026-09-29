@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc11058707", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["EN", "type 2 diabetes"], "medical.treatment_drug": ["semaglutide", "levothyroxine", "allopurinol", "atorvastatin"]}}

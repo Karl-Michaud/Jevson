@@ -24,6 +24,15 @@
 - **Same pipeline, unchanged:** the recorded extractor prompts, the pattern extractors, the labelling protocol, a 20% independent second labeller with Cohen's kappa, and adjudication of every disagreement by a third agent. No labeller sees any Jev output.
 - **Same case rules** as `docs/taxonomy.md` §2.2: a P/A document split per domain, present cases with ≥ 3 competitors, absent cases with every correct and same-text option removed and ≥ 3 options left, at most 8 cases per document, ≥ 30% hard-regime cases, ≥ 20 repeated-text present cases, 150 present and 150 absent cases by the same seeded sampler.
 
+### 2.1 Achieved (recorded before the first live call)
+
+- **Documents:** 157 in `pool: "gate"`: contracts 50 (CUAD), resumes 30 (FJC), medical intake 22 (Europe PMC, Feb 2024), product listings 22 (GSA Auctions), support tickets 22 (Stack Exchange, 12 en + 10 es, January 2024), receipts 11 (CORD). **Shortfall:** CORD had only 11 eligible receipts not already used by Phase 0 (target 30).
+- **Extraction:** the recorded extractor prompt, per document (`extraction/llm/`), then `build options gate` → `extraction/options_gate.jsonl`: 780 field instances, 6 over the 50-option cap. Two extractor deviations, both disclosed: the support-ticket extractor dropped 7 spans that were not verbatim, and one contract extractor replaced 6 non-verbatim spans by shorter verbatim forms. The pattern extractors and `extract.locate` accept only exact text, so neither can put non-source text into an option.
+- **Labels:** a primary labeller on all 780 instances (`labels/candidates/`). An independent second labeller on the seeded 20% sample: 155 instances in 92 documents (`labels/second/candidates/`). Agreement (`labels/agreement_gate.json`): options κ = 0.940 (98.2% raw, 1,180 labels), field status κ = 0.925, multi_entity κ = 0.813. All 23 disagreements (8 doc, 15 field) were adjudicated by a third agent that saw the document and both labels, never Jev output. It agreed with the first labeller 11 times and the second 12 times (`labels/adjudication_gate.jsonl`).
+- **Cases** (`cases/gate_present.jsonl`, `cases/gate_absent.jsonl`, `cases/gate_build_summary.json`): **150 present** (pool 152) and **139 absent** (pool 139). This is a **shortfall of 11** absent cases, so every eligible case is used (taxonomy §2.2 item 8). Hard-regime share 108/289 = 37.4% (56 present, 52 absent; ≥ 30% required). Repeated-text present cases: 63 (≥ 20 required). Cases from non-English documents: 47.
+- **Operating characteristic at the achieved n = 139** (for reference; it changes no rule): at a true committed-when-absent rate of 0.02 / 0.03 / 0.05 / 0.07 / 0.10 / 0.12 / 0.15, P(estimate ≤ 0.05) = 0.978 / 0.874 / 0.454 / 0.139 / 0.012 / 0.002 / 0.000 and P(estimate > 0.10) = 0.000 / 0.000 / 0.010 / 0.109 / 0.530 / 0.794 / 0.965.
+- **Requests:** 273 (7,159 questions), fresh and paired cases together.
+
 ## 3. Decision rule (fixed now, before any fresh data exists)
 
 On the 150 fresh present-answer and 150 fresh absent-answer cases, with the gate:

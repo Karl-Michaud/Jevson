@@ -1,0 +1,15 @@
+{
+ "doc_id": "gsa-378363",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Cummins Engine",
+   "Cummins VTA903-E diesel engine",
+   "VTA903-E"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

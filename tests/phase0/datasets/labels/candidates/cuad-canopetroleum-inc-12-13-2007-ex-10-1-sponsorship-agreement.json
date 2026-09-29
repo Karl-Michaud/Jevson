@@ -1,0 +1,119 @@
+{
+  "doc_id": "cuad-canopetroleum-inc-12-13-2007-ex-10-1-sponsorship-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Sponsorship agreement between R. C. Boyd Enterprises, LLC and Cano Petroleum, Inc.",
+  "processing_note": "All sums payable under this Agreement shall be paid to the Company at Southlake, Tarrant County, Texas.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Sponsorship Agreement",
+      "superseded": false,
+      "rationale": "The heading names the Sponsorship Agreement.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "5th day of December, 2007",
+      "superseded": false,
+      "rationale": "The agreement is made and executed on the 5th day of December, 2007.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "partial",
+        "c10": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "January 1, 2008",
+      "superseded": false,
+      "rationale": "The agreement is to be effective January 1, 2008, the date the term commences; the other January 1, 2008 is an installment due date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "present",
+      "value": "December 31, 2008",
+      "superseded": false,
+      "rationale": "The one-year term ends on December 31, 2008.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Texas",
+      "superseded": false,
+      "rationale": "Section 11 selects the laws of the State of Texas; other Texas mentions are addresses, tax law, venue or place of execution.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "correct",
+        "c10": "correct",
+        "c11": "correct",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Despite the 'Term and Renewal' heading, no renewal term is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No non-renewal notice period is stated; the ten-day notice concerns payment default.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1824883", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Netgear R7450", "Zoom", "WiFi", "Netgear R7450 #1", "Netgear R7450 #2", "Router #1", "Router #2", "Netflix", "Home Telcom", "Fiber ISP"]}}

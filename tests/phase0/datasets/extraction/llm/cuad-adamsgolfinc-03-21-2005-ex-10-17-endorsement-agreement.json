@@ -1,0 +1,40 @@
+{
+ "doc_id": "cuad-adamsgolfinc-03-21-2005-ex-10-17-endorsement-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "ENDORSEMENT AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "January 13, 2005",
+   "1st day of September 2004",
+   "September 1, 2004",
+   "January 31, 2006"
+  ],
+  "contract.effective_date": [
+   "January 13, 2005",
+   "1st day of September 2004",
+   "September 1, 2004"
+  ],
+  "contract.expiration_date": [
+   "[*****] day of [*****]",
+   "[*****]"
+  ],
+  "contract.governing_law": [
+   "State of Kansas",
+   "Kansas",
+   "the laws of the State of Kansas"
+  ],
+  "contract.renewal_term": [
+   "[* ****] years and [*****] months"
+  ],
+  "contract.notice_period": [
+   "thirty (30) days",
+   "fifteen (15) days",
+   "ninety (90) days",
+   "three (3) business days"
+  ]
+ }
+}

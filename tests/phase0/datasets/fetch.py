@@ -142,7 +142,7 @@ def cord_text(gt: dict) -> str:
 def cord_docs(ground_truths: list[str], k: int, seed: int = SEED, min_rows: int = 8) -> list[Doc]:
     texts = [(i, cord_text(json.loads(g))) for i, g in enumerate(ground_truths)]
     eligible = [(i, t) for i, t in texts if t.count("\n") + 1 >= min_rows]
-    picked = sorted(random.Random(seed).sample(eligible, k))
+    picked = sorted(random.Random(seed).sample(eligible, min(k, len(eligible))))
     return [Doc(f"cord-test-{i:03d}", "receipt", "id", t,
                 "https://huggingface.co/datasets/naver-clova-ix/cord-v2", "cc-by-4.0",
                 "NAVER Clova, CORD v2 (CC BY 4.0)", notes=f"CORD v2 test split row {i}; text rebuilt from annotated OCR words")
@@ -243,14 +243,14 @@ def gsa_docs(results: list[dict], k_main: int, k_screen: int, seed: int = SEED,
 # ---------------------------------------------------------------- writing
 
 def write_docs(docs: list[Doc], root: pathlib.Path = CORPUS) -> None:
-    """Write the documents and replace every earlier record (and file) of the same domains in the manifest."""
+    """Write the documents and replace every earlier record (and file) of the same (domain, pool) in the manifest."""
     manifest = root / "manifest.jsonl"
-    domains = {d.domain for d in docs}
+    domains = {(d.domain, d.pool) for d in docs}
     existing = {}
     if manifest.exists():
         for line in manifest.read_text().splitlines():
             r = json.loads(line)
-            if r["domain"] in domains:
+            if (r["domain"], r.get("pool", "main")) in domains:
                 (root / r["path"]).unlink(missing_ok=True)
             else:
                 existing[r["doc_id"]] = r
@@ -310,12 +310,53 @@ def fetch_gsa(client: httpx.Client, k_main: int, k_screen: int) -> list[Doc]:
     return gsa_docs(r.json()["Results"], k_main, k_screen)
 
 
+GATE_COUNTS = {"cuad": 50, "cord": 30, "fjc": 30, "se": 22, "epmc": 22, "gsa": 22}
+
+
+def fresh(docs: list[Doc], existing: set[str], k: int) -> list[Doc]:
+    """The first k documents (in the source's seeded order) not already in the corpus, tagged pool 'gate'."""
+    out = [d for d in docs if d.doc_id not in existing][:k]
+    for d in out:
+        d.pool = "gate"
+    return out
+
+
+def gate_docs(src: str, scratch: pathlib.Path, client: httpx.Client, existing: set[str]) -> list[Doc]:
+    """Probe 9's fresh corpus (docs/gate-probe.md §2): the same sources and rules, disjoint from Phase 0; live feeds
+    and searches use a later window."""
+    k = GATE_COUNTS[src]
+    if src == "cuad":
+        docs = cuad_docs(json.loads((scratch / "CUADv1.json").read_text()), PER_DOMAIN_CONTRACT + k)
+    elif src == "cord":
+        docs = cord_docs((scratch / "cord_test_ground_truth.jsonl").read_text().splitlines(), 200)
+    elif src == "fjc":
+        docs = fetch_fjc(client, PER_DOMAIN_WIDE + k)
+    elif src == "se":
+        docs = (fetch_se(client, "superuser", "en", 6, 1704672000, 1704758400)
+                + fetch_se(client, "askubuntu", "en", 6, 1704672000, 1704758400)
+                + fetch_se(client, "es.stackoverflow", "es", 10, 1704672000, 1705276800))
+    elif src == "epmc":
+        docs = fetch_epmc(client, k, 'PUB_TYPE:"Case Reports" AND LICENSE:"cc by" AND OPEN_ACCESS:y '
+                                     'AND LANG:eng AND FIRST_PDATE:[2024-02-01 TO 2024-02-29]')
+    else:
+        docs = [d for d in fetch_gsa(client, 200, 0)]
+    return fresh(docs, existing, k)
+
+
 def main(argv: list[str], client: httpx.Client | None = None, root: pathlib.Path = CORPUS) -> int:
     if not argv:
         print("usage: fetch <cuad|cord|fjc|se|epmc|gsa> [scratch dir]", file=sys.stderr)
         return 2
     src, scratch = argv[0], pathlib.Path(argv[1]) if len(argv) > 1 else pathlib.Path(".")
     client = client or httpx.Client(headers=UA, follow_redirects=True, timeout=60)
+    if src == "gate" and len(argv) > 2 and argv[2] in GATE_COUNTS:
+        existing = set()
+        if (root / "manifest.jsonl").exists():
+            existing = {json.loads(x)["doc_id"] for x in (root / "manifest.jsonl").read_text().splitlines()}
+        docs = gate_docs(argv[2], scratch, client, existing)
+        write_docs(docs, root)
+        print(f"gate {argv[2]}: wrote {len(docs)} documents")
+        return 0
     if src == "cuad":   # CUADv1.json from https://github.com/TheAtticusProject/cuad/raw/main/data.zip
         docs = cuad_docs(json.loads((scratch / "CUADv1.json").read_text()), PER_DOMAIN_CONTRACT)
     elif src == "cord":  # ground_truth column of the CORD v2 test parquet, one JSON string per line

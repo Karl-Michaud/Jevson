@@ -1,0 +1,30 @@
+{
+ "doc_id": "cuad-pelicandeliversinc-20200211-s-1-ex-10-3-11975895-ex-10-3-dev",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "SOFTWARE DEVELOPMENT AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "December 3rd, 2018"
+  ],
+  "contract.effective_date": [
+   "December 3rd, 2018",
+   "the Effective Date"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "State of Washington",
+   "Washington"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "two weeks written notice",
+   "two weeks",
+   "ten (10) calendar days",
+   "three (3) months"
+  ]
+ }
+}

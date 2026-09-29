@@ -1,0 +1,26 @@
+{
+ "doc_id": "se-es-611198",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "A single user asking how to style a pie chart; no other parties, addresses or transactions.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "ggplot2",
+   "superseded": false,
+   "rationale": "The question is about producing a separated pie chart with the R package ggplot2; R is the language and the title phrase includes the chart type as well.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "wrong"
+   }
+  }
+ }
+}

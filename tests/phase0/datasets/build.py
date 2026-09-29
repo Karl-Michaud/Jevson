@@ -35,10 +35,10 @@ def options_for_doc(text: str, llm_fields: dict[str, list[str]], domain: str) ->
     return out
 
 
-def build_options(root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION) -> list[dict]:
+def build_options(root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION, pool: str = "main") -> list[dict]:
     recs = []
     for d in sorted(load_manifest(root).values(), key=lambda r: r.doc_id):
-        if d.pool != "main":
+        if d.pool != pool:
             continue
         llm = json.loads((extraction / "llm" / f"{d.doc_id}.json").read_text())
         if llm["doc_id"] != d.doc_id:
@@ -96,8 +96,9 @@ def write_jsonl(recs: list[dict], path: pathlib.Path) -> None:
 
 def main(argv: list[str], root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION) -> int:
     if argv[:1] == ["options"]:
-        recs = build_options(root, extraction)
-        write_jsonl(recs, extraction / "options.jsonl")
+        pool = argv[1] if len(argv) > 1 else "main"
+        recs = build_options(root, extraction, pool)
+        write_jsonl(recs, extraction / ("options.jsonl" if pool == "main" else f"options_{pool}.jsonl"))
         n = sum(len(r["fields"]) for r in recs)
         print(f"options: {len(recs)} documents, {n} field instances, "
               f"{sum(f['over_cap'] for r in recs for f in r['fields'])} over the 50-option cap")

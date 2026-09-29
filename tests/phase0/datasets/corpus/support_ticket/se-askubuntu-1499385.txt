@@ -1,0 +1,72 @@
+How to get OpenCL working on new Pheonix APU?
+
+I recently call an HP ZBook Firefly 14 G10 A my own. It's the successor of an older Thinkpad with Intel UHD GPU that has become a bit slow for my usecase. But it runs OpenCL in darktable smoothly. Both run Kubuntu 23.10 on Wayland.
+
+My System has currently 16GB of DDR5 RAM with a clock speed of 5600 Mhz (will upgrade to 32GB soon), the Ryzen 7 Pro 7840HS, with 8 Zen 4 cores. GPU is the built-in Radeon 780M RDNA3 GPU. In UEFI Firmware settings I've chosen "Gaming optimized" for VRAM. I'm really amazed by this device. It runs XP12 in FHD on lower settings with 30-40 FPS which is quite impressive regarding that this is just mobile iGPU.
+
+I just edited some RAWs in darktable and wondered about the extreme CPU usage. So, I took a look at the "processing" settings where I shockingly recognised that OpenCL wasn't enabled and greyed out.
+
+By searching on the internet about this issue I found the command "darktable-cltest" which returns me the following:
+
+0,0179 [dt_get_sysresource_level] switched to 1 as `default'
+0,0180 total mem: 13740MB
+0,0180 mipmap cache: 1717MB
+0,0180 available mem: 6870MB
+0,0180 singlebuff: 107MB
+0,0180 OpenCL tune mem: OFF
+0,0180 OpenCL pinned: OFF
+[opencl_init] opencl related configuration options:
+[opencl_init] opencl: ON
+[opencl_init] opencl_scheduling_profile: 'default'
+[opencl_init] opencl_library: 'default path'
+[opencl_init] opencl_device_priority: '*/!0,*/*/*/!0,*'
+[opencl_init] opencl_mandatory_timeout: 400
+[opencl_init] opencl library 'libOpenCL' found on your system and loaded
+[opencl_init] found 4 platforms
+[opencl_init] platform 2 is not FULL_PROFILE
+[opencl_init] no devices found for Mesa/X.org (vendor) - rusticl (name)
+[opencl_init] found 2 devices
+
+[dt_opencl_device_init]
+DEVICE: 0: 'AMD Radeon Graphics (gfx1103_r1, LLVM 15.0.7, DRM 3.54, 6.5.0-14-generic)'
+PLATFORM NAME & VENDOR: Clover, Mesa
+CANONICAL NAME: cloveramdradeongraphics
+DRIVER VERSION: 23.2.1-1ubuntu3.1
+DEVICE VERSION: OpenCL 1.1 Mesa 23.2.1-1ubuntu3.1
+DEVICE_TYPE: GPU
+*** insufficient device version ***
+
+[dt_opencl_device_init]
+DEVICE: 1: 'AMD Ryzen 7 PRO 7840HS w/ Radeon 780M Graphics '
+PLATFORM NAME & VENDOR: Intel(R) OpenCL, Intel(R) Corporation
+CANONICAL NAME: intelropenclamdryzen7pro7840hswradeon780mgraphics
+DRIVER VERSION: 2023.16.12.0.12_195853.xmain-hotfix
+DEVICE VERSION: OpenCL 3.0 (Build 0)
+DEVICE_TYPE: CPU
+GLOBAL MEM SIZE: 13741 MB
+MAX MEM ALLOC: 6870 MB
+MAX IMAGE SIZE: 16384 x 16384
+MAX WORK GROUP SIZE: 8192
+MAX WORK ITEM DIMENSIONS: 3
+MAX WORK ITEM SIZES: [ 8192 8192 8192 ]
+ASYNC PIXELPIPE: NO
+PINNED MEMORY TRANSFER: NO
+MEMORY TUNING: NO
+FORCED HEADROOM: 400
+AVOID ATOMICS: NO
+MICRO NAP: 1000
+ROUNDUP WIDTH: 16
+ROUNDUP HEIGHT: 16
+CHECK EVENT HANDLES: 128
+TILING ADVANTAGE: 0.000
+DEFAULT DEVICE: NO
+*** marked as disabled ***
+[opencl_init] no suitable devices found.
+[opencl_init] FINALLY: opencl is NOT AVAILABLE and NOT ENABLED.
+
+Okay, it tells me that it has actually found theoretically relevant devices one of whom is my GPU and the other one seems to be a software renderer on the CPU.
+Both are assessed as ineligible but, why? Of course, the second "device" isn't properly a device and perhaps using a COU to software render OpenCL will not give a decent boost in performance.
+
+But what's about the GPU? It bothers me a lot that the information printed over the GPU is that sparse. There are so many informations missing.
+
+I mean I have neither exotic hardware nor an exotic OS. It would be strange if I was alone with this problem. Whats the issue with OpenCL on Ryzen APUs so far? What packages do we need?

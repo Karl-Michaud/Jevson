@@ -1,0 +1,67 @@
+Eliminar un elemento de un arraylist bidimensional
+
+estoy realizando un ejercicio para practicar con ArrayLists bidimensionales, les dejo el menú en sí:
+
+System.out.println("Introduce una opción: ");
+System.out.println("1: Introducir alumno." +'\n'
++ "2: Eliminar alumno por nombre." +'\n'
++ "3: Eliminar alumno por apellido." +'\n'
++ "4: Mostrar todos los alumnos sin ciclo." +'\n'
++ "5: Mostrar todos los alumnos con ciclos." +'\n'
++ "6: Mostrar alumnos de un ciclo concreto." +'\n'
++ "7: Salir del programa.");
+
+Y por aquí cómo he declarado todo:
+
+ArrayList <ArrayList<String>> listaAlumnos = new ArrayList<>();
+int opcion = 0;
+String nombre=null;
+String apellido=null;
+String ciclo = null;
+
+En el caso 1 no he tenido mucho problema, lo resolví así:
+
+switch (opcion) {
+case 1:
+
+System.out.println("Introduce el nombre del alumno");
+nombre=sc.next();
+System.out.println("Introduce el apellido del alumno");
+apellido = sc.next();
+System.out.println("Introduce el ciclo del alumno");
+ciclo=sc.next();
+
+ArrayList<String> alumno = new ArrayList<>();
+alumno.add(nombre);
+alumno.add(apellido);
+alumno.add(ciclo);
+
+listaAlumnos.add(alumno);
+
+System.out.println("Alumno registrado correctamente");
+
+break;
+
+Mi problema viene en el caso 2 y 3, tengo que eliminar por nombre y apellido y no sé muy bien como lograrlo. Estoy intentando recorrer la lista y luego de eso comparar con el nombre a eliminar tal que así:
+
+System.out.println("Introduce el nombre del alumno que deseas eliminar");
+String nombreEliminar = sc.next();
+boolean eliminadoNombre = false;
+
+for(int i=0;i<listaAlumnos.size()-1;i++) {
+if(listaAlumnos.get(i).get(0).equalsIgnoreCase(nombreEliminar)) {
+listaAlumnos.remove(i);
+eliminadoNombre=true;
+i--;
+}
+}
+
+if(!eliminadoNombre) {
+System.out.println("No se encontró ningún alumno con ese nombre.");
+}
+
+break;
+
+Pero siempre me dice que no se encontró ningún alumno, vaya, que no coincide. No sé si es porque la comparación (con los get) la hago mal.
+
+Si me ayudaran sería de gran ayuda, gracias

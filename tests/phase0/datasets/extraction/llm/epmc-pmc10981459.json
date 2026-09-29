@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc10981459", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["DFU", "right DFU", "right foot diabetic ulcer", "diabetes mellitus", "hypertension"], "medical.treatment_drug": []}}

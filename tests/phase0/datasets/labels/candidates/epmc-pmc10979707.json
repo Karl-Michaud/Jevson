@@ -1,0 +1,34 @@
+{
+  "doc_id": "epmc-pmc10979707",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single patient.",
+  "processing_note": null,
+  "fields": {
+    "medical.diagnosis": {
+      "status": "present",
+      "value": "small-cell glioblastoma in the posterior cranial fossa",
+      "superseded": false,
+      "rationale": "Histology established small-cell glioblastoma in the posterior cranial fossa.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "wrong"
+      }
+    },
+    "medical.treatment_drug": {
+      "status": "present",
+      "value": "temozolomide",
+      "superseded": false,
+      "rationale": "Temozolomide chemotherapy was given for the glioblastoma.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct"
+      }
+    }
+  }
+}

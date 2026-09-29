@@ -1,0 +1,24 @@
+{
+  "doc_id": "cuad-movadogroupinc-04-30-2003-ex-10-28-endorsement-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Movado Group, Inc. (Company), the Grinberg Family Trust (Trust), the Insureds and New York Life (Insurer).",
+  "processing_note": "Any notice to the Company shall be addressed to the attention of the General Counsel, with a copy to the Chief Executive Officer, at the principal office of the Company at 650 From Road; Paramus, New Jersey 07652.",
+  "fields": {
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement terminates on the Trust's repayment of premiums; no initial term or expiry date is stated, and the listed dates are prior agreements, statutory dates or the signing date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+ "doc_id": "gsa-377597",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Planmeca Promax 3D Panoramic Digital X-Ray",
+   "Planmeca ProMax 3D panoramic digital x-ray",
+   "ProMax 3D",
+   "Planmeca"
+  ],
+  "product.inventory": [
+   "1"
+  ],
+  "product.price": []
+ }
+}

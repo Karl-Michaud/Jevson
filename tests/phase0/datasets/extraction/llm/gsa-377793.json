@@ -1,0 +1,16 @@
+{
+ "doc_id": "gsa-377793",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Konica Minolta Bizhub C3350 Printer",
+   "Konica Minolta bizhub C3350",
+   "bizhub C3350",
+   "C3350"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

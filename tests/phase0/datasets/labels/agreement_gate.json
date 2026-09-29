@@ -1,0 +1,296 @@
+{
+ "n_documents": 92,
+ "n_field_instances": 155,
+ "n_option_labels": 1180,
+ "kappa_options": 0.9399568212491792,
+ "agreement_options": 0.9822033898305085,
+ "kappa_status": 0.9245595249683637,
+ "agreement_status": 0.967741935483871,
+ "kappa_multi_entity": 0.8125318390219051,
+ "disagreements": [
+  {
+   "kind": "field",
+   "doc_id": "cuad-atmosenergycorp-11-22-2002-ex-10-17-transportation-service-a",
+   "field_id": "contract.document_name",
+   "options": [
+    "c1",
+    "c2"
+   ],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "cuad-bnlfinancialcorp-03-30-2007-ex-10-8-outsourcing-agreement",
+   "field_id": "contract.notice_period",
+   "options": [
+    "c16"
+   ],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "cuad-freecook-20180605-s-1-ex-10-3-11233807-ex-10-3-hosting-agree",
+   "field_id": "contract.effective_date",
+   "options": [
+    "c0"
+   ],
+   "status": [
+    "absent",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--404dc0",
+   "field_id": "contract.effective_date",
+   "options": [
+    "c0"
+   ],
+   "status": [
+    "absent",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "cuad-holidayrvsuperstoresinc-04-15-2002-ex-10-13-endorsement-agre",
+   "field_id": "contract.expiration_date",
+   "options": [
+    "c3"
+   ],
+   "status": [
+    "partial_only",
+    "absent"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "cuad-hpilholding-01-07-2015-ex-99-1-cooperation-agreement",
+   "field_id": "contract.effective_date",
+   "options": [
+    "c0",
+    "c1"
+   ],
+   "status": [
+    "absent",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "cuad-martinmidstreampartnerslp-01-23-2004-ex-10-3-transportation-",
+   "field_id": "contract.document_name",
+   "options": [
+    "c1"
+   ],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "cuad-pandiontherapeuticsholdcollc-05-22-2020-ex-10-17-consulting-",
+   "field_id": "contract.expiration_date",
+   "options": [
+    "c0"
+   ],
+   "status": [
+    "absent",
+    "partial_only"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "epmc-pmc10900723",
+   "field_id": "medical.diagnosis",
+   "options": [
+    "c16"
+   ],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "epmc-pmc10902939",
+   "field_id": "medical.diagnosis",
+   "options": [
+    "c13",
+    "c15",
+    "c16"
+   ],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "epmc-pmc10981384",
+   "field_id": "medical.diagnosis",
+   "options": [],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    true,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "fjc-1391686",
+   "field_id": "resume.undergrad_year",
+   "options": [
+    "c5"
+   ],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "doc",
+   "doc_id": "fjc-1392221",
+   "what": "multi_entity"
+  },
+  {
+   "kind": "doc",
+   "doc_id": "fjc-1392296",
+   "what": "multi_entity"
+  },
+  {
+   "kind": "doc",
+   "doc_id": "fjc-1392396",
+   "what": "multi_entity"
+  },
+  {
+   "kind": "doc",
+   "doc_id": "fjc-1392826",
+   "what": "multi_entity"
+  },
+  {
+   "kind": "doc",
+   "doc_id": "fjc-1393636",
+   "what": "multi_entity"
+  },
+  {
+   "kind": "field",
+   "doc_id": "fjc-1393636",
+   "field_id": "resume.latest_position",
+   "options": [],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    true,
+    false
+   ]
+  },
+  {
+   "kind": "doc",
+   "doc_id": "fjc-1394236",
+   "what": "multi_entity"
+  },
+  {
+   "kind": "doc",
+   "doc_id": "fjc-4022586",
+   "what": "multi_entity"
+  },
+  {
+   "kind": "doc",
+   "doc_id": "fjc-6278461",
+   "what": "multi_entity"
+  },
+  {
+   "kind": "field",
+   "doc_id": "gsa-378087",
+   "field_id": "product.title",
+   "options": [
+    "c1",
+    "c2"
+   ],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  },
+  {
+   "kind": "field",
+   "doc_id": "se-askubuntu-1499366",
+   "field_id": "ticket.affected_service",
+   "options": [
+    "c0",
+    "c3",
+    "c7",
+    "c16"
+   ],
+   "status": [
+    "present",
+    "present"
+   ],
+   "superseded": [
+    false,
+    false
+   ]
+  }
+ ]
+}

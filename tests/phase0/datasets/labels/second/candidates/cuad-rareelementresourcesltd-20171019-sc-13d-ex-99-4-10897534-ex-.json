@@ -1,0 +1,25 @@
+{
+ "doc_id": "cuad-rareelementresourcesltd-20171019-sc-13d-ex-99-4-10897534-ex-",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: Synchron (Investor) and Rare Element Resources Ltd. (Company).",
+ "processing_note": "All written communications and notices between the Parties relating to this IP Agreement shall be made in the manner set forth in the Investment Agreement.",
+ "fields": {
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement has no renewal provision, so no notice period to prevent renewal is stated; candidate periods concern patent abandonment, cure, negotiation and mediation.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  }
+ }
+}

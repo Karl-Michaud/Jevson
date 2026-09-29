@@ -1,0 +1,9 @@
+How does Windows BCDEdit work with multiple drives?
+
+BCDEdit lets you edit, add and delete boot options for Windows (10/11).
+
+Doing the work to understand UEFI I found good video explaining the big picture of UEFI and two videos explaining how to fix the efi partition.
+
+However, neither of these videos show a system with multiple drives. Following a post on SU, I found this command for BCDEdit, bcdedit /enum all which shows both of my drive's efi partition data. How is this possible since the BCD data is installed in a partition on each drive.
+
+Please confirm if BCDEdit does indeed work to identify and manage all connected drives.

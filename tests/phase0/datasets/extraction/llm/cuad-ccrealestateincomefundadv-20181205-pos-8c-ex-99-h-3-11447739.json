@@ -1,0 +1,31 @@
+{
+ "doc_id": "cuad-ccrealestateincomefundadv-20181205-pos-8c-ex-99-h-3-11447739",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "WHOLESALE MARKETING AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "24t h day of August 2018"
+  ],
+  "contract.effective_date": [
+   "24t h day of August 2018"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "State of Colorado",
+   "Colorado",
+   "the laws of the State of Colorado",
+   "State of Delaware"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "60th day",
+   "60-day",
+   "three business days",
+   "one business day"
+  ]
+ }
+}

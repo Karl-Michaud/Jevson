@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1499385", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["OpenCL", "darktable", "darktable-cltest", "Radeon 780M", "Kubuntu 23.10", "Wayland", "Mesa", "Clover", "rusticl", "XP12", "HP ZBook Firefly 14 G10 A", "Ryzen 7 Pro 7840HS"]}}

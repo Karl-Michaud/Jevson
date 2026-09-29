@@ -1,0 +1,47 @@
+{
+  "doc_id": "cuad-hpilholding-01-07-2015-ex-99-1-cooperation-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: HPIL ENERGYTECH Inc. and GINARES GROUP AG.",
+  "processing_note": "Any Party hereto may change its address or facsimile number for the purposes of this Section 13 by giving notice as provided herein.",
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "5th day of January, 2015",
+      "superseded": false,
+      "rationale": "No separate effective date; the agreement is signed and entered into as of January 5, 2015 (cover date and preamble), 'Closing Date' is only the defined term.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Nevada (USA)",
+      "superseded": false,
+      "rationale": "Section 17: governed by the laws of the State of Nevada (USA); other Nevada/Switzerland/France occurrences are incorporation, domicile, address or arbitration seat.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "correct",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "correct",
+        "c11": "correct",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong"
+      }
+    }
+  }
+}

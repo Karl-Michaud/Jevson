@@ -1,0 +1,9 @@
+Is there a way to programmatically change the accent color in Windows 10, without signing out and back in to apply the change?
+
+I'd like to have the accent color automatically change at different times of day. Of course I don't want to constantly sign out and back in, so it needs to work without that. I'm willing to write batch files or C# or whatever.
+
+As a test, I've tried changing the various accent color registry keys manually and even signing out and back in afterwards, but nothing changes. I've tried the registry keys mentioned in these posts:
+How can I programmatically change the Windows 11 color scheme?,
+Is it possible to force Windows 10 to accept an exact match for a custom accent color?
+
+But the question I think I'm asking for the first time is: is it possible to do this without having to sign out? Thanks.

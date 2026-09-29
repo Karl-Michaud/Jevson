@@ -1,0 +1,69 @@
+{
+  "doc_id": "cuad-bnlfinancialcorp-03-30-2007-ex-10-8-outsourcing-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: Virtual Item Processing Systems (VIP) and Brokers National Life Assurance Company (BNL), with separate addresses.",
+  "processing_note": "All sums due under this Agreement are payable in U.S. dollars.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "OUTSOURCING AGREEMENT",
+      "superseded": false,
+      "rationale": "Both title headings (cover and first page) read OUTSOURCING AGREEMENT.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Oklahoma",
+      "superseded": false,
+      "rationale": "Clause 16G: governed by the laws of the State of Oklahoma; other Oklahoma/Arkansas mentions are addresses, domicile, incorporation or venue.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "wrong",
+        "c11": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "present",
+      "value": "six (6) months",
+      "superseded": false,
+      "rationale": "Clause 15B requires written notice at least six (6) months before the end of the Initial or Extended Term to prevent continuation; other periods are payment, cure, liability or notice-deemed-given periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "correct",
+        "c15": "correct",
+        "c16": "correct",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    }
+  }
+}

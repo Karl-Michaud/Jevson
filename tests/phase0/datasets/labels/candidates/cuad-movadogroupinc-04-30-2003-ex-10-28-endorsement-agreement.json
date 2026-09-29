@@ -1,0 +1,130 @@
+{
+  "doc_id": "cuad-movadogroupinc-04-30-2003-ex-10-28-endorsement-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Movado Group, Inc. and the Trustees of the Grinberg Family Trust, plus the insurer and the insureds.",
+  "processing_note": "All notices hereunder shall be in writing and sent by certified mail with postage prepaid.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "ENDORSEMENT AGREEMENT",
+      "superseded": true,
+      "rationale": "The agreement is titled Endorsement Agreement (renamed the Movado Group, Inc. Endorsement Agreement), replacing its former name Split Dollar Agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "correct",
+        "c10": "correct",
+        "c11": "correct",
+        "c12": "wrong"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "4th day of April, 2003",
+      "superseded": true,
+      "rationale": "The amended and restated agreement is executed as of 4 April 2003; the original Split Dollar Agreement was dated December 5, 1995.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "partial"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "4th day of April, 2003",
+      "superseded": false,
+      "rationale": "No separate effective date is given; the agreement is executed as of 4 April 2003.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "partial"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement terminates on an event (Trust repayment), not on a stated date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of New York",
+      "superseded": false,
+      "rationale": "Section 12 provides rights are governed by the laws of the State of New York (subject to ERISA preemption).",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "correct",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "correct"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement has no renewal provision.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement has no renewal or non-renewal notice provision.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

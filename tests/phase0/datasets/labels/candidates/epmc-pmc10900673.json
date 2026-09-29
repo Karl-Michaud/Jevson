@@ -1,0 +1,45 @@
+{
+ "doc_id": "epmc-pmc10900673",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Three separate patients (case reports 1-3) are described.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "heterozygous FVL mutation",
+   "superseded": false,
+   "rationale": "All three patients were finally diagnosed with a heterozygous factor V Leiden mutation as the hidden thrombophilia underlying flap loss.",
+   "options": {
+    "c0": "wrong",
+    "c1": "partial",
+    "c2": "partial",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "correct",
+    "c10": "wrong",
+    "c11": "partial",
+    "c12": "correct",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "partial",
+    "c17": "correct",
+    "c18": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No drug treatment for the thrombophilia is named.",
+   "options": {}
+  }
+ }
+}

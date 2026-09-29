@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1824867", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Windows 10", "accent color", "Windows 11", "registry keys", "C#"]}}

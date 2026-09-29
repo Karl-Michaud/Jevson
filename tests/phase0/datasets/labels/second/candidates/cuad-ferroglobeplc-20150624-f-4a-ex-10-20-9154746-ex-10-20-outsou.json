@@ -1,0 +1,44 @@
+{
+  "doc_id": "cuad-ferroglobeplc-20150624-f-4a-ex-10-20-9154746-ex-10-20-outsou",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Silicon Smelters (Pty) Ltd (Customer) and Espacio Information Technology, S.A. (EIT) in distinct roles.",
+  "processing_note": "Such invoice must be paid by the customer within 45 days of the date on which the invoice is issued.",
+  "fields": {
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "1st day of January, 2009",
+      "superseded": false,
+      "rationale": "The preamble dates the agreement as effective from the 1st day of January, 2009 and the signature clause refers to the date first above written; the other dates are powers-of-attorney dates, filing footers, or the duration clause's start date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong",
+        "c21": "wrong",
+        "c22": "wrong",
+        "c23": "wrong",
+        "c24": "wrong"
+      }
+    }
+  }
+}
