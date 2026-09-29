@@ -60,11 +60,21 @@ def fake_transport(seed: int = 0) -> httpx.MockTransport:
     return httpx.MockTransport(handler)
 
 
+def request_hash(r: Request) -> str:
+    return hashlib.sha256(json.dumps({"state": r.state, "questions": r.questions}, sort_keys=True,
+                                     ensure_ascii=False).encode()).hexdigest()
+
+
 def load_raw(path: pathlib.Path) -> dict[str, dict]:
+    """Stored records by request id; an undecodable line (a write cut short) is skipped with a warning."""
     done: dict[str, dict] = {}
     if path.exists():
-        for line in path.read_text().splitlines():
-            rec = json.loads(line)
+        for n, line in enumerate(path.read_text().splitlines(), 1):
+            try:
+                rec = json.loads(line)
+            except ValueError:
+                print(f"warning: {path.name}:{n} is not valid JSON and is ignored", file=sys.stderr)
+                continue
             done[rec["rid"]] = rec
     return done
 
@@ -76,16 +86,26 @@ async def execute(client: JevClient, requests: Sequence[Request], raw_path: path
         raise ValueError("duplicate request ids")
     raw_path.parent.mkdir(parents=True, exist_ok=True)
     done = load_raw(raw_path)
+    hashes = {r.rid: request_hash(r) for r in requests}
+
+    def answered(r: Request) -> bool:
+        rec = done.get(r.rid, {})
+        # records written before hashes were stored carry none and are accepted as they are
+        return (rec.get("response", {}).get("status") in (200, 400)
+                and rec.get("request_sha256", hashes[r.rid]) == hashes[r.rid])
+
+    async def one(r: Request) -> None:
+        resp = await client.ask(r.state, r.questions)
+        rec = {"rid": r.rid, "request_sha256": hashes[r.rid], "meta": r.meta, "response": resp}
+        done[r.rid] = rec
+        with raw_path.open("a") as f:   # written as soon as it returns: nothing paid for is lost
+            f.write(client.redact(json.dumps(rec, ensure_ascii=False)) + "\n")
+
     for _ in range(passes):
-        pending = [r for r in requests if done.get(r.rid, {}).get("response", {}).get("status") not in (200, 400)]
+        pending = [r for r in requests if not answered(r)]
         if not pending:
             break
-        results = await asyncio.gather(*(client.ask(r.state, r.questions) for r in pending))
-        with raw_path.open("a") as f:
-            for r, resp in zip(pending, results):
-                rec = {"rid": r.rid, "meta": r.meta, "response": resp}
-                done[r.rid] = rec
-                f.write(client.redact(json.dumps(rec, ensure_ascii=False)) + "\n")
+        await asyncio.gather(*(one(r) for r in pending))
     return {r.rid: done[r.rid] for r in requests}
 
 

@@ -55,7 +55,7 @@ jevson/
   protocols.py          Backend, Extractor, LLM (async); Normalizer, CostSink (sync) — DESIGN §8
   facade.py             Jevson: resolve / aresolve; wires compiler, executor, assembler
   probabilities.py      integer hundredths, sum tolerance, tie margin (DESIGN §2.1, DESIGN §6.2)
-  config.py             JevsonConfig: tie margin, conflict floor, entity rule variant, caps, budgets
+  config.py             JevsonConfig: tie margin, caps, budgets (entity-resolution settings arrive post-v0, PLAN §9.1)
   unicode/
     graphemes.py        UAX #29 boundaries from a vendored, generated table (DESIGN §5.9)
     tables/             generated table + the Unicode version it came from
@@ -121,6 +121,7 @@ tests/
   integration/          real key, marked, opt-in
   fixtures/schemas/     the Phase 0 sample, checked in with provenance
 
+tests/phase0/           Phase 0 harness, datasets, and results (docs/taxonomy.md; tags Z1–Z8); not part of the package
 tests/probes/           the probes and checks behind docs/EVIDENCE.md, by topic (jev_api, candidates,
                         entities, adversarial, calibration, schema, unicode, runtime); raw material
                         for the test suite (not part of the package)
@@ -220,8 +221,8 @@ Throwaway code in `tests/phase0/`, using the live key and the pinned model `jev-
 
 - [x] At least **10 schemas** sampled — 6 extraction, 4 non-extraction — each citing its source — 16 schemas (6 extraction, 4 non-extraction, 6 jev_jsonschema fixtures), `tests/fixtures/schemas/provenance.json`
 - [x] At least **150 fields** classified, with counts by class, reported separately for extraction and non-extraction — 207 leaf fields, 278 nodes; `docs/taxonomy.md` §5
-- [x] Every class C and D entry specifies primitive, option source, `none_of_these` requirement, dependency pattern, provenance guarantee, and batching behaviour — `taxonomy.py` rules; `docs/taxonomy.md` §5 and Appendix A
-- [x] Every entry records **existing alternatives** and **existing Jev implementations** — every row, `docs/taxonomy.md` §5 and Appendix A
+- [x] Every class C and D entry specifies primitive, option source, `none_of_these` requirement, dependency pattern, provenance guarantee, and batching behaviour — every construct in `docs/taxonomy.md` §5 (each Appendix A row names its construct); per field in `tests/phase0/results/taxonomy.json`
+- [x] Every entry records **existing alternatives** and **existing Jev implementations** — every construct in `docs/taxonomy.md` §5; per field in `tests/phase0/results/taxonomy.json`
 - [x] The question templates and the decision rule's operating characteristic are recorded **before** any probe runs — commits 6f38415 (templates) and 443234c (rules, OC) precede the first live result, fd78aea
 - [ ] All eight probes run at the stated n on the pinned model, with measured rates and intervals written into `docs/taxonomy.md` **whether or not they are favourable** — **met except one set:** 796 requests, every probe at its stated n **[Z1–Z8]**, but probe 8's partial-only set has 17 of 50 cases, because only 17 of the 932 labelled field instances had a source stating only a partial value (reading only; shortfall pre-registered in `docs/taxonomy.md` §2.8). Open for the owner: accept, or extend the corpus for that set
 - [x] Probes 1–4 are marked **go / conditional / stop**; `conflict_floor` and the entity rule variant are written into `DESIGN §5.7` with the data that chose them — go / conditional / go / stop; floor 0.05, cross variant **[Z4]**
@@ -572,38 +573,27 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 
 ## Phase 7 — Source-grounded arrays
 
-**Goal:** arrays whose membership is a set of bounded decisions over candidates, with entity resolution, source order, and honest overflow.
+**Goal:** arrays whose membership is a set of bounded decisions over candidates, in source order with honest overflow; deduplication is the extractor's declared contract in v0 **[Z4]**.
 
 **Depends on:** Phase 6 in sequence, and on Phase 5's candidate machinery. **If Phase 5 abandoned, this phase is cancelled** — except multi-label enum arrays, which need no candidates and ship regardless.
 
-> **Phase 0 outcome [Z4]:** probe 4 was *stop*, so this phase's abandon criterion applies from the start. Deduplication is the extractor's declared contract. `assemble/entities.py`, the pairwise questions, the chain, internal-conflict, split, members-only, and jitter criteria, and the cap measurement are not part of v0; they move to a post-v0 entity-resolution phase (PLAN §9). Membership, source order, overflow, and multi-label enum arrays still ship.
+> **Phase 0 outcome [Z4]:** probe 4 was *stop*, so this phase's abandon criterion applies from the start: deduplication is the extractor's declared contract. The entity-resolution deliverables and exit criteria have moved to the post-v0 entity-resolution phase (PLAN §9.1). Membership, source order, overflow, and multi-label enum arrays still ship.
+
 
 ### Deliverables
 
-- Membership: one `noul` per candidate with the tie margin, batched with the pairwise questions in the same level (R5, `DESIGN §3.3`); candidates keyed by opaque id (R13)
+- Membership: one `noul` per candidate with the tie margin, in one level (R5, `DESIGN §3.3`); candidates keyed by opaque id (R13); a candidate count above `max_candidates` yields `Unresolved(too_many_candidates)`
 - **Multi-label enum arrays**: one membership noul per declared value; declared enum order; `maxItems` keeps the first k with overflow retained (`DESIGN §4.2`)
-- `assemble/entities.py` (`DESIGN §5.7`): lossless pre-merge (casefold opt-in; never initials or first names); pairwise nouls, capped; the internal-consistency rule, plus the cross-component variant if Phase 0 chose it, with `conflict_floor` from Phase 0
-- `Normalizer` canonical representative: earliest span, longest span, or user-supplied
 - `assemble/ordering.py` — source order; `order: semantic` refuses (R7)
-- `assemble/cardinality.py` — membership → pre-merge → pairwise → components ordered by earliest span → `maxItems` keeps the first k; each overflowed element records its spans and minimum membership probability (R8)
-- An experiment on reducing pair jitter by asking both orderings of each pair and averaging, measured against single-order asking on ≥ 40 documents × 2 identical runs (`DESIGN §12`); it doubles pair questions, so it is measured only at question counts already covered by keyed-batching evidence
+- `assemble/cardinality.py` — accepted members ordered by earliest span → `maxItems` keeps the first k; each overflowed element records its span and membership probability (R8)
 
 ### Exit criteria
 
 - [ ] `"Attendees were Dana, John, Sarah, and Michael"` produces a 4-element array in source order
-- [ ] **The chain case:** with a fake backend answering Dana = Dana Whitfield (0.9), Dana Whitfield = Ms. Whitfield (0.9), Dana vs Ms. Whitfield (0.4), no cross-component pairs in the uncertain band, and a floor of 0.30, the three produce **one** element
-- [ ] **The internal-conflict case:** A = B, B = C, A vs C ≤ floor → that component is `Unresolved(entity_conflict)` naming the pairs; other components are emitted
-- [ ] **The split case:** under the cross-component variant, two components linked by a pair at 0.40 (above a 0.30 floor) → both are `Unresolved(entity_conflict)`; under the internal-only variant, both are emitted
 - [ ] **Enum arrays:** a multi-label enum array emits members in declared order, with ties unresolved and `maxItems` overflow retained; this ships even if Phase 5 abandoned
-- [ ] **Pre-merge:** `"Acme Corp"` and `"Acme  Corp"` merge with zero backend questions; `"US"` and `"us"` do **not** merge by default; with casefold opted in they do; identical strings under different entity types never merge
-- [ ] Pairwise resolution for n candidates issues n(n−1)/2 keyed questions in one call, split only by the budget
-- [ ] A candidate count above the cap yields `Unresolved(too_many_candidates)`
-- [ ] **Cap measured:** component outcomes at n ∈ {10, 20, 30} on ≥ 20 real arrays per n (including how many arrays are incomplete only through membership ties), and keyed-batching accuracy at the resulting question count (measured only to 320 so far **[P4]**), are written down; the default cap is the largest n meeting the Phase 0 probe 4 go band
-- [ ] **Jitter experiment** results are written down; both-orderings asking is adopted only if it at least halves the pair-decision flip rate between identical runs and component accuracy is not lower (point estimates)
 - [ ] `maxItems: 5` with six accepted elements returns five and records the sixth in `Result.overflow`
 - [ ] An array declaring semantic order refuses; an array of unbounded items with no `source` refuses
-- [ ] **Members only:** a rejected candidate linked at 0.9 to two members A and B, with A–B at 0.10 (≤ floor), does not merge them: A and B are emitted as two elements under both variants
-- [ ] **Array holes:** an array with one unresolved component is emitted with its other elements, and the hole is one `Unresolved` at the array pointer; a tied value in a multi-label enum array likewise
+- [ ] **Array holes:** an array with one unresolved member (a membership tie) is emitted with its other elements, and the hole is one `Unresolved` at the array pointer; a tied value in a multi-label enum array likewise
 - [ ] Source ordering is deterministic across runs
 
 ### Abandon criterion
@@ -612,11 +602,11 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 
 ### Out of scope
 
-Nested arrays of objects. Cross-item constraints. Semantic ordering. (All tracked in PLAN §9.)
+Arrays of objects (including nested). Cross-item constraints. Semantic ordering. Pairwise entity resolution (PLAN §9.1). (All tracked in PLAN §9.)
 
 ### Answers
 
-`DESIGN §12`: the pairwise quality ceiling; pair-jitter reduction.
+None in v0: the pairwise quality ceiling and pair jitter move with entity resolution (PLAN §9.1).
 
 ### PR size
 
@@ -797,7 +787,7 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Our novelty is overstated** | Phase 8 | prior art credited (`DESIGN §9`); comparison in the README; "existing Jev implementations" column |
 | **The taxonomy comes back narrow and we pad it** | Phase 0 | prediction recorded in advance; narrow scope pre-accepted |
 | **Entity resolution silently merges or splits** | Phase 7 | measured in Phase 0: stop **[Z4]**; deduplication is the extractor's contract in v0 |
-| **Pair questions jitter** | Phase 7 | floor measured on two runs; both-orderings experiment **[P12]** |
+| **Pair questions jitter** | Post-v0 (PLAN §9.1) | floor measured on two runs; both-orderings experiment **[P12]** |
 | **Candidate extraction is the weak link** | Phase 5 onward | `none_of_these` mandatory, including for single candidates; complete-value template **[P11]** |
 | **Context limits exceeded** | Phase 3 onward | preflight on declared maxima (default 50 × 120); split, bisect, or refuse; never truncate **[P14]** |
 | **Sync wrapper over async code breaks** | Phase 3 | library loop thread; per-call clients on caller loops; thread-lock limiter **[L20, L22]** |
@@ -830,14 +820,14 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **State referencing** | Opaque-id objects, never positions | 62% vs 0% wrong **[P4]** |
 | **Candidate options** | Opaque ids; every occurrence of repeated text offered with a context window | 40/40 vs 22/40; offering only one occurrence misattributes provenance **[P15]** |
 | **Question wording** | Versioned templates; complete-value wording; no negations | Partials 32/42 → 0/42 **[P11]**; literal reading **[V-jagged]** |
-| **Single candidates** | Asked with `none_of_these` by default; direct extraction opt-in | 84/84 wrong-role lone candidates abstained **[P11]** |
+| **Single candidates** | Asked with `none_of_these` by default; direct extraction opt-in | 84/84 wrong-role lone candidates abstained in the pilot **[P11]**; 39/50 on real documents **[Z8]** |
 | **Abstention mechanism** | `none_of_these` inside the choice, not a separate noul gate | The gate was worse: 0.56 vs 0.89 **[P5]** |
 | **Probabilities** | Integer hundredths; sum tolerance; one tie margin ≤ 0.10 for every committing decision | Rounding and jitter are measured; ±0.05 left 11/180 choice flips, 0.10 left 1/180 **[L17, P12, P20]** |
 | **Confidence gating** | Reported, never gated by default | A default threshold would assert calibration we have not measured |
 | **Calibration bar** | Tie-safe bins, one-sided bootstrap ECE bound, Wilson rule at τ, mandatory power check on the observed distribution | The bar's power depends on the distribution **[L13, L14]** |
 | **Retry defaults** | Zero for schema-derived sets; one for candidates, old ∪ new, two-sided bar on constructed misses | Near-deterministic model; relative distributions; harm as well as benefit **[L15]** |
 | **Entity resolution** | Out of v0: deduplication is the extractor's declared contract. The post-v0 design keeps the lossless pre-merge, member-only components, the internal rule, and the cross-component variant with `conflict_floor` 0.05, chosen in Phase 0 **[Z4]** | Casefold merges distinct entities **[L1]**; the variant helped in-sample **[P10]** and did nothing out of sample **[P17]** |
-| **Pairwise cap** | n = 30, lowered if Phase 7 measures a lower quality ceiling | Token-feasible with a lean template **[L7]**; quality unmeasured |
+| **Pairwise cap** | Post-v0 with entity resolution: n = 30, lowered if its phase measures a lower quality ceiling **[Z4]** | Token-feasible with a lean template **[L7]**; quality unmeasured |
 | **Grapheme boundaries** | UAX #29 from a vendored generated table at Unicode 17.0; conformance plus differential tests | The shorthand rule was wrong in 13–15 of 20 classes **[L11]**; ~1.2 KB, no new dependency **[L19]** |
 | **Replay** | `CachingBackend` and `ReplayLLM`, RFC 8785 keys (`rfc8785` / `canonicalize`), caller-supplied directory | Identical hashes across languages **[L21]**; nothing written by default |
 | **Source trust** | Untrusted; stated limit; screen off until a wording meets its bar | Selection is steerable **[P7]**; the tested screen wording flagged 28/60 benign documents **[P21]** |
@@ -873,10 +863,10 @@ Reversals are recorded in `DESIGN §13`.
 | Do decision retries recover answers without adding false commits? | Phase 5 | Default retry budget becomes 0 |
 | Do redrafts recover rejected drafts without admitting bad ones? | Phase 4 | Default redraft budget becomes 0 |
 | Level or speculative fan-out for unions? | Phase 6 | Whichever the measurement favours |
-| What is the pairwise quality ceiling? Can pair jitter be reduced? | Phase 7 | Cap lowered with the measurement cited; banding only |
+| What is the pairwise quality ceiling? Can pair jitter be reduced? | Post-v0 entity-resolution phase (PLAN §9.1) | Cap lowered with the measurement cited; banding only |
 | Is the name right? | before Phase 8 | Rename before publication |
 
-**Closed by evidence:** level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a noul gate is a worse abstention mechanism **[P5]**; lone candidates are safer asked **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording costs nothing when the full value is present **[P18]**; mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**.
+**Closed by evidence:** level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a noul gate is a worse abstention mechanism **[P5]**; lone candidates are safer asked **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording costs nothing when the full value is present **[P18]**; mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; entity resolution on real prose is below its bar, out of v0 **[Z4]**; state references by position fail on the pinned model **[Z5]**.
 
 ---
 
@@ -917,6 +907,28 @@ Nothing deferred is dropped. Each entry names what it waits on.
 | **JS / TS port** | Two languages in v0 finish neither | After Phase 9 | Phase 10 |
 | **Infisical credentials** | Team convenience, not a library feature | Any time; lowest priority | Phase 11 |
 | **Recursive and dynamic `$ref`, `allOf` beyond flat merge, `dict[str, X]`, tuples, `Any`, `bytes`** | Refused loudly (`DESIGN §3.5`) | After Phase 8 | A post-v0 phase |
-| **Nested arrays of objects, cross-item constraints** | Out of Phase 7 scope | After Phase 8 | A post-v0 phase |
+| **Arrays of objects (including nested), cross-item constraints** | Out of Phase 7 scope; refused in v0 (`DESIGN §3.5`) | After Phase 8 | A post-v0 phase |
 | **`none_of_these` on schema enums and union discriminators** ("not determinable from the source") | Schema-derived choices have no abstention path in v0 | After Phase 5 measures abstention | A post-v0 phase |
 | **Relative and partial dates** ("next Friday", "the 3rd") | v0 parses selected absolute date spans only | After Phase 5 | A post-v0 phase using date-part choices with "not stated", as in the vendor's date-extraction cookbook **[V-cookbooks]** |
+
+### 9.1 Post-v0: entity resolution (moved out of Phase 7 by Phase 0 **[Z4]**)
+
+Probe 4 was *stop* on real prose, so these Phase 7 items wait for their own phase, which re-measures them with its own probe before anything ships. They keep the Phase 0 settings: `conflict_floor` 0.05 and the cross-component variant (`DESIGN §5.7`).
+
+**Deliverables:**
+
+- `assemble/entities.py` (`DESIGN §5.7`): lossless pre-merge (casefold opt-in; never initials or first names); pairwise nouls, capped; the internal-consistency rule, plus the cross-component variant if Phase 0 chose it, with `conflict_floor` from Phase 0
+- `Normalizer` canonical representative: earliest span, longest span, or user-supplied
+- An experiment on reducing pair jitter by asking both orderings of each pair and averaging, measured against single-order asking on ≥ 40 documents × 2 identical runs (`DESIGN §12`); it doubles pair questions, so it is measured only at question counts already covered by keyed-batching evidence
+
+**Exit criteria:**
+
+- [ ] **The chain case:** with a fake backend answering Dana = Dana Whitfield (0.9), Dana Whitfield = Ms. Whitfield (0.9), Dana vs Ms. Whitfield (0.4), no cross-component pairs in the uncertain band, and a floor of 0.30, the three produce **one** element
+- [ ] **The internal-conflict case:** A = B, B = C, A vs C ≤ floor → that component is `Unresolved(entity_conflict)` naming the pairs; other components are emitted
+- [ ] **The split case:** under the cross-component variant, two components linked by a pair at 0.40 (above a 0.30 floor) → both are `Unresolved(entity_conflict)`; under the internal-only variant, both are emitted
+- [ ] **Pre-merge:** `"Acme Corp"` and `"Acme  Corp"` merge with zero backend questions; `"US"` and `"us"` do **not** merge by default; with casefold opted in they do; identical strings under different entity types never merge
+- [ ] Pairwise resolution for n candidates issues n(n−1)/2 keyed questions in one call, split only by the budget
+- [ ] A candidate count above the cap yields `Unresolved(too_many_candidates)`
+- [ ] **Cap measured:** component outcomes at n ∈ {10, 20, 30} on ≥ 20 real arrays per n (including how many arrays are incomplete only through membership ties), and keyed-batching accuracy at the resulting question count (measured only to 320 so far **[P4]**), are written down; the default cap is the largest n meeting the Phase 0 probe 4 go band
+- [ ] **Jitter experiment** results are written down; both-orderings asking is adopted only if it at least halves the pair-decision flip rate between identical runs and component accuracy is not lower (point estimates)
+- [ ] **Members only:** a rejected candidate linked at 0.9 to two members A and B, with A–B at 0.10 (≤ floor), does not merge them: A and B are emitted as two elements under both variants

@@ -5,6 +5,7 @@
   "B"
  ],
  "invalid_cluster_runs": 0,
+ "invalid_pairs": 0,
  "floor": {
   "value": 0.05,
   "qualifying": [
@@ -140,5 +141,5 @@
   "k": 2,
   "n": 796
  },
- "requests_sent_this_invocation": 100
+ "requests_sent_this_invocation": 0
 }

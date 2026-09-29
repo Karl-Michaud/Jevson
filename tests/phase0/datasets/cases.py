@@ -57,6 +57,8 @@ def validate_candidate_labels(lab: dict, opts_rec: dict, text: str) -> None:
         bad = [k for k, v in got.items() if v not in OPTION_LABELS]
         if bad:
             raise ValueError(f"{doc}/{f['field_id']}: bad option labels on {bad}")
+        if fl["status"] != "present" and "correct" in got.values():
+            raise ValueError(f"{doc}/{f['field_id']}: a correct option on a field labelled {fl['status']}")
 
 
 def apply_adjudication(labels: dict[str, dict], adjudications: list[dict]) -> dict[str, dict]:
@@ -216,7 +218,7 @@ def single_cases(insts: list[Instance], texts: dict[str, str], seed: int = R.SEE
         correct = [o for o in i.options if o.label == "correct"]
         wrong = [o for o in i.options if o.label == "wrong"]
         partial = [o for o in i.options if o.label == "partial"]
-        if not correct or not wrong or per_doc.get(i.doc_id, 0) >= 3:
+        if i.status != "present" or not correct or not wrong or per_doc.get(i.doc_id, 0) >= 3:
             continue
         text = texts[i.doc_id]
         if partial:
@@ -298,11 +300,15 @@ def build_all(root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION
     texts = {d: doc_text(r, root) for d, r in docs.items()}
     opts = _read_jsonl(extraction / "options.jsonl")
     labels = {p.stem: json.loads(p.read_text()) for p in sorted((labels_dir / "candidates").glob("*.json"))}
-    for r in opts:
-        validate_candidate_labels(labels[r["doc_id"]], r, texts[r["doc_id"]])
     adj_path = labels_dir / "adjudication.jsonl"
     adj = _read_jsonl(adj_path) if adj_path.exists() else []
     labels = apply_adjudication(labels, [a for a in adj if a["kind"] in ("field", "doc")])
+    for r in opts:   # validated after adjudication, so adjudicated labels are checked too
+        validate_candidate_labels(labels[r["doc_id"]], r, texts[r["doc_id"]])
+    present_without_correct = sum(
+        f["status"] == "present" and "correct" not in f.get("options", {}).values()
+        for r in opts for fid, f in labels[r["doc_id"]]["fields"].items()
+        if not next(x for x in r["fields"] if x["field_id"] == fid)["over_cap"])
     sets = split({dom: [d for d, r in docs.items() if r.domain == dom and r.pool == "main"]
                   for dom in {r.domain for r in docs.values()}})
     insts = instances(opts, labels)
@@ -318,7 +324,9 @@ def build_all(root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION
         s = json.loads(p.read_text())
         screen_pool[s["doc_id"]] = s
     dump(screen_docs(screen_pool, {h.base_case_id.split(":")[1] for h in hostile}), out / "probe6_benign.jsonl")
-    dump(single_cases(insts, texts), out / "probe8.jsonl")
+    singles = single_cases(insts, texts)
+    dump(singles, out / "probe8.jsonl")
+    n_po = sum(c.set == "partial_only" for c in singles)
     mrecs = _read_jsonl(extraction / "mentions.jsonl")
     mlabels = {json.loads(p.read_text())["passage_id"]: json.loads(p.read_text())
                for p in sorted((labels_dir / "mentions").glob("*.json"))}
@@ -328,7 +336,10 @@ def build_all(root: pathlib.Path = CORPUS, extraction: pathlib.Path = EXTRACTION
     cl, cstats = clusters(mrecs, mlabels, {d: r.domain for d, r in docs.items()})
     dump(cl, out / "probe4.jsonl")
     summary = {"sampling": notes, "clusters": cstats, "pools": {"present": len(present_pool), "absent": len(absent_pool)},
-               "instances": len(insts), "hostile": len(hostile)}
+               "instances": len(insts), "hostile": len(hostile),
+               "present_fields_with_no_correct_option": present_without_correct,
+               "probe8": {"paired_groups": sum(c.set == "lone_correct" for c in singles), "partial_only": n_po,
+                          "partial_only_shortfall": max(0, R.N_PROBE8 - n_po)}}
     (out / "build_summary.json").write_text(json.dumps(summary, indent=1) + "\n")
     return summary
 

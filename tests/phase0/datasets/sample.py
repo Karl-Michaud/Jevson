@@ -82,9 +82,8 @@ def sample(present: Sequence, absent: Sequence, n: int = R.N_TARGET, seed: int =
     notes = {"pool_present": len(present), "pool_absent": len(absent), "hard_swaps": 0, "repeated_swaps": 0}
     while _hard_share(p, a) < min_hard:
         share = lambda d: sum(c.hard for c in d.taken) / len(d.taken) if d.taken else 1.0  # noqa: E731
-        first, second = sorted((p, a), key=share)
-        if not (first.swap(lambda c: not c.hard, lambda c: c.hard)
-                or second.swap(lambda c: not c.hard, lambda c: c.hard)):
+        lower = min((p, a), key=share)
+        if not lower.swap(lambda c: not c.hard, lambda c: c.hard):
             notes["hard_shortfall"] = True
             break
         notes["hard_swaps"] += 1

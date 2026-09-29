@@ -72,7 +72,7 @@ def test_fjc_candidates():
 
 def _se_item(qid, body, lic="CC BY-SA 4.0"):
     return {"question_id": qid, "title": "Q &amp; A", "body": body, "link": f"https://x/{qid}",
-            "content_license": lic, "owner": {"display_name": "u"}}
+            "content_license": lic, "owner": {"display_name": "Jos&#233;"}}
 
 
 def test_se_docs_filters_length_and_licence():
@@ -80,6 +80,7 @@ def test_se_docs_filters_length_and_licence():
              _se_item(3, "<p>" + "b" * 700 + "</p>", lic="CC BY-SA 3.0")]
     docs = F.se_docs(items, "superuser", "en", 5)
     assert [d.doc_id for d in docs] == ["se-superuser-1"] and docs[0].text.startswith("Q & A\n\n")
+    assert docs[0].attribution.startswith("José on superuser")
 
 
 EPMC_OK = """<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ali="http://www.niso.org/schemas/ali/1.0/">

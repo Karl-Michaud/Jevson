@@ -262,6 +262,7 @@
   {
    "case_id": "p1:cord-test-008:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 96,
    "margin": 93,
@@ -274,6 +275,7 @@
   {
    "case_id": "p1:cord-test-008:receipt.tax_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 97,
    "margin": 95,
@@ -286,6 +288,7 @@
   {
    "case_id": "p1:cord-test-014:receipt.cashprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -298,6 +301,7 @@
   {
    "case_id": "p1:cord-test-014:receipt.changeprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -310,6 +314,7 @@
   {
    "case_id": "p1:cord-test-014:receipt.service_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -322,6 +327,7 @@
   {
    "case_id": "p1:cord-test-014:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -334,6 +340,7 @@
   {
    "case_id": "p1:cord-test-014:receipt.tax_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 95,
    "margin": 91,
@@ -346,6 +353,7 @@
   {
    "case_id": "p1:cord-test-014:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -358,6 +366,7 @@
   {
    "case_id": "p1:cord-test-016:receipt.cashprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -370,6 +379,7 @@
   {
    "case_id": "p1:cord-test-016:receipt.changeprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -382,6 +392,7 @@
   {
    "case_id": "p1:cord-test-016:receipt.tax_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -394,6 +405,7 @@
   {
    "case_id": "p1:cord-test-016:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -406,6 +418,7 @@
   {
    "case_id": "p1:cord-test-024:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 90,
    "margin": 85,
@@ -418,6 +431,7 @@
   {
    "case_id": "p1:cord-test-033:receipt.discount_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 88,
    "margin": 79,
@@ -430,6 +444,7 @@
   {
    "case_id": "p1:cord-test-033:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -442,6 +457,7 @@
   {
    "case_id": "p1:cord-test-033:receipt.tax_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 65,
    "margin": 45,
@@ -454,6 +470,7 @@
   {
    "case_id": "p1:cord-test-033:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -466,6 +483,7 @@
   {
    "case_id": "p1:cord-test-038:receipt.menuqty_cnt",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 84,
    "margin": 72,
@@ -478,6 +496,7 @@
   {
    "case_id": "p1:cord-test-038:receipt.service_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -490,6 +509,7 @@
   {
    "case_id": "p1:cord-test-038:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 85,
    "margin": 73,
@@ -502,6 +522,7 @@
   {
    "case_id": "p1:cord-test-038:receipt.tax_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 95,
    "margin": 92,
@@ -514,6 +535,7 @@
   {
    "case_id": "p1:cord-test-038:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -526,6 +548,7 @@
   {
    "case_id": "p1:cord-test-047:receipt.discount_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -538,6 +561,7 @@
   {
    "case_id": "p1:cord-test-047:receipt.menuqty_cnt",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -550,6 +574,7 @@
   {
    "case_id": "p1:cord-test-047:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 73,
    "margin": 49,
@@ -562,6 +587,7 @@
   {
    "case_id": "p1:cord-test-066:receipt.cashprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -574,6 +600,7 @@
   {
    "case_id": "p1:cord-test-066:receipt.changeprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -586,6 +613,7 @@
   {
    "case_id": "p1:cord-test-066:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 88,
    "margin": 77,
@@ -598,6 +626,7 @@
   {
    "case_id": "p1:cord-test-074:receipt.service_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -610,6 +639,7 @@
   {
    "case_id": "p1:cord-test-074:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -622,6 +652,7 @@
   {
    "case_id": "p1:cord-test-074:receipt.tax_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -634,6 +665,7 @@
   {
    "case_id": "p1:cord-test-075:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -646,6 +678,7 @@
   {
    "case_id": "p1:cord-test-075:receipt.tax_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -658,6 +691,7 @@
   {
    "case_id": "p1:cord-test-075:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -670,6 +704,7 @@
   {
    "case_id": "p1:cord-test-082:receipt.changeprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 96,
    "margin": 92,
@@ -682,6 +717,7 @@
   {
    "case_id": "p1:cord-test-082:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 96,
    "margin": 93,
@@ -694,6 +730,7 @@
   {
    "case_id": "p1:cord-test-082:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 89,
    "margin": 85,
@@ -706,6 +743,7 @@
   {
    "case_id": "p1:cord-test-085:receipt.cashprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -718,6 +756,7 @@
   {
    "case_id": "p1:cord-test-085:receipt.menuqty_cnt",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 73,
    "margin": 52,
@@ -730,6 +769,7 @@
   {
    "case_id": "p1:cord-test-085:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -742,6 +782,7 @@
   {
    "case_id": "p1:cord-test-094:receipt.service_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 77,
    "margin": 57,
@@ -754,6 +795,7 @@
   {
    "case_id": "p1:cord-test-094:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -766,6 +808,7 @@
   {
    "case_id": "p1:cord-test-094:receipt.total_price",
    "outcome": "tie",
+   "argmax_outcome": "wrong",
    "status": "tie",
    "p_selected": 52,
    "margin": 10,
@@ -778,6 +821,7 @@
   {
    "case_id": "p1:cord-test-097:receipt.cashprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 94,
    "margin": 90,
@@ -790,6 +834,7 @@
   {
    "case_id": "p1:cord-test-097:receipt.menuqty_cnt",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 73,
    "margin": 55,
@@ -802,6 +847,7 @@
   {
    "case_id": "p1:cord-test-097:receipt.total_price",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 65,
    "margin": 34,
@@ -814,6 +860,7 @@
   {
    "case_id": "p1:cord-test-099:receipt.cashprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 92,
    "margin": 87,
@@ -826,6 +873,7 @@
   {
    "case_id": "p1:cord-test-099:receipt.changeprice",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 94,
    "margin": 90,
@@ -838,6 +886,7 @@
   {
    "case_id": "p1:cord-test-099:receipt.discount_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 94,
    "margin": 89,
@@ -850,6 +899,7 @@
   {
    "case_id": "p1:cord-test-099:receipt.subtotal_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 97,
    "margin": 95,
@@ -862,6 +912,7 @@
   {
    "case_id": "p1:cord-test-099:receipt.total_price",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 80,
    "margin": 65,
@@ -874,6 +925,7 @@
   {
    "case_id": "p1:cuad-adianutrition-inc-04-01-2005-ex-10-d2-reseller-agreement:contract.document_name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 79,
    "margin": 69,
@@ -886,6 +938,7 @@
   {
    "case_id": "p1:cuad-adianutrition-inc-04-01-2005-ex-10-d2-reseller-agreement:contract.governing_law",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 48,
    "margin": 6,
@@ -898,6 +951,7 @@
   {
    "case_id": "p1:cuad-arconicrolledproductscorp-20191217-10-12b-ex-2-7-11923804-ex:contract.governing_law",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 52,
    "margin": 9,
@@ -910,6 +964,7 @@
   {
    "case_id": "p1:cuad-bioamberinc-04-10-2013-ex-10-34-development-agreement-first-:contract.document_name",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 30,
    "margin": 7,
@@ -922,6 +977,7 @@
   {
    "case_id": "p1:cuad-bioamberinc-04-10-2013-ex-10-34-development-agreement-first-:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 55,
    "margin": 33,
@@ -934,6 +990,7 @@
   {
    "case_id": "p1:cuad-bolivarminingcorp-05-23-2003-ex-2-1-visp-web-site-building-a:contract.document_name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -946,6 +1003,7 @@
   {
    "case_id": "p1:cuad-bolivarminingcorp-05-23-2003-ex-2-1-visp-web-site-building-a:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 97,
    "margin": 96,
@@ -958,6 +1016,7 @@
   {
    "case_id": "p1:cuad-bolivarminingcorp-05-23-2003-ex-2-1-visp-web-site-building-a:contract.governing_law",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 79,
    "margin": 62,
@@ -970,6 +1029,7 @@
   {
    "case_id": "p1:cuad-bolivarminingcorp-05-23-2003-ex-2-1-visp-web-site-building-a:contract.notice_period",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 58,
    "margin": 22,
@@ -982,6 +1042,7 @@
   {
    "case_id": "p1:cuad-bolivarminingcorp-05-23-2003-ex-2-1-visp-web-site-building-a:contract.renewal_term",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 43,
    "margin": 22,
@@ -994,6 +1055,7 @@
   {
    "case_id": "p1:cuad-embarkcominc-19991008-s-1a-ex-10-10-6487661-ex-10-10-co-bran:contract.agreement_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1006,6 +1068,7 @@
   {
    "case_id": "p1:cuad-embarkcominc-19991008-s-1a-ex-10-10-6487661-ex-10-10-co-bran:contract.expiration_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1018,6 +1081,7 @@
   {
    "case_id": "p1:cuad-embarkcominc-19991008-s-1a-ex-10-10-6487661-ex-10-10-co-bran:contract.governing_law",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 52,
    "margin": 9,
@@ -1030,6 +1094,7 @@
   {
    "case_id": "p1:cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--3ded74:contract.agreement_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 88,
    "margin": 82,
@@ -1042,6 +1107,7 @@
   {
    "case_id": "p1:cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--3ded74:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 91,
    "margin": 84,
@@ -1054,6 +1120,7 @@
   {
    "case_id": "p1:cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement:contract.expiration_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1066,6 +1133,7 @@
   {
    "case_id": "p1:cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement:contract.governing_law",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 71,
    "margin": 45,
@@ -1078,6 +1146,7 @@
   {
    "case_id": "p1:cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement:contract.renewal_term",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 74,
    "margin": 57,
@@ -1090,6 +1159,7 @@
   {
    "case_id": "p1:cuad-innerscopehearingtechnologiesinc-20181109-8-k-ex-10-6-114197:contract.renewal_term",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -1102,6 +1172,7 @@
   {
    "case_id": "p1:cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement:contract.agreement_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1114,6 +1185,7 @@
   {
    "case_id": "p1:cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -1126,6 +1198,7 @@
   {
    "case_id": "p1:cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement:contract.governing_law",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 73,
    "margin": 49,
@@ -1138,6 +1211,7 @@
   {
    "case_id": "p1:cuad-linkpluscorp-20050802-8-k-ex-10-3240252-ex-10-affiliate-agre:contract.agreement_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 63,
    "margin": 27,
@@ -1150,6 +1224,7 @@
   {
    "case_id": "p1:cuad-linkpluscorp-20050802-8-k-ex-10-3240252-ex-10-affiliate-agre:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 80,
    "margin": 60,
@@ -1162,6 +1237,7 @@
   {
    "case_id": "p1:cuad-linkpluscorp-20050802-8-k-ex-10-3240252-ex-10-affiliate-agre:contract.governing_law",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 75,
    "margin": 54,
@@ -1174,6 +1250,7 @@
   {
    "case_id": "p1:cuad-meritlifeinsuranceco-06-19-2020-ex-10-xiv-master-services-ag:contract.document_name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 49,
    "margin": 19,
@@ -1186,6 +1263,7 @@
   {
    "case_id": "p1:cuad-mjbiotech-inc-12-06-2018-ex-99-01-joint-venture-agreement:contract.agreement_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 90,
    "margin": 82,
@@ -1198,6 +1276,7 @@
   {
    "case_id": "p1:cuad-mjbiotech-inc-12-06-2018-ex-99-01-joint-venture-agreement:contract.expiration_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1210,6 +1289,7 @@
   {
    "case_id": "p1:cuad-qbiomedinc-04-08-2020-ex-99-1-joint-filing-agreement:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 93,
    "margin": 89,
@@ -1222,6 +1302,7 @@
   {
    "case_id": "p1:cuad-reedsinc-20191113-10-q-ex-10-4-11888303-ex-10-4-development-:contract.document_name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 60,
    "margin": 47,
@@ -1234,6 +1315,7 @@
   {
    "case_id": "p1:cuad-reedsinc-20191113-10-q-ex-10-4-11888303-ex-10-4-development-:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1246,6 +1328,7 @@
   {
    "case_id": "p1:cuad-rewalkroboticsltd-07-10-2014-ex-10-2-strategic-alliance-agre:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -1258,6 +1341,7 @@
   {
    "case_id": "p1:cuad-rewalkroboticsltd-07-10-2014-ex-10-2-strategic-alliance-agre:contract.governing_law",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 94,
    "margin": 90,
@@ -1270,6 +1354,7 @@
   {
    "case_id": "p1:cuad-scoutcaminc-05-12-2020-ex-10-22-services-agreement:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1282,6 +1367,7 @@
   {
    "case_id": "p1:cuad-slingerbaginc-05-27-2020-ex-10-7-consulting-agreement:contract.governing_law",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 68,
    "margin": 54,
@@ -1294,6 +1380,7 @@
   {
    "case_id": "p1:cuad-smartrxsystemsinc-20180914-1-a-ex1a-6-mat-ctrct-11351705-ex1:contract.agreement_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 93,
    "margin": 86,
@@ -1306,6 +1393,7 @@
   {
    "case_id": "p1:cuad-smartrxsystemsinc-20180914-1-a-ex1a-6-mat-ctrct-11351705-ex1:contract.document_name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 84,
    "margin": 77,
@@ -1318,6 +1406,7 @@
   {
    "case_id": "p1:cuad-smartrxsystemsinc-20180914-1-a-ex1a-6-mat-ctrct-11351705-ex1:contract.effective_date",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 93,
    "margin": 90,
@@ -1330,6 +1419,7 @@
   {
    "case_id": "p1:cuad-smartrxsystemsinc-20180914-1-a-ex1a-6-mat-ctrct-11351705-ex1:contract.governing_law",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1342,6 +1432,7 @@
   {
    "case_id": "p1:cuad-smartrxsystemsinc-20180914-1-a-ex1a-6-mat-ctrct-11351705-ex1:contract.renewal_term",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 64,
    "margin": 31,
@@ -1354,6 +1445,7 @@
   {
    "case_id": "p1:cuad-solutionsvendinginternational-inc-03-31-2020-ex1a-1-undr-agm:contract.notice_period",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 87,
    "margin": 78,
@@ -1366,6 +1458,7 @@
   {
    "case_id": "p1:cuad-ultragenyxpharmaceuticalinc-12-23-2013-ex-10-9-supply-agreem:contract.notice_period",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1378,6 +1471,7 @@
   {
    "case_id": "p1:epmc-pmc10912831:medical.diagnosis",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 35,
    "margin": 8,
@@ -1390,6 +1484,7 @@
   {
    "case_id": "p1:epmc-pmc10916147:medical.diagnosis",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 86,
    "margin": 76,
@@ -1402,6 +1497,7 @@
   {
    "case_id": "p1:epmc-pmc10916207:medical.diagnosis",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1414,6 +1510,7 @@
   {
    "case_id": "p1:epmc-pmc10916207:medical.treatment_drug",
    "outcome": "tie",
+   "argmax_outcome": "abstain",
    "status": "tie",
    "p_selected": 40,
    "margin": 8,
@@ -1426,6 +1523,7 @@
   {
    "case_id": "p1:epmc-pmc11150568:medical.diagnosis",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 94,
    "margin": 91,
@@ -1438,6 +1536,7 @@
   {
    "case_id": "p1:epmc-pmc11208810:medical.diagnosis",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 92,
    "margin": 88,
@@ -1450,6 +1549,7 @@
   {
    "case_id": "p1:epmc-pmc11227676:medical.diagnosis",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 84,
    "margin": 77,
@@ -1462,6 +1562,7 @@
   {
    "case_id": "p1:fjc-10929791:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1474,6 +1575,7 @@
   {
    "case_id": "p1:fjc-13623536:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1486,6 +1588,7 @@
   {
    "case_id": "p1:fjc-13761346:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1498,6 +1601,7 @@
   {
    "case_id": "p1:fjc-13761346:resume.name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -1510,6 +1614,7 @@
   {
    "case_id": "p1:fjc-13761346:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1522,6 +1627,7 @@
   {
    "case_id": "p1:fjc-1389116:resume.first_judgeship_start",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1534,6 +1640,7 @@
   {
    "case_id": "p1:fjc-1389116:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1546,6 +1653,7 @@
   {
    "case_id": "p1:fjc-1389116:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1558,6 +1666,7 @@
   {
    "case_id": "p1:fjc-1390941:resume.latest_position",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 62,
    "margin": 25,
@@ -1570,6 +1679,7 @@
   {
    "case_id": "p1:fjc-1390941:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1582,6 +1692,7 @@
   {
    "case_id": "p1:fjc-1390941:resume.name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -1594,6 +1705,7 @@
   {
    "case_id": "p1:fjc-1390941:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1606,6 +1718,7 @@
   {
    "case_id": "p1:fjc-1391801:resume.first_judgeship_start",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 95,
    "margin": 91,
@@ -1618,6 +1731,7 @@
   {
    "case_id": "p1:fjc-1391801:resume.law_institution",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 95,
    "margin": 91,
@@ -1630,6 +1744,7 @@
   {
    "case_id": "p1:fjc-1391801:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1642,6 +1757,7 @@
   {
    "case_id": "p1:fjc-1391946:resume.first_judgeship_start",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 74,
    "margin": 49,
@@ -1654,6 +1770,7 @@
   {
    "case_id": "p1:fjc-1391946:resume.law_institution",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1666,6 +1783,7 @@
   {
    "case_id": "p1:fjc-1391946:resume.undergrad_institution",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -1678,6 +1796,7 @@
   {
    "case_id": "p1:fjc-1392376:resume.first_judgeship_start",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 93,
    "margin": 88,
@@ -1690,6 +1809,7 @@
   {
    "case_id": "p1:fjc-1392376:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1702,6 +1822,7 @@
   {
    "case_id": "p1:fjc-1392446:resume.first_judgeship_start",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1714,6 +1835,7 @@
   {
    "case_id": "p1:fjc-1392446:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1726,6 +1848,7 @@
   {
    "case_id": "p1:fjc-1392446:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1738,6 +1861,7 @@
   {
    "case_id": "p1:fjc-1392551:resume.first_judgeship_start",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -1750,6 +1874,7 @@
   {
    "case_id": "p1:fjc-1392551:resume.latest_position",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1762,6 +1887,7 @@
   {
    "case_id": "p1:fjc-1392551:resume.name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 97,
    "margin": 94,
@@ -1774,6 +1900,7 @@
   {
    "case_id": "p1:fjc-1392551:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1786,6 +1913,7 @@
   {
    "case_id": "p1:fjc-1393791:resume.latest_position",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 95,
    "margin": 90,
@@ -1798,6 +1926,7 @@
   {
    "case_id": "p1:fjc-1393791:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1810,6 +1939,7 @@
   {
    "case_id": "p1:fjc-1393791:resume.name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -1822,6 +1952,7 @@
   {
    "case_id": "p1:fjc-1393791:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1834,6 +1965,7 @@
   {
    "case_id": "p1:fjc-1393866:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -1846,6 +1978,7 @@
   {
    "case_id": "p1:fjc-1394541:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1858,6 +1991,7 @@
   {
    "case_id": "p1:fjc-1394611:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1870,6 +2004,7 @@
   {
    "case_id": "p1:fjc-5675191:resume.law_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1882,6 +2017,7 @@
   {
    "case_id": "p1:fjc-5675191:resume.name",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 97,
    "margin": 94,
@@ -1894,6 +2030,7 @@
   {
    "case_id": "p1:fjc-5675191:resume.undergrad_year",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -1906,6 +2043,7 @@
   {
    "case_id": "p1:gsa-377651:product.inventory",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 50,
    "margin": 27,
@@ -1918,6 +2056,7 @@
   {
    "case_id": "p1:gsa-378045:product.inventory",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 47,
    "margin": 5,
@@ -1930,6 +2069,7 @@
   {
    "case_id": "p1:gsa-378048:product.title",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 96,
    "margin": 94,
@@ -1942,6 +2082,7 @@
   {
    "case_id": "p1:gsa-378108:product.inventory",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 71,
    "margin": 50,
@@ -1954,6 +2095,7 @@
   {
    "case_id": "p1:gsa-378108:product.title",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 93,
    "margin": 89,
@@ -1966,6 +2108,7 @@
   {
    "case_id": "p1:se-askubuntu-1498659:ticket.affected_service",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 32,
    "margin": 2,
@@ -1978,6 +2121,7 @@
   {
    "case_id": "p1:se-askubuntu-1498664:ticket.affected_service",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 21,
    "margin": 4,
@@ -1990,6 +2134,7 @@
   {
    "case_id": "p1:se-es-610813:ticket.affected_service",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 67,
    "margin": 41,
@@ -2002,6 +2147,7 @@
   {
    "case_id": "p1:se-es-610951:ticket.affected_service",
    "outcome": "tie",
+   "argmax_outcome": "correct",
    "status": "tie",
    "p_selected": 30,
    "margin": 1,
@@ -2014,6 +2160,7 @@
   {
    "case_id": "p1:se-es-610994:ticket.affected_service",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 81,
    "margin": 69,
@@ -2026,6 +2173,7 @@
   {
    "case_id": "p1:se-es-611035:ticket.affected_service",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 67,
    "margin": 49,
@@ -2038,6 +2186,7 @@
   {
    "case_id": "p1:se-superuser-1823886:ticket.affected_service",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 91,
    "margin": 86,
@@ -2050,6 +2199,7 @@
   {
    "case_id": "p1:se-superuser-1823902:ticket.affected_service",
    "outcome": "correct",
+   "argmax_outcome": "correct",
    "status": "ok",
    "p_selected": 87,
    "margin": 83,
@@ -2062,6 +2212,7 @@
   {
    "case_id": "p2:cord-test-004:receipt.cashprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2073,6 +2224,7 @@
   {
    "case_id": "p2:cord-test-004:receipt.discount_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2084,6 +2236,7 @@
   {
    "case_id": "p2:cord-test-004:receipt.subtotal_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2095,6 +2248,7 @@
   {
    "case_id": "p2:cord-test-004:receipt.total_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2106,6 +2260,7 @@
   {
    "case_id": "p2:cord-test-026:receipt.cashprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2117,6 +2272,7 @@
   {
    "case_id": "p2:cord-test-026:receipt.changeprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 97,
    "margin": 94,
@@ -2128,6 +2284,7 @@
   {
    "case_id": "p2:cord-test-026:receipt.total_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 96,
    "margin": 94,
@@ -2139,6 +2296,7 @@
   {
    "case_id": "p2:cord-test-040:receipt.cashprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2150,6 +2308,7 @@
   {
    "case_id": "p2:cord-test-040:receipt.changeprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2161,6 +2320,7 @@
   {
    "case_id": "p2:cord-test-043:receipt.cashprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 97,
    "margin": 94,
@@ -2172,6 +2332,7 @@
   {
    "case_id": "p2:cord-test-043:receipt.changeprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2183,6 +2344,7 @@
   {
    "case_id": "p2:cord-test-043:receipt.subtotal_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2194,6 +2356,7 @@
   {
    "case_id": "p2:cord-test-043:receipt.tax_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 97,
    "margin": 95,
@@ -2205,6 +2368,7 @@
   {
    "case_id": "p2:cord-test-048:receipt.changeprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -2216,6 +2380,7 @@
   {
    "case_id": "p2:cord-test-048:receipt.subtotal_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 97,
    "margin": 95,
@@ -2227,6 +2392,7 @@
   {
    "case_id": "p2:cord-test-048:receipt.tax_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 75,
    "margin": 68,
@@ -2238,6 +2404,7 @@
   {
    "case_id": "p2:cord-test-048:receipt.total_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 94,
    "margin": 88,
@@ -2249,6 +2416,7 @@
   {
    "case_id": "p2:cord-test-052:receipt.cashprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2260,6 +2428,7 @@
   {
    "case_id": "p2:cord-test-052:receipt.subtotal_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2271,6 +2440,7 @@
   {
    "case_id": "p2:cord-test-052:receipt.total_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 95,
    "margin": 93,
@@ -2282,6 +2452,7 @@
   {
    "case_id": "p2:cord-test-059:receipt.menuqty_cnt",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 80,
    "margin": 63,
@@ -2293,6 +2464,7 @@
   {
    "case_id": "p2:cord-test-059:receipt.subtotal_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2304,6 +2476,7 @@
   {
    "case_id": "p2:cord-test-059:receipt.tax_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2315,6 +2488,7 @@
   {
    "case_id": "p2:cord-test-059:receipt.total_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2326,6 +2500,7 @@
   {
    "case_id": "p2:cord-test-060:receipt.subtotal_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2337,6 +2512,7 @@
   {
    "case_id": "p2:cord-test-060:receipt.tax_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2348,6 +2524,7 @@
   {
    "case_id": "p2:cord-test-060:receipt.total_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2359,6 +2536,7 @@
   {
    "case_id": "p2:cord-test-063:receipt.cashprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 98,
    "margin": 97,
@@ -2370,6 +2548,7 @@
   {
    "case_id": "p2:cord-test-063:receipt.changeprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 98,
    "margin": 97,
@@ -2381,6 +2560,7 @@
   {
    "case_id": "p2:cord-test-063:receipt.subtotal_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2392,6 +2572,7 @@
   {
    "case_id": "p2:cord-test-073:receipt.cashprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 78,
    "margin": 67,
@@ -2403,6 +2584,7 @@
   {
    "case_id": "p2:cord-test-073:receipt.changeprice",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 90,
    "margin": 82,
@@ -2414,6 +2596,7 @@
   {
    "case_id": "p2:cord-test-073:receipt.menuqty_cnt",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 88,
    "margin": 81,
@@ -2425,6 +2608,7 @@
   {
    "case_id": "p2:cord-test-076:receipt.menuqty_cnt",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 80,
    "margin": 64,
@@ -2436,6 +2620,7 @@
   {
    "case_id": "p2:cord-test-081:receipt.menuqty_cnt",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 59,
    "margin": 34,
@@ -2447,6 +2632,7 @@
   {
    "case_id": "p2:cord-test-081:receipt.total_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2458,6 +2644,7 @@
   {
    "case_id": "p2:cord-test-084:receipt.subtotal_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2469,6 +2656,7 @@
   {
    "case_id": "p2:cord-test-084:receipt.tax_price",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2480,6 +2668,7 @@
   {
    "case_id": "p2:cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag:contract.agreement_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 93,
    "margin": 86,
@@ -2491,6 +2680,7 @@
   {
    "case_id": "p2:cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag:contract.effective_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 97,
    "margin": 94,
@@ -2502,6 +2692,7 @@
   {
    "case_id": "p2:cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag:contract.expiration_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2513,6 +2704,7 @@
   {
    "case_id": "p2:cuad-drkoopcominc-04-21-1999-ex-10-28-sponsorship-agreement:contract.effective_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 89,
    "margin": 84,
@@ -2524,6 +2716,7 @@
   {
    "case_id": "p2:cuad-ecosciencesolutionsinc-20180406-8-k-ex-10-1-11135398-ex-10-1:contract.agreement_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 95,
    "margin": 92,
@@ -2535,6 +2728,7 @@
   {
    "case_id": "p2:cuad-ecosciencesolutionsinc-20180406-8-k-ex-10-1-11135398-ex-10-1:contract.effective_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 86,
    "margin": 74,
@@ -2546,6 +2740,7 @@
   {
    "case_id": "p2:cuad-ecosciencesolutionsinc-20180406-8-k-ex-10-1-11135398-ex-10-1:contract.expiration_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2557,6 +2752,7 @@
   {
    "case_id": "p2:cuad-globaltechnologiesltd-06-08-2020-ex-10-16-consulting-agreeme:contract.agreement_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2568,6 +2764,7 @@
   {
    "case_id": "p2:cuad-globaltechnologiesltd-06-08-2020-ex-10-16-consulting-agreeme:contract.effective_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 94,
    "margin": 88,
@@ -2579,6 +2776,7 @@
   {
    "case_id": "p2:cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content-:contract.agreement_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 54,
    "margin": 31,
@@ -2590,6 +2788,7 @@
   {
    "case_id": "p2:cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content-:contract.effective_date",
    "outcome": "tie",
+   "argmax_outcome": "abstain",
    "status": "tie",
    "p_selected": 38,
    "margin": 8,
@@ -2601,6 +2800,7 @@
   {
    "case_id": "p2:cuad-imagewaresystemsinc-12-20-1999-ex-10-22-maintenance-agreemen:contract.effective_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 54,
    "margin": 16,
@@ -2612,6 +2812,7 @@
   {
    "case_id": "p2:cuad-imagewaresystemsinc-12-20-1999-ex-10-22-maintenance-agreemen:contract.notice_period",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 55,
    "margin": 25,
@@ -2623,6 +2824,7 @@
   {
    "case_id": "p2:cuad-imagewaresystemsinc-12-20-1999-ex-10-22-maintenance-agreemen:contract.renewal_term",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 68,
    "margin": 45,
@@ -2634,6 +2836,7 @@
   {
    "case_id": "p2:cuad-integrityfunds-20200121-485bpos-ex-99-e-undr-contr-11948727-:contract.agreement_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 95,
    "margin": 91,
@@ -2645,6 +2848,7 @@
   {
    "case_id": "p2:cuad-integrityfunds-20200121-485bpos-ex-99-e-undr-contr-11948727-:contract.expiration_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2656,6 +2860,7 @@
   {
    "case_id": "p2:cuad-integrityfunds-20200121-485bpos-ex-99-e-undr-contr-11948727-:contract.governing_law",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2667,6 +2872,7 @@
   {
    "case_id": "p2:cuad-integrityfunds-20200121-485bpos-ex-99-e-undr-contr-11948727-:contract.renewal_term",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2678,6 +2884,7 @@
   {
    "case_id": "p2:cuad-lejuholdingsltd-20140121-drs-on-f-1-ex-10-26-8473102-ex-10-2:contract.document_name",
    "outcome": "tie",
+   "argmax_outcome": "partial",
    "status": "tie",
    "p_selected": 50,
    "margin": 5,
@@ -2689,6 +2896,7 @@
   {
    "case_id": "p2:cuad-paxmedica-inc-07-02-2020-ex-10-12-master-service-agreement:contract.agreement_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 71,
    "margin": 57,
@@ -2700,6 +2908,7 @@
   {
    "case_id": "p2:cuad-paxmedica-inc-07-02-2020-ex-10-12-master-service-agreement:contract.effective_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 91,
    "margin": 87,
@@ -2711,6 +2920,7 @@
   {
    "case_id": "p2:cuad-primeenergyresourcescorp-04-02-2007-ex-10-28-completion-and-:contract.document_name",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 73,
    "margin": 48,
@@ -2722,6 +2932,7 @@
   {
    "case_id": "p2:cuad-rgcresourcesinc-20151216-8-k-ex-10-3-9372751-ex-10-3-franchi:contract.agreement_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2733,6 +2944,7 @@
   {
    "case_id": "p2:cuad-rgcresourcesinc-20151216-8-k-ex-10-3-9372751-ex-10-3-franchi:contract.effective_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 70,
    "margin": 48,
@@ -2744,6 +2956,7 @@
   {
    "case_id": "p2:cuad-soupmaninc-20150814-8-k-ex-10-1-9230148-ex-10-1-franchise-ag:contract.document_name",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 59,
    "margin": 39,
@@ -2755,6 +2968,7 @@
   {
    "case_id": "p2:cuad-southernstarenergyinc-20051202-sb-2a-ex-9-801890-ex-9-affili:contract.document_name",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 78,
    "margin": 63,
@@ -2766,6 +2980,7 @@
   {
    "case_id": "p2:cuad-southernstarenergyinc-20051202-sb-2a-ex-9-801890-ex-9-affili:contract.effective_date",
    "outcome": "tie",
+   "argmax_outcome": "abstain",
    "status": "tie",
    "p_selected": 38,
    "margin": 2,
@@ -2777,6 +2992,7 @@
   {
    "case_id": "p2:cuad-stwresourcesholdingcorp-08-06-2014-ex-10-1-cooperation-agree:contract.notice_period",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2788,6 +3004,7 @@
   {
    "case_id": "p2:cuad-stwresourcesholdingcorp-08-06-2014-ex-10-1-cooperation-agree:contract.renewal_term",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 56,
    "margin": 34,
@@ -2799,6 +3016,7 @@
   {
    "case_id": "p2:cuad-ticketscominc-06-22-1999-ex-10-22-sponsorship-agreement:contract.effective_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 80,
    "margin": 60,
@@ -2810,6 +3028,7 @@
   {
    "case_id": "p2:cuad-ticketscominc-06-22-1999-ex-10-22-sponsorship-agreement:contract.renewal_term",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 94,
    "margin": 88,
@@ -2821,6 +3040,7 @@
   {
    "case_id": "p2:cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement:contract.effective_date",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 87,
    "margin": 76,
@@ -2832,6 +3052,7 @@
   {
    "case_id": "p2:cuad-urscorpnew-03-17-2014-ex-99-cooperation-agreement:contract.agreement_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -2843,6 +3064,7 @@
   {
    "case_id": "p2:cuad-vnueinc-20150914-8-k-ex-10-1-9259571-ex-10-1-promotion-agree:contract.agreement_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 92,
    "margin": 88,
@@ -2854,6 +3076,7 @@
   {
    "case_id": "p2:cuad-vnueinc-20150914-8-k-ex-10-1-9259571-ex-10-1-promotion-agree:contract.effective_date",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -2865,6 +3088,7 @@
   {
    "case_id": "p2:cuad-vnueinc-20150914-8-k-ex-10-1-9259571-ex-10-1-promotion-agree:contract.renewal_term",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 97,
    "margin": 94,
@@ -2876,6 +3100,7 @@
   {
    "case_id": "p2:epmc-pmc10805998:medical.diagnosis",
    "outcome": "tie",
+   "argmax_outcome": "abstain",
    "status": "tie",
    "p_selected": 55,
    "margin": 10,
@@ -2887,6 +3112,7 @@
   {
    "case_id": "p2:epmc-pmc10805998:medical.treatment_drug",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 63,
    "margin": 50,
@@ -2898,6 +3124,7 @@
   {
    "case_id": "p2:epmc-pmc10805999:medical.diagnosis",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 95,
    "margin": 92,
@@ -2909,6 +3136,7 @@
   {
    "case_id": "p2:epmc-pmc10805999:medical.treatment_drug",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 70,
    "margin": 48,
@@ -2920,6 +3148,7 @@
   {
    "case_id": "p2:epmc-pmc10910697:medical.diagnosis",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2931,6 +3160,7 @@
   {
    "case_id": "p2:epmc-pmc10913624:medical.diagnosis",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -2942,6 +3172,7 @@
   {
    "case_id": "p2:epmc-pmc10916012:medical.diagnosis",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 84,
    "margin": 76,
@@ -2953,6 +3184,7 @@
   {
    "case_id": "p2:epmc-pmc10916012:medical.treatment_drug",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 47,
    "margin": 22,
@@ -2964,6 +3196,7 @@
   {
    "case_id": "p2:epmc-pmc10916208:medical.diagnosis",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 69,
    "margin": 42,
@@ -2975,6 +3208,7 @@
   {
    "case_id": "p2:epmc-pmc10916208:medical.treatment_drug",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 70,
    "margin": 44,
@@ -2986,6 +3220,7 @@
   {
    "case_id": "p2:epmc-pmc11069210:medical.treatment_drug",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 59,
    "margin": 33,
@@ -2997,6 +3232,7 @@
   {
    "case_id": "p2:epmc-pmc11151406:medical.diagnosis",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 94,
    "margin": 89,
@@ -3008,6 +3244,7 @@
   {
    "case_id": "p2:epmc-pmc11241970:medical.diagnosis",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 72,
    "margin": 48,
@@ -3019,6 +3256,7 @@
   {
    "case_id": "p2:epmc-pmc11241970:medical.treatment_drug",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 80,
    "margin": 67,
@@ -3030,6 +3268,7 @@
   {
    "case_id": "p2:epmc-pmc11241988:medical.diagnosis",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 55,
    "margin": 12,
@@ -3041,6 +3280,7 @@
   {
    "case_id": "p2:fjc-13762149:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3052,6 +3292,7 @@
   {
    "case_id": "p2:fjc-13762149:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3063,6 +3304,7 @@
   {
    "case_id": "p2:fjc-1377761:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3074,6 +3316,7 @@
   {
    "case_id": "p2:fjc-1377761:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3085,6 +3328,7 @@
   {
    "case_id": "p2:fjc-1377761:resume.name",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3096,6 +3340,7 @@
   {
    "case_id": "p2:fjc-1383891:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3107,6 +3352,7 @@
   {
    "case_id": "p2:fjc-1383891:resume.latest_position",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 57,
    "margin": 15,
@@ -3118,6 +3364,7 @@
   {
    "case_id": "p2:fjc-1383891:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3129,6 +3376,7 @@
   {
    "case_id": "p2:fjc-1383891:resume.name",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3140,6 +3388,7 @@
   {
    "case_id": "p2:fjc-1383891:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3151,6 +3400,7 @@
   {
    "case_id": "p2:fjc-1387631:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3162,6 +3412,7 @@
   {
    "case_id": "p2:fjc-1387631:resume.latest_position",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 73,
    "margin": 46,
@@ -3173,6 +3424,7 @@
   {
    "case_id": "p2:fjc-1387631:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3184,6 +3436,7 @@
   {
    "case_id": "p2:fjc-1387631:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3195,6 +3448,7 @@
   {
    "case_id": "p2:fjc-1391131:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3206,6 +3460,7 @@
   {
    "case_id": "p2:fjc-1391131:resume.law_institution",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 58,
    "margin": 16,
@@ -3217,6 +3472,7 @@
   {
    "case_id": "p2:fjc-1391131:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3228,6 +3484,7 @@
   {
    "case_id": "p2:fjc-1391131:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3239,6 +3496,7 @@
   {
    "case_id": "p2:fjc-1391571:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3250,6 +3508,7 @@
   {
    "case_id": "p2:fjc-1391711:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3261,6 +3520,7 @@
   {
    "case_id": "p2:fjc-1391711:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3272,6 +3532,7 @@
   {
    "case_id": "p2:fjc-1391711:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3283,6 +3544,7 @@
   {
    "case_id": "p2:fjc-1391831:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3294,6 +3556,7 @@
   {
    "case_id": "p2:fjc-1391831:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3305,6 +3568,7 @@
   {
    "case_id": "p2:fjc-1391986:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3316,6 +3580,7 @@
   {
    "case_id": "p2:fjc-1391986:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3327,6 +3592,7 @@
   {
    "case_id": "p2:fjc-1391986:resume.name",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3338,6 +3604,7 @@
   {
    "case_id": "p2:fjc-1391986:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3349,6 +3616,7 @@
   {
    "case_id": "p2:fjc-1392186:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3360,6 +3628,7 @@
   {
    "case_id": "p2:fjc-1392186:resume.latest_position",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 70,
    "margin": 42,
@@ -3371,6 +3640,7 @@
   {
    "case_id": "p2:fjc-1392186:resume.law_institution",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 87,
    "margin": 74,
@@ -3382,6 +3652,7 @@
   {
    "case_id": "p2:fjc-1392186:resume.name",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3393,6 +3664,7 @@
   {
    "case_id": "p2:fjc-1392186:resume.undergrad_institution",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3404,6 +3676,7 @@
   {
    "case_id": "p2:fjc-1392186:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3415,6 +3688,7 @@
   {
    "case_id": "p2:fjc-1392386:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3426,6 +3700,7 @@
   {
    "case_id": "p2:fjc-1392386:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3437,6 +3712,7 @@
   {
    "case_id": "p2:fjc-1392386:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3448,6 +3724,7 @@
   {
    "case_id": "p2:fjc-1393696:resume.first_judgeship_start",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 93,
    "margin": 87,
@@ -3459,6 +3736,7 @@
   {
    "case_id": "p2:fjc-1393696:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 99,
    "margin": 98,
@@ -3470,6 +3748,7 @@
   {
    "case_id": "p2:fjc-1394866:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3481,6 +3760,7 @@
   {
    "case_id": "p2:fjc-1394866:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3492,6 +3772,7 @@
   {
    "case_id": "p2:fjc-7470666:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3503,6 +3784,7 @@
   {
    "case_id": "p2:fjc-7470666:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3514,6 +3796,7 @@
   {
    "case_id": "p2:fjc-9354856:resume.law_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3525,6 +3808,7 @@
   {
    "case_id": "p2:fjc-9354856:resume.undergrad_year",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 85,
    "margin": 71,
@@ -3536,6 +3820,7 @@
   {
    "case_id": "p2:gsa-377529:product.title",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 80,
    "margin": 60,
@@ -3547,6 +3832,7 @@
   {
    "case_id": "p2:gsa-377839:product.inventory",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 98,
    "margin": 96,
@@ -3558,6 +3844,7 @@
   {
    "case_id": "p2:gsa-377873:product.title",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 61,
    "margin": 22,
@@ -3569,6 +3856,7 @@
   {
    "case_id": "p2:gsa-378099:product.inventory",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 96,
    "margin": 92,
@@ -3580,6 +3868,7 @@
   {
    "case_id": "p2:gsa-378099:product.title",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 78,
    "margin": 56,
@@ -3591,6 +3880,7 @@
   {
    "case_id": "p2:gsa-378104:product.inventory",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 100,
    "margin": 100,
@@ -3602,6 +3892,7 @@
   {
    "case_id": "p2:gsa-378289:product.inventory",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 92,
    "margin": 85,
@@ -3613,6 +3904,7 @@
   {
    "case_id": "p2:gsa-378289:product.title",
    "outcome": "tie",
+   "argmax_outcome": "partial",
    "status": "tie",
    "p_selected": 41,
    "margin": 9,
@@ -3624,6 +3916,7 @@
   {
    "case_id": "p2:se-askubuntu-1498649:ticket.affected_service",
    "outcome": "tie",
+   "argmax_outcome": "abstain",
    "status": "tie",
    "p_selected": 22,
    "margin": 7,
@@ -3635,6 +3928,7 @@
   {
    "case_id": "p2:se-askubuntu-1498686:ticket.affected_service",
    "outcome": "tie",
+   "argmax_outcome": "abstain",
    "status": "tie",
    "p_selected": 28,
    "margin": 2,
@@ -3646,6 +3940,7 @@
   {
    "case_id": "p2:se-es-610856:ticket.affected_service",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 74,
    "margin": 62,
@@ -3657,6 +3952,7 @@
   {
    "case_id": "p2:se-es-610880:ticket.affected_service",
    "outcome": "abstain",
+   "argmax_outcome": "abstain",
    "status": "ok",
    "p_selected": 63,
    "margin": 32,
@@ -3668,6 +3964,7 @@
   {
    "case_id": "p2:se-es-610923:ticket.affected_service",
    "outcome": "tie",
+   "argmax_outcome": "wrong",
    "status": "tie",
    "p_selected": 30,
    "margin": 1,
@@ -3679,6 +3976,7 @@
   {
    "case_id": "p2:se-es-610925:ticket.affected_service",
    "outcome": "wrong",
+   "argmax_outcome": "wrong",
    "status": "ok",
    "p_selected": 74,
    "margin": 56,
@@ -3690,6 +3988,7 @@
   {
    "case_id": "p2:se-es-611025:ticket.affected_service",
    "outcome": "partial",
+   "argmax_outcome": "partial",
    "status": "ok",
    "p_selected": 84,
    "margin": 77,
@@ -3701,6 +4000,7 @@
   {
    "case_id": "p2:se-superuser-1823910:ticket.affected_service",
    "outcome": "tie",
+   "argmax_outcome": "wrong",
    "status": "tie",
    "p_selected": 35,
    "margin": 5,
@@ -3850,5 +4150,5 @@
   "req_01a0ee9ca8e0743d9c0a0ed0f66fdf63",
   "req_01a0ee9ca91a7c9b9526b1fb4efadc2f"
  ],
- "requests_sent_this_invocation": 138
+ "requests_sent_this_invocation": 0
 }

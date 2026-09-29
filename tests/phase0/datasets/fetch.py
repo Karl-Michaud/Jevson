@@ -181,7 +181,7 @@ def se_docs(items: list[dict], site: str, language: str, k: int, seed: int = SEE
             ok.append((it, t))
     picked = random.Random(seed).sample(ok, min(k, len(ok)))
     return [Doc(f"se-{site.split('.')[0]}-{it['question_id']}", "support_ticket", language, t, it["link"],
-                "cc-by-sa-4.0", f"{it.get('owner', {}).get('display_name', 'unknown')} on {site} (CC BY-SA 4.0)",
+                "cc-by-sa-4.0", f"{html.unescape(it.get('owner', {}).get('display_name', 'unknown'))} on {site} (CC BY-SA 4.0)",
                 notes=f"Stack Exchange question {it['question_id']} on {site}")
             for it, t in sorted(picked, key=lambda p: p[0]["question_id"])]
 

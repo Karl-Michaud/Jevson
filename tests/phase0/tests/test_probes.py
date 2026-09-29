@@ -217,7 +217,7 @@ def test_probe6_skips_absent_question_without_options(mini):
     assert "absent" not in qs and "present" in qs
     r = PR.Request("x", {}, qs, {"kind": "baseline", "options": meta, "advocated": "zz", "style": "A"})
     s = PR.score_6([r], {"x": rec({})})
-    assert s["baseline_absent"]["skipped_no_options"] == 1
+    assert s["baseline_absent"]["skipped_too_few_options"] == 1
 
 
 # ---------------------------------------------------------------- probe 7
@@ -228,6 +228,7 @@ def test_score_7_calibration_reading():
           [{"probe": "absent", "outcome": "abstain", "status": "ok", "p_selected": 100}] * 5 + \
           [{"probe": "absent", "outcome": "tie", "status": "tie", "p_selected": 50},
            {"probe": "absent", "outcome": "invalid", "status": "invalid", "p_selected": None}]
+    dec = [d | {"argmax_outcome": d["outcome"]} for d in dec]
     s = PR.score_7(dec)
     assert s["primary_non_tie"]["n"] == 15 and s["ties_included"]["n"] == 16
     assert s["excluded_ties"] == 1 and s["excluded_invalid"] == 1

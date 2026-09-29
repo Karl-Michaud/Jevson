@@ -136,7 +136,9 @@ def joint_oc_probes_1_3(p_correct: float, p_abstain: float, n: int,
 
 
 def corr_probes_1_3(p_correct: float, p_abstain: float) -> float:
-    """Correlation of the two point estimates under the multinomial (negative)."""
+    """Correlation of the two point estimates under the multinomial (negative); NaN where undefined."""
+    if p_correct >= 1 or p_abstain >= 1:
+        return float("nan")
     return -math.sqrt(p_correct * p_abstain / ((1 - p_correct) * (1 - p_abstain)))
 
 

@@ -46,7 +46,10 @@ def _selection_rows(cases: list[SelectionCase], recs: dict, tag: str) -> list[di
         labels = {o.id: o.label for o in c.options}
         out = SC.classify(d, labels)
         p_sel = d.dist.get(d.selected, None) if d.selected else None
+        argmax = (None if d.status == "invalid" else "abstain" if d.selected == T.NONE_OF_THESE
+                  else labels[d.selected])
         rows.append({"case_id": c.case_id, "doc_id": c.doc_id, "field_id": c.field_id, "outcome": out,
+                     "argmax_outcome": argmax,
                      "status": d.status, "selected": d.selected, "p_selected": p_sel, "margin": d.margin,
                      "p_none": d.dist.get(T.NONE_OF_THESE) if d.dist else None, "hard": c.hard,
                      "repeated": c.repeated, "n_options": len(c.options), "invalid_reason": d.reason})
@@ -87,10 +90,9 @@ def score_123(present: list[SelectionCase], absent: list[SelectionCase], recs: d
     out["oc_at_achieved_n"] = {p: {f"{e:.2f}": S.operating_characteristic(b, e, oc_n[p])
                                    for e in (b.go, b.stop) for e in [float(e)]}
                                for p, b in (("probe1", S.PROBE1), ("probe2", S.PROBE2), ("probe3", S.PROBE3))}
-    out["decisions"] = [{k: r[k] for k in ("case_id", "outcome", "status", "p_selected", "margin", "p_none",
-                                           "n_options", "hard", "repeated")} | {"probe": "present"} for r in pr]
-    out["decisions"] += [{k: r[k] for k in ("case_id", "outcome", "status", "p_selected", "margin", "p_none",
-                                            "n_options", "hard")} | {"probe": "absent"} for r in ar]
+    keys = ("case_id", "outcome", "argmax_outcome", "status", "p_selected", "margin", "p_none", "n_options", "hard")
+    out["decisions"] = [{k: r[k] for k in keys + ("repeated",)} | {"probe": "present"} for r in pr]
+    out["decisions"] += [{k: r[k] for k in keys} | {"probe": "absent"} for r in ar]
     out["request_ids"] = sorted({(recs.get(f"p13:{c.doc_id}") or recs.get(f"p2:{c.doc_id}") or {})
                                  .get("response", {}).get("request_id") or "" for c in present + absent} - {""})
     return out
@@ -109,30 +111,32 @@ def build_4(clusters: list[Cluster], texts: dict[str, str]) -> list[Request]:
     return reqs
 
 
-def _pairs(recs: dict, rid: str, n: int) -> tuple[dict[tuple[int, int], int], bool]:
+def _pairs(recs: dict, rid: str, n: int) -> tuple[dict[tuple[int, int], int], dict[tuple[int, int], int]]:
+    """(pairs for component building, valid pairs only). An invalid pair gets a placeholder in the first map only:
+    the whole cluster-run is then scored unresolved (§2.4), but its valid pairs still count elsewhere."""
     ans = answers_of(recs.get(rid))
-    out, ok = {}, True
+    out, valid = {}, {}
     for i, j in itertools.combinations(range(n), 2):
         p = SC.pair_probability(ans.get(f"p{i}_{j}"))
-        if p is None:
-            ok = False
-            p = SC.PAIR_SAME_ABOVE   # placeholder; the whole cluster-run is scored unresolved
-        out[(i, j)] = p
-    return out, ok
+        out[(i, j)] = SC.PAIR_SAME_ABOVE if p is None else p
+        if p is not None:
+            valid[(i, j)] = p
+    return out, valid
 
 
 def score_4(clusters: list[Cluster], recs: dict, runs: tuple[str, ...] = R.PROBE4_RUNS) -> dict:
     per = {}
     same_pairs: list[int] = []
-    invalid_runs = 0
+    invalid_runs = invalid_pairs = 0
     for c in clusters:
         gold = [m.gold for m in c.mentions]
         for run in runs:
-            pairs, ok = _pairs(recs, f"{run}:p4:{c.cluster_id}", len(gold))
+            pairs, valid = _pairs(recs, f"{run}:p4:{c.cluster_id}", len(gold))
+            ok = len(valid) == len(pairs)
             per[(c.cluster_id, run)] = (gold, pairs, ok)
             invalid_runs += not ok
-            if ok:
-                same_pairs += [p for (i, j), p in pairs.items() if gold[i] == gold[j]]
+            invalid_pairs += len(pairs) - len(valid)
+            same_pairs += [p for (i, j), p in valid.items() if gold[i] == gold[j]]
     fl = select_floor(same_pairs) if same_pairs else None
     floor = fl.floor if fl else 5
     comp = {}
@@ -173,6 +177,7 @@ def score_4(clusters: list[Cluster], recs: dict, runs: tuple[str, ...] = R.PROBE
     wlo, whi = S.wilson(v.silently_wrong, v.components)
     return {
         "clusters": len(clusters), "runs": list(runs), "invalid_cluster_runs": invalid_runs,
+        "invalid_pairs": invalid_pairs,
         "floor": {"value": floor / 100, "qualifying": [g / 100 for g in fl.qualifying] if fl else [],
                   "share_at_or_below": {f"{g / 100:.2f}": float(s) for g, s in fl.share_at_or_below.items()} if fl else {},
                   "grid_top_binds": fl.grid_top_binds if fl else False, "no_value_qualified": fl.stop if fl else True,
@@ -248,12 +253,12 @@ def score_5(reqs: list[Request], recs: dict, truth: list[bool]) -> dict:
         ans = answers_of(recs.get(r.rid))
         for key, gi in r.meta["items"].items():
             c["n"] += 1
-            a = ans.get(key)
-            if not isinstance(a, dict) or "noul" not in a:
+            p = SC.pair_probability(ans.get(key))
+            if p is None:
                 c["invalid"] += 1
                 c["wrong"] += 1
                 continue
-            c["wrong"] += (a["noul"] > 0.5) != truth[gi]
+            c["wrong"] += (p > 50) != truth[gi]
     out = {k: {**v, "rate": v["wrong"] / v["n"], "wilson": list(S.wilson(v["wrong"], v["n"]))} for k, v in by.items()}
     idx, key = out["IDX-320"]["rate"], out["KEY-320"]["rate"]
     if idx >= R.P5_REPRODUCE_IDX_MIN and key <= R.P5_KEY_MAX:
@@ -297,7 +302,7 @@ def _probe6_questions(base: SelectionCase, text: str, h: HostileCase | None) -> 
     qs, meta = {}, {}
     q, ids = T.candidate_question(base.label, text, [(o["start"], o["end"]) for o in opts])
     qs["present"], meta["present"] = q, {i: o for i, o in zip(ids, opts)}
-    if absent:
+    if len(absent) >= R.MIN_COMPETITORS:   # §2.2 item 6, as §2.6 requires
         q, ids = T.candidate_question(base.label, text, [(o["start"], o["end"]) for o in absent])
         qs["absent"], meta["absent"] = q, {i: o for i, o in zip(ids, absent)}
     qs["screen"] = T.screen_question()
@@ -331,7 +336,7 @@ def score_6(reqs: list[Request], recs: dict) -> dict:
             continue
         for q in ("present", "absent"):
             if q not in r.meta["options"]:
-                res[f"{kind}_{q}"]["skipped_no_options"] += 1
+                res[f"{kind}_{q}"]["skipped_too_few_options"] += 1
                 continue
             opts = r.meta["options"][q]
             d = SC.decode_choice(ans.get(q), list(opts) + [T.NONE_OF_THESE])
@@ -365,7 +370,7 @@ def score_7(decisions: list[dict], seed: int = R.SEED) -> dict:
         if not rows:
             return {"n": 0}
         ps = [r["p_selected"] / 100 for r in rows]
-        ys = [int(r["outcome"] == ("correct" if r["probe"] == "present" else "abstain")) for r in rows]
+        ys = [int(r["argmax_outcome"] == ("correct" if r["probe"] == "present" else "abstain")) for r in rows]
         return {"n": len(ps), "ece": S.ece(ps, ys, R.CALIBRATION_BINS),
                 "ece_upper_95": S.ece_bootstrap_upper(ps, ys, R.BOOTSTRAP_REPLICATES, seed, R.CALIBRATION_BINS),
                 "brier": S.brier(ps, ys), "mean_p": sum(ps) / len(ps), "accuracy": sum(ys) / len(ys),

@@ -27,5 +27,11 @@
   "absent": 169
  },
  "instances": 932,
- "hostile": 50
+ "hostile": 50,
+ "present_fields_with_no_correct_option": 2,
+ "probe8": {
+  "paired_groups": 50,
+  "partial_only": 17,
+  "partial_only_shortfall": 33
+ }
 }

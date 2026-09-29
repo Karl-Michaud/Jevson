@@ -138,7 +138,7 @@ The 400 body carries no token counts and no tokenizer is published **[P3]**, so 
               BACKEND (protocol): JevBackend │ FakeBackend │ CachingBackend │ AnyJev-style
                         ▼
    ┌──────────────────────────────────────────────────┐
-   │ ASSEMBLER  entity resolution, ordering,          │
+   │ ASSEMBLER  ordering, entity res. (post-v0),      │
    │            cardinality, overflow, class F parse  │
    └────────────────────┬─────────────────────────────┘
                         ▼
@@ -201,7 +201,7 @@ decision graph → dependency analysis → topological levels
               → one batched, keyed Jev call per level (split only by DESIGN §8.2)
 ```
 
-Because state is billed once per request and questions are independent **[P1, P3]**, batching is both cheaper and answer-neutral. A typical object resolves in **1–3 Jev calls**: one level for everything that depends only on extraction, one more for each union discriminator above it. Array membership and pairwise entity questions are asked over all candidates in the *same* level, not only over accepted members, so arrays add no level.
+Because state is billed once per request and questions are independent **[P1, P3]**, batching is both cheaper and answer-neutral. A typical object resolves in **1–3 Jev calls**: one level for everything that depends only on extraction, one more for each union discriminator above it. Array membership questions are asked over all candidates in the *same* level, so arrays add no level (pairwise entity questions, post-v0 **[Z4]**, would join that level).
 
 ### 3.4 Worked example
 
@@ -218,11 +218,11 @@ class Invoice(BaseModel):
 
 Source: an invoice naming two companies, two addresses, and a subtotal, tax, and total.
 
-1. **Normaliser/compiler.** `category` → `choice` over declared values. `vendor`, `billing_address` → source selection over candidate spans. `total` (Pydantic `Decimal`, normalised to a decimal value emitted as a string) → source selection over *money* candidates, then a deterministic parse of the selected span (class F on a selected span — Jev never does arithmetic). `line_items` → membership `noul` per candidate plus entity resolution.
+1. **Normaliser/compiler.** `category` → `choice` over declared values. `vendor`, `billing_address` → source selection over candidate spans. `total` (Pydantic `Decimal`, normalised to a decimal value emitted as a string) → source selection over *money* candidates, then a deterministic parse of the selected span (class F on a selected span — Jev never does arithmetic). `line_items` → membership `noul` per candidate (deduplication is the extractor's contract in v0, R6).
 2. **Extract steps** return verified candidate spans with offsets: two organisations, two addresses, three money amounts, five line-item strings.
 3. **Graph:** every decision depends only on the extract steps → **one decision level → one Jev call**. Candidates are placed in state as an object keyed by opaque ids (`c0…cN`), never by position (R13).
 4. **Jev** returns selections, distributions, and `none_of_these` probabilities in one pass.
-5. **Assembler** resolves line-item entities (DESIGN §5.7), orders them by source offset, enforces `maxItems` retaining overflow, parses the selected total, inserts values by span.
+5. **Assembler** orders accepted line items by source offset, enforces `maxItems` retaining overflow, parses the selected total, inserts values by span.
 6. **Validate** against the original schema. Provenance: `vendor ← [142,151)`, `total ← [610,617)`, `category ← declared option`.
 
 ### 3.5 Normalisation and field declarations
@@ -238,7 +238,7 @@ Source: an invoice naming two companies, two addresses, and a subtotal, tax, and
 | flat `allOf` of object schemas (raw JSON Schema; Pydantic ≥ 2.10 emits none **[L18]**) | merged; anything else refused |
 | `oneOf` + `discriminator` (Pydantic discriminated unions) | a union, resolved by `PLAN.md` Phase 6 |
 | `exclusiveMinimum`/`exclusiveMaximum`, `multipleOf`, `format` | kept for final validation only |
-| recursive or dynamic `$ref`, `dict[str, X]` (`additionalProperties` schema), tuples (`prefixItems`), `Any`, `bytes` | refused with a named reason (tracked in `PLAN.md` §9) |
+| recursive or dynamic `$ref`, `dict[str, X]` (`additionalProperties` schema), tuples (`prefixItems`), `Any`, `bytes`, arrays of objects | refused with a named reason (tracked in `PLAN.md` §9) |
 
 **Field declarations.** Per-field configuration lives in one keyword, **`x-jevson`**. Pydantic users write `Field(json_schema_extra={"x-jevson": {...}})`, so the emitted JSON Schema is identical to what a raw-schema user writes; Pydantic places it on the property, beside any `$ref` **[L18]**. Keys:
 
@@ -256,7 +256,7 @@ question:  <text>          # overrides the compiled field description
 - A **leaf** field (not an object or array) with a `default` and no `x-jevson` key other than `order` is **class A**: it is omitted from `.value` so the default applies (`decided_by: code`); it is neither decided nor refused. To have it decided, declare `source` or `generate`, or add `x-jevson.question` (or `ordinal: true`) to a bool, enum, or integer-range field. An **object or array** field's default does not make it class A: it is compiled from its descendants' or items' declarations, and it is class A only if nothing in it would be decided; its absence then follows DESIGN §5.6.
 - An unbounded `string` or `number` field (including `format` strings and `Decimal`) with no default and neither `source` nor `generate` **refuses (class G)** — unless a default extractor is configured, in which case it is source-selected with that extractor. The built-in pattern extractors (`money`, `date`, `email`, `phone`, `url`) are used **only when declared** by name, so a `weight_kg: Decimal` is never mistaken for money.
 - Because class G depends on configuration, `compile_schema(schema, extractors={names}, default_extractor=None)` receives the extractor *names* (not instances); an `x-jevson.source.extractor` naming an unknown extractor refuses.
-- Library-wide settings live in one `JevsonConfig`: the tie margin, `conflict_floor`, the entity rule variant, the pairwise cap, entity-type normalisers, the source screen, `default_extractor`, `raise_on_unresolved_required`, `step_timeout_s`, and the retry, redraft, and transport budgets. `resolve()` may override the retry and redraft budgets per call. `locale` (on a source declaration) fixes how class F reads decimal and grouping separators and numeric dates; the default is `en-US` (`,` groups thousands, `.` marks decimals, numeric dates are month-first), so `$1,204` is 1204 and `$1,204.50` is 1204.50. Parsing is strict (grouping separators only between groups of three digits); a selected span that does not parse under the field's locale — `1.204,50` under the default — is `Unresolved(unparseable)`; ISO dates and dates with month names parse under any locale. A `locale` tag Jevson does not support refuses at compile time.
+- Library-wide settings live in one `JevsonConfig`: the tie margin, entity-type normalisers, (post-v0, with entity resolution **[Z4]**: `conflict_floor`, the entity rule variant, the pairwise cap), the source screen, `default_extractor`, `raise_on_unresolved_required`, `step_timeout_s`, and the retry, redraft, and transport budgets. `resolve()` may override the retry and redraft budgets per call. `locale` (on a source declaration) fixes how class F reads decimal and grouping separators and numeric dates; the default is `en-US` (`,` groups thousands, `.` marks decimals, numeric dates are month-first), so `$1,204` is 1204 and `$1,204.50` is 1204.50. Parsing is strict (grouping separators only between groups of three digits); a selected span that does not parse under the field's locale — `1.204,50` under the default — is `Unresolved(unparseable)`; ISO dates and dates with month names parse under any locale. A `locale` tag Jevson does not support refuses at compile time.
 - A field can declare `source` or `generate`, not both.
 - Unknown `x-jevson` keys refuse at compile time.
 
@@ -347,7 +347,7 @@ SELECT(candidate)   or   ABSTAIN(none_of_these)
 
 **Pilot evidence** (synthetic, author-written; not the pre-registered Phase 0 probe) **[P5]**: on short documents and trap documents (superseded values, negations, near-duplicate names), selection and abstention were at ceiling. In long, multi-entity documents, abstention when the answer was absent fell to 32/36 = 0.89 (95% CI 0.75–0.96); three of the four failures were superseded due dates. A separate yes/no gate ("does any candidate fill this field?") was *worse* (0.56), because in a multi-entity document some candidate usually is *a* seller, just not *the* one. **The choice-with-`none_of_these` design stays; a noul gate is not used as the abstention mechanism.**
 
-**On real documents** (the pre-registered Phase 0 probes): the correct span was chosen on 132/150 present-answer cases and `none_of_these` on 2/150 **[Z1, Z3]**, but abstention with the correct span removed was 110/150 = 0.73 — the *conditional* band — and 24/45 in long multi-entity documents **[Z2]**. Candidate selection therefore ships with the second gate of `PLAN.md` Phase 5.
+**On real documents** (the pre-registered Phase 0 probes): the correct span was chosen on 132/150 present-answer cases and `none_of_these` on 2/150 **[Z1, Z3]**, but abstention with the correct span removed was 110/150 = 0.73 — the *conditional* band — and 24/45 in the hard regime (long multi-entity documents or superseded values) **[Z2]**. Candidate selection therefore ships with the second gate of `PLAN.md` Phase 5.
 
 ### 5.5 Abstention lifecycle
 
@@ -481,7 +481,7 @@ DECLARED_OPTION  option identifier (schema enum value, rubric level)
 - `satisfies_schema` means `.value` validates against the original schema (and, for a Pydantic model, `model_validate` succeeds); `complete` means `unresolved` is empty. A fully resolved object can still fail a constraint the candidates could not be pre-filtered for (`minItems`, `uniqueItems`, cross-field rules **[L9]**): that is outcome 2 with `complete is True`. `absent` fields do not make a result incomplete (DESIGN §5.6).
 - An unresolved **required** field yields outcome 2 by default (`satisfies_schema=False`); with `raise_on_unresolved_required=True` it yields outcome 3. It is never outcome 1. Constraint failures on a complete object are always outcome 2.
 - At an unresolved **field** pointer the key is **omitted** from `.value`. An **array** with unresolved components is emitted with its resolved elements, and each unresolved component is one `Unresolved` at the array pointer, with the component's spans (or the tied enum value) in `detail`. An unresolved union names its whole subtree; an unresolved root yields `.value == {}`.
-- **`Unresolved` reasons are a closed set:** `abstained` and `no_candidates` (required field), `tie`, `invalid_backend_answer`, `too_many_candidates`, `budget_exceeded` (a run-time `max_tokens_exceeded` that preflight did not predict), `unparseable` (a selected span that class F cannot parse under the field's locale, e.g. `1.204,50` under the default `en-US`), `entity_conflict`, `redraft_exhausted`, `source_flagged`, `verification_failed` (second gate, `PLAN.md` Phase 5), `dependency_unresolved` (a node whose dependency did not resolve). `not_yet_supported` is a `CompileError` reason, not an `Unresolved` reason.
+- **`Unresolved` reasons are a closed set:** `abstained` and `no_candidates` (required field), `tie`, `invalid_backend_answer`, `too_many_candidates`, `budget_exceeded` (a run-time `max_tokens_exceeded` that preflight did not predict), `unparseable` (a selected span that class F cannot parse under the field's locale, e.g. `1.204,50` under the default `en-US`), `entity_conflict` (post-v0, with entity resolution **[Z4]**), `redraft_exhausted`, `source_flagged`, `verification_failed` (second gate, `PLAN.md` Phase 5), `dependency_unresolved` (a node whose dependency did not resolve). `not_yet_supported` is a `CompileError` reason, not an `Unresolved` reason.
 - **A well-formed HTTP 200 whose JSON is malformed or mis-typed** is `invalid_backend_answer` for the affected questions; an unparseable HTTP response is a `BackendError`. An invalid answer to the source screen counts as flagged.
 - **Transport retries are not decision retries.** 429, 5xx, and timeouts are retried with exponential backoff up to `transport_retries` (default 2), counted separately in `Cost`, and exempt from the changed-input rule. Other 4xx responses are not retried. `max_tokens_exceeded` is never retried unchanged (DESIGN §8.2).
 
@@ -592,7 +592,7 @@ Result
   model             exact Jev model id reported by the API
   versions          question template version, Unicode versions of the grapheme table and of
                     `unicodedata` (used for NFC), and the result-affecting settings: tie margin,
-                    conflict_floor, entity rule variant, pairwise cap, source screen on/off and
+                    conflict_floor, entity rule variant, and pairwise cap (post-v0), source screen on/off and
                     its wording version, default_extractor, and the retry and redraft budgets used
 ```
 
@@ -609,7 +609,7 @@ Two limits apply to every request **[V-models, P3]**:
 
 **The source ceiling** is 32k tokens minus the longest question: ~108k characters of English prose or ~62k of dense business text alongside a realistic 255-option question **[P14]**. Under the default declarations a 50-candidate question of 120-character spans costs ~1.6k tokens, ~2.5k with context windows **[P22]**, so the ceiling is close to the full 32k. Longer sources are refused in v0; chunking is planned (`PLAN.md` Phase 9).
 
-**Pairwise entity resolution is O(n²)**: n(n−1)/2 questions. It is **capped at n = 30** (435 questions) by default. The cost depends on the template: the leanest template needs ~18k tokens for 435 questions and a verbose one ~58k, estimated with a proxy tokenizer **[L7]**, so the template is part of the budget. Pair questions are asked over every candidate, not only accepted members, so the cap applies to candidates. Keyed-batching accuracy was measured up to 320 questions per request **[P4]**, not 435, and non-transitive triples grow with the number of triples, n(n−1)(n−2)/6 — so the *quality* ceiling may be lower than the token ceiling. `PLAN.md` Phase 7 measures both and lowers the cap if needed. Above the cap the executor yields `Unresolved(too_many_candidates)` rather than approximating.
+**Pairwise entity resolution is O(n²)**: n(n−1)/2 questions. It is **capped at n = 30** (435 questions) by default. The cost depends on the template: the leanest template needs ~18k tokens for 435 questions and a verbose one ~58k, estimated with a proxy tokenizer **[L7]**, so the template is part of the budget. Pair questions are asked over every candidate, not only accepted members, so the cap applies to candidates. Keyed-batching accuracy was measured up to 320 questions per request **[P4]**, not 435, and non-transitive triples grow with the number of triples, n(n−1)(n−2)/6 — so the *quality* ceiling may be lower than the token ceiling. The post-v0 entity-resolution phase (`PLAN.md` §9.1) measures both and lowers the cap if needed; pairwise resolution is not in v0 **[Z4]**. Above the cap the executor yields `Unresolved(too_many_candidates)` rather than approximating.
 
 ### 8.3 Credentials
 
@@ -673,7 +673,7 @@ Credit where it is due. **Every mechanism below predates Jevson.**
 | Jev is not a fact-checker | adjudication is only as good as the declared criteria |
 | content in the source can steer selection | stated limit; source screen not yet working **[P21]**; hostile-source tests (DESIGN §5.8) |
 | candidate coverage bounds everything | `none_of_these` is the only defence (DESIGN §5.4) |
-| pairwise entity resolution is O(n²) | capped at n = 30; quality measured (DESIGN §8.2) |
+| pairwise entity resolution is O(n²) | post-v0 **[Z4]**; capped at n = 30, quality measured in its phase (DESIGN §8.2) |
 | one source per call in v0 | refused at the call boundary; multi-source planned (`PLAN.md` Phase 9) |
 | unbounded array cardinality | source-grounded membership only; generative lists refused in v0 |
 | `anyOf` / `oneOf` with ≥ 2 non-null branches | resolved where the branch is a bounded decision (`PLAN.md` Phase 6), refused loudly otherwise |
@@ -698,7 +698,7 @@ Frozen from the Phase 0 verdicts (`docs/taxonomy.md` §8): candidate selection *
 | union discrimination | C | yes | 6 | — |
 | multi-label enum arrays | C | yes | 7 | ships even if Phase 5 abandons |
 | source-grounded arrays of spans: membership, source order, `maxItems` with overflow | D | yes, if Phase 5 ships | 7 | **without deduplication**: candidates must arrive normalised **[Z4]** |
-| pairwise entity resolution (internal rule, cross-component variant, `conflict_floor` 0.05) | D | **no** | post-v0 | probe 4 stop **[Z4]** (`PLAN.md` §9) |
+| pairwise entity resolution (internal rule, cross-component variant, `conflict_floor` 0.05) | D | **no** | post-v0 | probe 4 stop **[Z4]** (`PLAN.md` §9.1) |
 | opt-in source screen | C | yes, off by default | 5 | first reading **[Z6]**; default-on only in v1 against its bar |
 | arrays of objects, generative lists, derived values beyond one span, semantic order, multi-source | G | no | post-v0 | `PLAN.md` §9 |
 | state referenced by position | — | never | — | R13 **[Z5]** |
@@ -739,8 +739,8 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 - **Calibration on this task** — Phase 5 (DESIGN §6.2). First reading: mean p 0.904 against accuracy 0.864 on 280 committed candidate decisions, ECE 0.046 **[Z7]**.
 - **Source screening** — whether any detector wording can flag hostile sources without flagging ordinary processing notes; the tested wording flagged 27–28 of 60 benign documents **[P21]**, and 3/50 on a first reading on real documents **[Z6]**. Phase 5.
 - **Union execution: level vs. speculative fan-out** (DESIGN §3.2) — Phase 6.
-- **The pairwise quality ceiling** (DESIGN §8.2) — Phase 7.
-- **Whether jitter on pair questions can be reduced** — for example by asking both orderings of a pair — rather than only banded (DESIGN §5.7, **[P12]**). Phase 7.
+- **The pairwise quality ceiling** (DESIGN §8.2) — the post-v0 entity-resolution phase (`PLAN.md` §9.1); not answered in v0, since pairwise resolution does not ship **[Z4]**.
+- **Whether jitter on pair questions can be reduced** — for example by asking both orderings of a pair — rather than only banded (DESIGN §5.7, **[P12]**). The post-v0 entity-resolution phase (`PLAN.md` §9.1); Phase 0 saw 2/796 pair flips between identical runs **[Z4]**.
 - **The name.** "Jevson" couples us to a vendor whose replaceability is a design goal, and `jevapi.dev` asserts Jev is a TypeSafe trademark **[X4]**; no TypeSafe naming policy was found. Decided before the PyPI release in `PLAN.md` Phase 8, after asking TypeSafe.
 
 **Closed by evidence:** level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a noul gate is a worse abstention mechanism than `none_of_these` **[P5]**; a lone candidate is safer asked than committed **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording does not cost accuracy when the full value is present **[P18]**. Mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; on real documents, present cases whose correct text repeats were answered correctly 51/63 **[Z1]**. Entity resolution on real prose: below its bar, out of v0 **[Z4]**. State references by position fail on the pinned model **[Z5]**.

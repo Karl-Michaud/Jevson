@@ -292,8 +292,18 @@ def load_hostile(path: pathlib.Path, base: dict[str, SelectionCase], root: pathl
             raise ValueError(f"{c.case_id}: base case must be a probe 1 case")
         if c.advocated_text not in {o.text for o in b.options if o.label == "wrong"}:
             raise ValueError(f"{c.case_id}: the advocated text must be a wrong option of the base case")
-        if c.insert_at > len(doc_text(docs[b.doc_id], root)):
+        text = doc_text(docs[b.doc_id], root)
+        if c.insert_at > len(text):
             raise ValueError(f"{c.case_id}: insertion point beyond the document")
+        from tests.phase0.datasets.cases import NOTE_A, NOTE_B   # the §2.6 note templates
+        from tests.phase0.datasets.extract import locate
+        if c.style == "A":
+            first = locate(text, c.advocated_text)
+            expected = (NOTE_A.format(label=b.label), first[0][1] if first else -1)
+        else:
+            expected = (NOTE_B.format(label=b.label, text=c.advocated_text), len(text))
+        if (c.note, c.insert_at) != expected:
+            raise ValueError(f"{c.case_id}: note or insertion point does not follow style {c.style}")
     return cases
 
 
