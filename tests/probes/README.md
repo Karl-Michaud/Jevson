@@ -4,7 +4,7 @@ The scripts behind every evidence tag in [`docs/EVIDENCE.md`](../../docs/EVIDENC
 
 - `probe_*.py` call the live Jev API (`jev-1.13.0`). They read `TYPESAFE_API_KEY` from the repository's gitignored `.env` (template: `.env.example`), never print it, and cost money: check the request count in each docstring before running.
 - `check_*.py` / `.mjs` run locally with no API key.
-- Every script writes to `out/` beside it (gitignored). A few checks (`check_r2_rounding.py`, `check_r3_calibration_bar_empirical.py`, `check_r4_tie_margin_pooled.py`, `check_r5_sum_tolerance_largek.py`) analyse saved live answers, so run the probes first.
+- Every script writes to `out/` beside it (gitignored). A few checks (`calibration/check_rounding.py`, `calibration/check_calibration_bar_empirical.py`, `calibration/check_tie_margin_pooled.py`, `calibration/check_sum_tolerance.py`) analyse saved live answers, so run the probes first.
 - `fetch_vendor_docs.sh` snapshots TypeSafe's documentation into `jevdocs/` (gitignored) for the checks that read it.
 - `jevclient.py` is the shared HTTP client for the probes.
 
