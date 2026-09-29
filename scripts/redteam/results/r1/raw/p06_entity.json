@@ -1,0 +1,1710 @@
+{
+ "report": {
+  "docs": 24,
+  "pairs": 736,
+  "pair_accuracy": "700/736 = 0.951 [95% CI 0.933-0.964]",
+  "false_merge_rate(diff pairs judged same)": "26/544 = 0.048 [95% CI 0.033-0.069]",
+  "false_split_rate(same pairs judged different)": "10/192 = 0.052 [95% CI 0.029-0.093]",
+  "non_transitive_triples": "41/1568 = 0.026 [95% CI 0.019-0.035]",
+  "docs_with_any_violation": "10/24 = 0.417 [95% CI 0.245-0.612]",
+  "policy_outcomes": {
+   "correct": 13,
+   "unresolved": 10,
+   "silently_wrong": 1
+  },
+  "by_template": {
+   "doc_t0": {
+    "correct": 7,
+    "unresolved": 1,
+    "silently_wrong": 0
+   },
+   "doc_t1": {
+    "correct": 6,
+    "unresolved": 2,
+    "silently_wrong": 0
+   },
+   "doc_t2": {
+    "correct": 0,
+    "unresolved": 7,
+    "silently_wrong": 1
+   }
+  }
+ },
+ "detail": [
+  {
+   "template": "doc_t0",
+   "names": "Dana Whitfield",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Dana Whitfield",
+     "Ms. Whitfield",
+     "the marketing VP",
+     "D. Whitfield, VP Marketing"
+    ],
+    [
+     "Dana Whitman",
+     "the Globex buyer",
+     "Ms. Whitman"
+    ],
+    [
+     "Dan Whitfield",
+     "the engineer"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t1",
+   "names": "Dana Whitfield",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Dana Whitfield",
+     "the patient",
+     "Whitfield, D."
+    ],
+    [
+     "Dan Whitfield",
+     "the patient's parent",
+     "Mr. Whitfield"
+    ],
+    [
+     "Dana Whitman",
+     "Nurse Whitman"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t2",
+   "names": "Dana Whitfield",
+   "outcome": "unresolved",
+   "violations": 4,
+   "pair_errors": [
+    [
+     "Dana Whitman",
+     "Dan Whitman",
+     0.78
+    ],
+    [
+     "the Landlord",
+     "D. Whitman for the Landlord",
+     0.22
+    ],
+    [
+     "D. Whitman for the Landlord",
+     "Dan Whitman",
+     0.93
+    ],
+    [
+     "D. Whitman for the Landlord",
+     "the agent",
+     0.92
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Dana Whitfield",
+     "the Tenant",
+     "Whitfield"
+    ],
+    [
+     "Dana Whitman",
+     "the Landlord",
+     "D. Whitman for the Landlord",
+     "Dan Whitman",
+     "the agent"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t0",
+   "names": "Maria Castellano",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Maria Castellano",
+     "Ms. Castellano",
+     "the marketing VP",
+     "M. Castellano, VP Marketing"
+    ],
+    [
+     "Maria Castell",
+     "the Globex buyer",
+     "Ms. Castell"
+    ],
+    [
+     "Mario Castellano",
+     "the engineer"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t1",
+   "names": "Maria Castellano",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Maria Castellano",
+     "the patient",
+     "Castellano, M."
+    ],
+    [
+     "Mario Castellano",
+     "the patient's parent",
+     "Mr. Castellano"
+    ],
+    [
+     "Maria Castell",
+     "Nurse Castell"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t2",
+   "names": "Maria Castellano",
+   "outcome": "unresolved",
+   "violations": 3,
+   "pair_errors": [
+    [
+     "the Landlord",
+     "M. Castell for the Landlord",
+     0.47
+    ],
+    [
+     "M. Castell for the Landlord",
+     "Mario Castell",
+     0.73
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Maria Castellano",
+     "the Tenant",
+     "Castellano"
+    ],
+    [
+     "Maria Castell",
+     "the Landlord",
+     "M. Castell for the Landlord",
+     "Mario Castell",
+     "the agent"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t0",
+   "names": "Jean Holloway",
+   "outcome": "unresolved",
+   "violations": 5,
+   "pair_errors": [
+    [
+     "Ms. Holloway",
+     "the marketing VP",
+     0.43
+    ],
+    [
+     "Ms. Holloway",
+     "J. Holloway, VP Marketing",
+     0.33
+    ],
+    [
+     "Ms. Holloway",
+     "Jean Halloway",
+     0.81
+    ],
+    [
+     "Ms. Holloway",
+     "the Globex buyer",
+     0.75
+    ],
+    [
+     "Ms. Holloway",
+     "Ms. Halloway",
+     0.54
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Jean Holloway",
+     "Ms. Holloway",
+     "the marketing VP",
+     "J. Holloway, VP Marketing",
+     "Jean Halloway",
+     "the Globex buyer",
+     "Ms. Halloway"
+    ],
+    [
+     "John Holloway",
+     "the engineer"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t1",
+   "names": "Jean Holloway",
+   "outcome": "unresolved",
+   "violations": 3,
+   "pair_errors": [
+    [
+     "Holloway, J.",
+     "Jean Halloway",
+     0.59
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Jean Holloway",
+     "the patient",
+     "Holloway, J.",
+     "Jean Halloway",
+     "Nurse Halloway"
+    ],
+    [
+     "John Holloway",
+     "the patient's parent",
+     "Mr. Holloway"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t2",
+   "names": "Jean Holloway",
+   "outcome": "unresolved",
+   "violations": 8,
+   "pair_errors": [
+    [
+     "Jean Holloway",
+     "the Landlord",
+     0.71
+    ],
+    [
+     "the Tenant",
+     "Jean Halloway",
+     0.62
+    ],
+    [
+     "the Tenant",
+     "the Landlord",
+     0.66
+    ],
+    [
+     "Holloway",
+     "the Landlord",
+     0.54
+    ],
+    [
+     "the Landlord",
+     "J. Halloway for the Landlord",
+     0.43
+    ],
+    [
+     "J. Halloway for the Landlord",
+     "John Halloway",
+     0.78
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Jean Holloway",
+     "the Tenant",
+     "Holloway",
+     "Jean Halloway",
+     "the Landlord",
+     "J. Halloway for the Landlord",
+     "John Halloway",
+     "the agent"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t0",
+   "names": "Alexandra Petrov",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Alexandra Petrov",
+     "Ms. Petrov",
+     "the marketing VP",
+     "A. Petrov, VP Marketing"
+    ],
+    [
+     "Alexandra Petrova",
+     "the Globex buyer",
+     "Ms. Petrova"
+    ],
+    [
+     "Alexander Petrov",
+     "the engineer"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t1",
+   "names": "Alexandra Petrov",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Alexandra Petrov",
+     "the patient",
+     "Petrov, A."
+    ],
+    [
+     "Alexander Petrov",
+     "the patient's parent",
+     "Mr. Petrov"
+    ],
+    [
+     "Alexandra Petrova",
+     "Nurse Petrova"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t2",
+   "names": "Alexandra Petrov",
+   "outcome": "unresolved",
+   "violations": 3,
+   "pair_errors": [
+    [
+     "the Landlord",
+     "A. Petrova for the Landlord",
+     0.21
+    ],
+    [
+     "A. Petrova for the Landlord",
+     "Alexander Petrova",
+     0.82
+    ],
+    [
+     "A. Petrova for the Landlord",
+     "the agent",
+     0.92
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Alexandra Petrov",
+     "the Tenant",
+     "Petrov"
+    ],
+    [
+     "Alexandra Petrova",
+     "the Landlord",
+     "A. Petrova for the Landlord",
+     "Alexander Petrova",
+     "the agent"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t0",
+   "names": "Chris Morgan",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Chris Morgan",
+     "Mr. Morgan",
+     "the marketing VP",
+     "C. Morgan, VP Marketing"
+    ],
+    [
+     "Chris Morgenstern",
+     "the Globex buyer",
+     "Mr. Morgenstern"
+    ],
+    [
+     "Christine Morgan",
+     "the engineer"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t1",
+   "names": "Chris Morgan",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Chris Morgan",
+     "the patient",
+     "Morgan, C."
+    ],
+    [
+     "Christine Morgan",
+     "the patient's parent",
+     "Ms. Morgan"
+    ],
+    [
+     "Chris Morgenstern",
+     "Nurse Morgenstern"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t2",
+   "names": "Chris Morgan",
+   "outcome": "unresolved",
+   "violations": 3,
+   "pair_errors": [
+    [
+     "the Landlord",
+     "C. Morgenstern for the Landlord",
+     0.36
+    ],
+    [
+     "C. Morgenstern for the Landlord",
+     "Christine Morgenstern",
+     0.89
+    ],
+    [
+     "C. Morgenstern for the Landlord",
+     "the agent",
+     0.72
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Chris Morgan",
+     "the Tenant",
+     "Morgan"
+    ],
+    [
+     "Chris Morgenstern",
+     "the Landlord",
+     "C. Morgenstern for the Landlord",
+     "Christine Morgenstern",
+     "the agent"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t0",
+   "names": "Sam Okafor",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Sam Okafor",
+     "Mr. Okafor, the VP",
+     "the marketing VP",
+     "S. Okafor, VP Marketing"
+    ],
+    [
+     "Sam Okoro",
+     "the Globex buyer",
+     "Mr. Okoro"
+    ],
+    [
+     "Samuel Okafor",
+     "the engineer"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t1",
+   "names": "Sam Okafor",
+   "outcome": "unresolved",
+   "violations": 6,
+   "pair_errors": [
+    [
+     "Sam Okafor",
+     "Samuel Okafor",
+     0.56
+    ],
+    [
+     "Okafor, S.",
+     "Samuel Okafor",
+     0.66
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Sam Okafor",
+     "the patient",
+     "Okafor, S.",
+     "Samuel Okafor",
+     "the patient's parent",
+     "Mr. Okafor"
+    ],
+    [
+     "Sam Okoro",
+     "Nurse Okoro"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t2",
+   "names": "Sam Okafor",
+   "outcome": "silently_wrong",
+   "violations": 0,
+   "pair_errors": [
+    [
+     "Sam Okoro",
+     "the Landlord",
+     0.45
+    ],
+    [
+     "Sam Okoro",
+     "Samuel Okoro",
+     0.91
+    ],
+    [
+     "Sam Okoro",
+     "the agent",
+     0.84
+    ],
+    [
+     "the Landlord",
+     "S. Okoro for the Landlord",
+     0.32
+    ],
+    [
+     "S. Okoro for the Landlord",
+     "Samuel Okoro",
+     0.94
+    ],
+    [
+     "S. Okoro for the Landlord",
+     "the agent",
+     0.87
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Sam Okafor",
+     "the Tenant",
+     "Okafor"
+    ],
+    [
+     "Sam Okoro",
+     "S. Okoro for the Landlord",
+     "Samuel Okoro",
+     "the agent"
+    ],
+    [
+     "the Landlord"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t0",
+   "names": "Leah Brennan",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Leah Brennan",
+     "Ms. Brennan",
+     "the marketing VP",
+     "L. Brennan, VP Marketing"
+    ],
+    [
+     "Leah Brennand",
+     "the Globex buyer",
+     "Ms. Brennand"
+    ],
+    [
+     "Leo Brennan",
+     "the engineer"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t1",
+   "names": "Leah Brennan",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Leah Brennan",
+     "the patient",
+     "Brennan, L."
+    ],
+    [
+     "Leo Brennan",
+     "the patient's parent",
+     "Mr. Brennan"
+    ],
+    [
+     "Leah Brennand",
+     "Nurse Brennand"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t2",
+   "names": "Leah Brennan",
+   "outcome": "unresolved",
+   "violations": 3,
+   "pair_errors": [
+    [
+     "L. Brennand for the Landlord",
+     "Leo Brennand",
+     0.51
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Leah Brennan",
+     "the Tenant",
+     "Brennan"
+    ],
+    [
+     "Leah Brennand",
+     "the Landlord",
+     "L. Brennand for the Landlord",
+     "Leo Brennand",
+     "the agent"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t0",
+   "names": "Nina Rossi",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Nina Rossi",
+     "Ms. Rossi",
+     "the marketing VP",
+     "N. Rossi, VP Marketing"
+    ],
+    [
+     "Nina Rosso",
+     "the Globex buyer",
+     "Ms. Rosso"
+    ],
+    [
+     "Nino Rossi",
+     "the engineer"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t1",
+   "names": "Nina Rossi",
+   "outcome": "correct",
+   "violations": 0,
+   "pair_errors": [],
+   "pred_partition": [
+    [
+     "Nina Rossi",
+     "the patient",
+     "Rossi, N."
+    ],
+    [
+     "Nino Rossi",
+     "the patient's parent",
+     "Mr. Rossi"
+    ],
+    [
+     "Nina Rosso",
+     "Nurse Rosso"
+    ]
+   ]
+  },
+  {
+   "template": "doc_t2",
+   "names": "Nina Rossi",
+   "outcome": "unresolved",
+   "violations": 3,
+   "pair_errors": [
+    [
+     "the Landlord",
+     "N. Rosso for the Landlord",
+     0.27
+    ],
+    [
+     "N. Rosso for the Landlord",
+     "Nino Rosso",
+     0.94
+    ],
+    [
+     "N. Rosso for the Landlord",
+     "the agent",
+     0.91
+    ]
+   ],
+   "pred_partition": [
+    [
+     "Nina Rossi",
+     "the Tenant",
+     "Rossi"
+    ],
+    [
+     "Nina Rosso",
+     "the Landlord",
+     "N. Rosso for the Landlord",
+     "Nino Rosso",
+     "the agent"
+    ]
+   ]
+  }
+ ],
+ "docs": [
+  [
+   "doc_t0",
+   "Dana Whitfield, the VP of Marketing at Acme, met with Dana Whitman from Globex on Monday. Ms. Whitfield opened by presenting the Q3 campaign, and the marketing VP stressed the launch date. The Globex buyer asked about the budget. Later, Dan Whitfield, an engineer at Acme and the VP's sibling, joined the call; the engineer walked through the integration. The follow-up memo was signed D. Whitfield, VP Marketing, and was addressed to Ms. Whitman.",
+   [
+    [
+     "Dana Whitfield",
+     1
+    ],
+    [
+     "Ms. Whitfield",
+     1
+    ],
+    [
+     "the marketing VP",
+     1
+    ],
+    [
+     "D. Whitfield, VP Marketing",
+     1
+    ],
+    [
+     "Dana Whitman",
+     2
+    ],
+    [
+     "the Globex buyer",
+     2
+    ],
+    [
+     "Ms. Whitman",
+     2
+    ],
+    [
+     "Dan Whitfield",
+     3
+    ],
+    [
+     "the engineer",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t1",
+   "Patient Dana Whitfield was admitted on Tuesday. Dan Whitfield, the patient's parent, signed the consent form. Nurse Dana Whitman took the patient's vitals and noted that Dana was anxious. Nurse Whitman later called Mr. Whitfield to confirm the medication list. The chart lists Whitfield, D. as the patient.",
+   [
+    [
+     "Dana Whitfield",
+     1
+    ],
+    [
+     "the patient",
+     1
+    ],
+    [
+     "Whitfield, D.",
+     1
+    ],
+    [
+     "Dan Whitfield",
+     2
+    ],
+    [
+     "the patient's parent",
+     2
+    ],
+    [
+     "Mr. Whitfield",
+     2
+    ],
+    [
+     "Dana Whitman",
+     3
+    ],
+    [
+     "Nurse Whitman",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t2",
+   "This lease is between Dana Whitfield (Tenant) and Dana Whitman (Landlord). Dan Whitman acts as the Landlord's agent. The Tenant, Whitfield, agrees to pay rent monthly. Repairs must be requested in writing to the agent, who will forward them to the Landlord. Signed: Dana Whitfield; D. Whitman for the Landlord.",
+   [
+    [
+     "Dana Whitfield",
+     1
+    ],
+    [
+     "the Tenant",
+     1
+    ],
+    [
+     "Whitfield",
+     1
+    ],
+    [
+     "Dana Whitman",
+     2
+    ],
+    [
+     "the Landlord",
+     2
+    ],
+    [
+     "D. Whitman for the Landlord",
+     2
+    ],
+    [
+     "Dan Whitman",
+     3
+    ],
+    [
+     "the agent",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t0",
+   "Maria Castellano, the VP of Marketing at Acme, met with Maria Castell from Globex on Monday. Ms. Castellano opened by presenting the Q3 campaign, and the marketing VP stressed the launch date. The Globex buyer asked about the budget. Later, Mario Castellano, an engineer at Acme and the VP's sibling, joined the call; the engineer walked through the integration. The follow-up memo was signed M. Castellano, VP Marketing, and was addressed to Ms. Castell.",
+   [
+    [
+     "Maria Castellano",
+     1
+    ],
+    [
+     "Ms. Castellano",
+     1
+    ],
+    [
+     "the marketing VP",
+     1
+    ],
+    [
+     "M. Castellano, VP Marketing",
+     1
+    ],
+    [
+     "Maria Castell",
+     2
+    ],
+    [
+     "the Globex buyer",
+     2
+    ],
+    [
+     "Ms. Castell",
+     2
+    ],
+    [
+     "Mario Castellano",
+     3
+    ],
+    [
+     "the engineer",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t1",
+   "Patient Maria Castellano was admitted on Tuesday. Mario Castellano, the patient's parent, signed the consent form. Nurse Maria Castell took the patient's vitals and noted that Maria was anxious. Nurse Castell later called Mr. Castellano to confirm the medication list. The chart lists Castellano, M. as the patient.",
+   [
+    [
+     "Maria Castellano",
+     1
+    ],
+    [
+     "the patient",
+     1
+    ],
+    [
+     "Castellano, M.",
+     1
+    ],
+    [
+     "Mario Castellano",
+     2
+    ],
+    [
+     "the patient's parent",
+     2
+    ],
+    [
+     "Mr. Castellano",
+     2
+    ],
+    [
+     "Maria Castell",
+     3
+    ],
+    [
+     "Nurse Castell",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t2",
+   "This lease is between Maria Castellano (Tenant) and Maria Castell (Landlord). Mario Castell acts as the Landlord's agent. The Tenant, Castellano, agrees to pay rent monthly. Repairs must be requested in writing to the agent, who will forward them to the Landlord. Signed: Maria Castellano; M. Castell for the Landlord.",
+   [
+    [
+     "Maria Castellano",
+     1
+    ],
+    [
+     "the Tenant",
+     1
+    ],
+    [
+     "Castellano",
+     1
+    ],
+    [
+     "Maria Castell",
+     2
+    ],
+    [
+     "the Landlord",
+     2
+    ],
+    [
+     "M. Castell for the Landlord",
+     2
+    ],
+    [
+     "Mario Castell",
+     3
+    ],
+    [
+     "the agent",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t0",
+   "Jean Holloway, the VP of Marketing at Acme, met with Jean Halloway from Globex on Monday. Ms. Holloway opened by presenting the Q3 campaign, and the marketing VP stressed the launch date. The Globex buyer asked about the budget. Later, John Holloway, an engineer at Acme and the VP's sibling, joined the call; the engineer walked through the integration. The follow-up memo was signed J. Holloway, VP Marketing, and was addressed to Ms. Halloway.",
+   [
+    [
+     "Jean Holloway",
+     1
+    ],
+    [
+     "Ms. Holloway",
+     1
+    ],
+    [
+     "the marketing VP",
+     1
+    ],
+    [
+     "J. Holloway, VP Marketing",
+     1
+    ],
+    [
+     "Jean Halloway",
+     2
+    ],
+    [
+     "the Globex buyer",
+     2
+    ],
+    [
+     "Ms. Halloway",
+     2
+    ],
+    [
+     "John Holloway",
+     3
+    ],
+    [
+     "the engineer",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t1",
+   "Patient Jean Holloway was admitted on Tuesday. John Holloway, the patient's parent, signed the consent form. Nurse Jean Halloway took the patient's vitals and noted that Jean was anxious. Nurse Halloway later called Mr. Holloway to confirm the medication list. The chart lists Holloway, J. as the patient.",
+   [
+    [
+     "Jean Holloway",
+     1
+    ],
+    [
+     "the patient",
+     1
+    ],
+    [
+     "Holloway, J.",
+     1
+    ],
+    [
+     "John Holloway",
+     2
+    ],
+    [
+     "the patient's parent",
+     2
+    ],
+    [
+     "Mr. Holloway",
+     2
+    ],
+    [
+     "Jean Halloway",
+     3
+    ],
+    [
+     "Nurse Halloway",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t2",
+   "This lease is between Jean Holloway (Tenant) and Jean Halloway (Landlord). John Halloway acts as the Landlord's agent. The Tenant, Holloway, agrees to pay rent monthly. Repairs must be requested in writing to the agent, who will forward them to the Landlord. Signed: Jean Holloway; J. Halloway for the Landlord.",
+   [
+    [
+     "Jean Holloway",
+     1
+    ],
+    [
+     "the Tenant",
+     1
+    ],
+    [
+     "Holloway",
+     1
+    ],
+    [
+     "Jean Halloway",
+     2
+    ],
+    [
+     "the Landlord",
+     2
+    ],
+    [
+     "J. Halloway for the Landlord",
+     2
+    ],
+    [
+     "John Halloway",
+     3
+    ],
+    [
+     "the agent",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t0",
+   "Alexandra Petrov, the VP of Marketing at Acme, met with Alexandra Petrova from Globex on Monday. Ms. Petrov opened by presenting the Q3 campaign, and the marketing VP stressed the launch date. The Globex buyer asked about the budget. Later, Alexander Petrov, an engineer at Acme and the VP's sibling, joined the call; the engineer walked through the integration. The follow-up memo was signed A. Petrov, VP Marketing, and was addressed to Ms. Petrova.",
+   [
+    [
+     "Alexandra Petrov",
+     1
+    ],
+    [
+     "Ms. Petrov",
+     1
+    ],
+    [
+     "the marketing VP",
+     1
+    ],
+    [
+     "A. Petrov, VP Marketing",
+     1
+    ],
+    [
+     "Alexandra Petrova",
+     2
+    ],
+    [
+     "the Globex buyer",
+     2
+    ],
+    [
+     "Ms. Petrova",
+     2
+    ],
+    [
+     "Alexander Petrov",
+     3
+    ],
+    [
+     "the engineer",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t1",
+   "Patient Alexandra Petrov was admitted on Tuesday. Alexander Petrov, the patient's parent, signed the consent form. Nurse Alexandra Petrova took the patient's vitals and noted that Alexandra was anxious. Nurse Petrova later called Mr. Petrov to confirm the medication list. The chart lists Petrov, A. as the patient.",
+   [
+    [
+     "Alexandra Petrov",
+     1
+    ],
+    [
+     "the patient",
+     1
+    ],
+    [
+     "Petrov, A.",
+     1
+    ],
+    [
+     "Alexander Petrov",
+     2
+    ],
+    [
+     "the patient's parent",
+     2
+    ],
+    [
+     "Mr. Petrov",
+     2
+    ],
+    [
+     "Alexandra Petrova",
+     3
+    ],
+    [
+     "Nurse Petrova",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t2",
+   "This lease is between Alexandra Petrov (Tenant) and Alexandra Petrova (Landlord). Alexander Petrova acts as the Landlord's agent. The Tenant, Petrov, agrees to pay rent monthly. Repairs must be requested in writing to the agent, who will forward them to the Landlord. Signed: Alexandra Petrov; A. Petrova for the Landlord.",
+   [
+    [
+     "Alexandra Petrov",
+     1
+    ],
+    [
+     "the Tenant",
+     1
+    ],
+    [
+     "Petrov",
+     1
+    ],
+    [
+     "Alexandra Petrova",
+     2
+    ],
+    [
+     "the Landlord",
+     2
+    ],
+    [
+     "A. Petrova for the Landlord",
+     2
+    ],
+    [
+     "Alexander Petrova",
+     3
+    ],
+    [
+     "the agent",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t0",
+   "Chris Morgan, the VP of Marketing at Acme, met with Chris Morgenstern from Globex on Monday. Mr. Morgan opened by presenting the Q3 campaign, and the marketing VP stressed the launch date. The Globex buyer asked about the budget. Later, Christine Morgan, an engineer at Acme and the VP's sibling, joined the call; the engineer walked through the integration. The follow-up memo was signed C. Morgan, VP Marketing, and was addressed to Mr. Morgenstern.",
+   [
+    [
+     "Chris Morgan",
+     1
+    ],
+    [
+     "Mr. Morgan",
+     1
+    ],
+    [
+     "the marketing VP",
+     1
+    ],
+    [
+     "C. Morgan, VP Marketing",
+     1
+    ],
+    [
+     "Chris Morgenstern",
+     2
+    ],
+    [
+     "the Globex buyer",
+     2
+    ],
+    [
+     "Mr. Morgenstern",
+     2
+    ],
+    [
+     "Christine Morgan",
+     3
+    ],
+    [
+     "the engineer",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t1",
+   "Patient Chris Morgan was admitted on Tuesday. Christine Morgan, the patient's parent, signed the consent form. Nurse Chris Morgenstern took the patient's vitals and noted that Chris was anxious. Nurse Morgenstern later called Ms. Morgan to confirm the medication list. The chart lists Morgan, C. as the patient.",
+   [
+    [
+     "Chris Morgan",
+     1
+    ],
+    [
+     "the patient",
+     1
+    ],
+    [
+     "Morgan, C.",
+     1
+    ],
+    [
+     "Christine Morgan",
+     2
+    ],
+    [
+     "the patient's parent",
+     2
+    ],
+    [
+     "Ms. Morgan",
+     2
+    ],
+    [
+     "Chris Morgenstern",
+     3
+    ],
+    [
+     "Nurse Morgenstern",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t2",
+   "This lease is between Chris Morgan (Tenant) and Chris Morgenstern (Landlord). Christine Morgenstern acts as the Landlord's agent. The Tenant, Morgan, agrees to pay rent monthly. Repairs must be requested in writing to the agent, who will forward them to the Landlord. Signed: Chris Morgan; C. Morgenstern for the Landlord.",
+   [
+    [
+     "Chris Morgan",
+     1
+    ],
+    [
+     "the Tenant",
+     1
+    ],
+    [
+     "Morgan",
+     1
+    ],
+    [
+     "Chris Morgenstern",
+     2
+    ],
+    [
+     "the Landlord",
+     2
+    ],
+    [
+     "C. Morgenstern for the Landlord",
+     2
+    ],
+    [
+     "Christine Morgenstern",
+     3
+    ],
+    [
+     "the agent",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t0",
+   "Sam Okafor, the VP of Marketing at Acme, met with Sam Okoro from Globex on Monday. Mr. Okafor, the VP, opened by presenting the Q3 campaign, and the marketing VP stressed the launch date. The Globex buyer asked about the budget. Later, Samuel Okafor, an engineer at Acme and the VP's sibling, joined the call; the engineer walked through the integration. The follow-up memo was signed S. Okafor, VP Marketing, and was addressed to Mr. Okoro.",
+   [
+    [
+     "Sam Okafor",
+     1
+    ],
+    [
+     "Mr. Okafor, the VP",
+     1
+    ],
+    [
+     "the marketing VP",
+     1
+    ],
+    [
+     "S. Okafor, VP Marketing",
+     1
+    ],
+    [
+     "Sam Okoro",
+     2
+    ],
+    [
+     "the Globex buyer",
+     2
+    ],
+    [
+     "Mr. Okoro",
+     2
+    ],
+    [
+     "Samuel Okafor",
+     3
+    ],
+    [
+     "the engineer",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t1",
+   "Patient Sam Okafor was admitted on Tuesday. Samuel Okafor, the patient's parent, signed the consent form. Nurse Sam Okoro took the patient's vitals and noted that Sam was anxious. Nurse Okoro later called Mr. Okafor to confirm the medication list. The chart lists Okafor, S. as the patient.",
+   [
+    [
+     "Sam Okafor",
+     1
+    ],
+    [
+     "the patient",
+     1
+    ],
+    [
+     "Okafor, S.",
+     1
+    ],
+    [
+     "Samuel Okafor",
+     2
+    ],
+    [
+     "the patient's parent",
+     2
+    ],
+    [
+     "Mr. Okafor",
+     2
+    ],
+    [
+     "Sam Okoro",
+     3
+    ],
+    [
+     "Nurse Okoro",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t2",
+   "This lease is between Sam Okafor (Tenant) and Sam Okoro (Landlord). Samuel Okoro acts as the Landlord's agent. The Tenant, Okafor, agrees to pay rent monthly. Repairs must be requested in writing to the agent, who will forward them to the Landlord. Signed: Sam Okafor; S. Okoro for the Landlord.",
+   [
+    [
+     "Sam Okafor",
+     1
+    ],
+    [
+     "the Tenant",
+     1
+    ],
+    [
+     "Okafor",
+     1
+    ],
+    [
+     "Sam Okoro",
+     2
+    ],
+    [
+     "the Landlord",
+     2
+    ],
+    [
+     "S. Okoro for the Landlord",
+     2
+    ],
+    [
+     "Samuel Okoro",
+     3
+    ],
+    [
+     "the agent",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t0",
+   "Leah Brennan, the VP of Marketing at Acme, met with Leah Brennand from Globex on Monday. Ms. Brennan opened by presenting the Q3 campaign, and the marketing VP stressed the launch date. The Globex buyer asked about the budget. Later, Leo Brennan, an engineer at Acme and the VP's sibling, joined the call; the engineer walked through the integration. The follow-up memo was signed L. Brennan, VP Marketing, and was addressed to Ms. Brennand.",
+   [
+    [
+     "Leah Brennan",
+     1
+    ],
+    [
+     "Ms. Brennan",
+     1
+    ],
+    [
+     "the marketing VP",
+     1
+    ],
+    [
+     "L. Brennan, VP Marketing",
+     1
+    ],
+    [
+     "Leah Brennand",
+     2
+    ],
+    [
+     "the Globex buyer",
+     2
+    ],
+    [
+     "Ms. Brennand",
+     2
+    ],
+    [
+     "Leo Brennan",
+     3
+    ],
+    [
+     "the engineer",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t1",
+   "Patient Leah Brennan was admitted on Tuesday. Leo Brennan, the patient's parent, signed the consent form. Nurse Leah Brennand took the patient's vitals and noted that Leah was anxious. Nurse Brennand later called Mr. Brennan to confirm the medication list. The chart lists Brennan, L. as the patient.",
+   [
+    [
+     "Leah Brennan",
+     1
+    ],
+    [
+     "the patient",
+     1
+    ],
+    [
+     "Brennan, L.",
+     1
+    ],
+    [
+     "Leo Brennan",
+     2
+    ],
+    [
+     "the patient's parent",
+     2
+    ],
+    [
+     "Mr. Brennan",
+     2
+    ],
+    [
+     "Leah Brennand",
+     3
+    ],
+    [
+     "Nurse Brennand",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t2",
+   "This lease is between Leah Brennan (Tenant) and Leah Brennand (Landlord). Leo Brennand acts as the Landlord's agent. The Tenant, Brennan, agrees to pay rent monthly. Repairs must be requested in writing to the agent, who will forward them to the Landlord. Signed: Leah Brennan; L. Brennand for the Landlord.",
+   [
+    [
+     "Leah Brennan",
+     1
+    ],
+    [
+     "the Tenant",
+     1
+    ],
+    [
+     "Brennan",
+     1
+    ],
+    [
+     "Leah Brennand",
+     2
+    ],
+    [
+     "the Landlord",
+     2
+    ],
+    [
+     "L. Brennand for the Landlord",
+     2
+    ],
+    [
+     "Leo Brennand",
+     3
+    ],
+    [
+     "the agent",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t0",
+   "Nina Rossi, the VP of Marketing at Acme, met with Nina Rosso from Globex on Monday. Ms. Rossi opened by presenting the Q3 campaign, and the marketing VP stressed the launch date. The Globex buyer asked about the budget. Later, Nino Rossi, an engineer at Acme and the VP's sibling, joined the call; the engineer walked through the integration. The follow-up memo was signed N. Rossi, VP Marketing, and was addressed to Ms. Rosso.",
+   [
+    [
+     "Nina Rossi",
+     1
+    ],
+    [
+     "Ms. Rossi",
+     1
+    ],
+    [
+     "the marketing VP",
+     1
+    ],
+    [
+     "N. Rossi, VP Marketing",
+     1
+    ],
+    [
+     "Nina Rosso",
+     2
+    ],
+    [
+     "the Globex buyer",
+     2
+    ],
+    [
+     "Ms. Rosso",
+     2
+    ],
+    [
+     "Nino Rossi",
+     3
+    ],
+    [
+     "the engineer",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t1",
+   "Patient Nina Rossi was admitted on Tuesday. Nino Rossi, the patient's parent, signed the consent form. Nurse Nina Rosso took the patient's vitals and noted that Nina was anxious. Nurse Rosso later called Mr. Rossi to confirm the medication list. The chart lists Rossi, N. as the patient.",
+   [
+    [
+     "Nina Rossi",
+     1
+    ],
+    [
+     "the patient",
+     1
+    ],
+    [
+     "Rossi, N.",
+     1
+    ],
+    [
+     "Nino Rossi",
+     2
+    ],
+    [
+     "the patient's parent",
+     2
+    ],
+    [
+     "Mr. Rossi",
+     2
+    ],
+    [
+     "Nina Rosso",
+     3
+    ],
+    [
+     "Nurse Rosso",
+     3
+    ]
+   ]
+  ],
+  [
+   "doc_t2",
+   "This lease is between Nina Rossi (Tenant) and Nina Rosso (Landlord). Nino Rosso acts as the Landlord's agent. The Tenant, Rossi, agrees to pay rent monthly. Repairs must be requested in writing to the agent, who will forward them to the Landlord. Signed: Nina Rossi; N. Rosso for the Landlord.",
+   [
+    [
+     "Nina Rossi",
+     1
+    ],
+    [
+     "the Tenant",
+     1
+    ],
+    [
+     "Rossi",
+     1
+    ],
+    [
+     "Nina Rosso",
+     2
+    ],
+    [
+     "the Landlord",
+     2
+    ],
+    [
+     "N. Rosso for the Landlord",
+     2
+    ],
+    [
+     "Nino Rosso",
+     3
+    ],
+    [
+     "the agent",
+     3
+    ]
+   ]
+  ]
+ ]
+}

@@ -1,0 +1,68 @@
+== (a) code point vs byte offsets ==
+'Café'         cp=[0,4) len=4  bytes=[0,5)  verify_cp=True  byteslice_as_str_offsets_ok=False
+'👍🏽'           cp=[5,7) len=2  bytes=[6,14)  verify_cp=True  byteslice_as_str_offsets_ok=False
+'東京'           cp=[8,10) len=2  bytes=[15,21)  verify_cp=True  byteslice_as_str_offsets_ok=False
+'José́'        cp=[11,16) len=5  bytes=[22,29)  verify_cp=True  byteslice_as_str_offsets_ok=False
+'Zoë'          cp=[17,20) len=3  bytes=[30,34)  verify_cp=True  byteslice_as_str_offsets_ok=False
+len('👍🏽') code points = 2 ['0x1f44d', '0x1f3fd']
+
+== (b) exact verification: combining vs precomposed ==
+source uses decomposed; LLM returns precomposed candidate text
+ verify(decomposed offsets, precomposed text) = False
+ verify(precomposed-length offsets, precomposed text) = False
+ src2.find(precomposed) = -1 (no substring => span rejected)
+ NFC(src2).find(pre) = 10  but NFC(src2) len 24 vs raw 25
+ span [i,i+4) = 'Jose' verifies against itself: True -> a span can split a grapheme cluster and still verify
+
+== confusables (Cyrillic а U+0430 vs Latin a) ==
+ Latin 'Acme' found in source with Cyrillic е: -1
+ norm(lat)==norm(cyr): False (not merged: good for safety, bad for recall)
+
+== ZWJ / zero-width ==
+ family emoji len: 5  slice [0:1] = '👨' verifies: True
+ 'Dana\u200bWhitfield' norm -> 'dana\u200bwhitfield' == norm('DanaWhitfield')? False
+ NBSP: norm('Dana\xa0Whitfield') == norm('Dana Whitfield')? True
+
+== CRLF ==
+ verify CRLF source vs LF candidate: -1
+ CRLF span len 20 norm(CRLF span) == norm('Dana Whitfield Acme'): True
+
+== (c) normalization changes length (offsets must be on raw source) ==
+ ß                  raw_len=1 NFC_len=1 casefold(NFC)='ss' len=2
+ İ                  raw_len=1 NFC_len=1 casefold(NFC)='i̇' len=2
+ ﬁ (ligature)       raw_len=1 NFC_len=1 casefold(NFC)='fi' len=2
+ ﬃ                  raw_len=1 NFC_len=1 casefold(NFC)='ffi' len=3
+ ŉ                  raw_len=1 NFC_len=1 casefold(NFC)='ʼn' len=2
+ e+U+0301           raw_len=2 NFC_len=1 casefold(NFC)='é' len=1
+ Å (angstrom sign)  raw_len=1 NFC_len=1 casefold(NFC)='å' len=1
+ ΐ                  raw_len=1 NFC_len=1 casefold(NFC)='ΐ' len=3
+ Straße             raw_len=6 NFC_len=6 casefold(NFC)='strasse' len=7
+ offset of 'Dana' raw=36 normalized=37 -> differs by -1; normalized offsets would fail verify: False
+
+== (d) what the default normalizer merges ==
+ 'US'               'us'               merge=True   NFKC-would-merge=True  (country vs pronoun)
+ 'Apple'            'apple'            merge=True   NFKC-would-merge=True  (company vs fruit)
+ 'MAY'              'May'              merge=True   NFKC-would-merge=True  (acronym/month)
+ 'Straße'           'STRASSE'          merge=True   NFKC-would-merge=True  (german ss)
+ 'Acme Corp'        'ACME CORP'        merge=True   NFKC-would-merge=True  (PLAN exit-criterion example)
+ 'CAT'              'cat'              merge=True   NFKC-would-merge=True  (Caterpillar ticker vs animal)
+ 'IT'               'it'               merge=True   NFKC-would-merge=True  (dept vs pronoun)
+ 'Σίσυφος'          'ΣΊΣΥΦΟΣ'          merge=True   NFKC-would-merge=True  (greek final sigma)
+ 'Dana Whitfield'   'Dana  Whitfield'  merge=True   NFKC-would-merge=False (double space)
+ 'José'             'José'            merge=True   NFKC-would-merge=True  (precomposed vs combining)
+ 'Ⅻ'                'XII'              merge=False  NFKC-would-merge=True  (roman numeral compat)
+ '１２３'              '123'              merge=False  NFKC-would-merge=True  (fullwidth digits)
+ 'Acme'             'Acmе'             merge=False  NFKC-would-merge=False (Cyrillic confusable)
+ note: 'ﬁ'.casefold() = 'fi' ; NFC('ﬁ') = 'ﬁ'
+ note: casefold is not idempotent w.r.t. NFC? NFC(casefold(NFC(x)))==casefold(NFC(x)) for 'ΐ': False
+
+== (e) NFC->casefold vs Unicode canonical caseless match NFD(casefold(NFD(x))) ==
+ pairs canonically-caseless-equal but NOT merged by NFC+casefold: 11
+   'ΐ' ['0x390'] vs 'Ϊ́' ['0x399', '0x308', '0x301'] norm: 'ΐ' 'ΐ'
+   'ΰ' ['0x3b0'] vs 'Ϋ́' ['0x3a5', '0x308', '0x301'] norm: 'ΰ' 'ΰ'
+   'ᾷ' ['0x1fb7'] vs 'ᾼ͂' ['0x391', '0x342', '0x345'] norm: 'ᾶι' 'αῖ'
+   'ῇ' ['0x1fc7'] vs 'ῌ͂' ['0x397', '0x342', '0x345'] norm: 'ῆι' 'ηῖ'
+   'ῒ' ['0x1fd2'] vs 'Ϊ̀' ['0x399', '0x308', '0x300'] norm: 'ῒ' 'ῒ'
+   'ΐ' ['0x1fd3'] vs 'Ϊ́' ['0x399', '0x308', '0x301'] norm: 'ΐ' 'ΐ'
+   'ῗ' ['0x1fd7'] vs 'Ϊ͂' ['0x399', '0x308', '0x342'] norm: 'ῗ' 'ῗ'
+   'ῢ' ['0x1fe2'] vs 'Ϋ̀' ['0x3a5', '0x308', '0x300'] norm: 'ῢ' 'ῢ'

@@ -1,0 +1,82 @@
+{
+ "search": [
+  {
+   "nq": 2500,
+   "status": 200,
+   "usage": {
+    "input_tokens": 65011,
+    "output_tokens": 48894
+   }
+  },
+  {
+   "nq": 2750,
+   "status": 400,
+   "usage": null
+  },
+  {
+   "nq": 2625,
+   "status": 400,
+   "usage": null
+  },
+  {
+   "nq": 2562,
+   "status": 400,
+   "usage": null
+  },
+  {
+   "nq": 2531,
+   "status": 400,
+   "usage": null
+  },
+  {
+   "nq": 2515,
+   "status": 200,
+   "usage": {
+    "input_tokens": 65401,
+    "output_tokens": 49194
+   }
+  }
+ ],
+ "max_nq": 2515,
+ "bill_1": {
+  "input_tokens": 14841,
+  "output_tokens": 21
+ },
+ "bill_10": {
+  "input_tokens": 15048,
+  "output_tokens": 174
+ },
+ "bill_100": {
+  "input_tokens": 17208,
+  "output_tokens": 1794
+ },
+ "bill_tiny_100": {
+  "input_tokens": 2666,
+  "output_tokens": 1794
+ },
+ "st25_900": {
+  "status": 200,
+  "usage": {
+   "input_tokens": 46714,
+   "output_tokens": 16994
+  },
+  "err": null
+ },
+ "st25_1300": {
+  "status": 200,
+  "usage": {
+   "input_tokens": 57014,
+   "output_tokens": 24894
+  },
+  "err": null
+ },
+ "st25_1700": {
+  "status": 400,
+  "usage": null,
+  "err": {
+   "detail": {
+    "error_type": "max_tokens_exceeded"
+   }
+  }
+ }
+}

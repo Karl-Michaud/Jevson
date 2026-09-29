@@ -1,0 +1,17 @@
+Unicode 15.1.0: InCB present = True
+combined classes: 18; ranges: 1955
+table as Python literal: 21362 bytes (zlib -9: 5246 bytes)
+table packed binary: 3979 bytes; zlib -9: 1228 bytes; base85-embedded .py: 1917 bytes
+runtime segmenter: 47 non-blank lines, 2905 bytes; stdlib only (bisect, zlib, base64)
+generator (table build + serialise): 45 non-blank lines
+[v1 (loose GB11 state)] GraphemeBreakTest-15.1.0.txt: 1187 passed, 0 failed of 1187
+[final] GraphemeBreakTest-15.1.0.txt: 1187 passed, 0 failed of 1187
+  ExtPict ZWJ Extend ZWJ ExtPict: v1 [0, 5] final [0, 4, 5] (UAX #29: break before the last ExtPict, i.e. {0,4,5})
+regex 2026.9.29 (its Unicode tables: n/a); python unicodedata 14.0.0
+vs regex \X on 20000 random strings from break-relevant code points: 19995 agree
+  disagree: ['0xb4ac', '0x1fd1e', '0xb6e0', '0xd51e', '0x11a3a', '0xd038', '0xbadd'] [0, 1, 2, 3, 4, 6, 7] [0, 1, 2, 3, 4, 5, 6, 7]
+  disagree: ['0x1df8', '0xafae', '0x11a3a', '0xd26e', '0xc5f1', '0xb9fd'] [0, 1, 2, 4, 5, 6] [0, 1, 2, 3, 4, 5, 6]
+  disagree: ['0x11a3a', '0xc8aa', '0xad66', '0x21aa', '0xc981', '0xbb38', '0xd060', '0xb0ce'] [0, 2, 3, 4, 5, 6, 7, 8] [0, 1, 2, 3, 4, 5, 6, 7, 8]
+  disagree: ['0x111bc', '0x1fca1', '0x116e', '0xd30f', '0xcaa9', '0x11a3a', '0xc00c'] [0, 1, 2, 3, 4, 5, 7] [0, 1, 2, 3, 4, 5, 6, 7]
+  disagree: ['0xb310', '0x1fd04', '0xcddc', '0xbbe0', '0x11a3a', '0xbfd4', '0x1fa85'] [0, 1, 2, 3, 4, 6, 7] [0, 1, 2, 3, 4, 5, 6, 7]
+vs uniseg 0.10.1 (unicode 16.0.0) on the same 20000 strings: final 20000 agree; v1 disagrees on 0

@@ -1,0 +1,259 @@
+===== ALL_A
+  n_same_pairs 488
+  n_diff_pairs 1336
+  pair_accuracy(p>0.5) 1782/1824 = 0.977 [95% CI 0.969-0.983]
+  false_merge(diff p>0.5) 28/1336 = 0.021 [95% CI 0.015-0.030]
+  false_split(same p<=0.5) 14/488 = 0.029 [95% CI 0.017-0.048]
+  exact_0.50_pairs 1
+  same_le_floor {0.05: '0/488 = 0.000 [95% CI 0.000-0.008]', 0.1: '0/488 = 0.000 [95% CI 0.000-0.008]', 0.2: '0/488 = 0.000 [95% CI 0.000-0.008]', 0.3: '6/488 = 0.012 [95% CI 0.006-0.027]'}
+  diff_le_floor {0.05: '1080/1336 = 0.808 [95% CI 0.786-0.829]', 0.1: '1199/1336 = 0.897 [95% CI 0.880-0.913]', 0.2: '1263/1336 = 0.945 [95% CI 0.932-0.956]', 0.3: '1289/1336 = 0.965 [95% CI 0.954-0.973]'}
+  rule_selected_floor 0.3
+  clique_completeness 135/144 = 0.938 [95% CI 0.885-0.967]
+  non_transitive_triples 47/4520 = 0.010 [95% CI 0.008-0.014]
+  docs_with_violation 12/48 = 0.250 [95% CI 0.149-0.388]
+  hist_same {'[0.00,0.05)': 0, '[0.05,0.10)': 0, '[0.10,0.20)': 0, '[0.20,0.30)': 6, '[0.30,0.40)': 3, '[0.40,0.50)': 5, '[0.50,0.60)': 6, '[0.60,0.70)': 5, '[0.70,0.80)': 15, '[0.80,0.90)': 33, '[0.90,0.95)': 65, '[0.95,1.00]': 350}
+  hist_diff {'[0.00,0.05)': 994, '[0.05,0.10)': 194, '[0.10,0.20)': 73, '[0.20,0.30)': 27, '[0.30,0.40)': 15, '[0.40,0.50)': 4, '[0.50,0.60)': 7, '[0.60,0.70)': 3, '[0.70,0.80)': 6, '[0.80,0.90)': 6, '[0.90,0.95)': 6, '[0.95,1.00]': 1}
+   plain_cc {"components": 133, "comp_correct": "117/133 = 0.880 [95% CI 0.814-0.925]", "comp_unresolved": "0/133 = 0.000 [95% CI 0.000-0.028]", "comp_silently_wrong": "16/133 = 0.120 [95% CI 0.075-0.186]", "comp_wrong_merge": 13, "comp_wrong_split": 3, "doc_correct": "35/48 = 0.729 [95% CI 0.590-0.834]", "doc_unresolved(no silent error)": "0/48 = 0.000 [95% CI 0.000-0.074]", "doc_silently_wrong": "13/48 = 0.271 [95% CI 0.166-0.410]", "by_template": {"doc_t0": {"correct": 7, "silently_wrong": 1}, "doc_t1": {"correct": 6, "silently_wrong": 2}, "doc_t2": {"silently_wrong": 8}, "doc_t3": {"correct": 7, "silently_wrong": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev3 {"components": 133, "comp_correct": "106/133 = 0.797 [95% CI 0.721-0.857]", "comp_unresolved": "25/133 = 0.188 [95% CI 0.131-0.263]", "comp_silently_wrong": "2/133 = 0.015 [95% CI 0.004-0.053]", "comp_wrong_merge": 1, "comp_wrong_split": 1, "doc_correct": "35/48 = 0.729 [95% CI 0.590-0.834]", "doc_unresolved(no silent error)": "12/48 = 0.250 [95% CI 0.149-0.388]", "doc_silently_wrong": "1/48 = 0.021 [95% CI 0.004-0.109]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 7, "silently_wrong": 1}, "doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "unresolved": 1}}}
+   rev4@0.05 {"components": 133, "comp_correct": "117/133 = 0.880 [95% CI 0.814-0.925]", "comp_unresolved": "8/133 = 0.060 [95% CI 0.031-0.114]", "comp_silently_wrong": "8/133 = 0.060 [95% CI 0.031-0.114]", "comp_wrong_merge": 5, "comp_wrong_split": 3, "doc_correct": "35/48 = 0.729 [95% CI 0.590-0.834]", "doc_unresolved(no silent error)": "8/48 = 0.167 [95% CI 0.087-0.296]", "doc_silently_wrong": "5/48 = 0.104 [95% CI 0.045-0.222]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"silently_wrong": 3, "unresolved": 5}, "doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev4@0.1 {"components": 133, "comp_correct": "117/133 = 0.880 [95% CI 0.814-0.925]", "comp_unresolved": "10/133 = 0.075 [95% CI 0.041-0.133]", "comp_silently_wrong": "6/133 = 0.045 [95% CI 0.021-0.095]", "comp_wrong_merge": 3, "comp_wrong_split": 3, "doc_correct": "35/48 = 0.729 [95% CI 0.590-0.834]", "doc_unresolved(no silent error)": "10/48 = 0.208 [95% CI 0.117-0.343]", "doc_silently_wrong": "3/48 = 0.062 [95% CI 0.021-0.168]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"unresolved": 7, "silently_wrong": 1}, "doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev4@0.2 {"components": 133, "comp_correct": "117/133 = 0.880 [95% CI 0.814-0.925]", "comp_unresolved": "11/133 = 0.083 [95% CI 0.047-0.142]", "comp_silently_wrong": "5/133 = 0.038 [95% CI 0.016-0.085]", "comp_wrong_merge": 2, "comp_wrong_split": 3, "doc_correct": "35/48 = 0.729 [95% CI 0.590-0.834]", "doc_unresolved(no silent error)": "11/48 = 0.229 [95% CI 0.133-0.365]", "doc_silently_wrong": "2/48 = 0.042 [95% CI 0.012-0.140]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 7, "silently_wrong": 1}, "doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev4@0.3 {"components": 133, "comp_correct": "117/133 = 0.880 [95% CI 0.814-0.925]", "comp_unresolved": "11/133 = 0.083 [95% CI 0.047-0.142]", "comp_silently_wrong": "5/133 = 0.038 [95% CI 0.016-0.085]", "comp_wrong_merge": 2, "comp_wrong_split": 3, "doc_correct": "35/48 = 0.729 [95% CI 0.590-0.834]", "doc_unresolved(no silent error)": "11/48 = 0.229 [95% CI 0.133-0.365]", "doc_silently_wrong": "2/48 = 0.042 [95% CI 0.012-0.140]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 7, "silently_wrong": 1}, "doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev4g@0.2 {"components": 133, "comp_correct": "101/133 = 0.759 [95% CI 0.680-0.824]", "comp_unresolved": "32/133 = 0.241 [95% CI 0.176-0.320]", "comp_silently_wrong": "0/133 = 0.000 [95% CI 0.000-0.028]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "28/48 = 0.583 [95% CI 0.443-0.712]", "doc_unresolved(no silent error)": "20/48 = 0.417 [95% CI 0.288-0.557]", "doc_silently_wrong": "0/48 = 0.000 [95% CI 0.000-0.074]", "by_template": {"doc_t0": {"correct": 6, "unresolved": 2}, "doc_t1": {"unresolved": 6, "correct": 2}, "doc_t2": {"unresolved": 8}, "doc_t3": {"correct": 5, "unresolved": 3}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "unresolved": 1}}}
+   rev4g@0.3 {"components": 133, "comp_correct": "113/133 = 0.850 [95% CI 0.779-0.900]", "comp_unresolved": "20/133 = 0.150 [95% CI 0.100-0.221]", "comp_silently_wrong": "0/133 = 0.000 [95% CI 0.000-0.028]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "33/48 = 0.688 [95% CI 0.547-0.801]", "doc_unresolved(no silent error)": "15/48 = 0.312 [95% CI 0.199-0.453]", "doc_silently_wrong": "0/48 = 0.000 [95% CI 0.000-0.074]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 8}, "doc_t3": {"correct": 5, "unresolved": 3}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "unresolved": 1}}}
+  silent: [
+{
+"floor": 0.3,
+"template": "doc_t2",
+"kind": "wrong_merge",
+"component": [
+"Sam Okoro",
+"S. Okoro for the Landlord",
+"Samuel Okoro",
+"the agent"
+],
+"min_pair_in_comp": 0.84
+},
+{
+"floor": 0.3,
+"template": "doc_t2",
+"kind": "wrong_split",
+"component": [
+"the Landlord"
+],
+"min_pair_in_comp": null
+},
+{
+"floor": 0.3,
+"template": "doc_t5",
+"kind": "wrong_split",
+"component": [
+"Senator Louis Bennet",
+"Bennet",
+"the senator"
+],
+"min_pair_in_comp": 0.61
+},
+{
+"floor": 0.3,
+"template": "doc_t5",
+"kind": "wrong_merge",
+"component": [
+"Louis",
+"Mr. Bennett",
+"the businessman"
+],
+"min_pair_in_comp": 0.37
+},
+{
+"floor": 0.3,
+"template": "doc_t5",
+"kind": "wrong_split",
+"component": [
+"Louis Bennett"
+],
+"min_pair_in_comp": null
+}
+]
+  lowest same: [(0.22, 'doc_t2', 'the Landlord', 'A. Petrova for the Landlord'), (0.24, 'doc_t2', 'the Landlord', 'D. Whitman for the Landlord'), (0.25, 'doc_t2', 'the Landlord', 'N. Rosso for the Landlord'), (0.25, 'doc_t5', 'Senator Louis Bennet', 'Louis'), (0.27, 'doc_t5', 'Louis Bennett', 'the businessman'), (0.28, 'doc_t2', 'the Landlord', 'S. Okoro for the Landlord'), (0.32, 'doc_t5', 'Louis Bennett', 'Mr. Bennett'), (0.34, 'doc_t2', 'the Landlord', 'C. Morgenstern for the Landlord'), (0.39, 'doc_t5', 'the senator', 'Louis'), (0.41, 'doc_t0', 'Ms. Holloway', 'J. Holloway, VP Marketing'), (0.42, 'doc_t0', 'Ms. Holloway', 'the marketing VP'), (0.43, 'doc_t2', 'the Landlord', 'J. Halloway for the Landlord'), (0.49, 'doc_t2', 'Sam Okoro', 'the Landlord'), (0.49, 'doc_t5', 'Bennet', 'Louis'), (0.53, 'doc_t0', 'Jean Holloway', 'Ms. Holloway')]
+  highest diff: [(0.95, 'doc_t2', 'S. Okoro for the Landlord', 'Samuel Okoro'), (0.94, 'doc_t2', 'N. Rosso for the Landlord', 'Nino Rosso'), (0.93, 'doc_t2', 'D. Whitman for the Landlord', 'Dan Whitman'), (0.92, 'doc_t2', 'D. Whitman for the Landlord', 'the agent'), (0.91, 'doc_t2', 'N. Rosso for the Landlord', 'the agent'), (0.91, 'doc_t2', 'A. Petrova for the Landlord', 'the agent'), (0.9, 'doc_t2', 'Sam Okoro', 'Samuel Okoro'), (0.89, 'doc_t2', 'S. Okoro for the Landlord', 'the agent'), (0.89, 'doc_t2', 'C. Morgenstern for the Landlord', 'Christine Morgenstern'), (0.84, 'doc_t2', 'Sam Okoro', 'the agent'), (0.84, 'doc_t2', 'A. Petrova for the Landlord', 'Alexander Petrova'), (0.84, 'doc_t0', 'Ms. Holloway', 'Jean Halloway'), (0.8, 'doc_t2', 'Dana Whitman', 'Dan Whitman'), (0.78, 'doc_t2', 'Jean Holloway', 'the Landlord'), (0.78, 'doc_t2', 'J. Halloway for the Landlord', 'John Halloway')]
+===== ALL_B
+  n_same_pairs 488
+  n_diff_pairs 1336
+  pair_accuracy(p>0.5) 1778/1824 = 0.975 [95% CI 0.967-0.981]
+  false_merge(diff p>0.5) 30/1336 = 0.022 [95% CI 0.016-0.032]
+  false_split(same p<=0.5) 16/488 = 0.033 [95% CI 0.020-0.053]
+  exact_0.50_pairs 1
+  same_le_floor {0.05: '0/488 = 0.000 [95% CI 0.000-0.008]', 0.1: '0/488 = 0.000 [95% CI 0.000-0.008]', 0.2: '2/488 = 0.004 [95% CI 0.001-0.015]', 0.3: '5/488 = 0.010 [95% CI 0.004-0.024]'}
+  diff_le_floor {0.05: '1065/1336 = 0.797 [95% CI 0.775-0.818]', 0.1: '1193/1336 = 0.893 [95% CI 0.875-0.908]', 0.2: '1256/1336 = 0.940 [95% CI 0.926-0.952]', 0.3: '1282/1336 = 0.960 [95% CI 0.948-0.969]'}
+  rule_selected_floor 0.3
+  clique_completeness 133/144 = 0.924 [95% CI 0.868-0.957]
+  non_transitive_triples 53/4520 = 0.012 [95% CI 0.009-0.015]
+  docs_with_violation 12/48 = 0.250 [95% CI 0.149-0.388]
+  hist_same {'[0.00,0.05)': 0, '[0.05,0.10)': 0, '[0.10,0.20)': 1, '[0.20,0.30)': 4, '[0.30,0.40)': 4, '[0.40,0.50)': 6, '[0.50,0.60)': 6, '[0.60,0.70)': 6, '[0.70,0.80)': 10, '[0.80,0.90)': 39, '[0.90,0.95)': 66, '[0.95,1.00]': 346}
+  hist_diff {'[0.00,0.05)': 982, '[0.05,0.10)': 199, '[0.10,0.20)': 74, '[0.20,0.30)': 25, '[0.30,0.40)': 17, '[0.40,0.50)': 9, '[0.50,0.60)': 9, '[0.60,0.70)': 4, '[0.70,0.80)': 5, '[0.80,0.90)': 6, '[0.90,0.95)': 5, '[0.95,1.00]': 1}
+   plain_cc {"components": 134, "comp_correct": "117/134 = 0.873 [95% CI 0.806-0.919]", "comp_unresolved": "0/134 = 0.000 [95% CI 0.000-0.028]", "comp_silently_wrong": "17/134 = 0.127 [95% CI 0.081-0.194]", "comp_wrong_merge": 12, "comp_wrong_split": 5, "doc_correct": "34/48 = 0.708 [95% CI 0.568-0.818]", "doc_unresolved(no silent error)": "0/48 = 0.000 [95% CI 0.000-0.074]", "doc_silently_wrong": "14/48 = 0.292 [95% CI 0.182-0.432]", "by_template": {"doc_t0": {"correct": 7, "silently_wrong": 1}, "doc_t1": {"correct": 6, "silently_wrong": 2}, "doc_t2": {"silently_wrong": 7, "correct": 1}, "doc_t3": {"correct": 6, "silently_wrong": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev3 {"components": 134, "comp_correct": "105/134 = 0.784 [95% CI 0.706-0.845]", "comp_unresolved": "25/134 = 0.187 [95% CI 0.130-0.261]", "comp_silently_wrong": "4/134 = 0.030 [95% CI 0.012-0.074]", "comp_wrong_merge": 1, "comp_wrong_split": 3, "doc_correct": "34/48 = 0.708 [95% CI 0.568-0.818]", "doc_unresolved(no silent error)": "12/48 = 0.250 [95% CI 0.149-0.388]", "doc_silently_wrong": "2/48 = 0.042 [95% CI 0.012-0.140]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 6, "silently_wrong": 1, "correct": 1}, "doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "unresolved": 1, "silently_wrong": 1}}}
+   rev4@0.05 {"components": 134, "comp_correct": "117/134 = 0.873 [95% CI 0.806-0.919]", "comp_unresolved": "9/134 = 0.067 [95% CI 0.036-0.123]", "comp_silently_wrong": "8/134 = 0.060 [95% CI 0.031-0.113]", "comp_wrong_merge": 3, "comp_wrong_split": 5, "doc_correct": "34/48 = 0.708 [95% CI 0.568-0.818]", "doc_unresolved(no silent error)": "9/48 = 0.188 [95% CI 0.102-0.319]", "doc_silently_wrong": "5/48 = 0.104 [95% CI 0.045-0.222]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"silently_wrong": 2, "unresolved": 5, "correct": 1}, "doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev4@0.1 {"components": 134, "comp_correct": "117/134 = 0.873 [95% CI 0.806-0.919]", "comp_unresolved": "10/134 = 0.075 [95% CI 0.041-0.132]", "comp_silently_wrong": "7/134 = 0.052 [95% CI 0.026-0.104]", "comp_wrong_merge": 2, "comp_wrong_split": 5, "doc_correct": "34/48 = 0.708 [95% CI 0.568-0.818]", "doc_unresolved(no silent error)": "10/48 = 0.208 [95% CI 0.117-0.343]", "doc_silently_wrong": "4/48 = 0.083 [95% CI 0.033-0.196]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"unresolved": 6, "silently_wrong": 1, "correct": 1}, "doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev4@0.2 {"components": 134, "comp_correct": "117/134 = 0.873 [95% CI 0.806-0.919]", "comp_unresolved": "10/134 = 0.075 [95% CI 0.041-0.132]", "comp_silently_wrong": "7/134 = 0.052 [95% CI 0.026-0.104]", "comp_wrong_merge": 2, "comp_wrong_split": 5, "doc_correct": "34/48 = 0.708 [95% CI 0.568-0.818]", "doc_unresolved(no silent error)": "10/48 = 0.208 [95% CI 0.117-0.343]", "doc_silently_wrong": "4/48 = 0.083 [95% CI 0.033-0.196]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"unresolved": 6, "silently_wrong": 1, "correct": 1}, "doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev4@0.3 {"components": 134, "comp_correct": "117/134 = 0.873 [95% CI 0.806-0.919]", "comp_unresolved": "11/134 = 0.082 [95% CI 0.046-0.141]", "comp_silently_wrong": "6/134 = 0.045 [95% CI 0.021-0.094]", "comp_wrong_merge": 1, "comp_wrong_split": 5, "doc_correct": "34/48 = 0.708 [95% CI 0.568-0.818]", "doc_unresolved(no silent error)": "11/48 = 0.229 [95% CI 0.133-0.365]", "doc_silently_wrong": "3/48 = 0.062 [95% CI 0.021-0.168]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 6, "silently_wrong": 1, "correct": 1}, "doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev4g@0.2 {"components": 134, "comp_correct": "91/134 = 0.679 [95% CI 0.596-0.752]", "comp_unresolved": "43/134 = 0.321 [95% CI 0.248-0.404]", "comp_silently_wrong": "0/134 = 0.000 [95% CI 0.000-0.028]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "23/48 = 0.479 [95% CI 0.345-0.617]", "doc_unresolved(no silent error)": "25/48 = 0.521 [95% CI 0.383-0.655]", "doc_silently_wrong": "0/48 = 0.000 [95% CI 0.000-0.074]", "by_template": {"doc_t0": {"correct": 6, "unresolved": 2}, "doc_t1": {"unresolved": 6, "correct": 2}, "doc_t2": {"unresolved": 8}, "doc_t3": {"correct": 3, "unresolved": 5}, "doc_t4": {"correct": 8}, "doc_t5": {"unresolved": 4, "correct": 4}}}
+   rev4g@0.3 {"components": 134, "comp_correct": "109/134 = 0.813 [95% CI 0.739-0.870]", "comp_unresolved": "25/134 = 0.187 [95% CI 0.130-0.261]", "comp_silently_wrong": "0/134 = 0.000 [95% CI 0.000-0.028]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "31/48 = 0.646 [95% CI 0.504-0.766]", "doc_unresolved(no silent error)": "17/48 = 0.354 [95% CI 0.234-0.496]", "doc_silently_wrong": "0/48 = 0.000 [95% CI 0.000-0.074]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"unresolved": 3, "correct": 5}, "doc_t2": {"unresolved": 8}, "doc_t3": {"correct": 5, "unresolved": 3}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "unresolved": 2}}}
+  silent: [
+{
+"floor": 0.3,
+"template": "doc_t2",
+"kind": "wrong_merge",
+"component": [
+"Sam Okoro",
+"S. Okoro for the Landlord",
+"Samuel Okoro",
+"the agent"
+],
+"min_pair_in_comp": 0.82
+},
+{
+"floor": 0.3,
+"template": "doc_t2",
+"kind": "wrong_split",
+"component": [
+"the Landlord"
+],
+"min_pair_in_comp": null
+},
+{
+"floor": 0.3,
+"template": "doc_t5",
+"kind": "wrong_split",
+"component": [
+"Louis Bennett"
+],
+"min_pair_in_comp": null
+},
+{
+"floor": 0.3,
+"template": "doc_t5",
+"kind": "wrong_split",
+"component": [
+"Mr. Bennett",
+"the businessman"
+],
+"min_pair_in_comp": 0.91
+},
+{
+"floor": 0.3,
+"template": "doc_t5",
+"kind": "wrong_split",
+"component": [
+"Senator Adrian Nash",
+"Nash",
+"the senator"
+],
+"min_pair_in_comp": 0.78
+},
+{
+"floor": 0.3,
+"template": "doc_t5",
+"kind": "wrong_split",
+"component": [
+"Adrian"
+],
+"min_pair_in_comp": null
+}
+]
+  lowest same: [(0.17, 'doc_t2', 'the Landlord', 'A. Petrova for the Landlord'), (0.2, 'doc_t5', 'Louis Bennett', 'the businessman'), (0.23, 'doc_t2', 'the Landlord', 'N. Rosso for the Landlord'), (0.24, 'doc_t2', 'the Landlord', 'D. Whitman for the Landlord'), (0.28, 'doc_t0', 'Ms. Holloway', 'J. Holloway, VP Marketing'), (0.32, 'doc_t5', 'Louis Bennett', 'Mr. Bennett'), (0.33, 'doc_t0', 'Ms. Holloway', 'the marketing VP'), (0.34, 'doc_t2', 'the Landlord', 'S. Okoro for the Landlord'), (0.35, 'doc_t2', 'the Landlord', 'C. Morgenstern for the Landlord'), (0.4, 'doc_t2', 'the Landlord', 'J. Halloway for the Landlord'), (0.42, 'doc_t5', 'Senator Louis Bennet', 'Louis'), (0.47, 'doc_t2', 'Sam Okoro', 'the Landlord'), (0.47, 'doc_t2', 'the Landlord', 'M. Castell for the Landlord'), (0.48, 'doc_t5', 'Senator Adrian Nash', 'Adrian'), (0.49, 'doc_t5', 'the senator', 'Adrian')]
+  highest diff: [(0.95, 'doc_t2', 'N. Rosso for the Landlord', 'Nino Rosso'), (0.94, 'doc_t2', 'S. Okoro for the Landlord', 'Samuel Okoro'), (0.94, 'doc_t2', 'D. Whitman for the Landlord', 'Dan Whitman'), (0.93, 'doc_t2', 'N. Rosso for the Landlord', 'the agent'), (0.92, 'doc_t2', 'D. Whitman for the Landlord', 'the agent'), (0.92, 'doc_t2', 'A. Petrova for the Landlord', 'the agent'), (0.89, 'doc_t2', 'Sam Okoro', 'Samuel Okoro'), (0.89, 'doc_t2', 'S. Okoro for the Landlord', 'the agent'), (0.88, 'doc_t2', 'C. Morgenstern for the Landlord', 'Christine Morgenstern'), (0.84, 'doc_t0', 'Ms. Holloway', 'Jean Halloway'), (0.83, 'doc_t2', 'J. Halloway for the Landlord', 'John Halloway'), (0.82, 'doc_t2', 'Sam Okoro', 'the agent'), (0.79, 'doc_t2', 'A. Petrova for the Landlord', 'Alexander Petrova'), (0.78, 'doc_t2', 'M. Castell for the Landlord', 'Mario Castell'), (0.75, 'doc_t0', 'Ms. Holloway', 'the Globex buyer')]
+===== OLD_p06_A
+  n_same_pairs 192
+  n_diff_pairs 544
+  pair_accuracy(p>0.5) 701/736 = 0.952 [95% CI 0.935-0.966]
+  false_merge(diff p>0.5) 26/544 = 0.048 [95% CI 0.033-0.069]
+  false_split(same p<=0.5) 9/192 = 0.047 [95% CI 0.025-0.087]
+  exact_0.50_pairs 1
+  same_le_floor {0.05: '0/192 = 0.000 [95% CI 0.000-0.020]', 0.1: '0/192 = 0.000 [95% CI 0.000-0.020]', 0.2: '0/192 = 0.000 [95% CI 0.000-0.020]', 0.3: '4/192 = 0.021 [95% CI 0.008-0.052]'}
+  diff_le_floor {0.05: '383/544 = 0.704 [95% CI 0.664-0.741]', 0.1: '445/544 = 0.818 [95% CI 0.783-0.848]', 0.2: '486/544 = 0.893 [95% CI 0.865-0.917]', 0.3: '506/544 = 0.930 [95% CI 0.906-0.949]'}
+  rule_selected_floor 0.2
+  clique_completeness 65/72 = 0.903 [95% CI 0.813-0.952]
+  non_transitive_triples 41/1568 = 0.026 [95% CI 0.019-0.035]
+  docs_with_violation 10/24 = 0.417 [95% CI 0.245-0.612]
+  hist_same {'[0.00,0.05)': 0, '[0.05,0.10)': 0, '[0.10,0.20)': 0, '[0.20,0.30)': 4, '[0.30,0.40)': 1, '[0.40,0.50)': 4, '[0.50,0.60)': 3, '[0.60,0.70)': 1, '[0.70,0.80)': 6, '[0.80,0.90)': 17, '[0.90,0.95)': 35, '[0.95,1.00]': 121}
+  hist_diff {'[0.00,0.05)': 339, '[0.05,0.10)': 99, '[0.10,0.20)': 47, '[0.20,0.30)': 20, '[0.30,0.40)': 8, '[0.40,0.50)': 4, '[0.50,0.60)': 5, '[0.60,0.70)': 3, '[0.70,0.80)': 6, '[0.80,0.90)': 6, '[0.90,0.95)': 6, '[0.95,1.00]': 1}
+   plain_cc {"components": 61, "comp_correct": "49/61 = 0.803 [95% CI 0.687-0.884]", "comp_unresolved": "0/61 = 0.000 [95% CI 0.000-0.059]", "comp_silently_wrong": "12/61 = 0.197 [95% CI 0.116-0.313]", "comp_wrong_merge": 11, "comp_wrong_split": 1, "doc_correct": "13/24 = 0.542 [95% CI 0.351-0.721]", "doc_unresolved(no silent error)": "0/24 = 0.000 [95% CI 0.000-0.138]", "doc_silently_wrong": "11/24 = 0.458 [95% CI 0.279-0.649]", "by_template": {"doc_t0": {"correct": 7, "silently_wrong": 1}, "doc_t1": {"correct": 6, "silently_wrong": 2}, "doc_t2": {"silently_wrong": 8}}}
+   rev3 {"components": 61, "comp_correct": "40/61 = 0.656 [95% CI 0.530-0.763]", "comp_unresolved": "19/61 = 0.311 [95% CI 0.209-0.436]", "comp_silently_wrong": "2/61 = 0.033 [95% CI 0.009-0.112]", "comp_wrong_merge": 1, "comp_wrong_split": 1, "doc_correct": "13/24 = 0.542 [95% CI 0.351-0.721]", "doc_unresolved(no silent error)": "10/24 = 0.417 [95% CI 0.245-0.612]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 7, "silently_wrong": 1}}}
+   rev4@0.05 {"components": 61, "comp_correct": "49/61 = 0.803 [95% CI 0.687-0.884]", "comp_unresolved": "7/61 = 0.115 [95% CI 0.057-0.218]", "comp_silently_wrong": "5/61 = 0.082 [95% CI 0.036-0.178]", "comp_wrong_merge": 4, "comp_wrong_split": 1, "doc_correct": "13/24 = 0.542 [95% CI 0.351-0.721]", "doc_unresolved(no silent error)": "7/24 = 0.292 [95% CI 0.149-0.492]", "doc_silently_wrong": "4/24 = 0.167 [95% CI 0.067-0.359]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"silently_wrong": 3, "unresolved": 5}}}
+   rev4@0.1 {"components": 61, "comp_correct": "49/61 = 0.803 [95% CI 0.687-0.884]", "comp_unresolved": "9/61 = 0.148 [95% CI 0.080-0.257]", "comp_silently_wrong": "3/61 = 0.049 [95% CI 0.017-0.135]", "comp_wrong_merge": 2, "comp_wrong_split": 1, "doc_correct": "13/24 = 0.542 [95% CI 0.351-0.721]", "doc_unresolved(no silent error)": "9/24 = 0.375 [95% CI 0.212-0.573]", "doc_silently_wrong": "2/24 = 0.083 [95% CI 0.023-0.258]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"unresolved": 7, "silently_wrong": 1}}}
+   rev4@0.2 {"components": 61, "comp_correct": "49/61 = 0.803 [95% CI 0.687-0.884]", "comp_unresolved": "10/61 = 0.164 [95% CI 0.092-0.276]", "comp_silently_wrong": "2/61 = 0.033 [95% CI 0.009-0.112]", "comp_wrong_merge": 1, "comp_wrong_split": 1, "doc_correct": "13/24 = 0.542 [95% CI 0.351-0.721]", "doc_unresolved(no silent error)": "10/24 = 0.417 [95% CI 0.245-0.612]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 7, "silently_wrong": 1}}}
+   rev4@0.3 {"components": 61, "comp_correct": "49/61 = 0.803 [95% CI 0.687-0.884]", "comp_unresolved": "10/61 = 0.164 [95% CI 0.092-0.276]", "comp_silently_wrong": "2/61 = 0.033 [95% CI 0.009-0.112]", "comp_wrong_merge": 1, "comp_wrong_split": 1, "doc_correct": "13/24 = 0.542 [95% CI 0.351-0.721]", "doc_unresolved(no silent error)": "10/24 = 0.417 [95% CI 0.245-0.612]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 7, "silently_wrong": 1}}}
+   rev4g@0.2 {"components": 61, "comp_correct": "37/61 = 0.607 [95% CI 0.481-0.719]", "comp_unresolved": "24/61 = 0.393 [95% CI 0.281-0.519]", "comp_silently_wrong": "0/61 = 0.000 [95% CI 0.000-0.059]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "8/24 = 0.333 [95% CI 0.180-0.533]", "doc_unresolved(no silent error)": "16/24 = 0.667 [95% CI 0.467-0.820]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t0": {"correct": 6, "unresolved": 2}, "doc_t1": {"unresolved": 6, "correct": 2}, "doc_t2": {"unresolved": 8}}}
+   rev4g@0.3 {"components": 61, "comp_correct": "49/61 = 0.803 [95% CI 0.687-0.884]", "comp_unresolved": "12/61 = 0.197 [95% CI 0.116-0.313]", "comp_silently_wrong": "0/61 = 0.000 [95% CI 0.000-0.059]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "13/24 = 0.542 [95% CI 0.351-0.721]", "doc_unresolved(no silent error)": "11/24 = 0.458 [95% CI 0.279-0.649]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 8}}}
+===== OLD_p06_B
+  n_same_pairs 192
+  n_diff_pairs 544
+  pair_accuracy(p>0.5) 698/736 = 0.948 [95% CI 0.930-0.962]
+  false_merge(diff p>0.5) 28/544 = 0.051 [95% CI 0.036-0.073]
+  false_split(same p<=0.5) 10/192 = 0.052 [95% CI 0.029-0.093]
+  exact_0.50_pairs 0
+  same_le_floor {0.05: '0/192 = 0.000 [95% CI 0.000-0.020]', 0.1: '0/192 = 0.000 [95% CI 0.000-0.020]', 0.2: '1/192 = 0.005 [95% CI 0.001-0.029]', 0.3: '4/192 = 0.021 [95% CI 0.008-0.052]'}
+  diff_le_floor {0.05: '384/544 = 0.706 [95% CI 0.666-0.743]', 0.1: '448/544 = 0.824 [95% CI 0.789-0.853]', 0.2: '486/544 = 0.893 [95% CI 0.865-0.917]', 0.3: '503/544 = 0.925 [95% CI 0.899-0.944]'}
+  rule_selected_floor 0.2
+  clique_completeness 64/72 = 0.889 [95% CI 0.796-0.943]
+  non_transitive_triples 41/1568 = 0.026 [95% CI 0.019-0.035]
+  docs_with_violation 9/24 = 0.375 [95% CI 0.212-0.573]
+  hist_same {'[0.00,0.05)': 0, '[0.05,0.10)': 0, '[0.10,0.20)': 1, '[0.20,0.30)': 3, '[0.30,0.40)': 3, '[0.40,0.50)': 3, '[0.50,0.60)': 2, '[0.60,0.70)': 1, '[0.70,0.80)': 3, '[0.80,0.90)': 21, '[0.90,0.95)': 40, '[0.95,1.00]': 115}
+  hist_diff {'[0.00,0.05)': 339, '[0.05,0.10)': 100, '[0.10,0.20)': 46, '[0.20,0.30)': 17, '[0.30,0.40)': 9, '[0.40,0.50)': 5, '[0.50,0.60)': 7, '[0.60,0.70)': 4, '[0.70,0.80)': 5, '[0.80,0.90)': 6, '[0.90,0.95)': 5, '[0.95,1.00]': 1}
+   plain_cc {"components": 62, "comp_correct": "51/62 = 0.823 [95% CI 0.710-0.898]", "comp_unresolved": "0/62 = 0.000 [95% CI 0.000-0.058]", "comp_silently_wrong": "11/62 = 0.177 [95% CI 0.102-0.290]", "comp_wrong_merge": 10, "comp_wrong_split": 1, "doc_correct": "14/24 = 0.583 [95% CI 0.388-0.755]", "doc_unresolved(no silent error)": "0/24 = 0.000 [95% CI 0.000-0.138]", "doc_silently_wrong": "10/24 = 0.417 [95% CI 0.245-0.612]", "by_template": {"doc_t0": {"correct": 7, "silently_wrong": 1}, "doc_t1": {"correct": 6, "silently_wrong": 2}, "doc_t2": {"silently_wrong": 7, "correct": 1}}}
+   rev3 {"components": 62, "comp_correct": "43/62 = 0.694 [95% CI 0.570-0.794]", "comp_unresolved": "17/62 = 0.274 [95% CI 0.179-0.396]", "comp_silently_wrong": "2/62 = 0.032 [95% CI 0.009-0.110]", "comp_wrong_merge": 1, "comp_wrong_split": 1, "doc_correct": "14/24 = 0.583 [95% CI 0.388-0.755]", "doc_unresolved(no silent error)": "9/24 = 0.375 [95% CI 0.212-0.573]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 6, "silently_wrong": 1, "correct": 1}}}
+   rev4@0.05 {"components": 62, "comp_correct": "51/62 = 0.823 [95% CI 0.710-0.898]", "comp_unresolved": "7/62 = 0.113 [95% CI 0.056-0.215]", "comp_silently_wrong": "4/62 = 0.065 [95% CI 0.025-0.154]", "comp_wrong_merge": 3, "comp_wrong_split": 1, "doc_correct": "14/24 = 0.583 [95% CI 0.388-0.755]", "doc_unresolved(no silent error)": "7/24 = 0.292 [95% CI 0.149-0.492]", "doc_silently_wrong": "3/24 = 0.125 [95% CI 0.043-0.310]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"silently_wrong": 2, "unresolved": 5, "correct": 1}}}
+   rev4@0.1 {"components": 62, "comp_correct": "51/62 = 0.823 [95% CI 0.710-0.898]", "comp_unresolved": "8/62 = 0.129 [95% CI 0.067-0.234]", "comp_silently_wrong": "3/62 = 0.048 [95% CI 0.017-0.133]", "comp_wrong_merge": 2, "comp_wrong_split": 1, "doc_correct": "14/24 = 0.583 [95% CI 0.388-0.755]", "doc_unresolved(no silent error)": "8/24 = 0.333 [95% CI 0.180-0.533]", "doc_silently_wrong": "2/24 = 0.083 [95% CI 0.023-0.258]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"unresolved": 6, "silently_wrong": 1, "correct": 1}}}
+   rev4@0.2 {"components": 62, "comp_correct": "51/62 = 0.823 [95% CI 0.710-0.898]", "comp_unresolved": "8/62 = 0.129 [95% CI 0.067-0.234]", "comp_silently_wrong": "3/62 = 0.048 [95% CI 0.017-0.133]", "comp_wrong_merge": 2, "comp_wrong_split": 1, "doc_correct": "14/24 = 0.583 [95% CI 0.388-0.755]", "doc_unresolved(no silent error)": "8/24 = 0.333 [95% CI 0.180-0.533]", "doc_silently_wrong": "2/24 = 0.083 [95% CI 0.023-0.258]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "silently_wrong": 1, "unresolved": 1}, "doc_t2": {"unresolved": 6, "silently_wrong": 1, "correct": 1}}}
+   rev4@0.3 {"components": 62, "comp_correct": "51/62 = 0.823 [95% CI 0.710-0.898]", "comp_unresolved": "9/62 = 0.145 [95% CI 0.078-0.253]", "comp_silently_wrong": "2/62 = 0.032 [95% CI 0.009-0.110]", "comp_wrong_merge": 1, "comp_wrong_split": 1, "doc_correct": "14/24 = 0.583 [95% CI 0.388-0.755]", "doc_unresolved(no silent error)": "9/24 = 0.375 [95% CI 0.212-0.573]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"correct": 6, "unresolved": 2}, "doc_t2": {"unresolved": 6, "silently_wrong": 1, "correct": 1}}}
+   rev4g@0.2 {"components": 62, "comp_correct": "37/62 = 0.597 [95% CI 0.473-0.710]", "comp_unresolved": "25/62 = 0.403 [95% CI 0.290-0.527]", "comp_silently_wrong": "0/62 = 0.000 [95% CI 0.000-0.058]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "8/24 = 0.333 [95% CI 0.180-0.533]", "doc_unresolved(no silent error)": "16/24 = 0.667 [95% CI 0.467-0.820]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t0": {"correct": 6, "unresolved": 2}, "doc_t1": {"unresolved": 6, "correct": 2}, "doc_t2": {"unresolved": 8}}}
+   rev4g@0.3 {"components": 62, "comp_correct": "47/62 = 0.758 [95% CI 0.638-0.848]", "comp_unresolved": "15/62 = 0.242 [95% CI 0.152-0.362]", "comp_silently_wrong": "0/62 = 0.000 [95% CI 0.000-0.058]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "12/24 = 0.500 [95% CI 0.314-0.686]", "doc_unresolved(no silent error)": "12/24 = 0.500 [95% CI 0.314-0.686]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t0": {"correct": 7, "unresolved": 1}, "doc_t1": {"unresolved": 3, "correct": 5}, "doc_t2": {"unresolved": 8}}}
+===== NEW_t3-5_A
+  n_same_pairs 296
+  n_diff_pairs 792
+  pair_accuracy(p>0.5) 1081/1088 = 0.994 [95% CI 0.987-0.997]
+  false_merge(diff p>0.5) 2/792 = 0.003 [95% CI 0.001-0.009]
+  false_split(same p<=0.5) 5/296 = 0.017 [95% CI 0.007-0.039]
+  exact_0.50_pairs 0
+  same_le_floor {0.05: '0/296 = 0.000 [95% CI 0.000-0.013]', 0.1: '0/296 = 0.000 [95% CI 0.000-0.013]', 0.2: '0/296 = 0.000 [95% CI 0.000-0.013]', 0.3: '2/296 = 0.007 [95% CI 0.002-0.024]'}
+  diff_le_floor {0.05: '697/792 = 0.880 [95% CI 0.856-0.901]', 0.1: '754/792 = 0.952 [95% CI 0.935-0.965]', 0.2: '777/792 = 0.981 [95% CI 0.969-0.988]', 0.3: '783/792 = 0.989 [95% CI 0.979-0.994]'}
+  rule_selected_floor 0.3
+  clique_completeness 70/72 = 0.972 [95% CI 0.904-0.992]
+  non_transitive_triples 6/2952 = 0.002 [95% CI 0.001-0.004]
+  docs_with_violation 2/24 = 0.083 [95% CI 0.023-0.258]
+  hist_same {'[0.00,0.05)': 0, '[0.05,0.10)': 0, '[0.10,0.20)': 0, '[0.20,0.30)': 2, '[0.30,0.40)': 2, '[0.40,0.50)': 1, '[0.50,0.60)': 3, '[0.60,0.70)': 4, '[0.70,0.80)': 9, '[0.80,0.90)': 16, '[0.90,0.95)': 30, '[0.95,1.00]': 229}
+  hist_diff {'[0.00,0.05)': 655, '[0.05,0.10)': 95, '[0.10,0.20)': 26, '[0.20,0.30)': 7, '[0.30,0.40)': 7, '[0.40,0.50)': 0, '[0.50,0.60)': 2, '[0.60,0.70)': 0, '[0.70,0.80)': 0, '[0.80,0.90)': 0, '[0.90,0.95)': 0, '[0.95,1.00]': 0}
+   plain_cc {"components": 72, "comp_correct": "68/72 = 0.944 [95% CI 0.866-0.978]", "comp_unresolved": "0/72 = 0.000 [95% CI 0.000-0.051]", "comp_silently_wrong": "4/72 = 0.056 [95% CI 0.022-0.134]", "comp_wrong_merge": 2, "comp_wrong_split": 2, "doc_correct": "22/24 = 0.917 [95% CI 0.742-0.977]", "doc_unresolved(no silent error)": "0/24 = 0.000 [95% CI 0.000-0.138]", "doc_silently_wrong": "2/24 = 0.083 [95% CI 0.023-0.258]", "by_template": {"doc_t3": {"correct": 7, "silently_wrong": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev3 {"components": 72, "comp_correct": "66/72 = 0.917 [95% CI 0.830-0.961]", "comp_unresolved": "6/72 = 0.083 [95% CI 0.039-0.170]", "comp_silently_wrong": "0/72 = 0.000 [95% CI 0.000-0.051]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "22/24 = 0.917 [95% CI 0.742-0.977]", "doc_unresolved(no silent error)": "2/24 = 0.083 [95% CI 0.023-0.258]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "unresolved": 1}}}
+   rev4@0.05 {"components": 72, "comp_correct": "68/72 = 0.944 [95% CI 0.866-0.978]", "comp_unresolved": "1/72 = 0.014 [95% CI 0.002-0.075]", "comp_silently_wrong": "3/72 = 0.042 [95% CI 0.014-0.115]", "comp_wrong_merge": 1, "comp_wrong_split": 2, "doc_correct": "22/24 = 0.917 [95% CI 0.742-0.977]", "doc_unresolved(no silent error)": "1/24 = 0.042 [95% CI 0.007-0.202]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev4@0.1 {"components": 72, "comp_correct": "68/72 = 0.944 [95% CI 0.866-0.978]", "comp_unresolved": "1/72 = 0.014 [95% CI 0.002-0.075]", "comp_silently_wrong": "3/72 = 0.042 [95% CI 0.014-0.115]", "comp_wrong_merge": 1, "comp_wrong_split": 2, "doc_correct": "22/24 = 0.917 [95% CI 0.742-0.977]", "doc_unresolved(no silent error)": "1/24 = 0.042 [95% CI 0.007-0.202]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev4@0.2 {"components": 72, "comp_correct": "68/72 = 0.944 [95% CI 0.866-0.978]", "comp_unresolved": "1/72 = 0.014 [95% CI 0.002-0.075]", "comp_silently_wrong": "3/72 = 0.042 [95% CI 0.014-0.115]", "comp_wrong_merge": 1, "comp_wrong_split": 2, "doc_correct": "22/24 = 0.917 [95% CI 0.742-0.977]", "doc_unresolved(no silent error)": "1/24 = 0.042 [95% CI 0.007-0.202]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev4@0.3 {"components": 72, "comp_correct": "68/72 = 0.944 [95% CI 0.866-0.978]", "comp_unresolved": "1/72 = 0.014 [95% CI 0.002-0.075]", "comp_silently_wrong": "3/72 = 0.042 [95% CI 0.014-0.115]", "comp_wrong_merge": 1, "comp_wrong_split": 2, "doc_correct": "22/24 = 0.917 [95% CI 0.742-0.977]", "doc_unresolved(no silent error)": "1/24 = 0.042 [95% CI 0.007-0.202]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t3": {"correct": 7, "unresolved": 1}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "silently_wrong": 1}}}
+   rev4g@0.2 {"components": 72, "comp_correct": "64/72 = 0.889 [95% CI 0.796-0.943]", "comp_unresolved": "8/72 = 0.111 [95% CI 0.057-0.204]", "comp_silently_wrong": "0/72 = 0.000 [95% CI 0.000-0.051]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "20/24 = 0.833 [95% CI 0.641-0.933]", "doc_unresolved(no silent error)": "4/24 = 0.167 [95% CI 0.067-0.359]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t3": {"correct": 5, "unresolved": 3}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "unresolved": 1}}}
+   rev4g@0.3 {"components": 72, "comp_correct": "64/72 = 0.889 [95% CI 0.796-0.943]", "comp_unresolved": "8/72 = 0.111 [95% CI 0.057-0.204]", "comp_silently_wrong": "0/72 = 0.000 [95% CI 0.000-0.051]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "20/24 = 0.833 [95% CI 0.641-0.933]", "doc_unresolved(no silent error)": "4/24 = 0.167 [95% CI 0.067-0.359]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t3": {"correct": 5, "unresolved": 3}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 7, "unresolved": 1}}}
+===== NEW_t3-5_B
+  n_same_pairs 296
+  n_diff_pairs 792
+  pair_accuracy(p>0.5) 1080/1088 = 0.993 [95% CI 0.986-0.996]
+  false_merge(diff p>0.5) 2/792 = 0.003 [95% CI 0.001-0.009]
+  false_split(same p<=0.5) 6/296 = 0.020 [95% CI 0.009-0.044]
+  exact_0.50_pairs 1
+  same_le_floor {0.05: '0/296 = 0.000 [95% CI 0.000-0.013]', 0.1: '0/296 = 0.000 [95% CI 0.000-0.013]', 0.2: '1/296 = 0.003 [95% CI 0.001-0.019]', 0.3: '1/296 = 0.003 [95% CI 0.001-0.019]'}
+  diff_le_floor {0.05: '681/792 = 0.860 [95% CI 0.834-0.882]', 0.1: '745/792 = 0.941 [95% CI 0.922-0.955]', 0.2: '770/792 = 0.972 [95% CI 0.958-0.982]', 0.3: '779/792 = 0.984 [95% CI 0.972-0.990]'}
+  rule_selected_floor 0.3
+  clique_completeness 69/72 = 0.958 [95% CI 0.885-0.986]
+  non_transitive_triples 12/2952 = 0.004 [95% CI 0.002-0.007]
+  docs_with_violation 3/24 = 0.125 [95% CI 0.043-0.310]
+  hist_same {'[0.00,0.05)': 0, '[0.05,0.10)': 0, '[0.10,0.20)': 0, '[0.20,0.30)': 1, '[0.30,0.40)': 1, '[0.40,0.50)': 3, '[0.50,0.60)': 4, '[0.60,0.70)': 5, '[0.70,0.80)': 7, '[0.80,0.90)': 18, '[0.90,0.95)': 26, '[0.95,1.00]': 231}
+  hist_diff {'[0.00,0.05)': 643, '[0.05,0.10)': 99, '[0.10,0.20)': 28, '[0.20,0.30)': 8, '[0.30,0.40)': 8, '[0.40,0.50)': 4, '[0.50,0.60)': 2, '[0.60,0.70)': 0, '[0.70,0.80)': 0, '[0.80,0.90)': 0, '[0.90,0.95)': 0, '[0.95,1.00]': 0}
+   plain_cc {"components": 72, "comp_correct": "66/72 = 0.917 [95% CI 0.830-0.961]", "comp_unresolved": "0/72 = 0.000 [95% CI 0.000-0.051]", "comp_silently_wrong": "6/72 = 0.083 [95% CI 0.039-0.170]", "comp_wrong_merge": 2, "comp_wrong_split": 4, "doc_correct": "20/24 = 0.833 [95% CI 0.641-0.933]", "doc_unresolved(no silent error)": "0/24 = 0.000 [95% CI 0.000-0.138]", "doc_silently_wrong": "4/24 = 0.167 [95% CI 0.067-0.359]", "by_template": {"doc_t3": {"correct": 6, "silently_wrong": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev3 {"components": 72, "comp_correct": "62/72 = 0.861 [95% CI 0.763-0.923]", "comp_unresolved": "8/72 = 0.111 [95% CI 0.057-0.204]", "comp_silently_wrong": "2/72 = 0.028 [95% CI 0.008-0.096]", "comp_wrong_merge": 0, "comp_wrong_split": 2, "doc_correct": "20/24 = 0.833 [95% CI 0.641-0.933]", "doc_unresolved(no silent error)": "3/24 = 0.125 [95% CI 0.043-0.310]", "doc_silently_wrong": "1/24 = 0.042 [95% CI 0.007-0.202]", "by_template": {"doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "unresolved": 1, "silently_wrong": 1}}}
+   rev4@0.05 {"components": 72, "comp_correct": "66/72 = 0.917 [95% CI 0.830-0.961]", "comp_unresolved": "2/72 = 0.028 [95% CI 0.008-0.096]", "comp_silently_wrong": "4/72 = 0.056 [95% CI 0.022-0.134]", "comp_wrong_merge": 0, "comp_wrong_split": 4, "doc_correct": "20/24 = 0.833 [95% CI 0.641-0.933]", "doc_unresolved(no silent error)": "2/24 = 0.083 [95% CI 0.023-0.258]", "doc_silently_wrong": "2/24 = 0.083 [95% CI 0.023-0.258]", "by_template": {"doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev4@0.1 {"components": 72, "comp_correct": "66/72 = 0.917 [95% CI 0.830-0.961]", "comp_unresolved": "2/72 = 0.028 [95% CI 0.008-0.096]", "comp_silently_wrong": "4/72 = 0.056 [95% CI 0.022-0.134]", "comp_wrong_merge": 0, "comp_wrong_split": 4, "doc_correct": "20/24 = 0.833 [95% CI 0.641-0.933]", "doc_unresolved(no silent error)": "2/24 = 0.083 [95% CI 0.023-0.258]", "doc_silently_wrong": "2/24 = 0.083 [95% CI 0.023-0.258]", "by_template": {"doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev4@0.2 {"components": 72, "comp_correct": "66/72 = 0.917 [95% CI 0.830-0.961]", "comp_unresolved": "2/72 = 0.028 [95% CI 0.008-0.096]", "comp_silently_wrong": "4/72 = 0.056 [95% CI 0.022-0.134]", "comp_wrong_merge": 0, "comp_wrong_split": 4, "doc_correct": "20/24 = 0.833 [95% CI 0.641-0.933]", "doc_unresolved(no silent error)": "2/24 = 0.083 [95% CI 0.023-0.258]", "doc_silently_wrong": "2/24 = 0.083 [95% CI 0.023-0.258]", "by_template": {"doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev4@0.3 {"components": 72, "comp_correct": "66/72 = 0.917 [95% CI 0.830-0.961]", "comp_unresolved": "2/72 = 0.028 [95% CI 0.008-0.096]", "comp_silently_wrong": "4/72 = 0.056 [95% CI 0.022-0.134]", "comp_wrong_merge": 0, "comp_wrong_split": 4, "doc_correct": "20/24 = 0.833 [95% CI 0.641-0.933]", "doc_unresolved(no silent error)": "2/24 = 0.083 [95% CI 0.023-0.258]", "doc_silently_wrong": "2/24 = 0.083 [95% CI 0.023-0.258]", "by_template": {"doc_t3": {"correct": 6, "unresolved": 2}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "silently_wrong": 2}}}
+   rev4g@0.2 {"components": 72, "comp_correct": "54/72 = 0.750 [95% CI 0.639-0.836]", "comp_unresolved": "18/72 = 0.250 [95% CI 0.164-0.361]", "comp_silently_wrong": "0/72 = 0.000 [95% CI 0.000-0.051]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "15/24 = 0.625 [95% CI 0.427-0.788]", "doc_unresolved(no silent error)": "9/24 = 0.375 [95% CI 0.212-0.573]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t3": {"correct": 3, "unresolved": 5}, "doc_t4": {"correct": 8}, "doc_t5": {"unresolved": 4, "correct": 4}}}
+   rev4g@0.3 {"components": 72, "comp_correct": "62/72 = 0.861 [95% CI 0.763-0.923]", "comp_unresolved": "10/72 = 0.139 [95% CI 0.077-0.237]", "comp_silently_wrong": "0/72 = 0.000 [95% CI 0.000-0.051]", "comp_wrong_merge": 0, "comp_wrong_split": 0, "doc_correct": "19/24 = 0.792 [95% CI 0.595-0.908]", "doc_unresolved(no silent error)": "5/24 = 0.208 [95% CI 0.092-0.405]", "doc_silently_wrong": "0/24 = 0.000 [95% CI 0.000-0.138]", "by_template": {"doc_t3": {"correct": 5, "unresolved": 3}, "doc_t4": {"correct": 8}, "doc_t5": {"correct": 6, "unresolved": 2}}}
+AB_stability {'pairs': 1824, 'max_abs_diff': 0.26, 'decision_flips(>0.5)': 16}

@@ -1,0 +1,47 @@
+{
+ "a": {
+  "S2W0": "40/42 = 0.952 [95% CI 0.842-0.987]",
+  "S2W1": "42/42 = 1.000 [95% CI 0.916-1.000]",
+  "S4W0": "40/42 = 0.952 [95% CI 0.842-0.987]",
+  "S4W1": "42/42 = 1.000 [95% CI 0.916-1.000]",
+  "by_kind_S2W1_commit": {
+   "g_billing": 7,
+   "g_customer": 7,
+   "g_due": 7,
+   "g_total": 7,
+   "g_patient": 7,
+   "g_effective": 7
+  },
+  "by_kind_S2W0_commit": {
+   "g_billing": 7,
+   "g_customer": 7,
+   "g_due": 7,
+   "g_total": 5,
+   "g_patient": 7,
+   "g_effective": 7
+  }
+ },
+ "c": {
+  "S2W0": "31/42 = 0.738 [95% CI 0.589-0.847]",
+  "S2W1": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "S4W0": "29/42 = 0.690 [95% CI 0.540-0.809]",
+  "S4W1": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "by_kind_S2W1_commit": {
+   "g_billing": 0,
+   "g_customer": 0,
+   "g_due": 0,
+   "g_total": 0,
+   "g_patient": 0,
+   "g_effective": 0
+  },
+  "by_kind_S2W0_commit": {
+   "g_billing": 7,
+   "g_customer": 3,
+   "g_due": 7,
+   "g_total": 3,
+   "g_patient": 4,
+   "g_effective": 7
+  }
+ }
+}
+requests 84

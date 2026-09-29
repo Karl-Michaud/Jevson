@@ -1,0 +1,6495 @@
+{
+ "report": {
+  "F0_P": {
+   "right": "22/40 = 0.550 [95% CI 0.398-0.693]",
+   "wrong_occurrence": "18/40 = 0.450 [95% CI 0.307-0.602]",
+   "distractor": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "abstain": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "by_type_right_or_abstain": {
+    "t1": 2,
+    "t2": 5,
+    "t3": 7,
+    "t4": 8
+   },
+   "by_quoted_first_right_or_abstain": {
+    "true": 9,
+    "false": 13
+   }
+  },
+  "F1_P": {
+   "right": "30/40 = 0.750 [95% CI 0.598-0.858]",
+   "wrong_occurrence": "10/40 = 0.250 [95% CI 0.142-0.402]",
+   "distractor": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "abstain": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "by_type_right_or_abstain": {
+    "t1": 10,
+    "t2": 5,
+    "t3": 5,
+    "t4": 10
+   },
+   "by_quoted_first_right_or_abstain": {
+    "true": 10,
+    "false": 20
+   }
+  },
+  "F2_P": {
+   "right": "40/40 = 1.000 [95% CI 0.912-1.000]",
+   "wrong_occurrence": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "distractor": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "abstain": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "by_type_right_or_abstain": {
+    "t1": 10,
+    "t2": 10,
+    "t3": 10,
+    "t4": 10
+   },
+   "by_quoted_first_right_or_abstain": {
+    "true": 20,
+    "false": 20
+   }
+  },
+  "F3_P": {
+   "right": "40/40 = 1.000 [95% CI 0.912-1.000]",
+   "wrong_occurrence": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "distractor": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "abstain": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "by_type_right_or_abstain": {
+    "t1": 10,
+    "t2": 10,
+    "t3": 10,
+    "t4": 10
+   },
+   "by_quoted_first_right_or_abstain": {
+    "true": 20,
+    "false": 20
+   }
+  },
+  "F4_P": {
+   "right": "40/40 = 1.000 [95% CI 0.912-1.000]",
+   "wrong_occurrence": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "distractor": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "abstain": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "by_type_right_or_abstain": {
+    "t1": 10,
+    "t2": 10,
+    "t3": 10,
+    "t4": 10
+   },
+   "by_quoted_first_right_or_abstain": {
+    "true": 20,
+    "false": 20
+   }
+  },
+  "F2_A": {
+   "right": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "wrong_occurrence": "22/40 = 0.550 [95% CI 0.398-0.693]",
+   "distractor": "2/40 = 0.050 [95% CI 0.014-0.165]",
+   "abstain": "16/40 = 0.400 [95% CI 0.263-0.554]",
+   "by_type_right_or_abstain": {
+    "t1": 8,
+    "t2": 7,
+    "t3": 1,
+    "t4": 0
+   },
+   "by_quoted_first_right_or_abstain": {
+    "true": 5,
+    "false": 11
+   }
+  },
+  "F3_A": {
+   "right": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "wrong_occurrence": "33/40 = 0.825 [95% CI 0.680-0.913]",
+   "distractor": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "abstain": "7/40 = 0.175 [95% CI 0.087-0.320]",
+   "by_type_right_or_abstain": {
+    "t1": 4,
+    "t2": 3,
+    "t3": 0,
+    "t4": 0
+   },
+   "by_quoted_first_right_or_abstain": {
+    "true": 0,
+    "false": 7
+   }
+  },
+  "F4_A": {
+   "right": "0/40 = 0.000 [95% CI 0.000-0.088]",
+   "wrong_occurrence": "19/40 = 0.475 [95% CI 0.329-0.625]",
+   "distractor": "3/40 = 0.075 [95% CI 0.026-0.199]",
+   "abstain": "18/40 = 0.450 [95% CI 0.307-0.602]",
+   "by_type_right_or_abstain": {
+    "t1": 7,
+    "t2": 10,
+    "t3": 1,
+    "t4": 0
+   },
+   "by_quoted_first_right_or_abstain": {
+    "true": 6,
+    "false": 12
+   }
+  },
+  "F0_P_prob_split_between_occurrences(mean |p_right - p_wrong|)": 0.251
+ },
+ "cases": [
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "--- Attached for reference: prior disputed invoice ---\nINVOICE INV-390\nFrom: Tyrell Systems\nBill To: Globex Ltd\nDate: March 17, 2026\nNote: Acme Corp handled delivery.\n\nINVOICE INV-3667\nFrom: Globex Ltd\nBill To: Initech LLC\nDate: October 4, 2026\nAmount due: $9,371.89",
+   "right": [
+    191,
+    201
+   ],
+   "wrong": [
+    101,
+    111
+   ],
+   "dis": [
+    [
+     211,
+     222
+    ],
+    [
+     77,
+     91
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     101,
+     111
+    ],
+    [
+     211,
+     222
+    ],
+    [
+     191,
+     201
+    ],
+    [
+     77,
+     91
+    ]
+   ],
+   "A": [
+    [
+     211,
+     222
+    ],
+    [
+     77,
+     91
+    ],
+    [
+     101,
+     111
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.37,
+     "probabilities": {
+      "c3": 0.19,
+      "c1": 0.0,
+      "c2": 0.28,
+      "c0": 0.5,
+      "none_of_these": 0.03
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.23,
+     "probabilities": {
+      "c3": 0.13,
+      "c1": 0.0,
+      "c2": 0.39,
+      "c0": 0.37,
+      "none_of_these": 0.11
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.65,
+     "probabilities": {
+      "c3": 0.23,
+      "c1": 0.01,
+      "c2": 0.72,
+      "c0": 0.02,
+      "none_of_these": 0.02
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.72,
+     "probabilities": {
+      "c3": 0.15,
+      "c1": 0.0,
+      "c2": 0.79,
+      "c0": 0.05,
+      "none_of_these": 0.01
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.77,
+     "probabilities": {
+      "c3": 0.16,
+      "c1": 0.0,
+      "c2": 0.82,
+      "c0": 0.0,
+      "none_of_these": 0.02
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.12,
+     "probabilities": {
+      "c1": 0.2,
+      "c2": 0.34,
+      "c0": 0.11,
+      "none_of_these": 0.34
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.9,
+     "probabilities": {
+      "c1": 0.04,
+      "c2": 0.93,
+      "c0": 0.01,
+      "none_of_these": 0.02
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.36,
+     "probabilities": {
+      "c1": 0.52,
+      "c2": 0.14,
+      "c0": 0.0,
+      "none_of_these": 0.34
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "distractor"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "--- Prior invoice INV-433 (paid) ---\nInvoice date: November 10, 2026\nDue date: November 23, 2026\nPaid on: May 14, 2026\n\nINVOICE INV-8960\nFrom: Tyrell Systems\nInvoice date: November 23, 2026\nShipped: March 23, 2026\nAmount due: $3,341.04",
+   "right": [
+    172,
+    189
+   ],
+   "wrong": [
+    79,
+    96
+   ],
+   "dis": [
+    [
+     199,
+     213
+    ],
+    [
+     51,
+     68
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     79,
+     96
+    ],
+    [
+     199,
+     213
+    ],
+    [
+     51,
+     68
+    ],
+    [
+     172,
+     189
+    ]
+   ],
+   "A": [
+    [
+     79,
+     96
+    ],
+    [
+     199,
+     213
+    ],
+    [
+     51,
+     68
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.57,
+     "probabilities": {
+      "c3": 0.34,
+      "c2": 0.0,
+      "c0": 0.66,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.36,
+     "probabilities": {
+      "c2": 0.01,
+      "c3": 0.47,
+      "c0": 0.49,
+      "none_of_these": 0.03,
+      "c1": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 1.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.91,
+     "probabilities": {
+      "c3": 0.93,
+      "c2": 0.0,
+      "c0": 0.07,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 1.0,
+      "c2": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.53,
+     "probabilities": {
+      "c2": 0.03,
+      "c0": 0.64,
+      "none_of_these": 0.3,
+      "c1": 0.03
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.99,
+     "probabilities": {
+      "c2": 0.0,
+      "c0": 1.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.77,
+     "probabilities": {
+      "c2": 0.02,
+      "c0": 0.15,
+      "none_of_these": 0.83,
+      "c1": 0.0
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "-----Original Message-----\nFrom: Lucia Haddad\nTo: Priya Lindqvist\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?\n\nFrom: Priya Lindqvist\nTo: Lucia Haddad\nCc: Aiko Tanaka\nSubject: Re: onboarding\n\nThanks, see my answers inline below.",
+   "right": [
+    169,
+    181
+   ],
+   "wrong": [
+    33,
+    45
+   ],
+   "dis": [
+    [
+     50,
+     65
+    ],
+    [
+     186,
+     197
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     50,
+     65
+    ],
+    [
+     169,
+     181
+    ],
+    [
+     33,
+     45
+    ],
+    [
+     186,
+     197
+    ]
+   ],
+   "A": [
+    [
+     33,
+     45
+    ],
+    [
+     50,
+     65
+    ],
+    [
+     186,
+     197
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.46,
+     "probabilities": {
+      "c1": 0.57,
+      "c3": 0.0,
+      "none_of_these": 0.01,
+      "c0": 0.0,
+      "c2": 0.42
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.49,
+     "probabilities": {
+      "c1": 0.59,
+      "c3": 0.0,
+      "none_of_these": 0.05,
+      "c0": 0.0,
+      "c2": 0.36
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.99,
+     "probabilities": {
+      "c1": 1.0,
+      "c3": 0.0,
+      "c2": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.99,
+     "probabilities": {
+      "c1": 1.0,
+      "c3": 0.0,
+      "c2": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.97,
+     "probabilities": {
+      "c1": 0.98,
+      "c3": 0.0,
+      "none_of_these": 0.02,
+      "c0": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.56,
+     "probabilities": {
+      "c1": 0.03,
+      "none_of_these": 0.28,
+      "c0": 0.67,
+      "c2": 0.02
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.75,
+     "probabilities": {
+      "c1": 0.02,
+      "c2": 0.01,
+      "c0": 0.8,
+      "none_of_these": 0.17
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.79,
+     "probabilities": {
+      "c1": 0.02,
+      "none_of_these": 0.14,
+      "c0": 0.84,
+      "c2": 0.0
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "STATEMENT - period ending August 20, 2026\nPrevious balance: $148.68\nNew charges: $7,707.59\nAmount due on this statement: $3,918.63\n\n--- Activity from the previous period ---\nPayment received: $3,918.63 (thank you)\nLate fee waived.",
+   "right": [
+    121,
+    130
+   ],
+   "wrong": [
+    192,
+    201
+   ],
+   "dis": [
+    [
+     60,
+     67
+    ],
+    [
+     81,
+     90
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     81,
+     90
+    ],
+    [
+     192,
+     201
+    ],
+    [
+     60,
+     67
+    ],
+    [
+     121,
+     130
+    ]
+   ],
+   "A": [
+    [
+     81,
+     90
+    ],
+    [
+     60,
+     67
+    ],
+    [
+     192,
+     201
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.42,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.47,
+      "c2": 0.0,
+      "c3": 0.53,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.73,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.18,
+      "c2": 0.0,
+      "c3": 0.79,
+      "none_of_these": 0.03
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.55,
+     "probabilities": {
+      "c0": 0.04,
+      "c1": 0.0,
+      "c2": 0.67,
+      "none_of_these": 0.29
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.99,
+      "none_of_these": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.65,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.74,
+      "none_of_these": 0.26
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "INVOICE INV-4638\nFrom: Tyrell Systems\nBill To: Stark Parts\nDate: April 14, 2026\nAmount due: $5,859.36\n\n--- Attached for reference: prior disputed invoice ---\nINVOICE INV-128\nFrom: Soylent Foods\nBill To: Tyrell Systems\nDate: October 24, 2026\nNote: Initech LLC handled delivery.",
+   "right": [
+    23,
+    37
+   ],
+   "wrong": [
+    203,
+    217
+   ],
+   "dis": [
+    [
+     47,
+     58
+    ],
+    [
+     180,
+     193
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     203,
+     217
+    ],
+    [
+     47,
+     58
+    ],
+    [
+     23,
+     37
+    ],
+    [
+     180,
+     193
+    ]
+   ],
+   "A": [
+    [
+     180,
+     193
+    ],
+    [
+     203,
+     217
+    ],
+    [
+     47,
+     58
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.84,
+     "probabilities": {
+      "c2": 0.12,
+      "c1": 0.0,
+      "c3": 0.01,
+      "none_of_these": 0.0,
+      "c0": 0.87
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.83,
+     "probabilities": {
+      "c2": 0.86,
+      "c1": 0.0,
+      "c3": 0.01,
+      "none_of_these": 0.04,
+      "c0": 0.09
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c2": 1.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c2": 1.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c2": 1.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.41,
+     "probabilities": {
+      "c2": 0.07,
+      "c1": 0.36,
+      "none_of_these": 0.55,
+      "c0": 0.02
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.66,
+     "probabilities": {
+      "c2": 0.02,
+      "c1": 0.22,
+      "none_of_these": 0.75,
+      "c0": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.69,
+     "probabilities": {
+      "c2": 0.0,
+      "c1": 0.18,
+      "none_of_these": 0.77,
+      "c0": 0.05
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "abstain",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "INVOICE INV-4069\nFrom: Hooli Inc\nInvoice date: January 9, 2026\nShipped: February 25, 2026\nAmount due: $6,439.56\n\n--- Prior invoice INV-487 (paid) ---\nInvoice date: December 7, 2026\nDue date: January 9, 2026\nPaid on: May 27, 2026",
+   "right": [
+    47,
+    62
+   ],
+   "wrong": [
+    191,
+    206
+   ],
+   "dis": [
+    [
+     72,
+     89
+    ],
+    [
+     164,
+     180
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     47,
+     62
+    ],
+    [
+     164,
+     180
+    ],
+    [
+     72,
+     89
+    ],
+    [
+     191,
+     206
+    ]
+   ],
+   "A": [
+    [
+     191,
+     206
+    ],
+    [
+     72,
+     89
+    ],
+    [
+     164,
+     180
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.78,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.82,
+      "c2": 0.0,
+      "c3": 0.18
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.93,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.04,
+      "c0": 0.95,
+      "c2": 0.0,
+      "c3": 0.01
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0,
+      "c2": 0.0,
+      "c3": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0,
+      "c2": 0.0,
+      "c3": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0,
+      "c2": 0.0,
+      "c3": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.48,
+     "probabilities": {
+      "c1": 0.25,
+      "none_of_these": 0.61,
+      "c0": 0.13,
+      "c2": 0.01
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.68,
+     "probabilities": {
+      "c1": 0.02,
+      "none_of_these": 0.22,
+      "c0": 0.76,
+      "c2": 0.0
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.87,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.9,
+      "c0": 0.07,
+      "c2": 0.03
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "-----Original Message-----\nFrom: Aiko Tanaka\nTo: Oren Petrov\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?\n\nFrom: Oren Petrov\nTo: Aiko Tanaka\nCc: Marcus Okafor\nSubject: Re: onboarding\n\nThanks, see my answers inline below.",
+   "right": [
+    160,
+    171
+   ],
+   "wrong": [
+    33,
+    44
+   ],
+   "dis": [
+    [
+     49,
+     60
+    ],
+    [
+     176,
+     189
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     176,
+     189
+    ],
+    [
+     49,
+     60
+    ],
+    [
+     160,
+     171
+    ],
+    [
+     33,
+     44
+    ]
+   ],
+   "A": [
+    [
+     176,
+     189
+    ],
+    [
+     33,
+     44
+    ],
+    [
+     49,
+     60
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.39,
+     "probabilities": {
+      "c2": 0.46,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.03,
+      "c3": 0.51
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.74,
+     "probabilities": {
+      "c2": 0.15,
+      "c1": 0.01,
+      "c0": 0.0,
+      "none_of_these": 0.05,
+      "c3": 0.79
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c2": 1.0,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c3": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.98,
+     "probabilities": {
+      "c2": 0.99,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c3": 0.01
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.9,
+     "probabilities": {
+      "c2": 0.91,
+      "c1": 0.01,
+      "c0": 0.0,
+      "none_of_these": 0.06,
+      "c3": 0.02
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.32,
+     "probabilities": {
+      "c2": 0.01,
+      "c1": 0.5,
+      "c0": 0.02,
+      "none_of_these": 0.47
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.48,
+     "probabilities": {
+      "c2": 0.01,
+      "c1": 0.62,
+      "c0": 0.01,
+      "none_of_these": 0.36
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.38,
+     "probabilities": {
+      "c2": 0.01,
+      "c1": 0.54,
+      "c0": 0.0,
+      "none_of_these": 0.45
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "STATEMENT - period ending November 4, 2026\nPrevious balance: $7,784.17\nNew charges: $8,784.08\nAmount due on this statement: $9,323.35\n\n--- Activity from the previous period ---\nPayment received: $9,323.35 (thank you)\nLate fee waived.",
+   "right": [
+    124,
+    133
+   ],
+   "wrong": [
+    195,
+    204
+   ],
+   "dis": [
+    [
+     61,
+     70
+    ],
+    [
+     84,
+     93
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     124,
+     133
+    ],
+    [
+     61,
+     70
+    ],
+    [
+     84,
+     93
+    ],
+    [
+     195,
+     204
+    ]
+   ],
+   "A": [
+    [
+     61,
+     70
+    ],
+    [
+     84,
+     93
+    ],
+    [
+     195,
+     204
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.46,
+     "probabilities": {
+      "c0": 0.57,
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.43,
+      "c2": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.78,
+     "probabilities": {
+      "c0": 0.83,
+      "none_of_these": 0.04,
+      "c1": 0.0,
+      "c3": 0.13,
+      "c2": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 1.0,
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.92,
+     "probabilities": {
+      "c0": 0.9400000000000001,
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.06
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 1.0,
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.74,
+     "probabilities": {
+      "c0": 0.0,
+      "none_of_these": 0.19,
+      "c1": 0.0,
+      "c2": 0.81
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c2": 1.0
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.73,
+     "probabilities": {
+      "c0": 0.0,
+      "none_of_these": 0.2,
+      "c1": 0.0,
+      "c2": 0.8
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "INVOICE INV-5508\nFrom: Stark Parts\nBill To: Tyrell Systems\nDate: May 21, 2026\nAmount due: $1,803.79\n\n--- Attached for reference: prior disputed invoice ---\nINVOICE INV-131\nFrom: Soylent Foods\nBill To: Stark Parts\nDate: January 22, 2026\nNote: Vandelay Imports handled delivery.",
+   "right": [
+    23,
+    34
+   ],
+   "wrong": [
+    201,
+    212
+   ],
+   "dis": [
+    [
+     44,
+     58
+    ],
+    [
+     178,
+     191
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     44,
+     58
+    ],
+    [
+     178,
+     191
+    ],
+    [
+     201,
+     212
+    ],
+    [
+     23,
+     34
+    ]
+   ],
+   "A": [
+    [
+     44,
+     58
+    ],
+    [
+     201,
+     212
+    ],
+    [
+     178,
+     191
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.47,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c2": 0.42,
+      "c3": 0.58,
+      "c0": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.98,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.01,
+      "c3": 0.99,
+      "c2": 0.0,
+      "c0": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "c3": 1.0,
+      "c2": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c3": 1.0,
+      "c0": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c3": 1.0,
+      "c2": 0.0,
+      "c0": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.89,
+     "probabilities": {
+      "c1": 0.05,
+      "none_of_these": 0.92,
+      "c2": 0.02,
+      "c0": 0.01
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.75,
+     "probabilities": {
+      "c1": 0.17,
+      "none_of_these": 0.81,
+      "c2": 0.01,
+      "c0": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.92,
+     "probabilities": {
+      "c1": 0.04,
+      "none_of_these": 0.94,
+      "c2": 0.02,
+      "c0": 0.0
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "abstain",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "INVOICE INV-2649\nFrom: Hooli Inc\nInvoice date: December 19, 2026\nShipped: November 22, 2026\nAmount due: $5,969.19\n\n--- Prior invoice INV-972 (paid) ---\nInvoice date: June 8, 2026\nDue date: December 19, 2026\nPaid on: April 9, 2026",
+   "right": [
+    47,
+    64
+   ],
+   "wrong": [
+    189,
+    206
+   ],
+   "dis": [
+    [
+     74,
+     91
+    ],
+    [
+     166,
+     178
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     74,
+     91
+    ],
+    [
+     189,
+     206
+    ],
+    [
+     166,
+     178
+    ],
+    [
+     47,
+     64
+    ]
+   ],
+   "A": [
+    [
+     166,
+     178
+    ],
+    [
+     189,
+     206
+    ],
+    [
+     74,
+     91
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.52,
+     "probabilities": {
+      "c1": 0.62,
+      "c3": 0.38,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.95,
+     "probabilities": {
+      "c3": 0.96,
+      "c1": 0.01,
+      "c0": 0.0,
+      "none_of_these": 0.03,
+      "c2": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "c3": 1.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 1.0,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 1.0,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.89,
+     "probabilities": {
+      "c1": 0.06,
+      "c0": 0.01,
+      "none_of_these": 0.92,
+      "c2": 0.01
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.57,
+     "probabilities": {
+      "c1": 0.3,
+      "c0": 0.01,
+      "none_of_these": 0.68,
+      "c2": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.95,
+     "probabilities": {
+      "c1": 0.03,
+      "c0": 0.0,
+      "none_of_these": 0.97,
+      "c2": 0.0
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "abstain",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "From: Lucia Haddad\nTo: Oren Petrov\nCc: Rafael Castillo\nSubject: Re: onboarding\n\nThanks, see my answers inline below.\n\n-----Original Message-----\nFrom: Oren Petrov\nTo: Lucia Haddad\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?",
+   "right": [
+    23,
+    34
+   ],
+   "wrong": [
+    151,
+    162
+   ],
+   "dis": [
+    [
+     6,
+     18
+    ],
+    [
+     39,
+     54
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     6,
+     18
+    ],
+    [
+     23,
+     34
+    ],
+    [
+     39,
+     54
+    ],
+    [
+     151,
+     162
+    ]
+   ],
+   "A": [
+    [
+     6,
+     18
+    ],
+    [
+     39,
+     54
+    ],
+    [
+     151,
+     162
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.53,
+     "probabilities": {
+      "c1": 0.62,
+      "c2": 0.0,
+      "c3": 0.36,
+      "c0": 0.01,
+      "none_of_these": 0.01
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.9,
+     "probabilities": {
+      "c1": 0.92,
+      "c2": 0.0,
+      "c3": 0.03,
+      "c0": 0.02,
+      "none_of_these": 0.03
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.0,
+      "c3": 0.01,
+      "c1": 0.99,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.98,
+     "probabilities": {
+      "c0": 0.01,
+      "c2": 0.0,
+      "c3": 0.01,
+      "c1": 0.98,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.96,
+     "probabilities": {
+      "c1": 0.97,
+      "c2": 0.0,
+      "c3": 0.0,
+      "c0": 0.02,
+      "none_of_these": 0.01
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.25,
+     "probabilities": {
+      "c0": 0.22,
+      "c2": 0.44,
+      "c1": 0.03,
+      "none_of_these": 0.31
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.7,
+     "probabilities": {
+      "c1": 0.01,
+      "c2": 0.77,
+      "c0": 0.08,
+      "none_of_these": 0.14
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.69,
+     "probabilities": {
+      "c0": 0.03,
+      "c2": 0.77,
+      "c1": 0.0,
+      "none_of_these": 0.2
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "--- Activity from the previous period ---\nPayment received: $1,051.13 (thank you)\nLate fee waived.\n\nSTATEMENT - period ending July 1, 2026\nPrevious balance: $538.51\nNew charges: $2,941.67\nAmount due on this statement: $1,051.13",
+   "right": [
+    218,
+    227
+   ],
+   "wrong": [
+    60,
+    69
+   ],
+   "dis": [
+    [
+     157,
+     164
+    ],
+    [
+     178,
+     187
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     157,
+     164
+    ],
+    [
+     178,
+     187
+    ],
+    [
+     60,
+     69
+    ],
+    [
+     218,
+     227
+    ]
+   ],
+   "A": [
+    [
+     157,
+     164
+    ],
+    [
+     60,
+     69
+    ],
+    [
+     178,
+     187
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.51,
+     "probabilities": {
+      "c2": 0.38,
+      "c3": 0.62,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.94,
+     "probabilities": {
+      "c2": 0.04,
+      "c3": 0.95,
+      "c0": 0.0,
+      "none_of_these": 0.01,
+      "c1": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 1.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 1.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 1.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.67,
+     "probabilities": {
+      "c2": 0.01,
+      "c0": 0.0,
+      "none_of_these": 0.24,
+      "c1": 0.75
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.82,
+     "probabilities": {
+      "c2": 0.0,
+      "c0": 0.01,
+      "none_of_these": 0.12,
+      "c1": 0.87
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.55,
+     "probabilities": {
+      "c2": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.34,
+      "c1": 0.66
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "--- Attached for reference: prior disputed invoice ---\nINVOICE INV-256\nFrom: Wayne Logistics\nBill To: Initech LLC\nDate: January 6, 2026\nNote: Tyrell Systems handled delivery.\n\nINVOICE INV-8483\nFrom: Initech LLC\nBill To: Acme Corp\nDate: August 24, 2026\nAmount due: $5,015.25",
+   "right": [
+    199,
+    210
+   ],
+   "wrong": [
+    102,
+    113
+   ],
+   "dis": [
+    [
+     220,
+     229
+    ],
+    [
+     77,
+     92
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     77,
+     92
+    ],
+    [
+     102,
+     113
+    ],
+    [
+     199,
+     210
+    ],
+    [
+     220,
+     229
+    ]
+   ],
+   "A": [
+    [
+     102,
+     113
+    ],
+    [
+     220,
+     229
+    ],
+    [
+     77,
+     92
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.4,
+     "probabilities": {
+      "c2": 0.18,
+      "c3": 0.0,
+      "c1": 0.51,
+      "none_of_these": 0.07,
+      "c0": 0.24
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.43,
+     "probabilities": {
+      "c2": 0.54,
+      "c3": 0.0,
+      "c1": 0.24,
+      "none_of_these": 0.08,
+      "c0": 0.14
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.42,
+     "probabilities": {
+      "c3": 0.0,
+      "c2": 0.54,
+      "c1": 0.03,
+      "none_of_these": 0.03,
+      "c0": 0.4
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.72,
+     "probabilities": {
+      "c2": 0.77,
+      "c3": 0.0,
+      "c1": 0.06,
+      "none_of_these": 0.03,
+      "c0": 0.14
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.58,
+     "probabilities": {
+      "c2": 0.67,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.03,
+      "c0": 0.3
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.7,
+     "probabilities": {
+      "c2": 0.77,
+      "c1": 0.08,
+      "none_of_these": 0.1,
+      "c0": 0.05
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.38,
+     "probabilities": {
+      "c2": 0.36,
+      "c1": 0.02,
+      "none_of_these": 0.08,
+      "c0": 0.54
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.51,
+     "probabilities": {
+      "c2": 0.63,
+      "c1": 0.0,
+      "none_of_these": 0.31,
+      "c0": 0.06
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "distractor",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "distractor"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "--- Prior invoice INV-251 (paid) ---\nInvoice date: April 18, 2026\nDue date: April 10, 2026\nPaid on: November 6, 2026\n\nINVOICE INV-4464\nFrom: Umbrella Supply\nInvoice date: April 10, 2026\nShipped: October 9, 2026\nAmount due: $6,081.39",
+   "right": [
+    171,
+    185
+   ],
+   "wrong": [
+    76,
+    90
+   ],
+   "dis": [
+    [
+     195,
+     210
+    ],
+    [
+     51,
+     65
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     171,
+     185
+    ],
+    [
+     195,
+     210
+    ],
+    [
+     76,
+     90
+    ],
+    [
+     51,
+     65
+    ]
+   ],
+   "A": [
+    [
+     51,
+     65
+    ],
+    [
+     195,
+     210
+    ],
+    [
+     76,
+     90
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.77,
+     "probabilities": {
+      "c2": 0.17,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.83
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.71,
+     "probabilities": {
+      "c2": 0.77,
+      "c3": 0.01,
+      "c1": 0.0,
+      "none_of_these": 0.01,
+      "c0": 0.21
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 0.0,
+      "c2": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.85,
+     "probabilities": {
+      "c2": 0.09,
+      "c3": 0.01,
+      "c1": 0.0,
+      "none_of_these": 0.03,
+      "c0": 0.87
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.99,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.43,
+     "probabilities": {
+      "c2": 0.35,
+      "c1": 0.02,
+      "none_of_these": 0.58,
+      "c0": 0.05
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.91,
+     "probabilities": {
+      "c2": 0.94,
+      "c1": 0.0,
+      "none_of_these": 0.05,
+      "c0": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.52,
+     "probabilities": {
+      "c2": 0.29,
+      "c1": 0.0,
+      "none_of_these": 0.64,
+      "c0": 0.07
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "From: Rafael Castillo\nTo: Marcus Okafor\nCc: Dana Whitfield\nSubject: Re: onboarding\n\nThanks, see my answers inline below.\n\n-----Original Message-----\nFrom: Marcus Okafor\nTo: Rafael Castillo\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?",
+   "right": [
+    26,
+    39
+   ],
+   "wrong": [
+    155,
+    168
+   ],
+   "dis": [
+    [
+     6,
+     21
+    ],
+    [
+     44,
+     58
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     155,
+     168
+    ],
+    [
+     26,
+     39
+    ],
+    [
+     6,
+     21
+    ],
+    [
+     44,
+     58
+    ]
+   ],
+   "A": [
+    [
+     155,
+     168
+    ],
+    [
+     6,
+     21
+    ],
+    [
+     44,
+     58
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.51,
+     "probabilities": {
+      "c0": 0.37,
+      "c3": 0.0,
+      "c2": 0.01,
+      "none_of_these": 0.01,
+      "c1": 0.61
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.74,
+     "probabilities": {
+      "c0": 0.14,
+      "c3": 0.0,
+      "c2": 0.04,
+      "none_of_these": 0.03,
+      "c1": 0.79
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.92,
+     "probabilities": {
+      "c0": 0.05,
+      "c3": 0.0,
+      "c2": 0.01,
+      "none_of_these": 0.0,
+      "c1": 0.94
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.83,
+     "probabilities": {
+      "c0": 0.12,
+      "c3": 0.0,
+      "c2": 0.01,
+      "none_of_these": 0.0,
+      "c1": 0.87
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.95,
+     "probabilities": {
+      "c0": 0.02,
+      "c3": 0.0,
+      "c2": 0.01,
+      "none_of_these": 0.01,
+      "c1": 0.96
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.5,
+     "probabilities": {
+      "c0": 0.62,
+      "c2": 0.0,
+      "none_of_these": 0.01,
+      "c1": 0.37
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.76,
+     "probabilities": {
+      "c0": 0.83,
+      "c2": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.17
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.55,
+     "probabilities": {
+      "c0": 0.67,
+      "c2": 0.0,
+      "none_of_these": 0.2,
+      "c1": 0.13
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "--- Activity from the previous period ---\nPayment received: $6,206.67 (thank you)\nLate fee waived.\n\nSTATEMENT - period ending June 6, 2026\nPrevious balance: $3,225.47\nNew charges: $4,652.83\nAmount due on this statement: $6,206.67",
+   "right": [
+    220,
+    229
+   ],
+   "wrong": [
+    60,
+    69
+   ],
+   "dis": [
+    [
+     157,
+     166
+    ],
+    [
+     180,
+     189
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     220,
+     229
+    ],
+    [
+     157,
+     166
+    ],
+    [
+     60,
+     69
+    ],
+    [
+     180,
+     189
+    ]
+   ],
+   "A": [
+    [
+     157,
+     166
+    ],
+    [
+     180,
+     189
+    ],
+    [
+     60,
+     69
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.62,
+     "probabilities": {
+      "c0": 0.7,
+      "c3": 0.0,
+      "c2": 0.3,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.43,
+     "probabilities": {
+      "c0": 0.54,
+      "c3": 0.0,
+      "c2": 0.38,
+      "none_of_these": 0.08,
+      "c1": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 1.0,
+      "c3": 0.0,
+      "c2": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.98,
+     "probabilities": {
+      "c0": 0.99,
+      "c3": 0.0,
+      "c2": 0.01,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 1.0,
+      "c3": 0.0,
+      "c2": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.8,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.85,
+      "none_of_these": 0.15,
+      "c1": 0.0
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.89,
+     "probabilities": {
+      "c0": 0.01,
+      "c2": 0.91,
+      "none_of_these": 0.08,
+      "c1": 0.0
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.79,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.85,
+      "none_of_these": 0.15,
+      "c1": 0.0
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "--- Attached for reference: prior disputed invoice ---\nINVOICE INV-151\nFrom: Hooli Inc\nBill To: Tyrell Systems\nDate: May 1, 2026\nNote: Wayne Logistics handled delivery.\n\nINVOICE INV-6793\nFrom: Tyrell Systems\nBill To: Globex Ltd\nDate: December 22, 2026\nAmount due: $4,905.51",
+   "right": [
+    193,
+    207
+   ],
+   "wrong": [
+    96,
+    110
+   ],
+   "dis": [
+    [
+     217,
+     227
+    ],
+    [
+     77,
+     86
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     217,
+     227
+    ],
+    [
+     96,
+     110
+    ],
+    [
+     77,
+     86
+    ],
+    [
+     193,
+     207
+    ]
+   ],
+   "A": [
+    [
+     96,
+     110
+    ],
+    [
+     217,
+     227
+    ],
+    [
+     77,
+     86
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.34,
+     "probabilities": {
+      "c3": 0.4,
+      "c2": 0.11,
+      "c1": 0.47,
+      "c0": 0.0,
+      "none_of_these": 0.02
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.47,
+     "probabilities": {
+      "c3": 0.58,
+      "c2": 0.06,
+      "c1": 0.32,
+      "c0": 0.0,
+      "none_of_these": 0.04
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.78,
+     "probabilities": {
+      "c3": 0.82,
+      "c2": 0.15,
+      "c1": 0.02,
+      "c0": 0.0,
+      "none_of_these": 0.01
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.88,
+     "probabilities": {
+      "c3": 0.9,
+      "c2": 0.02,
+      "c1": 0.07,
+      "c0": 0.0,
+      "none_of_these": 0.01
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.87,
+     "probabilities": {
+      "c3": 0.9,
+      "c2": 0.09,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.01
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.51,
+     "probabilities": {
+      "c2": 0.62,
+      "c1": 0.23,
+      "c0": 0.09,
+      "none_of_these": 0.06
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.65,
+     "probabilities": {
+      "c2": 0.16,
+      "c1": 0.02,
+      "c0": 0.74,
+      "none_of_these": 0.08
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.38,
+     "probabilities": {
+      "c2": 0.37,
+      "c1": 0.01,
+      "c0": 0.09,
+      "none_of_these": 0.53
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "distractor",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "--- Prior invoice INV-581 (paid) ---\nInvoice date: March 8, 2026\nDue date: April 12, 2026\nPaid on: May 26, 2026\n\nINVOICE INV-1439\nFrom: Stark Parts\nInvoice date: April 12, 2026\nShipped: September 28, 2026\nAmount due: $1,559.41",
+   "right": [
+    162,
+    176
+   ],
+   "wrong": [
+    75,
+    89
+   ],
+   "dis": [
+    [
+     186,
+     204
+    ],
+    [
+     51,
+     64
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     75,
+     89
+    ],
+    [
+     162,
+     176
+    ],
+    [
+     51,
+     64
+    ],
+    [
+     186,
+     204
+    ]
+   ],
+   "A": [
+    [
+     75,
+     89
+    ],
+    [
+     51,
+     64
+    ],
+    [
+     186,
+     204
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.4,
+     "probabilities": {
+      "c1": 0.47,
+      "c3": 0.0,
+      "none_of_these": 0.01,
+      "c0": 0.52,
+      "c2": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.55,
+     "probabilities": {
+      "c1": 0.33,
+      "c3": 0.0,
+      "none_of_these": 0.02,
+      "c0": 0.65,
+      "c2": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.99,
+     "probabilities": {
+      "c1": 1.0,
+      "c3": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.95,
+     "probabilities": {
+      "c1": 0.96,
+      "c3": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.04,
+      "c2": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 1.0,
+      "c3": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.41,
+     "probabilities": {
+      "c1": 0.08,
+      "none_of_these": 0.35,
+      "c0": 0.56,
+      "c2": 0.01
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.97,
+     "probabilities": {
+      "c1": 0.01,
+      "none_of_these": 0.01,
+      "c0": 0.98,
+      "c2": 0.0
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.58,
+     "probabilities": {
+      "c1": 0.05,
+      "none_of_these": 0.69,
+      "c0": 0.26,
+      "c2": 0.0
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "-----Original Message-----\nFrom: Oren Petrov\nTo: Lucia Haddad\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?\n\nFrom: Lucia Haddad\nTo: Oren Petrov\nCc: Kwame Novak\nSubject: Re: onboarding\n\nThanks, see my answers inline below.",
+   "right": [
+    162,
+    173
+   ],
+   "wrong": [
+    33,
+    44
+   ],
+   "dis": [
+    [
+     49,
+     61
+    ],
+    [
+     178,
+     189
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     162,
+     173
+    ],
+    [
+     33,
+     44
+    ],
+    [
+     49,
+     61
+    ],
+    [
+     178,
+     189
+    ]
+   ],
+   "A": [
+    [
+     33,
+     44
+    ],
+    [
+     49,
+     61
+    ],
+    [
+     178,
+     189
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.63,
+     "probabilities": {
+      "c0": 0.28,
+      "c1": 0.71,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.01
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.64,
+     "probabilities": {
+      "c0": 0.25,
+      "c1": 0.72,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.03
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 1.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 0.99,
+      "c1": 0.01,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.94,
+     "probabilities": {
+      "c0": 0.96,
+      "c1": 0.01,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.03
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.34,
+     "probabilities": {
+      "c0": 0.5,
+      "c1": 0.02,
+      "c2": 0.01,
+      "none_of_these": 0.47
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.59,
+     "probabilities": {
+      "c0": 0.69,
+      "c1": 0.02,
+      "c2": 0.01,
+      "none_of_these": 0.28
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.68,
+     "probabilities": {
+      "c0": 0.76,
+      "c1": 0.01,
+      "c2": 0.0,
+      "none_of_these": 0.23
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "--- Activity from the previous period ---\nPayment received: $1,134.14 (thank you)\nLate fee waived.\n\nSTATEMENT - period ending March 3, 2026\nPrevious balance: $6,233.63\nNew charges: $1,979.53\nAmount due on this statement: $1,134.14",
+   "right": [
+    221,
+    230
+   ],
+   "wrong": [
+    60,
+    69
+   ],
+   "dis": [
+    [
+     158,
+     167
+    ],
+    [
+     181,
+     190
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     158,
+     167
+    ],
+    [
+     60,
+     69
+    ],
+    [
+     181,
+     190
+    ],
+    [
+     221,
+     230
+    ]
+   ],
+   "A": [
+    [
+     181,
+     190
+    ],
+    [
+     60,
+     69
+    ],
+    [
+     158,
+     167
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.39,
+     "probabilities": {
+      "c3": 0.51,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.49,
+      "c2": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.89,
+     "probabilities": {
+      "none_of_these": 0.01,
+      "c2": 0.0,
+      "c3": 0.91,
+      "c1": 0.08,
+      "c0": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "c1": 0.0,
+      "c0": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 1.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 1.0,
+      "none_of_these": 0.0,
+      "c2": 0.0,
+      "c1": 0.0,
+      "c0": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.79,
+     "probabilities": {
+      "none_of_these": 0.14,
+      "c2": 0.0,
+      "c1": 0.84,
+      "c0": 0.02
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.84,
+     "probabilities": {
+      "none_of_these": 0.11,
+      "c0": 0.01,
+      "c1": 0.88,
+      "c2": 0.0
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.66,
+     "probabilities": {
+      "none_of_these": 0.26,
+      "c0": 0.0,
+      "c1": 0.74,
+      "c2": 0.0
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "--- Attached for reference: prior disputed invoice ---\nINVOICE INV-650\nFrom: Hooli Inc\nBill To: Acme Corp\nDate: November 4, 2026\nNote: Stark Parts handled delivery.\n\nINVOICE INV-8386\nFrom: Acme Corp\nBill To: Tyrell Systems\nDate: December 12, 2026\nAmount due: $4,129.69",
+   "right": [
+    189,
+    198
+   ],
+   "wrong": [
+    96,
+    105
+   ],
+   "dis": [
+    [
+     208,
+     222
+    ],
+    [
+     77,
+     86
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     208,
+     222
+    ],
+    [
+     77,
+     86
+    ],
+    [
+     189,
+     198
+    ],
+    [
+     96,
+     105
+    ]
+   ],
+   "A": [
+    [
+     208,
+     222
+    ],
+    [
+     77,
+     86
+    ],
+    [
+     96,
+     105
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.29,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.14,
+      "c2": 0.39,
+      "c3": 0.44,
+      "none_of_these": 0.03
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.29,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.13,
+      "c2": 0.43,
+      "c3": 0.36,
+      "none_of_these": 0.08
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.91,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.05,
+      "c2": 0.92,
+      "c3": 0.01,
+      "none_of_these": 0.02
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.88,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.01,
+      "c2": 0.9,
+      "c3": 0.08,
+      "none_of_these": 0.01
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.79,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.15,
+      "c2": 0.83,
+      "c3": 0.0,
+      "none_of_these": 0.02
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.1,
+     "probabilities": {
+      "c1": 0.32,
+      "c2": 0.22,
+      "c0": 0.13,
+      "none_of_these": 0.33
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.92,
+     "probabilities": {
+      "c1": 0.03,
+      "c2": 0.94,
+      "c0": 0.01,
+      "none_of_these": 0.02
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.33,
+     "probabilities": {
+      "c1": 0.49,
+      "c2": 0.09,
+      "c0": 0.01,
+      "none_of_these": 0.41
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "distractor"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "INVOICE INV-6786\nFrom: Wayne Logistics\nInvoice date: May 3, 2026\nShipped: July 26, 2026\nAmount due: $7,003.11\n\n--- Prior invoice INV-771 (paid) ---\nInvoice date: April 27, 2026\nDue date: May 3, 2026\nPaid on: June 26, 2026",
+   "right": [
+    53,
+    64
+   ],
+   "wrong": [
+    187,
+    198
+   ],
+   "dis": [
+    [
+     74,
+     87
+    ],
+    [
+     162,
+     176
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     74,
+     87
+    ],
+    [
+     162,
+     176
+    ],
+    [
+     53,
+     64
+    ],
+    [
+     187,
+     198
+    ]
+   ],
+   "A": [
+    [
+     187,
+     198
+    ],
+    [
+     162,
+     176
+    ],
+    [
+     74,
+     87
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.52,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.62,
+      "c0": 0.0,
+      "c2": 0.38
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.79,
+     "probabilities": {
+      "none_of_these": 0.13,
+      "c1": 0.0,
+      "c3": 0.03,
+      "c0": 0.0,
+      "c2": 0.84
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c2": 1.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c2": 1.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c2": 1.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.69,
+     "probabilities": {
+      "none_of_these": 0.76,
+      "c1": 0.02,
+      "c0": 0.2,
+      "c2": 0.02
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.79,
+     "probabilities": {
+      "none_of_these": 0.15,
+      "c1": 0.01,
+      "c0": 0.84,
+      "c2": 0.0
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.66,
+     "probabilities": {
+      "none_of_these": 0.74,
+      "c1": 0.02,
+      "c0": 0.24,
+      "c2": 0.0
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "From: Priya Lindqvist\nTo: Rafael Castillo\nCc: Ingrid Brennan\nSubject: Re: onboarding\n\nThanks, see my answers inline below.\n\n-----Original Message-----\nFrom: Rafael Castillo\nTo: Priya Lindqvist\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?",
+   "right": [
+    26,
+    41
+   ],
+   "wrong": [
+    157,
+    172
+   ],
+   "dis": [
+    [
+     6,
+     21
+    ],
+    [
+     46,
+     60
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     26,
+     41
+    ],
+    [
+     46,
+     60
+    ],
+    [
+     157,
+     172
+    ],
+    [
+     6,
+     21
+    ]
+   ],
+   "A": [
+    [
+     46,
+     60
+    ],
+    [
+     6,
+     21
+    ],
+    [
+     157,
+     172
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.55,
+     "probabilities": {
+      "c2": 0.34,
+      "c3": 0.01,
+      "c0": 0.63,
+      "none_of_these": 0.02,
+      "c1": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.8,
+     "probabilities": {
+      "c2": 0.06,
+      "c3": 0.06,
+      "c0": 0.84,
+      "none_of_these": 0.04,
+      "c1": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.98,
+     "probabilities": {
+      "c2": 0.01,
+      "c3": 0.0,
+      "c0": 0.99,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.96,
+     "probabilities": {
+      "c1": 0.0,
+      "c3": 0.01,
+      "c0": 0.96,
+      "none_of_these": 0.0,
+      "c2": 0.03
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.97,
+     "probabilities": {
+      "c1": 0.0,
+      "c3": 0.0,
+      "c0": 0.98,
+      "none_of_these": 0.02,
+      "c2": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.35,
+     "probabilities": {
+      "c2": 0.51,
+      "c0": 0.03,
+      "none_of_these": 0.23,
+      "c1": 0.23
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.79,
+     "probabilities": {
+      "c2": 0.85,
+      "c0": 0.01,
+      "none_of_these": 0.08,
+      "c1": 0.06
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.49,
+     "probabilities": {
+      "c1": 0.03,
+      "c0": 0.0,
+      "none_of_these": 0.35,
+      "c2": 0.62
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "--- Activity from the previous period ---\nPayment received: $4,874.24 (thank you)\nLate fee waived.\n\nSTATEMENT - period ending January 3, 2026\nPrevious balance: $9,192.01\nNew charges: $1,298.44\nAmount due on this statement: $4,874.24",
+   "right": [
+    223,
+    232
+   ],
+   "wrong": [
+    60,
+    69
+   ],
+   "dis": [
+    [
+     160,
+     169
+    ],
+    [
+     183,
+     192
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     183,
+     192
+    ],
+    [
+     60,
+     69
+    ],
+    [
+     160,
+     169
+    ],
+    [
+     223,
+     232
+    ]
+   ],
+   "A": [
+    [
+     60,
+     69
+    ],
+    [
+     183,
+     192
+    ],
+    [
+     160,
+     169
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.38,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.5,
+      "c2": 0.0,
+      "none_of_these": 0.0,
+      "c3": 0.5
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.77,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.16,
+      "c2": 0.0,
+      "none_of_these": 0.02,
+      "c3": 0.82
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c0": 0.0,
+      "c3": 1.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "none_of_these": 0.0,
+      "c3": 1.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "none_of_these": 0.0,
+      "c3": 1.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.95,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.0,
+      "c0": 0.96,
+      "none_of_these": 0.04
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.97,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.0,
+      "c0": 0.98,
+      "none_of_these": 0.02
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.85,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.0,
+      "none_of_these": 0.11,
+      "c0": 0.89
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "INVOICE INV-3207\nFrom: Globex Ltd\nBill To: Wayne Logistics\nDate: July 15, 2026\nAmount due: $6,520.54\n\n--- Attached for reference: prior disputed invoice ---\nINVOICE INV-337\nFrom: Acme Corp\nBill To: Globex Ltd\nDate: April 11, 2026\nNote: Umbrella Supply handled delivery.",
+   "right": [
+    23,
+    33
+   ],
+   "wrong": [
+    198,
+    208
+   ],
+   "dis": [
+    [
+     43,
+     58
+    ],
+    [
+     179,
+     188
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     23,
+     33
+    ],
+    [
+     43,
+     58
+    ],
+    [
+     179,
+     188
+    ],
+    [
+     198,
+     208
+    ]
+   ],
+   "A": [
+    [
+     198,
+     208
+    ],
+    [
+     43,
+     58
+    ],
+    [
+     179,
+     188
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.75,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 0.2,
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 0.8
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.97,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.02,
+      "c0": 0.98
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.58,
+     "probabilities": {
+      "c2": 0.03,
+      "c1": 0.09,
+      "none_of_these": 0.69,
+      "c0": 0.19
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.81,
+     "probabilities": {
+      "c2": 0.01,
+      "c1": 0.01,
+      "none_of_these": 0.13,
+      "c0": 0.85
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.87,
+     "probabilities": {
+      "c2": 0.01,
+      "c1": 0.0,
+      "none_of_these": 0.9,
+      "c0": 0.09
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "INVOICE INV-7981\nFrom: Initech LLC\nInvoice date: April 6, 2026\nShipped: July 15, 2026\nAmount due: $7,557.74\n\n--- Prior invoice INV-480 (paid) ---\nInvoice date: April 4, 2026\nDue date: April 6, 2026\nPaid on: April 26, 2026",
+   "right": [
+    49,
+    62
+   ],
+   "wrong": [
+    184,
+    197
+   ],
+   "dis": [
+    [
+     72,
+     85
+    ],
+    [
+     160,
+     173
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     72,
+     85
+    ],
+    [
+     49,
+     62
+    ],
+    [
+     184,
+     197
+    ],
+    [
+     160,
+     173
+    ]
+   ],
+   "A": [
+    [
+     72,
+     85
+    ],
+    [
+     184,
+     197
+    ],
+    [
+     160,
+     173
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.47,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.42,
+      "c1": 0.58,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.79,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.03,
+      "c1": 0.83,
+      "c3": 0.0,
+      "none_of_these": 0.14
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.0,
+      "c1": 1.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.0,
+      "c1": 1.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.0,
+      "c1": 1.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.72,
+     "probabilities": {
+      "c0": 0.1,
+      "c2": 0.01,
+      "c1": 0.11,
+      "none_of_these": 0.78
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.63,
+     "probabilities": {
+      "c0": 0.02,
+      "c2": 0.01,
+      "c1": 0.25,
+      "none_of_these": 0.72
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.89,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.0,
+      "c1": 0.08,
+      "none_of_these": 0.92
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "abstain",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "-----Original Message-----\nFrom: Dana Whitfield\nTo: Rafael Castillo\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?\n\nFrom: Rafael Castillo\nTo: Dana Whitfield\nCc: Aiko Tanaka\nSubject: Re: onboarding\n\nThanks, see my answers inline below.",
+   "right": [
+    171,
+    185
+   ],
+   "wrong": [
+    33,
+    47
+   ],
+   "dis": [
+    [
+     52,
+     67
+    ],
+    [
+     190,
+     201
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     52,
+     67
+    ],
+    [
+     190,
+     201
+    ],
+    [
+     171,
+     185
+    ],
+    [
+     33,
+     47
+    ]
+   ],
+   "A": [
+    [
+     33,
+     47
+    ],
+    [
+     52,
+     67
+    ],
+    [
+     190,
+     201
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.5,
+     "probabilities": {
+      "none_of_these": 0.01,
+      "c1": 0.0,
+      "c3": 0.39,
+      "c0": 0.0,
+      "c2": 0.6
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.5,
+     "probabilities": {
+      "none_of_these": 0.02,
+      "c1": 0.0,
+      "c3": 0.61,
+      "c0": 0.0,
+      "c2": 0.37
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c2": 1.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c2": 1.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.97,
+     "probabilities": {
+      "none_of_these": 0.01,
+      "c1": 0.0,
+      "c3": 0.0,
+      "c0": 0.01,
+      "c2": 0.98
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.53,
+     "probabilities": {
+      "none_of_these": 0.28,
+      "c1": 0.02,
+      "c0": 0.65,
+      "c2": 0.05
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.72,
+     "probabilities": {
+      "none_of_these": 0.18,
+      "c1": 0.02,
+      "c0": 0.79,
+      "c2": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.64,
+     "probabilities": {
+      "none_of_these": 0.26,
+      "c1": 0.01,
+      "c0": 0.73,
+      "c2": 0.0
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "STATEMENT - period ending April 22, 2026\nPrevious balance: $3,804.86\nNew charges: $1,956.98\nAmount due on this statement: $3,588.61\n\n--- Activity from the previous period ---\nPayment received: $3,588.61 (thank you)\nLate fee waived.",
+   "right": [
+    122,
+    131
+   ],
+   "wrong": [
+    193,
+    202
+   ],
+   "dis": [
+    [
+     59,
+     68
+    ],
+    [
+     82,
+     91
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     122,
+     131
+    ],
+    [
+     59,
+     68
+    ],
+    [
+     82,
+     91
+    ],
+    [
+     193,
+     202
+    ]
+   ],
+   "A": [
+    [
+     82,
+     91
+    ],
+    [
+     193,
+     202
+    ],
+    [
+     59,
+     68
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.45,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.44,
+      "none_of_these": 0.0,
+      "c0": 0.56
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.74,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.17,
+      "none_of_these": 0.03,
+      "c0": 0.8
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.94,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.05,
+      "none_of_these": 0.0,
+      "c0": 0.95
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 1.0,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0,
+      "c0": 1.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.51,
+     "probabilities": {
+      "c1": 0.63,
+      "c2": 0.0,
+      "none_of_these": 0.35,
+      "c0": 0.02
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.97,
+     "probabilities": {
+      "c1": 0.98,
+      "c2": 0.0,
+      "none_of_these": 0.02,
+      "c0": 0.0
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.6,
+     "probabilities": {
+      "c1": 0.7,
+      "c2": 0.0,
+      "none_of_these": 0.3,
+      "c0": 0.0
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "INVOICE INV-4368\nFrom: Acme Corp\nBill To: Wayne Logistics\nDate: May 22, 2026\nAmount due: $3,982.85\n\n--- Attached for reference: prior disputed invoice ---\nINVOICE INV-990\nFrom: Globex Ltd\nBill To: Acme Corp\nDate: March 8, 2026\nNote: Vandelay Imports handled delivery.",
+   "right": [
+    23,
+    32
+   ],
+   "wrong": [
+    197,
+    206
+   ],
+   "dis": [
+    [
+     42,
+     57
+    ],
+    [
+     177,
+     187
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     177,
+     187
+    ],
+    [
+     197,
+     206
+    ],
+    [
+     42,
+     57
+    ],
+    [
+     23,
+     32
+    ]
+   ],
+   "A": [
+    [
+     197,
+     206
+    ],
+    [
+     42,
+     57
+    ],
+    [
+     177,
+     187
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.62,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.7,
+      "c2": 0.0,
+      "c3": 0.3,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.97,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.01,
+      "c2": 0.0,
+      "c3": 0.98,
+      "none_of_these": 0.01
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.46,
+     "probabilities": {
+      "c0": 0.31,
+      "c1": 0.07,
+      "c2": 0.02,
+      "none_of_these": 0.6
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.68,
+     "probabilities": {
+      "c0": 0.75,
+      "c1": 0.02,
+      "c2": 0.01,
+      "none_of_these": 0.22
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.94,
+     "probabilities": {
+      "c0": 0.04,
+      "c1": 0.0,
+      "c2": 0.01,
+      "none_of_these": 0.95
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "--- Prior invoice INV-673 (paid) ---\nInvoice date: November 3, 2026\nDue date: April 8, 2026\nPaid on: September 26, 2026\n\nINVOICE INV-9407\nFrom: Umbrella Supply\nInvoice date: April 8, 2026\nShipped: May 28, 2026\nAmount due: $593.11",
+   "right": [
+    174,
+    187
+   ],
+   "wrong": [
+    78,
+    91
+   ],
+   "dis": [
+    [
+     197,
+     209
+    ],
+    [
+     51,
+     67
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     197,
+     209
+    ],
+    [
+     174,
+     187
+    ],
+    [
+     78,
+     91
+    ],
+    [
+     51,
+     67
+    ]
+   ],
+   "A": [
+    [
+     78,
+     91
+    ],
+    [
+     197,
+     209
+    ],
+    [
+     51,
+     67
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.43,
+     "probabilities": {
+      "c1": 0.54,
+      "none_of_these": 0.01,
+      "c0": 0.0,
+      "c2": 0.43,
+      "c3": 0.02
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.64,
+     "probabilities": {
+      "c1": 0.25,
+      "none_of_these": 0.03,
+      "c0": 0.0,
+      "c2": 0.71,
+      "c3": 0.01
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.99,
+     "probabilities": {
+      "c1": 1.0,
+      "none_of_these": 0.0,
+      "c0": 0.0,
+      "c2": 0.0,
+      "c3": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.97,
+     "probabilities": {
+      "c1": 0.98,
+      "none_of_these": 0.0,
+      "c0": 0.0,
+      "c2": 0.02,
+      "c3": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.99,
+     "probabilities": {
+      "c1": 0.99,
+      "none_of_these": 0.0,
+      "c0": 0.0,
+      "c2": 0.0,
+      "c3": 0.01
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.19,
+     "probabilities": {
+      "c1": 0.13,
+      "none_of_these": 0.34,
+      "c0": 0.38,
+      "c2": 0.15
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.95,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.02,
+      "c0": 0.97,
+      "c2": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.52,
+     "probabilities": {
+      "c1": 0.0,
+      "none_of_these": 0.64,
+      "c0": 0.22,
+      "c2": 0.14
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "-----Original Message-----\nFrom: Oren Petrov\nTo: Tomasz Moreau\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?\n\nFrom: Tomasz Moreau\nTo: Oren Petrov\nCc: Priya Lindqvist\nSubject: Re: onboarding\n\nThanks, see my answers inline below.",
+   "right": [
+    164,
+    175
+   ],
+   "wrong": [
+    33,
+    44
+   ],
+   "dis": [
+    [
+     49,
+     62
+    ],
+    [
+     180,
+     195
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     49,
+     62
+    ],
+    [
+     180,
+     195
+    ],
+    [
+     33,
+     44
+    ],
+    [
+     164,
+     175
+    ]
+   ],
+   "A": [
+    [
+     49,
+     62
+    ],
+    [
+     180,
+     195
+    ],
+    [
+     33,
+     44
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.41,
+     "probabilities": {
+      "c2": 0.46,
+      "c3": 0.53,
+      "c0": 0.0,
+      "none_of_these": 0.01,
+      "c1": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.5,
+     "probabilities": {
+      "c2": 0.6,
+      "c3": 0.36,
+      "c0": 0.01,
+      "none_of_these": 0.03,
+      "c1": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.99,
+     "probabilities": {
+      "c3": 1.0,
+      "c2": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.99,
+     "probabilities": {
+      "c3": 0.99,
+      "c2": 0.01,
+      "c0": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.94,
+     "probabilities": {
+      "c2": 0.02,
+      "c3": 0.96,
+      "c0": 0.0,
+      "none_of_these": 0.02,
+      "c1": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.31,
+     "probabilities": {
+      "c2": 0.47,
+      "c0": 0.03,
+      "none_of_these": 0.48,
+      "c1": 0.02
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.5,
+     "probabilities": {
+      "c2": 0.63,
+      "c0": 0.04,
+      "c1": 0.02,
+      "none_of_these": 0.31
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.41,
+     "probabilities": {
+      "c2": 0.56,
+      "c0": 0.03,
+      "c1": 0.0,
+      "none_of_these": 0.41
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "STATEMENT - period ending December 28, 2026\nPrevious balance: $4,477.39\nNew charges: $8,855.73\nAmount due on this statement: $4,702.23\n\n--- Activity from the previous period ---\nPayment received: $4,702.23 (thank you)\nLate fee waived.",
+   "right": [
+    125,
+    134
+   ],
+   "wrong": [
+    196,
+    205
+   ],
+   "dis": [
+    [
+     62,
+     71
+    ],
+    [
+     85,
+     94
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     85,
+     94
+    ],
+    [
+     125,
+     134
+    ],
+    [
+     196,
+     205
+    ],
+    [
+     62,
+     71
+    ]
+   ],
+   "A": [
+    [
+     62,
+     71
+    ],
+    [
+     85,
+     94
+    ],
+    [
+     196,
+     205
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.45,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.56,
+      "c2": 0.44,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.84,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.88,
+      "c2": 0.07,
+      "c3": 0.0,
+      "none_of_these": 0.05
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 1.0,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 1.0,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 1.0,
+      "c2": 0.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.68,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.77,
+      "none_of_these": 0.23
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.99,
+      "none_of_these": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.69,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.77,
+      "none_of_these": 0.23
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "INVOICE INV-3760\nFrom: Stark Parts\nBill To: Umbrella Supply\nDate: June 24, 2026\nAmount due: $2,470.58\n\n--- Attached for reference: prior disputed invoice ---\nINVOICE INV-899\nFrom: Vandelay Imports\nBill To: Stark Parts\nDate: November 22, 2026\nNote: Hooli Inc handled delivery.",
+   "right": [
+    23,
+    34
+   ],
+   "wrong": [
+    206,
+    217
+   ],
+   "dis": [
+    [
+     44,
+     59
+    ],
+    [
+     180,
+     196
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     180,
+     196
+    ],
+    [
+     206,
+     217
+    ],
+    [
+     44,
+     59
+    ],
+    [
+     23,
+     34
+    ]
+   ],
+   "A": [
+    [
+     44,
+     59
+    ],
+    [
+     180,
+     196
+    ],
+    [
+     206,
+     217
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.55,
+     "probabilities": {
+      "c3": 0.35,
+      "c0": 0.0,
+      "c1": 0.65,
+      "c2": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.98,
+     "probabilities": {
+      "c3": 0.98,
+      "c0": 0.0,
+      "none_of_these": 0.01,
+      "c1": 0.01,
+      "c2": 0.0
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 1.0,
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 1.0,
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 1.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c1": 0.0,
+      "c2": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.52,
+     "probabilities": {
+      "c0": 0.02,
+      "none_of_these": 0.64,
+      "c1": 0.01,
+      "c2": 0.33
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.54,
+     "probabilities": {
+      "c0": 0.01,
+      "c1": 0.01,
+      "c2": 0.33,
+      "none_of_these": 0.65
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.89,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.02,
+      "c2": 0.07,
+      "none_of_these": 0.91
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "abstain",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "--- Prior invoice INV-211 (paid) ---\nInvoice date: August 22, 2026\nDue date: September 15, 2026\nPaid on: December 4, 2026\n\nINVOICE INV-9236\nFrom: Globex Ltd\nInvoice date: September 15, 2026\nShipped: November 12, 2026\nAmount due: $3,434.55",
+   "right": [
+    171,
+    189
+   ],
+   "wrong": [
+    77,
+    95
+   ],
+   "dis": [
+    [
+     199,
+     216
+    ],
+    [
+     51,
+     66
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     77,
+     95
+    ],
+    [
+     51,
+     66
+    ],
+    [
+     199,
+     216
+    ],
+    [
+     171,
+     189
+    ]
+   ],
+   "A": [
+    [
+     77,
+     95
+    ],
+    [
+     51,
+     66
+    ],
+    [
+     199,
+     216
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.72,
+     "probabilities": {
+      "c0": 0.78,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.22,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.44,
+     "probabilities": {
+      "c0": 0.55,
+      "c1": 0.01,
+      "c2": 0.0,
+      "c3": 0.41,
+      "none_of_these": 0.03
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.93,
+     "probabilities": {
+      "c0": 0.05,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 0.95,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.29,
+     "probabilities": {
+      "c0": 0.42,
+      "c1": 0.1,
+      "c2": 0.01,
+      "none_of_these": 0.47
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.96,
+     "probabilities": {
+      "c0": 0.97,
+      "c1": 0.02,
+      "c2": 0.0,
+      "none_of_these": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.76,
+     "probabilities": {
+      "c0": 0.13,
+      "c1": 0.04,
+      "c2": 0.0,
+      "none_of_these": 0.83
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "From: Tomasz Moreau\nTo: Kwame Novak\nCc: Priya Lindqvist\nSubject: Re: onboarding\n\nThanks, see my answers inline below.\n\n-----Original Message-----\nFrom: Kwame Novak\nTo: Tomasz Moreau\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?",
+   "right": [
+    24,
+    35
+   ],
+   "wrong": [
+    152,
+    163
+   ],
+   "dis": [
+    [
+     6,
+     19
+    ],
+    [
+     40,
+     55
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     6,
+     19
+    ],
+    [
+     152,
+     163
+    ],
+    [
+     24,
+     35
+    ],
+    [
+     40,
+     55
+    ]
+   ],
+   "A": [
+    [
+     40,
+     55
+    ],
+    [
+     6,
+     19
+    ],
+    [
+     152,
+     163
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.38,
+     "probabilities": {
+      "c1": 0.42,
+      "c2": 0.51,
+      "c3": 0.0,
+      "c0": 0.04,
+      "none_of_these": 0.03
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.76,
+     "probabilities": {
+      "c0": 0.08,
+      "c2": 0.81,
+      "c3": 0.0,
+      "c1": 0.04,
+      "none_of_these": 0.07
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.99,
+      "c3": 0.0,
+      "c1": 0.01,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.98,
+     "probabilities": {
+      "c0": 0.01,
+      "c2": 0.98,
+      "c3": 0.0,
+      "c1": 0.01,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.91,
+     "probabilities": {
+      "c1": 0.03,
+      "c2": 0.93,
+      "c3": 0.0,
+      "c0": 0.01,
+      "none_of_these": 0.03
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.44,
+     "probabilities": {
+      "c1": 0.18,
+      "c2": 0.58,
+      "c0": 0.02,
+      "none_of_these": 0.22
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.69,
+     "probabilities": {
+      "c1": 0.07,
+      "c2": 0.77,
+      "c0": 0.01,
+      "none_of_these": 0.15
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.53,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.32,
+      "c1": 0.03,
+      "none_of_these": 0.65
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "--- Activity from the previous period ---\nPayment received: $506.03 (thank you)\nLate fee waived.\n\nSTATEMENT - period ending May 23, 2026\nPrevious balance: $5,170.32\nNew charges: $9,561.38\nAmount due on this statement: $506.03",
+   "right": [
+    218,
+    225
+   ],
+   "wrong": [
+    60,
+    67
+   ],
+   "dis": [
+    [
+     155,
+     164
+    ],
+    [
+     178,
+     187
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     60,
+     67
+    ],
+    [
+     178,
+     187
+    ],
+    [
+     218,
+     225
+    ],
+    [
+     155,
+     164
+    ]
+   ],
+   "A": [
+    [
+     155,
+     164
+    ],
+    [
+     60,
+     67
+    ],
+    [
+     178,
+     187
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.5,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.39,
+      "c3": 0.0,
+      "c0": 0.61,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.6,
+     "probabilities": {
+      "c1": 0.0,
+      "c2": 0.68,
+      "c3": 0.0,
+      "c0": 0.28,
+      "none_of_these": 0.03
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 1.0,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 1.0,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 1.0,
+      "c3": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.83,
+     "probabilities": {
+      "c1": 0.88,
+      "c2": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.12
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.93,
+     "probabilities": {
+      "c1": 0.94,
+      "c2": 0.0,
+      "c0": 0.01,
+      "none_of_these": 0.05
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.55,
+     "probabilities": {
+      "c0": 0.0,
+      "c2": 0.0,
+      "c1": 0.66,
+      "none_of_these": 0.34
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t1",
+   "field": "vendor (issuer) of this invoice",
+   "text": "INVOICE INV-9819\nFrom: Umbrella Supply\nBill To: Tyrell Systems\nDate: February 9, 2026\nAmount due: $3,833.08\n\n--- Attached for reference: prior disputed invoice ---\nINVOICE INV-686\nFrom: Stark Parts\nBill To: Umbrella Supply\nDate: November 4, 2026\nNote: Acme Corp handled delivery.",
+   "right": [
+    23,
+    38
+   ],
+   "wrong": [
+    207,
+    222
+   ],
+   "dis": [
+    [
+     48,
+     62
+    ],
+    [
+     186,
+     197
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     186,
+     197
+    ],
+    [
+     207,
+     222
+    ],
+    [
+     48,
+     62
+    ],
+    [
+     23,
+     38
+    ]
+   ],
+   "A": [
+    [
+     48,
+     62
+    ],
+    [
+     186,
+     197
+    ],
+    [
+     207,
+     222
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.58,
+     "probabilities": {
+      "c2": 0.0,
+      "c1": 0.67,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c3": 0.33
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.96,
+     "probabilities": {
+      "c2": 0.0,
+      "c1": 0.02,
+      "c0": 0.0,
+      "none_of_these": 0.01,
+      "c3": 0.97
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c3": 1.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c3": 1.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 0.0,
+      "c1": 0.0,
+      "c0": 0.0,
+      "none_of_these": 0.0,
+      "c3": 1.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.67,
+     "probabilities": {
+      "c2": 0.22,
+      "c1": 0.01,
+      "c0": 0.01,
+      "none_of_these": 0.76
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.69,
+     "probabilities": {
+      "c2": 0.21,
+      "c1": 0.01,
+      "c0": 0.01,
+      "none_of_these": 0.77
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.8,
+     "probabilities": {
+      "c2": 0.13,
+      "c1": 0.02,
+      "c0": 0.0,
+      "none_of_these": 0.85
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "abstain",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t2",
+   "field": "invoice date of this invoice",
+   "text": "INVOICE INV-9460\nFrom: Hooli Inc\nInvoice date: January 27, 2026\nShipped: April 10, 2026\nAmount due: $4,653.50\n\n--- Prior invoice INV-391 (paid) ---\nInvoice date: August 20, 2026\nDue date: January 27, 2026\nPaid on: August 27, 2026",
+   "right": [
+    47,
+    63
+   ],
+   "wrong": [
+    188,
+    204
+   ],
+   "dis": [
+    [
+     73,
+     87
+    ],
+    [
+     162,
+     177
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     73,
+     87
+    ],
+    [
+     162,
+     177
+    ],
+    [
+     188,
+     204
+    ],
+    [
+     47,
+     63
+    ]
+   ],
+   "A": [
+    [
+     162,
+     177
+    ],
+    [
+     188,
+     204
+    ],
+    [
+     73,
+     87
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.5,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.4,
+      "c3": 0.6,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 0.93,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.01,
+      "c3": 0.95,
+      "none_of_these": 0.04
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c3",
+     "confidence": 1.0,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 0.0,
+      "c3": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.86,
+     "probabilities": {
+      "c0": 0.01,
+      "c1": 0.08,
+      "c2": 0.01,
+      "none_of_these": 0.9
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.68,
+     "probabilities": {
+      "c0": 0.01,
+      "c1": 0.22,
+      "c2": 0.01,
+      "none_of_these": 0.76
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.94,
+     "probabilities": {
+      "c0": 0.02,
+      "c1": 0.03,
+      "c2": 0.0,
+      "none_of_these": 0.95
+     }
+    }
+   },
+   "F0_P": "right",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "abstain",
+   "F3_A": "abstain",
+   "F4_A": "abstain"
+  },
+  {
+   "type": "t3",
+   "field": "recipient (To) of the latest email in this thread",
+   "text": "-----Original Message-----\nFrom: Aiko Tanaka\nTo: Lucia Haddad\nSubject: onboarding\n\nCould you confirm the start date and the laptop order?\n\nFrom: Lucia Haddad\nTo: Aiko Tanaka\nCc: Tomasz Moreau\nSubject: Re: onboarding\n\nThanks, see my answers inline below.",
+   "right": [
+    162,
+    173
+   ],
+   "wrong": [
+    33,
+    44
+   ],
+   "dis": [
+    [
+     49,
+     61
+    ],
+    [
+     178,
+     191
+    ]
+   ],
+   "quoted_first": true,
+   "P": [
+    [
+     49,
+     61
+    ],
+    [
+     33,
+     44
+    ],
+    [
+     162,
+     173
+    ],
+    [
+     178,
+     191
+    ]
+   ],
+   "A": [
+    [
+     33,
+     44
+    ],
+    [
+     178,
+     191
+    ],
+    [
+     49,
+     61
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.43,
+     "probabilities": {
+      "c0": 0.01,
+      "c1": 0.54,
+      "c2": 0.44,
+      "c3": 0.0,
+      "none_of_these": 0.01
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.58,
+     "probabilities": {
+      "c0": 0.01,
+      "c1": 0.66,
+      "c2": 0.31,
+      "c3": 0.0,
+      "none_of_these": 0.02
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.01,
+      "c2": 0.99,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.0,
+      "c2": 1.0,
+      "c3": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.95,
+     "probabilities": {
+      "c0": 0.0,
+      "c1": 0.01,
+      "c2": 0.96,
+      "c3": 0.0,
+      "none_of_these": 0.03
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.62,
+     "probabilities": {
+      "c0": 0.71,
+      "c1": 0.02,
+      "c2": 0.01,
+      "none_of_these": 0.26
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.56,
+     "probabilities": {
+      "c0": 0.67,
+      "c1": 0.01,
+      "c2": 0.01,
+      "none_of_these": 0.31
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c0",
+     "confidence": 0.69,
+     "probabilities": {
+      "c0": 0.77,
+      "c1": 0.0,
+      "c2": 0.02,
+      "none_of_these": 0.21
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "wrong_occurrence",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  },
+  {
+   "type": "t4",
+   "field": "amount due on this statement",
+   "text": "STATEMENT - period ending July 5, 2026\nPrevious balance: $4,388.11\nNew charges: $3,365.87\nAmount due on this statement: $5,248.91\n\n--- Activity from the previous period ---\nPayment received: $5,248.91 (thank you)\nLate fee waived.",
+   "right": [
+    120,
+    129
+   ],
+   "wrong": [
+    191,
+    200
+   ],
+   "dis": [
+    [
+     57,
+     66
+    ],
+    [
+     80,
+     89
+    ]
+   ],
+   "quoted_first": false,
+   "P": [
+    [
+     80,
+     89
+    ],
+    [
+     191,
+     200
+    ],
+    [
+     120,
+     129
+    ],
+    [
+     57,
+     66
+    ]
+   ],
+   "A": [
+    [
+     80,
+     89
+    ],
+    [
+     57,
+     66
+    ],
+    [
+     191,
+     200
+    ]
+   ],
+   "ans": {
+    "F0_P": {
+     "type": "choice",
+     "choice": "c1",
+     "confidence": 0.64,
+     "probabilities": {
+      "c2": 0.28,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c1": 0.72,
+      "none_of_these": 0.0
+     }
+    },
+    "F1_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.63,
+     "probabilities": {
+      "c2": 0.71,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c1": 0.2,
+      "none_of_these": 0.09
+     }
+    },
+    "F2_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "c2": 1.0,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F3_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c2": 0.99,
+      "c3": 0.0,
+      "c0": 0.0,
+      "c1": 0.01,
+      "none_of_these": 0.0
+     }
+    },
+    "F4_P": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 1.0,
+     "probabilities": {
+      "c3": 0.0,
+      "c2": 1.0,
+      "c0": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "F2_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.62,
+     "probabilities": {
+      "c2": 0.72,
+      "c0": 0.01,
+      "c1": 0.0,
+      "none_of_these": 0.27
+     }
+    },
+    "F3_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.99,
+     "probabilities": {
+      "c2": 0.99,
+      "c0": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.01
+     }
+    },
+    "F4_A": {
+     "type": "choice",
+     "choice": "c2",
+     "confidence": 0.73,
+     "probabilities": {
+      "c2": 0.8,
+      "c0": 0.0,
+      "c1": 0.0,
+      "none_of_these": 0.2
+     }
+    }
+   },
+   "F0_P": "wrong_occurrence",
+   "F1_P": "right",
+   "F2_P": "right",
+   "F3_P": "right",
+   "F4_P": "right",
+   "F2_A": "wrong_occurrence",
+   "F3_A": "wrong_occurrence",
+   "F4_A": "wrong_occurrence"
+  }
+ ]
+}

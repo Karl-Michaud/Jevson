@@ -1,0 +1,91 @@
+{
+ "cost": {
+  "baseline_2opt_tiny_state": 338,
+  "short": {
+   "status": 200,
+   "input_tokens": 5010,
+   "question_tokens_over_baseline": 4672,
+   "desc_chars_total": 2756
+  },
+  "realistic": {
+   "status": 200,
+   "input_tokens": 7192,
+   "question_tokens_over_baseline": 6854,
+   "desc_chars_total": 11901
+  },
+  "long": {
+   "status": 200,
+   "input_tokens": 9144,
+   "question_tokens_over_baseline": 8806,
+   "desc_chars_total": 20272
+  },
+  "context": {
+   "status": 200,
+   "input_tokens": 20452,
+   "question_tokens_over_baseline": 20114,
+   "desc_chars_total": 62607
+  }
+ },
+ "search": {
+  "A_business": {
+   "chars_per_token": 2.439,
+   "rejections": [
+    [
+     110000,
+     400,
+     "{'detail': {'error_type': 'max_tokens_exceeded'}}"
+    ],
+    [
+     85000,
+     400,
+     "{'detail': {'error_type': 'max_tokens_exceeded'}}"
+    ],
+    [
+     72500,
+     400,
+     "{'detail': {'error_type': 'max_tokens_exceeded'}}"
+    ],
+    [
+     66250,
+     400,
+     "{'detail': {'error_type': 'max_tokens_exceeded'}}"
+    ],
+    [
+     63125,
+     400,
+     "{'detail': {'error_type': 'max_tokens_exceeded'}}"
+    ]
+   ],
+   "max_state_chars_accepted": 62343,
+   "input_tokens_at_max": 32723,
+   "first_rejected_chars": 63125,
+   "max_state_chars_short_noul": [
+    80155,
+    32960
+   ]
+  },
+  "B_prose": {
+   "chars_per_token": 4.213,
+   "rejections": [
+    [
+     110000,
+     400,
+     "{'detail': {'error_type': 'max_tokens_exceeded'}}"
+    ],
+    [
+     109218,
+     400,
+     "{'detail': {'error_type': 'max_tokens_exceeded'}}"
+    ]
+   ],
+   "max_state_chars_accepted": 108437,
+   "input_tokens_at_max": 32886,
+   "first_rejected_chars": 109218,
+   "max_state_chars_short_noul": [
+    137499,
+    32825
+   ]
+  }
+ }
+}
+requests 33

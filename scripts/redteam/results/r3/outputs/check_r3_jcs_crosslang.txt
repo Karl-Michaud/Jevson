@@ -1,0 +1,40 @@
+node v24.10.0; rfc8785 0.1.4
+
+== case request  (reference py:rfc8785 = 87ac3c20b0790db6…)
+  py:rfc8785               87ac3c20b0790db6…  MATCH
+  py:jcs                   87ac3c20b0790db6…  MATCH
+  py:canonicaljson         fefbc9473adb258f…  DIFF
+  py:naive_sorted_dumps    fefbc9473adb258f…  DIFF
+  js:canonicalize          87ac3c20b0790db6…  MATCH
+  js:json-canonicalize     87ac3c20b0790db6…  MATCH
+
+== case response_hundredths  (reference py:rfc8785 = 93ef29e9b72d33d6…)
+  py:rfc8785               93ef29e9b72d33d6…  MATCH
+  py:jcs                   93ef29e9b72d33d6…  MATCH
+  py:canonicaljson         93ef29e9b72d33d6…  MATCH
+  py:naive_sorted_dumps    93ef29e9b72d33d6…  MATCH
+  js:canonicalize          93ef29e9b72d33d6…  MATCH
+  js:json-canonicalize     93ef29e9b72d33d6…  MATCH
+
+== case floats_edge  (reference py:rfc8785 = 4661fe6a5fc22c62…)
+  py:rfc8785               4661fe6a5fc22c62…  MATCH
+  py:jcs                   4661fe6a5fc22c62…  MATCH
+  py:canonicaljson         af982cc4ddb823ea…  DIFF
+  py:naive_sorted_dumps    af982cc4ddb823ea…  DIFF
+  js:canonicalize          4661fe6a5fc22c62…  MATCH
+  js:json-canonicalize     4661fe6a5fc22c62…  MATCH
+
+== case bigint  (reference py:rfc8785 = ERROR IntegerDom…)
+  py:rfc8785               ERROR IntegerDom  RAISES
+  py:jcs                   66c87d9cb3014e05…  DIFF
+  py:canonicaljson         4ac8309cc76123ef…  DIFF
+  py:naive_sorted_dumps    4ac8309cc76123ef…  DIFF
+  js:canonicalize          66c87d9cb3014e05…  DIFF
+  js:json-canonicalize     66c87d9cb3014e05…  DIFF
+
+rfc8785 question-key order: ['é', 'q:/vendor#choice', 'é', '😀key', 'ﬁeld'] (UTF-16 order: astral before U+FB01)
+naive sorted dumps order: ['é', 'q:/vendor#choice', 'é', 'ﬁeld', '😀key']
+bigint 2**53+1: py:jcs emits {"n":9007199254740992} (silently rounded, equals JS after JSON.parse); rfc8785 raises; canonicaljson emits {"n":9007199254740993}
+rfc8785 floats_edge: {"p":[0.1,0.07,1,0.5,1e+21,1e-7,0,5e-324,0.30000000000000004]}
+rfc8785._impl lone surrogate: raises CanonicalizationError input contains non-UTF-8 codepoints
+jcs._jcs lone surrogate: raises UnicodeEncodeError 'utf-8' codec can't encode character '\udc80' in position 7:

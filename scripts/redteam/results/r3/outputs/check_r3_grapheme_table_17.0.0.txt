@@ -1,0 +1,12 @@
+Unicode 17.0.0: InCB present = True
+combined classes: 18; ranges: 2168
+table as Python literal: 23761 bytes (zlib -9: 5752 bytes)
+table packed binary: 4409 bytes; zlib -9: 1344 bytes; base85-embedded .py: 2062 bytes
+runtime segmenter: 47 non-blank lines, 2905 bytes; stdlib only (bisect, zlib, base64)
+generator (table build + serialise): 45 non-blank lines
+[v1 (loose GB11 state)] GraphemeBreakTest-17.0.0.txt: 766 passed, 0 failed of 766
+[final] GraphemeBreakTest-17.0.0.txt: 766 passed, 0 failed of 766
+  ExtPict ZWJ Extend ZWJ ExtPict: v1 [0, 5] final [0, 4, 5] (UAX #29: break before the last ExtPict, i.e. {0,4,5})
+regex 2026.9.29 (its Unicode tables: n/a); python unicodedata 14.0.0
+vs regex \X on 20000 random strings from break-relevant code points: 20000 agree
+vs uniseg 0.10.1 (unicode 16.0.0) on the same 20000 strings: final 19825 agree; v1 disagrees on 0

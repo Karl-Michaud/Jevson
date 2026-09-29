@@ -1,0 +1,5086 @@
+{
+ "docs": [
+  {
+   "text": "MASTER SERVICES AGREEMENT between Hooli Inc (\"Supplier\") and Stark Parts (\"Customer\").\n1. The Supplier shall perform the Services with reasonable skill and care.\n2. Each party shall comply with applicable anti-bribery laws.\n3. On termination, each party shall return or destroy the other party's confidential information.\n4. Nothing in this Agreement prevents Customer from obtaining similar services from third parties.\n5. This Agreement is governed by the law of the Supplier's principal place of business.\n6. Fees are invoiced monthly in arrears and payable within thirty days.\n7. Customer may terminate if the Services no longer meet its business needs, subject to paying an early-termination fee equal to three months' fees.\n8. The Supplier shall not be liable for indirect, incidental or consequential damages.",
+   "meta": [
+    [
+     "tconv",
+     "amb"
+    ],
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "conf",
+     "amb"
+    ],
+    [
+     "cap",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Globex Ltd (\"Customer\").\n1. Neither party may assign this Agreement without the other's prior written consent.\n2. The Supplier's liability for data loss is limited to restoring the last available backup.\n3. Either party may terminate this Agreement without cause on sixty days' notice.\n4. Customer shall not engage any other provider for services of the kind described in Schedule A.\n5. Each party's duty of confidentiality continues indefinitely after this Agreement ends.\n6. The term of this Agreement is twenty-four months from the Effective Date.\n7. Fees are invoiced monthly in arrears and payable within thirty days.\n8. Service levels are set out in Schedule B.",
+   "meta": [
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "conf",
+     "yes"
+    ]
+   ],
+   "qs": {
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Stark Parts (\"Supplier\") and Tyrell Systems (\"Customer\").\n1. Upon expiry of the Initial Term, the term renews automatically for additional twelve-month periods.\n2. The confidentiality obligations in this Agreement end when this Agreement terminates.\n3. This Agreement may not be terminated before the end of the Initial Term except for cause.\n4. This Agreement is governed by the law of the Supplier's principal place of business.\n5. Neither party may assign this Agreement without the other's prior written consent.\n6. In no event shall either party's aggregate liability under this Agreement exceed $500,000.\n7. Fees are invoiced monthly in arrears and payable within thirty days.\n8. Each party shall comply with applicable anti-bribery laws.",
+   "meta": [
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "conf",
+     "no"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "law",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Acme Corp (\"Supplier\") and Initech LLC (\"Customer\").\n1. Upon expiry of the Initial Term, the term renews automatically for additional twelve-month periods.\n2. Each party shall comply with applicable anti-bribery laws.\n3. The parties will agree a liability cap in a separate schedule.\n4. Customer shall not engage any other provider for services of the kind described in Schedule A.\n5. The Supplier shall not use the Customer's data for any purpose other than performing the Services.\n6. The Supplier shall perform the Services with reasonable skill and care.\n7. Notices under this Agreement must be in writing and delivered by courier.\n8. Fees are invoiced monthly in arrears and payable within thirty days.",
+   "meta": [
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "conf",
+     "amb"
+    ],
+    [
+     "law",
+     "no"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Globex Ltd (\"Customer\").\n1. The confidentiality obligations in this Agreement end when this Agreement terminates.\n2. The laws of the Province of Ontario and the federal laws of Canada applicable therein govern this Agreement.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. Nothing in this Agreement limits or excludes either party's liability.\n5. If the Customer continues to use the Services after expiry, the Agreement will continue on a month-to-month basis.\n6. Service levels are set out in Schedule B.\n7. Either party may terminate this Agreement only for a material breach that remains uncured for thirty days.\n8. Each party shall comply with applicable anti-bribery laws.",
+   "meta": [
+    [
+     "cap",
+     "no"
+    ],
+    [
+     "conf",
+     "no"
+    ],
+    [
+     "law",
+     "yes"
+    ],
+    [
+     "renew",
+     "amb"
+    ],
+    [
+     "tconv",
+     "no"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Hooli Inc (\"Supplier\") and Acme Corp (\"Customer\").\n1. Fees are invoiced monthly in arrears and payable within thirty days.\n2. This Agreement is governed by the law of the Supplier's principal place of business.\n3. Customer may terminate if the Services no longer meet its business needs, subject to paying an early-termination fee equal to three months' fees.\n4. Neither party may assign this Agreement without the other's prior written consent.\n5. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n6. The confidentiality obligations in this Agreement end when this Agreement terminates.\n7. The Supplier shall perform the Services with reasonable skill and care.\n8. Nothing in this Agreement prevents Customer from obtaining similar services from third parties.",
+   "meta": [
+    [
+     "tconv",
+     "amb"
+    ],
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "conf",
+     "no"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Stark Parts (\"Supplier\") and Hooli Inc (\"Customer\").\n1. The Supplier shall perform the Services with reasonable skill and care.\n2. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n3. The term of this Agreement is twenty-four months from the Effective Date.\n4. Neither party may assign this Agreement without the other's prior written consent.\n5. This Agreement may not be terminated before the end of the Initial Term except for cause.\n6. Customer shall give Supplier a right of first refusal on any additional work of the same kind.\n7. Fees are invoiced monthly in arrears and payable within thirty days.\n8. Each party's duty of confidentiality continues indefinitely after this Agreement ends.",
+   "meta": [
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "excl",
+     "amb"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "tconv",
+     "no"
+    ]
+   ],
+   "qs": {
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Stark Parts (\"Customer\").\n1. Either party may terminate this Agreement only for a material breach that remains uncured for thirty days.\n2. The confidentiality obligations in this Agreement end when this Agreement terminates.\n3. If the Customer continues to use the Services after expiry, the Agreement will continue on a month-to-month basis.\n4. Notices under this Agreement must be in writing and delivered by courier.\n5. Each party shall comply with applicable anti-bribery laws.\n6. Neither party may assign this Agreement without the other's prior written consent.\n7. Supplier is Customer's primary vendor for the Services.\n8. Service levels are set out in Schedule B.",
+   "meta": [
+    [
+     "renew",
+     "amb"
+    ],
+    [
+     "law",
+     "no"
+    ],
+    [
+     "excl",
+     "amb"
+    ],
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "conf",
+     "no"
+    ]
+   ],
+   "qs": {
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Acme Corp (\"Customer\").\n1. The courts of Ontario have exclusive jurisdiction over any dispute.\n2. Customer may terminate if a change of control of the Supplier occurs.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. Upon expiry of the Initial Term, the term renews automatically for additional twelve-month periods.\n5. Each party's duty of confidentiality continues indefinitely after this Agreement ends.\n6. Each party shall comply with applicable anti-bribery laws.\n7. The Supplier is responsible for all losses arising from its performance of the Services.\n8. Service levels are set out in Schedule B.",
+   "meta": [
+    [
+     "cap",
+     "no"
+    ],
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "tconv",
+     "amb"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "law",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Hooli Inc (\"Customer\").\n1. The laws of the Province of Ontario and the federal laws of Canada applicable therein govern this Agreement.\n2. Neither party may assign this Agreement without the other's prior written consent.\n3. Each party shall comply with applicable anti-bribery laws.\n4. During the Term, Customer shall purchase all of its requirements for the Services exclusively from Supplier.\n5. Customer may terminate this Agreement at any time, for any reason, on thirty (30) days' written notice.\n6. Liability shall be limited to the extent permitted by applicable law.\n7. Service levels are set out in Schedule B.\n8. On termination, each party shall return or destroy the other party's confidential information.",
+   "meta": [
+    [
+     "conf",
+     "amb"
+    ],
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "law",
+     "yes"
+    ]
+   ],
+   "qs": {
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Acme Corp (\"Customer\").\n1. Fees are invoiced monthly in arrears and payable within thirty days.\n2. Notices under this Agreement must be in writing and delivered by courier.\n3. Each party shall comply with applicable anti-bribery laws.\n4. The term of this Agreement is twenty-four months from the Effective Date.\n5. The obligations in the Confidentiality section survive termination of this Agreement for five years.\n6. Customer may terminate this Agreement at any time, for any reason, on thirty (30) days' written notice.\n7. Service levels are set out in Schedule B.\n8. In no event shall either party's aggregate liability under this Agreement exceed $500,000.",
+   "meta": [
+    [
+     "law",
+     "no"
+    ],
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "renew",
+     "no"
+    ]
+   ],
+   "qs": {
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Stark Parts (\"Supplier\") and Acme Corp (\"Customer\").\n1. The Supplier shall perform the Services with reasonable skill and care.\n2. In no event shall either party's aggregate liability under this Agreement exceed $500,000.\n3. Customer may terminate if the Services no longer meet its business needs, subject to paying an early-termination fee equal to three months' fees.\n4. Nothing in this Agreement prevents Customer from obtaining similar services from third parties.\n5. Neither party may assign this Agreement without the other's prior written consent.\n6. Sections 4, 7 and 9 survive termination.\n7. Each party shall comply with applicable anti-bribery laws.\n8. If the Customer continues to use the Services after expiry, the Agreement will continue on a month-to-month basis.",
+   "meta": [
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "conf",
+     "amb"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "tconv",
+     "amb"
+    ],
+    [
+     "renew",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Hooli Inc (\"Supplier\") and Stark Parts (\"Customer\").\n1. This Agreement shall be interpreted in accordance with applicable law.\n2. Neither party may assign this Agreement without the other's prior written consent.\n3. Upon expiry of the Initial Term, the term renews automatically for additional twelve-month periods.\n4. This Agreement may not be terminated before the end of the Initial Term except for cause.\n5. Nothing in this Agreement prevents Customer from obtaining similar services from third parties.\n6. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n7. The Supplier shall perform the Services with reasonable skill and care.\n8. Each party shall comply with applicable anti-bribery laws.",
+   "meta": [
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "renew",
+     "yes"
+    ]
+   ],
+   "qs": {
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Tyrell Systems (\"Supplier\") and Acme Corp (\"Customer\").\n1. The Supplier shall perform the Services with reasonable skill and care.\n2. Each party shall comply with applicable anti-bribery laws.\n3. Either party may terminate this Agreement only for a material breach that remains uncured for thirty days.\n4. The obligations in the Confidentiality section survive termination of this Agreement for five years.\n5. During the Term, Customer shall purchase all of its requirements for the Services exclusively from Supplier.\n6. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n7. Neither party may assign this Agreement without the other's prior written consent.\n8. The parties have not selected a governing law for this Agreement.",
+   "meta": [
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "law",
+     "no"
+    ],
+    [
+     "conf",
+     "yes"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Tyrell Systems (\"Customer\").\n1. This Agreement is governed by the law of the Supplier's principal place of business.\n2. The Supplier shall perform the Services with reasonable skill and care.\n3. Nothing in this Agreement prevents Customer from obtaining similar services from third parties.\n4. Fees are invoiced monthly in arrears and payable within thirty days.\n5. Neither party may assign this Agreement without the other's prior written consent.\n6. Renewal terms will be discussed in good faith ninety days before expiry.\n7. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n8. The obligations in the Confidentiality section survive termination of this Agreement for five years.",
+   "meta": [
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "renew",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Stark Parts (\"Supplier\") and Tyrell Systems (\"Customer\").\n1. Service levels are set out in Schedule B.\n2. Each party shall comply with applicable anti-bribery laws.\n3. The courts of Ontario have exclusive jurisdiction over any dispute.\n4. Customer may terminate if the Services no longer meet its business needs, subject to paying an early-termination fee equal to three months' fees.\n5. Fees are invoiced monthly in arrears and payable within thirty days.\n6. Supplier is Customer's primary vendor for the Services.\n7. This Agreement shall automatically renew for successive one-year terms unless either party gives sixty (60) days' written notice of non-renewal.\n8. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.",
+   "meta": [
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "excl",
+     "amb"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "tconv",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Hooli Inc (\"Customer\").\n1. Customer shall give Supplier a right of first refusal on any additional work of the same kind.\n2. The Supplier shall perform the Services with reasonable skill and care.\n3. Neither party may assign this Agreement without the other's prior written consent.\n4. This Agreement may not be terminated before the end of the Initial Term except for cause.\n5. The Supplier shall not be liable for indirect, incidental or consequential damages.\n6. Service levels are set out in Schedule B.\n7. This Agreement expires at the end of the Initial Term and will not be renewed.\n8. The laws of the Province of Ontario and the federal laws of Canada applicable therein govern this Agreement.",
+   "meta": [
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "law",
+     "yes"
+    ],
+    [
+     "excl",
+     "amb"
+    ],
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "tconv",
+     "no"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Stark Parts (\"Customer\").\n1. Unless terminated, the Supplier will continue to provide the Services under its then-current price list.\n2. The parties have not selected a governing law for this Agreement.\n3. Fees are invoiced monthly in arrears and payable within thirty days.\n4. The Supplier's liability for data loss is limited to restoring the last available backup.\n5. Service levels are set out in Schedule B.\n6. Either party may terminate this Agreement only for a material breach that remains uncured for thirty days.\n7. During the Term, Customer shall purchase all of its requirements for the Services exclusively from Supplier.\n8. Neither party may assign this Agreement without the other's prior written consent.",
+   "meta": [
+    [
+     "law",
+     "no"
+    ],
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "renew",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Hooli Inc (\"Supplier\") and Tyrell Systems (\"Customer\").\n1. Either party may terminate this Agreement without cause on sixty days' notice.\n2. The term of this Agreement is twenty-four months from the Effective Date.\n3. This Agreement is non-exclusive.\n4. Confidentiality shall be maintained for a reasonable period.\n5. The Supplier shall perform the Services with reasonable skill and care.\n6. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n7. Fees are invoiced monthly in arrears and payable within thirty days.\n8. Each party shall comply with applicable anti-bribery laws.",
+   "meta": [
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "conf",
+     "amb"
+    ],
+    [
+     "renew",
+     "no"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Tyrell Systems (\"Supplier\") and Globex Ltd (\"Customer\").\n1. The obligations in the Confidentiality section survive termination of this Agreement for five years.\n2. The Supplier's liability for data loss is limited to restoring the last available backup.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. The laws of the Province of Ontario and the federal laws of Canada applicable therein govern this Agreement.\n5. This Agreement expires at the end of the Initial Term and will not be renewed.\n6. Neither party may assign this Agreement without the other's prior written consent.\n7. Each party shall comply with applicable anti-bribery laws.\n8. During the Term, Customer shall purchase all of its requirements for the Services exclusively from Supplier.",
+   "meta": [
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "law",
+     "yes"
+    ],
+    [
+     "conf",
+     "yes"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Stark Parts (\"Supplier\") and Tyrell Systems (\"Customer\").\n1. If the Customer continues to use the Services after expiry, the Agreement will continue on a month-to-month basis.\n2. The confidentiality obligations in this Agreement end when this Agreement terminates.\n3. This Agreement is non-exclusive.\n4. Neither party may assign this Agreement without the other's prior written consent.\n5. The Supplier shall perform the Services with reasonable skill and care.\n6. Service levels are set out in Schedule B.\n7. The parties will agree a liability cap in a separate schedule.\n8. Notices under this Agreement must be in writing and delivered by courier.",
+   "meta": [
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "conf",
+     "no"
+    ],
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "renew",
+     "amb"
+    ],
+    [
+     "law",
+     "no"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Tyrell Systems (\"Supplier\") and Acme Corp (\"Customer\").\n1. Each party shall comply with applicable anti-bribery laws.\n2. Either party may terminate this Agreement only for a material breach that remains uncured for thirty days.\n3. Customer intends to use Supplier as its preferred provider.\n4. This Agreement shall automatically renew for successive one-year terms unless either party gives sixty (60) days' written notice of non-renewal.\n5. Each party's duty of confidentiality continues indefinitely after this Agreement ends.\n6. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n7. Service levels are set out in Schedule B.\n8. The Supplier shall perform the Services with reasonable skill and care.",
+   "meta": [
+    [
+     "excl",
+     "amb"
+    ],
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "cap",
+     "yes"
+    ]
+   ],
+   "qs": {
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Acme Corp (\"Supplier\") and Stark Parts (\"Customer\").\n1. Any dispute shall be resolved by arbitration seated in London.\n2. This Agreement shall automatically renew for successive one-year terms unless either party gives sixty (60) days' written notice of non-renewal.\n3. This Agreement may not be terminated before the end of the Initial Term except for cause.\n4. Service levels are set out in Schedule B.\n5. Each party shall comply with applicable anti-bribery laws.\n6. The Supplier's liability for data loss is limited to restoring the last available backup.\n7. Nothing in this Agreement prevents Customer from obtaining similar services from third parties.\n8. The Supplier shall perform the Services with reasonable skill and care.",
+   "meta": [
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "law",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Tyrell Systems (\"Supplier\") and Globex Ltd (\"Customer\").\n1. The Supplier is responsible for all losses arising from its performance of the Services.\n2. This Agreement shall automatically renew for successive one-year terms unless either party gives sixty (60) days' written notice of non-renewal.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. During the Term, Customer shall purchase all of its requirements for the Services exclusively from Supplier.\n5. Each party shall keep the other's confidential information secret during the Term.\n6. Each party shall comply with applicable anti-bribery laws.\n7. This Agreement may not be terminated before the end of the Initial Term except for cause.\n8. Service levels are set out in Schedule B.",
+   "meta": [
+    [
+     "cap",
+     "no"
+    ],
+    [
+     "conf",
+     "no"
+    ],
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "tconv",
+     "no"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Tyrell Systems (\"Supplier\") and Initech LLC (\"Customer\").\n1. On termination, each party shall return or destroy the other party's confidential information.\n2. Each party shall comply with applicable anti-bribery laws.\n3. Neither party may assign this Agreement without the other's prior written consent.\n4. This Agreement shall automatically renew for successive one-year terms unless either party gives sixty (60) days' written notice of non-renewal.\n5. This Agreement shall be interpreted in accordance with applicable law.\n6. The Supplier shall not be liable for indirect, incidental or consequential damages.\n7. Termination other than for cause requires the Supplier's consent, which shall not be unreasonably withheld.\n8. Service levels are set out in Schedule B.",
+   "meta": [
+    [
+     "tconv",
+     "amb"
+    ],
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "conf",
+     "amb"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "law",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Hooli Inc (\"Customer\").\n1. Either party may terminate this Agreement without cause on sixty days' notice.\n2. The obligations in the Confidentiality section survive termination of this Agreement for five years.\n3. Unless terminated, the Supplier will continue to provide the Services under its then-current price list.\n4. Fees are invoiced monthly in arrears and payable within thirty days.\n5. The Supplier shall perform the Services with reasonable skill and care.\n6. This Agreement shall be interpreted in accordance with applicable law.\n7. The Supplier shall not be liable for indirect, incidental or consequential damages.\n8. Service levels are set out in Schedule B.",
+   "meta": [
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "renew",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Hooli Inc (\"Supplier\") and Acme Corp (\"Customer\").\n1. The courts of Ontario have exclusive jurisdiction over any dispute.\n2. Either party may terminate this Agreement without cause on sixty days' notice.\n3. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n4. Nothing in this Agreement prevents Customer from obtaining similar services from third parties.\n5. Fees are invoiced monthly in arrears and payable within thirty days.\n6. Service levels are set out in Schedule B.\n7. Neither party may assign this Agreement without the other's prior written consent.\n8. This Agreement expires at the end of the Initial Term and will not be renewed.",
+   "meta": [
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "excl",
+     "no"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Stark Parts (\"Supplier\") and Initech LLC (\"Customer\").\n1. Neither party may assign this Agreement without the other's prior written consent.\n2. Each party shall comply with applicable anti-bribery laws.\n3. This Agreement expires at the end of the Initial Term and will not be renewed.\n4. The Supplier shall perform the Services with reasonable skill and care.\n5. During the Term, Customer shall purchase all of its requirements for the Services exclusively from Supplier.\n6. Each party shall keep the other's confidential information secret during the Term.\n7. This Agreement shall be interpreted in accordance with applicable law.\n8. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.",
+   "meta": [
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "conf",
+     "no"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "renew",
+     "no"
+    ]
+   ],
+   "qs": {
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Stark Parts (\"Customer\").\n1. Fees are invoiced monthly in arrears and payable within thirty days.\n2. The Supplier's liability for data loss is limited to restoring the last available backup.\n3. The term of this Agreement is twenty-four months from the Effective Date.\n4. Service levels are set out in Schedule B.\n5. The laws of the Province of Ontario and the federal laws of Canada applicable therein govern this Agreement.\n6. Either party may terminate this Agreement without cause on sixty days' notice.\n7. Neither party may assign this Agreement without the other's prior written consent.\n8. The confidentiality obligations in this Agreement end when this Agreement terminates.",
+   "meta": [
+    [
+     "conf",
+     "no"
+    ],
+    [
+     "law",
+     "yes"
+    ],
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "cap",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Acme Corp (\"Customer\").\n1. Each party shall comply with applicable anti-bribery laws.\n2. Service levels are set out in Schedule B.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. Each party shall keep the other's confidential information secret during the Term.\n5. Customer intends to use Supplier as its preferred provider.\n6. Nothing in this Agreement limits or excludes either party's liability.\n7. Termination other than for cause requires the Supplier's consent, which shall not be unreasonably withheld.\n8. This Agreement shall automatically renew for successive one-year terms unless either party gives sixty (60) days' written notice of non-renewal.",
+   "meta": [
+    [
+     "cap",
+     "no"
+    ],
+    [
+     "excl",
+     "amb"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "conf",
+     "no"
+    ],
+    [
+     "tconv",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Tyrell Systems (\"Customer\").\n1. Either party may terminate this Agreement only for a material breach that remains uncured for thirty days.\n2. This Agreement expires at the end of the Initial Term and will not be renewed.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. Supplier is Customer's primary vendor for the Services.\n5. Each party shall comply with applicable anti-bribery laws.\n6. This Agreement shall be interpreted in accordance with applicable law.\n7. The obligations in the Confidentiality section survive termination of this Agreement for five years.\n8. Service levels are set out in Schedule B.",
+   "meta": [
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "excl",
+     "amb"
+    ],
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "law",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Stark Parts (\"Customer\").\n1. On termination, each party shall return or destroy the other party's confidential information.\n2. Unless terminated, the Supplier will continue to provide the Services under its then-current price list.\n3. Fees are invoiced monthly in arrears and payable within thirty days.\n4. This Agreement may not be terminated before the end of the Initial Term except for cause.\n5. Nothing in this Agreement limits or excludes either party's liability.\n6. Neither party may assign this Agreement without the other's prior written consent.\n7. Service levels are set out in Schedule B.\n8. This Agreement is governed by the laws of the State of New York.",
+   "meta": [
+    [
+     "law",
+     "yes"
+    ],
+    [
+     "renew",
+     "amb"
+    ],
+    [
+     "tconv",
+     "no"
+    ],
+    [
+     "conf",
+     "amb"
+    ],
+    [
+     "cap",
+     "no"
+    ]
+   ],
+   "qs": {
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Tyrell Systems (\"Customer\").\n1. Fees are invoiced monthly in arrears and payable within thirty days.\n2. During the Term, Customer shall purchase all of its requirements for the Services exclusively from Supplier.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. In no event shall either party's aggregate liability under this Agreement exceed $500,000.\n5. The obligations in the Confidentiality section survive termination of this Agreement for five years.\n6. Upon expiry of the Initial Term, the term renews automatically for additional twelve-month periods.\n7. The parties may end this arrangement by agreement.\n8. Neither party may assign this Agreement without the other's prior written consent.",
+   "meta": [
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "renew",
+     "yes"
+    ],
+    [
+     "tconv",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Hooli Inc (\"Customer\").\n1. Neither party may assign this Agreement without the other's prior written consent.\n2. Nothing in this Agreement limits or excludes either party's liability.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. The term of this Agreement is twenty-four months from the Effective Date.\n5. Each party's duty of confidentiality continues indefinitely after this Agreement ends.\n6. Fees are invoiced monthly in arrears and payable within thirty days.\n7. Notices under this Agreement must be in writing and delivered by courier.\n8. Either party may terminate this Agreement without cause on sixty days' notice.",
+   "meta": [
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "cap",
+     "no"
+    ],
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "conf",
+     "yes"
+    ],
+    [
+     "law",
+     "no"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Stark Parts (\"Supplier\") and Tyrell Systems (\"Customer\").\n1. The parties have not selected a governing law for this Agreement.\n2. Nothing in this Agreement prevents Customer from obtaining similar services from third parties.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. The term of this Agreement is twenty-four months from the Effective Date.\n5. Either party may terminate this Agreement without cause on sixty days' notice.\n6. Neither party may assign this Agreement without the other's prior written consent.\n7. Service levels are set out in Schedule B.\n8. Liability shall be limited to the extent permitted by applicable law.",
+   "meta": [
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "renew",
+     "no"
+    ],
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "law",
+     "no"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Globex Ltd (\"Supplier\") and Acme Corp (\"Customer\").\n1. Neither party may assign this Agreement without the other's prior written consent.\n2. The Supplier shall perform the Services with reasonable skill and care.\n3. Notices under this Agreement must be in writing and delivered by courier.\n4. Fees are invoiced monthly in arrears and payable within thirty days.\n5. In no event shall either party's aggregate liability under this Agreement exceed $500,000.\n6. Customer may terminate if a change of control of the Supplier occurs.\n7. Customer shall give Supplier a right of first refusal on any additional work of the same kind.\n8. The Supplier shall not use the Customer's data for any purpose other than performing the Services.",
+   "meta": [
+    [
+     "excl",
+     "amb"
+    ],
+    [
+     "law",
+     "no"
+    ],
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "conf",
+     "amb"
+    ],
+    [
+     "tconv",
+     "amb"
+    ]
+   ],
+   "qs": {
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Initech LLC (\"Supplier\") and Globex Ltd (\"Customer\").\n1. The confidentiality obligations in this Agreement end when this Agreement terminates.\n2. Each party shall comply with applicable anti-bribery laws.\n3. Either party may terminate this Agreement without cause on sixty days' notice.\n4. Notices under this Agreement must be in writing and delivered by courier.\n5. Neither party may assign this Agreement without the other's prior written consent.\n6. Service levels are set out in Schedule B.\n7. The parties may extend this Agreement by mutual written agreement.\n8. Nothing in this Agreement limits or excludes either party's liability.",
+   "meta": [
+    [
+     "tconv",
+     "yes"
+    ],
+    [
+     "conf",
+     "no"
+    ],
+    [
+     "cap",
+     "no"
+    ],
+    [
+     "renew",
+     "amb"
+    ],
+    [
+     "law",
+     "no"
+    ]
+   ],
+   "qs": {
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "conf": {
+     "type": "noul",
+     "instructions": "Does the confidentiality obligation continue after the contract ends?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Hooli Inc (\"Supplier\") and Globex Ltd (\"Customer\").\n1. Termination other than for cause requires the Supplier's consent, which shall not be unreasonably withheld.\n2. This Agreement shall automatically renew for successive one-year terms unless either party gives sixty (60) days' written notice of non-renewal.\n3. Fees are invoiced monthly in arrears and payable within thirty days.\n4. Service levels are set out in Schedule B.\n5. The Supplier shall perform the Services with reasonable skill and care.\n6. This Agreement is governed by the laws of the State of New York.\n7. Each party's total liability is limited to the fees paid in the twelve months preceding the claim.\n8. This Agreement is non-exclusive.",
+   "meta": [
+    [
+     "cap",
+     "yes"
+    ],
+    [
+     "tconv",
+     "amb"
+    ],
+    [
+     "law",
+     "yes"
+    ],
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "renew",
+     "yes"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Acme Corp (\"Supplier\") and Globex Ltd (\"Customer\").\n1. The parties will agree a liability cap in a separate schedule.\n2. The Supplier shall perform the Services with reasonable skill and care.\n3. Fees are invoiced monthly in arrears and payable within thirty days.\n4. Customer shall not engage any other provider for services of the kind described in Schedule A.\n5. If the Customer continues to use the Services after expiry, the Agreement will continue on a month-to-month basis.\n6. This Agreement is governed by the laws of the State of New York.\n7. Service levels are set out in Schedule B.\n8. Either party may terminate this Agreement only for a material breach that remains uncured for thirty days.",
+   "meta": [
+    [
+     "cap",
+     "amb"
+    ],
+    [
+     "law",
+     "yes"
+    ],
+    [
+     "renew",
+     "amb"
+    ],
+    [
+     "excl",
+     "yes"
+    ],
+    [
+     "tconv",
+     "no"
+    ]
+   ],
+   "qs": {
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    },
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    }
+   }
+  },
+  {
+   "text": "MASTER SERVICES AGREEMENT between Acme Corp (\"Supplier\") and Stark Parts (\"Customer\").\n1. The courts of Ontario have exclusive jurisdiction over any dispute.\n2. Customer may terminate if a change of control of the Supplier occurs.\n3. The Supplier shall perform the Services with reasonable skill and care.\n4. The term of this Agreement is twenty-four months from the Effective Date.\n5. This Agreement is non-exclusive.\n6. The Supplier is responsible for all losses arising from its performance of the Services.\n7. Neither party may assign this Agreement without the other's prior written consent.\n8. Service levels are set out in Schedule B.",
+   "meta": [
+    [
+     "excl",
+     "no"
+    ],
+    [
+     "cap",
+     "no"
+    ],
+    [
+     "tconv",
+     "amb"
+    ],
+    [
+     "law",
+     "amb"
+    ],
+    [
+     "renew",
+     "no"
+    ]
+   ],
+   "qs": {
+    "excl": {
+     "type": "noul",
+     "instructions": "Is the customer required to buy these services exclusively from this supplier?"
+    },
+    "cap": {
+     "type": "noul",
+     "instructions": "Does the contract cap either party's liability?"
+    },
+    "tconv": {
+     "type": "noul",
+     "instructions": "Can the customer terminate the contract for convenience, without cause?"
+    },
+    "law": {
+     "type": "noul",
+     "instructions": "Does the contract specify which jurisdiction's law governs it?"
+    },
+    "renew": {
+     "type": "noul",
+     "instructions": "Does the contract include an automatic renewal clause?"
+    }
+   }
+  }
+ ],
+ "rows": [
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.91,
+    0.89,
+    0.9,
+    0.89,
+    0.9,
+    0.9,
+    0.9,
+    0.89,
+    0.9,
+    0.89
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.91,
+    0.91,
+    0.91,
+    0.9,
+    0.9,
+    0.9,
+    0.91,
+    0.89,
+    0.9,
+    0.9
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "amb",
+   "ps": [
+    0.72,
+    0.77,
+    0.74,
+    0.75,
+    0.74,
+    0.75,
+    0.74,
+    0.72,
+    0.76,
+    0.73
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.4,
+    0.37,
+    0.37,
+    0.35,
+    0.42,
+    0.36,
+    0.38,
+    0.4,
+    0.4,
+    0.43
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.04,
+    0.03,
+    0.04,
+    0.03,
+    0.04,
+    0.03,
+    0.04,
+    0.04,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.91,
+    0.9,
+    0.91,
+    0.91,
+    0.9,
+    0.9,
+    0.91,
+    0.91,
+    0.91,
+    0.89
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.96,
+    0.97,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.87,
+    0.87,
+    0.88,
+    0.87,
+    0.86,
+    0.86,
+    0.87,
+    0.86,
+    0.87,
+    0.86
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.07,
+    0.07,
+    0.07,
+    0.07,
+    0.08,
+    0.07,
+    0.08,
+    0.07,
+    0.07,
+    0.07
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.05,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.92,
+    0.92,
+    0.93,
+    0.92,
+    0.92,
+    0.89,
+    0.92,
+    0.92,
+    0.92,
+    0.91
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.27,
+    0.3,
+    0.28,
+    0.28,
+    0.3,
+    0.31,
+    0.29,
+    0.26,
+    0.28,
+    0.27
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.88,
+    0.89,
+    0.88,
+    0.88,
+    0.89,
+    0.88,
+    0.89,
+    0.88,
+    0.89,
+    0.88
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "amb",
+   "ps": [
+    0.21,
+    0.2,
+    0.21,
+    0.2,
+    0.22,
+    0.21,
+    0.21,
+    0.21,
+    0.21,
+    0.19
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "no",
+   "ps": [
+    0.05,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.05,
+    0.04
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.77,
+    0.76,
+    0.79,
+    0.81,
+    0.73,
+    0.77,
+    0.75,
+    0.76,
+    0.77,
+    0.76
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.04,
+    0.04,
+    0.03,
+    0.04,
+    0.04,
+    0.04,
+    0.03,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.87,
+    0.87,
+    0.87,
+    0.87,
+    0.88,
+    0.87,
+    0.88,
+    0.88,
+    0.87,
+    0.87
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.89,
+    0.88,
+    0.89,
+    0.88,
+    0.89,
+    0.9,
+    0.88,
+    0.9,
+    0.89,
+    0.91
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "amb",
+   "ps": [
+    0.11,
+    0.12,
+    0.12,
+    0.11,
+    0.11,
+    0.11,
+    0.11,
+    0.12,
+    0.11,
+    0.11
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.06,
+    0.05,
+    0.06,
+    0.05,
+    0.05,
+    0.06,
+    0.06,
+    0.05,
+    0.05,
+    0.05
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.69,
+    0.66,
+    0.68,
+    0.69,
+    0.71,
+    0.68,
+    0.68,
+    0.71,
+    0.66,
+    0.68
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "amb",
+   "ps": [
+    0.45,
+    0.45,
+    0.43,
+    0.44,
+    0.44,
+    0.44,
+    0.49,
+    0.45,
+    0.49,
+    0.46
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.04,
+    0.03,
+    0.04,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "no",
+   "ps": [
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.08,
+    0.08,
+    0.07,
+    0.07,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.09,
+    0.08,
+    0.09,
+    0.08,
+    0.09,
+    0.08,
+    0.08,
+    0.09,
+    0.08,
+    0.08
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "amb",
+   "ps": [
+    0.77,
+    0.72,
+    0.73,
+    0.72,
+    0.74,
+    0.75,
+    0.76,
+    0.73,
+    0.73,
+    0.75
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.97,
+    0.96,
+    0.96,
+    0.96
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.83,
+    0.82,
+    0.82,
+    0.8,
+    0.83,
+    0.82,
+    0.83,
+    0.8,
+    0.82,
+    0.83
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.98,
+    0.99,
+    0.98,
+    0.98,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.98,
+    0.99
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "amb",
+   "ps": [
+    0.3,
+    0.32,
+    0.37,
+    0.35,
+    0.31,
+    0.37,
+    0.34,
+    0.34,
+    0.29,
+    0.42
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.84,
+    0.84,
+    0.84,
+    0.83,
+    0.84,
+    0.83,
+    0.85,
+    0.84,
+    0.85,
+    0.84
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.83,
+    0.84,
+    0.84,
+    0.81,
+    0.83,
+    0.83,
+    0.82,
+    0.83,
+    0.85,
+    0.83
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.07,
+    0.07,
+    0.06,
+    0.06,
+    0.06
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.06,
+    0.07,
+    0.06,
+    0.07,
+    0.06,
+    0.06,
+    0.07,
+    0.06,
+    0.07,
+    0.07
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.02,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.96,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.02
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.98
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.82,
+    0.83,
+    0.85,
+    0.86,
+    0.84,
+    0.82,
+    0.82,
+    0.83,
+    0.8,
+    0.87
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.11,
+    0.12,
+    0.11,
+    0.12,
+    0.11,
+    0.11,
+    0.12,
+    0.12,
+    0.11,
+    0.12
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "amb",
+   "ps": [
+    0.3,
+    0.27,
+    0.32,
+    0.34,
+    0.27,
+    0.27,
+    0.29,
+    0.3,
+    0.3,
+    0.29
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    1.0,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    1.0,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.84,
+    0.85,
+    0.85,
+    0.82,
+    0.85,
+    0.83,
+    0.85,
+    0.85,
+    0.84,
+    0.85
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.64,
+    0.6,
+    0.63,
+    0.58,
+    0.57,
+    0.6,
+    0.59,
+    0.62,
+    0.59,
+    0.59
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "amb",
+   "ps": [
+    0.15,
+    0.15,
+    0.15,
+    0.13,
+    0.15,
+    0.16,
+    0.15,
+    0.15,
+    0.15,
+    0.14
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.07,
+    0.07,
+    0.07,
+    0.06,
+    0.07,
+    0.07,
+    0.07,
+    0.07,
+    0.07,
+    0.07
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.87,
+    0.88,
+    0.87,
+    0.87,
+    0.87,
+    0.87,
+    0.87,
+    0.87,
+    0.88,
+    0.88
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.24,
+    0.26,
+    0.24,
+    0.21,
+    0.2,
+    0.22,
+    0.24,
+    0.23,
+    0.19,
+    0.23
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.03,
+    0.02,
+    0.02,
+    0.02
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "amb",
+   "ps": [
+    0.84,
+    0.84,
+    0.82,
+    0.83,
+    0.83,
+    0.83,
+    0.83,
+    0.83,
+    0.82,
+    0.81
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.04,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.91,
+    0.92,
+    0.91,
+    0.91,
+    0.92,
+    0.91,
+    0.91,
+    0.92,
+    0.91,
+    0.91
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.96,
+    0.96,
+    0.95,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.95,
+    0.96
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.99,
+    0.98,
+    0.98
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.27,
+    0.27,
+    0.31,
+    0.27,
+    0.33,
+    0.28,
+    0.29,
+    0.28,
+    0.29,
+    0.3
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.04,
+    0.04,
+    0.03,
+    0.04,
+    0.03,
+    0.03,
+    0.03,
+    0.04
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.04,
+    0.03
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.87,
+    0.87,
+    0.85,
+    0.85,
+    0.85,
+    0.87,
+    0.85,
+    0.85,
+    0.86,
+    0.88
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "amb",
+   "ps": [
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.09
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.13,
+    0.12,
+    0.12,
+    0.11,
+    0.13,
+    0.12,
+    0.13,
+    0.13,
+    0.12,
+    0.12
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.89,
+    0.87,
+    0.88,
+    0.9,
+    0.88,
+    0.9,
+    0.88,
+    0.9,
+    0.89,
+    0.88
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.04,
+    0.04,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.04,
+    0.05,
+    0.04,
+    0.05
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "no",
+   "ps": [
+    0.06,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.12,
+    0.1,
+    0.1,
+    0.11,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.09
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.96,
+    0.97
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.1,
+    0.11,
+    0.12,
+    0.12,
+    0.1,
+    0.1,
+    0.1,
+    0.11,
+    0.11,
+    0.11
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.16,
+    0.18,
+    0.16,
+    0.16,
+    0.16,
+    0.15,
+    0.17,
+    0.15,
+    0.15,
+    0.15
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.47,
+    0.56,
+    0.48,
+    0.52,
+    0.47,
+    0.47,
+    0.47,
+    0.52,
+    0.45,
+    0.52
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "amb",
+   "ps": [
+    0.76,
+    0.77,
+    0.76,
+    0.76,
+    0.77,
+    0.72,
+    0.78,
+    0.78,
+    0.76,
+    0.74
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.07,
+    0.07,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.05,
+    0.06,
+    0.06
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.98,
+    0.98,
+    0.98,
+    0.99,
+    0.99,
+    0.98,
+    0.98,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.98,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.32,
+    0.37,
+    0.35,
+    0.41,
+    0.36,
+    0.3,
+    0.31,
+    0.3,
+    0.37,
+    0.36
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.11,
+    0.1,
+    0.09,
+    0.11,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.09,
+    0.11
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.09,
+    0.08,
+    0.08,
+    0.08,
+    0.07,
+    0.08
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.98,
+    0.97,
+    0.97,
+    0.97,
+    0.98,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.07,
+    0.08,
+    0.08,
+    0.07,
+    0.07,
+    0.07,
+    0.07,
+    0.07,
+    0.07,
+    0.07
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.08,
+    0.09,
+    0.08,
+    0.08
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.98,
+    0.97,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.03,
+    0.03,
+    0.04,
+    0.03,
+    0.03,
+    0.04,
+    0.03,
+    0.04,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.82,
+    0.83,
+    0.81,
+    0.82,
+    0.85,
+    0.84,
+    0.83,
+    0.84,
+    0.83,
+    0.82
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "no",
+   "ps": [
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "amb",
+   "ps": [
+    0.09,
+    0.09,
+    0.09,
+    0.09,
+    0.09,
+    0.09,
+    0.09,
+    0.09,
+    0.08,
+    0.09
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.16,
+    0.16,
+    0.16,
+    0.17,
+    0.18,
+    0.18,
+    0.17,
+    0.17,
+    0.18,
+    0.16
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.12,
+    0.13,
+    0.12,
+    0.11,
+    0.12,
+    0.15,
+    0.12,
+    0.13,
+    0.13,
+    0.14
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "amb",
+   "ps": [
+    0.56,
+    0.53,
+    0.55,
+    0.53,
+    0.57,
+    0.55,
+    0.51,
+    0.5,
+    0.52,
+    0.54
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.98,
+    0.99,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.98,
+    0.99,
+    0.98,
+    0.98
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.06,
+    0.07,
+    0.06,
+    0.07,
+    0.06,
+    0.07,
+    0.06,
+    0.07,
+    0.06,
+    0.06
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.08,
+    0.07,
+    0.07,
+    0.07,
+    0.08,
+    0.08,
+    0.07,
+    0.07,
+    0.07,
+    0.08
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.17,
+    0.19,
+    0.17,
+    0.16,
+    0.16,
+    0.19,
+    0.16,
+    0.16,
+    0.17,
+    0.19
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "amb",
+   "ps": [
+    0.78,
+    0.75,
+    0.79,
+    0.77,
+    0.77,
+    0.8,
+    0.76,
+    0.81,
+    0.79,
+    0.77
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "no",
+   "ps": [
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.04,
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.98,
+    0.97
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.98,
+    0.98,
+    0.98,
+    0.99,
+    0.99,
+    0.99,
+    0.98,
+    0.98,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.09,
+    0.1,
+    0.1,
+    0.09,
+    0.09
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.03,
+    0.02,
+    0.02
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.98,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.76,
+    0.69,
+    0.65,
+    0.6,
+    0.68,
+    0.71,
+    0.65,
+    0.72,
+    0.7,
+    0.65
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "amb",
+   "ps": [
+    0.1,
+    0.09,
+    0.09,
+    0.1,
+    0.1,
+    0.09,
+    0.09,
+    0.1,
+    0.09,
+    0.1
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.03,
+    0.03,
+    0.02,
+    0.02
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "amb",
+   "ps": [
+    0.29,
+    0.31,
+    0.3,
+    0.33,
+    0.29,
+    0.3,
+    0.32,
+    0.32,
+    0.28,
+    0.31
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06,
+    0.06
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "yes",
+   "ps": [
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97,
+    0.97
+   ]
+  },
+  {
+   "topic": "conf",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "no",
+   "ps": [
+    0.04,
+    0.05,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.05,
+    0.05,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.04,
+    0.03,
+    0.04,
+    0.03,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.13,
+    0.13,
+    0.15,
+    0.14,
+    0.13,
+    0.14,
+    0.14,
+    0.13,
+    0.14,
+    0.12
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "amb",
+   "ps": [
+    0.3,
+    0.32,
+    0.27,
+    0.38,
+    0.36,
+    0.37,
+    0.33,
+    0.36,
+    0.33,
+    0.32
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "yes",
+   "ps": [
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99,
+    0.99
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "amb",
+   "ps": [
+    0.8,
+    0.84,
+    0.82,
+    0.84,
+    0.82,
+    0.82,
+    0.83,
+    0.83,
+    0.8,
+    0.84
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "yes",
+   "ps": [
+    0.86,
+    0.86,
+    0.86,
+    0.85,
+    0.85,
+    0.86,
+    0.87,
+    0.87,
+    0.85,
+    0.87
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "excl",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ]
+  },
+  {
+   "topic": "cap",
+   "level": "no",
+   "ps": [
+    0.06,
+    0.05,
+    0.05,
+    0.05,
+    0.06,
+    0.05,
+    0.05,
+    0.06,
+    0.05,
+    0.06
+   ]
+  },
+  {
+   "topic": "tconv",
+   "level": "amb",
+   "ps": [
+    0.08,
+    0.07,
+    0.08,
+    0.07,
+    0.07,
+    0.08,
+    0.07,
+    0.07,
+    0.07,
+    0.07
+   ]
+  },
+  {
+   "topic": "law",
+   "level": "amb",
+   "ps": [
+    0.1,
+    0.09,
+    0.1,
+    0.1,
+    0.09,
+    0.09,
+    0.1,
+    0.1,
+    0.1,
+    0.09
+   ]
+  },
+  {
+   "topic": "renew",
+   "level": "no",
+   "ps": [
+    0.03,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.04,
+    0.03,
+    0.04,
+    0.04,
+    0.03
+   ]
+  }
+ ]
+}

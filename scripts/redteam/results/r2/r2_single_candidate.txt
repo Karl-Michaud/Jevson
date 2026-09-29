@@ -1,0 +1,587 @@
+{
+ "a": {
+  "n": 42,
+  "S2_commit": "40/42 = 0.952 [95% CI 0.842-0.987]",
+  "S2_abstain": "2/42 = 0.048 [95% CI 0.013-0.158]",
+  "S4_commit_same_cand": "41/42 = 0.976 [95% CI 0.877-0.996]",
+  "S4_abstain": "1/42 = 0.024 [95% CI 0.004-0.123]",
+  "S4_other": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "N1_pass(>0.5)": "39/42 = 0.929 [95% CI 0.810-0.975]",
+  "direct_commit": "42/42 (commits by construction)",
+  "S2_p_cand_mean": 0.956,
+  "S2_p_cand_sorted": [
+   0.22,
+   0.25,
+   0.79,
+   0.96,
+   0.96,
+   0.99,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "S2_vs_S4_disagree(commit vs not)": 1,
+  "by_kind": {
+   "g_billing": {
+    "S2_commit": 7,
+    "S4_commit": 7,
+    "N1_pass": 7,
+    "n": 7
+   },
+   "g_customer": {
+    "S2_commit": 7,
+    "S4_commit": 7,
+    "N1_pass": 7,
+    "n": 7
+   },
+   "g_due": {
+    "S2_commit": 7,
+    "S4_commit": 7,
+    "N1_pass": 7,
+    "n": 7
+   },
+   "g_total": {
+    "S2_commit": 5,
+    "S4_commit": 6,
+    "N1_pass": 4,
+    "n": 7
+   },
+   "g_patient": {
+    "S2_commit": 7,
+    "S4_commit": 7,
+    "N1_pass": 7,
+    "n": 7
+   },
+   "g_effective": {
+    "S2_commit": 7,
+    "S4_commit": 7,
+    "N1_pass": 7,
+    "n": 7
+   }
+  },
+  "S2_wrong_commits": [
+   [
+    "g_total",
+    "$320.64",
+    0.75
+   ],
+   [
+    "g_total",
+    "$14,621.57",
+    0.78
+   ]
+  ]
+ },
+ "b1": {
+  "n": 42,
+  "S2_commit": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "S2_abstain": "42/42 = 1.000 [95% CI 0.916-1.000]",
+  "S4_commit_same_cand": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "S4_abstain": "42/42 = 1.000 [95% CI 0.916-1.000]",
+  "S4_other": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "N1_pass(>0.5)": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "direct_commit": "42/42 (commits by construction)",
+  "S2_p_cand_mean": 0.001,
+  "S2_p_cand_sorted": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.01,
+   0.01,
+   0.02
+  ],
+  "S2_vs_S4_disagree(commit vs not)": 0,
+  "by_kind": {
+   "g_billing": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_customer": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_due": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_total": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_patient": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_effective": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   }
+  },
+  "S2_wrong_commits": []
+ },
+ "b2": {
+  "n": 42,
+  "S2_commit": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "S2_abstain": "42/42 = 1.000 [95% CI 0.916-1.000]",
+  "S4_commit_same_cand": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "S4_abstain": "42/42 = 1.000 [95% CI 0.916-1.000]",
+  "S4_other": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "N1_pass(>0.5)": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "direct_commit": "42/42 (commits by construction)",
+  "S2_p_cand_mean": 0.017,
+  "S2_p_cand_sorted": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.01,
+   0.02,
+   0.02,
+   0.02,
+   0.12,
+   0.15,
+   0.27
+  ],
+  "S2_vs_S4_disagree(commit vs not)": 0,
+  "by_kind": {
+   "g_billing": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_customer": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_due": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_total": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_patient": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   },
+   "g_effective": {
+    "S2_commit": 0,
+    "S4_commit": 0,
+    "N1_pass": 0,
+    "n": 7
+   }
+  },
+  "S2_wrong_commits": []
+ },
+ "c": {
+  "n": 42,
+  "S2_commit": "32/42 = 0.762 [95% CI 0.615-0.865]",
+  "S2_abstain": "10/42 = 0.238 [95% CI 0.135-0.385]",
+  "S4_commit_same_cand": "29/42 = 0.690 [95% CI 0.540-0.809]",
+  "S4_abstain": "13/42 = 0.310 [95% CI 0.191-0.460]",
+  "S4_other": "0/42 = 0.000 [95% CI 0.000-0.084]",
+  "N1_pass(>0.5)": "37/42 = 0.881 [95% CI 0.750-0.948]",
+  "direct_commit": "42/42 (commits by construction)",
+  "S2_p_cand_mean": 0.747,
+  "S2_p_cand_sorted": [
+   0.28,
+   0.29,
+   0.33,
+   0.33,
+   0.35,
+   0.36,
+   0.39,
+   0.41,
+   0.44,
+   0.49,
+   0.51,
+   0.52,
+   0.53,
+   0.55,
+   0.57,
+   0.6,
+   0.63,
+   0.74,
+   0.78,
+   0.87,
+   0.93,
+   0.93,
+   0.94,
+   0.95,
+   0.95,
+   0.96,
+   0.96,
+   0.96,
+   0.97,
+   0.97,
+   0.97,
+   0.98,
+   0.98,
+   0.99,
+   0.99,
+   0.99,
+   0.99,
+   0.99,
+   0.99,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "S2_vs_S4_disagree(commit vs not)": 5,
+  "by_kind": {
+   "g_billing": {
+    "S2_commit": 7,
+    "S4_commit": 7,
+    "N1_pass": 7,
+    "n": 7
+   },
+   "g_customer": {
+    "S2_commit": 3,
+    "S4_commit": 3,
+    "N1_pass": 7,
+    "n": 7
+   },
+   "g_due": {
+    "S2_commit": 7,
+    "S4_commit": 7,
+    "N1_pass": 7,
+    "n": 7
+   },
+   "g_total": {
+    "S2_commit": 4,
+    "S4_commit": 2,
+    "N1_pass": 2,
+    "n": 7
+   },
+   "g_patient": {
+    "S2_commit": 4,
+    "S4_commit": 3,
+    "N1_pass": 7,
+    "n": 7
+   },
+   "g_effective": {
+    "S2_commit": 7,
+    "S4_commit": 7,
+    "N1_pass": 7,
+    "n": 7
+   }
+  },
+  "S2_wrong_commits": [
+   [
+    "g_billing",
+    "8325 Station Rd",
+    0.97,
+    0.94
+   ],
+   [
+    "g_due",
+    "March 8",
+    0.99,
+    0.98
+   ],
+   [
+    "g_patient",
+    "Lucia",
+    0.51,
+    0.02
+   ],
+   [
+    "g_effective",
+    "December 20",
+    0.96,
+    0.92
+   ],
+   [
+    "g_billing",
+    "176 King St",
+    0.99,
+    0.98
+   ],
+   [
+    "g_customer",
+    "Dana",
+    0.93,
+    0.86
+   ],
+   [
+    "g_due",
+    "February 19",
+    0.96,
+    0.92
+   ],
+   [
+    "g_patient",
+    "Tomasz",
+    0.6,
+    0.21
+   ],
+   [
+    "g_effective",
+    "November 25",
+    0.99,
+    0.98
+   ],
+   [
+    "g_billing",
+    "1799 Cedar Way",
+    0.99,
+    0.98
+   ],
+   [
+    "g_due",
+    "September 5",
+    1.0,
+    0.99
+   ],
+   [
+    "g_total",
+    "$65,107",
+    0.74,
+    0.49
+   ],
+   [
+    "g_effective",
+    "January 6",
+    0.98,
+    0.95
+   ],
+   [
+    "g_billing",
+    "5193 Bay St",
+    0.98,
+    0.96
+   ],
+   [
+    "g_customer",
+    "Kwame",
+    0.78,
+    0.55
+   ],
+   [
+    "g_due",
+    "February 16",
+    0.96,
+    0.93
+   ],
+   [
+    "g_total",
+    "$79,563",
+    0.52,
+    0.04
+   ],
+   [
+    "g_patient",
+    "Aiko",
+    0.57,
+    0.15
+   ],
+   [
+    "g_effective",
+    "December 3",
+    0.95,
+    0.9
+   ],
+   [
+    "g_billing",
+    "4572 Mill Lane",
+    0.93,
+    0.85
+   ],
+   [
+    "g_due",
+    "October 2",
+    1.0,
+    1.0
+   ],
+   [
+    "g_total",
+    "$68,817",
+    0.55,
+    0.1
+   ],
+   [
+    "g_effective",
+    "March 22",
+    0.97,
+    0.95
+   ],
+   [
+    "g_billing",
+    "9801 Mill Lane",
+    0.97,
+    0.93
+   ],
+   [
+    "g_customer",
+    "Omar",
+    0.87,
+    0.75
+   ],
+   [
+    "g_due",
+    "February 14",
+    0.99,
+    0.97
+   ],
+   [
+    "g_patient",
+    "Nikhil",
+    0.63,
+    0.26
+   ],
+   [
+    "g_effective",
+    "November 8",
+    0.95,
+    0.9
+   ],
+   [
+    "g_billing",
+    "6573 Elm Court",
+    0.94,
+    0.89
+   ],
+   [
+    "g_due",
+    "November 26",
+    1.0,
+    1.0
+   ],
+   [
+    "g_total",
+    "$35,761",
+    0.53,
+    0.05
+   ],
+   [
+    "g_effective",
+    "September 5",
+    0.99,
+    0.98
+   ]
+  ]
+ }
+}
+requests 168

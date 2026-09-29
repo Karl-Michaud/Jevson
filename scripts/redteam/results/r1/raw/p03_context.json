@@ -1,0 +1,323 @@
+{
+ "search": [
+  {
+   "sentences": 8000,
+   "status": 400,
+   "usage": null,
+   "body": {
+    "detail": {
+     "error_type": "max_tokens_exceeded"
+    }
+   },
+   "latency": 0.3900778880051803
+  },
+  {
+   "sentences": 4050,
+   "status": 400,
+   "usage": null,
+   "body": {
+    "detail": {
+     "error_type": "max_tokens_exceeded"
+    }
+   },
+   "latency": 0.17447867398732342
+  },
+  {
+   "sentences": 2075,
+   "status": 400,
+   "usage": null,
+   "body": {
+    "detail": {
+     "error_type": "max_tokens_exceeded"
+    }
+   },
+   "latency": 0.11261243400804233
+  },
+  {
+   "sentences": 1087,
+   "status": 200,
+   "usage": {
+    "input_tokens": 20198,
+    "output_tokens": 20
+   },
+   "body": null,
+   "latency": 0.5010197059891652
+  },
+  {
+   "sentences": 1581,
+   "status": 200,
+   "usage": {
+    "input_tokens": 29800,
+    "output_tokens": 20
+   },
+   "body": null,
+   "latency": 0.3586319820024073
+  },
+  {
+   "sentences": 1828,
+   "status": 400,
+   "usage": null,
+   "body": {
+    "detail": {
+     "error_type": "max_tokens_exceeded"
+    }
+   },
+   "latency": 0.12982272299996112
+  },
+  {
+   "sentences": 1704,
+   "status": 200,
+   "usage": {
+    "input_tokens": 32167,
+    "output_tokens": 20
+   },
+   "body": null,
+   "latency": 0.33449819798988756
+  },
+  {
+   "sentences": 1766,
+   "status": 400,
+   "usage": null,
+   "body": {
+    "detail": {
+     "error_type": "max_tokens_exceeded"
+    }
+   },
+   "latency": 0.10851464900770225
+  },
+  {
+   "sentences": 1735,
+   "status": 200,
+   "usage": {
+    "input_tokens": 32778,
+    "output_tokens": 20
+   },
+   "body": null,
+   "latency": 0.33897018199786544
+  },
+  {
+   "sentences": 1750,
+   "status": 400,
+   "usage": null,
+   "body": {
+    "detail": {
+     "error_type": "max_tokens_exceeded"
+    }
+   },
+   "latency": 0.11048166100226808
+  }
+ ],
+ "max_ok_sentences": 1735,
+ "needle_1730": {
+  "status": 200,
+  "usage": {
+   "input_tokens": 32858,
+   "output_tokens": 150
+  },
+  "answers": {
+   "start": {
+    "type": "noul",
+    "noul": 1.0
+   },
+   "end": {
+    "type": "noul",
+    "noul": 1.0
+   },
+   "end_neg": {
+    "type": "noul",
+    "noul": 0.0
+   },
+   "start_c": {
+    "type": "choice",
+    "choice": "PURPLE-ELEPHANT",
+    "confidence": 1.0,
+    "probabilities": {
+     "GREEN-TIGER": 0.0,
+     "PURPLE-ELEPHANT": 1.0,
+     "not stated": 0.0
+    }
+   },
+   "end_c": {
+    "type": "choice",
+    "choice": "basement of building K",
+    "confidence": 1.0,
+    "probabilities": {
+     "roof of building K": 0.0,
+     "not stated": 0.0,
+     "basement of building K": 1.0
+    }
+   }
+  }
+ },
+ "needle_1735": {
+  "status": 200,
+  "usage": {
+   "input_tokens": 32956,
+   "output_tokens": 150
+  },
+  "answers": {
+   "start": {
+    "type": "noul",
+    "noul": 0.99
+   },
+   "end": {
+    "type": "noul",
+    "noul": 1.0
+   },
+   "end_neg": {
+    "type": "noul",
+    "noul": 0.0
+   },
+   "start_c": {
+    "type": "choice",
+    "choice": "PURPLE-ELEPHANT",
+    "confidence": 1.0,
+    "probabilities": {
+     "PURPLE-ELEPHANT": 1.0,
+     "GREEN-TIGER": 0.0,
+     "not stated": 0.0
+    }
+   },
+   "end_c": {
+    "type": "choice",
+    "choice": "basement of building K",
+    "confidence": 1.0,
+    "probabilities": {
+     "basement of building K": 1.0,
+     "roof of building K": 0.0,
+     "not stated": 0.0
+    }
+   }
+  }
+ },
+ "needle_867": {
+  "status": 200,
+  "usage": {
+   "input_tokens": 16251,
+   "output_tokens": 150
+  },
+  "answers": {
+   "start": {
+    "type": "noul",
+    "noul": 0.99
+   },
+   "end": {
+    "type": "noul",
+    "noul": 1.0
+   },
+   "end_neg": {
+    "type": "noul",
+    "noul": 0.01
+   },
+   "start_c": {
+    "type": "choice",
+    "choice": "PURPLE-ELEPHANT",
+    "confidence": 1.0,
+    "probabilities": {
+     "PURPLE-ELEPHANT": 1.0,
+     "GREEN-TIGER": 0.0,
+     "not stated": 0.0
+    }
+   },
+   "end_c": {
+    "type": "choice",
+    "choice": "basement of building K",
+    "confidence": 1.0,
+    "probabilities": {
+     "basement of building K": 1.0,
+     "roof of building K": 0.0,
+     "not stated": 0.0
+    }
+   }
+  }
+ },
+ "manyq_2000": {
+  "status": 200,
+  "usage": {
+   "input_tokens": 52011,
+   "output_tokens": 38894
+  },
+  "err": null,
+  "n_answers": 2000,
+  "latency": 0.720480222007609
+ },
+ "manyq_3000": {
+  "status": 400,
+  "usage": null,
+  "err": {
+   "detail": {
+    "error_type": "max_tokens_exceeded"
+   }
+  },
+  "n_answers": 0,
+  "latency": 0.1886812419979833
+ },
+ "manyq_3600": {
+  "status": 400,
+  "usage": null,
+  "err": {
+   "detail": {
+    "error_type": "max_tokens_exceeded"
+   }
+  },
+  "n_answers": 0,
+  "latency": 0.2580390590010211
+ },
+ "manyq_4000": {
+  "status": 400,
+  "usage": null,
+  "err": {
+   "detail": {
+    "error_type": "max_tokens_exceeded"
+   }
+  },
+  "n_answers": 0,
+  "latency": 0.2651013779977802
+ },
+ "manyq_5000": {
+  "status": 400,
+  "usage": null,
+  "err": {
+   "detail": {
+    "error_type": "max_tokens_exceeded"
+   }
+  },
+  "n_answers": 0,
+  "latency": 0.2928405679995194
+ },
+ "longq_1000": {
+  "status": 200,
+  "usage": {
+   "input_tokens": 18532,
+   "output_tokens": 20
+  },
+  "err": null
+ },
+ "longq_1800": {
+  "status": 400,
+  "usage": null,
+  "err": {
+   "detail": {
+    "error_type": "max_tokens_exceeded"
+   }
+  }
+ },
+ "longq_2500": {
+  "status": 400,
+  "usage": null,
+  "err": {
+   "detail": {
+    "error_type": "max_tokens_exceeded"
+   }
+  }
+ },
+ "longq_3500": {
+  "status": 400,
+  "usage": null,
+  "err": {
+   "detail": {
+    "error_type": "max_tokens_exceeded"
+   }
+  }
+ }
+}

@@ -1,0 +1,127 @@
+pass 0 requests 40
+pass 1 requests 80
+pass 2 requests 120
+pass 3 requests 160
+pass 4 requests 200
+pass 5 requests 240
+pass 6 requests 280
+pass 7 requests 320
+pass 8 requests 360
+pass 9 requests 400
+{
+ "questions": 200,
+ "observations": 2000,
+ "obs_exact_0.50": "1/2000 = 0.001 [95% CI 0.000-0.003]",
+ "q_with_any_exact_0.50": "1/200 = 0.005 [95% CI 0.001-0.028]",
+ "first_pass_exact_0.50": "0/200 = 0.000 [95% CI 0.000-0.019]",
+ "first_pass_in_[0.45,0.55]": "2/200 = 0.010 [95% CI 0.003-0.036]",
+ "obs_in_[0.45,0.55]": "23/2000 = 0.011 [95% CI 0.008-0.017]",
+ "q_mean_in_[0.40,0.60]": 3,
+ "q_decision_flip(p>0.5 differs across repeats)": "2/200 = 0.010 [95% CI 0.003-0.036]",
+ "q_range_max": 0.16000000000000003,
+ "q_range_p50_p90_p99": [
+  0.009999999999999995,
+  0.04999999999999999,
+  0.13
+ ],
+ "q_sd_mean_max": [
+  0.0049,
+  0.043
+ ],
+ "bands": {
+  "b=0.0": {
+   "q_outcome_inconsistent_across_10": "2/200 = 0.010 [95% CI 0.003-0.036]",
+   "q_true_false_flip": "1/200 = 0.005 [95% CI 0.001-0.028]",
+   "q_ever_tie": 1,
+   "obs_tie_rate": "1/2000 = 0.001 [95% CI 0.000-0.003]"
+  },
+  "b=0.01": {
+   "q_outcome_inconsistent_across_10": "3/200 = 0.015 [95% CI 0.005-0.043]",
+   "q_true_false_flip": "1/200 = 0.005 [95% CI 0.001-0.028]",
+   "q_ever_tie": 2,
+   "obs_tie_rate": "4/2000 = 0.002 [95% CI 0.001-0.005]"
+  },
+  "b=0.02": {
+   "q_outcome_inconsistent_across_10": "3/200 = 0.015 [95% CI 0.005-0.043]",
+   "q_true_false_flip": "1/200 = 0.005 [95% CI 0.001-0.028]",
+   "q_ever_tie": 3,
+   "obs_tie_rate": "9/2000 = 0.004 [95% CI 0.002-0.009]"
+  },
+  "b=0.05": {
+   "q_outcome_inconsistent_across_10": "3/200 = 0.015 [95% CI 0.005-0.043]",
+   "q_true_false_flip": "0/200 = 0.000 [95% CI 0.000-0.019]",
+   "q_ever_tie": 3,
+   "obs_tie_rate": "23/2000 = 0.011 [95% CI 0.008-0.017]"
+  },
+  "b=0.1": {
+   "q_outcome_inconsistent_across_10": "5/200 = 0.025 [95% CI 0.011-0.057]",
+   "q_true_false_flip": "0/200 = 0.000 [95% CI 0.000-0.019]",
+   "q_ever_tie": 8,
+   "obs_tie_rate": "45/2000 = 0.022 [95% CI 0.017-0.030]"
+  }
+ },
+ "by_level": {
+  "yes": {
+   "n": 68,
+   "flip": 0,
+   "mean_in_[.3,.7]": 0
+  },
+  "no": {
+   "n": 67,
+   "flip": 0,
+   "mean_in_[.3,.7]": 0
+  },
+  "amb": {
+   "n": 65,
+   "flip": 2,
+   "mean_in_[.3,.7]": 11
+  }
+ },
+ "flippers": [
+  [
+   "cap",
+   "amb",
+   [
+    0.47,
+    0.56,
+    0.48,
+    0.52,
+    0.47,
+    0.47,
+    0.47,
+    0.52,
+    0.45,
+    0.52
+   ]
+  ],
+  [
+   "excl",
+   "amb",
+   [
+    0.56,
+    0.53,
+    0.55,
+    0.53,
+    0.57,
+    0.55,
+    0.51,
+    0.5,
+    0.52,
+    0.54
+   ]
+  ]
+ ],
+ "hist_obs_by_0.1": {
+  "0.0": 795,
+  "0.1": 137,
+  "0.2": 42,
+  "0.3": 49,
+  "0.4": 23,
+  "0.5": 19,
+  "0.6": 19,
+  "0.7": 53,
+  "0.8": 164,
+  "0.9": 697,
+  "1.0": 2
+ }
+}

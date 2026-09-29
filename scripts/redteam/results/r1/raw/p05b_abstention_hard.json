@@ -1,0 +1,2911 @@
+{
+ "report": {
+  "ALL": {
+   "P_CH_correct": "60/60 = 1.000 [95% CI 0.940-1.000]",
+   "P_CH_false_abstain": "0/60 = 0.000 [95% CI 0.000-0.060]",
+   "P_CH_wrong_span": "0/60 = 0.000 [95% CI 0.000-0.060]",
+   "P_G_false_abstain": "0/60 = 0.000 [95% CI 0.000-0.060]",
+   "P_PC_correct": "60/60 = 1.000 [95% CI 0.940-1.000]",
+   "P_PC_false_abstain": "0/60 = 0.000 [95% CI 0.000-0.060]",
+   "P_CH+G_correct": "60/60 = 1.000 [95% CI 0.940-1.000]",
+   "A_CH_abstain": "70/70 = 1.000 [95% CI 0.948-1.000]",
+   "A_G_abstain": "69/70 = 0.986 [95% CI 0.923-0.997]",
+   "A_PC_abstain": "70/70 = 1.000 [95% CI 0.948-1.000]",
+   "A_CH+G_abstain": "70/70 = 1.000 [95% CI 0.948-1.000]",
+   "A_CH_wrong_commit_confidences": []
+  },
+  "T1": {
+   "P_CH_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_CH_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH_wrong_span": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_G_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_PC_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_PC_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH+G_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_G_abstain": "9/10 = 0.900 [95% CI 0.596-0.982]",
+   "A_PC_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH+G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_wrong_commit_confidences": []
+  },
+  "T2": {
+   "P_CH_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_CH_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH_wrong_span": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_G_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_PC_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_PC_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH+G_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_PC_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH+G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_wrong_commit_confidences": []
+  },
+  "T3": {
+   "P_CH_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_CH_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH_wrong_span": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_G_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_PC_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_PC_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH+G_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_PC_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH+G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_wrong_commit_confidences": []
+  },
+  "T5": {
+   "P_CH_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_CH_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH_wrong_span": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_G_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_PC_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_PC_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH+G_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_PC_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH+G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_wrong_commit_confidences": []
+  },
+  "T6": {
+   "P_CH_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_CH_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH_wrong_span": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_G_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_PC_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_PC_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH+G_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_PC_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH+G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_wrong_commit_confidences": []
+  },
+  "T7": {
+   "P_CH_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_CH_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH_wrong_span": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_G_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_PC_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "P_PC_false_abstain": "0/10 = 0.000 [95% CI 0.000-0.278]",
+   "P_CH+G_correct": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_PC_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH+G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_wrong_commit_confidences": []
+  },
+  "T4": {
+   "A_CH_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_PC_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH+G_abstain": "10/10 = 1.000 [95% CI 0.722-1.000]",
+   "A_CH_wrong_commit_confidences": []
+  }
+ },
+ "rows": [
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "April 20, 2026",
+   "doc": "Invoice issued March 8, 2026; goods shipped April 5, 2026. Payment was originally due July 13, 2026, but per the client's request the due date has been amended to April 20, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.97,
+     "probabilities": {
+      "none_of_these": 0.98,
+      "March 8, 2026": 0.0,
+      "April 5, 2026": 0.01,
+      "July 13, 2026": 0.01
+     }
+    },
+    "G": 0.18,
+    "PC": {
+     "April 5, 2026": 0.01,
+     "July 13, 2026": 0.05,
+     "March 8, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "April 20, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "March 8, 2026": 0.0,
+      "April 20, 2026": 1.0,
+      "April 5, 2026": 0.0,
+      "July 13, 2026": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "March 8, 2026": 0.01,
+     "April 5, 2026": 0.01,
+     "April 20, 2026": 0.97,
+     "July 13, 2026": 0.04
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "December 13, 2026",
+   "doc": "Invoice issued September 22, 2026; goods shipped December 18, 2026. Payment was originally due February 9, 2026, but per the client's request the due date has been amended to December 13, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "September 22, 2026": 0.0,
+      "February 9, 2026": 0.01,
+      "none_of_these": 0.99,
+      "December 18, 2026": 0.0
+     }
+    },
+    "G": 0.15,
+    "PC": {
+     "December 18, 2026": 0.01,
+     "September 22, 2026": 0.01,
+     "February 9, 2026": 0.11
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "December 13, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "September 22, 2026": 0.0,
+      "February 9, 2026": 0.0,
+      "none_of_these": 0.0,
+      "December 13, 2026": 1.0,
+      "December 18, 2026": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "December 18, 2026": 0.01,
+     "December 13, 2026": 0.95,
+     "September 22, 2026": 0.01,
+     "February 9, 2026": 0.11
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "August 7, 2026",
+   "doc": "Invoice issued July 24, 2026; goods shipped October 19, 2026. Payment was originally due February 20, 2026, but per the client's request the due date has been amended to August 7, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "February 20, 2026": 0.01,
+      "July 24, 2026": 0.0,
+      "none_of_these": 0.99,
+      "October 19, 2026": 0.0
+     }
+    },
+    "G": 0.09,
+    "PC": {
+     "February 20, 2026": 0.09,
+     "July 24, 2026": 0.01,
+     "October 19, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "August 7, 2026",
+     "confidence": 0.94,
+     "probabilities": {
+      "February 20, 2026": 0.0,
+      "July 24, 2026": 0.0,
+      "none_of_these": 0.04,
+      "October 19, 2026": 0.0,
+      "August 7, 2026": 0.96
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "August 7, 2026": 0.97,
+     "October 19, 2026": 0.01,
+     "February 20, 2026": 0.08,
+     "July 24, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "June 27, 2026",
+   "doc": "Invoice issued July 28, 2026; goods shipped November 7, 2026. Payment was originally due April 26, 2026, but per the client's request the due date has been amended to June 27, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.98,
+     "probabilities": {
+      "none_of_these": 0.99,
+      "April 26, 2026": 0.01,
+      "November 7, 2026": 0.0,
+      "July 28, 2026": 0.0
+     }
+    },
+    "G": 0.09,
+    "PC": {
+     "April 26, 2026": 0.1,
+     "July 28, 2026": 0.01,
+     "November 7, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "June 27, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "April 26, 2026": 0.0,
+      "November 7, 2026": 0.0,
+      "June 27, 2026": 1.0,
+      "July 28, 2026": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "July 28, 2026": 0.01,
+     "November 7, 2026": 0.01,
+     "April 26, 2026": 0.09,
+     "June 27, 2026": 0.97
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "November 6, 2026",
+   "doc": "Invoice issued October 11, 2026; goods shipped February 23, 2026. Payment was originally due March 15, 2026, but per the client's request the due date has been amended to November 6, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "February 23, 2026": 0.0,
+      "none_of_these": 0.99,
+      "October 11, 2026": 0.0,
+      "March 15, 2026": 0.01
+     }
+    },
+    "G": 0.58,
+    "PC": {
+     "October 11, 2026": 0.01,
+     "March 15, 2026": 0.08,
+     "February 23, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "November 6, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "February 23, 2026": 0.0,
+      "none_of_these": 0.0,
+      "October 11, 2026": 0.0,
+      "March 15, 2026": 0.0,
+      "November 6, 2026": 1.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "November 6, 2026": 0.97,
+     "March 15, 2026": 0.09,
+     "October 11, 2026": 0.01,
+     "February 23, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "February 16, 2026",
+   "doc": "Invoice issued June 13, 2026; goods shipped January 9, 2026. Payment was originally due September 22, 2026, but per the client's request the due date has been amended to February 16, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.97,
+     "probabilities": {
+      "June 13, 2026": 0.0,
+      "January 9, 2026": 0.0,
+      "none_of_these": 0.98,
+      "September 22, 2026": 0.02
+     }
+    },
+    "G": 0.21,
+    "PC": {
+     "January 9, 2026": 0.01,
+     "September 22, 2026": 0.07,
+     "June 13, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "February 16, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "June 13, 2026": 0.0,
+      "none_of_these": 0.0,
+      "February 16, 2026": 1.0,
+      "January 9, 2026": 0.0,
+      "September 22, 2026": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "June 13, 2026": 0.01,
+     "September 22, 2026": 0.08,
+     "February 16, 2026": 0.93,
+     "January 9, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "July 7, 2026",
+   "doc": "Invoice issued June 18, 2026; goods shipped February 15, 2026. Payment was originally due September 1, 2026, but per the client's request the due date has been amended to July 7, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "February 15, 2026": 0.0,
+      "June 18, 2026": 0.0,
+      "September 1, 2026": 0.01,
+      "none_of_these": 0.99
+     }
+    },
+    "G": 0.35,
+    "PC": {
+     "February 15, 2026": 0.01,
+     "June 18, 2026": 0.01,
+     "September 1, 2026": 0.06
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "July 7, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "July 7, 2026": 1.0,
+      "September 1, 2026": 0.0,
+      "February 15, 2026": 0.0,
+      "June 18, 2026": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "July 7, 2026": 0.98,
+     "September 1, 2026": 0.05,
+     "February 15, 2026": 0.01,
+     "June 18, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "October 15, 2026",
+   "doc": "Invoice issued January 12, 2026; goods shipped March 7, 2026. Payment was originally due September 7, 2026, but per the client's request the due date has been amended to October 15, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.97,
+     "probabilities": {
+      "none_of_these": 0.98,
+      "September 7, 2026": 0.02,
+      "January 12, 2026": 0.0,
+      "March 7, 2026": 0.0
+     }
+    },
+    "G": 0.43,
+    "PC": {
+     "March 7, 2026": 0.01,
+     "September 7, 2026": 0.08,
+     "January 12, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "October 15, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "October 15, 2026": 1.0,
+      "September 7, 2026": 0.0,
+      "January 12, 2026": 0.0,
+      "March 7, 2026": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "March 7, 2026": 0.01,
+     "October 15, 2026": 0.98,
+     "September 7, 2026": 0.08,
+     "January 12, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "December 26, 2026",
+   "doc": "Invoice issued August 20, 2026; goods shipped March 17, 2026. Payment was originally due December 6, 2026, but per the client's request the due date has been amended to December 26, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.95,
+     "probabilities": {
+      "August 20, 2026": 0.0,
+      "December 6, 2026": 0.03,
+      "March 17, 2026": 0.0,
+      "none_of_these": 0.97
+     }
+    },
+    "G": 0.36,
+    "PC": {
+     "August 20, 2026": 0.01,
+     "December 6, 2026": 0.07,
+     "March 17, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "December 26, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "December 6, 2026": 0.0,
+      "December 26, 2026": 1.0,
+      "March 17, 2026": 0.0,
+      "August 20, 2026": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "December 6, 2026": 0.08,
+     "December 26, 2026": 0.98,
+     "March 17, 2026": 0.01,
+     "August 20, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T1",
+   "field": "payment due date",
+   "correct": "January 4, 2026",
+   "doc": "Invoice issued January 6, 2026; goods shipped August 22, 2026. Payment was originally due November 6, 2026, but per the client's request the due date has been amended to January 4, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.93,
+     "probabilities": {
+      "January 6, 2026": 0.01,
+      "August 22, 2026": 0.0,
+      "November 6, 2026": 0.05,
+      "none_of_these": 0.94
+     }
+    },
+    "G": 0.44,
+    "PC": {
+     "January 6, 2026": 0.01,
+     "August 22, 2026": 0.01,
+     "November 6, 2026": 0.11
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "January 4, 2026",
+     "confidence": 0.83,
+     "probabilities": {
+      "January 4, 2026": 0.86,
+      "August 22, 2026": 0.0,
+      "November 6, 2026": 0.04,
+      "January 6, 2026": 0.0,
+      "none_of_these": 0.1
+     }
+    },
+    "G": 0.93,
+    "PC": {
+     "January 4, 2026": 0.71,
+     "August 22, 2026": 0.01,
+     "November 6, 2026": 0.1,
+     "January 6, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "1419 King St, Tampa, FL 33602",
+   "doc": "Please note: do NOT send invoices to our old office at 6875 Harbor Rd, Reno, NV 89501; that location closed in May. All invoices must go to 1419 King St, Tampa, FL 33602. Deliveries continue to 102 Station Rd, Madison, WI 53703.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 1.0,
+      "6875 Harbor Rd, Reno, NV 89501": 0.0,
+      "102 Station Rd, Madison, WI 53703": 0.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "6875 Harbor Rd, Reno, NV 89501": 0.01,
+     "102 Station Rd, Madison, WI 53703": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "1419 King St, Tampa, FL 33602",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "1419 King St, Tampa, FL 33602": 1.0,
+      "6875 Harbor Rd, Reno, NV 89501": 0.0,
+      "102 Station Rd, Madison, WI 53703": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "1419 King St, Tampa, FL 33602": 0.99,
+     "6875 Harbor Rd, Reno, NV 89501": 0.01,
+     "102 Station Rd, Madison, WI 53703": 0.01
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "3299 Maple Ave, Columbus, OH 43215",
+   "doc": "Please note: do NOT send invoices to our old office at 2235 Bay St, Reno, NV 89501; that location closed in May. All invoices must go to 3299 Maple Ave, Columbus, OH 43215. Deliveries continue to 7267 Ridge Blvd, Reno, NV 89501.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "2235 Bay St, Reno, NV 89501": 0.0,
+      "7267 Ridge Blvd, Reno, NV 89501": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "7267 Ridge Blvd, Reno, NV 89501": 0.01,
+     "2235 Bay St, Reno, NV 89501": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "3299 Maple Ave, Columbus, OH 43215",
+     "confidence": 1.0,
+     "probabilities": {
+      "2235 Bay St, Reno, NV 89501": 0.0,
+      "7267 Ridge Blvd, Reno, NV 89501": 0.0,
+      "none_of_these": 0.0,
+      "3299 Maple Ave, Columbus, OH 43215": 1.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "2235 Bay St, Reno, NV 89501": 0.01,
+     "3299 Maple Ave, Columbus, OH 43215": 0.99,
+     "7267 Ridge Blvd, Reno, NV 89501": 0.01
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "924 King St, Denver, CO 80202",
+   "doc": "Please note: do NOT send invoices to our old office at 2080 Mill Lane, Boise, ID 83702; that location closed in May. All invoices must go to 924 King St, Denver, CO 80202. Deliveries continue to 6699 Harbor Rd, Austin, TX 78701.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 1.0,
+      "2080 Mill Lane, Boise, ID 83702": 0.0,
+      "6699 Harbor Rd, Austin, TX 78701": 0.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "2080 Mill Lane, Boise, ID 83702": 0.01,
+     "6699 Harbor Rd, Austin, TX 78701": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "924 King St, Denver, CO 80202",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "2080 Mill Lane, Boise, ID 83702": 0.0,
+      "924 King St, Denver, CO 80202": 1.0,
+      "6699 Harbor Rd, Austin, TX 78701": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "924 King St, Denver, CO 80202": 0.99,
+     "2080 Mill Lane, Boise, ID 83702": 0.01,
+     "6699 Harbor Rd, Austin, TX 78701": 0.01
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "2863 King St, Reno, NV 89501",
+   "doc": "Please note: do NOT send invoices to our old office at 1955 King St, Tampa, FL 33602; that location closed in May. All invoices must go to 2863 King St, Reno, NV 89501. Deliveries continue to 2394 Elm Court, Madison, WI 53703.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "1955 King St, Tampa, FL 33602": 0.0,
+      "none_of_these": 1.0,
+      "2394 Elm Court, Madison, WI 53703": 0.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "2394 Elm Court, Madison, WI 53703": 0.01,
+     "1955 King St, Tampa, FL 33602": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "2863 King St, Reno, NV 89501",
+     "confidence": 1.0,
+     "probabilities": {
+      "1955 King St, Tampa, FL 33602": 0.0,
+      "2863 King St, Reno, NV 89501": 1.0,
+      "none_of_these": 0.0,
+      "2394 Elm Court, Madison, WI 53703": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "2394 Elm Court, Madison, WI 53703": 0.01,
+     "1955 King St, Tampa, FL 33602": 0.01,
+     "2863 King St, Reno, NV 89501": 0.99
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "1930 Mill Lane, Denver, CO 80202",
+   "doc": "Please note: do NOT send invoices to our old office at 8187 Elm Court, Tampa, FL 33602; that location closed in May. All invoices must go to 1930 Mill Lane, Denver, CO 80202. Deliveries continue to 1196 Bay St, Tampa, FL 33602.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "1196 Bay St, Tampa, FL 33602": 0.0,
+      "8187 Elm Court, Tampa, FL 33602": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "1196 Bay St, Tampa, FL 33602": 0.02,
+     "8187 Elm Court, Tampa, FL 33602": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "1930 Mill Lane, Denver, CO 80202",
+     "confidence": 1.0,
+     "probabilities": {
+      "1196 Bay St, Tampa, FL 33602": 0.0,
+      "1930 Mill Lane, Denver, CO 80202": 1.0,
+      "8187 Elm Court, Tampa, FL 33602": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "1930 Mill Lane, Denver, CO 80202": 0.99,
+     "8187 Elm Court, Tampa, FL 33602": 0.01,
+     "1196 Bay St, Tampa, FL 33602": 0.01
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "5538 Elm Court, Reno, NV 89501",
+   "doc": "Please note: do NOT send invoices to our old office at 192 Orchard Dr, Portland, OR 97201; that location closed in May. All invoices must go to 5538 Elm Court, Reno, NV 89501. Deliveries continue to 6548 Mill Lane, Reno, NV 89501.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "192 Orchard Dr, Portland, OR 97201": 0.0,
+      "6548 Mill Lane, Reno, NV 89501": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "192 Orchard Dr, Portland, OR 97201": 0.01,
+     "6548 Mill Lane, Reno, NV 89501": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "5538 Elm Court, Reno, NV 89501",
+     "confidence": 1.0,
+     "probabilities": {
+      "6548 Mill Lane, Reno, NV 89501": 0.0,
+      "5538 Elm Court, Reno, NV 89501": 1.0,
+      "192 Orchard Dr, Portland, OR 97201": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "6548 Mill Lane, Reno, NV 89501": 0.02,
+     "5538 Elm Court, Reno, NV 89501": 0.99,
+     "192 Orchard Dr, Portland, OR 97201": 0.01
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "8765 Harbor Rd, Denver, CO 80202",
+   "doc": "Please note: do NOT send invoices to our old office at 6333 Station Rd, Madison, WI 53703; that location closed in May. All invoices must go to 8765 Harbor Rd, Denver, CO 80202. Deliveries continue to 625 Mill Lane, Reno, NV 89501.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "6333 Station Rd, Madison, WI 53703": 0.0,
+      "none_of_these": 1.0,
+      "625 Mill Lane, Reno, NV 89501": 0.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "6333 Station Rd, Madison, WI 53703": 0.01,
+     "625 Mill Lane, Reno, NV 89501": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "8765 Harbor Rd, Denver, CO 80202",
+     "confidence": 1.0,
+     "probabilities": {
+      "8765 Harbor Rd, Denver, CO 80202": 1.0,
+      "none_of_these": 0.0,
+      "625 Mill Lane, Reno, NV 89501": 0.0,
+      "6333 Station Rd, Madison, WI 53703": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "8765 Harbor Rd, Denver, CO 80202": 0.99,
+     "625 Mill Lane, Reno, NV 89501": 0.01,
+     "6333 Station Rd, Madison, WI 53703": 0.01
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "3713 Ridge Blvd, Austin, TX 78701",
+   "doc": "Please note: do NOT send invoices to our old office at 7284 Elm Court, Tampa, FL 33602; that location closed in May. All invoices must go to 3713 Ridge Blvd, Austin, TX 78701. Deliveries continue to 5153 Elm Court, Columbus, OH 43215.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "7284 Elm Court, Tampa, FL 33602": 0.0,
+      "5153 Elm Court, Columbus, OH 43215": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "7284 Elm Court, Tampa, FL 33602": 0.01,
+     "5153 Elm Court, Columbus, OH 43215": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "3713 Ridge Blvd, Austin, TX 78701",
+     "confidence": 1.0,
+     "probabilities": {
+      "3713 Ridge Blvd, Austin, TX 78701": 1.0,
+      "5153 Elm Court, Columbus, OH 43215": 0.0,
+      "7284 Elm Court, Tampa, FL 33602": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "3713 Ridge Blvd, Austin, TX 78701": 0.99,
+     "5153 Elm Court, Columbus, OH 43215": 0.01,
+     "7284 Elm Court, Tampa, FL 33602": 0.01
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "1322 Cedar Way, Reno, NV 89501",
+   "doc": "Please note: do NOT send invoices to our old office at 6294 Ridge Blvd, Boise, ID 83702; that location closed in May. All invoices must go to 1322 Cedar Way, Reno, NV 89501. Deliveries continue to 4207 Harbor Rd, Tampa, FL 33602.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "4207 Harbor Rd, Tampa, FL 33602": 0.0,
+      "6294 Ridge Blvd, Boise, ID 83702": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "4207 Harbor Rd, Tampa, FL 33602": 0.01,
+     "6294 Ridge Blvd, Boise, ID 83702": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "1322 Cedar Way, Reno, NV 89501",
+     "confidence": 1.0,
+     "probabilities": {
+      "6294 Ridge Blvd, Boise, ID 83702": 0.0,
+      "4207 Harbor Rd, Tampa, FL 33602": 0.0,
+      "1322 Cedar Way, Reno, NV 89501": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "6294 Ridge Blvd, Boise, ID 83702": 0.01,
+     "4207 Harbor Rd, Tampa, FL 33602": 0.01,
+     "1322 Cedar Way, Reno, NV 89501": 0.99
+    }
+   }
+  },
+  {
+   "type": "T2",
+   "field": "address invoices should be sent to",
+   "correct": "4217 Station Rd, Tampa, FL 33602",
+   "doc": "Please note: do NOT send invoices to our old office at 5262 Cedar Way, Denver, CO 80202; that location closed in May. All invoices must go to 4217 Station Rd, Tampa, FL 33602. Deliveries continue to 6716 Orchard Dr, Denver, CO 80202.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "5262 Cedar Way, Denver, CO 80202": 0.0,
+      "6716 Orchard Dr, Denver, CO 80202": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "6716 Orchard Dr, Denver, CO 80202": 0.01,
+     "5262 Cedar Way, Denver, CO 80202": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "4217 Station Rd, Tampa, FL 33602",
+     "confidence": 1.0,
+     "probabilities": {
+      "5262 Cedar Way, Denver, CO 80202": 0.0,
+      "4217 Station Rd, Tampa, FL 33602": 1.0,
+      "6716 Orchard Dr, Denver, CO 80202": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "4217 Station Rd, Tampa, FL 33602": 0.99,
+     "6716 Orchard Dr, Denver, CO 80202": 0.01,
+     "5262 Cedar Way, Denver, CO 80202": 0.01
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$88,998.86",
+   "doc": "With express shipping your total would have been $37,100.48. You selected standard shipping, so your order total is $88,998.86. Your previous order last month came to $79,303.79.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "$37,100.48": 0.0,
+      "$79,303.79": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "$37,100.48": 0.02,
+     "$79,303.79": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$88,998.86",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "$79,303.79": 0.0,
+      "$88,998.86": 1.0,
+      "$37,100.48": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "$88,998.86": 0.89,
+     "$79,303.79": 0.02,
+     "$37,100.48": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$57,778.24",
+   "doc": "With express shipping your total would have been $87,496.91. You selected standard shipping, so your order total is $57,778.24. Your previous order last month came to $49,884.43.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "$49,884.43": 0.0,
+      "$87,496.91": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "$87,496.91": 0.02,
+     "$49,884.43": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$57,778.24",
+     "confidence": 1.0,
+     "probabilities": {
+      "$49,884.43": 0.0,
+      "$87,496.91": 0.0,
+      "$57,778.24": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "$57,778.24": 0.92,
+     "$49,884.43": 0.02,
+     "$87,496.91": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$665.85",
+   "doc": "With express shipping your total would have been $26,007.44. You selected standard shipping, so your order total is $665.85. Your previous order last month came to $46,668.88.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "$46,668.88": 0.0,
+      "$26,007.44": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "$46,668.88": 0.02,
+     "$26,007.44": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$665.85",
+     "confidence": 1.0,
+     "probabilities": {
+      "$665.85": 1.0,
+      "$26,007.44": 0.0,
+      "$46,668.88": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "$665.85": 0.93,
+     "$46,668.88": 0.02,
+     "$26,007.44": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$87,264.85",
+   "doc": "With express shipping your total would have been $38,818.24. You selected standard shipping, so your order total is $87,264.85. Your previous order last month came to $22,599.81.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "$22,599.81": 0.0,
+      "$38,818.24": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "$22,599.81": 0.02,
+     "$38,818.24": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$87,264.85",
+     "confidence": 1.0,
+     "probabilities": {
+      "$87,264.85": 1.0,
+      "$22,599.81": 0.0,
+      "$38,818.24": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "$22,599.81": 0.02,
+     "$87,264.85": 0.92,
+     "$38,818.24": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$54,719.95",
+   "doc": "With express shipping your total would have been $34,307.84. You selected standard shipping, so your order total is $54,719.95. Your previous order last month came to $98,751.90.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "$98,751.90": 0.0,
+      "$34,307.84": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.06,
+    "PC": {
+     "$34,307.84": 0.02,
+     "$98,751.90": 0.03
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$54,719.95",
+     "confidence": 1.0,
+     "probabilities": {
+      "$34,307.84": 0.0,
+      "$98,751.90": 0.0,
+      "$54,719.95": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "$54,719.95": 0.86,
+     "$98,751.90": 0.03,
+     "$34,307.84": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$45,390.84",
+   "doc": "With express shipping your total would have been $30,408.52. You selected standard shipping, so your order total is $45,390.84. Your previous order last month came to $52,515.00.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "$52,515.00": 0.0,
+      "$30,408.52": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.06,
+    "PC": {
+     "$30,408.52": 0.02,
+     "$52,515.00": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$45,390.84",
+     "confidence": 1.0,
+     "probabilities": {
+      "$45,390.84": 1.0,
+      "$52,515.00": 0.0,
+      "$30,408.52": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "$45,390.84": 0.9,
+     "$30,408.52": 0.02,
+     "$52,515.00": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$69,797.25",
+   "doc": "With express shipping your total would have been $14,823.64. You selected standard shipping, so your order total is $69,797.25. Your previous order last month came to $269.66.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "$269.66": 0.0,
+      "none_of_these": 0.99,
+      "$14,823.64": 0.01
+     }
+    },
+    "G": 0.06,
+    "PC": {
+     "$269.66": 0.02,
+     "$14,823.64": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$69,797.25",
+     "confidence": 1.0,
+     "probabilities": {
+      "$269.66": 0.0,
+      "none_of_these": 0.0,
+      "$69,797.25": 1.0,
+      "$14,823.64": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "$269.66": 0.02,
+     "$69,797.25": 0.87,
+     "$14,823.64": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$98,082.21",
+   "doc": "With express shipping your total would have been $40,802.86. You selected standard shipping, so your order total is $98,082.21. Your previous order last month came to $67,092.56.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "$40,802.86": 0.0,
+      "$67,092.56": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "$67,092.56": 0.02,
+     "$40,802.86": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$98,082.21",
+     "confidence": 1.0,
+     "probabilities": {
+      "$98,082.21": 1.0,
+      "$40,802.86": 0.0,
+      "$67,092.56": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "$67,092.56": 0.02,
+     "$98,082.21": 0.9,
+     "$40,802.86": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$98,217.94",
+   "doc": "With express shipping your total would have been $27,008.33. You selected standard shipping, so your order total is $98,217.94. Your previous order last month came to $54,735.59.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "$54,735.59": 0.0,
+      "$27,008.33": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "$54,735.59": 0.02,
+     "$27,008.33": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$98,217.94",
+     "confidence": 1.0,
+     "probabilities": {
+      "$98,217.94": 1.0,
+      "$54,735.59": 0.0,
+      "$27,008.33": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "$27,008.33": 0.02,
+     "$98,217.94": 0.9,
+     "$54,735.59": 0.02
+    }
+   }
+  },
+  {
+   "type": "T3",
+   "field": "final order total the customer is paying",
+   "correct": "$82,148.79",
+   "doc": "With express shipping your total would have been $73,549.67. You selected standard shipping, so your order total is $82,148.79. Your previous order last month came to $82,897.97.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "$73,549.67": 0.0,
+      "$82,897.97": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.12,
+    "PC": {
+     "$82,897.97": 0.03,
+     "$73,549.67": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "$82,148.79",
+     "confidence": 1.0,
+     "probabilities": {
+      "$73,549.67": 0.0,
+      "$82,897.97": 0.0,
+      "$82,148.79": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.97,
+    "PC": {
+     "$82,897.97": 0.03,
+     "$73,549.67": 0.02,
+     "$82,148.79": 0.9
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Hooli Inc",
+   "doc": "This purchase agreement is between Soylent Foods (the Buyer) and Hooli Inc (the Seller). Umbrella Supply will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 1.0,
+      "Umbrella Supply": 0.0,
+      "Soylent Foods": 0.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "Soylent Foods": 0.01,
+     "Umbrella Supply": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Hooli Inc",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "Hooli Inc": 1.0,
+      "Umbrella Supply": 0.0,
+      "Soylent Foods": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Hooli Inc": 0.99,
+     "Umbrella Supply": 0.01,
+     "Soylent Foods": 0.01
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Acme Corp",
+   "doc": "This purchase agreement is between Wonka Retail (the Buyer) and Acme Corp (the Seller). Globex Ltd will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Globex Ltd": 0.0,
+      "Wonka Retail": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "Globex Ltd": 0.01,
+     "Wonka Retail": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Acme Corp",
+     "confidence": 1.0,
+     "probabilities": {
+      "Globex Ltd": 0.0,
+      "Acme Corp": 1.0,
+      "Wonka Retail": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Wonka Retail": 0.01,
+     "Globex Ltd": 0.01,
+     "Acme Corp": 0.99
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Globex Ltd",
+   "doc": "This purchase agreement is between Hooli Inc (the Buyer) and Globex Ltd (the Seller). Soylent Foods will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Hooli Inc": 0.0,
+      "none_of_these": 1.0,
+      "Soylent Foods": 0.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "Hooli Inc": 0.01,
+     "Soylent Foods": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Globex Ltd",
+     "confidence": 1.0,
+     "probabilities": {
+      "Globex Ltd": 1.0,
+      "Hooli Inc": 0.0,
+      "none_of_these": 0.0,
+      "Soylent Foods": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Hooli Inc": 0.01,
+     "Globex Ltd": 0.99,
+     "Soylent Foods": 0.01
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Stark Parts",
+   "doc": "This purchase agreement is between Acme Corp (the Buyer) and Stark Parts (the Seller). Hooli Inc will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Acme Corp": 0.0,
+      "Hooli Inc": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "Acme Corp": 0.01,
+     "Hooli Inc": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Stark Parts",
+     "confidence": 1.0,
+     "probabilities": {
+      "Acme Corp": 0.0,
+      "Stark Parts": 1.0,
+      "Hooli Inc": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Acme Corp": 0.01,
+     "Stark Parts": 0.99,
+     "Hooli Inc": 0.01
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Tyrell Systems",
+   "doc": "This purchase agreement is between Vandelay Imports (the Buyer) and Tyrell Systems (the Seller). Cyberdyne Tools will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Cyberdyne Tools": 0.0,
+      "Vandelay Imports": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "Cyberdyne Tools": 0.01,
+     "Vandelay Imports": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Tyrell Systems",
+     "confidence": 1.0,
+     "probabilities": {
+      "Tyrell Systems": 1.0,
+      "Vandelay Imports": 0.0,
+      "Cyberdyne Tools": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "Tyrell Systems": 0.99,
+     "Vandelay Imports": 0.01,
+     "Cyberdyne Tools": 0.01
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Soylent Foods",
+   "doc": "This purchase agreement is between Wonka Retail (the Buyer) and Soylent Foods (the Seller). Hooli Inc will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Wonka Retail": 0.0,
+      "Hooli Inc": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "Hooli Inc": 0.01,
+     "Wonka Retail": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Soylent Foods",
+     "confidence": 1.0,
+     "probabilities": {
+      "Wonka Retail": 0.0,
+      "Soylent Foods": 1.0,
+      "Hooli Inc": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Hooli Inc": 0.01,
+     "Soylent Foods": 0.99,
+     "Wonka Retail": 0.01
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Globex Ltd",
+   "doc": "This purchase agreement is between Umbrella Supply (the Buyer) and Globex Ltd (the Seller). Stark Parts will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Umbrella Supply": 0.0,
+      "Stark Parts": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "Umbrella Supply": 0.01,
+     "Stark Parts": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Globex Ltd",
+     "confidence": 1.0,
+     "probabilities": {
+      "Umbrella Supply": 0.0,
+      "Stark Parts": 0.0,
+      "Globex Ltd": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "Globex Ltd": 0.99,
+     "Umbrella Supply": 0.01,
+     "Stark Parts": 0.01
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Initech LLC",
+   "doc": "This purchase agreement is between Stark Parts (the Buyer) and Initech LLC (the Seller). Hooli Inc will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Hooli Inc": 0.0,
+      "Stark Parts": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "Stark Parts": 0.01,
+     "Hooli Inc": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Initech LLC",
+     "confidence": 1.0,
+     "probabilities": {
+      "Hooli Inc": 0.0,
+      "Stark Parts": 0.0,
+      "Initech LLC": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "Initech LLC": 0.99,
+     "Stark Parts": 0.01,
+     "Hooli Inc": 0.01
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Vandelay Imports",
+   "doc": "This purchase agreement is between Wayne Logistics (the Buyer) and Vandelay Imports (the Seller). Initech LLC will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Wayne Logistics": 0.0,
+      "Initech LLC": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "Initech LLC": 0.01,
+     "Wayne Logistics": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Vandelay Imports",
+     "confidence": 1.0,
+     "probabilities": {
+      "Vandelay Imports": 1.0,
+      "Wayne Logistics": 0.0,
+      "Initech LLC": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Wayne Logistics": 0.01,
+     "Vandelay Imports": 0.99,
+     "Initech LLC": 0.01
+    }
+   }
+  },
+  {
+   "type": "T5",
+   "field": "seller",
+   "correct": "Wayne Logistics",
+   "doc": "This purchase agreement is between Initech LLC (the Buyer) and Wayne Logistics (the Seller). Wonka Retail will act as the escrow agent for the transaction.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Initech LLC": 0.0,
+      "Wonka Retail": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "Wonka Retail": 0.01,
+     "Initech LLC": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Wayne Logistics",
+     "confidence": 1.0,
+     "probabilities": {
+      "Initech LLC": 0.0,
+      "Wonka Retail": 0.0,
+      "Wayne Logistics": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Initech LLC": 0.01,
+     "Wonka Retail": 0.01,
+     "Wayne Logistics": 0.99
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "December 13, 2026",
+   "doc": "This invoice (INV-832) is dated December 13, 2026. It replaces invoice INV-283 dated December 13, 2025. Payment due July 18, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "July 18, 2026": 0.0,
+      "December 13, 2025": 0.01,
+      "none_of_these": 0.99
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "July 18, 2026": 0.01,
+     "December 13, 2025": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "December 13, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "December 13, 2026": 1.0,
+      "December 13, 2025": 0.0,
+      "none_of_these": 0.0,
+      "July 18, 2026": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "December 13, 2026": 0.98,
+     "December 13, 2025": 0.02,
+     "July 18, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "June 9, 2026",
+   "doc": "This invoice (INV-574) is dated June 9, 2026. It replaces invoice INV-686 dated June 9, 2025. Payment due April 9, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.98,
+     "probabilities": {
+      "none_of_these": 0.98,
+      "June 9, 2025": 0.01,
+      "April 9, 2026": 0.01
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "April 9, 2026": 0.01,
+     "June 9, 2025": 0.03
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "June 9, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "June 9, 2026": 1.0,
+      "June 9, 2025": 0.0,
+      "April 9, 2026": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "June 9, 2025": 0.02,
+     "June 9, 2026": 0.98,
+     "April 9, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "December 13, 2026",
+   "doc": "This invoice (INV-590) is dated December 13, 2026. It replaces invoice INV-686 dated December 13, 2025. Payment due March 27, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.98,
+     "probabilities": {
+      "March 27, 2026": 0.0,
+      "none_of_these": 0.99,
+      "December 13, 2025": 0.01
+     }
+    },
+    "G": 0.09,
+    "PC": {
+     "December 13, 2025": 0.03,
+     "March 27, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "December 13, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "March 27, 2026": 0.0,
+      "none_of_these": 0.0,
+      "December 13, 2026": 1.0,
+      "December 13, 2025": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "December 13, 2025": 0.02,
+     "December 13, 2026": 0.97,
+     "March 27, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "November 16, 2026",
+   "doc": "This invoice (INV-176) is dated November 16, 2026. It replaces invoice INV-644 dated November 16, 2025. Payment due November 6, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.96,
+     "probabilities": {
+      "November 16, 2025": 0.01,
+      "November 6, 2026": 0.01,
+      "none_of_these": 0.98
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "November 6, 2026": 0.01,
+     "November 16, 2025": 0.03
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "November 16, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "November 16, 2025": 0.0,
+      "November 6, 2026": 0.0,
+      "none_of_these": 0.0,
+      "November 16, 2026": 1.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "November 6, 2026": 0.01,
+     "November 16, 2025": 0.02,
+     "November 16, 2026": 0.99
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "April 15, 2026",
+   "doc": "This invoice (INV-217) is dated April 15, 2026. It replaces invoice INV-437 dated April 15, 2025. Payment due September 1, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "April 15, 2025": 0.01,
+      "September 1, 2026": 0.0,
+      "none_of_these": 0.99
+     }
+    },
+    "G": 0.08,
+    "PC": {
+     "April 15, 2025": 0.02,
+     "September 1, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "April 15, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "April 15, 2026": 1.0,
+      "April 15, 2025": 0.0,
+      "September 1, 2026": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "April 15, 2026": 0.99,
+     "April 15, 2025": 0.02,
+     "September 1, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "August 3, 2026",
+   "doc": "This invoice (INV-851) is dated August 3, 2026. It replaces invoice INV-104 dated August 3, 2025. Payment due June 21, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.98,
+     "probabilities": {
+      "June 21, 2026": 0.0,
+      "August 3, 2025": 0.01,
+      "none_of_these": 0.99
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "June 21, 2026": 0.01,
+     "August 3, 2025": 0.02
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "August 3, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "August 3, 2025": 0.0,
+      "June 21, 2026": 0.0,
+      "August 3, 2026": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "August 3, 2025": 0.02,
+     "June 21, 2026": 0.01,
+     "August 3, 2026": 0.98
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "October 22, 2026",
+   "doc": "This invoice (INV-748) is dated October 22, 2026. It replaces invoice INV-112 dated October 22, 2025. Payment due September 9, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.98,
+     "probabilities": {
+      "September 9, 2026": 0.0,
+      "October 22, 2025": 0.01,
+      "none_of_these": 0.99
+     }
+    },
+    "G": 0.07,
+    "PC": {
+     "October 22, 2025": 0.03,
+     "September 9, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "October 22, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "September 9, 2026": 0.0,
+      "October 22, 2025": 0.0,
+      "October 22, 2026": 1.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "October 22, 2025": 0.02,
+     "September 9, 2026": 0.01,
+     "October 22, 2026": 0.98
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "October 11, 2026",
+   "doc": "This invoice (INV-269) is dated October 11, 2026. It replaces invoice INV-239 dated October 11, 2025. Payment due July 9, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.98,
+     "probabilities": {
+      "October 11, 2025": 0.01,
+      "July 9, 2026": 0.0,
+      "none_of_these": 0.99
+     }
+    },
+    "G": 0.08,
+    "PC": {
+     "October 11, 2025": 0.03,
+     "July 9, 2026": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "October 11, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "July 9, 2026": 0.0,
+      "October 11, 2025": 0.0,
+      "October 11, 2026": 1.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "July 9, 2026": 0.01,
+     "October 11, 2025": 0.03,
+     "October 11, 2026": 0.98
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "October 2, 2026",
+   "doc": "This invoice (INV-148) is dated October 2, 2026. It replaces invoice INV-450 dated October 2, 2025. Payment due July 2, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.98,
+     "probabilities": {
+      "none_of_these": 0.98,
+      "October 2, 2025": 0.01,
+      "July 2, 2026": 0.01
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "July 2, 2026": 0.01,
+     "October 2, 2025": 0.03
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "October 2, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "October 2, 2025": 0.0,
+      "October 2, 2026": 1.0,
+      "July 2, 2026": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "July 2, 2026": 0.01,
+     "October 2, 2026": 0.98,
+     "October 2, 2025": 0.03
+    }
+   }
+  },
+  {
+   "type": "T6",
+   "field": "invoice date of this invoice",
+   "correct": "September 8, 2026",
+   "doc": "This invoice (INV-399) is dated September 8, 2026. It replaces invoice INV-262 dated September 8, 2025. Payment due September 25, 2026.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.97,
+     "probabilities": {
+      "September 25, 2026": 0.0,
+      "none_of_these": 0.99,
+      "September 8, 2025": 0.01
+     }
+    },
+    "G": 0.06,
+    "PC": {
+     "September 25, 2026": 0.01,
+     "September 8, 2025": 0.03
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "September 8, 2026",
+     "confidence": 1.0,
+     "probabilities": {
+      "September 25, 2026": 0.0,
+      "September 8, 2026": 1.0,
+      "none_of_these": 0.0,
+      "September 8, 2025": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "September 8, 2026": 0.99,
+     "September 8, 2025": 0.02,
+     "September 25, 2026": 0.01
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Tomasz Whitman",
+   "doc": "Sales rep Tomasz Whitfield closed the deal with customer Tomasz Whitman on Friday. Regional manager Hassan Novak approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Hassan Novak": 0.0,
+      "Tomasz Whitfield": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.06,
+    "PC": {
+     "Tomasz Whitfield": 0.01,
+     "Hassan Novak": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Tomasz Whitman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Hassan Novak": 0.0,
+      "Tomasz Whitfield": 0.0,
+      "none_of_these": 0.0,
+      "Tomasz Whitman": 1.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Hassan Novak": 0.01,
+     "Tomasz Whitfield": 0.01,
+     "Tomasz Whitman": 0.98
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Marcus Whitman",
+   "doc": "Sales rep Marcus Whitfield closed the deal with customer Marcus Whitman on Friday. Regional manager Nikhil Castillo approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Nikhil Castillo": 0.0,
+      "Marcus Whitfield": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "Nikhil Castillo": 0.01,
+     "Marcus Whitfield": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Marcus Whitman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Marcus Whitman": 1.0,
+      "Nikhil Castillo": 0.0,
+      "Marcus Whitfield": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "Marcus Whitman": 0.99,
+     "Nikhil Castillo": 0.01,
+     "Marcus Whitfield": 0.01
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Priya Brookman",
+   "doc": "Sales rep Priya Brookfield closed the deal with customer Priya Brookman on Friday. Regional manager Declan Lindqvist approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Priya Brookfield": 0.0,
+      "none_of_these": 1.0,
+      "Declan Lindqvist": 0.0
+     }
+    },
+    "G": 0.06,
+    "PC": {
+     "Declan Lindqvist": 0.01,
+     "Priya Brookfield": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Priya Brookman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Priya Brookfield": 0.0,
+      "none_of_these": 0.0,
+      "Priya Brookman": 1.0,
+      "Declan Lindqvist": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Declan Lindqvist": 0.01,
+     "Priya Brookman": 0.98,
+     "Priya Brookfield": 0.01
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Aiko Hartman",
+   "doc": "Sales rep Aiko Hartfield closed the deal with customer Aiko Hartman on Friday. Regional manager Bruno Castillo approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Aiko Hartfield": 0.0,
+      "Bruno Castillo": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.09,
+    "PC": {
+     "Bruno Castillo": 0.01,
+     "Aiko Hartfield": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Aiko Hartman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Aiko Hartman": 1.0,
+      "Aiko Hartfield": 0.0,
+      "Bruno Castillo": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Aiko Hartfield": 0.02,
+     "Aiko Hartman": 0.98,
+     "Bruno Castillo": 0.01
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Rafael Brookman",
+   "doc": "Sales rep Rafael Brookfield closed the deal with customer Rafael Brookman on Friday. Regional manager Bruno Lindqvist approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Rafael Brookfield": 0.0,
+      "Bruno Lindqvist": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.25,
+    "PC": {
+     "Bruno Lindqvist": 0.01,
+     "Rafael Brookfield": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Rafael Brookman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Rafael Brookman": 1.0,
+      "Rafael Brookfield": 0.0,
+      "Bruno Lindqvist": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "Rafael Brookman": 0.98,
+     "Bruno Lindqvist": 0.01,
+     "Rafael Brookfield": 0.01
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Rafael Whitman",
+   "doc": "Sales rep Rafael Whitfield closed the deal with customer Rafael Whitman on Friday. Regional manager Aiko Tanaka approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "Aiko Tanaka": 0.0,
+      "none_of_these": 1.0,
+      "Rafael Whitfield": 0.0
+     }
+    },
+    "G": 0.09,
+    "PC": {
+     "Aiko Tanaka": 0.01,
+     "Rafael Whitfield": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Rafael Whitman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Rafael Whitman": 1.0,
+      "Aiko Tanaka": 0.0,
+      "none_of_these": 0.0,
+      "Rafael Whitfield": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Rafael Whitfield": 0.01,
+     "Aiko Tanaka": 0.01,
+     "Rafael Whitman": 0.98
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Marcus Whitman",
+   "doc": "Sales rep Marcus Whitfield closed the deal with customer Marcus Whitman on Friday. Regional manager Marcus Ferreira approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Marcus Whitfield": 0.0,
+      "Marcus Ferreira": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "Marcus Ferreira": 0.01,
+     "Marcus Whitfield": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Marcus Whitman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Marcus Whitman": 1.0,
+      "Marcus Whitfield": 0.0,
+      "Marcus Ferreira": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "Marcus Whitman": 0.99,
+     "Marcus Whitfield": 0.01,
+     "Marcus Ferreira": 0.01
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Marcus Brookman",
+   "doc": "Sales rep Marcus Brookfield closed the deal with customer Marcus Brookman on Friday. Regional manager Kwame Castillo approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Marcus Brookfield": 0.0,
+      "none_of_these": 1.0,
+      "Kwame Castillo": 0.0
+     }
+    },
+    "G": 0.06,
+    "PC": {
+     "Marcus Brookfield": 0.01,
+     "Kwame Castillo": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Marcus Brookman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Marcus Brookfield": 0.0,
+      "Marcus Brookman": 1.0,
+      "none_of_these": 0.0,
+      "Kwame Castillo": 0.0
+     }
+    },
+    "G": 0.99,
+    "PC": {
+     "Marcus Brookman": 0.98,
+     "Marcus Brookfield": 0.01,
+     "Kwame Castillo": 0.01
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Priya Whitman",
+   "doc": "Sales rep Priya Whitfield closed the deal with customer Priya Whitman on Friday. Regional manager Sofia Kowalski approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Priya Whitfield": 0.0,
+      "Sofia Kowalski": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.06,
+    "PC": {
+     "Sofia Kowalski": 0.01,
+     "Priya Whitfield": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Priya Whitman",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 0.0,
+      "Priya Whitfield": 0.0,
+      "Sofia Kowalski": 0.0,
+      "Priya Whitman": 1.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Priya Whitfield": 0.01,
+     "Priya Whitman": 0.98,
+     "Sofia Kowalski": 0.01
+    }
+   }
+  },
+  {
+   "type": "T7",
+   "field": "customer's name",
+   "correct": "Marcus Brookman",
+   "doc": "Sales rep Marcus Brookfield closed the deal with customer Marcus Brookman on Friday. Regional manager Rafael Moreau approved the pricing.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "Rafael Moreau": 0.0,
+      "Marcus Brookfield": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.05,
+    "PC": {
+     "Marcus Brookfield": 0.01,
+     "Rafael Moreau": 0.01
+    }
+   },
+   "P": {
+    "CH": {
+     "type": "choice",
+     "choice": "Marcus Brookman",
+     "confidence": 1.0,
+     "probabilities": {
+      "Marcus Brookman": 1.0,
+      "Rafael Moreau": 0.0,
+      "Marcus Brookfield": 0.0,
+      "none_of_these": 0.0
+     }
+    },
+    "G": 0.98,
+    "PC": {
+     "Rafael Moreau": 0.01,
+     "Marcus Brookfield": 0.01,
+     "Marcus Brookman": 0.98
+    }
+   }
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 2411 Cedar Way, Portland, OR 97201. Shipped from warehouse: 3796 Station Rd, Austin, TX 78701. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "2411 Cedar Way, Portland, OR 97201": 0.0,
+      "3796 Station Rd, Austin, TX 78701": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "2411 Cedar Way, Portland, OR 97201": 0.03,
+     "3796 Station Rd, Austin, TX 78701": 0.01
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 3866 Orchard Dr, Boise, ID 83702. Shipped from warehouse: 9880 Harbor Rd, Denver, CO 80202. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "none_of_these": 1.0,
+      "9880 Harbor Rd, Denver, CO 80202": 0.0,
+      "3866 Orchard Dr, Boise, ID 83702": 0.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "9880 Harbor Rd, Denver, CO 80202": 0.01,
+     "3866 Orchard Dr, Boise, ID 83702": 0.02
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 2737 Cedar Way, Madison, WI 53703. Shipped from warehouse: 4155 Mill Lane, Portland, OR 97201. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "4155 Mill Lane, Portland, OR 97201": 0.0,
+      "2737 Cedar Way, Madison, WI 53703": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "4155 Mill Lane, Portland, OR 97201": 0.01,
+     "2737 Cedar Way, Madison, WI 53703": 0.03
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 9583 Station Rd, Portland, OR 97201. Shipped from warehouse: 4935 King St, Denver, CO 80202. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "4935 King St, Denver, CO 80202": 0.0,
+      "none_of_these": 1.0,
+      "9583 Station Rd, Portland, OR 97201": 0.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "4935 King St, Denver, CO 80202": 0.01,
+     "9583 Station Rd, Portland, OR 97201": 0.03
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 194 Ridge Blvd, Tampa, FL 33602. Shipped from warehouse: 4763 Harbor Rd, Boise, ID 83702. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "4763 Harbor Rd, Boise, ID 83702": 0.0,
+      "none_of_these": 1.0,
+      "194 Ridge Blvd, Tampa, FL 33602": 0.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "194 Ridge Blvd, Tampa, FL 33602": 0.03,
+     "4763 Harbor Rd, Boise, ID 83702": 0.02
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 7014 Harbor Rd, Portland, OR 97201. Shipped from warehouse: 5805 King St, Madison, WI 53703. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "7014 Harbor Rd, Portland, OR 97201": 0.0,
+      "5805 King St, Madison, WI 53703": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "7014 Harbor Rd, Portland, OR 97201": 0.03,
+     "5805 King St, Madison, WI 53703": 0.02
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 5491 Mill Lane, Portland, OR 97201. Shipped from warehouse: 6181 Ridge Blvd, Columbus, OH 43215. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "5491 Mill Lane, Portland, OR 97201": 0.0,
+      "6181 Ridge Blvd, Columbus, OH 43215": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "5491 Mill Lane, Portland, OR 97201": 0.02,
+     "6181 Ridge Blvd, Columbus, OH 43215": 0.02
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 8988 King St, Portland, OR 97201. Shipped from warehouse: 4741 Station Rd, Reno, NV 89501. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "4741 Station Rd, Reno, NV 89501": 0.0,
+      "8988 King St, Portland, OR 97201": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "4741 Station Rd, Reno, NV 89501": 0.01,
+     "8988 King St, Portland, OR 97201": 0.03
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 8403 Elm Court, Denver, CO 80202. Shipped from warehouse: 8597 Station Rd, Portland, OR 97201. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 0.99,
+     "probabilities": {
+      "8403 Elm Court, Denver, CO 80202": 0.01,
+      "8597 Station Rd, Portland, OR 97201": 0.0,
+      "none_of_these": 0.99
+     }
+    },
+    "G": 0.03,
+    "PC": {
+     "8403 Elm Court, Denver, CO 80202": 0.03,
+     "8597 Station Rd, Portland, OR 97201": 0.02
+    }
+   },
+   "P": null
+  },
+  {
+   "type": "T4",
+   "field": "billing address",
+   "correct": null,
+   "doc": "PACKING SLIP. Ship to: 3486 Elm Court, Tampa, FL 33602. Shipped from warehouse: 2694 Orchard Dr, Austin, TX 78701. Contents: 3 cartons. No billing information is included on this slip.",
+   "A": {
+    "CH": {
+     "type": "choice",
+     "choice": "none_of_these",
+     "confidence": 1.0,
+     "probabilities": {
+      "3486 Elm Court, Tampa, FL 33602": 0.0,
+      "2694 Orchard Dr, Austin, TX 78701": 0.0,
+      "none_of_these": 1.0
+     }
+    },
+    "G": 0.04,
+    "PC": {
+     "3486 Elm Court, Tampa, FL 33602": 0.03,
+     "2694 Orchard Dr, Austin, TX 78701": 0.02
+    }
+   },
+   "P": null
+  }
+ ]
+}

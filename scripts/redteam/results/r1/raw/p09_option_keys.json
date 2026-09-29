@@ -1,0 +1,14 @@
+{
+ "TXT": {
+  "P_correct": "36/36 = 1.000 [95% CI 0.904-1.000]",
+  "A_abstain": "32/36 = 0.889 [95% CI 0.747-0.956]"
+ },
+ "ID": {
+  "P_correct": "36/36 = 1.000 [95% CI 0.904-1.000]",
+  "A_abstain": "31/36 = 0.861 [95% CI 0.713-0.939]"
+ },
+ "TXT_vs_ID_absent_selection_agreement": "35/36",
+ "long_option_key_status": 200,
+ "long_question_key_status": 200,
+ "long_option_key_err": null
+}

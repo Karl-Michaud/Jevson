@@ -1,0 +1,142 @@
+[
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c35",
+  "choice": "c35",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c6",
+  "choice": "c6",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c31",
+  "choice": "c31",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c44",
+  "choice": "c44",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c41",
+  "choice": "c41",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c0",
+  "choice": "c0",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c21",
+  "choice": "c21",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c0",
+  "choice": "c0",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c47",
+  "choice": "c47",
+  "correct": true
+ },
+ {
+  "K": 51,
+  "dev": 0,
+  "argmax": "c43",
+  "choice": "c43",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c109",
+  "choice": "c109",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c158",
+  "choice": "c158",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c27",
+  "choice": "c27",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c32",
+  "choice": "c32",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c127",
+  "choice": "c127",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c237",
+  "choice": "c237",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c30",
+  "choice": "c30",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c231",
+  "choice": "c231",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c113",
+  "choice": "c113",
+  "correct": true
+ },
+ {
+  "K": 255,
+  "dev": 0,
+  "argmax": "c136",
+  "choice": "c136",
+  "correct": true
+ }
+]

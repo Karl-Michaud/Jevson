@@ -1,0 +1,325 @@
+pydantic 2.13.5 jsonschema 4.26.0
+==============================================================================================================
+dict[str,int] (additionalProperties)
+  metaschema-valid: True
+  validation schema: {"properties": {"tags": {"additionalProperties": {"type": "integer"}, "title": "Tags", "type": "object"}}, "required": ["tags"], "title": "DictM", "type": "object"}
+    additionalProperties   GAP                                           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+dict[str,Model]
+  metaschema-valid: True
+  validation schema: {"$defs": {"Leaf": {"properties": {"x": {"title": "X", "type": "integer"}}, "required": ["x"], "title": "Leaf", "type": "object"}}, "properties": {"by_name": {"additionalProperties": {"$ref": "#/$defs/Leaf"}, "title": "By Name", "type": "object"}}, "required": ["by_name"], "title": "DictModel", "type": "object"}
+    $defs                  NORMALISED                                    [both]
+    $ref                   NORMALISED                                    [both]
+    additionalProperties   GAP                                           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+discriminated union
+  metaschema-valid: True
+  validation schema: {"$defs": {"Cat": {"properties": {"kind": {"const": "cat", "title": "Kind", "type": "string"}, "meows": {"title": "Meows", "type": "boolean"}}, "required": ["kind", "meows"], "title": "Cat", "type": "object"}, "Dog": {"properties": {"barks": {"title": "Barks", "type": "boolean"}, "kind": {"const": "dog", "title": "Kind", "type": "string"}}, "required": ["kind", "barks"], "title": "Dog", "type": "object"}}, "properties": {"pet": {"discriminator": {"mapping": {"cat": "#/$defs/Cat", "dog": "#/$defs/Dog"}, "propertyName": "kind"}, "oneOf": [{"$ref": "#/$defs/Cat"}, {"$ref": "#/$defs/Dog"}], "title": "Pet"}}, "required": ["pet"], "title": "Disc", "type": "object"}
+    $defs                  NORMALISED                                    [both]
+    $ref                   NORMALISED                                    [both]
+    const                  NORMALISED                                    [both]
+    discriminator          GAP                                           [both]
+    oneOf                  REFUSED until Phase 6                         [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+datetime/date/time/timedelta/UUID/EmailStr/HttpUrl
+  metaschema-valid: True
+  validation schema: {"properties": {"at": {"format": "time", "title": "At", "type": "string"}, "day": {"format": "date", "title": "Day", "type": "string"}, "email": {"format": "email", "title": "Email", "type": "string"}, "span": {"format": "duration", "title": "Span", "type": "string"}, "uid": {"format": "uuid", "title": "Uid", "type": "string"}, "url": {"format": "uri", "maxLength": 2083, "minLength": 1, "title": "Url", "type": "string"}, "when": {"format": "date-time", "title": "When", "type": "string"}}, "required": ["when", "day", "at", "span", "uid", "email", "url"], "title": "Formats", "type": "object"}
+    format                 VALIDATED-unchecked (L10)                     [both]
+    maxLength              VALIDATED (PLAN §4.3)                         [both]
+    minLength              GAP                                           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+constr(pattern,min,max)
+  metaschema-valid: True
+  validation schema: {"properties": {"code": {"maxLength": 3, "minLength": 3, "pattern": "^[A-Z]{3}$", "title": "Code", "type": "string"}}, "required": ["code"], "title": "ConStr", "type": "object"}
+    maxLength              VALIDATED (PLAN §4.3)                         [both]
+    minLength              GAP                                           [both]
+    pattern                VALIDATED (PLAN §4.3)                         [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+conint/confloat ge/le, gt/lt, multiple_of
+  metaschema-valid: True
+  validation schema: {"properties": {"a": {"maximum": 5, "minimum": 1, "title": "A", "type": "integer"}, "b": {"exclusiveMaximum": 6, "exclusiveMinimum": 0, "title": "B", "type": "integer"}, "c": {"maximum": 1, "minimum": 0, "title": "C", "type": "number"}, "d": {"exclusiveMaximum": 1, "exclusiveMinimum": 0, "title": "D", "type": "number"}, "e": {"maximum": 100, "minimum": 0, "multipleOf": 5, "title": "E", "type": "integer"}}, "required": ["a", "b", "c", "d", "e"], "title": "ConNum", "type": "object"}
+    exclusiveMaximum       GAP                                           [both]
+    exclusiveMinimum       GAP                                           [both]
+    maximum                MAPPED (bounded numeric / score range)        [both]
+    minimum                MAPPED (bounded numeric / score range)        [both]
+    multipleOf             GAP                                           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+conlist(min,max)
+  metaschema-valid: True
+  validation schema: {"properties": {"xs": {"items": {"type": "string"}, "maxItems": 3, "minItems": 1, "title": "Xs", "type": "array"}}, "required": ["xs"], "title": "ConList", "type": "object"}
+    items                  MAPPED (Phase 7)                              [both]
+    maxItems               VALIDATED + cardinality/overflow (R8)         [both]
+    minItems               VALIDATED (PLAN §4.3)                         [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+set / frozenset
+  metaschema-valid: True
+  validation schema: {"properties": {"f": {"items": {"type": "integer"}, "title": "F", "type": "array", "uniqueItems": true}, "s": {"items": {"type": "string"}, "title": "S", "type": "array", "uniqueItems": true}}, "required": ["s", "f"], "title": "Sets", "type": "object"}
+    items                  MAPPED (Phase 7)                              [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+    uniqueItems            VALIDATED (PLAN §4.3)                         [both]
+==============================================================================================================
+tuple[int,str] / tuple[int,...]
+  metaschema-valid: True
+  validation schema: {"properties": {"t": {"maxItems": 2, "minItems": 2, "prefixItems": [{"type": "integer"}, {"type": "string"}], "title": "T", "type": "array"}, "v": {"items": {"type": "integer"}, "title": "V", "type": "array"}}, "required": ["t", "v"], "title": "Tup", "type": "object"}
+    items                  MAPPED (Phase 7)                              [both]
+    maxItems               VALIDATED + cardinality/overflow (R8)         [both]
+    minItems               VALIDATED (PLAN §4.3)                         [both]
+    prefixItems            GAP                                           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+Annotated[..., Field(ge,le,max_length)]
+  metaschema-valid: True
+  validation schema: {"properties": {"name": {"maxLength": 40, "title": "Name", "type": "string"}, "rating": {"description": "1-5 stars", "maximum": 5, "minimum": 1, "title": "Rating", "type": "integer"}}, "required": ["rating", "name"], "title": "Ann", "type": "object"}
+    description            ANNOTATION                                    [both]
+    maxLength              VALIDATED (PLAN §4.3)                         [both]
+    maximum                MAPPED (bounded numeric / score range)        [both]
+    minimum                MAPPED (bounded numeric / score range)        [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+default_factory
+  metaschema-valid: True
+  validation schema: {"properties": {"items": {"items": {"type": "string"}, "title": "Items", "type": "array"}, "n": {"default": 3, "title": "N", "type": "integer"}}, "title": "DefFactory", "type": "object"}
+    default                MAPPED (defaulted field is class A)           [both]
+    items                  MAPPED (Phase 7)                              [both]
+    properties             MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+computed_field
+  metaschema-valid: True
+  validation schema: {"properties": {"h": {"title": "H", "type": "integer"}, "w": {"title": "W", "type": "integer"}}, "required": ["w", "h"], "title": "Computed", "type": "object"}
+  SERIALIZATION DIFFERS: {"properties": {"area": {"readOnly": true, "title": "Area", "type": "integer"}, "h": {"title": "H", "type": "integer"}, "w": {"title": "W", "type": "integer"}}, "required": ["w", "h", "area"], "title": "Computed", "type": "object"}
+    properties             MAPPED                                        [both]
+    readOnly               GAP                                           [serialization-only]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+extra='forbid'
+  metaschema-valid: True
+  validation schema: {"additionalProperties": false, "properties": {"a": {"title": "A", "type": "integer"}}, "required": ["a"], "title": "Forbid", "type": "object"}
+    additionalProperties   GAP                                           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+recursive model
+  metaschema-valid: True
+  validation schema: {"$defs": {"Tree": {"properties": {"children": {"default": [], "items": {"$ref": "#/$defs/Tree"}, "title": "Children", "type": "array"}, "value": {"title": "Value", "type": "integer"}}, "required": ["value"], "title": "Tree", "type": "object"}}, "$ref": "#/$defs/Tree"}
+    $defs                  NORMALISED                                    [both]
+    $ref                   NORMALISED                                    [both]
+    default                MAPPED (defaulted field is class A)           [both]
+    items                  MAPPED (Phase 7)                              [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+generic model Box[int], Box[str]
+  metaschema-valid: True
+  validation schema: {"$defs": {"Box_int_": {"properties": {"content": {"title": "Content", "type": "integer"}}, "required": ["content"], "title": "Box[int]", "type": "object"}, "Box_str_": {"properties": {"content": {"title": "Content", "type": "string"}}, "required": ["content"], "title": "Box[str]", "type": "object"}}, "properties": {"a": {"$ref": "#/$defs/Box_int_"}, "b": {"$ref": "#/$defs/Box_str_"}}, "required": ["a", "b"], "title": "UsesGeneric", "type": "object"}
+    $defs                  NORMALISED                                    [both]
+    $ref                   NORMALISED                                    [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+Optional[nested]
+  metaschema-valid: True
+  validation schema: {"$defs": {"Leaf": {"properties": {"x": {"title": "X", "type": "integer"}}, "required": ["x"], "title": "Leaf", "type": "object"}}, "properties": {"leaf": {"anyOf": [{"$ref": "#/$defs/Leaf"}, {"type": "null"}], "default": null}}, "title": "OptNested", "type": "object"}
+    $defs                  NORMALISED                                    [both]
+    $ref                   NORMALISED                                    [both]
+    anyOf                  NORMALISED(nullable) / REFUSED(>=2 non-null, Phase 6) [both]
+    default                MAPPED (defaulted field is class A)           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+Union[A,B] of models
+  metaschema-valid: True
+  validation schema: {"$defs": {"A_": {"properties": {"a": {"title": "A", "type": "integer"}}, "required": ["a"], "title": "A_", "type": "object"}, "B_": {"properties": {"b": {"title": "B", "type": "string"}}, "required": ["b"], "title": "B_", "type": "object"}}, "properties": {"ab": {"anyOf": [{"$ref": "#/$defs/A_"}, {"$ref": "#/$defs/B_"}], "title": "Ab"}}, "required": ["ab"], "title": "UnionModels", "type": "object"}
+    $defs                  NORMALISED                                    [both]
+    $ref                   NORMALISED                                    [both]
+    anyOf                  NORMALISED(nullable) / REFUSED(>=2 non-null, Phase 6) [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+Enum int values / IntEnum / 1-member Enum
+  metaschema-valid: True
+  validation schema: {"$defs": {"Pri": {"enum": [1, 2, 3], "title": "Pri", "type": "integer"}, "PriI": {"enum": [1, 2], "title": "PriI", "type": "integer"}, "Solo": {"enum": ["only"], "title": "Solo", "type": "string"}}, "properties": {"p": {"$ref": "#/$defs/Pri"}, "q": {"$ref": "#/$defs/PriI"}, "s": {"$ref": "#/$defs/Solo"}}, "required": ["p", "q", "s"], "title": "Enums", "type": "object"}
+    $defs                  NORMALISED                                    [both]
+    $ref                   NORMALISED                                    [both]
+    enum                   MAPPED                                        [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+Literal multi / mixed / Literal[True]
+  metaschema-valid: True
+  validation schema: {"properties": {"k": {"enum": ["a", "b", "c"], "title": "K", "type": "string"}, "lb": {"const": true, "title": "Lb", "type": "boolean"}, "mixed": {"enum": [1, "one"], "title": "Mixed"}}, "required": ["k", "mixed", "lb"], "title": "LitMulti", "type": "object"}
+    const                  NORMALISED                                    [both]
+    enum                   MAPPED                                        [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+bytes
+  metaschema-valid: True
+  validation schema: {"properties": {"blob": {"format": "binary", "title": "Blob", "type": "string"}}, "required": ["blob"], "title": "BytesM", "type": "object"}
+    format                 VALIDATED-unchecked (L10)                     [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+Decimal
+  metaschema-valid: True
+  validation schema: {"properties": {"amount": {"anyOf": [{"type": "number"}, {"pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$", "type": "string"}], "title": "Amount"}, "amount_c": {"anyOf": [{"type": "number"}, {"pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,8}|(?=[\\d.]{1,11}0*$)\\d{0,8}\\.\\d{0,2}0*$)", "type": "string"}], "title": "Amount C"}}, "required": ["amount", "amount_c"], "title": "DecM", "type": "object"}
+  SERIALIZATION DIFFERS: {"properties": {"amount": {"pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$", "title": "Amount", "type": "string"}, "amount_c": {"pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,8}|(?=[\\d.]{1,11}0*$)\\d{0,8}\\.\\d{0,2}0*$)", "title": "Amount C", "type": "string"}}, "required": ["amount", "amount_c"], "title": "DecM", "type": "object"}
+    anyOf                  NORMALISED(nullable) / REFUSED(>=2 non-null, Phase 6) [validation-only]
+    pattern                VALIDATED (PLAN §4.3)                         [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+Optional[bool] (required nullable)
+  metaschema-valid: True
+  validation schema: {"properties": {"flag": {"anyOf": [{"type": "boolean"}, {"type": "null"}], "title": "Flag"}}, "required": ["flag"], "title": "OptBool", "type": "object"}
+    anyOf                  NORMALISED(nullable) / REFUSED(>=2 non-null, Phase 6) [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+json_schema_extra jevson
+  metaschema-valid: True
+  validation schema: {"properties": {"summary": {"jevson": {"generate": {"criteria": ["mentions refund"]}}, "title": "Summary", "type": "string"}}, "required": ["summary"], "title": "JevsonExtra", "type": "object"}
+    criteria               GAP                                           [both]
+    generate               GAP                                           [both]
+    jevson                 GAP                                           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+Any / bare dict
+  metaschema-valid: True
+  validation schema: {"properties": {"blob": {"title": "Blob"}, "d": {"additionalProperties": true, "title": "D", "type": "object"}}, "required": ["blob", "d"], "title": "AnyM", "type": "object"}
+    additionalProperties   GAP                                           [both]
+    properties             MAPPED                                        [both]
+    required               MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+1-member Enum with default
+  metaschema-valid: True
+  validation schema: {"$defs": {"Solo": {"enum": ["only"], "title": "Solo", "type": "string"}}, "properties": {"s": {"$ref": "#/$defs/Solo", "default": "only"}}, "title": "StrEnumDefault", "type": "object"}
+    $defs                  NORMALISED                                    [both]
+    $ref                   NORMALISED                                    [both]
+    default                MAPPED (defaulted field is class A)           [both]
+    enum                   MAPPED                                        [both]
+    properties             MAPPED                                        [both]
+    title                  ANNOTATION                                    [both]
+    type                   MAPPED                                        [both]
+==============================================================================================================
+KEYWORD SUMMARY (status, shapes emitting it, doc mentions by word-boundary grep)
+  $defs                  NORMALISED                                       shapes= 8 docs=PLAN:280,PLAN:285,PLAN:296
+  $ref                   NORMALISED                                       shapes= 8 docs=DESIGN:116,DESIGN:532,DESIGN:567,DESIGN:630,PLAN:57,PLAN:280,PLAN:283,PLAN:300
+  additionalProperties   GAP                                              shapes= 4 docs=-
+      note: dict[str,X] and extra='forbid' both emit it; not in either doc: no rule for open-keyed objects (unbounded key set) nor for additionalProperties:false  | emitted by: ['Any / bare dict', 'dict[str,Model]', 'dict[str,int] (additionalProperties)', "extra='forbid'"]
+  anyOf                  NORMALISED(nullable) / REFUSED(>=2 non-null, Phase 6) shapes= 4 docs=DESIGN:532,DESIGN:566,PLAN:62,PLAN:281,PLAN:482
+  const                  NORMALISED                                       shapes= 2 docs=DESIGN:117,DESIGN:221,DESIGN:532,DESIGN:630,PLAN:57,PLAN:282,PLAN:745
+  criteria               GAP? (word appears; check context)               shapes= 1 docs=DESIGN:41,DESIGN:67,DESIGN:68,DESIGN:366,DESIGN:400,DESIGN:403,DESIGN:405,DESIGN:542
+      note:   | emitted by: ['json_schema_extra jevson']
+  default                MAPPED (defaulted field is class A)              shapes= 4 docs=DESIGN:268,DESIGN:301,DESIGN:330,DESIGN:333,DESIGN:344,DESIGN:383,DESIGN:385,DESIGN:387
+  description            ANNOTATION                                       shapes= 1 docs=DESIGN:67,DESIGN:225,DESIGN:264,PLAN:376,PLAN:433
+  discriminator          GAP? (word appears; check context)               shapes= 1 docs=DESIGN:199,PLAN:494
+      note: OpenAPI keyword, ignored by jsonschema 2020-12; Phase 6 plans a Jev 'discrimination choice' but never says a declared discriminator (const tag) makes the branch deterministic class A  | emitted by: ['discriminated union']
+  enum                   MAPPED                                           shapes= 3 docs=DESIGN:17,DESIGN:203,DESIGN:231,DESIGN:242,DESIGN:311,DESIGN:584,PLAN:156,PLAN:284
+  exclusiveMaximum       GAP                                              shapes= 1 docs=-
+      note: as above  | emitted by: ['conint/confloat ge/le, gt/lt, multiple_of']
+  exclusiveMinimum       GAP                                              shapes= 1 docs=-
+      note: gt/lt bounds; 'bounded' / 'integer range of 2-10 values' only speak of minimum/maximum  | emitted by: ['conint/confloat ge/le, gt/lt, multiple_of']
+  format                 VALIDATED-unchecked (L10)                        shapes= 2 docs=DESIGN:458,PLAN:78,PLAN:119,PLAN:593,PLAN:678
+  generate               GAP? (word appears; check context)               shapes= 1 docs=DESIGN:44,DESIGN:56,DESIGN:123,DESIGN:169,DESIGN:172,DESIGN:177,DESIGN:250,DESIGN:400
+      note:   | emitted by: ['json_schema_extra jevson']
+  items                  MAPPED (Phase 7)                                 shapes= 5 docs=DESIGN:30,DESIGN:99,DESIGN:210,PLAN:183
+  jevson                 GAP? (word appears; check context)               shapes= 1 docs=DESIGN:400,PLAN:46,PLAN:382,PLAN:582
+      note: Pydantic json_schema_extra={'jevson': ...} emits a bare 'jevson' keyword, while raw JSON Schema uses 'x-jevson-generate'; two spellings, compiler must accept both  | emitted by: ['json_schema_extra jevson']
+  maxItems               VALIDATED + cardinality/overflow (R8)            shapes= 2 docs=DESIGN:30,DESIGN:210,DESIGN:358,PLAN:85,PLAN:535,PLAN:547
+  maxLength              VALIDATED (PLAN §4.3)                            shapes= 3 docs=PLAN:720
+  maximum                MAPPED (bounded numeric / score range)           shapes= 2 docs=DESIGN:499
+  minItems               VALIDATED (PLAN §4.3)                            shapes= 2 docs=PLAN:720
+  minLength              GAP                                              shapes= 2 docs=-
+      note: HttpUrl/constr emit it; only maxLength is named in PLAN §4.3  | emitted by: ['constr(pattern,min,max)', 'datetime/date/time/timedelta/UUID/EmailStr/HttpUrl']
+  minimum                MAPPED (bounded numeric / score range)           shapes= 2 docs=DESIGN:358,DESIGN:402,PLAN:320,PLAN:385,PLAN:535
+  multipleOf             GAP                                              shapes= 1 docs=-
+      note: conint(multiple_of=5) 0..100 has 21 values: a 'range' test on min/max alone says >10 levels -> refuse; with multipleOf it is 21 levels; no rule  | emitted by: ['conint/confloat ge/le, gt/lt, multiple_of']
+  oneOf                  REFUSED until Phase 6                            shapes= 1 docs=DESIGN:532,DESIGN:566,PLAN:62,PLAN:482
+  pattern                VALIDATED (PLAN §4.3)                            shapes= 2 docs=DESIGN:36,DESIGN:44,DESIGN:262,DESIGN:358,DESIGN:442,DESIGN:526,DESIGN:542,PLAN:158
+  prefixItems            GAP                                              shapes= 1 docs=-
+      note: tuple[...] emits it; fixed-arity positional arrays have no mapping rule (and are an R13 position reference risk if placed in state)  | emitted by: ['tuple[int,str] / tuple[int,...]']
+  properties             MAPPED                                           shapes=25 docs=-
+  readOnly               GAP                                              shapes= 1 docs=-
+      note: computed_field emits it in serialization mode only; the docs never say which mode is 'its emitted JSON Schema'  | emitted by: ['computed_field']
+  required               MAPPED                                           shapes=23 docs=DESIGN:199,DESIGN:221,DESIGN:358,DESIGN:378,DESIGN:383,PLAN:157,PLAN:346,PLAN:734
+  title                  ANNOTATION                                       shapes=25 docs=-
+  type                   MAPPED                                           shapes=25 docs=DESIGN:243,DESIGN:320,DESIGN:330,DESIGN:418,DESIGN:444,DESIGN:466,DESIGN:642,PLAN:230
+  uniqueItems            VALIDATED (PLAN §4.3)                            shapes= 1 docs=PLAN:720
+==============================================================================================================
+SEMANTIC PROBES
+  1-member Enum emits: {'enum': ['only'], 'title': 'Solo', 'type': 'string'} -> 'enum < 2 values' refusal (PLAN Phase 2) fires, but Literal['x'] emits const and is normalised: inconsistent
+  Literal[True] emits: {'const': True, 'title': 'Lb', 'type': 'boolean'}
+  Literal[1,'one'] emits: {'enum': [1, 'one'], 'title': 'Mixed'}
+  Decimal emits: {'anyOf': [{'type': 'number'}, {'pattern': '^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$', 'type': 'string'}], 'title': 'Amount'} -> anyOf with 2 non-null branches = a 'union' under Phase 2 rules -> not_yet_supported / Phase 6 Jev discrimination between number and string
+  Decimal serialization: {'pattern': '^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$', 'title': 'Amount', 'type': 'string'}
+  default_factory field in schema: {'items': {'type': 'string'}, 'title': 'Items', 'type': 'array'} required: None
+  conint(ge=0,le=100,multiple_of=5): {'maximum': 100, 'minimum': 0, 'multipleOf': 5, 'title': 'E', 'type': 'integer'}
+  jsonschema ignores 'discriminator': valid instance with wrong tag? True
+  Tree schema top-level: {'$ref': '#/$defs/Tree'}
+  Box generic $defs names: ['Box_int_', 'Box_str_']

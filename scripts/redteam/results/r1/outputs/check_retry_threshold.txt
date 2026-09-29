@@ -1,0 +1,17 @@
+abstention events in a 300-decision corpus, if false abstention = 5–10% and 1/3 of cases have the answer absent:
+  false-abst 0.05, absent share 0.0, abst-sensitivity 0.8: ≈15 abstentions
+  false-abst 0.1, absent share 0.0, abst-sensitivity 0.8: ≈30 abstentions
+  false-abst 0.05, absent share 0.33, abst-sensitivity 0.8: ≈89 abstentions
+  false-abst 0.1, absent share 0.33, abst-sensitivity 0.8: ≈99 abstentions
+
+P(observed recovery < 10%)  [→ budget set to 0]
+  n_abst=  15: true 0.02: 0.965  true 0.05: 0.829  true 0.10: 0.549  true 0.15: 0.319  true 0.20: 0.167   Wilson@10%: (np.float64(0.037), np.float64(0.379))
+  n_abst=  30: true 0.02: 0.978  true 0.05: 0.812  true 0.10: 0.411  true 0.15: 0.151  true 0.20: 0.044   Wilson@10%: (np.float64(0.035), np.float64(0.256))
+  n_abst=  50: true 0.02: 0.997  true 0.05: 0.896  true 0.10: 0.431  true 0.15: 0.112  true 0.20: 0.018   Wilson@10%: (np.float64(0.043), np.float64(0.214))
+  n_abst= 100: true 0.02: 1.000  true 0.05: 0.972  true 0.10: 0.451  true 0.15: 0.055  true 0.20: 0.002   Wilson@10%: (np.float64(0.055), np.float64(0.174))
+  n_abst= 200: true 0.02: 1.000  true 0.05: 0.997  true 0.10: 0.466  true 0.15: 0.015  true 0.20: 0.000   Wilson@10%: (np.float64(0.066), np.float64(0.149))
+  n_abst= 400: true 0.02: 1.000  true 0.05: 1.000  true 0.10: 0.476  true 0.15: 0.001  true 0.20: 0.000   Wilson@10%: (np.float64(0.074), np.float64(0.133))
+min abstentions so true 0.05 -> below AND true 0.15 -> not-below, each w.p. >= 0.8: 28
+min abstentions so true 0.03 -> below AND true 0.2 -> not-below, each w.p. >= 0.8: 14
+min abstentions so true 0.05 -> below AND true 0.15 -> not-below, each w.p. >= 0.9: 60
+min abstentions so true 0.03 -> below AND true 0.2 -> not-below, each w.p. >= 0.9: 25

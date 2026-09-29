@@ -1,0 +1,14 @@
+'👍🏽'               python_cp=[5,7) utf16_start=5 differs=False
+'𝐀cme'             python_cp=[11,15) utf16_start=13 differs=True
+'東京'               python_cp=[16,18) utf16_start=19 differs=True
+'José́'            python_cp=[19,24) utf16_start=22 differs=True
+'Dana Whitfield'   python_cp=[27,41) utf16_start=30 differs=True
+"👍🏽"               utf16=[5,9) codepoint=[5,7) naive_js_slice_with_py_offsets_ok=false converted_ok=true
+"𝐀cme"              utf16=[13,18) codepoint=[11,15) naive_js_slice_with_py_offsets_ok=false converted_ok=true
+"東京"                 utf16=[19,21) codepoint=[16,18) naive_js_slice_with_py_offsets_ok=false converted_ok=true
+"José́"              utf16=[22,27) codepoint=[19,24) naive_js_slice_with_py_offsets_ok=false converted_ok=true
+"Dana Whitfield"     utf16=[30,44) codepoint=[27,41) naive_js_slice_with_py_offsets_ok=false converted_ok=true
+JS can slice a lone surrogate: "\ud83d" length 1 encodes to UTF-8 as efbfbd (EF BF BD = U+FFFD replacement)
+JSON offsets for Python comparison: {"👍🏽":[5,7],"𝐀cme":[11,15],"東京":[16,18],"José́":[19,24],"Dana Whitfield":[27,41]}
+
+node code-point offsets == python offsets: True

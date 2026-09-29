@@ -1,0 +1,3 @@
+Full per-code-point dumps (21 MB each) are not committed; regenerate with scripts/redteam/check_unicode_version_drift.py.
+Python 3.11.7 (unicode 14.0.0) digest(nfc+casefold+isspace): d957d8fb521aec4b
+sha256 prefix of 3.11 dump: 9aede14756fa7adc; of 3.12 dump: b164645642960bb2

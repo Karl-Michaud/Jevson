@@ -1,0 +1,31 @@
+n=20: n(n-1)/2 = 190
+n=30: n(n-1)/2 = 435
+n=255: n(n-1)/2 = 32385
+vendor: | Context length | 64k tokens per request; 32k tokens for `state` plus the longest question |
+vendor: * **Context length:** Jev ingests the `state` once and evaluates every question against it in parallel. The 64k budget covers the `state` plus all questions combined; the 32k budget applies to the `st
+
+A keys-only
+  n= 10 questions=  45 question-map tokens≈  1893  per-q≈ 42.1  left for state under 64k≈ 63643  (fits=True)
+  n= 20 questions= 190 question-map tokens≈  7983  per-q≈ 42.0  left for state under 64k≈ 57553  (fits=True)
+  n= 25 questions= 300 question-map tokens≈ 12603  per-q≈ 42.0  left for state under 64k≈ 52933  (fits=True)
+  n= 30 questions= 435 question-map tokens≈ 18273  per-q≈ 42.0  left for state under 64k≈ 47263  (fits=True)
+  n= 35 questions= 595 question-map tokens≈ 24993  per-q≈ 42.0  left for state under 64k≈ 40543  (fits=True)
+  n= 40 questions= 780 question-map tokens≈ 32763  per-q≈ 42.0  left for state under 64k≈ 32773  (fits=True)
+
+B inline strings
+  n= 10 questions=  45 question-map tokens≈  2847  per-q≈ 63.3  left for state under 64k≈ 62689  (fits=True)
+  n= 20 questions= 190 question-map tokens≈ 11897  per-q≈ 62.6  left for state under 64k≈ 53639  (fits=True)
+  n= 25 questions= 300 question-map tokens≈ 18879  per-q≈ 62.9  left for state under 64k≈ 46657  (fits=True)
+  n= 30 questions= 435 question-map tokens≈ 27466  per-q≈ 63.1  left for state under 64k≈ 38070  (fits=True)
+  n= 35 questions= 595 question-map tokens≈ 37556  per-q≈ 63.1  left for state under 64k≈ 27980  (fits=True)
+  n= 40 questions= 780 question-map tokens≈ 49143  per-q≈ 63.0  left for state under 64k≈ 16393  (fits=True)
+
+C inline + context
+  n= 10 questions=  45 question-map tokens≈  5979  per-q≈132.9  left for state under 64k≈ 59557  (fits=True)
+  n= 20 questions= 190 question-map tokens≈ 25064  per-q≈131.9  left for state under 64k≈ 40472  (fits=True)
+  n= 25 questions= 300 question-map tokens≈ 39735  per-q≈132.4  left for state under 64k≈ 25801  (fits=True)
+  n= 30 questions= 435 question-map tokens≈ 57771  per-q≈132.8  left for state under 64k≈  7765  (fits=True)
+  n= 35 questions= 595 question-map tokens≈ 78900  per-q≈132.6  left for state under 64k≈-13364  (fits=False)
+  n= 40 questions= 780 question-map tokens≈103275  per-q≈132.4  left for state under 64k≈-37739  (fits=False)
+
+state proxy: 3000 English words ≈ 3501 tokens

@@ -1,0 +1,140 @@
+{
+ "jev-1.13.0": {
+  "status": 200,
+  "body": {
+   "model": "jev-1.13.0",
+   "answers": {
+    "n": {
+     "type": "noul",
+     "noul": 0.95
+    },
+    "c": {
+     "type": "choice",
+     "choice": "billing",
+     "confidence": 0.81,
+     "probabilities": {
+      "sales": 0.0,
+      "billing": 0.87,
+      "technical": 0.13
+     }
+    },
+    "s": {
+     "type": "score",
+     "score": 1.06,
+     "confidence": 0.91,
+     "legend": {
+      "0": "Calm",
+      "1": "Frustrated",
+      "2": "Very angry"
+     },
+     "probabilities": {
+      "0": 0.0,
+      "1": 0.94,
+      "2": 0.06
+     }
+    }
+   },
+   "usage": {
+    "input_tokens": 393,
+    "output_tokens": 68
+   }
+  },
+  "latency_s": 0.27784692599379923,
+  "attempts": 1,
+  "model": "jev-1.13.0",
+  "usage": {
+   "input_tokens": 393,
+   "output_tokens": 68
+  }
+ },
+ "jev-1.13": {
+  "status": 400,
+  "body": {
+   "detail": {
+    "error_type": "api_usage_error",
+    "message": "Unknown model: jev-1.13"
+   }
+  },
+  "latency_s": 0.1129745170037495,
+  "attempts": 1,
+  "model": null,
+  "usage": null
+ },
+ "jev-latest": {
+  "status": 200,
+  "body": {
+   "model": "jev-1.13.0",
+   "answers": {
+    "n": {
+     "type": "noul",
+     "noul": 0.95
+    },
+    "c": {
+     "type": "choice",
+     "choice": "billing",
+     "confidence": 0.82,
+     "probabilities": {
+      "technical": 0.12,
+      "billing": 0.88,
+      "sales": 0.0
+     }
+    },
+    "s": {
+     "type": "score",
+     "score": 1.04,
+     "confidence": 0.93,
+     "legend": {
+      "0": "Calm",
+      "1": "Frustrated",
+      "2": "Very angry"
+     },
+     "probabilities": {
+      "0": 0.0,
+      "1": 0.96,
+      "2": 0.04
+     }
+    }
+   },
+   "usage": {
+    "input_tokens": 393,
+    "output_tokens": 68
+   }
+  },
+  "latency_s": 0.14335849101189524,
+  "attempts": 1,
+  "model": "jev-1.13.0",
+  "usage": {
+   "input_tokens": 393,
+   "output_tokens": 68
+  }
+ },
+ "models_list": {
+  "status": 200,
+  "body": {
+   "models": [
+    {
+     "name": "jev-latest",
+     "description": "The latest iteration of TypeSafe's System One Model: Jev",
+     "release_date": "2026-09-10T18:38:01.391457+00:00"
+    },
+    {
+     "name": "jev-preview",
+     "description": "A preview version of `jev-latest`: should be better in most ways",
+     "release_date": "2026-09-10T18:39:06.057655+00:00"
+    }
+   ]
+  }
+ },
+ "headers": {
+  "date": "Tue, 29 Sep 2026 14:34:53 GMT",
+  "content-type": "application/json",
+  "transfer-encoding": "chunked",
+  "connection": "keep-alive",
+  "server": "cloudflare",
+  "x-typesafe-request-id": "req_01a0ed97084b771cbe0a5877aacbf147",
+  "x-envoy-upstream-service-time": "43",
+  "cf-cache-status": "DYNAMIC",
+  "content-encoding": "gzip",
+  "cf-ray": "a42bb61369a5ac70-YYZ"
+ }
+}

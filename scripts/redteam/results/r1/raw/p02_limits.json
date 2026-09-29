@@ -1,0 +1,146 @@
+{
+ "choice_1": {
+  "status": 200,
+  "body": {
+   "choice": "opt0",
+   "n_probs": 1,
+   "usage": {
+    "input_tokens": 307,
+    "output_tokens": 26
+   }
+  }
+ },
+ "choice_2": {
+  "status": 200,
+  "body": {
+   "choice": "opt0",
+   "n_probs": 2,
+   "usage": {
+    "input_tokens": 314,
+    "output_tokens": 34
+   }
+  }
+ },
+ "choice_255": {
+  "status": 200,
+  "body": {
+   "choice": "opt0",
+   "n_probs": 255,
+   "usage": {
+    "input_tokens": 2485,
+    "output_tokens": 2458
+   }
+  }
+ },
+ "choice_256": {
+  "status": 400,
+  "body": {
+   "detail": "Too many choices. Must have at most 255 choices."
+  }
+ },
+ "choice_500": {
+  "status": 400,
+  "body": {
+   "detail": "Too many choices. Must have at most 255 choices."
+  }
+ },
+ "choice_1000": {
+  "status": 400,
+  "body": {
+   "detail": "Too many choices. Must have at most 255 choices."
+  }
+ },
+ "choice_0": {
+  "status": 400,
+  "body": {
+   "detail": "Choice question must have at least one choice: q"
+  },
+  "latency_s": 0.08980658699874766,
+  "attempts": 1,
+  "model": null,
+  "usage": null
+ },
+ "score_1": {
+  "status": 200,
+  "body": {
+   "score": 0.0,
+   "confidence": 1.0,
+   "probabilities": {
+    "0": 1.0
+   }
+  }
+ },
+ "score_2": {
+  "status": 200,
+  "body": {
+   "score": 0.98,
+   "confidence": 0.95,
+   "probabilities": {
+    "0": 0.02,
+    "1": 0.98
+   }
+  }
+ },
+ "score_10": {
+  "status": 200,
+  "body": {
+   "score": 4.94,
+   "confidence": 0.15,
+   "probabilities": {
+    "0": 0.0,
+    "1": 0.01,
+    "2": 0.07,
+    "3": 0.2,
+    "4": 0.16,
+    "5": 0.14,
+    "6": 0.17,
+    "7": 0.17,
+    "8": 0.06,
+    "9": 0.01
+   }
+  }
+ },
+ "score_11": {
+  "status": 400,
+  "body": {
+   "detail": "Too many score levels. Must have at most 10 levels."
+  }
+ },
+ "score_20": {
+  "status": 400,
+  "body": {
+   "detail": "Too many score levels. Must have at most 10 levels."
+  }
+ },
+ "nquestions_256": {
+  "status": 200,
+  "n_answers": 256,
+  "usage": {
+   "input_tokens": 4257,
+   "output_tokens": 4758
+  },
+  "err": null
+ },
+ "nquestions_1000": {
+  "status": 200,
+  "n_answers": 1000,
+  "usage": {
+   "input_tokens": 16161,
+   "output_tokens": 18894
+  },
+  "err": null
+ },
+ "noul_with_confidence?": {
+  "model": "jev-1.13.0",
+  "answers": {
+   "q": {
+    "type": "noul",
+    "noul": 0.99
+   }
+  },
+  "usage": {
+   "input_tokens": 283,
+   "output_tokens": 20
+  }
+ }
+}

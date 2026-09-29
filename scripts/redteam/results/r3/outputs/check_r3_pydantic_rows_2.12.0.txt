@@ -1,0 +1,101 @@
+pydantic 2.12.0 (core 2.12)
+
+[decimal]
+  validation props: {"total": {"anyOf": [{"type": "number"}, {"pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$", "type": "string"}], "title": "Total"}}
+  serialization props differ: {"total": {"pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$", "title": "Total", "type": "string"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[decimal_with_x]
+  validation props: {"total": {"anyOf": [{"type": "number"}, {"pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$", "type": "string"}], "title": "Total", "x-jevson": {"source": {"extractor": "money"}}}}
+  serialization props differ: {"total": {"pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$", "title": "Total", "type": "string", "x-jevson": {"source": {"extractor": "money"}}}}
+  allOf at: none; x-jevson at: ['/properties/total/x-jevson']; $ref with siblings: none
+
+[decimal_constrained]
+  validation props: {"total": {"anyOf": [{"exclusiveMinimum": 0.0, "type": "number"}, {"pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,8}|(?=[\\d.]{1,11}0*$)\\d{0,8}\\.\\d{0,2}0*$)", "type": "string"}], "title": "Total"}}
+  serialization props differ: {"total": {"pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,8}|(?=[\\d.]{1,11}0*$)\\d{0,8}\\.\\d{0,2}0*$)", "title": "Total", "type": "string"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[optional_decimal]
+  validation props: {"total": {"anyOf": [{"type": "number"}, {"pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$", "type": "string"}, {"type": "null"}], "default": null, "title": "Total"}}
+  serialization props differ: {"total": {"anyOf": [{"pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$", "type": "string"}, {"type": "null"}], "default": null, "title": "Total"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[single_member_enum]
+  validation props: {"e": {"$ref": "#/$defs/One"}}
+  $defs: {"One": {"enum": ["only"], "title": "One", "type": "string"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[single_literal]
+  validation props: {"k": {"const": "x", "title": "K", "type": "string"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[single_member_enum_default]
+  validation props: {"e": {"$ref": "#/$defs/One", "default": "only"}}
+  $defs: {"One": {"enum": ["only"], "title": "One", "type": "string"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: ['/properties/e: default']
+
+[nested_with_description]
+  validation props: {"addr": {"$ref": "#/$defs/Addr", "description": "billing address"}}
+  $defs: {"Addr": {"properties": {"street": {"title": "Street", "type": "string"}, "city": {"title": "City", "type": "string"}}, "required": ["street", "city"], "title": "Addr", "type": "object"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: ['/properties/addr: description']
+
+[nested_with_x_two_fields_same_def]
+  validation props: {"billing": {"$ref": "#/$defs/Addr", "x-jevson": {"source": {"extractor": "llm"}}}, "shipping": {"$ref": "#/$defs/Addr", "x-jevson": {"question": "ship to"}}}
+  $defs: {"Addr": {"properties": {"street": {"title": "Street", "type": "string"}, "city": {"title": "City", "type": "string"}}, "required": ["street", "city"], "title": "Addr", "type": "object"}}
+  allOf at: none; x-jevson at: ['/properties/billing/x-jevson', '/properties/shipping/x-jevson']; $ref with siblings: ['/properties/billing: x-jevson', '/properties/shipping: x-jevson']
+
+[nested_with_model_default]
+  validation props: {"addr": {"$ref": "#/$defs/Addr", "default": {"street": "s", "city": "c"}}}
+  $defs: {"Addr": {"properties": {"street": {"title": "Street", "type": "string"}, "city": {"title": "City", "type": "string"}}, "required": ["street", "city"], "title": "Addr", "type": "object"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: ['/properties/addr: default']
+
+[optional_nested_with_x]
+  validation props: {"addr": {"anyOf": [{"$ref": "#/$defs/Addr"}, {"type": "null"}], "default": null, "description": "d", "x-jevson": {"source": {"extractor": "llm"}}}}
+  $defs: {"Addr": {"properties": {"street": {"title": "Street", "type": "string"}, "city": {"title": "City", "type": "string"}}, "required": ["street", "city"], "title": "Addr", "type": "object"}}
+  allOf at: none; x-jevson at: ['/properties/addr/x-jevson']; $ref with siblings: none
+
+[list_nested_with_x]
+  validation props: {"items": {"items": {"$ref": "#/$defs/Addr"}, "title": "Items", "type": "array", "x-jevson": {"source": {"extractor": "llm"}}}}
+  $defs: {"Addr": {"properties": {"street": {"title": "Street", "type": "string"}, "city": {"title": "City", "type": "string"}}, "required": ["street", "city"], "title": "Addr", "type": "object"}}
+  allOf at: none; x-jevson at: ['/properties/items/x-jevson']; $ref with siblings: none
+
+[enum_with_x]
+  validation props: {"tier": {"$ref": "#/$defs/Tier", "x-jevson": {"question": "tier?"}}}
+  $defs: {"Tier": {"enum": ["gold", "silver"], "title": "Tier", "type": "string"}}
+  allOf at: none; x-jevson at: ['/properties/tier/x-jevson']; $ref with siblings: ['/properties/tier: x-jevson']
+
+[submodel_config_x]
+  validation props: {"a": {"$ref": "#/$defs/AddrX"}}
+  $defs: {"AddrX": {"properties": {"street": {"title": "Street", "type": "string"}}, "required": ["street"], "title": "AddrX", "type": "object", "x-jevson": {"question": "model-level"}}}
+  allOf at: none; x-jevson at: ['/$defs/AddrX/x-jevson']; $ref with siblings: none
+
+[annotated_str_with_x]
+  validation props: {"vendor": {"title": "Vendor", "type": "string", "x-jevson": {"source": {"extractor": "llm"}}}}
+  allOf at: none; x-jevson at: ['/properties/vendor/x-jevson']; $ref with siblings: none
+
+[exclusive_multipleof]
+  validation props: {"price": {"exclusiveMaximum": 100, "exclusiveMinimum": 0, "multipleOf": 0.01, "title": "Price", "type": "number"}, "n": {"maximum": 10, "minimum": 1, "title": "N", "type": "integer"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[discriminated_union]
+  validation props: {"party": {"discriminator": {"mapping": {"org": "#/$defs/Org", "person": "#/$defs/Person"}, "propertyName": "kind"}, "oneOf": [{"$ref": "#/$defs/Person"}, {"$ref": "#/$defs/Org"}], "title": "Party"}}
+  $defs: {"Org": {"properties": {"kind": {"const": "org", "title": "Kind", "type": "string"}, "legal_name": {"title": "Legal Name", "type": "string"}}, "required": ["kind", "legal_name"], "title": "Org", "type": "object"}, "Person": {"properties": {"kind": {"const": "person", "title": "Kind", "type": "string"}, "name": {"title": "Name", "type": "string"}}, "required": ["kind", "name"], "title": "Person", "type": "object"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[discriminated_union_with_x]
+  validation props: {"party": {"discriminator": {"mapping": {"org": "#/$defs/Org", "person": "#/$defs/Person"}, "propertyName": "kind"}, "oneOf": [{"$ref": "#/$defs/Person"}, {"$ref": "#/$defs/Org"}], "title": "Party", "x-jevson": {"question": "which?"}}}
+  $defs: {"Org": {"properties": {"kind": {"const": "org", "title": "Kind", "type": "string"}, "legal_name": {"title": "Legal Name", "type": "string"}}, "required": ["kind", "legal_name"], "title": "Org", "type": "object"}, "Person": {"properties": {"kind": {"const": "person", "title": "Kind", "type": "string"}, "name": {"title": "Name", "type": "string"}}, "required": ["kind", "name"], "title": "Person", "type": "object"}}
+  allOf at: none; x-jevson at: ['/properties/party/x-jevson']; $ref with siblings: none
+
+[plain_union]
+  validation props: {"party": {"anyOf": [{"$ref": "#/$defs/Person"}, {"$ref": "#/$defs/Org"}], "title": "Party"}}
+  $defs: {"Org": {"properties": {"kind": {"const": "org", "title": "Kind", "type": "string"}, "legal_name": {"title": "Legal Name", "type": "string"}}, "required": ["kind", "legal_name"], "title": "Org", "type": "object"}, "Person": {"properties": {"kind": {"const": "person", "title": "Kind", "type": "string"}, "name": {"title": "Name", "type": "string"}}, "required": ["kind", "name"], "title": "Person", "type": "object"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[optional_nonnull_default]
+  validation props: {"note": {"anyOf": [{"type": "string"}, {"type": "null"}], "default": "x", "title": "Note"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none
+
+[formats]
+  validation props: {"d": {"format": "date", "title": "D", "type": "string"}, "dt": {"format": "date-time", "title": "Dt", "type": "string"}}
+  allOf at: none; x-jevson at: none; $ref with siblings: none

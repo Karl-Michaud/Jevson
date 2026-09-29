@@ -1,0 +1,68 @@
+python 3.11.7 unicodedata 14.0.0
+regex 2026.9.29 grapheme None grapheme.UNICODE_VERSION 13.0.0 uniseg 0.10.1
+stdlib unicodedata has grapheme API: none
+regex \p{Extended_Pictographic} knows U+1FAE9 (Unicode 16): True
+regex Devanagari conjunct क्ष as one \X (UAX29 15.1 GB9c): ['क्ष']
+
+class                                         |                Mn,Me reading |             Mn,Mc,Me reading
+                                              |         interior  FA      FR |                   FA      FR
+combining (Latin + Mn/Me)                     |    15897      0       0 |              0       0
+emoji ZWJ sequences (+skin, +VS16)            |    18222   5981       0 |           5981       0
+regional-indicator flags                      |     6009   6009       0 |           6009       0
+tag-sequence flags (England)                  |    18000  18000       0 |          18000       0
+keycaps (digit VS16 20E3)                     |     5079      0       0 |              0       0
+Hangul jamo L V T                             |     8100   8100       0 |           8100       0
+Hangul LV syllable + T jamo                   |     3000   3000       0 |           3000       0
+Devanagari (virama conjuncts, Mc/Mn)          |    10111   5310       0 |           2970       0
+Tamil (pulli, Mc)                             |     4150   2049       0 |              0       0
+Bengali (09BE Mc=Extend, virama)              |     3734   3000       0 |            734       0
+Prepend (Arabic number sign, dot reph)        |     3000   3000       0 |           3000       0
+CR LF                                         |     2238   2238       0 |           2238       0
+Thai (SARA AM, marks)                         |     3623   1823       0 |           1823       0
+Lao AM                                        |     3000   3000       0 |           3000       0
+control/newline + combining mark              |        0      0    3000 |              0    3000
+ZWNJ (Persian)                                |     3000   3000       0 |           3000       0
+halfwidth katakana voiced marks               |     6000   6000       0 |           6000       0
+emoji/text presentation VS                    |     6000      0       0 |              0       0
+mark after space                              |     3000      0       0 |              0       0
+Mc misc (musical stem, visarga)               |     6000   6000       0 |              0       0
+TOTAL positions=316621                        |   128163  76510    3000 |          63855    3000
+
+Examples (split shown as left | right; FA=false accept, FR=false reject):
+  [FA M ] Bengali (09BE Mc=Extend, virama)         U+09CD|U+0995      'xথ্' | 'কy'
+  [FA Mn] Bengali (09BE Mc=Extend, virama)         U+09A2|U+09BE      'xঢ' | 'াy'
+  [FA M ] CR LF                                    U+000D|U+000A      'ab\r' | '\ncd'
+  [FA Mn] CR LF                                    U+000D|U+000A      'ab\r' | '\ncd'
+  [FA M ] Devanagari (virama conjuncts, Mc/Mn)     U+094D|U+0930      'xल्' | 'रऴौण्फy'
+  [FA Mn] Devanagari (virama conjuncts, Mc/Mn)     U+094D|U+0930      'xल्' | 'रऴौण्फy'
+  [FA M ] Hangul LV syllable + T jamo              U+D504|U+11AD      'x프' | 'ᆭy'
+  [FA Mn] Hangul LV syllable + T jamo              U+D504|U+11AD      'x프' | 'ᆭy'
+  [FA M ] Hangul jamo L V T                        U+1107|U+116B      'xᄇ' | 'ᅫᆯ봬y'
+  [FA Mn] Hangul jamo L V T                        U+1107|U+116B      'xᄇ' | 'ᅫᆯ봬y'
+  [FA M ] Lao AM                                   U+0E81|U+0EB3      'xກ' | 'ຳy'
+  [FA Mn] Lao AM                                   U+0E81|U+0EB3      'xກ' | 'ຳy'
+  [FA Mn] Mc misc (musical stem, visarga)          U+1D158|U+1D165    'x𝅘' | '𝅥कःy'
+  [FA M ] Prepend (Arabic number sign, dot reph)   U+0601|U+0915      'x \u0601' | 'कy'
+  [FA Mn] Prepend (Arabic number sign, dot reph)   U+0601|U+0915      'x \u0601' | 'कy'
+  [FA Mn] Tamil (pulli, Mc)                        U+0BAE|U+0BC1      'xக்சம' | 'ுஞy'
+  [FA M ] Thai (SARA AM, marks)                    U+0E19|U+0E33      'xนีน' | 'ำy'
+  [FA Mn] Thai (SARA AM, marks)                    U+0E19|U+0E33      'xนีน' | 'ำy'
+  [FA M ] ZWNJ (Persian)                           U+06CC|U+200C      'xمی' | '\u200cخواهمy'
+  [FA Mn] ZWNJ (Persian)                           U+06CC|U+200C      'xمی' | '\u200cخواهمy'
+  [FR M ] control/newline + combining mark         U+0000|U+0327      'ab\x00' | '̧c'
+  [FR Mn] control/newline + combining mark         U+0000|U+0327      'ab\x00' | '̧c'
+  [FA M ] emoji ZWJ sequences (+skin, +VS16)       U+200D|U+1F466     'x♀\u200d' | '👦️y'
+  [FA Mn] emoji ZWJ sequences (+skin, +VS16)       U+200D|U+1F466     'x♀\u200d' | '👦️y'
+  [FA M ] halfwidth katakana voiced marks          U+FF76|U+FF9E      'xｶ' | 'ﾞﾊﾟy'
+  [FA Mn] halfwidth katakana voiced marks          U+FF76|U+FF9E      'xｶ' | 'ﾞﾊﾟy'
+  [FA M ] regional-indicator flags                 U+1F1E6|U+1F1E7    'x🇦' | '🇧y'
+  [FA Mn] regional-indicator flags                 U+1F1E6|U+1F1E7    'x🇦' | '🇧y'
+  [FA M ] tag-sequence flags (England)             U+1F3F4|U+E0067    'x🏴' | '\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007fy'
+  [FA Mn] tag-sequence flags (England)             U+1F3F4|U+E0067    'x🏴' | '\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007fy'
+
+Library disagreement with regex \X (strings, out of 3000 per class):
+  grapheme  Bengali (09BE Mc=Extend, virama)              734
+  grapheme  Devanagari (virama conjuncts, Mc/Mn)          2129
+
+Vendored-table cost for a stdlib-only UAX #29 (range counts): {'Grapheme_Cluster_Break=CR': 1, 'Grapheme_Cluster_Break=LF': 1, 'Grapheme_Cluster_Break=Control': 19, 'Grapheme_Cluster_Break=Extend': 390, 'Grapheme_Cluster_Break=ZWJ': 1, 'Grapheme_Cluster_Break=Regional_Indicator': 1, 'Grapheme_Cluster_Break=Prepend': 15, 'Grapheme_Cluster_Break=SpacingMark': 158, 'Grapheme_Cluster_Break=L': 2, 'Grapheme_Cluster_Break=V': 4, 'Grapheme_Cluster_Break=T': 2, 'Grapheme_Cluster_Break=LV': 399, 'Grapheme_Cluster_Break=LVT': 399, 'Extended_Pictographic': 156, 'InCB=Linker': 22, 'InCB=Consonant': 78, 'InCB=Extend': 383}
+  JSON bytes 32192, zlib 9100

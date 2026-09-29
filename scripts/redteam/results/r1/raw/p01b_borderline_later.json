@@ -1,0 +1,6624 @@
+{
+ "tag": "later",
+ "n_runs": 25,
+ "summary": {
+  "n00": {
+   "mean": 0.224,
+   "range": 0.03,
+   "sd": 0.0075,
+   "flip": false,
+   "vals": [
+    0.21,
+    0.22,
+    0.23,
+    0.24
+   ]
+  },
+  "n01": {
+   "mean": 0.662,
+   "range": 0.05,
+   "sd": 0.0097,
+   "flip": false,
+   "vals": [
+    0.64,
+    0.65,
+    0.66,
+    0.67,
+    0.69
+   ]
+  },
+  "n02": {
+   "mean": 0.105,
+   "range": 0.01,
+   "sd": 0.005,
+   "flip": false,
+   "vals": [
+    0.1,
+    0.11
+   ]
+  },
+  "n03": {
+   "mean": 0.562,
+   "range": 0.03,
+   "sd": 0.0085,
+   "flip": false,
+   "vals": [
+    0.55,
+    0.56,
+    0.57,
+    0.58
+   ]
+  },
+  "n04": {
+   "mean": 0.97,
+   "range": 0.0,
+   "sd": 0.0,
+   "flip": false,
+   "vals": [
+    0.97
+   ]
+  },
+  "n05": {
+   "mean": 0.458,
+   "range": 0.02,
+   "sd": 0.0063,
+   "flip": false,
+   "vals": [
+    0.45,
+    0.46,
+    0.47
+   ]
+  },
+  "n06": {
+   "mean": 0.446,
+   "range": 0.07,
+   "sd": 0.015,
+   "flip": false,
+   "vals": [
+    0.4,
+    0.43,
+    0.44,
+    0.45,
+    0.46,
+    0.47
+   ]
+  },
+  "n07": {
+   "mean": 0.968,
+   "range": 0.01,
+   "sd": 0.004,
+   "flip": false,
+   "vals": [
+    0.96,
+    0.97
+   ]
+  },
+  "n08": {
+   "mean": 0.099,
+   "range": 0.02,
+   "sd": 0.0052,
+   "flip": false,
+   "vals": [
+    0.09,
+    0.1,
+    0.11
+   ]
+  },
+  "n09": {
+   "mean": 0.284,
+   "range": 0.05,
+   "sd": 0.013,
+   "flip": false,
+   "vals": [
+    0.26,
+    0.27,
+    0.28,
+    0.29,
+    0.3,
+    0.31
+   ]
+  },
+  "n10": {
+   "mean": 0.711,
+   "range": 0.07,
+   "sd": 0.0204,
+   "flip": false,
+   "vals": [
+    0.68,
+    0.69,
+    0.7,
+    0.71,
+    0.72,
+    0.73,
+    0.74,
+    0.75
+   ]
+  },
+  "n11": {
+   "mean": 0.08,
+   "range": 0.02,
+   "sd": 0.0034,
+   "flip": false,
+   "vals": [
+    0.07,
+    0.08,
+    0.09
+   ]
+  },
+  "n12": {
+   "mean": 0.683,
+   "range": 0.05,
+   "sd": 0.0125,
+   "flip": false,
+   "vals": [
+    0.66,
+    0.67,
+    0.68,
+    0.69,
+    0.71
+   ]
+  },
+  "n13": {
+   "mean": 0.138,
+   "range": 0.04,
+   "sd": 0.0099,
+   "flip": false,
+   "vals": [
+    0.12,
+    0.13,
+    0.14,
+    0.15,
+    0.16
+   ]
+  },
+  "n14": {
+   "mean": 0.94,
+   "range": 0.01,
+   "sd": 0.002,
+   "flip": false,
+   "vals": [
+    0.93,
+    0.94
+   ]
+  },
+  "n15": {
+   "mean": 0.98,
+   "range": 0.0,
+   "sd": 0.0,
+   "flip": false,
+   "vals": [
+    0.98
+   ]
+  },
+  "n16": {
+   "mean": 0.393,
+   "range": 0.03,
+   "sd": 0.0084,
+   "flip": false,
+   "vals": [
+    0.38,
+    0.39,
+    0.4,
+    0.41
+   ]
+  },
+  "n17": {
+   "mean": 0.03,
+   "range": 0.0,
+   "sd": 0.0,
+   "flip": false,
+   "vals": [
+    0.03
+   ]
+  },
+  "n18": {
+   "mean": 0.66,
+   "range": 0.04,
+   "sd": 0.011,
+   "flip": false,
+   "vals": [
+    0.64,
+    0.65,
+    0.66,
+    0.67,
+    0.68
+   ]
+  },
+  "n19": {
+   "mean": 0.346,
+   "range": 0.04,
+   "sd": 0.0105,
+   "flip": false,
+   "vals": [
+    0.33,
+    0.34,
+    0.35,
+    0.36,
+    0.37
+   ]
+  },
+  "n20": {
+   "mean": 0.94,
+   "range": 0.02,
+   "sd": 0.006,
+   "flip": false,
+   "vals": [
+    0.93,
+    0.94,
+    0.95
+   ]
+  },
+  "n21": {
+   "mean": 0.082,
+   "range": 0.01,
+   "sd": 0.0037,
+   "flip": false,
+   "vals": [
+    0.08,
+    0.09
+   ]
+  },
+  "n22": {
+   "mean": 0.069,
+   "range": 0.02,
+   "sd": 0.0039,
+   "flip": false,
+   "vals": [
+    0.06,
+    0.07,
+    0.08
+   ]
+  },
+  "n23": {
+   "mean": 0.239,
+   "range": 0.03,
+   "sd": 0.008,
+   "flip": false,
+   "vals": [
+    0.22,
+    0.23,
+    0.24,
+    0.25
+   ]
+  },
+  "n24": {
+   "mean": 0.074,
+   "range": 0.01,
+   "sd": 0.005,
+   "flip": false,
+   "vals": [
+    0.07,
+    0.08
+   ]
+  },
+  "n25": {
+   "mean": 0.102,
+   "range": 0.04,
+   "sd": 0.011,
+   "flip": false,
+   "vals": [
+    0.09,
+    0.1,
+    0.11,
+    0.12,
+    0.13
+   ]
+  },
+  "n26": {
+   "mean": 0.978,
+   "range": 0.01,
+   "sd": 0.0037,
+   "flip": false,
+   "vals": [
+    0.97,
+    0.98
+   ]
+  },
+  "n27": {
+   "mean": 0.424,
+   "range": 0.04,
+   "sd": 0.0102,
+   "flip": false,
+   "vals": [
+    0.4,
+    0.41,
+    0.42,
+    0.43,
+    0.44
+   ]
+  },
+  "n28": {
+   "mean": 0.37,
+   "range": 0.06,
+   "sd": 0.016,
+   "flip": false,
+   "vals": [
+    0.34,
+    0.35,
+    0.36,
+    0.37,
+    0.38,
+    0.39,
+    0.4
+   ]
+  },
+  "n29": {
+   "mean": 0.888,
+   "range": 0.03,
+   "sd": 0.0063,
+   "flip": false,
+   "vals": [
+    0.87,
+    0.88,
+    0.89,
+    0.9
+   ]
+  },
+  "c00": {
+   "mean": {
+    "shipment": 1.0,
+    "staffing": 0.0,
+    "contract renewal": 0.0,
+    "printer": 0.0
+   },
+   "gap": 1.0,
+   "range": 0.0,
+   "flip": false,
+   "selections": {
+    "shipment": 25
+   }
+  },
+  "c01": {
+   "mean": {
+    "high": 0.041,
+    "low": 0.175,
+    "medium": 0.784
+   },
+   "gap": 0.608,
+   "range": 0.07,
+   "flip": false,
+   "selections": {
+    "medium": 25
+   }
+  },
+  "c02": {
+   "mean": {
+    "finance": 0.0,
+    "account management": 0.033,
+    "IT": 0.021,
+    "warehouse": 0.946
+   },
+   "gap": 0.913,
+   "range": 0.03,
+   "flip": false,
+   "selections": {
+    "warehouse": 25
+   }
+  },
+  "c03": {
+   "mean": {
+    "calm": 0.02,
+    "mildly concerned": 0.973,
+    "anxious": 0.0,
+    "annoyed": 0.007
+   },
+   "gap": 0.953,
+   "range": 0.02,
+   "flip": false,
+   "selections": {
+    "mildly concerned": 25
+   }
+  },
+  "c04": {
+   "mean": {
+    "complaint": 0.0,
+    "request": 0.96,
+    "report": 0.031,
+    "FYI": 0.009
+   },
+   "gap": 0.929,
+   "range": 0.03,
+   "flip": false,
+   "selections": {
+    "request": 25
+   }
+  },
+  "c05": {
+   "mean": {
+    "pallet count": 0.976,
+    "label printer": 0.024
+   },
+   "gap": 0.951,
+   "range": 0.01,
+   "flip": false,
+   "selections": {
+    "pallet count": 25
+   }
+  },
+  "c06": {
+   "mean": {
+    "sure": 0.0,
+    "unsure": 1.0,
+    "not stated": 0.0
+   },
+   "gap": 1.0,
+   "range": 0.0,
+   "flip": false,
+   "selections": {
+    "unsure": 25
+   }
+  },
+  "c07": {
+   "mean": {
+    "none": 0.01,
+    "high": 0.042,
+    "low": 0.112,
+    "moderate": 0.836
+   },
+   "gap": 0.724,
+   "range": 0.05,
+   "flip": false,
+   "selections": {
+    "moderate": 25
+   }
+  },
+  "c08": {
+   "mean": {
+    "call Henderson": 0.01,
+    "recount pallets": 0.978,
+    "nothing": 0.0,
+    "fix printer": 0.012
+   },
+   "gap": 0.966,
+   "range": 0.01,
+   "flip": false,
+   "selections": {
+    "recount pallets": 25
+   }
+  },
+  "c09": {
+   "mean": {
+    "ops": 1.0,
+    "unclear": 0.0,
+    "IT": 0.0,
+    "sales": 0.0
+   },
+   "gap": 1.0,
+   "range": 0.0,
+   "flip": false,
+   "selections": {
+    "ops": 25
+   }
+  }
+ },
+ "models": [
+  "jev-1.13.0"
+ ],
+ "raw": [
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.58
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.44
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.96
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.29
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.72
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.25
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.42
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "shipment": 1.0,
+       "staffing": 0.0,
+       "contract renewal": 0.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.67,
+      "probabilities": {
+       "high": 0.05,
+       "low": 0.17,
+       "medium": 0.78
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "finance": 0.0,
+       "account management": 0.03,
+       "IT": 0.02,
+       "warehouse": 0.95
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "calm": 0.02,
+       "mildly concerned": 0.98,
+       "anxious": 0.0,
+       "annoyed": 0.0
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.94,
+      "probabilities": {
+       "complaint": 0.0,
+       "request": 0.95,
+       "report": 0.04,
+       "FYI": 0.01
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.96,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "sure": 0.0,
+       "unsure": 1.0,
+       "not stated": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.79,
+      "probabilities": {
+       "none": 0.01,
+       "high": 0.05,
+       "low": 0.1,
+       "moderate": 0.84
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.96,
+      "probabilities": {
+       "call Henderson": 0.01,
+       "recount pallets": 0.98,
+       "nothing": 0.0,
+       "fix printer": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "ops": 1.0,
+       "unclear": 0.0,
+       "IT": 0.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.36527068399300333,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.57
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.47
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.27
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.71
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.14
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.33
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.25
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "shipment": 1.0,
+       "staffing": 0.0,
+       "printer": 0.0,
+       "contract renewal": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.68,
+      "probabilities": {
+       "high": 0.03,
+       "medium": 0.79,
+       "low": 0.18
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.92,
+      "probabilities": {
+       "account management": 0.04,
+       "finance": 0.0,
+       "IT": 0.02,
+       "warehouse": 0.94
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "anxious": 0.0,
+       "annoyed": 0.01,
+       "calm": 0.02,
+       "mildly concerned": 0.97
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "complaint": 0.0,
+       "request": 0.97,
+       "FYI": 0.0,
+       "report": 0.03
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "pallet count": 0.97,
+       "label printer": 0.03
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "not stated": 0.0,
+       "unsure": 1.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.8,
+      "probabilities": {
+       "high": 0.05,
+       "moderate": 0.84,
+       "none": 0.01,
+       "low": 0.1
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "recount pallets": 0.98,
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "unclear": 0.0,
+       "ops": 1.0,
+       "sales": 0.0,
+       "IT": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.14696027801255696,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.21
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.44
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.27
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.73
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.15
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.06
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.42
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "shipment": 1.0,
+       "contract renewal": 0.0,
+       "printer": 0.0,
+       "staffing": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.7,
+      "probabilities": {
+       "high": 0.04,
+       "medium": 0.8,
+       "low": 0.16
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.91,
+      "probabilities": {
+       "account management": 0.04,
+       "finance": 0.0,
+       "IT": 0.03,
+       "warehouse": 0.9299999999999999
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "anxious": 0.0,
+       "annoyed": 0.0,
+       "calm": 0.02,
+       "mildly concerned": 0.98
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "complaint": 0.0,
+       "request": 0.96,
+       "FYI": 0.01,
+       "report": 0.03
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.81,
+      "probabilities": {
+       "high": 0.05,
+       "moderate": 0.85,
+       "none": 0.01,
+       "low": 0.09
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.98,
+      "probabilities": {
+       "recount pallets": 0.98,
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "unclear": 0.0,
+       "ops": 1.0,
+       "sales": 0.0,
+       "IT": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.1709372390032513,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.58
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.47
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.28
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.71
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.71
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.95
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.06
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.44
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.9
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "printer": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.68,
+      "probabilities": {
+       "medium": 0.78,
+       "low": 0.17,
+       "high": 0.05
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.94,
+      "probabilities": {
+       "finance": 0.0,
+       "IT": 0.01,
+       "warehouse": 0.96,
+       "account management": 0.03
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "calm": 0.02,
+       "anxious": 0.0,
+       "mildly concerned": 0.98,
+       "annoyed": 0.0
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "report": 0.03,
+       "request": 0.96,
+       "FYI": 0.01,
+       "complaint": 0.0
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.96,
+      "probabilities": {
+       "label printer": 0.02,
+       "pallet count": 0.98
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "sure": 0.0,
+       "not stated": 0.0,
+       "unsure": 1.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.8,
+      "probabilities": {
+       "low": 0.1,
+       "high": 0.05,
+       "moderate": 0.84,
+       "none": 0.01
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "recount pallets": 0.98,
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "ops": 1.0,
+       "IT": 0.0,
+       "unclear": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.18129738001152873,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.29
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.74
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.95
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.25
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "shipment": 1.0,
+       "contract renewal": 0.0,
+       "staffing": 0.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.71,
+      "probabilities": {
+       "medium": 0.81,
+       "low": 0.15,
+       "high": 0.04
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "warehouse": 0.95,
+       "finance": 0.0,
+       "account management": 0.03,
+       "IT": 0.02
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "anxious": 0.0,
+       "calm": 0.02,
+       "mildly concerned": 0.98,
+       "annoyed": 0.0
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.94,
+      "probabilities": {
+       "report": 0.04,
+       "complaint": 0.0,
+       "request": 0.95,
+       "FYI": 0.01
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.96,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "sure": 0.0,
+       "not stated": 0.0,
+       "unsure": 1.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.79,
+      "probabilities": {
+       "moderate": 0.85,
+       "none": 0.01,
+       "low": 0.11,
+       "high": 0.03
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "call Henderson": 0.01,
+       "nothing": 0.0,
+       "recount pallets": 0.98,
+       "fix printer": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "ops": 1.0,
+       "unclear": 0.0,
+       "IT": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.16959729400696233,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.55
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.26
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.14
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.93
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.87
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "printer": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.65,
+      "probabilities": {
+       "high": 0.05,
+       "low": 0.18,
+       "medium": 0.77
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "finance": 0.0,
+       "account management": 0.03,
+       "warehouse": 0.95,
+       "IT": 0.02
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "annoyed": 0.01,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.94,
+      "probabilities": {
+       "report": 0.03,
+       "request": 0.96,
+       "complaint": 0.0,
+       "FYI": 0.01
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "label printer": 0.03,
+       "pallet count": 0.97
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.78,
+      "probabilities": {
+       "moderate": 0.84,
+       "high": 0.03,
+       "low": 0.12,
+       "none": 0.01
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "fix printer": 0.01,
+       "recount pallets": 0.98,
+       "call Henderson": 0.01,
+       "nothing": 0.0
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "ops": 1.0,
+       "IT": 0.0,
+       "unclear": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.19374029200116638,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.29
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.12
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.88
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "printer": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.68,
+      "probabilities": {
+       "high": 0.06,
+       "low": 0.16,
+       "medium": 0.78
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.91,
+      "probabilities": {
+       "finance": 0.0,
+       "account management": 0.04,
+       "warehouse": 0.93,
+       "IT": 0.03
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "anxious": 0.0,
+       "annoyed": 0.01,
+       "mildly concerned": 0.97,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.93,
+      "probabilities": {
+       "report": 0.04,
+       "request": 0.95,
+       "complaint": 0.0,
+       "FYI": 0.01
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.97,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.8,
+      "probabilities": {
+       "moderate": 0.85,
+       "high": 0.04,
+       "low": 0.1,
+       "none": 0.01
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "fix printer": 0.01,
+       "recount pallets": 0.98,
+       "call Henderson": 0.01,
+       "nothing": 0.0
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "IT": 0.0,
+       "ops": 1.0,
+       "unclear": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.16921119901235215,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.44
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.3
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.72
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.16
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.95
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "shipment": 1.0,
+       "staffing": 0.0,
+       "contract renewal": 0.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.68,
+      "probabilities": {
+       "high": 0.04,
+       "low": 0.17,
+       "medium": 0.79
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.91,
+      "probabilities": {
+       "finance": 0.0,
+       "IT": 0.03,
+       "account management": 0.04,
+       "warehouse": 0.93
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "calm": 0.02,
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "annoyed": 0.01
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "complaint": 0.0,
+       "request": 0.96,
+       "report": 0.03,
+       "FYI": 0.01
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "sure": 0.0,
+       "unsure": 1.0,
+       "not stated": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.8,
+      "probabilities": {
+       "none": 0.01,
+       "high": 0.04,
+       "moderate": 0.85,
+       "low": 0.1
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "call Henderson": 0.01,
+       "recount pallets": 0.98,
+       "nothing": 0.0,
+       "fix printer": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "IT": 0.0,
+       "unclear": 0.0,
+       "ops": 1.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.1922654420050094,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.57
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.44
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.3
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.7
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.64
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "printer": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.68,
+      "probabilities": {
+       "high": 0.03,
+       "low": 0.18,
+       "medium": 0.79
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.92,
+      "probabilities": {
+       "finance": 0.0,
+       "account management": 0.03,
+       "warehouse": 0.95,
+       "IT": 0.02
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "mildly concerned": 0.97,
+       "anxious": 0.0,
+       "annoyed": 0.01,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.96,
+      "probabilities": {
+       "request": 0.97,
+       "FYI": 0.01,
+       "complaint": 0.0,
+       "report": 0.02
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.96,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "sure": 0.0,
+       "not stated": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.79,
+      "probabilities": {
+       "moderate": 0.83,
+       "high": 0.04,
+       "none": 0.01,
+       "low": 0.12
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "recount pallets": 0.98,
+       "nothing": 0.0,
+       "call Henderson": 0.01,
+       "fix printer": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "IT": 0.0,
+       "ops": 1.0,
+       "sales": 0.0,
+       "unclear": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.15364049200434238,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.96
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.28
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.73
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.16
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.41
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.64
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "printer": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.72,
+      "probabilities": {
+       "high": 0.03,
+       "medium": 0.8200000000000001,
+       "low": 0.15
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.92,
+      "probabilities": {
+       "finance": 0.0,
+       "account management": 0.03,
+       "warehouse": 0.95,
+       "IT": 0.02
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "annoyed": 0.01,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "report": 0.03,
+       "request": 0.96,
+       "complaint": 0.0,
+       "FYI": 0.01
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.94,
+      "probabilities": {
+       "pallet count": 0.97,
+       "label printer": 0.03
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.8,
+      "probabilities": {
+       "moderate": 0.85,
+       "high": 0.04,
+       "none": 0.01,
+       "low": 0.1
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.96,
+      "probabilities": {
+       "fix printer": 0.02,
+       "recount pallets": 0.97,
+       "call Henderson": 0.01,
+       "nothing": 0.0
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "IT": 0.0,
+       "ops": 1.0,
+       "unclear": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.1662615750101395,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.64
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.55
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.47
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.44
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.26
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.7
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.37
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.12
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.88
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "shipment": 1.0,
+       "staffing": 0.0,
+       "contract renewal": 0.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.63,
+      "probabilities": {
+       "medium": 0.75,
+       "low": 0.21,
+       "high": 0.04
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "warehouse": 0.95,
+       "IT": 0.02,
+       "account management": 0.03,
+       "finance": 0.0
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "annoyed": 0.01,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.97,
+      "probabilities": {
+       "report": 0.02,
+       "complaint": 0.0,
+       "FYI": 0.0,
+       "request": 0.98
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "pallet count": 0.97,
+       "label printer": 0.03
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.77,
+      "probabilities": {
+       "moderate": 0.83,
+       "low": 0.12,
+       "high": 0.04,
+       "none": 0.01
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.98,
+      "probabilities": {
+       "recount pallets": 0.98,
+       "call Henderson": 0.01,
+       "fix printer": 0.01,
+       "nothing": 0.0
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "ops": 1.0,
+       "IT": 0.0,
+       "unclear": 0.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.15239582199137658,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.21
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.55
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.28
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.71
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.93
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.41
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "printer": 0.0,
+       "contract renewal": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.66,
+      "probabilities": {
+       "low": 0.19,
+       "medium": 0.78,
+       "high": 0.03
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "IT": 0.02,
+       "warehouse": 0.95,
+       "account management": 0.03,
+       "finance": 0.0
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "annoyed": 0.01,
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.94,
+      "probabilities": {
+       "FYI": 0.01,
+       "complaint": 0.0,
+       "report": 0.03,
+       "request": 0.96
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.93,
+      "probabilities": {
+       "pallet count": 0.97,
+       "label printer": 0.03
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.77,
+      "probabilities": {
+       "low": 0.14,
+       "none": 0.01,
+       "moderate": 0.82,
+       "high": 0.03
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "recount pallets": 0.98,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "IT": 0.0,
+       "unclear": 0.0,
+       "ops": 1.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.1523501499905251,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.57
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.27
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.73
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.71
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.15
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.41
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.64
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.42
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.37
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "shipment": 1.0,
+       "contract renewal": 0.0,
+       "staffing": 0.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.67,
+      "probabilities": {
+       "low": 0.18,
+       "medium": 0.78,
+       "high": 0.04
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "IT": 0.02,
+       "warehouse": 0.95,
+       "account management": 0.03,
+       "finance": 0.0
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "annoyed": 0.01,
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "FYI": 0.01,
+       "complaint": 0.0,
+       "report": 0.03,
+       "request": 0.96
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.96,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.78,
+      "probabilities": {
+       "low": 0.12,
+       "none": 0.01,
+       "moderate": 0.83,
+       "high": 0.04
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.98,
+      "probabilities": {
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "recount pallets": 0.98,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "IT": 0.0,
+       "unclear": 0.0,
+       "ops": 1.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.15767182799754664,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.57
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.27
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.95
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.06
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.25
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.44
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.88
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "printer": 0.0,
+       "staffing": 0.0,
+       "contract renewal": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.67,
+      "probabilities": {
+       "low": 0.19,
+       "high": 0.03,
+       "medium": 0.78
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "IT": 0.02,
+       "account management": 0.03,
+       "finance": 0.0,
+       "warehouse": 0.95
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "annoyed": 0.01,
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "complaint": 0.0,
+       "report": 0.03,
+       "FYI": 0.01,
+       "request": 0.96
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "label printer": 0.03,
+       "pallet count": 0.97
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "not stated": 0.0,
+       "sure": 0.0,
+       "unsure": 1.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.78,
+      "probabilities": {
+       "moderate": 0.83,
+       "none": 0.01,
+       "high": 0.04,
+       "low": 0.12
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.98,
+      "probabilities": {
+       "call Henderson": 0.01,
+       "nothing": 0.0,
+       "recount pallets": 0.98,
+       "fix printer": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "IT": 0.0,
+       "sales": 0.0,
+       "unclear": 0.0,
+       "ops": 1.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.14619167499768082,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.96
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.3
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.73
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.14
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.93
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.42
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "staffing": 0.0,
+       "contract renewal": 0.0,
+       "shipment": 1.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.66,
+      "probabilities": {
+       "medium": 0.77,
+       "low": 0.17,
+       "high": 0.06
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.9,
+      "probabilities": {
+       "warehouse": 0.93,
+       "finance": 0.0,
+       "account management": 0.04,
+       "IT": 0.03
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "anxious": 0.0,
+       "calm": 0.02,
+       "mildly concerned": 0.98,
+       "annoyed": 0.0
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.94,
+      "probabilities": {
+       "report": 0.04,
+       "complaint": 0.0,
+       "request": 0.95,
+       "FYI": 0.01
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.97,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "sure": 0.0,
+       "not stated": 0.0,
+       "unsure": 1.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.79,
+      "probabilities": {
+       "moderate": 0.84,
+       "none": 0.01,
+       "low": 0.09,
+       "high": 0.06
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.96,
+      "probabilities": {
+       "call Henderson": 0.01,
+       "nothing": 0.0,
+       "recount pallets": 0.97,
+       "fix printer": 0.02
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "ops": 1.0,
+       "unclear": 0.0,
+       "IT": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.16210378899995703,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.55
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.47
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.28
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.75
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.93
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.37
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.88
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.68,
+      "probabilities": {
+       "low": 0.18,
+       "high": 0.04,
+       "medium": 0.78
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "IT": 0.02,
+       "warehouse": 0.95,
+       "account management": 0.03,
+       "finance": 0.0
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "calm": 0.02,
+       "anxious": 0.01,
+       "mildly concerned": 0.96,
+       "annoyed": 0.01
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "report": 0.03,
+       "request": 0.96,
+       "FYI": 0.01,
+       "complaint": 0.0
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "not stated": 0.0,
+       "sure": 0.0,
+       "unsure": 1.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.79,
+      "probabilities": {
+       "low": 0.09,
+       "moderate": 0.84,
+       "none": 0.01,
+       "high": 0.06
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "nothing": 0.0,
+       "call Henderson": 0.01,
+       "fix printer": 0.01,
+       "recount pallets": 0.98
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "IT": 0.0,
+       "ops": 1.0,
+       "unclear": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.17716251300589647,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.44
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.28
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.14
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "printer": 0.0,
+       "staffing": 0.0,
+       "contract renewal": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.67,
+      "probabilities": {
+       "medium": 0.78,
+       "low": 0.18,
+       "high": 0.04
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "warehouse": 0.95,
+       "IT": 0.02,
+       "account management": 0.03,
+       "finance": 0.0
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "annoyed": 0.01,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "report": 0.03,
+       "complaint": 0.0,
+       "FYI": 0.0,
+       "request": 0.97
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.94,
+      "probabilities": {
+       "pallet count": 0.97,
+       "label printer": 0.03
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.77,
+      "probabilities": {
+       "moderate": 0.83,
+       "low": 0.12,
+       "high": 0.04,
+       "none": 0.01
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "recount pallets": 0.98,
+       "fix printer": 0.01,
+       "call Henderson": 0.01,
+       "nothing": 0.0
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "ops": 1.0,
+       "IT": 0.0,
+       "unclear": 0.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.17999038798734546,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.55
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.96
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.29
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.71
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.14
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.33
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.42
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.88
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "shipment": 1.0,
+       "staffing": 0.0,
+       "printer": 0.0,
+       "contract renewal": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.68,
+      "probabilities": {
+       "high": 0.05,
+       "medium": 0.78,
+       "low": 0.17
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "account management": 0.03,
+       "finance": 0.0,
+       "IT": 0.02,
+       "warehouse": 0.95
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "anxious": 0.0,
+       "annoyed": 0.0,
+       "calm": 0.02,
+       "mildly concerned": 0.98
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.94,
+      "probabilities": {
+       "complaint": 0.0,
+       "request": 0.96,
+       "FYI": 0.01,
+       "report": 0.03
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.96,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "not stated": 0.0,
+       "unsure": 1.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.79,
+      "probabilities": {
+       "high": 0.04,
+       "moderate": 0.84,
+       "none": 0.01,
+       "low": 0.11
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "recount pallets": 0.98,
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "ops": 1.0,
+       "unclear": 0.0,
+       "sales": 0.0,
+       "IT": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.17331194299913477,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.57
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.29
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.71
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.14
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.33
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.25
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.41
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "shipment": 1.0,
+       "staffing": 0.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.68,
+      "probabilities": {
+       "low": 0.16,
+       "high": 0.05,
+       "medium": 0.79
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "IT": 0.02,
+       "warehouse": 0.95,
+       "account management": 0.03,
+       "finance": 0.0
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "mildly concerned": 0.97,
+       "calm": 0.02,
+       "annoyed": 0.01,
+       "anxious": 0.0
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.96,
+      "probabilities": {
+       "complaint": 0.0,
+       "request": 0.96,
+       "FYI": 0.01,
+       "report": 0.03
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.97,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "not stated": 0.0,
+       "unsure": 1.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.78,
+      "probabilities": {
+       "low": 0.11,
+       "high": 0.05,
+       "none": 0.01,
+       "moderate": 0.83
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "recount pallets": 0.98,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "IT": 0.0,
+       "sales": 0.0,
+       "ops": 1.0,
+       "unclear": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.15492706300574355,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.3
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.72
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "staffing": 0.0,
+       "contract renewal": 0.0,
+       "shipment": 1.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.67,
+      "probabilities": {
+       "low": 0.18,
+       "high": 0.04,
+       "medium": 0.78
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.92,
+      "probabilities": {
+       "finance": 0.0,
+       "warehouse": 0.94,
+       "account management": 0.04,
+       "IT": 0.02
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "annoyed": 0.01,
+       "mildly concerned": 0.97,
+       "calm": 0.02,
+       "anxious": 0.0
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "request": 0.96,
+       "report": 0.03,
+       "FYI": 0.01,
+       "complaint": 0.0
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "label printer": 0.02,
+       "pallet count": 0.98
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "sure": 0.0,
+       "unsure": 1.0,
+       "not stated": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.79,
+      "probabilities": {
+       "none": 0.01,
+       "low": 0.1,
+       "high": 0.05,
+       "moderate": 0.84
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.96,
+      "probabilities": {
+       "nothing": 0.0,
+       "call Henderson": 0.01,
+       "fix printer": 0.02,
+       "recount pallets": 0.97
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "ops": 1.0,
+       "unclear": 0.0,
+       "IT": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.1783679159998428,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.96
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.31
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.14
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.33
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.9
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "printer": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.67,
+      "probabilities": {
+       "medium": 0.78,
+       "low": 0.19,
+       "high": 0.03
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.95,
+      "probabilities": {
+       "finance": 0.0,
+       "IT": 0.01,
+       "warehouse": 0.96,
+       "account management": 0.03
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "calm": 0.02,
+       "anxious": 0.0,
+       "mildly concerned": 0.97,
+       "annoyed": 0.01
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "report": 0.03,
+       "request": 0.96,
+       "FYI": 0.01,
+       "complaint": 0.0
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.94,
+      "probabilities": {
+       "label printer": 0.03,
+       "pallet count": 0.97
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "sure": 0.0,
+       "not stated": 0.0,
+       "unsure": 1.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.78,
+      "probabilities": {
+       "low": 0.12,
+       "high": 0.04,
+       "moderate": 0.83,
+       "none": 0.01
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "recount pallets": 0.98,
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "sales": 0.0,
+       "ops": 1.0,
+       "IT": 0.0,
+       "unclear": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.13872843599529006,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.22
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.47
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.29
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.14
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.36
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.42
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "printer": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.69,
+      "probabilities": {
+       "low": 0.17,
+       "medium": 0.79,
+       "high": 0.04
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "finance": 0.0,
+       "IT": 0.02,
+       "account management": 0.03,
+       "warehouse": 0.95
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "calm": 0.02,
+       "mildly concerned": 0.97,
+       "annoyed": 0.01,
+       "anxious": 0.0
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "complaint": 0.0,
+       "request": 0.96,
+       "FYI": 0.01,
+       "report": 0.03
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.94,
+      "probabilities": {
+       "pallet count": 0.97,
+       "label printer": 0.03
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "not stated": 0.0,
+       "unsure": 1.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.77,
+      "probabilities": {
+       "none": 0.01,
+       "low": 0.13,
+       "moderate": 0.83,
+       "high": 0.03
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "nothing": 0.0,
+       "call Henderson": 0.01,
+       "fix printer": 0.02,
+       "recount pallets": 0.97
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "ops": 1.0,
+       "IT": 0.0,
+       "unclear": 0.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.15643509999790695,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.29
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.72
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.67
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.95
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.25
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.09
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.37
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "contract renewal": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0,
+       "printer": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.67,
+      "probabilities": {
+       "high": 0.04,
+       "low": 0.18,
+       "medium": 0.78
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.94,
+      "probabilities": {
+       "finance": 0.0,
+       "account management": 0.03,
+       "IT": 0.02,
+       "warehouse": 0.95
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.97,
+      "probabilities": {
+       "mildly concerned": 0.98,
+       "annoyed": 0.0,
+       "anxious": 0.0,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "report": 0.03,
+       "complaint": 0.0,
+       "FYI": 0.01,
+       "request": 0.96
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.95,
+      "probabilities": {
+       "pallet count": 0.97,
+       "label printer": 0.03
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "not stated": 0.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.77,
+      "probabilities": {
+       "high": 0.04,
+       "none": 0.01,
+       "moderate": 0.82,
+       "low": 0.13
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.98,
+      "probabilities": {
+       "fix printer": 0.01,
+       "recount pallets": 0.98,
+       "call Henderson": 0.01,
+       "nothing": 0.0
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "unclear": 0.0,
+       "ops": 1.0,
+       "IT": 0.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.16538851900259033,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.21
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.57
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.27
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.74
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.69
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.15
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.65
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.35
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.43
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.39
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "printer": 0.0,
+       "shipment": 1.0,
+       "staffing": 0.0,
+       "contract renewal": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.65,
+      "probabilities": {
+       "low": 0.2,
+       "high": 0.04,
+       "medium": 0.76
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.9,
+      "probabilities": {
+       "warehouse": 0.93,
+       "finance": 0.0,
+       "account management": 0.04,
+       "IT": 0.03
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "mildly concerned": 0.97,
+       "annoyed": 0.01,
+       "calm": 0.02,
+       "anxious": 0.0
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.95,
+      "probabilities": {
+       "report": 0.03,
+       "FYI": 0.01,
+       "complaint": 0.0,
+       "request": 0.96
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.94,
+      "probabilities": {
+       "label printer": 0.03,
+       "pallet count": 0.97
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "not stated": 0.0,
+       "unsure": 1.0,
+       "sure": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.77,
+      "probabilities": {
+       "low": 0.13,
+       "high": 0.04,
+       "moderate": 0.82,
+       "none": 0.01
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.96,
+      "probabilities": {
+       "call Henderson": 0.01,
+       "nothing": 0.0,
+       "fix printer": 0.01,
+       "recount pallets": 0.98
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "IT": 0.0,
+       "unclear": 0.0,
+       "sales": 0.0,
+       "ops": 1.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.15427887400437612,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  },
+  {
+   "status": 200,
+   "body": {
+    "model": "jev-1.13.0",
+    "answers": {
+     "n00": {
+      "type": "noul",
+      "noul": 0.23
+     },
+     "n01": {
+      "type": "noul",
+      "noul": 0.66
+     },
+     "n02": {
+      "type": "noul",
+      "noul": 0.11
+     },
+     "n03": {
+      "type": "noul",
+      "noul": 0.56
+     },
+     "n04": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n05": {
+      "type": "noul",
+      "noul": 0.45
+     },
+     "n06": {
+      "type": "noul",
+      "noul": 0.46
+     },
+     "n07": {
+      "type": "noul",
+      "noul": 0.97
+     },
+     "n08": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n09": {
+      "type": "noul",
+      "noul": 0.29
+     },
+     "n10": {
+      "type": "noul",
+      "noul": 0.71
+     },
+     "n11": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n12": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n13": {
+      "type": "noul",
+      "noul": 0.13
+     },
+     "n14": {
+      "type": "noul",
+      "noul": 0.94
+     },
+     "n15": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n16": {
+      "type": "noul",
+      "noul": 0.4
+     },
+     "n17": {
+      "type": "noul",
+      "noul": 0.03
+     },
+     "n18": {
+      "type": "noul",
+      "noul": 0.68
+     },
+     "n19": {
+      "type": "noul",
+      "noul": 0.34
+     },
+     "n20": {
+      "type": "noul",
+      "noul": 0.93
+     },
+     "n21": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n22": {
+      "type": "noul",
+      "noul": 0.07
+     },
+     "n23": {
+      "type": "noul",
+      "noul": 0.24
+     },
+     "n24": {
+      "type": "noul",
+      "noul": 0.08
+     },
+     "n25": {
+      "type": "noul",
+      "noul": 0.1
+     },
+     "n26": {
+      "type": "noul",
+      "noul": 0.98
+     },
+     "n27": {
+      "type": "noul",
+      "noul": 0.42
+     },
+     "n28": {
+      "type": "noul",
+      "noul": 0.38
+     },
+     "n29": {
+      "type": "noul",
+      "noul": 0.89
+     },
+     "c00": {
+      "type": "choice",
+      "choice": "shipment",
+      "confidence": 1.0,
+      "probabilities": {
+       "printer": 0.0,
+       "staffing": 0.0,
+       "shipment": 1.0,
+       "contract renewal": 0.0
+      }
+     },
+     "c01": {
+      "type": "choice",
+      "choice": "medium",
+      "confidence": 0.71,
+      "probabilities": {
+       "medium": 0.8,
+       "low": 0.16,
+       "high": 0.04
+      }
+     },
+     "c02": {
+      "type": "choice",
+      "choice": "warehouse",
+      "confidence": 0.93,
+      "probabilities": {
+       "finance": 0.0,
+       "warehouse": 0.95,
+       "account management": 0.03,
+       "IT": 0.02
+      }
+     },
+     "c03": {
+      "type": "choice",
+      "choice": "mildly concerned",
+      "confidence": 0.96,
+      "probabilities": {
+       "mildly concerned": 0.98,
+       "annoyed": 0.0,
+       "anxious": 0.0,
+       "calm": 0.02
+      }
+     },
+     "c04": {
+      "type": "choice",
+      "choice": "request",
+      "confidence": 0.93,
+      "probabilities": {
+       "report": 0.04,
+       "FYI": 0.01,
+       "complaint": 0.0,
+       "request": 0.95
+      }
+     },
+     "c05": {
+      "type": "choice",
+      "choice": "pallet count",
+      "confidence": 0.96,
+      "probabilities": {
+       "pallet count": 0.98,
+       "label printer": 0.02
+      }
+     },
+     "c06": {
+      "type": "choice",
+      "choice": "unsure",
+      "confidence": 1.0,
+      "probabilities": {
+       "unsure": 1.0,
+       "sure": 0.0,
+       "not stated": 0.0
+      }
+     },
+     "c07": {
+      "type": "choice",
+      "choice": "moderate",
+      "confidence": 0.77,
+      "probabilities": {
+       "moderate": 0.83,
+       "low": 0.12,
+       "high": 0.04,
+       "none": 0.01
+      }
+     },
+     "c08": {
+      "type": "choice",
+      "choice": "recount pallets",
+      "confidence": 0.97,
+      "probabilities": {
+       "recount pallets": 0.97,
+       "fix printer": 0.02,
+       "nothing": 0.0,
+       "call Henderson": 0.01
+      }
+     },
+     "c09": {
+      "type": "choice",
+      "choice": "ops",
+      "confidence": 1.0,
+      "probabilities": {
+       "ops": 1.0,
+       "IT": 0.0,
+       "unclear": 0.0,
+       "sales": 0.0
+      }
+     }
+    },
+    "usage": {
+     "input_tokens": 1191,
+     "output_tokens": 991
+    }
+   },
+   "latency_s": 0.18239029399410356,
+   "attempts": 1,
+   "model": "jev-1.13.0",
+   "usage": {
+    "input_tokens": 1191,
+    "output_tokens": 991
+   }
+  }
+ ]
+}

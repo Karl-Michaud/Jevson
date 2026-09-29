@@ -1,0 +1,72 @@
+{
+ "n": 36,
+ "H0": {
+  "P_correct": "36/36 = 1.000 [95% CI 0.904-1.000]",
+  "P_false_abstain": "0/36 = 0.000 [95% CI 0.000-0.096]",
+  "A_abstain": "32/36 = 0.889 [95% CI 0.747-0.956]",
+  "A_commits": [
+   [
+    "T1",
+    "July 5, 2026",
+    0.71
+   ],
+   [
+    "T7",
+    "Declan Novak",
+    0.5
+   ],
+   [
+    "T1",
+    "June 5, 2026",
+    0.36
+   ],
+   [
+    "T1",
+    "September 6, 2026",
+    0.4
+   ]
+  ],
+  "P_errors": []
+ },
+ "H1": {
+  "P_correct": "33/36 = 0.917 [95% CI 0.782-0.971]",
+  "P_false_abstain": "2/36 = 0.056 [95% CI 0.015-0.181]",
+  "A_abstain": "35/36 = 0.972 [95% CI 0.858-0.995]",
+  "A_commits": [
+   [
+    "T7",
+    "Declan Novak",
+    0.34
+   ]
+  ],
+  "P_errors": [
+   [
+    "T7",
+    "Rafael Ashman",
+    "none_of_these"
+   ],
+   [
+    "T7",
+    "Tomasz Hartman",
+    "Declan Novak"
+   ],
+   [
+    "T7",
+    "Dana Brookman",
+    "none_of_these"
+   ]
+  ]
+ },
+ "H2": {
+  "P_correct": "36/36 = 1.000 [95% CI 0.904-1.000]",
+  "P_false_abstain": "0/36 = 0.000 [95% CI 0.000-0.096]",
+  "A_abstain": "36/36 = 1.000 [95% CI 0.904-1.000]",
+  "A_commits": [],
+  "P_errors": []
+ },
+ "A_H1_vs_H0": {
+  "H1_abstain_H0_commit": 3,
+  "H0_abstain_H1_commit": 0
+ }
+}
+requests 36
