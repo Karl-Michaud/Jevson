@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CORD receipt parse",
+  "description": "Transcription of the CORD README 'Class Definition (total 30)' label list (struck-out classes omitted, as the README marks them removed). Values are OCR text strings. menu and void_menu are repeated groups (group_id), so they are arrays of objects; subtotal and total are single objects.",
+  "type": "object",
+  "properties": {
+    "menu": {
+      "type": "array",
+      "description": "menu (14)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nm": {
+            "type": "string",
+            "description": "name of menu"
+          },
+          "num": {
+            "type": "string",
+            "description": "identification # of menu"
+          },
+          "unitprice": {
+            "type": "string",
+            "description": "unit price of menu"
+          },
+          "cnt": {
+            "type": "string",
+            "description": "quantity of menu"
+          },
+          "discountprice": {
+            "type": "string",
+            "description": "discounted price of menu"
+          },
+          "price": {
+            "type": "string",
+            "description": "total price of menu"
+          },
+          "itemsubtotal": {
+            "type": "string",
+            "description": "price of each menu after discount applied"
+          },
+          "vatyn": {
+            "type": "string",
+            "description": "whether the price includes tax or not"
+          },
+          "etc": {
+            "type": "string",
+            "description": "others"
+          },
+          "sub_nm": {
+            "type": "string",
+            "description": "name of submenu"
+          },
+          "sub_unitprice": {
+            "type": "string",
+            "description": "unit price of submenu"
+          },
+          "sub_cnt": {
+            "type": "string",
+            "description": "quantity of submenu"
+          },
+          "sub_price": {
+            "type": "string",
+            "description": "total price of submenu"
+          },
+          "sub_etc": {
+            "type": "string",
+            "description": "others"
+          }
+        }
+      }
+    },
+    "void_menu": {
+      "type": "array",
+      "description": "void menu (2)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nm": {
+            "type": "string",
+            "description": "name of menu"
+          },
+          "price": {
+            "type": "string",
+            "description": "total price of menu"
+          }
+        }
+      }
+    },
+    "subtotal": {
+      "type": "object",
+      "description": "subtotal (6)",
+      "properties": {
+        "subtotal_price": {
+          "type": "string",
+          "description": "subtotal price"
+        },
+        "discount_price": {
+          "type": "string",
+          "description": "discounted price in total"
+        },
+        "service_price": {
+          "type": "string",
+          "description": "service charge"
+        },
+        "othersvc_price": {
+          "type": "string",
+          "description": "added charge other than service charge"
+        },
+        "tax_price": {
+          "type": "string",
+          "description": "tax amount"
+        },
+        "etc": {
+          "type": "string",
+          "description": "others"
+        }
+      }
+    },
+    "total": {
+      "type": "object",
+      "description": "total (8)",
+      "properties": {
+        "total_price": {
+          "type": "string",
+          "description": "total price"
+        },
+        "total_etc": {
+          "type": "string",
+          "description": "others"
+        },
+        "cashprice": {
+          "type": "string",
+          "description": "amount of price paid in cash"
+        },
+        "changeprice": {
+          "type": "string",
+          "description": "amount of change in cash"
+        },
+        "creditcardprice": {
+          "type": "string",
+          "description": "amount of price paid in credit/debit card"
+        },
+        "emoneyprice": {
+          "type": "string",
+          "description": "amount of price paid in emoney, point"
+        },
+        "menutype_cnt": {
+          "type": "string",
+          "description": "total count of type of menu"
+        },
+        "menuqty_cnt": {
+          "type": "string",
+          "description": "total count of quantity"
+        }
+      }
+    }
+  }
+}

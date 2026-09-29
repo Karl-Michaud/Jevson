@@ -1,0 +1,38 @@
+{
+  "passage_id": "cuad-rewalkroboticsltd-07-10-2014-ex-10-2-strategic-alliance-agre#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Argo Medical Technologies Ltd. (ARGO)",
+    "E2": "Yaskawa Electric Corporation (YEC)",
+    "E3": "Argo Medical Technologies, Inc, U.S. entity used as contact address"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

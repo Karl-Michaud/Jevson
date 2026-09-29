@@ -1,0 +1,40 @@
+{
+  "passage_id": "fjc-1393696#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Edward Milton Chen, subject judge",
+    "E2": "Barack Obama, nominating president",
+    "E3": "Martin J. Jenkins, predecessor judge",
+    "E4": "Charles B. Renfrew, district judge Chen clerked for",
+    "E5": "James R. Browning, appellate judge Chen clerked for"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

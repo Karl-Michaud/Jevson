@@ -1,0 +1,25 @@
+{
+  "doc_id": "cuad-integrityfunds-20200121-485bpos-ex-99-e-undr-contr-11948727-",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Integrity Short Term Government Fund and Integrity Funds Distributor, LLC.",
+  "processing_note": "Such fees shall be payable in the manner and terms set forth in the Plan.",
+  "fields": {
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Continuation depends on annual board approval; the 60/90-day notices are for termination at any time, not a notice period to prevent renewal.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    }
+  }
+}

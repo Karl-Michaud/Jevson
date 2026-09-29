@@ -1,0 +1,126 @@
+{
+  "doc_id": "cord-test-063",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "A single purchase transaction from one merchant.",
+  "processing_note": null,
+  "fields": {
+    "receipt.total_price": {
+      "status": "present",
+      "value": "57.000",
+      "superseded": false,
+      "rationale": "The amount after \"Total\" is the final total.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "receipt.subtotal_price": {
+      "status": "present",
+      "value": "57.000",
+      "superseded": false,
+      "rationale": "The amount after \"Subtotal\" is the subtotal.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "receipt.tax_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No tax line is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "receipt.service_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No service charge is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "receipt.discount_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No discount is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "receipt.cashprice": {
+      "status": "present",
+      "value": "60.000",
+      "superseded": false,
+      "rationale": "The amount after \"Cash\" is the cash tendered.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "wrong"
+      }
+    },
+    "receipt.changeprice": {
+      "status": "present",
+      "value": "3.000",
+      "superseded": false,
+      "rationale": "The amount after \"Change\" is the change returned.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct"
+      }
+    },
+    "receipt.menuqty_cnt": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Only per-line quantities (x1, x2) are printed; no total item count appears.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    }
+  }
+}

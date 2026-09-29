@@ -1,0 +1,36 @@
+{
+ "doc_id": "cuad-embarkcominc-19991008-s-1a-ex-10-10-6487661-ex-10-10-co-bran",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "CO-BRANDING AGREEMENT",
+   "Co-Branding Agreement",
+   "Exhibit 10.10"
+  ],
+  "contract.agreement_date": [
+   "June 8, 1999",
+   "10/8/1999"
+  ],
+  "contract.effective_date": [
+   "June 8, 1999",
+   "the date of this Agreement"
+  ],
+  "contract.expiration_date": [
+   "December 31, 2000"
+  ],
+  "contract.governing_law": [
+   "State of California",
+   "California",
+   "Delaware"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "sixty (60) days",
+   "forty-five (45) days",
+   "thirty (30) days",
+   "five (5) years"
+  ]
+ }
+}

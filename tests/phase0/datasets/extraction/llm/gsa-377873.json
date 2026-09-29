@@ -1,0 +1,1 @@
+{"doc_id": "gsa-377873", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["HP Ink Cartridges", "HP toner yellow and black 650A cartridges", "650A"], "product.inventory": ["one box of yellow toner", "one box of black toner", "one", "650A"], "product.price": []}}

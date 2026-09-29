@@ -1,0 +1,48 @@
+{
+ "doc_id": "fjc-1391986",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Floyd, Henry Franklin",
+   "George W. Bush",
+   "Barack Obama",
+   "Dennis W. Shedd",
+   "Karen J. Williams"
+  ],
+  "resume.law_institution": [
+   "University of South Carolina School of Law",
+   "Wofford College"
+  ],
+  "resume.law_year": [
+   "1973",
+   "1970",
+   "1972",
+   "1978",
+   "1992",
+   "2003"
+  ],
+  "resume.undergrad_institution": [
+   "Wofford College",
+   "University of South Carolina School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1970",
+   "1973",
+   "1947"
+  ],
+  "resume.first_judgeship_start": [
+   "September 24, 2003",
+   "September 22, 2003",
+   "May 15, 2003",
+   "October 5, 2011",
+   "October 6, 2011"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. Court of Appeals for the Fourth Circuit",
+   "U.S. Court of Appeals for the Fourth Circuit",
+   "Judge, U.S. District Court for the District of South Carolina"
+  ]
+ }
+}

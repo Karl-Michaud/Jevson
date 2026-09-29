@@ -1,0 +1,45 @@
+{
+ "doc_id": "cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "SPONSORSHIP AGREEMENT",
+   "Sponsorship Agreement"
+  ],
+  "contract.agreement_date": [
+   "December 18, 1998",
+   "1/12/99",
+   "12/18/98"
+  ],
+  "contract.effective_date": [
+   "December 18, 1998",
+   "November 4, 1998",
+   "January 4, 1999"
+  ],
+  "contract.expiration_date": [
+   "August 31, 2000",
+   "July 1, 2000",
+   "January 31, 2000",
+   "January 4, 1999",
+   "twenty four (24) months"
+  ],
+  "contract.governing_law": [
+   "State of New York",
+   "New York"
+  ],
+  "contract.renewal_term": [
+   "three (3) month period",
+   "twenty four (24) months",
+   "two (2) months"
+  ],
+  "contract.notice_period": [
+   "ninety (90) days",
+   "thirty (30) days",
+   "sixty (60) days",
+   "August 31, 2000",
+   "July 1, 2000"
+  ]
+ }
+}

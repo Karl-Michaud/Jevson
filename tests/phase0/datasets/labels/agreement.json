@@ -1,0 +1,357 @@
+{
+ "candidates": {
+  "n_documents": 109,
+  "n_field_instances": 186,
+  "n_option_labels": 1461,
+  "kappa_options": 0.9432725084248349,
+  "agreement_options": 0.9835728952772074,
+  "kappa_status": 0.9747351263243684,
+  "agreement_status": 0.989247311827957,
+  "kappa_multi_entity": 0.7929545847003973,
+  "disagreements": [
+   {
+    "kind": "field",
+    "doc_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--3ded74",
+    "field_id": "contract.effective_date",
+    "options": [
+     "c0"
+    ],
+    "status": [
+     "absent",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "cuad-innerscopehearingtechnologiesinc-20181109-8-k-ex-10-6-114197",
+    "field_id": "contract.document_name",
+    "options": [
+     "c1"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement",
+    "field_id": "contract.effective_date",
+    "options": [
+     "c0",
+     "c1"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "doc",
+    "doc_id": "cuad-nelnetinc-04-08-2020-ex-1-joint-filing-agreement",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "field",
+    "doc_id": "cuad-pfsfunds-06-26-2020-ex-99-h-oth-mat-cont-services-agreement",
+    "field_id": "contract.effective_date",
+    "options": [
+     "c0",
+     "c2"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "cuad-primeenergyresourcescorp-04-02-2007-ex-10-28-completion-and-",
+    "field_id": "contract.document_name",
+    "options": [
+     "c3"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "doc",
+    "doc_id": "cuad-qbiomedinc-04-08-2020-ex-99-1-joint-filing-agreement",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "field",
+    "doc_id": "cuad-qbiomedinc-04-08-2020-ex-99-1-joint-filing-agreement",
+    "field_id": "contract.effective_date",
+    "options": [
+     "c0"
+    ],
+    "status": [
+     "absent",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement",
+    "field_id": "contract.effective_date",
+    "options": [],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     true
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement",
+    "field_id": "contract.governing_law",
+    "options": [
+     "c6",
+     "c7"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "cuad-ultragenyxpharmaceuticalinc-12-23-2013-ex-10-9-supply-agreem",
+    "field_id": "contract.governing_law",
+    "options": [
+     "c2"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "epmc-pmc10805998",
+    "field_id": "medical.treatment_drug",
+    "options": [],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     true,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "epmc-pmc10805999",
+    "field_id": "medical.treatment_drug",
+    "options": [
+     "c1",
+     "c2"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "epmc-pmc10916012",
+    "field_id": "medical.diagnosis",
+    "options": [
+     "c5",
+     "c8",
+     "c9"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "doc",
+    "doc_id": "epmc-pmc11241970",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "field",
+    "doc_id": "epmc-pmc11241988",
+    "field_id": "medical.diagnosis",
+    "options": [
+     "c6"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     true,
+     true
+    ]
+   },
+   {
+    "kind": "doc",
+    "doc_id": "fjc-1391571",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "doc",
+    "doc_id": "fjc-1391711",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "doc",
+    "doc_id": "fjc-1391831",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "doc",
+    "doc_id": "fjc-1391946",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "doc",
+    "doc_id": "fjc-1392186",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "doc",
+    "doc_id": "fjc-1392376",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "doc",
+    "doc_id": "fjc-1392386",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "doc",
+    "doc_id": "fjc-1392446",
+    "what": "multi_entity"
+   },
+   {
+    "kind": "field",
+    "doc_id": "gsa-378289",
+    "field_id": "product.inventory",
+    "options": [
+     "c3",
+     "c5",
+     "c6"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "se-askubuntu-1498664",
+    "field_id": "ticket.affected_service",
+    "options": [
+     "c10"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   },
+   {
+    "kind": "field",
+    "doc_id": "se-superuser-1823910",
+    "field_id": "ticket.affected_service",
+    "options": [
+     "c0",
+     "c4",
+     "c6"
+    ],
+    "status": [
+     "present",
+     "present"
+    ],
+    "superseded": [
+     false,
+     false
+    ]
+   }
+  ]
+ },
+ "mentions": {
+  "n_passages": 23,
+  "n_pairs": 318,
+  "kappa_pairs": 1.0,
+  "agreement_pairs": 1.0,
+  "kappa_ambiguous": 1.0,
+  "kappa_role_noun": 0.951734539969834,
+  "disagreements": [
+   {
+    "kind": "mentions",
+    "passage_id": "cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement#organization",
+    "pairs": [],
+    "flags": [
+     "c0"
+    ]
+   },
+   {
+    "kind": "mentions",
+    "passage_id": "cuad-paxmedica-inc-07-02-2020-ex-10-12-master-service-agreement#organization",
+    "pairs": [],
+    "flags": [
+     "c0"
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,150 @@
+{
+ "doc_id": "cord-test-082",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single restaurant receipt for one transaction; no other parties or transactions.",
+ "processing_note": null,
+ "fields": {
+  "receipt.total_price": {
+   "status": "present",
+   "value": "385,000",
+   "superseded": false,
+   "rationale": "GRAND TOTAL line gives the final amount due.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "wrong"
+   }
+  },
+  "receipt.subtotal_price": {
+   "status": "present",
+   "value": "385,000",
+   "superseded": false,
+   "rationale": "Sub Total line gives the subtotal.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.tax_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No tax line is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.service_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No service charge line is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.discount_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No discount line is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.cashprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Payment was by card (VISA MASTER); no cash amount handed over is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.changeprice": {
+   "status": "present",
+   "value": "0",
+   "superseded": false,
+   "rationale": "CHANGE line shows 0 change.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "correct"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No total item count is printed; only per-line quantities.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong"
+   }
+  }
+ }
+}

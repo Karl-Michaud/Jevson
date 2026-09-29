@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1498659", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["tc", "htb", "web server", "ens3", "qdisc"]}}

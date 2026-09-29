@@ -1,0 +1,1 @@
+{"doc_id": "se-es-610965", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["mysqli_query", "mysqli_connect", "PHP", "registrardepartamento.php", "conexion.php", "Notice: Undefined index: id_no_departamento", "mysqli_close"]}}

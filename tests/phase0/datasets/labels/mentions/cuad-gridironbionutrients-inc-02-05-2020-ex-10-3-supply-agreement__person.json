@@ -1,0 +1,38 @@
+{
+  "passage_id": "cuad-gridironbionutrients-inc-02-05-2020-ex-10-3-supply-agreement#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Steven Turetsky, notice contact for Shi Farms",
+    "E2": "Timothy (Tim) S Orr, President of Gridiron BioNutrients",
+    "E3": "Thomas A. Gallo, Executive Director, signatory for Shi Farms"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

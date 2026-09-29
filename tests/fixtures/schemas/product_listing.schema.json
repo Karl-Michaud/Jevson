@@ -1,0 +1,49 @@
+{
+  "description": "Data model for a Amazon Product.",
+  "properties": {
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "category": {
+      "title": "Category",
+      "type": "string"
+    },
+    "discount": {
+      "title": "Discount",
+      "type": "string"
+    },
+    "price": {
+      "title": "Price",
+      "type": "string"
+    },
+    "rating": {
+      "title": "Rating",
+      "type": "string"
+    },
+    "review": {
+      "title": "Review",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "inventory": {
+      "title": "Inventory",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "discount",
+    "price",
+    "rating",
+    "review",
+    "description",
+    "inventory"
+  ],
+  "title": "Product",
+  "type": "object"
+}

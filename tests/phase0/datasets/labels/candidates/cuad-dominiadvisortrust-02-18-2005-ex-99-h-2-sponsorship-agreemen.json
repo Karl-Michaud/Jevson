@@ -1,0 +1,78 @@
+{
+  "doc_id": "cuad-dominiadvisortrust-02-18-2005-ex-99-h-2-sponsorship-agreemen",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties, Domini Advisor Trust and Domini Social Investments LLC (Sponsor).",
+  "processing_note": "Any notices under this Agreement shall be in writing addressed and delivered personally, by telecopy or mailed postage-paid to the other party at such address as such other party may designate in accordance with this Section 9 for the receipt of such notice.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "SPONSORSHIP AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading and preamble both name it 'Sponsorship Agreement'.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "February 4, 2005",
+      "superseded": false,
+      "rationale": "The agreement is 'dated as of February 4, 2005'; October 6, 2004 is the Declaration of Trust date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "February 4, 2005",
+      "superseded": false,
+      "rationale": "Section 6 makes it effective as of the day and year first above written, February 4, 2005.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement continues until terminated; no expiry date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "Commonwealth of Massachusetts",
+      "superseded": false,
+      "rationale": "Section 10 applies the laws of the Commonwealth of Massachusetts.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal term; 60 days is a termination notice.",
+      "options": {
+        "c0": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal, hence no non-renewal notice period; the 60 days is termination notice.",
+      "options": {
+        "c0": "wrong"
+      }
+    }
+  }
+}

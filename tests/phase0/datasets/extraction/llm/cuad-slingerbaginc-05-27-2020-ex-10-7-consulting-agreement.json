@@ -1,0 +1,9 @@
+{"doc_id": "cuad-slingerbaginc-05-27-2020-ex-10-7-consulting-agreement", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["CONSULTING AGREEMENT"],
+"contract.agreement_date": ["30th day of April", "30 April 2020"],
+"contract.effective_date": ["30th day of April", "Effective Date", "30 April 2020"],
+"contract.expiration_date": ["three (3) years", "19 August 2020", "20 August 2020", "10th"],
+"contract.governing_law": ["State of New York", "New York"],
+"contract.renewal_term": [],
+"contract.notice_period": ["60 days", "120 days", "30 days", "three days", "five days", "one (1) year", "12 months"]
+}}

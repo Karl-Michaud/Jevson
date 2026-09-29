@@ -1,0 +1,20 @@
+{
+ "doc_id": "fjc-9354856",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Names the subject judge, the nominating president, and the predecessor Terry L. Wooten.",
+ "processing_note": null,
+ "fields": {
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "The Citadel",
+   "superseded": false,
+   "rationale": "B.A. awarded by The Citadel, 1991.",
+   "options": {
+    "c0": "correct"
+   }
+  }
+ }
+}

@@ -1,0 +1,68 @@
+{
+  "doc_id": "cuad-nelnetinc-04-08-2020-ex-1-joint-filing-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two signatories: Shelby J. Butterfield individually and the Butterfield Family Trust.",
+  "processing_note": null,
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "JOINT FILING AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading names the document Joint Filing Agreement.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "March 27, 2020",
+      "superseded": false,
+      "rationale": "The agreement is 'Dated: March 27, 2020.'",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No separate effective date is stated; the only date is the dated/signing line.",
+      "options": {
+        "c0": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No term or expiration date is stated.",
+      "options": {
+        "c0": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No governing law clause.",
+      "options": {}
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal provision.",
+      "options": {}
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal notice provision.",
+      "options": {}
+    }
+  }
+}

@@ -1,0 +1,58 @@
+me gustaria ver como solucionar el error en discord.js V14 el error no se en que parte del codigo se encuentran, ademas de ser un poco novato en esto
+
+if (
+!message.guild.me.permissions.has(Permissions.FLAGS.MANAGE_ROLES)
+) {
+return message.reply('I do not have permission to manage roles.');
+}
+
+try {
+await message.member.roles.add(role);
+
+const embed = new EmbedBuilder()
+.setColor('#0099ff')
+.setTitle('Verification Successful')
+.setDescription(`You have been granted the ${role.name} role.`)
+.toJSON();
+
+const row = new MessageActionRow()
+.addComponents(
+new ButtonBuilder()
+.setCustomId('verifyButton')
+.setLabel('Verify')
+.setStyle('SUCCESS')
+.setDisabled(true)
+.toJSON()
+);
+
+message.reply({ embeds: [embed], components: [row] });
+} catch (error) {
+console.error(error);
+message.reply('There was an error while trying to grant the role.');
+}
+},
+
+async interactionRun(interaction) {
+const role = interaction.options.getRole("role");
+
+if (!role) {
+return interaction.reply('Please specify a role.');
+}
+
+if (
+!interaction.guild.me.permissions.has(Permissions.FLAGS.MANAGE_ROLES)
+) {
+return interaction.reply('I do not have permission to manage roles.');
+}
+
+El error es este
+
+TypeError: Cannot read properties of undefined (reading 'permissions')
+at Object.interactionRun (C:\Users\TyouDm\Downloads\discord-js-bot-main\discord-js-bot-main\src\commands\utility\verify.js:72:31)
+at Object.handleSlashCommand (C:\Users\TyouDm\Downloads\discord-js-bot-main\discord-js-bot-main\src\handlers\command.js:140:17)
+at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+at async module.exports (C:\Users\TyouDm\Downloads\discord-js-bot-main\discord-js-bot-main\src\events\interactions\interactionCreate.js:18:5)
+
+Esta en discord.js V14 el error pasa solamente cuando el comando es ejecutado, no al momento de prenderlo, ademas de no saber en que parte del código se encuentra el error(Soy un poco principiante en lo que se basa discord.js)
+
+Este es un comando de verify, pero les deje la parte que supongo que da error. como podria solucionarlo?

@@ -1,0 +1,26 @@
+Changing LS_COLORS in Ubuntu 22.04 works in terminal but not permanently in .bashrc
+
+I am learning linux thoroughly, I have downloaded my first VM with vmware-fusion on my mac m1.
+
+I have tried many times to update the .bashrc file but the one thing that is not changing for some reason is the directory color.
+
+I have updated the question.
+
+I can't understand who decided to keep that dark blue.
+
+Since i am using vmware-fusion on my Mac M1, I can't copy and paste the code, but I can find a way to get the code, here are the screenshots
+
+Then when I change the colour from the terminal it works with the ls command:
+
+But if I do a source of the .bashrc file again it doesn't work:
+
+Is this because i am using a virtual machine on mac m1 ?
+I must be missing something else in the config file.
+
+I have set the force color prompt to true
+
+When I do an echo of the LS, I do see the new colors added at the end but they are not taking effect:
+
+I did this in a new VM and it worked:
+
+Any advice would be so appreciated

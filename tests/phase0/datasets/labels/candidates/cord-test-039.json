@@ -1,0 +1,167 @@
+{
+ "doc_id": "cord-test-039",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single retail purchase from one store, paid by one credit card.",
+ "processing_note": null,
+ "fields": {
+  "receipt.total_price": {
+   "status": "present",
+   "value": "3,112,800",
+   "superseded": false,
+   "rationale": "The only overall amount is the credit-card payment 3,112,800, which equals the sum of the discounted line totals and is what the customer pays.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "correct"
+   }
+  },
+  "receipt.subtotal_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No subtotal line is printed; only per-item totals appear.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "receipt.tax_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No tax is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "receipt.service_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No service charge is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "receipt.discount_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Only a 20% rate and the post-discount line amounts are printed; the discount amount itself is never stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "receipt.cashprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Payment was by credit card; no cash amount is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "receipt.changeprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No change is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "present",
+   "value": "17",
+   "superseded": false,
+   "rationale": "\"TOTAL QTY 17\" is the total quantity (8+5+4); \"TOTAL ITEM 3\" counts distinct items.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "correct",
+    "c17": "wrong",
+    "c18": "wrong"
+   }
+  }
+ }
+}

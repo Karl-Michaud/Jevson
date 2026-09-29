@@ -1,0 +1,31 @@
+{
+ "doc_id": "cuad-dominiadvisortrust-02-18-2005-ex-99-h-2-sponsorship-agreemen",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Domini Advisor Trust and Domini Social Investments LLC (Sponsor).",
+ "processing_note": "Any notices under this Agreement shall be in writing addressed and delivered personally, by telecopy or mailed postage-paid to the other party at such address as such other party may designate in accordance with this Section 9 for the receipt of such notice.",
+ "fields": {
+  "contract.effective_date": {
+   "status": "present",
+   "value": "February 4, 2005",
+   "superseded": false,
+   "rationale": "Section 6 makes the agreement effective as of the date first written, February 4, 2005.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement continues until terminated; no expiration date is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  }
+ }
+}

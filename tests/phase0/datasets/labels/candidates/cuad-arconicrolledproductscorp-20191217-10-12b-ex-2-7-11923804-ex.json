@@ -1,0 +1,103 @@
+{
+ "doc_id": "cuad-arconicrolledproductscorp-20191217-10-12b-ex-2-7-11923804-ex",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Arconic Inc. (Licensee) and Arconic Rolled Products Corp. (Licensor).",
+ "processing_note": "Any notice or other communication under this Agreement shall be effective when: (a) delivered in person; (b) if mailed, when deposited in the mail by registered or certified mail, return receipt requested; or (c) if delivered by overnight mail by a recognized overnight carrier (e.g., FedEx, UPS, DHL).",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "TRADEMARK LICENSE AGREEMENT",
+   "superseded": false,
+   "rationale": "The form is titled and self-described as the Trademark License Agreement ('FORM OF' is a filing label).",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "partial_only",
+   "value": "[ ] day of [ ], 2020",
+   "superseded": false,
+   "rationale": "This is a form: the date the agreement is entered into is blank except for the year 2020; the second blank date belongs to the Separation and Distribution Agreement.",
+   "options": {
+    "c0": "partial",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "partial_only",
+   "value": "[ ] day of [ ], 2020",
+   "superseded": false,
+   "rationale": "The Effective Date is defined as the blank '[ ] day of [ ], 2020', giving only the year.",
+   "options": {
+    "c0": "partial",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The term runs for periods set out in Schedules 1 and 2, which are not included; the 12/17/2019 dates are filing footers.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Delaware",
+   "superseded": false,
+   "rationale": "Section 6.1 applies the laws of the State of Delaware; the other Delaware mentions are incorporation and venue.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal term is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No notice period to prevent renewal; the 120-day periods are cure periods.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  }
+ }
+}

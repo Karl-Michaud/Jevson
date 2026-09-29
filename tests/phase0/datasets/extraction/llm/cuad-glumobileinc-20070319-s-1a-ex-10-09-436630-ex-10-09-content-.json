@@ -1,0 +1,34 @@
+{
+ "doc_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "AMENDMENT NO. 1",
+   "Wireless Content License Agreement Number 12965",
+   "Wireless Content License Agreement"
+  ],
+  "contract.agreement_date": [
+   "November 11, 2005",
+   "December 16, 2004",
+   "November 18, 2005",
+   "11/18/05",
+   "October 1, 2005"
+  ],
+  "contract.effective_date": [
+   "November 11, 2005",
+   "December 16, 2004"
+  ],
+  "contract.expiration_date": [
+   "December 31, 2006",
+   "October 29, 2005",
+   "January 1, 2007"
+  ],
+  "contract.governing_law": [],
+  "contract.renewal_term": [
+   "twelve (12) months"
+  ],
+  "contract.notice_period": []
+ }
+}

@@ -19,6 +19,8 @@ MAX_DOC_CHARS = 40000
 N_CLUSTERS = 50
 MIN_MENTIONS, MAX_MENTIONS = 4, 14
 PROBE4_RUNS = ("A", "B")
+PROBE4_MAX_PER_DOMAIN = 40          # amended from 12 (then 25) before any Jev call (docs/taxonomy.md §2.12)
+PROBE4_MAX_PER_DOC = 2
 
 # probe 5: IDX-320 = indexed into the full 320-list in one request; KEY-320 = keyed, one request
 P5_REPRODUCE_IDX_MIN = 0.20

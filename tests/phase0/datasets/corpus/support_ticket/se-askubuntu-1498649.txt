@@ -1,0 +1,63 @@
+Why is there a 20-30 second pause early in the boot cycle after cloning my hard drive?
+
+I've seen a few other posts on this topic. Only one or two were very close to my situation, but there were no clear solutions. I would like to describe my situation specifically because I have some details that are not part of the other posts.
+
+I'm running Ubuntu 22.04.3 LTS.
+I had a regular SATA HDD as my "system" drive which had 3 partitions:
+
+/boot - this is my designated boot partition
+
+/ - this is my system drive with just about everything else
+
+swap
+
+I just cloned my SATA hdd to an SATA sdd keeping all the partitioning identical. But the UUIDs are now different (I changed them since I wanted the possibility of having both drives mounted at some point). I updated /etc/fstab with the new UUIDs and, through some research, changed the /etc/initramfs-tools/conf.d/resume file to not reference the old swap UUID.
+
+After changing to the new SSD, it boots fine but there's a 20-30 second dead quiet pause (no disk activity) early in the boot process. Here's an excerpt of where it occurs:
+
+[ 2.498174] scsi 6:0:0:0: Direct-Access TEAC USB HS-CF Card 4.08 PQ: 0 ANSI: 0
+[ 2.501897] scsi 6:0:0:1: Direct-Access TEAC USB HS-xD/SM 4.08 PQ: 0 ANSI: 0
+[ 2.505707] scsi 6:0:0:2: Direct-Access TEAC USB HS-MS Card 4.08 PQ: 0 ANSI: 0
+[ 2.509122] scsi 6:0:0:3: Direct-Access TEAC USB HS-SD Card 4.08 PQ: 0 ANSI: 0
+[ 2.509357] sd 6:0:0:0: Attached scsi generic sg3 type 0
+[ 2.509936] sd 6:0:0:1: Attached scsi generic sg4 type 0
+[ 2.511152] sd 6:0:0:2: Attached scsi generic sg5 type 0
+[ 2.512435] sd 6:0:0:3: Attached scsi generic sg6 type 0
+[ 2.514823] sd 6:0:0:0: [sdc] Media removed, stopped polling
+[ 2.519575] sd 6:0:0:1: [sdd] Media removed, stopped polling
+[ 2.528168] sd 6:0:0:0: [sdc] Attached SCSI removable disk
+[ 2.533063] sd 6:0:0:2: [sde] Media removed, stopped polling
+[ 2.541980] sd 6:0:0:1: [sdd] Attached SCSI removable disk
+[ 2.550871] sd 6:0:0:2: [sde] Attached SCSI removable disk
+[ 2.559421] sd 6:0:0:3: [sdf] Media removed, stopped polling
+[ 2.572356] sd 6:0:0:3: [sdf] Attached SCSI removable disk
+[ 33.540466] EXT4-fs (sda5): mounted filesystem with ordered data mode. Opts: (null). Quota mode: none.
+[ 33.703038] systemd[1]: Inserted module 'autofs4'
+[ 33.718092] systemd[1]: systemd 249.11-0ubuntu3.11 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +SMACK +SECCOMP +GCRYPT +GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBFDISK +PCRE2 -PWQUALITY -P11KIT -QRENCODE +BZIP2 +LZ4 +XZ +ZLIB +ZSTD -XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified)
+[ 33.731050] systemd[1]: Detected architecture x86-64.
+[ 33.736943] systemd[1]: Hostname set to <musicman>.
+[ 33.951287] systemd[1]: Queued start job for default target Graphical Interface.
+[ 33.953273] systemd[1]: Created slice Slice /system/modprobe.
+
+Note that sdc through sdf show up here. I have an old SD card reader with 4 slots hooked up to my system. That's been there a long time, even when I was using my old HDD. I do not have them automounted in my fstab, shown below:
+
+# <file system> <mount point> <type> <options> <dump> <pass>
+# / was on /dev/sda6 during installation
+UUID=52de13f0-4bc6-4b65-95b3-ea3144b51cef / ext4 errors=remount-ro 0 1
+# /boot was on /dev/sda1 during installation
+UUID=8c68f915-02a3-417f-8eae-c4f3b135805a /boot ext2 defaults 0 2
+# swap was on /dev/sda5 during installation
+UUID=e3355472-3ec2-412c-80fa-42e9af3d900e none swap sw 0 0
+UUID=d80fae04-3ecd-4e68-87ee-0ea47c89adae /backup ext4 defaults 1 2
+
+/backup partition is on a different physical drive (/dev/sdb) and isn't changed in the whole migration process.
+
+I can provide more of the log if needed. But you can see the big time gap. I did try systemd-analyze blame but it didn't seem to help me find the answer.
+
+There's something very interesting that I noticed, however. If I attach my old hdd to the system, keeping my ssd as the main boot and system drive, so not even including the old hdd in /etc/fstab or mounting it in any way, the system will suddenly not have the 20-30 second pause at all and it all boots up within just a couple of seconds as expected.
+
+What on earth is taking the 20-30 seconds? I did some searching under /etc to try and find text files that referenced UUIDs but could not find any other than the resume file.
+
+My next experiment was going to just set all the ssd UUIDs to be the same as the UUIDs from the old hdd. It would be just an experiment to determine if there's some hold-over in the system somewhere thinking the an old UUID still applies. But there's got to be some understanding of what's going on with the system.
+
+Thank you for any help

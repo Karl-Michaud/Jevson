@@ -1,0 +1,93 @@
+{
+ "doc_id": "cuad-scoutcaminc-05-12-2020-ex-10-22-services-agreement",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Idan Maimon and Intellisense Solutions, Inc.",
+ "processing_note": "Signatures evidenced by facsimile transmission will be accepted as original signatures.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "SERVICES AGREEMENT",
+   "superseded": false,
+   "rationale": "Title heading and preamble name the Services Agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "April 1, 2019",
+   "superseded": false,
+   "rationale": "Dated as of April 1, 2019.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "April 1, 2019",
+   "superseded": false,
+   "rationale": "Term commences on 'the date hereof' (the Effective Date), which is the April 1, 2019 date of the agreement; other options are references, not the date.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Minimum period of 12 months then by mutual agreement; no expiration date stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of New York",
+   "superseded": false,
+   "rationale": "Section 13 applies the law of the State of New York; later mentions are court jurisdiction.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Continuation after the minimum period is by mutual agreement; no renewal term length.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No non-renewal notice provision; notice periods are for termination/resignation.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  }
+ }
+}

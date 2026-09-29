@@ -1,0 +1,29 @@
+{
+ "doc_id": "cuad-arconicrolledproductscorp-20191217-10-12b-ex-2-7-11923804-ex",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "FORM OF TRADEMARK LICENSE AGREEMENT",
+   "TRADEMARK LICENSE AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "[ ] day of [ ], 2020",
+   "12/17/2019"
+  ],
+  "contract.effective_date": [
+   "[ ] day of [ ], 2020"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "State of Delaware",
+   "Delaware"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "one-hundred twenty (120) days",
+   "one hundred twenty (120) days"
+  ]
+ }
+}

@@ -1,0 +1,121 @@
+{
+  "doc_id": "cuad-linkpluscorp-20050802-8-k-ex-10-3240252-ex-10-affiliate-agre",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Affiliate agreement between Link Plus Corporation (LKPL) and Axiometric, LLC.",
+  "processing_note": "Payments due shall be made within 45 days of the                            close of each calendar quarter.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "AFFILIATE AGREEMENT",
+      "superseded": false,
+      "rationale": "The contract is titled AFFILIATE AGREEMENT; the first heading adds a misspelling and the date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "JULY 15, 2005",
+      "superseded": false,
+      "rationale": "The heading dates the agreement July 15, 2005 and it is entered into as of the Effective Date, defined as July 15, 2005; May 3, 2005 is the letter of intent and 8/2/2005 the filing date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "July 15, 2005",
+      "superseded": false,
+      "rationale": "Exhibit A defines the Effective Date as July 15, 2005.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement remains in force in perpetuity; no expiration date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Maryland",
+      "superseded": false,
+      "rationale": "Section 7.4 applies the laws of the State of Maryland; other Maryland occurrences are venue, addresses or organisation state.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement is perpetual with no renewal term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No non-renewal notice period is stated; the listed periods concern office space, payments or limitation of actions.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    }
+  }
+}

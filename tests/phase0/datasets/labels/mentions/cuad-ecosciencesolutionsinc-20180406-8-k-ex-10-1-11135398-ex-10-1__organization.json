@@ -1,0 +1,48 @@
+{
+  "passage_id": "cuad-ecosciencesolutionsinc-20180406-8-k-ex-10-1-11135398-ex-10-1#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Fruit of Life Productions LLC (the Promoter)",
+    "E2": "Eco Science Solutions, Inc. (the Sponsor)",
+    "E3": "Kaya Fest, the festival event (not an organization)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": true
+    },
+    "c5": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

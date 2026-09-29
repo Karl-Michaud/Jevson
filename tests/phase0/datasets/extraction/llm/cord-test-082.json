@@ -1,0 +1,1 @@
+{"doc_id": "cord-test-082", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"receipt.total_price": ["385,000"], "receipt.subtotal_price": ["385,000"], "receipt.tax_price": [], "receipt.service_price": [], "receipt.discount_price": [], "receipt.cashprice": [], "receipt.changeprice": ["0"], "receipt.menuqty_cnt": []}}

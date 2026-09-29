@@ -1,0 +1,47 @@
+{
+ "doc_id": "fjc-1393696",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Chen, Edward Milton",
+   "Barack Obama",
+   "Martin J. Jenkins"
+  ],
+  "resume.law_institution": [
+   "University of California, Berkeley, School of Law",
+   "University of California, Berkeley"
+  ],
+  "resume.law_year": [
+   "1979",
+   "1975",
+   "2001",
+   "2011",
+   "1980"
+  ],
+  "resume.undergrad_institution": [
+   "University of California, Berkeley",
+   "University of California, Berkeley, School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1975",
+   "1979",
+   "1953"
+  ],
+  "resume.first_judgeship_start": [
+   "May 12, 2011",
+   "May 10, 2011",
+   "January 5, 2011",
+   "August 6, 2009",
+   "January 20, 2010",
+   "September 13, 2010",
+   "May 17, 2022"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Northern District of California",
+   "U.S. District Court for the Northern District of California",
+   "U.S. Magistrate Judge, U.S. District Court for the Northern District of California"
+  ]
+ }
+}

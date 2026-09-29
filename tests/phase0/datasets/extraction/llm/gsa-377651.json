@@ -1,0 +1,1 @@
+{"doc_id": "gsa-377651", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Pryor IV Pole Lot", "Pryor Products Model 176 six-leg IV pole", "IV pole"], "product.inventory": ["(5)", "5", "Lot contains (5)"], "product.price": []}}

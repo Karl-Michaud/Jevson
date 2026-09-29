@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1823879", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["WordPress", "Nextcloud", "SWAG", "SWAG reverse proxy", "Unraid", "DuckDNS", "Firewalla", "Nextcloud AIO", "Nextcloud Office", "Nextcloud Android client", "NGINX", "Fail2ban", "Jetpack"]}}

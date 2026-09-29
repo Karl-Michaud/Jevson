@@ -1,0 +1,48 @@
+{
+ "doc_id": "fjc-1392551",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Wu, George H.",
+   "George W. Bush",
+   "Ronald S.W. Lew",
+   "Stanley N. Barnes"
+  ],
+  "resume.law_institution": [
+   "University of Chicago Law School",
+   "Pomona College",
+   "University of Tennessee College of Law"
+  ],
+  "resume.law_year": [
+   "1975",
+   "1972",
+   "1976",
+   "1977",
+   "1979"
+  ],
+  "resume.undergrad_institution": [
+   "Pomona College",
+   "University of Chicago Law School"
+  ],
+  "resume.undergrad_year": [
+   "1972",
+   "1975",
+   "1950"
+  ],
+  "resume.first_judgeship_start": [
+   "April 17, 2007",
+   "March 27, 2007",
+   "January 9, 2007",
+   "September 5, 2006",
+   "November 3, 2023"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Central District of California",
+   "U.S. District Court for the Central District of California",
+   "Judge, Superior Court of California, County of Los Angeles",
+   "Judge, Los Angeles [California] Municipal Court"
+  ]
+ }
+}

@@ -1,0 +1,132 @@
+{
+  "$defs": {
+    "EmailClassification": {
+      "properties": {
+        "intent": {
+          "enum": [
+            "question",
+            "bug",
+            "billing",
+            "feature",
+            "complex"
+          ],
+          "title": "Intent",
+          "type": "string"
+        },
+        "urgency": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "title": "Urgency",
+          "type": "string"
+        },
+        "topic": {
+          "title": "Topic",
+          "type": "string"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "intent",
+        "urgency",
+        "topic",
+        "summary"
+      ],
+      "title": "EmailClassification",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "email_content": {
+      "title": "Email Content",
+      "type": "string"
+    },
+    "sender_email": {
+      "title": "Sender Email",
+      "type": "string"
+    },
+    "email_id": {
+      "title": "Email Id",
+      "type": "string"
+    },
+    "classification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EmailClassification"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "search_results": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Search Results"
+    },
+    "customer_history": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Customer History"
+    },
+    "draft_response": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Draft Response"
+    },
+    "messages": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Messages"
+    }
+  },
+  "required": [
+    "email_content",
+    "sender_email",
+    "email_id",
+    "classification",
+    "search_results",
+    "customer_history",
+    "draft_response",
+    "messages"
+  ],
+  "title": "EmailAgentState",
+  "type": "object"
+}

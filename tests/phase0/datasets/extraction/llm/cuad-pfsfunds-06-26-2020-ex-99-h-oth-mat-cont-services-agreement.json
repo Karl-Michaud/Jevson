@@ -1,0 +1,34 @@
+{
+ "doc_id": "cuad-pfsfunds-06-26-2020-ex-99-h-oth-mat-cont-services-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "SERVICES AGREEMENT",
+   "Services Agreement"
+  ],
+  "contract.agreement_date": [
+   "June 24, 2020"
+  ],
+  "contract.effective_date": [
+   "June 24, 2020",
+   "the date of execution"
+  ],
+  "contract.expiration_date": [
+   "two years"
+  ],
+  "contract.governing_law": [
+   "State of Massachusetts",
+   "Massachusetts"
+  ],
+  "contract.renewal_term": [
+   "year to year",
+   "two years"
+  ],
+  "contract.notice_period": [
+   "sixty (60) days",
+   "sixty (60) days' written notice"
+  ]
+ }
+}

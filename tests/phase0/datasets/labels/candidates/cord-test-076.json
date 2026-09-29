@@ -1,0 +1,82 @@
+{
+  "doc_id": "cord-test-076",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "A single purchase transaction from one merchant.",
+  "processing_note": null,
+  "fields": {
+    "receipt.total_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No total line is printed; the only closing amount, *110000, is printed under the (C)ASH label as the cash amount.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    },
+    "receipt.subtotal_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No subtotal is printed.",
+      "options": {}
+    },
+    "receipt.tax_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No tax is printed.",
+      "options": {}
+    },
+    "receipt.service_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No service charge is printed.",
+      "options": {}
+    },
+    "receipt.discount_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No discount is printed.",
+      "options": {}
+    },
+    "receipt.cashprice": {
+      "status": "present",
+      "value": "*110000",
+      "superseded": false,
+      "rationale": "The amount under the OCR-truncated \"ASH\" (CASH) label is the cash amount.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "receipt.changeprice": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No change is printed.",
+      "options": {}
+    },
+    "receipt.menuqty_cnt": {
+      "status": "present",
+      "value": "50",
+      "superseded": false,
+      "rationale": "The OCR-garbled \"TEMS 50\" line is the item-count line (ITEMS); its printed number is 50 (likely 5 misread).",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "wrong"
+      }
+    }
+  }
+}

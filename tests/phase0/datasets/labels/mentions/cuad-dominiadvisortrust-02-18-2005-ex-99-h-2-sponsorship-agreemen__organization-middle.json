@@ -1,0 +1,55 @@
+{
+  "passage_id": "cuad-dominiadvisortrust-02-18-2005-ex-99-h-2-sponsorship-agreemen#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "the Trust (Domini Advisor Trust)",
+    "E2": "the Sponsor, Domini Social Investments LLC",
+    "E3": "Securities and Exchange Commission",
+    "E4": "Investment Company Institute",
+    "E5": "Board of Trustees of the Trust"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c7": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

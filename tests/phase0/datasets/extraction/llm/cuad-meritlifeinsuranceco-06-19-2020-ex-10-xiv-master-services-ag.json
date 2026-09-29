@@ -1,0 +1,32 @@
+{
+ "doc_id": "cuad-meritlifeinsuranceco-06-19-2020-ex-10-xiv-master-services-ag",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "MASTER SERVICES AGREEMENT",
+   "Exhibit 10(xiv)",
+   "Agreement"
+  ],
+  "contract.agreement_date": [
+   "09/24/2018"
+  ],
+  "contract.effective_date": [
+   "09/24/2018",
+   "Effective Date"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "Arizona",
+   "the laws of the Arizona"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "fifteen (15) days",
+   "30 days",
+   "fifteen (15) day period",
+   "one (1) year"
+  ]
+ }
+}

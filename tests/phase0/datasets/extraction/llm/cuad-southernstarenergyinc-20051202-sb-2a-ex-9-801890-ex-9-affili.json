@@ -1,0 +1,29 @@
+{
+ "doc_id": "cuad-southernstarenergyinc-20051202-sb-2a-ex-9-801890-ex-9-affili",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Affiliate Program / Premium Affiliate Management General Terms and Conditions",
+   "General Terms and Conditions"
+  ],
+  "contract.agreement_date": [
+   "12/2/2005"
+  ],
+  "contract.effective_date": [
+   "upon acceptance of Affiliate's Program application"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "Federal Republic of Germany",
+   "Germany"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "14 days",
+   "four weeks",
+   "30 days"
+  ]
+ }
+}

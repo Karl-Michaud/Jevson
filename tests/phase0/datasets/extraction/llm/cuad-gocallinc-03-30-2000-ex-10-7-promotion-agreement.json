@@ -1,0 +1,46 @@
+{
+ "doc_id": "cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Promotion Agreement",
+   "This Promotion Agreement",
+   "AGREEMENT",
+   "Promotion Agreement Between                     PageMaster Corporation and Go Call, Inc."
+  ],
+  "contract.agreement_date": [
+   "March 12,1999",
+   "3/13/99",
+   "March 26, 1999"
+  ],
+  "contract.effective_date": [
+   "June 1,1999",
+   "March 12,1999",
+   "3/13/99"
+  ],
+  "contract.expiration_date": [
+   "June 1, 2000",
+   "September 1, 2000",
+   "March 26, 1999"
+  ],
+  "contract.governing_law": [
+   "State of California",
+   "California",
+   "Los Angeles County, California",
+   "Los Angeles, CA"
+  ],
+  "contract.renewal_term": [
+   "1 year period",
+   "1 year",
+   "twelve (12) months"
+  ],
+  "contract.notice_period": [
+   "ten (10) days",
+   "sixty (60) days",
+   "thirty (30) days",
+   "seventy-two (72) hours"
+  ]
+ }
+}

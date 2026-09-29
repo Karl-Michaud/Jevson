@@ -1,0 +1,132 @@
+{
+  "doc_id": "cuad-stwresourcesholdingcorp-08-06-2014-ex-10-1-cooperation-agree",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: City of Fort Stockton, Texas (COFS) and STW Resources Holding Corp. (STW), with separate notice addresses.",
+  "processing_note": "Such payment shall be made according to the schedule and terms set forth in Section 14(b) of this AGREEMENT.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "COOPERATION AGREEMENT BETWEEN THE CITY OF FORT STOCKTON, TEXAS AND STW RESOURCES HOLDING CORP. REGARDING DEVELOPMENT OF WATER WELL(S) IN THE CAPITAN REEF AQUIFER FORMATION",
+      "superseded": false,
+      "rationale": "The heading titles the document as a Cooperation Agreement between COFS and STW regarding water wells in the Capitan Reef Aquifer Formation.",
+      "options": {}
+    },
+    "contract.agreement_date": {
+      "status": "partial_only",
+      "value": "2014",
+      "superseded": false,
+      "rationale": "Signature dates are blank; the notarial acknowledgments give only the year \"day of , 2014\".",
+      "options": {
+        "c0": "wrong",
+        "c1": "partial",
+        "c2": "partial"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The effective date is defined as the last date of signature, but no signature date is filled in.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The initial term is thirty years from the Effective Date; no calendar expiration date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Texas",
+      "superseded": false,
+      "rationale": "Section 18 states the agreement is controlled by the laws of the State of Texas.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "correct",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "present",
+      "value": "year-to-year",
+      "superseded": false,
+      "rationale": "Section 3 provides the agreement automatically renews from year-to-year after the 30-year term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "present",
+      "value": "sixty (60) days",
+      "superseded": false,
+      "rationale": "Renewal can be prevented by a Party upon sixty (60) days' written notice (Section 3).",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    }
+  }
+}

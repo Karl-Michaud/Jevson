@@ -1,0 +1,46 @@
+{
+ "doc_id": "cuad-mjbiotech-inc-12-06-2018-ex-99-01-joint-venture-agreement",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "MJ Syndicated, Inc. and Simply Herbals as joint venture participants.",
+ "processing_note": "Any notices or delivery required here will be deemed completed when hand-delivered, delivered by agent, or seven (7) days after being placed in the post, postage prepaid, to the parties at the addresses contained in this Agreement or as the parties may later designate in writing.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "JOINT VENTURE AGREEMENT",
+   "superseded": false,
+   "rationale": "The contract is titled JOINT VENTURE AGREEMENT.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "November 27, 2018",
+   "superseded": false,
+   "rationale": "The Joint Venture term begins November 27, 2018; the 27th day of November 2018 is labelled the Execution Date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "The State of Florida",
+   "superseded": false,
+   "rationale": "The joint venture is formed under and governed by the laws of The State of Florida; the later mention is jurisdiction.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong"
+   }
+  }
+ }
+}

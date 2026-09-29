@@ -1,0 +1,9 @@
+{"doc_id": "cuad-solutionsvendinginternational-inc-03-31-2020-ex1a-1-undr-agm", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["SERVICES AGREEMENT", "Services Agreement"],
+"contract.agreement_date": ["08/19/2019"],
+"contract.effective_date": ["08/19/2019", "Effective Date"],
+"contract.expiration_date": ["the total duration of the Company's Offering"],
+"contract.governing_law": [],
+"contract.renewal_term": ["then-current term", "renewal term"],
+"contract.notice_period": ["30 days", "60 days", "15 days", "10 business days"]
+}}

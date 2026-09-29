@@ -1,0 +1,34 @@
+{
+  "passage_id": "fjc-13623536#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Amanda Kathleen Brailsford, subject judge",
+    "E2": "Joseph R. Biden, nominating president",
+    "E3": "B. Lynn Winmill, predecessor judge",
+    "E4": "Thomas G. Nelson, judge Brailsford clerked for"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

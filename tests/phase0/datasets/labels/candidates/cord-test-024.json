@@ -1,0 +1,144 @@
+{
+ "doc_id": "cord-test-024",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single restaurant/shop receipt for one purchase transaction; no other party or transaction.",
+ "processing_note": null,
+ "fields": {
+  "receipt.total_price": {
+   "status": "present",
+   "value": "Rp.118.000",
+   "superseded": false,
+   "rationale": "The Total line gives Rp.118.000; the later 118.000 is the debit card payment.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "correct",
+    "c8": "wrong"
+   }
+  },
+  "receipt.subtotal_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No subtotal line is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.tax_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No tax is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.service_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No service charge is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.discount_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No discount is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.cashprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Payment was by debit card; no cash amount is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.changeprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No change is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "present",
+   "value": "3",
+   "superseded": false,
+   "rationale": "Total Item: 3 gives the printed item count.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,39 @@
+{
+  "passage_id": "cuad-drkoopcominc-04-21-1999-ex-10-28-sponsorship-agreement#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "drkoop.com, inc.",
+    "E2": "the Sponsor (Vitamin Shoppe, not named in this passage)",
+    "E3": "NetGravity, ad-serving software company",
+    "E4": "Securities and Exchange Commission"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

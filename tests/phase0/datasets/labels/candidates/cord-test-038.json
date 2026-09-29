@@ -1,0 +1,189 @@
+{
+ "doc_id": "cord-test-038",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single receipt for one purchase transaction from one merchant.",
+ "processing_note": null,
+ "fields": {
+  "receipt.total_price": {
+   "status": "present",
+   "value": "664,329",
+   "superseded": false,
+   "rationale": "The line \"Total 664,329\" gives the final amount due.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "correct"
+   }
+  },
+  "receipt.subtotal_price": {
+   "status": "present",
+   "value": "561,800",
+   "superseded": false,
+   "rationale": "\"ITEMS: 13 561,800\" is the pre-charge item sum (matches the sum of line prices).",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "correct",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "receipt.tax_price": {
+   "status": "present",
+   "value": "60,394",
+   "superseded": false,
+   "rationale": "PB1 (restaurant tax) is printed as 60,394.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "correct",
+    "c12": "wrong"
+   }
+  },
+  "receipt.service_price": {
+   "status": "present",
+   "value": "42,135",
+   "superseded": false,
+   "rationale": "\"Service charge 42,135\" is the service charge.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "correct",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "receipt.discount_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No discount is printed on the receipt.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "receipt.cashprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No cash tendered amount is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "receipt.changeprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No change amount is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "present",
+   "value": "13",
+   "superseded": false,
+   "rationale": "\"ITEMS: 13\" is the printed total item quantity (8 single items plus 5 cups).",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "correct",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong",
+    "c22": "wrong"
+   }
+  }
+ }
+}

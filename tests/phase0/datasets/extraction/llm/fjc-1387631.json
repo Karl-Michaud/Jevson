@@ -1,0 +1,50 @@
+{
+ "doc_id": "fjc-1387631",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Seybert, Joanna",
+   "William J. Clinton"
+  ],
+  "resume.law_institution": [
+   "St. John's University School of Law",
+   "University of Cincinnati"
+  ],
+  "resume.law_year": [
+   "1971",
+   "1967",
+   "1973",
+   "1975",
+   "1979",
+   "1987",
+   "1991",
+   "1992",
+   "1993"
+  ],
+  "resume.undergrad_institution": [
+   "University of Cincinnati",
+   "St. John's University School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1967",
+   "1971",
+   "1946",
+   "1973"
+  ],
+  "resume.first_judgeship_start": [
+   "November 24, 1993",
+   "November 20, 1993",
+   "September 24, 1993",
+   "July 27, 1992",
+   "January 13, 2014"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Eastern District of New York",
+   "U.S. District Court for the Eastern District of New York",
+   "Judge, Nassau County [New York] Court",
+   "Judge, Nassau County [New York] District Court"
+  ]
+ }
+}

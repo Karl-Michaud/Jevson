@@ -1,0 +1,30 @@
+{
+ "doc_id": "epmc-pmc10807820",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient with gallbladder agenesis.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "GA",
+   "superseded": false,
+   "rationale": "MRI resulted in and ERCP confirmed the diagnosis of GA (gallbladder agenesis); the CT absence finding and gallstones are findings, not the diagnosis.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "wrong",
+    "c3": "correct"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No medication is named for gallbladder agenesis; management was endoscopic.",
+   "options": {}
+  }
+ }
+}

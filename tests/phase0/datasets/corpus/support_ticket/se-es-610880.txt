@@ -1,0 +1,19 @@
+Eliminar archivos de directorio en laravel
+
+necesito su apoyo.
+Estoy haciendo un proyecto en laravel y voy sacando fragmentos de algunos videos para poder eliminar una imagen de mi directorio. Pero solo logro borrarla de la base y se queda en el directorio
+
+public function destroy($id)
+{
+$Imagen = Sucursal::find($id,'Imagen');
+$datos = str_replace('storage','sucursales', $Imagen);
+
+Storage::delete($datos);
+$sucursal = Sucursal::find($id)->delete();
+return redirect()->route('sucursal.index')->withSuccess('Se eliminó correctamente!');
+}
+
+Si imprimo "$datos" me imprime esto
+{"Imagen":"sucursales/1704301971-D_NQ_NP_2X_917818-MLM69201573584_052023-F.jpeg"}
+
+Agradezco su apoyo

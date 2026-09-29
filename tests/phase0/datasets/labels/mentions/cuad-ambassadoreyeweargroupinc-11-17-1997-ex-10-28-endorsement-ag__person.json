@@ -1,0 +1,53 @@
+{
+  "passage_id": "cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Kathy Ireland (KI), the endorser, individually and as President of Kathy Ireland, Inc.",
+    "E2": "Jason Winters, signatory for The Sterling/Winters Co.",
+    "E3": "Barry Budilov, President of Diplomat Ambassador Eyewear Group"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c7": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+ "doc_id": "fjc-10929791",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Cobb, Jia Michelle",
+   "Joseph R. Biden",
+   "Emmet G. Sullivan",
+   "Diane P. Wood"
+  ],
+  "resume.law_institution": [
+   "Harvard Law School",
+   "Northwestern University",
+   "American University Washington College of Law"
+  ],
+  "resume.law_year": [
+   "2005",
+   "2002",
+   "2006",
+   "2012",
+   "2011",
+   "2021",
+   "1980"
+  ],
+  "resume.undergrad_institution": [
+   "Northwestern University",
+   "Harvard Law School"
+  ],
+  "resume.undergrad_year": [
+   "2002",
+   "2005",
+   "1980",
+   "2006"
+  ],
+  "resume.first_judgeship_start": [
+   "November 12, 2021",
+   "October 26, 2021",
+   "June 15, 2021"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the District of Columbia",
+   "U.S. District Court for the District of Columbia"
+  ]
+ }
+}

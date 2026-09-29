@@ -1,0 +1,43 @@
+{
+ "doc_id": "fjc-1391711",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Fuller, Mark E.",
+   "George W. Bush",
+   "Ira DeMent"
+  ],
+  "resume.law_institution": [
+   "University of Alabama School of Law",
+   "University of Alabama"
+  ],
+  "resume.law_year": [
+   "1985",
+   "1982",
+   "1996",
+   "1997",
+   "2002"
+  ],
+  "resume.undergrad_institution": [
+   "University of Alabama",
+   "University of Alabama School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1982",
+   "1985",
+   "1958"
+  ],
+  "resume.first_judgeship_start": [
+   "November 26, 2002",
+   "November 14, 2002",
+   "August 1, 2002",
+   "August 1, 2015"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Middle District of Alabama",
+   "U.S. District Court for the Middle District of Alabama"
+  ]
+ }
+}

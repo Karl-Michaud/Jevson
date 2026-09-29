@@ -1,0 +1,75 @@
+{
+  "passage_id": "cuad-rgcresourcesinc-20151216-8-k-ex-10-3-9372751-ex-10-3-franchi#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Town of Vinton, Virginia (Grantor)",
+    "E2": "Roanoke Gas Company (Grantee)",
+    "E3": "City of Roanoke",
+    "E4": "City of Salem",
+    "E5": "RGC Resources Inc, the filer (parent of Roanoke Gas)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c7": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c8": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c9": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c10": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c11": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

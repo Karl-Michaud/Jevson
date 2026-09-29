@@ -1,0 +1,50 @@
+{
+ "doc_id": "fjc-1392186",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Benton, William Duane",
+   "George W. Bush",
+   "Theodore McMillian",
+   "Wendell Bailey"
+  ],
+  "resume.law_institution": [
+   "Yale Law School",
+   "University of Virginia School of Law",
+   "Memphis State University (now University of Memphis)",
+   "Northwestern University"
+  ],
+  "resume.law_year": [
+   "1975",
+   "1994",
+   "1979",
+   "1972"
+  ],
+  "resume.undergrad_institution": [
+   "Northwestern University",
+   "Yale Law School",
+   "Memphis State University (now University of Memphis)",
+   "University of Virginia School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1972",
+   "1975",
+   "1979",
+   "1994"
+  ],
+  "resume.first_judgeship_start": [
+   "July 2, 2004",
+   "June 24, 2004",
+   "February 12, 2004",
+   "June 21, 2026"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. Court of Appeals for the Eighth Circuit",
+   "U.S. Court of Appeals for the Eighth Circuit",
+   "Judge, Supreme Court of Missouri",
+   "Board member, Federal Judicial Center"
+  ]
+ }
+}

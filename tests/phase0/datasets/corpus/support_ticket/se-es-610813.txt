@@ -1,0 +1,11 @@
+VBA hacer que una misma Macro sirva para cualquier hoja
+
+necesito saber si se puede hacer que una macro ejecute la orden pero que lo haga en la hoja actual y no en la que se creo. por ejemplo:
+
+Cells.Select
+ActiveWorkbook.Worksheets("Hoja1").Sort.SortFields.Clear
+ActiveWorkbook.Worksheets("Hoja1").Sort.SortFields.Add2 Key:=Range("B2:B74") _
+, SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:=xlSortNormal
+With ActiveWorkbook.Worksheets("Hoja1").Sort
+
+Selecciona las celdas de Hoja1 y las ordena por fecha. pero si quiero hacer lo mismo con Hoja2, tengo que crear otra macro para Hoja2 que haga eso mismo. ¿No hay alguna forma de utilizar una misma macro para que ejecute en la hoja en la que uno esta trabajando?, gracias de antemano

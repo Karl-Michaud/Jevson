@@ -1,0 +1,33 @@
+{
+  "passage_id": "cuad-linkpluscorp-20050802-8-k-ex-10-3240252-ex-10-affiliate-agre#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Axiometric, LLC",
+    "E2": "LKPL (Link Plus Corporation)",
+    "E3": "Datamatic LTD (Plano TX customer)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

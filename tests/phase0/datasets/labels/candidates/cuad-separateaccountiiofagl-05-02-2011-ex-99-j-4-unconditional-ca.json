@@ -1,0 +1,89 @@
+{
+  "doc_id": "cuad-separateaccountiiofagl-05-02-2011-ex-99-j-4-unconditional-ca",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Agreement between American International Group, Inc. and American General Life Insurance Company of Delaware, with several notice addresses.",
+  "processing_note": "Any notice, instruction, request, consent, demand or other communication        required or contemplated by this Agreement shall be in writing, shall be        given or made or communicated by United States first class mail,        addressed as follows:",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Unconditional Capital Maintenance Agreement",
+      "superseded": false,
+      "rationale": "The agreement names itself Unconditional Capital Maintenance Agreement in the title and preamble.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "March 30, 2011",
+      "superseded": false,
+      "rationale": "The preamble says the agreement is made and entered into as of March 30, 2011; April 24, 2011 is the supersession date and 1991 is the prior letter agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "March 30, 2011",
+      "superseded": false,
+      "rationale": "The preamble says the agreement is effective as of March 30, 2011; April 24, 2011 is only when it supersedes the prior letter agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement continues indefinitely until terminated, so no expiration date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "New York",
+      "superseded": false,
+      "rationale": "Paragraph 14 provides the agreement is governed by the laws of New York; Delaware is the state of incorporation and the other New York mentions are the notice address.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "correct"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement has no initial term or renewal terms; the listed durations are termination notice, post-sale termination and cure periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no renewal mechanism; the 30-day notice is for termination by AIG, not to prevent renewal.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "passage_id": "cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Kathy Ireland, Inc. (KI Inc., licensor of KI's name)",
+    "E2": "The Sterling/Winters Co. (SW)",
+    "E3": "Diplomat Ambassador Eyewear Group (licensee)",
+    "E4": "Kmart (retailer)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c7": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

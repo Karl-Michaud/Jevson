@@ -1,0 +1,40 @@
+{
+ "doc_id": "epmc-pmc10913635",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient with vulvar ulceration after COVID-19 vaccination.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "Vulvar ulceration",
+   "superseded": false,
+   "rationale": "The condition described and followed to healing is vulvar ulceration (no more specific named diagnosis is given).",
+   "options": {
+    "c0": "wrong",
+    "c1": "partial",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "cefuroxime",
+   "superseded": false,
+   "rationale": "Cefuroxime is the first drug named as treatment for the vulvar ulcers, later complemented with topical medication.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  }
+ }
+}

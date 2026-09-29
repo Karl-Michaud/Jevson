@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378045", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["PERMETHRIN LOTION DEET", "PERMETHERIN LOTION DEET"], "product.inventory": ["(6504)", "6504", "(6504) each"], "product.price": []}}

@@ -1,0 +1,7 @@
+Cambiar resolución de una interfaz hecha con python y tkinter
+
+soy nuevo programando en python y realicé una interfaz implementando customtkinter para un equipo de pruebas eléctricas. El problema que tengo es que necesito implementar esta interfaz en diferentes estaciones de prueba, pero las pantallas de cada una de estas estaciones tienen diferente resolución, por lo que en algunos casos solo se ve una sección de la interfaz.
+
+Me gustaria saber si existe algun modo de cambiar la resolución de la interfaz y todo su contenido al mismo tiempo sin tener que escalar cada widget y frame de la interfaz.
+
+Espero que se haya entendido y espero que alguien pueda responder, muchas gracias.

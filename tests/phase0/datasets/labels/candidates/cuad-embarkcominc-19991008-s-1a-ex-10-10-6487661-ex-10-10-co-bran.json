@@ -1,0 +1,158 @@
+{
+ "doc_id": "cuad-embarkcominc-19991008-s-1a-ex-10-10-6487661-ex-10-10-co-bran",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties (Snap Technologies, Inc. and United Airlines, Inc.) with two addresses.",
+ "processing_note": "Any notice or other communication required or permitted to be given hereunder shall be given in writing and delivered by first class U.S. mail, in person, or mailed via confirmed facsimile or e-mail, or delivered by courier service, properly addressed and stamped with the required postage, to the person signing this agreement on behalf of the applicable party at its address specified above and shall be deemed effective upon receipt.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "Co-Branding Agreement",
+   "superseded": false,
+   "rationale": "The title, opening sentence and running page headers name it the Co-Branding Agreement; 'Exhibit 10.10' is the filing exhibit number.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "correct",
+    "c5": "correct",
+    "c6": "correct",
+    "c7": "correct",
+    "c8": "correct",
+    "c9": "correct",
+    "c10": "correct",
+    "c11": "correct",
+    "c12": "correct",
+    "c13": "correct",
+    "c14": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "June 8, 1999",
+   "superseded": false,
+   "rationale": "The agreement is dated as of June 8, 1999 and both signature blocks are dated June 8, 1999; 10/8/1999 is the filing date and others are payment/term dates.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "correct",
+    "c9": "correct",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "June 8, 1999",
+   "superseded": false,
+   "rationale": "The Term commences on the date of this Agreement, which is June 8, 1999; the Section 4.1 phrase refers to it without stating it, and signing dates play a different role.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "partial",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "present",
+   "value": "December 31, 2000",
+   "superseded": false,
+   "rationale": "Section 4.1 says the Term ends as of December 31, 2000; the same date in Exhibit A is a payment date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of California",
+   "superseded": false,
+   "rationale": "Section 8.4 applies the laws of the State of California; other mentions are incorporation, venue or addresses.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal term; Section 4.4 is only a right of first refusal to negotiate a new agreement.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No automatic renewal; the 45-day notice triggers good-faith negotiation, not prevention of renewal.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,21 @@
+{
+  "doc_id": "cuad-linkpluscorp-20050802-8-k-ex-10-3240252-ex-10-affiliate-agre",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Link Plus Corporation and Axiometric, LLC (with Datamatic referenced).",
+  "processing_note": "Payments due shall be made within 45 days of the                            close of each calendar quarter.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "AFFILIATE AGREEMENT",
+      "superseded": false,
+      "rationale": "The contract's title is AFFILIATE AGREEMENT; the header line is misspelled and includes the date, another value.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct"
+      }
+    }
+  }
+}

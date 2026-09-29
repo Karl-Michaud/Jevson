@@ -1,0 +1,33 @@
+{
+ "doc_id": "cuad-separateaccountiiofagl-05-02-2011-ex-99-j-4-unconditional-ca",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "UNCONDITIONAL CAPITAL MAINTENANCE AGREEMENT",
+   "Unconditional Capital Maintenance Agreement"
+  ],
+  "contract.agreement_date": [
+   "March 30, 2011",
+   "April 24, 2011",
+   "December 13, 1991"
+  ],
+  "contract.effective_date": [
+   "March 30, 2011",
+   "April 24, 2011"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "laws of New York",
+   "New York",
+   "State of Delaware"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "thirty (30) days",
+   "sixty (60) days",
+   "one year"
+  ]
+ }
+}

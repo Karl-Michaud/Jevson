@@ -1,0 +1,101 @@
+{
+ "doc_id": "cuad-drkoopcominc-04-21-1999-ex-10-28-sponsorship-agreement",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties (drkoop.com, inc. and Vitamin Shoppe Industries, Inc.) with several addresses plus a copy-to law firm.",
+ "processing_note": "Any cancellations or change orders must be made in writing and acknowledged by drkoop.com.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "Sponsorship Agreement",
+   "superseded": false,
+   "rationale": "The title and the opening sentence name it the Sponsorship Agreement; the exhibit number is not the name.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "11th day of March, 1999",
+   "superseded": false,
+   "rationale": "The agreement is 'entered into as of the 11th day of March, 1999'; the signature blocks are undated.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "11th day of March, 1999",
+   "superseded": false,
+   "rationale": "The agreement is made as of 11 March 1999 and the Term begins on 'the date set forth above'; the Launch Date qualifier is redacted and the Launch Date is a defined event, not a stated date.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The length/end of the Initial Term is redacted; no expiry date is stated (August 31, 1999 is a launch deadline).",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Delaware",
+   "superseded": false,
+   "rationale": "Section 9.4 applies the laws of the State of Delaware; the other Delaware/New York mentions are incorporation and address.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The Term mentions 'extensions and renewals' but no renewal term length is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "There is no automatic renewal and no non-renewal notice period; listed periods are termination/cure/notice-delivery periods.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  }
+ }
+}

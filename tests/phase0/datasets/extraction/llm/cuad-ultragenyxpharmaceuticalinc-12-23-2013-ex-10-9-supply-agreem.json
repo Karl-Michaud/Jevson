@@ -1,0 +1,9 @@
+{"doc_id": "cuad-ultragenyxpharmaceuticalinc-12-23-2013-ex-10-9-supply-agreem", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["SUPPLY AGREEMENT"],
+"contract.agreement_date": ["November 19t h, 2012", "September 26t h, 2012"],
+"contract.effective_date": ["the date of its execution", "November 19t h, 2012"],
+"contract.expiration_date": ["three years", "Initial Term"],
+"contract.governing_law": ["Federal Republic of Germany", "Germany"],
+"contract.renewal_term": ["two year periods", "additional two year periods", "Renewal Term"],
+"contract.notice_period": ["three calendar months", "sixty (60) days"]
+}}

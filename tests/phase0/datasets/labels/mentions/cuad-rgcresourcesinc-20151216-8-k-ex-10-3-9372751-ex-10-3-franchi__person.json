@@ -1,0 +1,34 @@
+{
+  "passage_id": "cuad-rgcresourcesinc-20151216-8-k-ex-10-3-9372751-ex-10-3-franchi#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Diane L. Conner, Assistant to CEO, witness for Roanoke Gas",
+    "E2": "John S. D'Orazio, President and CEO of Roanoke Gas Company",
+    "E3": "Susan N. Johnson, Town Clerk, witness for Town of Vinton",
+    "E4": "Christopher S. Lawrence, Town Manager of Vinton"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

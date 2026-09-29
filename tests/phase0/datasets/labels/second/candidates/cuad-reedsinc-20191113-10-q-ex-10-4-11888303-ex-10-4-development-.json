@@ -1,0 +1,40 @@
+{
+  "doc_id": "cuad-reedsinc-20191113-10-q-ex-10-4-11888303-ex-10-4-development-",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Reed's, Inc. and B C Marketing Concepts Inc. dba Full Sail Brewing Company.",
+  "processing_note": "A party may change its address for the purposes of this Section 18 by written notice hereunder given to the other party.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Recipe Development Agreement",
+      "superseded": false,
+      "rationale": "The heading and preamble name it the Recipe Development Agreement; page footers use a different name, 'Amended and Restated Recipe Development Agreement'.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term does not auto-renew (extension only by written agreement); options are cure, force majeure or mail-delivery periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    }
+  }
+}

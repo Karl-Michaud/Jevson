@@ -41,3 +41,35 @@ def test_render_handles_empty_band():
     d = report.oc_data(n=2)
     text = report.render_oc(d)
     assert "—" in text or "k " in text
+
+
+# ---------------------------------------------------------------- generated sections
+
+def test_doc_blocks_match_committed_data():
+    """Every generated block in docs/taxonomy.md is exactly what the committed data renders to."""
+    doc = (ROOT / "docs" / "taxonomy.md").read_text()
+    blocks = report.generated_blocks()
+    assert {"corpus", "labelling", "taxonomy", "fields"} <= set(blocks)
+    for name, body in blocks.items():
+        assert f"<!-- BEGIN:{name} -->\n{body}\n<!-- END:{name} -->" in doc, name
+
+
+def test_replace_block_and_update_doc(tmp_path):
+    doc = "a\n<!-- BEGIN:x -->\nold\n<!-- END:x -->\nb\n"
+    assert report.replace_block(doc, "x", "new\n") == "a\n<!-- BEGIN:x -->\nnew\n<!-- END:x -->\nb\n"
+    with pytest.raises(ValueError):
+        report.replace_block(doc, "y", "z")
+    p = tmp_path / "t.md"
+    p.write_text("<!-- BEGIN:taxonomy -->\n<!-- END:taxonomy -->\n")
+    assert report.update_doc(p) == ["taxonomy"]
+    assert "Verdict on the prediction" in p.read_text()
+
+
+def test_generated_blocks_skip_missing_inputs(tmp_path):
+    assert report.generated_blocks(ds=tmp_path, results=tmp_path) == {}
+
+
+def test_main_doc(monkeypatch, capsys):
+    monkeypatch.setattr(report, "update_doc", lambda: ["corpus"])
+    assert report.main(["doc"]) == 0
+    assert "updated blocks: corpus" in capsys.readouterr().out

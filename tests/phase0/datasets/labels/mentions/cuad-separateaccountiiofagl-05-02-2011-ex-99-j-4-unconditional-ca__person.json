@@ -1,0 +1,43 @@
+{
+  "passage_id": "cuad-separateaccountiiofagl-05-02-2011-ex-99-j-4-unconditional-ca#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Brian T. Schreiber, Executive Vice President, AIG",
+    "E2": "Robert A. Gender, Senior Vice President and Treasurer, AIG",
+    "E3": "Don W. Cummings, SVP and CFO, American General Life Insurance Company of Delaware"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

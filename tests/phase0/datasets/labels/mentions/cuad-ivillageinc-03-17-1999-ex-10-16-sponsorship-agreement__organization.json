@@ -1,0 +1,79 @@
+{
+  "passage_id": "cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "the (Securities and Exchange) Commission",
+    "E2": "Ford Motor Company (Ford, the automaker)",
+    "E3": "Ford Motor Media (FMM), division of J. Walter Thompson",
+    "E4": "J. Walter Thompson",
+    "E5": "iVillage, Inc.",
+    "E6": "America Online",
+    "E7": "Net gravity (ad-serving technology)",
+    "E8": "Doubleclick (ad-serving technology)",
+    "E9": "Ford Division (division of Ford Motor Company)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c7": {
+      "entity": "E6",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c8": {
+      "entity": "E9",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c9": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c10": {
+      "entity": "E7",
+      "role_noun": false,
+      "ambiguous": true
+    },
+    "c11": {
+      "entity": "E8",
+      "role_noun": false,
+      "ambiguous": true
+    }
+  }
+}

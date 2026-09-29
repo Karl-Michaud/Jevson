@@ -1,0 +1,33 @@
+{
+  "doc_id": "cuad-pfsfunds-06-26-2020-ex-99-h-oth-mat-cont-services-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "PFS Funds (Trust) and Potomac Fund Management, Inc. (Adviser).",
+  "processing_note": "A copy of the Agreement and Declaration of Trust is on file with the Secretary of State of Massachusetts.",
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "June 24, 2020",
+      "superseded": false,
+      "rationale": "The agreement is dated as of June 24, 2020 and its term begins on the date of execution, executed as of that date; the other June 24, 2020 is the Management Agreement's date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "partial"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Continuation needs annual approval; the 60-day notice is for termination at any time, not to prevent renewal.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    }
+  }
+}

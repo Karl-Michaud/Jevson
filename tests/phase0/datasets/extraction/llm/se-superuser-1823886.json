@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1823886", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Excel", "excel", "csv", "Google Sheets", "google sheets", "Stata", "stata", "ChatGPT"]}}

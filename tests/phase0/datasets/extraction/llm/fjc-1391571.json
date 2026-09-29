@@ -1,0 +1,42 @@
+{
+ "doc_id": "fjc-1391571",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Savage, Timothy J.",
+   "George W. Bush",
+   "Edward N. Cahn"
+  ],
+  "resume.law_institution": [
+   "Temple University School of Law (now James E. Beasley School of Law)",
+   "Temple University School of Law",
+   "Assumption College"
+  ],
+  "resume.law_year": [
+   "1971",
+   "1968",
+   "2002",
+   "1976"
+  ],
+  "resume.undergrad_institution": [
+   "Assumption College",
+   "Temple University School of Law (now James E. Beasley School of Law)"
+  ],
+  "resume.undergrad_year": [
+   "1968",
+   "1971",
+   "1946"
+  ],
+  "resume.first_judgeship_start": [
+   "August 1, 2002",
+   "March 21, 2002",
+   "March 1, 2021"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Eastern District of Pennsylvania",
+   "U.S. District Court for the Eastern District of Pennsylvania"
+  ]
+ }
+}
