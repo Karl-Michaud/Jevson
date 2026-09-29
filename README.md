@@ -7,7 +7,7 @@ Before building anything, we tested Jevson's central idea on real documents: con
 | what we measured | result |
 |---|---|
 | Jev picks the right span when it is among the options | **good**: 82–88% |
-| Jev says *none of these* when the right span is **not** among the options | **not good enough**: it commits a wrong value 21–27% of the time, often with a probability of 0.95 or more |
+| Jev says *none of these* when the right span is **not** among the options | **not good enough**: it commits a wrong value about 21% of the time, a quarter of those with a probability of 0.95 or more |
 | Adding a second check, a yes/no "is this the complete value?" question on the chosen span | cuts those wrong commits from 21% to 7%, but **rejects 45% of correct answers** |
 
 So the probability Jev reports cannot tell a confident right answer from a confident wrong one when the answer is missing. The verification gate fixes most of that only by throwing away almost half the right answers. Under the rule we fixed in advance, the verdict is **drop source selection**. Pairwise entity resolution (deciding whether two mentions are the same person or company) also failed its probe.
