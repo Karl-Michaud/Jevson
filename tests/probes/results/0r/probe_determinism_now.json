@@ -1,0 +1,188 @@
+{
+ "probe": "probe_determinism_now",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": {
+  "joint": 20,
+  "alone": 20,
+  "keyname": 3,
+  "order": 2,
+  "cobatch": 3
+ },
+ "requests": 128,
+ "input_tokens": 64698,
+ "cost_usd": 0.00647,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 128
+ },
+ "measured": {
+  "joint": {
+   "n_refund": {
+    "type": "noul",
+    "values": [
+     0.04
+    ],
+    "max_abs_dev": 0.0,
+    "sd": 0.0,
+    "argmax_set": [
+     false
+    ]
+   },
+   "c_intent": {
+    "type": "choice",
+    "max_abs_dev_prob": 0.0,
+    "conf_range": [
+     1.0,
+     1.0
+    ],
+    "selected_set": [
+     "info"
+    ],
+    "n_distinct_distributions": 1
+   },
+   "s_frust": {
+    "type": "score",
+    "max_abs_dev_prob": 0.0,
+    "conf_range": [
+     0.9,
+     0.9
+    ],
+    "selected_set": [
+     "1"
+    ],
+    "n_distinct_distributions": 1,
+    "score_range": [
+     0.88,
+     0.88
+    ]
+   }
+  },
+  "alone": {
+   "n_refund": {
+    "type": "noul",
+    "values": [
+     0.04
+    ],
+    "max_abs_dev": 0.0,
+    "sd": 0.0,
+    "argmax_set": [
+     false
+    ]
+   },
+   "c_intent": {
+    "type": "choice",
+    "max_abs_dev_prob": 0.0,
+    "conf_range": [
+     1.0,
+     1.0
+    ],
+    "selected_set": [
+     "info"
+    ],
+    "n_distinct_distributions": 1
+   },
+   "s_frust": {
+    "type": "score",
+    "max_abs_dev_prob": 0.0,
+    "conf_range": [
+     0.9,
+     0.9
+    ],
+    "selected_set": [
+     "1"
+    ],
+    "n_distinct_distributions": 1,
+    "score_range": [
+     0.88,
+     0.88
+    ]
+   }
+  },
+  "keyname_noul": {
+   "keys_accepted": [
+    "a",
+    "is_customer_angry",
+    "items[3]",
+    "q_refund",
+    "zzz_totally_unrelated_key"
+   ],
+   "keys_rejected": [],
+   "values": {
+    "a": [
+     0.04
+    ],
+    "q_refund": [
+     0.04
+    ],
+    "zzz_totally_unrelated_key": [
+     0.04
+    ],
+    "is_customer_angry": [
+     0.04
+    ],
+    "items[3]": [
+     0.04
+    ]
+   },
+   "range_across_keys": 0.0
+  },
+  "keyname_choice": {
+   "choice:c_intent": {
+    "return": 0.0,
+    "exchange": 0.0,
+    "info": 1.0,
+    "complaint": 0.0
+   },
+   "choice:wants_exchange": {
+    "return": 0.0,
+    "exchange": 0.0,
+    "info": 1.0,
+    "complaint": 0.0
+   },
+   "choice:definitely_a_complaint": {
+    "return": 0.0,
+    "exchange": 0.0,
+    "info": 1.0,
+    "complaint": 0.0
+   }
+  },
+  "keyname_choice_range_across_keys": 0.0,
+  "order_range_per_question": {
+   "n_refund": 0.0,
+   "c_intent": 0.0,
+   "s_frust": 0.0
+  },
+  "cobatch_range_per_question_vs_alone": {
+   "0": {
+    "n_refund": 0.0,
+    "c_intent": 0.0,
+    "s_frust": 0.0
+   },
+   "1": {
+    "n_refund": 0.0,
+    "c_intent": 0.0,
+    "s_frust": 0.0
+   },
+   "10": {
+    "n_refund": 0.0,
+    "c_intent": 0.0,
+    "s_frust": 0.0
+   },
+   "50": {
+    "n_refund": 0.0,
+    "c_intent": 0.0,
+    "s_frust": 0.0
+   }
+  },
+  "alone_range_per_question": {
+   "n_refund": 0.0,
+   "c_intent": 0.0,
+   "s_frust": 0.0
+  },
+  "cobatch_or_order_selection_changes": 0
+ }
+}

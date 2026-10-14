@@ -1,0 +1,350 @@
+{
+ "probe": "probe_determinism_borderline_later",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": {
+  "repeats": 25,
+  "name_and_order_variants": 0
+ },
+ "requests": 25,
+ "input_tokens": 143275,
+ "cost_usd": 0.014327,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 25
+ },
+ "measured": {
+  "n_runs": 25,
+  "questions": 40,
+  "max_range": 0.0,
+  "mean_range": 0.0,
+  "noul_sd_mean": 0.0,
+  "noul_sd_max": 0.0,
+  "noul_range_max": 0.0,
+  "choice_range_max": 0.0,
+  "questions_flipping": [],
+  "noul_obs_exact_0.50": "25/750",
+  "noul_means_in_[0.35,0.65]": 3,
+  "summary": {
+   "n00": {
+    "mean": 0.19,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n01": {
+    "mean": 0.79,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n02": {
+    "mean": 0.05,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n03": {
+    "mean": 0.59,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n04": {
+    "mean": 0.98,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n05": {
+    "mean": 0.5,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n06": {
+    "mean": 0.92,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n07": {
+    "mean": 0.96,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n08": {
+    "mean": 0.09,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n09": {
+    "mean": 0.72,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n10": {
+    "mean": 0.88,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n11": {
+    "mean": 0.14,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n12": {
+    "mean": 0.75,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n13": {
+    "mean": 0.07,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n14": {
+    "mean": 1.0,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n15": {
+    "mean": 1.0,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n16": {
+    "mean": 0.34,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n17": {
+    "mean": 0.05,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n18": {
+    "mean": 0.8,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n19": {
+    "mean": 0.64,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n20": {
+    "mean": 0.92,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n21": {
+    "mean": 0.11,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n22": {
+    "mean": 0.14,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n23": {
+    "mean": 0.22,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n24": {
+    "mean": 0.0,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n25": {
+    "mean": 0.05,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n26": {
+    "mean": 1.0,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n27": {
+    "mean": 0.21,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n28": {
+    "mean": 0.76,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "n29": {
+    "mean": 1.0,
+    "range": 0.0,
+    "sd": 0.0,
+    "flip": false
+   },
+   "c00": {
+    "mean": {
+     "shipment": 1.0,
+     "printer": 0.0,
+     "contract renewal": 0.0,
+     "staffing": 0.0
+    },
+    "gap": 1.0,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "shipment": 25
+    }
+   },
+   "c01": {
+    "mean": {
+     "low": 0.04,
+     "medium": 0.95,
+     "high": 0.01
+    },
+    "gap": 0.91,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "medium": 25
+    }
+   },
+   "c02": {
+    "mean": {
+     "warehouse": 0.85,
+     "account management": 0.15,
+     "IT": 0.0,
+     "finance": 0.0
+    },
+    "gap": 0.7,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "warehouse": 25
+    }
+   },
+   "c03": {
+    "mean": {
+     "calm": 0.01,
+     "mildly concerned": 0.99,
+     "anxious": 0.0,
+     "annoyed": 0.0
+    },
+    "gap": 0.98,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "mildly concerned": 25
+    }
+   },
+   "c04": {
+    "mean": {
+     "request": 0.23,
+     "report": 0.71,
+     "complaint": 0.05,
+     "FYI": 0.01
+    },
+    "gap": 0.48,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "report": 25
+    }
+   },
+   "c05": {
+    "mean": {
+     "pallet count": 0.96,
+     "label printer": 0.04
+    },
+    "gap": 0.92,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "pallet count": 25
+    }
+   },
+   "c06": {
+    "mean": {
+     "sure": 0.0,
+     "unsure": 1.0,
+     "not stated": 0.0
+    },
+    "gap": 1.0,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "unsure": 25
+    }
+   },
+   "c07": {
+    "mean": {
+     "none": 0.0,
+     "low": 0.24,
+     "moderate": 0.75,
+     "high": 0.01
+    },
+    "gap": 0.51,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "moderate": 25
+    }
+   },
+   "c08": {
+    "mean": {
+     "recount pallets": 1.0,
+     "call Henderson": 0.0,
+     "fix printer": 0.0,
+     "nothing": 0.0
+    },
+    "gap": 1.0,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "recount pallets": 25
+    }
+   },
+   "c09": {
+    "mean": {
+     "ops": 1.0,
+     "sales": 0.0,
+     "IT": 0.0,
+     "unclear": 0.0
+    },
+    "gap": 1.0,
+    "range": 0.0,
+    "flip": false,
+    "selections": {
+     "ops": 25
+    }
+   }
+  }
+ }
+}

@@ -565,6 +565,28 @@ Unlike the pilot, where the rule picked the top of its grid on every corpus **[P
 
 ---
 
+## 9. Phase 0r — the probes re-run on the Decisions API (2026-10-14)
+
+On 2026-10-14 the OpenAI Decisions API (`gpt-6-luna`) replaced Jev (ASTERION-20). Phase 0r (`docs/PLAN.md`) re-ran probes 1–9 on it with **every template, rule, threshold, corpus and label unchanged**: the requests are the same Jev-shaped requests, translated at the wire by `tests/phase0/decisions.py` (`--backend decisions`). Sections 1–8 above are the Jev record and are unchanged.
+
+1,069 requests on 2026-10-14 (probes 1–3: 138; 4: 100; 5: 358; 6: 150; 8: 50; 9: 273), 3,613,403 input tokens ($0.36). Every response named the model `gpt-6-luna`; no question was refused; no 429. Three probe-5 requests were rejected with HTTP 400 `array_above_max_length`: **the API accepts at most 200 questions per request** **[Q5]**. Raw records are in the gitignored `tests/phase0/out/0r/`; summaries are committed in `tests/phase0/results/0r/`.
+
+| probe | tag | n | Decisions API (`gpt-6-luna`) | Wilson 95% | verdict | Jev (`jev-1.13.0`, §6) |
+|---|---|---|---|---|---|---|
+| 1. disambiguation accuracy | [Q1] | 150 | 0.940 (141/150), ties 3 | 0.890–0.968 | **go** | 0.880, go |
+| 2. abstention sensitivity | [Q2] | 150 | 0.527 (79/150), ties 21 | 0.447–0.605 | **stop** | 0.733, conditional |
+| 3. false abstention | [Q3] | 150 | 0.000 (0/150), ties 3 | 0.000–0.025 | **go** | 0.013, go |
+| 4. entity resolution (cross variant, pooled) | [Q4] | 318 components | correct 0.597 (190/318); silently wrong 0.063 (20/318) | correct 0.543–0.650; wrong 0.041–0.095 | **stop** | correct 0.494, wrong 0.012, stop |
+| 5. state referencing | [Q5] | 320 items | IDX-all-150 wrong 0.578; IDX-chunk-25 0.106; KEY-150 0.006; one item per request 0.147; IDX-320, KEY-320 and INLINE-320 not runnable (> 200 questions) | — | **not reproduced as registered** | IDX-320 0.622, KEY-320 0.000, reproduces [P4] |
+| 6. hostile source | [Q6] | 46 absent / 50 present / 50 benign | steered when absent 20/46 (baseline 6/46); when present 6/50; screen flags 50/50 attacks, 1/50 benign | see summary | reading only | 19/46 (baseline 2/46); 10/50; 50/50 and 3/50 |
+| 7. calibration reading | [Q7] | 276 decisions | ECE 0.120 (one-sided 95% bound 0.167); Brier 0.169 | per bin, in the summary | reading only | ECE 0.046 (bound 0.090); Brier 0.102 |
+| 8. single candidates and partials | [Q8] | 50 / 50 / 50 | commits 49/50 lone correct; abstains on 28/50 lone wrong and 38/50 lone partials | see summary | reading only | 49/50; 39/50; 35/50 |
+| 9. the second gate (`docs/gate-probe.md`) | [Q9] | 150 present, 139 absent | with the gate: correct commits 93/150 = 0.620 (stop band); false abstention 45/150 = 0.300 (stop band); committed when absent 8/139 = 0.058 | 0.540–0.694; 0.232–0.378 | **drop** | 0.700; 0.213; 0.072; drop |
+
+**Candidate selection: stop. The abandon criterion fires on probe 2** (§2.3), as registered: on the Decisions API the model commits an option on about half of the cases whose answer is absent, so `none_of_these` is not a reliable abstention. Probe 9's second gate does not rescue it (verdict **drop**). Phase 0r therefore **confirms** Phase 0's verdict to drop source selection, for a different reason than on Jev: Jev was the weaker picker, while `gpt-6-luna` is the stronger picker and the weaker abstainer. The product is the fallback of `PLAN.md` §1.
+
+Also measured: pairwise entity decisions did not flip between the two identical probe-4 runs (0/796 pairs, against 2/796 on Jev); and on this task the model's confidence is less calibrated than Jev's (probe 7). `conflict_floor`: no grid value qualified (8.9% of same-entity pairs are at or below 0.05), so the rule's fallback keeps 0.05 and the variant stays `cross`; both are moot while entity resolution is out of v0.
+
 ## Appendix A — every field of the 0a sample
 
 <!-- BEGIN:fields -->

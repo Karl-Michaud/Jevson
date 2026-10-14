@@ -1,4 +1,8 @@
-"""Round 2. Claim (DESIGN §4.2, §6.2 Rev 4): bool fields decide true iff p > 0.5, and an exact p = 0.50 yields
+"""Phase 0r: re-measures [P12] (contract half: exact-0.50 incidence, flips across 10 identical calls, tie bands up to
+the 0.10 margin) on the OpenAI Decisions API (`gpt-6-luna`) through jevclient's `decisions` backend; unchanged
+otherwise. Summary: tests/probes/results/0r/probe_bool_tie_band.json.
+
+Round 2. Claim (DESIGN §4.2, §6.2 Rev 4): bool fields decide true iff p > 0.5, and an exact p = 0.50 yields
 Unresolved(tie). Question: how often does an exact 0.50 occur on realistic yes/no extraction questions, how many
 land in [0.45, 0.55], how often does the decision flip across byte-identical repeats, and is a wider tie band
 better?
@@ -15,7 +19,7 @@ PROBES = _pl.Path(__file__).resolve().parents[1]
 _sys.path.insert(0, str(PROBES))
 (PROBES / "out").mkdir(exist_ok=True)
 import asyncio, json, random, sys
-from jevclient import Jev, save, fmt_rate
+from jevclient import Jev, save, save_summary, fmt_rate
 
 R = random.Random(777)
 Q = {
@@ -115,7 +119,7 @@ async def main(passes):
         for t, lvl in d["meta"]:
             rows.append({"topic": t, "level": lvl, "ps": [x[t] for x in o]})
     save("r2_tie_rule", {"docs": docs, "rows": rows})
-    analyse(rows)
+    save_summary("probe_bool_tie_band", j, analyse(rows), n={"questions": len(rows), "repeats": passes})
 
 
 def analyse(rows):
@@ -154,6 +158,7 @@ def analyse(rows):
     out["hist_obs_by_0.1"] = dict(sorted(hist.items()))
     print(json.dumps(out, indent=1))
     save("r2_tie_rule_analysis", out)
+    return out
 
 
 if __name__ == "__main__":

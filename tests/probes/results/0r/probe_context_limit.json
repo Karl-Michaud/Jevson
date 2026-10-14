@@ -1,0 +1,253 @@
+{
+ "probe": "probe_context_limit",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": "one request per size",
+ "requests": 21,
+ "input_tokens": 6100453,
+ "cost_usd": 1.141964,
+ "refusals": 18,
+ "http_statuses": {
+  "200": 16,
+  "400": 1,
+  "429": 4
+ },
+ "measured": {
+  "ladder": [
+   {
+    "target_tokens": 30000,
+    "sentences": 1902,
+    "chars": 122264,
+    "status": 200,
+    "input_tokens": 30601,
+    "latency_s": 0.372,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   },
+   {
+    "target_tokens": 130000,
+    "sentences": 8245,
+    "chars": 533267,
+    "status": 200,
+    "input_tokens": 133750,
+    "latency_s": 1.044,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   },
+   {
+    "target_tokens": 265000,
+    "sentences": 16808,
+    "chars": 1094868,
+    "status": 200,
+    "input_tokens": 273059,
+    "latency_s": 1.725,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   },
+   {
+    "target_tokens": 500000,
+    "sentences": 31714,
+    "chars": 2075434,
+    "status": 200,
+    "input_tokens": 515587,
+    "latency_s": 5.204,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   },
+   {
+    "target_tokens": 900000,
+    "sentences": 57085,
+    "chars": 3744554,
+    "status": 400,
+    "input_tokens": null,
+    "latency_s": 3.714,
+    "refusals": 0,
+    "needles": null,
+    "error": {
+     "error": {
+      "message": "Decision input exceeds the token limit.",
+      "type": "invalid_request_error",
+      "param": null,
+      "code": null
+     }
+    }
+   },
+   {
+    "target_tokens": 700000,
+    "sentences": 44399,
+    "chars": 2909980,
+    "status": 200,
+    "input_tokens": 721977,
+    "latency_s": 9.185,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   },
+   {
+    "target_tokens": 800000,
+    "sentences": 50742,
+    "chars": 3327243,
+    "status": 200,
+    "input_tokens": 825153,
+    "latency_s": 10.133,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   },
+   {
+    "target_tokens": 850000,
+    "sentences": 53913,
+    "chars": 3535884,
+    "status": 200,
+    "input_tokens": 876669,
+    "latency_s": 8.221,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   },
+   {
+    "target_tokens": 875000,
+    "sentences": 55499,
+    "chars": 3640230,
+    "status": 200,
+    "input_tokens": 902458,
+    "latency_s": 12.0,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   },
+   {
+    "target_tokens": 887500,
+    "sentences": 56292,
+    "chars": 3692404,
+    "status": 200,
+    "input_tokens": 915373,
+    "latency_s": 13.448,
+    "refusals": 2,
+    "needles": {
+     "start": 1.0,
+     "end": 1.0,
+     "end_neg": 0.0,
+     "start_c": "refusal",
+     "end_c": "refusal",
+     "oslo": 1.0
+    },
+    "error": null
+   }
+  ],
+  "tokens_per_sentence": 15.766,
+  "max_ok_target_tokens": 887500,
+  "min_rejected_target_tokens": 900000,
+  "q200_over_250k": {
+   "status": 200,
+   "input_tokens_1q": 257075,
+   "input_tokens_200q": 288915,
+   "latency_1q": 2.109824874991318,
+   "latency_200q": 2.7392619579914026,
+   "n_answers": 200,
+   "refusals": 0,
+   "yes_answers": 74,
+   "k0_alone_vs_batched": [
+    {
+     "type": "noul",
+     "noul": 0.0
+    },
+    {
+     "type": "noul",
+     "noul": 0.0
+    }
+   ],
+   "error": null
+  },
+  "longq_10000": {
+   "status": 200,
+   "input_tokens": 9830,
+   "err": null,
+   "answer": {
+    "type": "noul",
+    "noul": 1.0
+   }
+  },
+  "longq_60000": {
+   "status": 200,
+   "input_tokens": 61067,
+   "err": null,
+   "answer": {
+    "type": "noul",
+    "noul": 1.0
+   }
+  },
+  "longq_250000": {
+   "status": 200,
+   "input_tokens": 257081,
+   "err": null,
+   "answer": {
+    "type": "noul",
+    "noul": 1.0
+   }
+  }
+ }
+}

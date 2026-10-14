@@ -1,0 +1,35 @@
+{
+ "probe": "probe_sum_large_k",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": {
+  "51": 10,
+  "255": 10
+ },
+ "requests": 20,
+ "input_tokens": 49448,
+ "cost_usd": 0.004945,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 20
+ },
+ "measured": {
+  "51": {
+   "n": 10,
+   "non_200": 0,
+   "max_dev_hundredths": 0,
+   "argmax_eq_choice": 10,
+   "correct": 7
+  },
+  "255": {
+   "n": 10,
+   "non_200": 0,
+   "max_dev_hundredths": 0,
+   "argmax_eq_choice": 10,
+   "correct": 10
+  }
+ }
+}

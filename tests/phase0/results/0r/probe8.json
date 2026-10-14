@@ -1,0 +1,188 @@
+{
+ "lone_correct": {
+  "n": 50,
+  "commit": 49,
+  "tie": 1,
+  "rate_key": "commit",
+  "rate": 0.98,
+  "wilson": [
+   0.8950455641036219,
+   0.9964607407283539
+  ],
+  "by_field_type": {
+   "date": {
+    "n": 11,
+    "commit": 11
+   },
+   "duration": {
+    "n": 3,
+    "commit": 3
+   },
+   "money": {
+    "n": 2,
+    "commit": 2
+   },
+   "number": {
+    "n": 1,
+    "commit": 1
+   },
+   "text": {
+    "n": 33,
+    "commit": 32
+   }
+  }
+ },
+ "lone_wrong": {
+  "n": 50,
+  "abstain": 28,
+  "commit": 17,
+  "tie": 5,
+  "rate_key": "abstain",
+  "rate": 0.56,
+  "wilson": [
+   0.4230602802165687,
+   0.6883780078874283
+  ],
+  "by_field_type": {
+   "date": {
+    "n": 11,
+    "abstain": 8
+   },
+   "duration": {
+    "n": 3,
+    "abstain": 2
+   },
+   "money": {
+    "n": 2,
+    "abstain": 2
+   },
+   "number": {
+    "n": 1,
+    "abstain": 1
+   },
+   "text": {
+    "n": 33,
+    "abstain": 15
+   }
+  }
+ },
+ "lone_partial": {
+  "n": 50,
+  "commit": 10,
+  "abstain": 38,
+  "tie": 2,
+  "rate_key": "abstain",
+  "rate": 0.76,
+  "wilson": [
+   0.6258731624205709,
+   0.8570260860300827
+  ],
+  "by_field_type": {
+   "date": {
+    "n": 11,
+    "abstain": 10
+   },
+   "duration": {
+    "n": 3,
+    "abstain": 0
+   },
+   "money": {
+    "n": 2,
+    "abstain": 2
+   },
+   "number": {
+    "n": 1,
+    "abstain": 0
+   },
+   "text": {
+    "n": 33,
+    "abstain": 26
+   }
+  },
+  "constructed": 42
+ },
+ "partial_only": {
+  "n": 17,
+  "commit": 7,
+  "abstain": 9,
+  "tie": 1,
+  "rate_key": "abstain",
+  "rate": 0.5294117647058824,
+  "wilson": [
+   0.30963235060004446,
+   0.7383489355759056
+  ],
+  "by_field_type": {
+   "date": {
+    "n": 11,
+    "abstain": 6
+   },
+   "number": {
+    "n": 6,
+    "abstain": 3
+   }
+  }
+ },
+ "requests_sent_this_invocation": 50,
+ "models": [
+  "gpt-6-luna"
+ ],
+ "raw_records_scored": 50,
+ "backend": "decisions",
+ "refusals": 0,
+ "http_status": {
+  "200": 50
+ },
+ "request_ids": [
+  "req_03433d7a44c74ee8b344a77b09400ab7",
+  "req_0fc06fcb3f374a4f87664dd5187e7616",
+  "req_0fd175e8f68f48fabb245d990aff4ce3",
+  "req_1925c30aa9af4cab8856d22ee4b1d13c",
+  "req_2221dcddc90a44719cd64a2f21a1daa2",
+  "req_24c3f3ad6cc54a9c876256aed1b81f74",
+  "req_26628ca0cf644355b3ecdc4ffc437f14",
+  "req_27e2da98c44f4227954271c39c0976bd",
+  "req_307c396e43d740028a1ff51a0ebd3a8b",
+  "req_353a7d644bb14678b45f44742e2388cd",
+  "req_3752776897c4415a86faf99e2b18e4c6",
+  "req_3abe7cfcd8bd4f4c8fce004e90bca2ea",
+  "req_3ce209ee798b4913993c699f29a1da67",
+  "req_3d51b4c767524226ace52571fe3de590",
+  "req_4274849cc3284e9bbd268fbecf3fd65f",
+  "req_459fbfa0887940e48d805de8a650a6e0",
+  "req_508eda00f5f549019606d9e72b2d8e1f",
+  "req_548d67093a014bcbb829357f9d8a9494",
+  "req_61171d3463f84e9bb946edd7611a5f2d",
+  "req_62d6c94ed6c24a329c41e64f3741e2c4",
+  "req_62f7efa0ebce46018cf3d524b75ef58b",
+  "req_67b46850e85a449d8f03ac8587e743e1",
+  "req_748a414292004e008be0cdeb0434680d",
+  "req_7f324e29a18446a2ab3803012945a579",
+  "req_83d5f8d228494a64a0562eccd9860c9c",
+  "req_8747fc9bb93a4bbb85244ca2f1fb7013",
+  "req_87ae4cbe0d53404bac69aea8f8fbdc65",
+  "req_8aa3da2c6f6e473fb08fabbdcdc9ba1e",
+  "req_8d4d3c71be1a4280844e06c11172ebec",
+  "req_97bfc5c10a174de4aab0471281752e77",
+  "req_99cf4d2863d24e218d9ba9eb0f1b2a04",
+  "req_a2d52042c38740ee85c24c60d16163df",
+  "req_aadd2c2697a74725a396685433414533",
+  "req_ac11b31e2111430289a837ab19871e6d",
+  "req_b214b1b623104429ac4dffecaa79e5d8",
+  "req_b5577c1d08ee4be7b5d94f0fbd2e8911",
+  "req_b63a642fb5894e5180262c0e8683d908",
+  "req_bda91f66530a416cb196782c2f525b87",
+  "req_c293771c7a114e008d7a380c863c2bb7",
+  "req_d19fde55b61045468bf32be44236100e",
+  "req_d3a9fa2edccf499eaa8afacedf63f0d9",
+  "req_d8fe414448c64d33939062cd04273196",
+  "req_df94e4e129be4f7db572854ab788a774",
+  "req_dfb429f9b9744490a01aba4494547cbc",
+  "req_dfe0a3bf900641408d030290a8649657",
+  "req_e2cc755538fc4903883aaa5d373ba47f",
+  "req_ea095b9a758a4ed9b891c96272792ce8",
+  "req_ef3cef35131c4e6386ec9922030b20d5",
+  "req_f48b3889c244445b81a04cbe49463b08",
+  "req_fd50c1d2da1e4b27a52633e80773c51e"
+ ]
+}

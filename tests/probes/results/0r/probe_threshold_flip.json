@@ -1,0 +1,103 @@
+{
+ "probe": "probe_threshold_flip",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": {
+  "screen": 40,
+  "repeats": 30
+ },
+ "requests": 31,
+ "input_tokens": 26132,
+ "cost_usd": 0.002613,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 31
+ },
+ "measured": {
+  "screen": {
+   "q00": 0.18,
+   "q01": 0.29,
+   "q02": 0.35,
+   "q03": 0.63,
+   "q04": 0.21,
+   "q05": 0.91,
+   "q06": 0.16,
+   "q07": 0.11,
+   "q08": 0.5,
+   "q09": 1.0,
+   "q10": 0.94,
+   "q11": 0.95,
+   "q12": 0.34,
+   "q13": 0.5,
+   "q14": 0.0,
+   "q15": 0.28,
+   "q16": 0.28,
+   "q17": 0.31,
+   "q18": 0.7,
+   "q19": 0.28,
+   "q20": 0.83,
+   "q21": 0.41,
+   "q22": 0.28,
+   "q23": 0.34,
+   "q24": 0.2,
+   "q25": 0.61,
+   "q26": 0.28,
+   "q27": 0.51,
+   "q28": 0.32,
+   "q29": 0.22,
+   "q30": 0.3,
+   "q31": 0.95,
+   "q32": 0.87,
+   "q33": 0.22,
+   "q34": 0.51,
+   "q35": 0.27,
+   "q36": 0.12,
+   "q37": 0.59,
+   "q38": 0.0,
+   "q39": 0.95
+  },
+  "near": {
+   "q08": {
+    "q": "Is the reviewer likely to return?",
+    "min": 0.5,
+    "max": 0.5,
+    "n_yes": 0,
+    "n_exact_0.5": 30,
+    "n": 30
+   },
+   "q13": {
+    "q": "Is the hotel good value?",
+    "min": 0.5,
+    "max": 0.5,
+    "n_yes": 0,
+    "n_exact_0.5": 30,
+    "n": 30
+   },
+   "q27": {
+    "q": "Is the review fair?",
+    "min": 0.51,
+    "max": 0.51,
+    "n_yes": 30,
+    "n_exact_0.5": 0,
+    "n": 30
+   },
+   "q34": {
+    "q": "Is the review trustworthy?",
+    "min": 0.51,
+    "max": 0.51,
+    "n_yes": 30,
+    "n_exact_0.5": 0,
+    "n": 30
+   }
+  },
+  "questions_flipping": 0,
+  "n_near": 4,
+  "cross_session_mean_shift_max": 0.0,
+  "cross_session_mean_shift_mean": 0.0,
+  "screen_exact_0.50": 2,
+  "near_obs_exact_0.50": "60/120"
+ }
+}

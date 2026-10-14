@@ -1,0 +1,36 @@
+{
+ "probe": "probe_context_total",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": "one request per size",
+ "requests": 8,
+ "input_tokens": 287902,
+ "cost_usd": 0.02879,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 8
+ },
+ "measured": {
+  "bill_15k_1": 14649,
+  "bill_15k_10": 16089,
+  "bill_15k_100": 30489,
+  "bill_15k_200": 46489,
+  "bill_tiny_1": 179,
+  "bill_tiny_100": 16019,
+  "bill_tiny_200": 32019,
+  "tokens_per_question_15k": 160.0,
+  "tokens_per_question_tiny": 160.0,
+  "state_tokens_once": 14470,
+  "state_billed_once_per_request": true,
+  "long_200q": {
+   "status": 200,
+   "input_tokens": 131969,
+   "refusals": 0,
+   "latency_s": 1.109378207998816,
+   "err": null
+  }
+ }
+}

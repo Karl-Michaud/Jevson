@@ -1,4 +1,9 @@
-"""Round 2. Claim (DESIGN §5.6 Rev 4; PLAN Phase 0 probe 4): per-component conflict handling with a
+"""Phase 0r: run here only as the input of entities/probe_pair_jitter.py ([P12] entity-pair jitter, which needs
+runs A and B); on the OpenAI Decisions API (`gpt-6-luna`) through jevclient's `decisions` backend, the object
+`instructions` of each pair question is sent as JSON text. The [P10] floor analysis is not re-run here (Phase 0
+probe 4's Phase 0r run re-chooses `conflict_floor`).
+
+Round 2. Claim (DESIGN §5.6 Rev 4; PLAN Phase 0 probe 4): per-component conflict handling with a
 `conflict_floor` chosen by the pre-registered rule "the largest value in {0.05, 0.10, 0.20, 0.30}
 such that same-entity pairs at or below it are <= 2% of all same-entity pairs" yields few silent
 errors and fewer Unresolved components than the Rev 3 whole-array policy.
@@ -25,7 +30,7 @@ from jevclient import Jev, save, fmt_rate
 import pathlib, types
 # probe_pairs.py runs its probe at import time (unguarded asyncio.run); load its definitions only.
 _src = (pathlib.Path(__file__).parent / "probe_pairs.py").read_text().rsplit("asyncio.run(main())", 1)[0]
-P6 = types.ModuleType("P6"); exec(compile(_src, "probe_pairs.py", "exec"), P6.__dict__)
+P6 = types.ModuleType("P6"); P6.__file__ = str(pathlib.Path(__file__).parent / "probe_pairs.py"); exec(compile(_src, "probe_pairs.py", "exec"), P6.__dict__)
 
 # ---------------- new templates ----------------
 SETS3 = [("Katherine", "Kate", "Kevin", "Doyle", "Boyle"), ("Elizabeth", "Liz", "Edward", "Carter", "Cartier"),

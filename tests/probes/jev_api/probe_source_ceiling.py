@@ -1,4 +1,14 @@
-"""Round 2. Claim (DESIGN §8.2 Rev 4): "The source has a hard ceiling below 32k tokens minus the longest question
+"""Phase 0r: re-measures [P14] (per-option token costs of a 255-option candidate choice; the largest source beside a
+realistic 255-option question) and the token side of [P22] on the OpenAI Decisions API (`gpt-6-luna`) through
+jevclient's `decisions` backend. Adapted: (1) is unchanged; for (2) a bisection near the Decisions limit (~0.92M
+tokens, probe_context_limit.py) would cost ~$0.18 per step, so instead each corpus's chars/token is measured
+(40k chars, as before), the ceiling is derived as (largest accepted input from probe_context_limit - question
+tokens) x chars/token, and ONE live request verifies it for corpus A: business text sized to ~900k total input
+tokens beside the realistic 255-option question. The prose corpus is read from docs/DESIGN.md (the old path,
+tests/DESIGN.md, no longer exists), so its text depends on the checkout. Summary:
+tests/probes/results/0r/probe_source_ceiling.json.
+
+Round 2. Claim (DESIGN §8.2 Rev 4): "The source has a hard ceiling below 32k tokens minus the longest question
 (a 255-option candidate choice costs ~2.5k tokens [P2])". Round 1's 2,485-token figure came from a 255-option
 choice whose options were bare short keys; realistic candidate options carry span text (5-80 chars) or, per
 probe_repeated_text, a context window.
@@ -14,10 +24,10 @@ PROBES = _pl.Path(__file__).resolve().parents[1]
 _sys.path.insert(0, str(PROBES))
 (PROBES / "out").mkdir(exist_ok=True)
 import asyncio, json, pathlib, random, re
-from jevclient import Jev, save
+from jevclient import Jev, save, save_summary, RAW
 
 R = random.Random(55)
-ROOT = pathlib.Path(__file__).resolve().parents[2]
+ROOT = pathlib.Path(__file__).resolve().parents[3] / "docs"
 FIRST = ["Dana", "Marcus", "Priya", "Tomasz", "Aiko", "Rafael", "Ingrid", "Kwame", "Lucia", "Oren", "Sofia", "Declan"]
 LAST = ["Whitfield", "Okafor", "Lindqvist", "Moreau", "Tanaka", "Castillo", "Brennan", "Novak", "Haddad", "Petrov"]
 CO = ["Acme Corp", "Globex Ltd", "Initech LLC", "Umbrella Supply", "Hooli Inc", "Vandelay Imports", "Stark Parts"]
@@ -81,7 +91,7 @@ def choice_q(kind):
 
 
 async def main():
-    j = Jev(concurrency=4)
+    j = Jev(concurrency=2)
     out = {"cost": {}, "search": {}}
     base = await j.ask("x", {"q": {"type": "choice", "instructions": "Which of these is the billing address of this invoice (the one being issued)?",
                                    "criteria": {"c0": "\"12 King St\"", "none_of_these": "None of the other options is the billing address of this invoice."}}})
@@ -89,37 +99,29 @@ async def main():
     Qs = {k: choice_q(k) for k in ("short", "realistic", "long", "context")}
     for k, q in Qs.items():
         r = await j.ask("x", {"q": q})
-        out["cost"][k] = {"status": r["status"], "input_tokens": r.get("usage", {}).get("input_tokens"),
+        out["cost"][k] = {"status": r["status"], "input_tokens": (r.get("usage") or {}).get("input_tokens"),
                           "question_tokens_over_baseline": (r["usage"]["input_tokens"] - b0) if r["status"] == 200 else None,
-                          "desc_chars_total": sum(len(v) for v in q["criteria"].values())}
-    # chars per token of each corpus (state-only, short noul)
+                          "desc_chars_total": sum(len(v) for v in q["criteria"].values()), "refusals": r.get("refusals")}
+    lim = json.loads((RAW / "p03_context.json").read_text())
+    ok = max(x["input_tokens"] for x in lim["ladder"] if x["status"] == 200)
+    out["limit_largest_accepted_input_tokens"] = ok
+    qtok = out["cost"]["realistic"]["question_tokens_over_baseline"]
+    r0 = await j.ask("x", {"q": {"type": "noul", "instructions": "Is this about invoices?"}})
     for cname, cf in (("A_business", corpus_A), ("B_prose", corpus_B)):
-        r0 = await j.ask("x", {"q": {"type": "noul", "instructions": "Is this about invoices?"}})
         r1 = await j.ask(cf(40000), {"q": {"type": "noul", "instructions": "Is this about invoices?"}})
         cpt = 40000 / (r1["usage"]["input_tokens"] - r0["usage"]["input_tokens"])
-        out["search"][cname] = {"chars_per_token": round(cpt, 3)}
-        # binary search with the realistic 255-option question
-        lo, hi = 60000, 160000; best = None
-        R.seed(99); text = cf(hi)
-        while hi - lo > 1500:
-            mid = (lo + hi) // 2
-            r = await j.ask(text[:mid], {"q": Qs["realistic"]})
-            if r["status"] == 200:
-                lo = mid; best = (mid, r["usage"]["input_tokens"])
-            else:
-                hi = mid; out["search"][cname].setdefault("rejections", []).append((mid, r["status"], str(r["body"])[:120]))
-        out["search"][cname].update({"max_state_chars_accepted": best[0] if best else None, "input_tokens_at_max": best[1] if best else None,
-                                     "first_rejected_chars": hi})
-        # same corpus, no big question: max state with a short noul (for comparison)
-        lo2, hi2 = lo, lo + 30000; best2 = None
-        while hi2 - lo2 > 1500:
-            mid = (lo2 + hi2) // 2
-            r = await j.ask(text[:mid] if len(text) >= mid else cf(mid), {"q": {"type": "noul", "instructions": "Is this about invoices?"}})
-            if r["status"] == 200: lo2 = mid; best2 = (mid, r["usage"]["input_tokens"])
-            else: hi2 = mid
-        out["search"][cname]["max_state_chars_short_noul"] = best2
+        out["search"][cname] = {"chars_per_token": round(cpt, 3),
+                                "derived_max_state_chars_beside_realistic_255": int((ok - qtok - b0) * cpt),
+                                "derived_max_state_tokens_beside_realistic_255": ok - qtok - b0}
+    R.seed(99); cpt = out["search"]["A_business"]["chars_per_token"]
+    text = corpus_A(int((900_000 - qtok - b0) * cpt))
+    r = await j.ask(text, {"q": Qs["realistic"]})
+    out["search"]["A_business"]["verify_~900k"] = {"chars": len(text), "status": r["status"], "input_tokens": (r.get("usage") or {}).get("input_tokens"),
+                                                   "refusals": r.get("refusals"), "latency_s": r.get("latency_s"),
+                                                   "answer": (r["body"]["answers"]["q"].get("choice") if r["status"] == 200 else None),
+                                                   "err": r["body"] if r["status"] != 200 else None}
     await j.aclose()
-    save("r2_source_ceiling", out)
+    save("r2_source_ceiling", out); save_summary("probe_source_ceiling", j, out, n="one request per size")
     print(json.dumps(out, indent=1)); print("requests", j.count)
 
 

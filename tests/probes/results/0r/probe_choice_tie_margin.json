@@ -1,0 +1,117 @@
+{
+ "probe": "probe_choice_tie_margin",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": {
+  "questions": 180,
+  "repeats": 10
+ },
+ "requests": 600,
+ "input_tokens": 268940,
+ "cost_usd": 0.026894,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 600
+ },
+ "measured": {
+  "questions": 180,
+  "observations": 1800,
+  "distribution_sums_not_100": {},
+  "exact_tie_top_two_equal(obs)": "0/1800 = 0.000 [95% CI 0.000-0.002]",
+  "band<=0": {
+   "obs_in_band(converted to Unresolved)": "0/1800 = 0.000 [95% CI 0.000-0.002]",
+   "questions_first_pass_in_band": "0/180 = 0.000 [95% CI 0.000-0.021]",
+   "questions_ever_in_band": "0/180 = 0.000 [95% CI 0.000-0.021]",
+   "questions_with_decided_flip": "0/180 = 0.000 [95% CI 0.000-0.021]",
+   "questions_outcome_not_identical": "0/180 = 0.000 [95% CI 0.000-0.021]"
+  },
+  "band<=2": {
+   "obs_in_band(converted to Unresolved)": "0/1800 = 0.000 [95% CI 0.000-0.002]",
+   "questions_first_pass_in_band": "0/180 = 0.000 [95% CI 0.000-0.021]",
+   "questions_ever_in_band": "0/180 = 0.000 [95% CI 0.000-0.021]",
+   "questions_with_decided_flip": "0/180 = 0.000 [95% CI 0.000-0.021]",
+   "questions_outcome_not_identical": "0/180 = 0.000 [95% CI 0.000-0.021]"
+  },
+  "band<=5": {
+   "obs_in_band(converted to Unresolved)": "30/1800 = 0.017 [95% CI 0.012-0.024]",
+   "questions_first_pass_in_band": "3/180 = 0.017 [95% CI 0.006-0.048]",
+   "questions_ever_in_band": "3/180 = 0.017 [95% CI 0.006-0.048]",
+   "questions_with_decided_flip": "0/180 = 0.000 [95% CI 0.000-0.021]",
+   "questions_outcome_not_identical": "0/180 = 0.000 [95% CI 0.000-0.021]"
+  },
+  "band<=10": {
+   "obs_in_band(converted to Unresolved)": "70/1800 = 0.039 [95% CI 0.031-0.049]",
+   "questions_first_pass_in_band": "7/180 = 0.039 [95% CI 0.019-0.078]",
+   "questions_ever_in_band": "7/180 = 0.039 [95% CI 0.019-0.078]",
+   "questions_with_decided_flip": "0/180 = 0.000 [95% CI 0.000-0.021]",
+   "questions_outcome_not_identical": "0/180 = 0.000 [95% CI 0.000-0.021]"
+  },
+  "argmax_flip_questions(no band)": "0/180 = 0.000 [95% CI 0.000-0.021]",
+  "low_support_p1<50(obs)": "40/1800 = 0.022 [95% CI 0.016-0.030]",
+  "margin_range_per_question(p50,p90,max)": [
+   0,
+   0,
+   0
+  ],
+  "by_question_type": {
+   "ticket.category": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 0
+   },
+   "ticket.sentiment": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 0
+   },
+   "ticket.priority": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 20
+   },
+   "contract.ctype": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 0
+   },
+   "contract.payterms": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 0
+   },
+   "contract.law": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 0
+   },
+   "review.sentiment": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 0
+   },
+   "review.aspect": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 10
+   },
+   "review.recommend": {
+    "n": 20,
+    "flip(no band)": 0,
+    "flip(band5)": 0,
+    "obs_in_band5": 0
+   }
+  },
+  "flips_surviving_band5": []
+ }
+}

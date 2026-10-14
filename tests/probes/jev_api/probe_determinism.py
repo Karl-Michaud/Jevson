@@ -1,4 +1,8 @@
-"""Claim (DESIGN §2, PLAN §3 'Determinism', DESIGN §5.4 'retry useless against identical input'):
+"""Phase 0r: re-measures [P1] (and the jitter half of [P12]) on the OpenAI Decisions API (`gpt-6-luna`) through
+jevclient's `decisions` backend; question keys are sent as the Decisions question `name`, so test C measures
+whether question names affect answers. Summary: tests/probes/results/0r/probe_determinism_<tag>.json.
+
+Claim (DESIGN §2, PLAN §3 'Determinism', DESIGN §5.4 'retry useless against identical input'):
 Jev is deterministic -- same input produces the same answer; vendor sigma=0.01 over 15 repeats.
 Also DESIGN §12 / PLAN Phase 3: does co-batching (adding unrelated questions) or splitting a
 level change an existing question's answer? Does map key name / order change answers?
@@ -18,7 +22,7 @@ PROBES = _pl.Path(__file__).resolve().parents[1]
 _sys.path.insert(0, str(PROBES))
 (PROBES / "out").mkdir(exist_ok=True)
 import asyncio, itertools, json, sys, statistics as st
-from jevclient import Jev, save
+from jevclient import Jev, save, save_summary
 
 STATE = ("Hi, I ordered the blue jacket two weeks ago (order 5531). It arrived but the zipper "
          "feels a bit stiff. Not sure if that's normal or if I should send it back? Also the "
@@ -54,6 +58,37 @@ def summarize(answers_list, key):
         sc = [a[key]["score"] for a in answers_list]; extra = {"score_range": [min(sc), max(sc)]}
     return {"type": t, "max_abs_dev_prob": round(dev, 4), "conf_range": [min(conf), max(conf)],
             "selected_set": sorted(set(sel)), "n_distinct_distributions": len({json.dumps(p, sort_keys=True) for p in probs}), **extra}
+
+def _vec(a):
+    """A comparable vector for one answer: noul p, or the probabilities in key order."""
+    return [a["noul"]] if a["type"] == "noul" else [a["probabilities"][k] for k in sorted(a["probabilities"])]
+
+
+def _spread(answers):
+    vs = [_vec(a) for a in answers]
+    return round(max(max(v[i] for v in vs) - min(v[i] for v in vs) for i in range(len(vs[0]))), 4)
+
+
+def measure(res):
+    m = {"joint": res["joint_summary"], "alone": {k: res[f"alone_{k}_summary"] for k in TARGETS}}
+    if "keyname" in res:
+        kn = res["keyname"]
+        ok = {k: v for k, v in kn.items() if not k.startswith("choice:") and all(isinstance(x, (int, float)) for x in v)}
+        nv = [x for v in ok.values() for x in v]
+        m["keyname_noul"] = {"keys_accepted": sorted(ok), "keys_rejected": sorted(k for k in kn if not k.startswith("choice:") and k not in ok),
+                             "values": {k: sorted(set(v)) for k, v in ok.items()}, "range_across_keys": round(max(nv) - min(nv), 4)}
+        ch = {k: v for k, v in kn.items() if k.startswith("choice:")}
+        m["keyname_choice"] = {k: v[0] for k, v in ch.items()}
+        m["keyname_choice_range_across_keys"] = round(max(max(d[o] for v in ch.values() for d in v) - min(d[o] for v in ch.values() for d in v) for o in TARGETS["c_intent"]["criteria"]), 4)
+        m["order_range_per_question"] = {k: _spread([a[k] for runs in res["order"].values() for a in runs]) for k in TARGETS}
+        alone_ref = {k: [r["body"]["answers"][k] for r in res[f"alone_{k}_raw"]] for k in TARGETS}
+        m["cobatch_range_per_question_vs_alone"] = {nf: {k: _spread(alone_ref[k] + [x[k] for x in runs]) for k in TARGETS} for nf, runs in res["cobatch"].items()}
+        m["alone_range_per_question"] = {k: _spread(alone_ref[k]) for k in TARGETS}
+        sel = lambda a: (a["noul"] > .5) if a["type"] == "noul" else max(a["probabilities"], key=a["probabilities"].get)
+        m["cobatch_or_order_selection_changes"] = sum(
+            len({sel(a) for a in [x[k] for runs in list(res["cobatch"].values()) for x in runs] + [a[k] for runs in res["order"].values() for a in runs] + alone_ref[k]}) > 1
+            for k in TARGETS)
+    return m
 
 async def rep(j, state, qs, n):
     out = []
@@ -101,6 +136,8 @@ async def main():
         res["cobatch"] = cob
     await j.aclose()
     save(f"p01_determinism_{tag}", res)
+    save_summary(f"probe_determinism_{tag}", j, measure(res), n={"joint": 20, "alone": 20, "keyname": 3, "order": 2, "cobatch": 3})
     print(json.dumps({k: v for k, v in res.items() if "summary" in k}, indent=1))
     print("requests:", j.count)
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
