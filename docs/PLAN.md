@@ -1,8 +1,8 @@
 # Jevson — implementation plan
 
-> **Status:** Planning document, Revision 9.1, 2026-09-29. Pre-implementation.
+> **Status:** Planning document, Revision 10, 2026-10-14. Pre-implementation. The backend is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14 (PLAN §6). Phase 0 ran on `jev-1.13.0`; **Phase 0r** re-runs its probes on the Decisions API before Phase 1 starts.
 >
-> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 9.1. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md).
+> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 10. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** tag was measured on `jev-1.13.0`.
 >
 > **Rule numbers** (R1–R16) refer to `DESIGN §7`.
 
@@ -24,7 +24,7 @@ Each phase states:
 
 **Phases run strictly in order.** Each phase depends on the one before it, and the next starts only once the previous one has merged or fired its abandon criterion. A phase that abandons is skipped, and later phases proceed unless they state otherwise. The only exception is stated in the phase itself (Phase 11).
 
-**Order.** Foundation (1–3), then generative fields and adjudication (4), then candidate selection (5), then unions (6) and arrays (7), then release (8). **The fallback product**, if candidate selection stops (Phase 0 or Phase 5), is phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7; it is stated this way everywhere. Post-v0 phases (9–11) are planned, not optional extras. **The order is the project owner's decision (2026-09-29).** Round-1 review argued for running Phase 5 before Phase 4 whenever Phase 0 says *go*, because Phase 5 is the existential test of source-grounded extraction; the owner considered and kept this order, and PLAN §5 records the risk.
+**Order.** Phase 0, then Phase 0r (the same probes on the Decisions API, added 2026-10-14), then foundation (1–3), then generative fields and adjudication (4), then candidate selection (5), then unions (6) and arrays (7), then release (8). Wherever a later phase depends on a Phase 0 result, Phase 0r's result for the decision model is the one that applies. **The fallback product**, if candidate selection stops (Phase 0r or Phase 5), is phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7; it is stated this way everywhere. Post-v0 phases (9–11) are planned, not optional extras. **The order is the project owner's decision (2026-09-29).** Round-1 review argued for running Phase 5 before Phase 4 whenever Phase 0 says *go*, because Phase 5 is the existential test of source-grounded extraction; the owner considered and kept this order, and PLAN §5 records the risk.
 
 **Phase 3 is a working library** for bounded schemas. **Phase 5 is what makes Jevson a source-grounded extraction library** rather than a bounded-schema compiler, which `jev_jsonschema` already provides **[X3]**. Phase 4 alone already combines things we found in no single existing project **[X3]**.
 
@@ -34,6 +34,7 @@ Recorded so the plan does not silently contradict its own timeline:
 
 - **Phase 0 is several days, dominated by labelling.** 10+ schemas and 150+ fields classified across 12 columns; ≥ 450 pre-labelled probe cases for probes 1–3 drawn from real documents; 50 entity clusters; a hostile-source set; single-candidate cases. Labelling cannot be skipped without making the probes unfalsifiable.
 - **Phase 5 needs a second, disjoint labelled corpus**: ≥ 150 present-answer and ≥ 150 absent-answer cases for coverage; ≥ 100 constructed extraction-miss cases and ≥ 300 absent cases for the retry bar; ≥ 1,000 decisions (up to 3,000 if the power check requires) for calibration; ≥ 300 benign and ≥ 150 attacked documents for the source screen. This is the largest labelling effort in the project.
+- **Phase 0r reuses Phase 0's labelled corpora and pre-registration.** Its cost is porting the probes and the live runs.
 - **Phase 10 is a second implementation of the library**, not a port script.
 
 Phases 1–8 do not fit in "a couple of days". Phase 0 exists so that scope is cut on evidence rather than schedule pressure.
@@ -44,7 +45,7 @@ Phases 1–8 do not fit in "a couple of days". Phase 0 exists so that scope is c
 
 ```text
 jevson/
-  __init__.py           public surface: compile_schema, Jevson, Result, JevBackend, FakeBackend,
+  __init__.py           public surface: compile_schema, Jevson, Result, DecisionsBackend, FakeBackend,
                         CachingBackend, ReplayLLM
   types.py              DecisionNode, StepNode, DecisionKind, Span, Provenance, OptionSource,
                         Decision, Unresolved, UnresolvedReason, Absent, Violation, Overflow,
@@ -86,7 +87,7 @@ jevson/
     loop.py             the library-owned event loop thread behind the synchronous resolve()
 
   backends/
-    jev.py              raw httpx; the only module that knows the vendor wire format
+    decisions.py        raw httpx; the only module that knows the vendor wire format (POST /v1/decisions)
     fake.py             deterministic fake, shipped as a testing tool
     caching.py          CachingBackend: RFC 8785 keys, caller-supplied directory
 
@@ -101,7 +102,7 @@ jevson/
     parse.py            class F on a selected span: money, number, date
 
   adjudicate/
-    criteria.py         declared criteria -> noul batch
+    criteria.py         declared criteria -> predicate batch
     rubrics.py          rubric -> score, value = most probable level
     dryrun.py           criteria dry-run tool
 
@@ -122,8 +123,9 @@ tests/
   fixtures/schemas/     the Phase 0 sample, checked in with provenance
 
 tests/probes/           the probes and checks behind docs/EVIDENCE.md, by topic (jev_api, candidates,
-                        entities, adversarial, calibration, schema, unicode, runtime); raw material
-                        for the test suite (not part of the package)
+                        entities, adversarial, calibration, schema, unicode, runtime); written for
+                        jev-1.13.0, ported for Phase 0r; raw material for the test suite (not part
+                        of the package)
 
 docs/
   DESIGN.md             the design SSOT
@@ -132,12 +134,12 @@ docs/
   taxonomy.md           Phase 0 output, including measured probe results
   criteria-guide.md     how to write adjudication criteria that work
 
-.env.example            TYPESAFE_API_KEY template; the real .env is gitignored
+.env.example            API-key template (still the Jev key until ASTERION-7 renames it); the real .env is gitignored
 ```
 
 **Module discipline**, asserted by tests:
 
-- `backends/jev.py` is the only file that knows the vendor URL, headers, or wire format; `typesafe-sdk` is not a dependency (`DESIGN §8`).
+- `backends/decisions.py` is the only file that knows the vendor URL, headers, or wire format; the `openai` SDK is not a dependency (`DESIGN §8`).
 - Nothing in `compile/`, `assemble/`, or `graph.py` imports from `execute/` or `backends/`.
 - The hostile doubles live in `tests/`, never in the installed package. The fake backend ships.
 
@@ -150,6 +152,8 @@ docs/
 **Goal:** decide empirically whether Jevson is a broad structured-extraction library or a deliberately narrow disambiguation engine, and confirm the central mechanism on real documents before any of it is built.
 
 **Depends on:** nothing. Requires the live key (available).
+
+**Status: run on `jev-1.13.0` (2026-09-29).** The results stand as recorded on Jev: abstention when the answer was missing was not good enough under the pre-registered rule, so the verdict was **drop source selection** (README; full record in Jevson PR #2, `docs/taxonomy.md` and `docs/gate-probe.md`). Phase 0r re-runs these probes on the Decisions API, and its verdict replaces this one for the decision model. The text below is the pre-registration as run.
 
 No library code. Two deliverables: one document and a set of throwaway probes. **The red-team pilots in `docs/EVIDENCE.md` [P1–P23] are not substitutes:** they used synthetic, author-written cases, which the rules below exist to exclude.
 
@@ -173,7 +177,7 @@ Classify every schema construct and extraction operation against `DESIGN §4`'s 
 |---|---|
 | construct / operation | the thing being classified |
 | class (A–G) | the routing decision |
-| Jev primitive | `choice` / `score` / `noul` / none |
+| decision primitive | `choice` / `score` / `predicate` (`noul` on Jev) / none |
 | option source | schema enum, rubric, candidate spans, predicate |
 | `none_of_these` required? | R1 |
 | dependency pattern | determines levelling |
@@ -181,7 +185,7 @@ Classify every schema construct and extraction operation against `DESIGN §4`'s 
 | frequency in sample | counted, not guessed |
 | semantic importance | how damaging a wrong-but-valid value is |
 | **existing alternatives** | does constrained decoding or plain code already solve this? |
-| **existing Jev implementations** | do the vendor cookbooks, `typesafe-playground`, `jev-extract`, or `jev-reviewer` already handle it? **[X3]** |
+| **existing Jev implementations** | do TypeSafe's cookbooks, `typesafe-playground`, `jev-extract`, or `jev-reviewer` already handle it? **[X3]** |
 | v0 candidate? | the scope call |
 
 ### 0b — The probes
@@ -194,7 +198,7 @@ Throwaway code in `scripts/phase0/`, using the live key and the pinned model `je
 
 - Cases come from the **real documents behind the 0a schemas**, not written by the team. The one exception is probe 6's injected notes, which the team writes into real documents.
 - **At least 30% of probe 1–3 cases come from long, multi-entity documents** (several parties, invoices, or addresses) or contain **superseded values** — the only regime where the pilot failed **[P5]**. At least 20 cases contain the correct text at more than one offset **[P15]**.
-- Ground truth is labelled **before any Jev call**, recorded in `docs/taxonomy.md`, and disputable.
+- Ground truth is labelled **before any model call**, recorded in `docs/taxonomy.md`, and disputable.
 - Absent-answer cases (probe 2) remove the correct span from a set whose competitors were produced by the real extractor, not chosen by hand.
 
 | probe | what it measures | n | go | conditional | stop |
@@ -212,7 +216,7 @@ Throwaway code in `scripts/phase0/`, using the live key and the pinned model `je
 
 **Probes 2 and 3 must be read together.** A model that abstains on everything scores perfectly on probe 2 and is useless.
 
-**Probe 4 in detail.** Pairwise nouls in one keyed call per cluster, all probabilities stored, run twice. The clusters include role-noun mentions ("the Landlord", "the engineer"), which produced the pilot's only splits **[P10, P17]**. Recorded: pair accuracy, the non-transitive-triple rate, clique completeness, and the flip rate across the two runs. `conflict_floor` is chosen by a rule fixed now: *the largest value in {0.05, 0.10, …, 0.45} such that same-entity pairs at or below it are ≤ 2% of all same-entity pairs; if no value qualifies, the floor is 0.05 and probe 4 is recorded as stop;* whether the grid top binds is recorded. Component outcomes (correct, `Unresolved`, silently wrong — merges and splits counted separately) are then scored under both variants of `DESIGN §5.7`, and **the variant is chosen by a rule fixed now: the one with the lower silently-wrong point estimate; if equal, the one with more correct components.** The verdict uses the chosen variant.
+**Probe 4 in detail.** Pairwise predicates in one keyed call per cluster, all probabilities stored, run twice. The clusters include role-noun mentions ("the Landlord", "the engineer"), which produced the pilot's only splits **[P10, P17]**. Recorded: pair accuracy, the non-transitive-triple rate, clique completeness, and the flip rate across the two runs. `conflict_floor` is chosen by a rule fixed now: *the largest value in {0.05, 0.10, …, 0.45} such that same-entity pairs at or below it are ≤ 2% of all same-entity pairs; if no value qualifies, the floor is 0.05 and probe 4 is recorded as stop;* whether the grid top binds is recorded. Component outcomes (correct, `Unresolved`, silently wrong — merges and splits counted separately) are then scored under both variants of `DESIGN §5.7`, and **the variant is chosen by a rule fixed now: the one with the lower silently-wrong point estimate; if equal, the one with more correct components.** The verdict uses the chosen variant.
 
 **Conditional** on probes 1–3 means Phase 5 ships the **second gate** described in Phase 5.
 
@@ -249,18 +253,60 @@ If confirmed, the honest product is **a decision-graph compiler for the disambig
 
 ---
 
+## Phase 0r — Re-probe on the Decisions API
+
+**Goal:** find out whether what Phase 0 and the red-team pilots measured on `jev-1.13.0` holds on the OpenAI Decisions API (`gpt-6-luna`), which replaced Jev on 2026-10-14, before any library code depends on it.
+
+**Depends on:** Phase 0 (its pre-registration, templates, corpora, and labels), and a port of `tests/probes/` — the shared `jevclient.py` and the `probe_*.py` scripts — to the Decisions API, which is a follow-up ticket. Requires an OpenAI API key with Decisions API access. **Phase 1 does not start until this phase has a verdict.**
+
+No library code. Phase 0's rules apply unchanged: **every threshold, band, decision rule, question template, and abandon criterion is the one already registered**, and none is renegotiated after seeing the numbers. Every run records the returned `model` string (R15), and every probe also reports its `refusal` rate, which has no Jev counterpart **[D2]**.
+
+| probe | evidence on Jev | re-measured on the Decisions API |
+|---|---|---|
+| **Determinism and jitter** | **[P1, P12, P20]** | repeats of identical requests: bool, choice, and pair ranges; effects of question names, order, and co-batching |
+| **Threshold flips and ties** | **[P1, P12, P20, P22]** | flips inside and outside the 0.10 tie margin; exact-0.50 rate; whether the margin still removes flips |
+| **Positional references** (Phase 0 probe 5) | **[P4]** | the 320-item list, indexed vs keyed |
+| **Injection** (Phase 0 probe 6) | **[P7, P21]** | steered selection, abstention collapse, draft adjudication, source-screen wordings |
+| **Abstention and traps** (Phase 0 probes 1–3, 8) | **[P5, P11, P15, P18]** | the Phase 0 real-document corpus, at the Phase 0 n and bands |
+| **Entity resolution** (Phase 0 probe 4) | **[P6, P10, P17]** | the Phase 0 clusters; `conflict_floor` and the rule variant re-chosen by the Phase 0 rule |
+| **Source ceiling** | **[P14, P22]** | per-option token costs; the largest source beside a realistic 255-option question |
+| **Context limits** | **[P2, P3]** | the per-question and per-request limits, behaviour over a limit, maximum `score` levels, questions per request |
+| **Probabilities** | **[L17, P23]** | precision and sum tolerance |
+| **Latency** | **[P8]** | p50 at 1, 100, and 300 questions over small and large inputs |
+
+### Exit criteria
+
+- [ ] The probes are ported (follow-up ticket); each ported script's docstring names the Jev tag it re-measures
+- [ ] Every probe above runs on `gpt-6-luna` at the stated n, with rates and intervals written into `docs/taxonomy.md` and into `docs/EVIDENCE.md` under new tags **whether or not they are favourable**; no existing P entry is edited
+- [ ] Phase 0 probes 1–4 are marked **go / conditional / stop** under the Phase 0 rules; `conflict_floor` and the entity rule variant are re-chosen by the Phase 0 rule and written into `DESIGN §5.7`
+- [ ] Every **unknown** in `DESIGN §2.2` is replaced by a measured value or recorded as not measurable, and the preflight limits of `DESIGN §8.2` are set from them
+- [ ] The tie margin's flip rate is written down; whether question names affect answers is recorded (`DESIGN §2`)
+- [ ] `DESIGN §2.3` and every "on Jev" claim in `DESIGN` and the README are confirmed, revised, or marked unconfirmed, citing the new tags
+- [ ] The verdict on source selection is stated: it **confirms or reverses** Phase 0's "drop source selection"
+- [ ] No library code exists
+
+### Abandon criterion
+
+Phase 0's, applied to the Decisions API results: **probe 1 below 0.70, probe 2 below 0.60, or probe 3 above 0.20 stops candidate selection as designed**, and the fallback product is the one Phase 0 names. If bounded decisions themselves cannot be measured stably enough for the Phase 3 live-stability bar, that is escalated to the product owner as a backend decision (Jev remains a fallback), not tuned around.
+
+### Answers
+
+`DESIGN §12`: does source selection work on the Decisions API? Also re-answers, for the decision model, every Phase 0 reading (calibration, source screening, entity resolution).
+
+---
+
 ## Phase 1 — Core model, protocols, graph, and the fake backend
 
 **Goal:** the type system, every protocol, and the execution skeleton, so everything afterwards can be tested without spending money or waiting on a network.
 
-**Depends on:** Phase 0.
+**Depends on:** Phase 0r.
 
 ### Deliverables
 
 - `types.py` — every type in the layout, with `UnresolvedReason` as the closed set of `DESIGN §6.1`
 - `protocols.py` — all five protocols (the three I/O protocols async, `Normalizer` and `CostSink` sync), with the signatures pinned in `DESIGN §8`
 - `graph.py` — `DecisionGraph`, dependency edges, acyclicity check, topological levelling of decision nodes around step nodes (R3, R11)
-- `probabilities.py` — integer hundredths, the sum tolerance, the argmax-vs-vendor-`choice` check, and the tie margin (`DESIGN §2.1`, `DESIGN §6.2`)
+- `probabilities.py` — integer hundredths for storage, the sum check on raw values (provisional tolerance until Phase 0r), the argmax-vs-vendor-`choice` check, and the tie margin (`DESIGN §2.1`, `DESIGN §6.2`)
 - `config.py` — `JevsonConfig` (`DESIGN §3.5`)
 - `backends/fake.py` — deterministic fake, configurable to return specified answers, distributions, ties, and abstentions
 - `result.py` — `Result` exactly as pinned in `DESIGN §8.1`
@@ -307,7 +353,7 @@ Compilation from a schema. Any real backend. Candidates. Arrays.
 
 - `compile/normalise.py` — the normalisation table of `DESIGN §3.5`, reading Pydantic's `mode="validation"` schema (Pydantic ≥ 2.12) and merging sibling keywords beside a `$ref` **[L3, L16, L18]**
 - `compile/declarations.py` — the `x-jevson` keyword: every key of `DESIGN §3.5` parsed and validated; unknown keys refused
-- `compile/mapping.py` — the Phase 0 taxonomy as routing rules with the `DESIGN §4.2` table: bool → `noul` with the tie margin; enum → `choice` over opaque ids; integer range declared `ordinal: true` → `score`; other integer ranges and 0–1 numbers are numbers, not ratings or probabilities
+- `compile/mapping.py` — the Phase 0 taxonomy as routing rules with the `DESIGN §4.2` table: bool → `predicate` with the tie margin; enum → `choice` over opaque ids; integer range declared `ordinal: true` → `score`; other integer ranges and 0–1 numbers are numbers, not ratings or probabilities
 - `compile/questions.py` — the versioned templates recorded in Phase 0 (`DESIGN §5.2`)
 - `compile/nodes.py` — node ids from the **target instance pointer** plus a role suffix
 - `compile/compiler.py`, `compile/refusal.py` — `CompileError` carrying **every** offending pointer (R14)
@@ -355,10 +401,10 @@ Executing anything. Generative fields (Phase 4). Candidates (Phase 5). Unions (P
 - `execute/state.py` — every collection in state is an object keyed by opaque ids, never a list referenced by position (R13)
 - `execute/executor.py` — runs step nodes through their protocols and decision levels as one batched call each (R3); `resolve()` and `aresolve()`; emits every cost event to the `CostSink`
 - `execute/budget.py` — **preflight on declared maxima** against both limits (`DESIGN §8.2`); `PreflightError` before any spend
-- `execute/policy.py` — transport retry for 429/5xx/timeout with backoff, bounded by `transport_retries` (default 2), counted separately; no retry for other 4xx; `max_tokens_exceeded` mapped to split or refusal, never an identical retry
+- `execute/policy.py` — transport retry for 429/5xx/timeout with backoff, bounded by `transport_retries` (default 2), counted separately; no retry for other 4xx; a context-limit rejection mapped to a split or to `Unresolved(budget_exceeded)` (DESIGN §8.2), never an identical retry
 - `execute/ratelimit.py` — one token bucket per API key on `threading.Lock`, shared across backends, threads, and event loops **[L20]**
 - `execute/loop.py` — the library-owned event loop in a daemon thread; `resolve()` submits `aresolve()` to it and refuses inside a running loop **[L20]**
-- `backends/jev.py` — raw `httpx`; one long-lived client on the library loop and per-call clients on caller loops (`DESIGN §8`); pinned model; **aliases refused**; HTTP 400 bodies mapped to typed errors **[P2]**; `usage.input_tokens` and `x-typesafe-request-id` recorded **[P8]**; the API key is a constructor argument, falling back to `TYPESAFE_API_KEY` (`DESIGN §8.3`)
+- `backends/decisions.py` — raw `httpx` against `POST /v1/decisions`; one long-lived client on the library loop and per-call clients on caller loops (`DESIGN §8`); opaque question names, answers matched by name and checked against question order (`DESIGN §2`); the returned `model` string recorded on every response (R15); `refusal` answers resolved to `Unresolved(refused)`; error responses mapped to typed errors from the codes Phase 0r observes; `usage.input_tokens` recorded **[D2]**; the API key is a constructor argument, falling back to `OPENAI_API_KEY` (`DESIGN §8.3`)
 - `backends/caching.py` — `CachingBackend` with RFC 8785 keys (the `rfc8785` package **[L21]**), writing only to a caller-supplied directory (`DESIGN §8.4`)
 - `facade.py` — `Jevson(backend=..., config=...)` with **no default backend**; `resolve(source, known=...)`, with `known=` values validated before any spend
 - `tests/adversarial/hostile_backend.py`, `hostile_transport.py` — every backend and transport row of PLAN §4.2
@@ -372,10 +418,11 @@ Executing anything. Generative fields (Phase 4). Candidates (Phase 5). Unions (P
 - [ ] **Budget:** a level exceeding the total limit splits, recorded in `Cost.level_splits`; a declaration whose maxima exceed the per-question limit raises `PreflightError` before the *first* call
 - [ ] **Invalid backend answers** in a well-formed HTTP 200 (an option never offered, malformed or mis-typed JSON for a question, a probability outside [0, 1], a sum outside tolerance) resolve to `Unresolved(invalid_backend_answer)` for the affected questions; an unparseable HTTP response is a `BackendError`; neither is an untyped exception
 - [ ] **Step timeouts:** a fake step that never returns raises `ExtractorError(timeout)` after `step_timeout_s`, with the partial `Result`
-- [ ] **Lifecycle:** `Jevson` and `JevBackend` work as context managers; a closed instance raises `UsageError`; `resolve()` inside a running loop raises `UsageError`
-- [ ] **Ties:** a bool noul at 0.45, 0.50, or 0.55, and a choice whose top two differ by ≤ 0.10, yield `Unresolved(tie)`
-- [ ] **Run-time overflow:** a fake backend returning `max_tokens_exceeded` for one question in a level causes a bisection that isolates it; that field is `Unresolved(budget_exceeded)` and the others resolve
-- [ ] **Lifecycle on caller loops:** 20 sequential `asyncio.run(aresolve(...))` calls leave no live client for a dead loop **[L22]**; two `aresolve()` calls run concurrently under `asyncio.gather` on one loop both succeed and leave no open client; inside `async with JevBackend(...)` the calls share one client, closed on exit; `resolve()` succeeds in a forked child, including when the parent was blocked mid-request on a mock transport
+- [ ] **Lifecycle:** `Jevson` and `DecisionsBackend` work as context managers; a closed instance raises `UsageError`; `resolve()` inside a running loop raises `UsageError`
+- [ ] **Ties:** a bool predicate at 0.45, 0.50, or 0.55, and a choice whose top two differ by ≤ 0.10, yield `Unresolved(tie)`
+- [ ] **Refusal:** a fake backend answering one question in a level with `refusal` yields `Unresolved(refused)` for that field, records it in `Result.decisions`, resolves the others, and issues no retry; a refusal is never mapped to an option or to `absent`
+- [ ] **Run-time overflow:** a fake backend returning a context-limit rejection for one question in a level causes a bisection that isolates it; that field is `Unresolved(budget_exceeded)` and the others resolve
+- [ ] **Lifecycle on caller loops:** 20 sequential `asyncio.run(aresolve(...))` calls leave no live client for a dead loop **[L22]**; two `aresolve()` calls run concurrently under `asyncio.gather` on one loop both succeed and leave no open client; inside `async with DecisionsBackend(...)` the calls share one client, closed on exit; `resolve()` succeeds in a forked child, including when the parent was blocked mid-request on a mock transport
 - [ ] **Async:** two sequential `resolve()` calls on one backend both succeed; `resolve()` from 4 threads at once succeeds; `aresolve()` from two different event loops succeeds; `resolve()` inside a running loop raises with a pointer to `aresolve()`; the per-key limiter holds its rate across all of these **[L20]**
 - [ ] **Known values:** a `known=` value that fails its field schema raises `PreflightError` before any call; a valid one skips its nodes and is recorded as `decided_by: caller`
 - [ ] **Satisfies schema:** for a Pydantic input, a `.value` that passes `jsonschema` but fails `model_validate` yields `satisfies_schema is False` **[L18]**
@@ -384,10 +431,10 @@ Executing anything. Generative fields (Phase 4). Candidates (Phase 5). Unions (P
 - [ ] An unresolved required field yields `satisfies_schema is False` by default and `SchemaViolation` with `raise_on_unresolved_required=True`
 - [ ] **No default probability threshold drops a commit** — a committed low-probability answer is reported, not dropped
 - [ ] **Determinism of our code:** with the fake backend, identical inputs produce identical `Result`s excluding wall-clock timings; a run replayed through `CachingBackend` reproduces the original `Result`, excluding `Cost` and wall clock, with every call counted as a cache hit; with `replay_only=True` a miss raises `BackendError(replay_miss)`; a request containing a lone surrogate is not cached
-- [ ] **Live stability is measured, not asserted:** ≥ 100 schema-derived decisions with a top-two margin ≥ 0.20 are chosen in a separate selection run; two further live runs are compared, where a flip is any change of committed value or between a value and `tie`, and the flip rate is written down; the suite fails only if it exceeds 2% **[P1, P12]**. The model id is recorded; a change is a re-baseline
-- [ ] **Credentials:** an explicit `api_key` wins; with neither argument nor environment (or with empty strings), `JevBackend()` raises `MissingCredentials` before any network call; the library never reads a `.env` file
+- [ ] **Live stability is measured, not asserted:** ≥ 100 schema-derived decisions with a top-two margin ≥ 0.20 are chosen in a separate selection run; two further live runs are compared, where a flip is any change of committed value or between a value and `tie`, and the flip rate is written down; the suite fails only if it exceeds 2% (a bar set from Jev measurements **[P1, P12]**). The returned `model` string is recorded; a change is a re-baseline
+- [ ] **Credentials:** an explicit `api_key` wins; with neither argument nor environment (or with empty strings), `DecisionsBackend()` raises `MissingCredentials` before any network call; the library never reads a `.env` file
 - [ ] **The key never leaks:** a sentinel key appears in no exception message, `repr`, log record, cache file, or `Result`, across success, 4xx, 5xx, and timeout paths
-- [ ] **Rate limit:** two `JevBackend` instances with one key share one limiter
+- [ ] **Rate limit:** two `DecisionsBackend` instances with one key share one limiter
 - [ ] **No vendor SDK** in the dependency closure
 - [ ] Cost is populated on every result and on every exception raised after the first spend (`SchemaViolation`, `BackendError`, `LLMError`, `ExtractorError`), and every event reaches the `CostSink`
 
@@ -411,13 +458,13 @@ None open. (Level splitting was closed by evidence **[P1]**.)
 
 ## Phase 4 — Generative fields and adjudication
 
-**Goal:** fields no candidate set can fill — a summary, a synthesised description — drafted by the caller's LLM and admitted only after Jev adjudicates them against declared criteria.
+**Goal:** fields no candidate set can fill — a summary, a synthesised description — drafted by the caller's LLM and admitted only after the decision model adjudicates them against declared criteria.
 
 **Depends on:** Phase 3. Independent of candidate selection, so it survives Phase 5's abandon criterion.
 
 ### Deliverables
 
-- `compile/generative.py` — `x-jevson.generate` (`DESIGN §3.5`, `DESIGN §6.3`) compiles to a `generate` **step node** plus one criterion `noul` per criterion (and an optional rubric `score`) depending on it; lifts the Phase 2 `not_yet_supported` refusal for generated fields
+- `compile/generative.py` — `x-jevson.generate` (`DESIGN §3.5`, `DESIGN §6.3`) compiles to a `generate` **step node** plus one criterion `predicate` per criterion (and an optional rubric `score`) depending on it; lifts the Phase 2 `not_yet_supported` refusal for generated fields
 - The `generate` step: the LLM is asked for the one-field tool schema `{value: string}`, passed as JSON Schema for the `LLM` adapter to render per provider (strict OpenAI/Anthropic envelopes differ from Gemini's **[L20]**); drafts longer than `max_draft_chars` are failed drafts; drafting prompts are templates in `compile/questions.py`
 - `execute/policy.py` — the **redraft loop**, bounded by `redraft_budget` (default 1): failing criteria are passed back; a draft identical to one already adjudicated is not re-adjudicated and counts against the budget
 - `adjudicate/criteria.py` (each criterion passes at p ≥ 0.56; the tie margin yields a tie, counted as a failed criterion for redraft), `adjudicate/rubrics.py` (most probable level ≥ declared minimum); state follows the keyed level layout of `DESIGN §5.2` (`drafts: {node id: draft}`)
@@ -440,7 +487,7 @@ None open. (Level splitting was closed by evidence **[P1]**.)
 - [ ] `ReplayLLM` reproduces a recorded run exactly
 - [ ] The dry-run tool runs against the fake backend with no key
 - [ ] A field with no declared criteria is admitted with `no_criteria_declared` and listed in `Result.ungated`
-- [ ] **Redraft bar, measured against human labels:** over ≥ 100 rejected drafts, each redraft labelled after generation by a labeller who does not see Jev's verdict, the rate at which a redraft is admitted *and* truly satisfies the criteria is written down, together with the rate at which a redraft is admitted while violating them, and the paired difference from first drafts with its 95% interval; the default `redraft_budget` stays 1 only if the first is ≥ 10% and the second is no more than 2 points above the same rate for first drafts, otherwise it becomes 0
+- [ ] **Redraft bar, measured against human labels:** over ≥ 100 rejected drafts, each redraft labelled after generation by a labeller who does not see the decision model's verdict, the rate at which a redraft is admitted *and* truly satisfies the criteria is written down, together with the rate at which a redraft is admitted while violating them, and the paired difference from first drafts with its 95% interval; the default `redraft_budget` stays 1 only if the first is ≥ 10% and the second is no more than 2 points above the same rate for first drafts, otherwise it becomes 0
 
 ### Abandon criterion
 
@@ -462,7 +509,7 @@ Automatic criteria derivation. A criteria linter.
 
 ## Phase 5 — Candidates and source selection
 
-**Goal:** the capability that makes Jevson a source-grounded extraction library. Fields whose values come from the source, chosen by Jev among verified spans, with provenance and mandatory abstention.
+**Goal:** the capability that makes Jevson a source-grounded extraction library. Fields whose values come from the source, chosen by the decision model among verified spans, with provenance and mandatory abstention.
 
 **Depends on:** Phase 4.
 
@@ -475,12 +522,12 @@ Automatic criteria derivation. A criteria linter.
 - `assemble/parse.py` — class F parsing of a **selected** span into number, money, or date
 - Candidate-backed choices with **opaque option ids**, **mandatory `none_of_these`** (R1), and the complete-value template (`DESIGN §5.2`)
 - **Single candidates** asked by default; `direct_extraction: true` opt-in, listed in `Result.ungated` (R4)
-- `max_candidates` (default 50) enforcement at run time → `Unresolved(too_many_candidates)`; zero candidates → absent or `Unresolved(no_candidates)` without a Jev call; for fields whose value is the verbatim span, candidates violating the field's `maxLength`/`minLength`/`pattern` rejected before the question (`DESIGN §5.3`, `DESIGN §5.6`)
+- `max_candidates` (default 50) enforcement at run time → `Unresolved(too_many_candidates)`; zero candidates → absent or `Unresolved(no_candidates)` without a backend call; for fields whose value is the verbatim span, candidates violating the field's `maxLength`/`minLength`/`pattern` rejected before the question (`DESIGN §5.3`, `DESIGN §5.6`)
 - Class F parsing of a selected span under the field's `locale` (default `en-US`); a span that does not parse → `Unresolved(unparseable)`; decimals emitted in string form (`DESIGN §3.5`)
-- **Retry** (`DESIGN §5.5`): exclusions; Jev call only on a new verified span; old ∪ new; batched per level; `retry_budget` per call
+- **Retry** (`DESIGN §5.5`): exclusions; a request only on a new verified span; no retry after a refusal; old ∪ new; batched per level; `retry_budget` per call
 - `screen.py` — the **opt-in source screen** (`DESIGN §5.8`), asked in the first decision level, flagging at p ≥ 0.56; the tested wording flagged 28/60 benign documents **[P21]**, so this phase searches for a wording on a development split and measures it on a held-out split
 - `tests/adversarial/hostile_extractor.py` and `hostile_sources/`
-- **If Phase 0 was *conditional* on probes 1–3:** a second gate — an independent verification noul per committed span, batched into the same call; a failed verification yields `Unresolved(verification_failed)`; the cost delta is recorded. The measurements below run **with the gate on**
+- **If Phase 0 was *conditional* on probes 1–3:** a second gate — an independent verification predicate per committed span, batched into the same call; a failed verification yields `Unresolved(verification_failed)`; the cost delta is recorded. The measurements below run **with the gate on**
 - **Measurement corpus**, disjoint from Phase 0, labelled before any run, under the Phase 0 corpus rules
 
 ### Exit criteria
@@ -489,7 +536,7 @@ Automatic criteria derivation. A criteria linter.
 - [ ] A text occurring twice is offered twice, with context windows, and a fixture with the correct occurrence second resolves to the second offset
 - [ ] **Coverage and false abstention use the Phase 0 rule and bands** on the fresh corpus (≥ 150 present-answer and ≥ 150 absent-answer cases): point-estimate verdicts, Wilson intervals reported, operating characteristic recorded before the run. Aligning the two phases means a Phase 0 *conditional* is not converted into a near-certain Phase 5 failure by a stricter rule **[L15]**
 - [ ] No parameter changes between the first coverage measurement and the verdict except bug fixes, and every run is recorded
-- [ ] Every committed value verifies against the source by substring and grapheme boundary; failures are rejected before the Jev call
+- [ ] Every committed value verifies against the source by substring and grapheme boundary; failures are rejected before the backend call
 - [ ] A candidate count above `max_candidates`, counted in options after repeated-text expansion, yields `Unresolved(too_many_candidates)` with texts and counts in `detail`; zero candidates follow the `DESIGN §5.6` table with no backend call (an optional field → `absent`, a required one → `Unresolved(no_candidates)`)
 - [ ] **Pre-filter:** a verbatim field's candidates failing `maxLength`/`pattern` are rejected before the question; a class F field's candidate `"$1,204.50"` is not rejected by the `Decimal` pattern, and its parsed value is validated after selection
 - [ ] **Direct extraction with several candidates:** two distinct candidates on a `direct_extraction: true` field are asked as an ordinary choice, and the field is not listed in `ungated`
@@ -536,7 +583,7 @@ Arrays of candidates (Phase 7). More than one source (Phase 9).
 
 - `compile/unions.py` — discrimination `choice` over branches (no `none_of_these` in v0); **every branch compiled and validated statically**; Pydantic discriminated unions (`discriminator` keyword) supported; lifts the Phase 2 refusal
 - Execution of the selected branch only; the unselected branches' steps never run
-- A measured choice between a separate discrimination level and **speculative fan-out** (`DESIGN §3.2`) for branches whose nodes are pure Jev questions
+- A measured choice between a separate discrimination level and **speculative fan-out** (`DESIGN §3.2`) for branches whose nodes are pure decision questions
 
 ### Exit criteria
 
@@ -574,9 +621,9 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 
 ### Deliverables
 
-- Membership: one `noul` per candidate with the tie margin, batched with the pairwise questions in the same level (R5, `DESIGN §3.3`); candidates keyed by opaque id (R13)
-- **Multi-label enum arrays**: one membership noul per declared value; declared enum order; `maxItems` keeps the first k with overflow retained (`DESIGN §4.2`)
-- `assemble/entities.py` (`DESIGN §5.7`): lossless pre-merge (casefold opt-in; never initials or first names); pairwise nouls, capped; the internal-consistency rule, plus the cross-component variant if Phase 0 chose it, with `conflict_floor` from Phase 0
+- Membership: one `predicate` per candidate with the tie margin, batched with the pairwise questions in the same level (R5, `DESIGN §3.3`); candidates keyed by opaque id (R13)
+- **Multi-label enum arrays**: one membership predicate per declared value; declared enum order; `maxItems` keeps the first k with overflow retained (`DESIGN §4.2`)
+- `assemble/entities.py` (`DESIGN §5.7`): lossless pre-merge (casefold opt-in; never initials or first names); pairwise predicates, capped; the internal-consistency rule, plus the cross-component variant if Phase 0 chose it, with `conflict_floor` from Phase 0
 - `Normalizer` canonical representative: earliest span, longest span, or user-supplied
 - `assemble/ordering.py` — source order; `order: semantic` refuses (R7)
 - `assemble/cardinality.py` — membership → pre-merge → pairwise → components ordered by earliest span → `maxItems` keeps the first k; each overflowed element records its spans and minimum membership probability (R8)
@@ -629,9 +676,9 @@ Nested arrays of objects. Cross-item constraints. Semantic ordering. (All tracke
 - `CostSink` default implementation and documentation
 - README rewritten to `DESIGN §9.1`, describing only what shipped
 - Quickstart and worked examples **using only capabilities that shipped**
-- A fair comparison with `jev_jsonschema`, the vendor's extraction cookbooks and playground, `jev-extract`, LangExtract, and Instructor, stating plainly what each does better **[X2, X3]**
+- A fair comparison with `jev_jsonschema`, TypeSafe's extraction cookbooks and playground, `jev-extract`, LangExtract, and Instructor, stating plainly what each does better **[X2, X3]**
 - `pyproject.toml`, MIT licence, `py.typed`, Python 3.11+
-- **The name is decided before the PyPI release**, after asking TypeSafe whether a "Jev" name is acceptable (`jevson` is free on PyPI and npm **[X6]**; no TypeSafe naming policy was found **[X4]**)
+- **The name is decided before the PyPI release.** Jev is no longer the backend, and whether to rename is a separate follow-up; if a "Jev" name is kept, TypeSafe is asked whether it is acceptable first (`jevson` is free on PyPI and npm **[X6]**; no TypeSafe naming policy was found **[X4]**)
 - **Versioning policy:** `0.x`, breaking changes permitted between minors and recorded in a changelog
 - PyPI release
 
@@ -690,7 +737,7 @@ Retrieval over a corpus. Non-text sources.
 - **A language-neutral conformance suite first**, extracted from the Python tests: JSON fixtures of schema + source + recorded backend responses → expected `Result`. Python must pass it before the port starts
 - A TypeScript package implementing `DESIGN` at whatever scope Python shipped, with the same grapheme table version and RFC 8785 cache keys
 - Zod (v4 `toJSONSchema`) and JSON Schema as the schema surface **[X7]**
-- Credentials: an explicit `apiKey` argument; the `TYPESAFE_API_KEY` fallback in Node only
+- Credentials: an explicit `apiKey` argument; the `OPENAI_API_KEY` fallback in Node only
 
 ### Exit criteria
 
@@ -703,7 +750,7 @@ Retrieval over a corpus. Non-text sources.
 
 ## Phase 11 — Credentials from Infisical *(post-v0, planned, lowest priority)*
 
-**Goal:** contributors and CI fetch the Jev key from the team's Infisical project at run time instead of keeping it in a local `.env`.
+**Goal:** contributors and CI fetch the OpenAI API key from the team's Infisical project at run time instead of keeping it in a local `.env`.
 
 **Depends on:** Phase 10 in sequence; no technical dependency, so it may be pulled earlier whenever convenient.
 
@@ -728,8 +775,8 @@ True at every phase; each PR is checked against them.
 
 - **Refusal is loud and early** — compile time or call-time preflight, before any network call (R14).
 - **No silent nulls.** Every missing value is `absent` or `Unresolved` with a reason, or a declared default.
-- **Only `backends/jev.py` knows the vendor wire format.** No vendor SDK.
-- **The model is pinned** (R15). Measurements record the model id.
+- **Only `backends/decisions.py` knows the vendor wire format.** No vendor SDK.
+- **The model version is recorded** (R15): no snapshot exists **[D3]**, so every measurement records the returned `model` string, and a change is a re-baseline.
 - **Probabilities are integer hundredths**; the tie margin applies to every committing decision (`DESIGN §6.2`).
 - **Nothing logged or written by default.**
 - **Every backend call is counted**, on success and failure paths alike, with its request id.
@@ -756,7 +803,7 @@ Owned by: Phase 3 (backend, transport), Phase 4 (LLM), Phase 5 (spans, sources, 
 |---|---|---|
 | **malformed responses** | wrong field names, missing fields, wrong types, extra keys, empty body, `null`, non-JSON body | Phase 3 |
 | **invalid values** | options never offered, probabilities outside [0,1], `NaN`, sums outside tolerance, ties | Phase 3 |
-| **transport** | timeouts, 429, 5xx, connection reset, unparseable HTTP responses, 400 `max_tokens_exceeded` | Phase 3 |
+| **transport** | timeouts, 429, 5xx, connection reset, unparseable HTTP responses, context-limit rejections (on Jev, 400 `max_tokens_exceeded` **[P3]**) | Phase 3 |
 | **hostile LLM** | prose instead of a tool call, wrong tool, missing or misspelled keys, non-string values, enormous strings, text that looks like JSON, repeated drafts, exceptions | Phase 4 |
 | **hostile drafts** | self-advocacy, targeted false claims, injected overrides **[P7]** | Phase 4 |
 | **hostile extractors** | exceptions, never returning, unlocatable strings, offsets that do not match, empty and oversized candidate sets | Phase 5 |
@@ -775,7 +822,7 @@ Owned by: Phase 3 (backend, transport), Phase 4 (LLM), Phase 5 (spans, sources, 
 
 ### 4.4 Integration tests
 
-Opt-in and marked. They **measure** where the quantity is a property of the model, compare against pre-registered bars, and run on the pinned model. They run on demand and on release, not on every push: the live key has a rate limit and a cost.
+Opt-in and marked. They **measure** where the quantity is a property of the model, compare against pre-registered bars, and record the returned `model` string. They run on demand and on release, not on every push: the live key has a rate limit and a cost.
 
 ---
 
@@ -796,8 +843,10 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Context limits exceeded** | Phase 3 onward | preflight on declared maxima (default 50 × 120); split, bisect, or refuse; never truncate **[P14]** |
 | **Sync wrapper over async code breaks** | Phase 3 | library loop thread; per-call clients on caller loops; thread-lock limiter **[L20, L22]** |
 | **Live answers jitter** | Phase 3 onward | tie margin (removes most, not all, flips); stability measured, not asserted; cache for exact replay **[P1, P12, P20]** |
-| **Vendor model changes under us** | everywhere | pinned model id; aliases refused; re-baseline on version change |
-| **Vendor SDK churn, hidden retries, body logging** | Phase 3 | raw `httpx`; SDK not a dependency **[V-sdk]** |
+| **Vendor model changes under us** | everywhere | no snapshot exists **[D3]** and behaviour has changed under the alias before **[D4]**; the returned `model` string recorded; re-baseline when it changes; replay from records only |
+| **Jev measurements do not hold on the Decisions API** | Phase 0r onward | every Jev result labelled as such; Phase 0r re-runs the probes with the same thresholds before Phase 1 |
+| **Single-vendor public beta** | everywhere | `Backend` is the substitution point; Jev, AnyJev, and jevfire are fallbacks **[X3]** |
+| **Vendor SDK churn, hidden retries, body logging** | Phase 3 | raw `httpx`; SDK not a dependency (reasons measured on `typesafe-sdk` **[V-sdk]**; the `openai` SDK not yet reviewed) |
 | **Idiomatic Pydantic refused** | Phase 2 | the normalisation table **[L3, L16]** |
 | **Adjudication admits bad drafts** | Phase 4 | criteria rule; dry-run tool; `no_criteria_declared` visible; injection regression; labelled redraft bar |
 | **Retries burn money** | Phases 3–5 | decision retries only on changed input; two-sided retry bar; per-call budgets |
@@ -811,22 +860,24 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | decision | call | reasoning |
 |---|---|---|
 | **Positioning** | General-purpose open-source library for anyone's pipeline; Asterion is its first user, not its specification | Built for its use case, not one consumer. Deferrals are justified by cost, risk, or sequencing and are planned (PLAN §9), never dropped |
-| **Public claim** | Generalises the vendor's "select, don't generate" pattern into a schema compiler | Every mechanism predates us **[X2, X3]**; the combination does not, as far as we found |
+| **Public claim** | Generalises TypeSafe's "select, don't generate" pattern into a schema compiler | Every mechanism predates us **[X2, X3]**; the combination does not, as far as we found |
 | **Target user** | Extraction steps in pipelines where a wrong-but-valid value silently corrupts everything downstream | The unserved gap is a signal to route on, as a general compiler |
 | **Language** | Python 3.11+ first | The target pipeline ecosystem (LangChain, LlamaIndex, Instructor) is Python-first; much Jev prior art is JS/TS **[X3]**, which is why a JS port is planned (Phase 10) |
 | **Schema surface** | Pydantic (validation-mode schema) or JSON Schema draft 2020-12, with one `x-jevson` keyword | One declaration syntax for both surfaces |
-| **Phase order** | Strictly sequential: 0 → 8, then 9 → 11; adjudication (4) before candidates (5) | **Set by the project owner.** Round-1 review E-40 (run 5 before 4 when Phase 0 says *go*) was considered and declined; Phase 4 survives Phase 5's abandon criterion |
-| **Vendor access** | Raw `httpx`; `typesafe-sdk` not a dependency | Pre-1.0 churn, retries that may be billed, unredacted body logging **[V-sdk, X5]** |
-| **Model version** | Pinned exact release (`jev-1.13.0`); aliases refused | Aliases move; evidence expires silently **[P9, V-models]** |
-| **Credentials** | `api_key` argument, falling back to `TYPESAFE_API_KEY`; empty counts as missing; the library never reads `.env` | Anyone can use it with no project tooling |
+| **Phase order** | Strictly sequential: 0 → 0r → 8, then 9 → 11; adjudication (4) before candidates (5) | **Set by the project owner.** Round-1 review E-40 (run 5 before 4 when Phase 0 says *go*) was considered and declined; Phase 4 survives Phase 5's abandon criterion |
+| **Decision model** | The OpenAI Decisions API (`gpt-6-luna`) replaces Jev (2026-10-14); Jev stays a possible fallback | Product owner's decision, recorded in `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (ASTERION-20); Jev measurements do not transfer, hence Phase 0r **[D1, D2, D3]** |
+| **Vendor access** | Raw `httpx`; no vendor SDK | Every request, retry, and token visible to `Cost`; the reasons were measured on `typesafe-sdk` (pre-1.0 churn, retries that may be billed, unredacted body logging **[V-sdk, X5]**); the `openai` SDK is not yet reviewed |
+| **Model version** | Recorded, not pinned: the returned `model` string on every response; replay from records only | No snapshot exists **[D3]**; behaviour has changed under the alias before **[D4]**. (Until 2026-10-14: pinned `jev-1.13.0`, aliases refused **[P9, V-models]**) |
+| **Refusal** | `Unresolved(refused)`; never an option, a default, `absent`, or a retry | The API may decline any question **[D2]** |
+| **Credentials** | `api_key` argument, falling back to `OPENAI_API_KEY`; empty counts as missing; the library never reads `.env` | Anyone can use it with no project tooling; the name the guide uses **[D1]** |
 | **Default backend** | None; `Jevson(backend=...)` is required | An environment variable must never silently turn tests into paid calls |
 | **Protocols** | I/O protocols async, `Normalizer` and `CostSink` sync, pinned in DESIGN from Phase 1; sync `resolve()` on one library loop thread; per-call clients on caller loops; per-key limiter on `threading.Lock` | Pipelines are async; the rate limit is per key; a loop per call breaks shared clients **[L20]** |
 | **State referencing** | Opaque-id objects, never positions | 62% vs 0% wrong **[P4]** |
 | **Candidate options** | Opaque ids; every occurrence of repeated text offered with a context window | 40/40 vs 22/40; offering only one occurrence misattributes provenance **[P15]** |
 | **Question wording** | Versioned templates; complete-value wording; no negations | Partials 32/42 → 0/42 **[P11]**; literal reading **[V-jagged]** |
 | **Single candidates** | Asked with `none_of_these` by default; direct extraction opt-in | 84/84 wrong-role lone candidates abstained **[P11]** |
-| **Abstention mechanism** | `none_of_these` inside the choice, not a separate noul gate | The gate was worse: 0.56 vs 0.89 **[P5]** |
-| **Probabilities** | Integer hundredths; sum tolerance; one tie margin ≤ 0.10 for every committing decision | Rounding and jitter are measured; ±0.05 left 11/180 choice flips, 0.10 left 1/180 **[L17, P12, P20]** |
+| **Abstention mechanism** | `none_of_these` inside the choice, not a separate predicate gate | The gate was worse on Jev: 0.56 vs 0.89 **[P5]** |
+| **Probabilities** | Integer hundredths for storage; sum checked on raw values (provisional on the Decisions API); one tie margin ≤ 0.10 for every committing decision | Rounding and jitter are measured; ±0.05 left 11/180 choice flips, 0.10 left 1/180 **[L17, P12, P20]** |
 | **Confidence gating** | Reported, never gated by default | A default threshold would assert calibration we have not measured |
 | **Calibration bar** | Tie-safe bins, one-sided bootstrap ECE bound, Wilson rule at τ, mandatory power check on the observed distribution | The bar's power depends on the distribution **[L13, L14]** |
 | **Retry defaults** | Zero for schema-derived sets; one for candidates, old ∪ new, two-sided bar on constructed misses | Near-deterministic model; relative distributions; harm as well as benefit **[L15]** |
@@ -840,14 +891,14 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Step timeouts** | `step_timeout_s` (default 120) on every caller step | A never-returning step must not hang every synchronous caller |
 | **Absence** | Not required → omitted (defaults apply); required nullable → null; required → unresolved | A nullable field with a default must keep its default **[L18]** |
 | **Semantic ordering** | Out of v0; declaring it refuses | Unproven; refusing beats silently wrong order |
-| **Adjudication criteria** | About the draft and the source only | Jev is not a fact-checker |
+| **Adjudication criteria** | About the draft and the source only | The decision model is not a fact-checker |
 | **Multi-source and long sources** | Out of v0, planned as Phase 9 | Budget and cross-source resolution |
 | **JS port** | Planned as Phase 10 | Two languages in v0 finish neither |
 | **Hostile doubles** | `tests/`, never shipped | The fake backend is a tool; the hostile one is a footgun |
 | **Integration tests in CI** | On demand and on release | Rate limit and cost |
 | **Versioning** | `0.x` | No stability promise before the scope verdict meets users |
 | **Licence** | MIT | Permissive, like most neighbours (jevc and AnyJev are Apache-2.0) **[X6]** |
-| **Name** | Keep "Jevson" for now; ask TypeSafe, then decide before the Phase 8 release | Vendor coupling; renaming after publication breaks users |
+| **Name** | Keep "Jevson" for now; whether to rename now that Jev is not the backend is a separate follow-up, decided before the Phase 8 release | Renaming after publication breaks users |
 | **Fake backend** | Shipped | Users need it to test without spending |
 | **Scope if the band is narrow** | Ship the narrow version | Pre-committed, to defeat sunk cost |
 
@@ -862,7 +913,8 @@ Reversals are recorded in `DESIGN §13`.
 | Does `none_of_these` catch missing answers on real documents? | Phase 0 probe 2, Phase 5 | Stop candidate selection; ship the fallback |
 | Do we select accurately and abstain only when we should? | Phase 0 probes 1 and 3, Phase 5 | Conditional band: Phase 5 ships the second gate |
 | Which entity rule variant, and what `conflict_floor`? | Phase 0 probe 4 | Dedup becomes the extractor's contract (Phase 7) |
-| Is Jev calibrated on span disambiguation? | Phase 0 probe 7, Phase 5 | Probabilities stay reported, never gated |
+| Do the Jev measurements and Phase 0's "drop source selection" hold on the Decisions API? | Phase 0r | Phase 0r's verdict replaces Phase 0's; the fallback product if it is still stop |
+| Is the decision model calibrated on span disambiguation? | Phase 0 probe 7 (Jev), Phase 0r, Phase 5 | Probabilities stay reported, never gated |
 | Can any screen wording flag hostile sources without flagging ordinary processing notes? | Phase 0 probe 6, Phase 5 | The screen stays off, with its rates documented |
 | Do decision retries recover answers without adding false commits? | Phase 5 | Default retry budget becomes 0 |
 | Do redrafts recover rejected drafts without admitting bad ones? | Phase 4 | Default redraft budget becomes 0 |
@@ -870,14 +922,15 @@ Reversals are recorded in `DESIGN §13`.
 | What is the pairwise quality ceiling? Can pair jitter be reduced? | Phase 7 | Cap lowered with the measurement cited; banding only |
 | Is the name right? | before Phase 8 | Rename before publication |
 
-**Closed by evidence:** level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a noul gate is a worse abstention mechanism **[P5]**; lone candidates are safer asked **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording costs nothing when the full value is present **[P18]**; mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**.
+**Closed by evidence on `jev-1.13.0`** (Phase 0r re-checks the ones that depend on model behaviour): level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a predicate gate is a worse abstention mechanism **[P5]**; lone candidates are safer asked **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording costs nothing when the full value is present **[P18]**; mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**.
 
 ---
 
 ## PLAN §8. Sequencing summary
 
 ```text
-Phase 0   taxonomy + probes + scope verdict           no code, gates everything
+Phase 0   taxonomy + probes + scope verdict           no code, gates everything   (run on jev-1.13.0)
+Phase 0r  the Phase 0 probes on the Decisions API     no code, gates Phase 1
 Phase 1   core model, protocols, graph, fake, spans   ~500 lines
 Phase 2   normaliser + declarations + compiler        ~500 lines
 Phase 3   executor + budget + live backend + façade   ~500 lines   ← working library
@@ -892,7 +945,7 @@ Phase 10  JavaScript / TypeScript port
 Phase 11  credentials from Infisical                               (lowest priority)
 ```
 
-Every phase starts only after the previous one has merged or abandoned. If Phase 0 or Phase 5's abandon criterion fires, the product is **phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7**.
+Every phase starts only after the previous one has merged or abandoned. If the abandon criterion of Phase 0r (which supersedes Phase 0's) or of Phase 5 fires, the product is **phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7**.
 
 ---
 
@@ -912,4 +965,4 @@ Nothing deferred is dropped. Each entry names what it waits on.
 | **Recursive and dynamic `$ref`, `allOf` beyond flat merge, `dict[str, X]`, tuples, `Any`, `bytes`** | Refused loudly (`DESIGN §3.5`) | After Phase 8 | A post-v0 phase |
 | **Nested arrays of objects, cross-item constraints** | Out of Phase 7 scope | After Phase 8 | A post-v0 phase |
 | **`none_of_these` on schema enums and union discriminators** ("not determinable from the source") | Schema-derived choices have no abstention path in v0 | After Phase 5 measures abstention | A post-v0 phase |
-| **Relative and partial dates** ("next Friday", "the 3rd") | v0 parses selected absolute date spans only | After Phase 5 | A post-v0 phase using date-part choices with "not stated", as in the vendor's date-extraction cookbook **[V-cookbooks]** |
+| **Relative and partial dates** ("next Friday", "the 3rd") | v0 parses selected absolute date spans only | After Phase 5 | A post-v0 phase using date-part choices with "not stated", as in TypeSafe's date-extraction cookbook **[V-cookbooks]** |
