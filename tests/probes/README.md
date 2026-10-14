@@ -20,3 +20,5 @@ The scripts behind every evidence tag in [`docs/EVIDENCE.md`](../../docs/EVIDENC
 - `jevclient.py` is the shared HTTP client for the probes.
 
 Each script's docstring names the claim it tests and its method. Pilot datasets are synthetic and author-written: they test mechanisms, not the pre-registered Phase 0 measurements in `docs/PLAN.md`.
+
+**Note (2026-10-14).** These probes target Jev (`jev-1.13.0`), which the OpenAI Decisions API replaced as Jevson's decision model on 2026-10-14. Porting them (`jevclient.py` and the `probe_*.py` scripts) to the Decisions API is a follow-up ticket, and must land before `docs/PLAN.md` Phase 0r re-runs them.

@@ -1,12 +1,14 @@
 # Jevson — design
 
-> **Status:** Design document, Revision 9.1, 2026-09-29. Pre-implementation.
+> **Status:** Design document, Revision 10, 2026-10-14. Pre-implementation. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
 >
 > **This document is the SSOT for Jevson.** It carries everything an agent or contributor needs to work on the project: what the library is, what it guarantees, the architecture, the vocabulary, the constraints of the model it sits on, and the rules that are not open for reinterpretation. The build sequence lives in [`PLAN.md`](PLAN.md).
 >
-> **One line:** Jevson is a general-purpose, open-source schema compiler for source-grounded structured extraction. It turns a Pydantic model or JSON Schema into a graph of bounded decisions, has Jev make them, assembles the result in code, and records for every field how it was decided — with the source span or declared option, and the probability, where Jev decided it — or a typed reason it could not be resolved.
+> **One line:** Jevson is a general-purpose, open-source schema compiler for source-grounded structured extraction. It turns a Pydantic model or JSON Schema into a graph of bounded decisions, has the decision model make them, assembles the result in code, and records for every field how it was decided — with the source span or declared option, and the probability, where the decision model decided it — or a typed reason it could not be resolved.
 >
-> **Evidence.** Every factual claim in this document and `PLAN.md` about Jev, about other tools, or about measured behaviour carries an evidence tag such as **[P3]** or **[V-models]**, resolved in [`docs/EVIDENCE.md`](EVIDENCE.md) to the probe script, vendor page, or source that established it. A claim without a tag is a design decision, or arithmetic shown in place.
+> **Evidence.** Every factual claim in this document and `PLAN.md` about the decision model, about other tools, or about measured behaviour carries an evidence tag such as **[P3]**, **[V-models]** or **[D1]**, resolved in [`docs/EVIDENCE.md`](EVIDENCE.md) to the probe script, vendor page, or source that established it. A claim without a tag is a design decision, or arithmetic shown in place.
+>
+> **Measured on Jev.** Every **P** measurement and every **V** page is about `jev-1.13.0` and TypeSafe's documentation. None has yet been re-measured on the Decisions API: that is `PLAN.md` Phase 0r. Until then each stands as a measurement of Jev and a precaution for the Decisions API, never as a fact about `gpt-6-luna`. **D** tags are the Decisions API's own documentation and third-party reports about it.
 
 ---
 
@@ -36,12 +38,12 @@ Perfectly schema-valid. Completely wrong. A grammar cannot see it, and `jsonsche
 **Every mechanism Jevson uses already exists somewhere.** Selecting among pre-extracted candidates with a `none` escape hatch is TypeSafe's documented extraction pattern **[V-preparsed]**, and several open projects implement it for single fields or fixed record types **[X3]**. What we did not find is the combination as a **general schema compiler** **[X3]**:
 
 - arbitrary Pydantic / JSON Schema compiled to a decision graph — nested objects, arrays, and unions decided *before* construction;
-- level-batched execution that respects Jev's two context limits;
+- level-batched execution that respects the decision model's context limits;
 - source-grounded arrays with entity resolution that refuses to merge on contradictory evidence;
 - generative fields admitted only after passing declared criteria;
 - a typed three-outcome result, proven by an adversarial suite.
 
-That combination is the product. It generalises the vendor's "select, don't generate" pattern from a recipe into a library.
+That combination is the product. It generalises TypeSafe's "select, don't generate" pattern from a recipe into a library.
 
 ### 1.1 The one-line pitch to a pipeline author
 
@@ -51,43 +53,64 @@ A LangChain, LlamaIndex, or plain-Python pipeline can branch on Jevson's result:
 
 ---
 
-## 2. Jev — the constraints that shape everything
+## 2. The decision model — the constraints that shape everything
 
-Jev is TypeSafe's constrained "System One" model, released in September 2026 in early access **[V-launch]**. **Official documentation: <https://docs.typesafe.ai/>** **[V-index]**. (The site `jevapi.dev` is a third-party summary that states it is not affiliated with TypeSafe **[X4]**; do not cite it.)
+The decision model is the **OpenAI Decisions API**: `POST https://api.openai.com/v1/decisions`, model `gpt-6-luna` (the only model offered), public beta, with general availability expected "in the coming weeks" **[D1]**. It replaced Jev (TypeSafe's `jev-1.13.0`, early access **[V-launch]**) on 2026-10-14; the decision record, `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md`, lists the documented facts below with their sources. **Official guide: <https://developers.openai.com/api/docs/guides/decisions>** **[D1]**.
 
-**Interface.** `POST https://api.typesafe.ai/v1/systemone`, `Authorization: Bearer <key>`, body `{model, state, questions}` **[V-api]**. State is text or JSON. Questions are a map from key to a typed question **[V-api]**. **The question key is not sent to the model** **[V-primitives, P1]**.
+**Interface.** `Authorization: Bearer <key>`, body `{model, input, questions, safety_identifier?}` **[D1, D2]**. `input` is a text string, or `user` messages with `input_text` and `input_image` parts **[D2]**. `questions` is a **list** of typed questions, each with optional `name`; answers come back in an `answers` list, one per question in question order, each echoing its `name` **[D1, D2]**. The response also carries `model` and `usage` (`input_tokens`, with cache details; `output_tokens`, with `reasoning_tokens`) **[D2]**. Jevson's word **state** below means the request's shared `input`: Jevson always sends it as one text string.
 
-**Model version.** Jevson always pins an exact version. `jev-1.13.0` is accepted; `jev-1.13` is rejected; `jev-latest` is an alias that moves when new releases ship **[P9, V-models]**. Every measurement in this repository is against `jev-1.13.0`. Several vendor cookbooks set `jev-1.12` **[V-cookbooks]**; nothing from them transfers to 1.13 without re-measurement.
+- **Question names.** `name` is optional in the API **[D2]**; Jevson always sets a unique one. On Jev the question key was not sent to the model **[V-primitives, P1]**; whether the Decisions API shows `name` to the model is undocumented. Until Phase 0r measures it, Jevson sends opaque, content-free names (`q0…qN`) and maps them to node ids itself.
+- **Dependent questions** need separate requests **[D1]**, which is how Jevson's levels already work (DESIGN §3.3).
 
-### 2.1 The three primitives — as measured
+**Model version.** There is **no pinnable snapshot**: the model page lists only the alias `gpt-6-luna` **[D3]**, and behaviour has changed under that name before (an image-encoding fix on 2026-09-25, before this endpoint launched **[D4]**). Each response carries a `model` string **[D2]**; whether it names a version is unknown. Jevson therefore **records** the returned `model` string on every response and in `Result.model`, treats a change in it as a re-baseline, and replays only from records (DESIGN §8.4). The pinning rule of earlier revisions (exact `jev-1.13.0`, aliases rejected **[P9, V-models]**) cannot be applied to this API.
+
+### 2.1 The primitives — as documented
 
 | primitive | request | response | notes |
 |---|---|---|---|
-| `noul` | `instructions` | `noul`: probability of yes | **no confidence field** **[V-confidence, P2]** |
-| `choice` | `instructions`, `criteria` {option: description} | `choice`, `probabilities` per option, `confidence` | 2–255 options in practice; the API accepts 1 **[P2]** |
-| `score` | `instructions`, `criteria` (ordered levels) | `score` (a probability-weighted **float**, not a level), `probabilities`, `confidence`, `legend` (echoes the level texts) | 2–10 levels in practice; the API accepts 1 **[P2, L4, P13]** |
+| `predicate` | `instructions` | `probability` that the statement is true (0–1) | **no confidence field** **[D1, D2]** |
+| `choice` | `instructions`, `choices` [{`value`, `description`?}] | `choice`, `probabilities` [{`value`, `probability`}] per option, `confidence` | 2–255 options, each unique; a value is a string or a boolean, and the two are distinct (`"true"` ≠ `true`) **[D2]** |
+| `score` | `instructions`, `levels` [{`label`, `description`?}], lowest first | `score` (the probability-weighted mean of the level indices, which start at 0, so it can fall between levels), `probabilities` [{`value`, `label`, `probability`}] per level, `confidence` | **the maximum number of levels is undocumented** **[D1, D2]** |
+| any | — | `refusal`: `{type: "refusal", name}` instead of an answer; the other questions in the request still get answers | **[D1, D2]** |
 
-- **Probabilities vs `confidence`.** The vendor describes its probabilities as calibrated **[V-systemone, V-primer]**. `confidence` is a statistic computed from the distribution; the vendor's documented approximation (shown for three options) is written in terms of the number of options **[V-confidence]** (some vendor pages also call it calibrated). Because it changes with the option count — adding `none_of_these` changes it — Jevson reports it but makes every calibration claim and bar about **probabilities**.
-- **Values are rounded to two decimals.** Jevson handles them as **integer hundredths**. Distributions sum to 1.00 or 0.99 (4 of 630 observed at 0.99) **[L17]**. Rounding K values can move the sum by at most ⌈K/2⌉ hundredths; the tolerance is min(⌈K/2⌉, 5) hundredths, since at most 1 was observed at K ≤ 11 **[L17]** and 0 across 20 easy, single-correct-option answers at K = 51 and K = 255 **[P23]**, and outside it the answer is invalid. The selected option is the argmax in hundredths; if the vendor's `choice` field names a different option and the top-two margin is outside the tie band, the answer is invalid.
-- **Lower bounds are not enforced by the API.** A one-option choice returns p = 1.0; a one-level score is accepted **[P2]**. The compiler enforces ≥ 2 options and ≥ 2 levels itself.
-- **Validation errors are HTTP 400**, not the documented 422, with a JSON `detail` naming the problem **[P2]**.
+**From Jev to the Decisions API:**
 
-### 2.2 Limits
+| Jev | Decisions API | what changed |
+|---|---|---|
+| `noul` | `predicate` | renamed; still a probability with no confidence |
+| `choice` over a key → description map | `choice` over a list of `{value, description}` | lower bound of 2 documented (Jev accepted 1 **[P2]**); values typed string or boolean |
+| `score` (2–10 levels **[P2]**, with `legend`) | `score` | maximum levels undocumented; no `legend` field (each level's `label` is in `probabilities`) |
+| — | `refusal` | new: a per-question decline (below) |
+| `state` + a map of keyed questions | shared `input` + a list of named questions | answers in question order |
+| text or JSON state only; no images **[V-models]** | text, or text and up to 128 images | images are **not adopted** (below) |
 
-| limit | value | behaviour when exceeded | evidence |
-|---|---|---|---|
-| state + **longest single question** | ~32,768 tokens | HTTP 400 `max_tokens_exceeded`; splitting cannot help | **[V-models, P3]** |
-| state + **all questions** | ~65,536 tokens | HTTP 400 `max_tokens_exceeded`; splitting the level helps | **[V-models, P3]** |
-| options per `choice` | 255 | HTTP 400 | **[P2]** |
-| levels per `score` | 10 | HTTP 400 | **[P2]** |
-| questions per request | no count limit; token budget only (2,515 accepted) | — | **[P2, P3]** |
-| rate | ~1,200 requests/min, ~250k tokens/s; "can change without notice" | 429 | **[V-models]** |
+- **Refusal is a first-class outcome.** Any question may come back as `refusal` **[D2]**. Jevson records it in `Result.decisions` and resolves the node to `Unresolved(refused)` (DESIGN §6.1). It is never mapped to `none_of_these`, to a default option, or to an absent value, and it is never retried unchanged.
+- **Typed values.** Jevson's options are opaque string ids (`c0…cN`, DESIGN §5.1), so a boolean `value` never appears in a Jevson request; a bool field is a `predicate` (DESIGN §4.2).
+- **Images are readable but not adopted.** The API accepts images (base64 data URLs in the guide; SDK 3.31.0 also accepts public HTTP(S) URLs) **[D1, D2]**. Jevson's sources are text (DESIGN §5.9); image input would need its own design change.
+- **Probabilities vs `confidence`.** The guide describes predicate probabilities as "the model's estimate" and choice and score answers as a distribution plus "a separate `confidence` field" **[D1]**; it does not define `confidence` and makes **no calibration claim**, advising thresholds set from your own labelled examples **[D1]**. (On Jev, `confidence` was a statistic of the distribution that changed with the option count **[V-confidence]**.) Jevson reports `confidence` but makes every calibration claim and bar about **probabilities**.
+- **Integer hundredths.** On Jev, values were rounded to two decimals and distributions summed to 1.00 or 0.99 **[L17]**; the Decisions API's precision is undocumented (the guide's examples show at most two decimals and are labelled illustrative **[D1]**). Jevson **stores** every probability as integer hundredths, but **validates on the raw values the API returns**: the sum check runs before rounding, because rounding full-precision values first would make a large distribution lose mass (200 options at 0.004 each all round to 0). The sum tolerance on Jev was min(⌈K/2⌉, 5) hundredths of a pre-rounded output (at most 1 observed at K ≤ 11 **[L17]**; 0 across 20 easy answers at K = 51 and K = 255 **[P23]**). For the Decisions API it is **provisional**: until Phase 0r measures the real precision and sums, an answer is invalid only if its raw probabilities sum outside 1 ± 0.05. The selected option is the argmax in hundredths; if the API's `choice` field names a different option and the top-two margin is outside the tie band, the answer is invalid.
+- **Lower bounds.** The compiler enforces ≥ 2 options and ≥ 2 levels itself, whatever the API accepts.
+- **Errors.** The Decisions API's error codes and bodies are not in the sources above. (Jev returned HTTP 400, not the documented 422, with a JSON `detail` **[P2]**.) Phase 3 maps them from observed responses.
 
-The 400 body carries no token counts and no tokenizer is published **[P3]**, so Jevson's estimator is conservative and is checked against `usage.input_tokens` (DESIGN §8.2). **No silent truncation was observed**: every over-limit request was rejected **[P3]**.
+### 2.2 Limits — documented and unknown
 
-**What fits.** Option descriptions dominate a large `choice`: ~18 tokens per option for bare short spans, ~27 for realistic 5–80-character spans, ~80 with a ±70-character context window **[P14]**. With a realistic 255-option question, the largest source accepted was ~108,000 characters of plain English prose or ~62,000 characters of dense business text **[P14]**; with context windows on every option, the state is left ~12k tokens (~30,000–50,000 characters) **[P14]**. Default declarations are far smaller (DESIGN §8.2).
+| limit | Decisions API | on `jev-1.13.0` (measured, not transferable) |
+|---|---|---|
+| options per `choice` | 2–255, unique **[D2]** | 255; 1 accepted **[P2]** |
+| levels per `score` | **unknown** | 10; 1 accepted **[P2]** |
+| context per request | **unknown** for this endpoint; the model page's 1.05M-token window is model-wide, and input above 272K tokens is billed at 2× **[D3]** | state + longest question ~32,768 tokens; state + all questions ~65,536 tokens; HTTP 400 `max_tokens_exceeded` **[V-models, P3]** |
+| questions per request | **unknown** | no count limit; 2,515 accepted **[P2, P3]** |
+| images per request | 128 **[D2]** (not adopted) | none **[V-models]** |
+| rate | **unknown** for this endpoint; the model page publishes per-tier limits for `gpt-6-luna` (Build tier: 5,000 RPM, 2M TPM **[D3]**), not stated to apply to `/v1/decisions` | ~1,200 requests/min, ~250k tokens/s; "can change without notice" **[V-models]** |
+| price | $0.10 per million input tokens; no charge for output, cache reads, or cache writes; regional and long-context multipliers apply **[D1]** | $0.042 per million input tokens, output free **[V-models]** |
 
-### 2.3 Behaviour — as measured
+Phase 0r measures every **unknown** before Phase 1 starts. Until then, preflight budgets against the Jev limits as configured placeholders (DESIGN §8.2), not as known bounds.
+
+**What fits (on Jev).** Option descriptions dominate a large `choice`: ~18 tokens per option for bare short spans, ~27 for realistic 5–80-character spans, ~80 with a ±70-character context window **[P14]**. With a realistic 255-option question, the largest source accepted was ~108,000 characters of plain English prose or ~62,000 characters of dense business text **[P14]**; with context windows on every option, the state is left ~12k tokens (~30,000–50,000 characters) **[P14]**. The 400 body carried no token counts and no tokenizer is published **[P3]**; **no silent truncation was observed**: every over-limit request was rejected **[P3]**. The Decisions API's behaviour over a limit is unknown.
+
+### 2.3 Behaviour — measured on `jev-1.13.0`, to be re-measured
+
+Everything in this subsection was measured on Jev, or documented by TypeSafe for Jev. **None of it is yet known for the Decisions API**; Phase 0r re-runs the same probes with the same thresholds. The design rules these measurements motivated — the tie margin, keyed references, untrusted sources, mandatory `none_of_these` — stay in force for the decision model, citing this evidence. The guide documents none of these properties for the Decisions API: there is no seed or temperature control **[D2]**, and two small third-party reports of identical answers to identical requests are unverified **[D6, D7]**.
 
 - **Near-deterministic, not deterministic.** Byte-identical requests return different probabilities. Bool nouls jitter least (per-question range ≤ 0.05 for 90% of 200 contract questions over 10 repeats **[P12]**); **choices jitter more** (range p90 0.11, max 0.21 over 180 enum questions × 10 repeats; the argmax flipped on 14/180 questions) **[P20]**; and **ambiguous entity-pair nouls ranged up to 0.37** (0.22–0.59, sd 0.13) over 12 identical calls, with 16 of 1,824 pair decisions flipping between two identical runs **[P12]**. On 40 ambiguous yes/no questions × 25 repeats × 2 sessions, no decision away from the threshold flipped **[P1]**. The vendor's σ ≈ 0.01 was measured with a fresh `uid` in each call, not on identical input **[V-consistency]**.
 - **Exact ties are rare; near-threshold flips are not.** An exact 0.50 appeared once in 2,000 bool observations; 1.1% landed within ±0.05 of 0.5; 2 of 200 questions flipped across 10 identical calls, both hedged clauses **[P12]**. The tie margin that removes flips is therefore wider than exact equality (DESIGN §6.2).
@@ -95,10 +118,8 @@ The 400 body carries no token counts and no tokenizer is published **[P3]**, so 
 - **Adding questions is nearly free.** State is billed **once per request**; each short noul adds ~22–26 tokens; overhead is ~280 tokens per request **[P3]**. Latency p50: 0.15 s for 1 question, 0.17 s for 100, 0.22 s for 300 over a small state **[P8]**.
 - **Cost.** $0.042 per million input tokens, output free **[V-models]**. Cost per decision depends on batching; there is no single constant. `usage.input_tokens` was present on every successful response and `x-typesafe-request-id` on every response whose headers were captured **[P8]**.
 
-### 2.4 Hard limits and known weaknesses
+**Known weaknesses on Jev**, kept as rules for the decision model:
 
-- Cannot produce free-form text, arrays, or nested objects; does not generate **[V-jagged]**. Cannot read images **[V-models]**; does not generate explanations of its reasoning **[V-systemone]**.
-- **Has no schema awareness of its own.** It reads structure in state and instructions well **[V-advanced]**, but every question Jevson asks is one Jevson constructed.
 - **Referencing state by array position fails.** Asking about `items[137]` in a 320-item list gave 62% wrong answers; keyed references (`items.k137`), inlined values, and one request per item gave 0/320 **[P4]**. The error grows with the **length of the indexed list in state**, not with questions per request. The vendor's own examples use `items[{i}]` **[V-jagged]**, so this is a trap.
 - **Content in the state can steer answers** **[V-jagged]**. Measured: a note in an invoice advocating the wrong span moved candidate selection 20/20 (advocacy note, confidence up to 0.91; injected instruction, up to 1.00) and defeated `none_of_these` 20/20; the same injections in an LLM *draft* did not flip adjudication (0/80) **[P7]**. See DESIGN §5.8.
 - **Literal reading; negations and indirection cost accuracy** **[V-jagged]**. Questions are phrased positively and directly (DESIGN §5.2).
@@ -106,6 +127,14 @@ The 400 body carries no token counts and no tokenizer is published **[P3]**, so 
 - **Distractors hurt** **[V-jagged]**; in the abstention pilot, long multi-entity documents were the only regime where `none_of_these` failed **[P5]**.
 - **Flat distributions on wide scales.** On 10-level scores, 8 of 12 answers had no level above 0.5 **[P13]**; prefer narrow rubrics.
 - **English is the primary training language**; other languages, including CJK scripts, are handled but not equally well **[V-models]**.
+
+Third-party comparisons of the two models (Jev and `gpt-6-luna`) exist and are cited as signal, never as fact **[D5–D9]**; they do not replace Phase 0r.
+
+### 2.4 Hard limits
+
+- **Cannot produce free-form text, arrays, or nested objects** — only a probability, a choice from supplied options, or a score over supplied levels **[D1, D2]**. The guide sends generation of objects and explanations to Structured Outputs and function calling instead **[D1]**.
+- **Returns no reasoning text.** `usage.output_tokens_details.reasoning_tokens` is reported, but no reasoning is returned **[D2]**.
+- **Has no schema awareness of its own.** Every question Jevson asks is one Jevson constructed.
 
 ---
 
@@ -124,18 +153,18 @@ The 400 body carries no token counts and no tokenizer is published **[P3]**, so 
           ▼                                        ▼
    ┌──────────────────────────────────────────────────┐
    │ DECISION GRAPH                                   │
-   │   decision nodes (Jev: choice | score | noul)    │
+   │   decision nodes (choice | score | predicate)    │
    │   step nodes (external: extract | generate)      │
    └────────────────────┬─────────────────────────────┘
                         ▼
    ┌──────────────────────────────────────────────────┐
    │ EXECUTOR   preflight budget → topological levels │
    │   steps run through Extractor / LLM protocols    │
-   │   decisions: one keyed Jev call per level        │
+   │   decisions: one batched request per level       │
    │   bounded retry / redraft loops live here        │
    └────────────────────┬─────────────────────────────┘
                         ▼
-              BACKEND (protocol): JevBackend │ FakeBackend │ CachingBackend │ AnyJev-style
+              BACKEND (protocol): DecisionsBackend │ FakeBackend │ CachingBackend │ fallbacks (Jev, AnyJev-style, constrained decoding)
                         ▼
    ┌──────────────────────────────────────────────────┐
    │ ASSEMBLER  entity resolution, ordering,          │
@@ -149,22 +178,22 @@ The 400 body carries no token counts and no tokenizer is published **[P3]**, so 
 
 ### 3.1 The central abstraction is the decision graph
 
-Jevson is not "JSON Schema → Jev questions" — that is what `jev_jsonschema` does, and why it refuses free-form strings, arrays, objects, and unions **[X3]**. Jevson is:
+Jevson is not "JSON Schema → decision questions" — that is what `jev_jsonschema` does for Jev, and why it refuses free-form strings, arrays, objects, and unions **[X3]**. Jevson is:
 
 ```text
-Schema + Source  →  Decision Graph  →  execution (steps + Jev levels)
+Schema + Source  →  Decision Graph  →  execution (steps + decision levels)
                  →  Resolved graph  →  JSON assembly  →  validation
 ```
 
-A graph has two node types. **Only decision nodes are sent to Jev.**
+A graph has two node types. **Only decision nodes are sent to the decision model.**
 
 ```text
 DecisionNode
   id             target instance pointer + role, e.g. /customer/tier#choice, /items#pair:c3:c7;
                  a retry or redraft of the same node is recorded in Result.decisions as id@n
-  kind           choice | score | noul
+  kind           choice | score | predicate
   question       compiled from a versioned template (DESIGN §5.2); never references state by position
-  options        opaque option ids → descriptions; or ordered levels; or none (noul)
+  options        opaque option ids → descriptions; or ordered levels; or none (predicate)
   option_source  schema_enum | schema_rubric | candidate_spans | predicate
   dependencies   node ids that must resolve first
   provenance     kind of provenance a resolved value carries
@@ -181,27 +210,27 @@ StepNode
 
 ### 3.2 Decide-then-construct, not generate-then-check
 
-**Audit architecture (not built):** an LLM builds a `Person`, Jev objects, the work is discarded, retry.
+**Audit architecture (not built):** an LLM builds a `Person`, the decision model objects, the work is discarded, retry.
 
 **Construction architecture (built):**
 
 ```text
-Jev: Person 0.04 / Organization 0.96
+decision model: Person 0.04 / Organization 0.96
 → execute only the Organization branch's nodes → assemble
 ```
 
 **Every branch is compiled and validated up front** by `compile_schema()`, so refusal stays total and happens before any network call (R14). Only the selected branch is *executed*. The wrong branch's steps — extraction, generation — never run. A branch discriminator has no `none_of_these` in v0; a tie or invalid answer leaves the whole subtree `Unresolved`. Two branches whose required properties and descriptions are identical after normalisation are *undiscriminable* and refuse at compile time.
 
-The vendor also documents *speculative fan-out*: ask every branch's questions in one call and let code discard the irrelevant ones **[V-fanout]**. For branches whose nodes are pure Jev questions, that saves a round trip at a small token cost; for branches with steps it would run work whose output is discarded. The choice is measured in `PLAN.md` Phase 6.
+TypeSafe documents *speculative fan-out* for Jev: ask every branch's questions in one call and let code discard the irrelevant ones **[V-fanout]**. For branches whose nodes are pure decision questions, that saves a round trip at a small token cost; for branches with steps it would run work whose output is discarded. The choice is measured in `PLAN.md` Phase 6.
 
 ### 3.3 Level batching
 
 ```text
 decision graph → dependency analysis → topological levels
-              → one batched, keyed Jev call per level (split only by DESIGN §8.2)
+              → one batched request of named questions per level (split only by DESIGN §8.2)
 ```
 
-Because state is billed once per request and questions are independent **[P1, P3]**, batching is both cheaper and answer-neutral. A typical object resolves in **1–3 Jev calls**: one level for everything that depends only on extraction, one more for each union discriminator above it. Array membership and pairwise entity questions are asked over all candidates in the *same* level, not only over accepted members, so arrays add no level.
+Questions in one request share one `input` and are independent **[D1]**; on Jev, state was billed once per request and batching was answer-neutral **[P1, P3]**, so batching is expected to be both cheaper and answer-neutral (Phase 0r re-measures it). A typical object resolves in **1–3 requests**: one level for everything that depends only on extraction, one more for each union discriminator above it. Array membership and pairwise entity questions are asked over all candidates in the *same* level, not only over accepted members, so arrays add no level.
 
 ### 3.4 Worked example
 
@@ -218,10 +247,10 @@ class Invoice(BaseModel):
 
 Source: an invoice naming two companies, two addresses, and a subtotal, tax, and total.
 
-1. **Normaliser/compiler.** `category` → `choice` over declared values. `vendor`, `billing_address` → source selection over candidate spans. `total` (Pydantic `Decimal`, normalised to a decimal value emitted as a string) → source selection over *money* candidates, then a deterministic parse of the selected span (class F on a selected span — Jev never does arithmetic). `line_items` → membership `noul` per candidate plus entity resolution.
+1. **Normaliser/compiler.** `category` → `choice` over declared values. `vendor`, `billing_address` → source selection over candidate spans. `total` (Pydantic `Decimal`, normalised to a decimal value emitted as a string) → source selection over *money* candidates, then a deterministic parse of the selected span (class F on a selected span — the decision model never does arithmetic). `line_items` → membership `predicate` per candidate plus entity resolution.
 2. **Extract steps** return verified candidate spans with offsets: two organisations, two addresses, three money amounts, five line-item strings.
-3. **Graph:** every decision depends only on the extract steps → **one decision level → one Jev call**. Candidates are placed in state as an object keyed by opaque ids (`c0…cN`), never by position (R13).
-4. **Jev** returns selections, distributions, and `none_of_these` probabilities in one pass.
+3. **Graph:** every decision depends only on the extract steps → **one decision level → one request**. Candidates are placed in state as an object keyed by opaque ids (`c0…cN`), never by position (R13).
+4. **The Decisions API** returns selections, distributions, and `none_of_these` probabilities in one pass.
 5. **Assembler** resolves line-item entities (DESIGN §5.7), orders them by source offset, enforces `maxItems` retaining overflow, parses the selected total, inserts values by span.
 6. **Validate** against the original schema. Provenance: `vendor ← [142,151)`, `total ← [610,617)`, `category ← declared option`.
 
@@ -270,17 +299,17 @@ Every schema construct and extraction operation falls into exactly one class. Th
 |---|---|---|---|
 | **A** | Deterministic | ordinary code | required fields, nesting, defaults, types, constants, nullable |
 | **B** | Grammar | constrained decoding, where the caller's LLM supports it | key spelling in an LLM draft |
-| **C** | Bounded semantic decision | **Jev** | classification, ordinal rating, boolean predicate, union discrimination |
-| **D** | Source selection | **candidate spans + Jev** | which of four spans is the billing address |
-| **E** | Unbounded generation | LLM, then Jev adjudication | a summary, a synthesised description |
+| **C** | Bounded semantic decision | **the decision model** | classification, ordinal rating, boolean predicate, union discrimination |
+| **D** | Source selection | **candidate spans + the decision model** | which of four spans is the billing address |
+| **E** | Unbounded generation | LLM, then decision-model adjudication | a summary, a synthesised description |
 | **F** | Computational | deterministic code | parsing a selected money span, date arithmetic, unit conversion |
 | **G** | Unsupported | explicit refusal | anything the compiler cannot map |
 
-### 4.1 "Can be a Jev question" is not "should be a Jev question"
+### 4.1 "Can be a decision question" is not "should be a decision question"
 
-When the value is determined by the schema and the source is not needed, Jev adds cost and nothing else. By contrast, *"which of these three people is the customer?"* cannot be answered by the schema or a grammar — the value must be selected from evidence.
+When the value is determined by the schema and the source is not needed, the decision model adds cost and nothing else. By contrast, *"which of these three people is the customer?"* cannot be answered by the schema or a grammar — the value must be selected from evidence.
 
-Every taxonomy entry therefore records its **existing alternatives** — constrained decoding, plain code, the vendor's cookbooks, and the open projects in DESIGN §9 **[X3]**.
+Every taxonomy entry therefore records its **existing alternatives** — constrained decoding, plain code, TypeSafe's cookbooks, and the open projects in DESIGN §9 **[X3]**.
 
 ### 4.2 Mapping rules — corrected against evidence
 
@@ -288,18 +317,18 @@ The mapping from `jev_jsonschema` **[X3]** is adopted with corrections:
 
 | construct | mapping | note |
 |---|---|---|
-| `bool` | `noul`; true iff p ≥ 0.56; false iff p ≤ 0.44; 0.45–0.55 inclusive is `Unresolved(tie)` | the band that removed every true↔false flip across 10 identical calls on 200 questions counted 0.45 and 0.55 as ties **[P12]**; it is the tie margin of DESIGN §6.2 applied to a binary answer |
-| string/int enum, 2–255 values | `choice` over opaque ids; a top-two margin ≤ 0.10 → `Unresolved(tie)` | a ±0.05 band left 11/180 argmax flips; a 0.10 margin left 1/180, converting 7.8% of answers to ties **[P20]** |
-| integer range 2–10 **declared `ordinal: true`** | `score`; the value is the **most probable level**; a top-two margin ≤ 0.10 → tie | the vendor `score` is a probability-weighted float (e.g. 3.20 for p = [.45,0,0,0,.55]) that can fail `type: integer` **[L4]**; round(score) and argmax disagreed on 8/60 live scores **[P13]** |
-| integer range not declared ordinal (a count, a quantity) | a number: source-selected (class D + F) or refused | counts are not ratings; Jev does not count **[V-jagged]** |
-| number bounded 0–1 | **not** a probability; a number like any other | mapping it to Jev's probability writes a belief into value fields such as `tax_rate: 0.20` **[L4]** |
-| array of enum (multi-label) | one membership `noul` per declared value, with the bool rule; elements in declared enum order; `maxItems` keeps the first k in that order, overflow retained; a tied value is `Unresolved(tie)` at the array pointer naming the value, the others emitted | `PLAN.md` Phase 7 |
+| `bool` | `predicate`; true iff p ≥ 0.56; false iff p ≤ 0.44; 0.45–0.55 inclusive is `Unresolved(tie)` | on Jev, the band that removed every true↔false flip across 10 identical calls on 200 questions counted 0.45 and 0.55 as ties **[P12]**; it is the tie margin of DESIGN §6.2 applied to a binary answer |
+| string/int enum, 2–255 values | `choice` over opaque ids; a top-two margin ≤ 0.10 → `Unresolved(tie)` | on Jev, a ±0.05 band left 11/180 argmax flips; a 0.10 margin left 1/180, converting 7.8% of answers to ties **[P20]** |
+| integer range 2–10 **declared `ordinal: true`** | `score`; the value is the **most probable level**; a top-two margin ≤ 0.10 → tie | the API's `score` is a probability-weighted mean of level indices **[D1]** (e.g. 3.20 for p = [.45,0,0,0,.55]) that can fail `type: integer` **[L4]**; on Jev, round(score) and argmax disagreed on 8/60 live scores **[P13]** |
+| integer range not declared ordinal (a count, a quantity) | a number: source-selected (class D + F) or refused | counts are not ratings; counting is never asked of the decision model (Jev documented that it cannot count **[V-jagged]**) |
+| number bounded 0–1 | **not** a probability; a number like any other | mapping it to the decision model's probability writes a belief into value fields such as `tax_rate: 0.20` **[L4]** |
+| array of enum (multi-label) | one membership `predicate` per declared value, with the bool rule; elements in declared enum order; `maxItems` keeps the first k in that order, overflow retained; a tied value is `Unresolved(tie)` at the array pointer naming the value, the others emitted | `PLAN.md` Phase 7 |
 
 ---
 
 ## 5. Candidates, provenance, and abstention
 
-### 5.1 Jev cannot generate a string — but it can choose one
+### 5.1 The decision model cannot generate a string — but it can choose one
 
 Given *"Dana Whitfield, VP of Marketing at Acme Corp, met with John Smith from Globex yesterday"*, an extract step produces verified candidate spans and the question becomes a `choice`:
 
@@ -311,11 +340,11 @@ choice(/customer/name):
 → c0  p=0.91
 ```
 
-Jev never generates the text. Code inserts the selected span. This is the vendor's documented pattern **[V-preparsed]**; Jevson's contribution is compiling it from a schema and carrying it through the rest of the pipeline.
+The decision model never generates the text. Code inserts the selected span. This is TypeSafe's documented pattern for Jev **[V-preparsed]**; Jevson's contribution is compiling it from a schema and carrying it through the rest of the pipeline.
 
-**Options are opaque ids** (`c0…cN`), with the span text in the option description. Text keys and opaque ids performed equivalently (35/36 identical selections) **[P5]**.
+**Options are opaque ids** (`c0…cN`), sent as each choice's string `value`, with the span text in its `description` **[D2]**. On Jev, text keys and opaque ids performed equivalently (35/36 identical selections) **[P5]**.
 
-**Identical text at several offsets.** When a candidate's text occurs more than once in the source, **every occurrence is offered as its own option, with a ±40-character context window in its description.** With context windows Jev picked the right occurrence 40/40; with text alone it was at chance, 22/40 **[P15]**. **`max_candidates` counts options after this expansion**; a field whose occurrences exceed it is `Unresolved(too_many_candidates)`, with the distinct texts and occurrence counts in `detail`. Offering every occurrence matters: when only a wrong-role occurrence was offered, it was committed 48–83% of the time rather than abstained on — the value text is right but the provenance is wrong **[P15]**. Code finds every occurrence by exact match. Mixing context-bearing and bare options in one choice did not bias decisions out of sample (repeated-text answers 48/48 mixed vs 20/48 all bare; unique answers 48/48 in every format), though ~0.10 of probability mass shifted toward context-bearing options when the answer was absent and 1 of 48 such cases committed one **[P19]**; the test was near ceiling.
+**Identical text at several offsets.** When a candidate's text occurs more than once in the source, **every occurrence is offered as its own option, with a ±40-character context window in its description.** On Jev, with context windows the model picked the right occurrence 40/40; with text alone it was at chance, 22/40 **[P15]**. **`max_candidates` counts options after this expansion**; a field whose occurrences exceed it is `Unresolved(too_many_candidates)`, with the distinct texts and occurrence counts in `detail`. Offering every occurrence matters: when only a wrong-role occurrence was offered, it was committed 48–83% of the time rather than abstained on — the value text is right but the provenance is wrong **[P15]**. Code finds every occurrence by exact match. Mixing context-bearing and bare options in one choice did not bias decisions out of sample (repeated-text answers 48/48 mixed vs 20/48 all bare; unique answers 48/48 in every format), though ~0.10 of probability mass shifted toward context-bearing options when the answer was absent and 1 of 48 such cases committed one **[P19]**; the test was near ceiling.
 
 ### 5.2 Questions are compiled from versioned templates
 
@@ -326,26 +355,26 @@ Template rules, each backed by evidence:
 - **Demand the complete value.** Candidate questions ask: "Which of these is the complete *<field>* as written in the source? A partial value — for example a street without its city, or a date without its year — is not acceptable.", and `none_of_these` reads "None of the other options is the complete *<field>* as written in the source; a partial value does not count." This exact text was tested out of sample: with the full value among 4 competitors it was chosen 72/72 with and without the wording; when only partial variants were offered, correct abstention rose from 19/72 to 72/72 **[P18]**. An earlier variant cut lone partial commits from 32/42 to 0/42 **[P11]**.
 - **When the source itself states only a partial value**, the intended answer is abstention (the field is then absent). Measured compliance depends on the field: addresses and dates abstained, while names, phones, and venues often committed the longest partial (15/36 abstained overall) **[P18]**. This is a stated limit, re-measured in Phase 0.
 - **Positive, direct phrasing; no negations** **[V-jagged]**.
-- **Level state layout.** A level's state is `{"source": …}` plus, when present, `"candidates": {<opaque id>: …}` and `"drafts": {<field node id>: <draft>}`; each question names the entries it is about by key (R13). Candidate texts appear in option descriptions; `candidates` in state is used only when a noul (membership, pair) references a candidate, with ids unique within the level, and preflight counts it in the state size. Injected drafts did not flip verdicts under a single `draft` key **[P7]**; the keyed multi-draft layout is re-measured by the Phase 4 injection regression, and if it does worse, adjudication issues one call per draft.
+- **Level state layout.** A level's state is `{"source": …}` plus, when present, `"candidates": {<opaque id>: …}` and `"drafts": {<field node id>: <draft>}`; each question names the entries it is about by key (R13). Candidate texts appear in option descriptions; `candidates` in state is used only when a predicate (membership, pair) references a candidate, with ids unique within the level, and preflight counts it in the state size. On Jev, injected drafts did not flip verdicts under a single `draft` key **[P7]**; the keyed multi-draft layout is re-measured by the Phase 4 injection regression, and if it does worse, adjudication issues one call per draft.
 - **Scope from the schema.** The field's `description` (or `x-jevson.question`) and `x-jevson.source.scope` are rendered into the question. A generic scoping hint did not improve accuracy measurably (abstention 32/36 → 35/36, present-answer accuracy 36/36 → 33/36) **[P16]**, so no hint is added by default.
 
 ### 5.3 Single candidates still get a question
 
-A lone extracted candidate is **not** committed unchecked by default: the extractor is the weak link, and a lone wrong candidate is exactly the wrong-but-valid failure. The default is a two-option `choice([c0, none_of_these])`, batched into the existing level at near-zero marginal cost **[P3, P8]**. In the pilot it abstained on 84/84 wrong-role lone candidates and falsely abstained on 2/42 correct ones, and behaved the same as the candidate among 2–3 competitors **[P11]**. A field may opt into `direct_extraction: true`: a lone verified candidate then commits without Jev, carries no probability, and is listed in `Result.ungated`; zero candidates follow DESIGN §5.6; two or more distinct candidates (counted after the pre-filter below), or one text occurring at several offsets (DESIGN §5.1), are asked as an ordinary choice with `none_of_these` and the field is not ungated.
+A lone extracted candidate is **not** committed unchecked by default: the extractor is the weak link, and a lone wrong candidate is exactly the wrong-but-valid failure. The default is a two-option `choice([c0, none_of_these])`, batched into the existing level at near-zero marginal cost on Jev **[P3, P8]**. In the Jev pilot it abstained on 84/84 wrong-role lone candidates and falsely abstained on 2/42 correct ones, and behaved the same as the candidate among 2–3 competitors **[P11]**. A field may opt into `direct_extraction: true`: a lone verified candidate then commits without a decision, carries no probability, and is listed in `Result.ungated`; zero candidates follow DESIGN §5.6; two or more distinct candidates (counted after the pre-filter below), or one text occurring at several offsets (DESIGN §5.1), are asked as an ordinary choice with `none_of_these` and the field is not ungated.
 
-**Zero candidates** resolve without a Jev call (DESIGN §5.6). **More than `max_candidates`** (default 50; hard cap 254, leaving one option for `none_of_these`) is a run-time condition — the compiler never sees a source — and yields `Unresolved(too_many_candidates)` rather than silent truncation. **For fields whose value is the verbatim span**, candidates that cannot satisfy the field's own string constraints (`maxLength`, `minLength`, `pattern`) are rejected before the question is asked, and counted. For class F fields the constraints apply to the parsed value after selection, and a failure is reported in `violations`.
+**Zero candidates** resolve without a backend call (DESIGN §5.6). **More than `max_candidates`** (default 50; hard cap 254, leaving one option for `none_of_these`) is a run-time condition — the compiler never sees a source — and yields `Unresolved(too_many_candidates)` rather than silent truncation. **For fields whose value is the verbatim span**, candidates that cannot satisfy the field's own string constraints (`maxLength`, `minLength`, `pattern`) are rejected before the question is asked, and counted. For class F fields the constraints apply to the parsed value after selection, and a failure is reported in `violations`.
 
 ### 5.4 `none_of_these` is mandatory, and it is the safety property
 
-Without it the architecture is **more dangerous than asking an LLM directly**: Jev's probabilities are relative to the options it was handed **[V-jagged]**, so a missing correct answer is invisible. Every candidate-backed `choice` compiles with a described `none_of_these` option:
+Without it the architecture is **more dangerous than asking an LLM directly**: the decision model's probabilities are relative to the options it was handed (one probability per supplied option **[D2]**; TypeSafe documents the same for Jev **[V-jagged]**), so a missing correct answer is invisible. Every candidate-backed `choice` compiles with a described `none_of_these` option:
 
 ```text
-SELECT(candidate)   or   ABSTAIN(none_of_these)
+SELECT(candidate)   or   ABSTAIN(none_of_these)   or   REFUSED → Unresolved(refused)
 ```
 
-`none_of_these` means *no supplied candidate is sufficiently supported as the answer* — the source may genuinely not contain one, or extraction may have missed it.
+`none_of_these` means *no supplied candidate is sufficiently supported as the answer* — the source may genuinely not contain one, or extraction may have missed it. A `refusal` answer **[D2]** is neither a selection nor an abstention: it says nothing about the source, so it becomes `Unresolved(refused)` (DESIGN §6.1) and is never read as `none_of_these` or as any option.
 
-**Pilot evidence** (synthetic, author-written; not the pre-registered Phase 0 probe) **[P5]**: on short documents and trap documents (superseded values, negations, near-duplicate names), selection and abstention were at ceiling. In long, multi-entity documents, abstention when the answer was absent fell to 32/36 = 0.89 (95% CI 0.75–0.96); three of the four failures were superseded due dates. A separate yes/no gate ("does any candidate fill this field?") was *worse* (0.56), because in a multi-entity document some candidate usually is *a* seller, just not *the* one. **The choice-with-`none_of_these` design stays; a noul gate is not used as the abstention mechanism.**
+**Pilot evidence** (on `jev-1.13.0`; synthetic, author-written; not the pre-registered Phase 0 probe) **[P5]**: on short documents and trap documents (superseded values, negations, near-duplicate names), selection and abstention were at ceiling. In long, multi-entity documents, abstention when the answer was absent fell to 32/36 = 0.89 (95% CI 0.75–0.96); three of the four failures were superseded due dates. A separate yes/no gate ("does any candidate fill this field?") was *worse* (0.56), because in a multi-entity document some candidate usually is *a* seller, just not *the* one. **The choice-with-`none_of_these` design stays; a predicate gate is not used as the abstention mechanism.** Phase 0r re-measures both on the Decisions API.
 
 ### 5.5 Abstention lifecycle
 
@@ -354,20 +383,22 @@ extract step → verified candidates
       ├── zero candidates ──────────────────────────► absent or Unresolved(no_candidates) (DESIGN §5.6)
       ├── more than max_candidates ─────────────────► Unresolved(too_many_candidates)
       ↓
-   Jev choice (candidates + none_of_these)
+   decision-model choice (candidates + none_of_these)
       ├── candidate selected ─────────────────────────► value + provenance
       ├── tie (top-two margin ≤ 0.10) ────────────────► Unresolved(tie)
+      ├── refusal ────────────────────────────────────► Unresolved(refused); no retry
       └── none_of_these
               ↓
         retry: extractor re-invoked with seen spans as exclusions
-              ├── no new verified span ──────────────► as abstention (no Jev call)
+              ├── no new verified span ──────────────► as abstention (no backend call)
               └── choice over OLD ∪ NEW + none_of_these
                      ├── candidate selected ─────────► value + provenance
+                     ├── refusal ────────────────────► Unresolved(refused)
                      └── none_of_these ─────────────► as abstention (DESIGN §5.6)
 ```
 
-- **Retry only helps if the input changes.** Retry against a **schema-derived** option set has a budget of **zero**. Retry against a **candidate-derived** set re-extracts; its Jev call is issued only if extraction returns at least one verified span not seen before.
-- **The retry offers old ∪ new candidates**, because Jev's distribution is relative to the offered set **[V-jagged]**.
+- **Retry only helps if the input changes.** Retry against a **schema-derived** option set has a budget of **zero**. Retry against a **candidate-derived** set re-extracts; its request is issued only if extraction returns at least one verified span not seen before. A refusal is not retried: the input would be unchanged.
+- **The retry offers old ∪ new candidates**, because the distribution is relative to the offered set (DESIGN §5.4).
 - **Retries for every field that abstained in one level are batched** into one follow-up call (subject to DESIGN §8.2).
 - **The default budget of one is provisional**, with a two-sided bar measured in `PLAN.md` Phase 5: the retry stays on only if it recovers ≥ 10% of abstentions *where the answer was present*, **and** raises the false-commit rate on truly-absent cases by ≤ 2 points. A retry costs a full extraction, which is caller-priced; `retry_budget` is a documented per-call parameter.
 
@@ -381,6 +412,8 @@ An abstention is not an error: the source may simply not contain the value. What
 | required and nullable (`Optional[T]` with no default) | `null` | `Result.absent` |
 | required and not nullable | key omitted | `Result.unresolved` (reason `abstained`, or `no_candidates`) |
 
+A **refusal** is not an abstention and never follows this table: whatever the field's requiredness, it yields `Unresolved(refused)` with the key omitted, because it says nothing about whether the source contains the value. An object with a refused class D descendant is not abstained.
+
 A nullable field with a non-null default (`Optional[str] = "x"`) is not required, so it is omitted and the caller receives `"x"`, not `None` **[L18]**.
 
 **Objects.** An object node is abstained when it has at least one class D (source-selected) descendant, every class D descendant abstained or had no candidates, and none committed — a source-grounded array counts as abstained when it accepted no member; a `known=` value inside it counts as committed. Class A, C, and E descendants do not count: when the object is abstained their decisions stay in `Result.decisions` but their values are discarded, and a `generate` step under the object is not run (the object's class D decisions, including their retries, are ordered before it; generate steps at the root wait for nothing, since the root is never abstained). An object with no class D descendant is never abstained, and **the root object is never abstained**. The abstained object then follows the table itself (omitted, `null`, or `Unresolved(abstained)`), recorded once at the object pointer. If any class D descendant committed, each required descendant that abstained is `Unresolved(abstained)` as usual. So `Optional[Address] = None` on an invoice with no shipping address is simply absent, even if `Address` has an enum field.
@@ -389,15 +422,15 @@ A nullable field with a non-null default (`Optional[str] = "x"`) is not required
 
 ### 5.7 Entity resolution
 
-Pairwise `noul` answers are independent, so they can contradict each other: *A = B*, *B = C*, *A ≠ C*. In the round-1 pilot, 95.1% of pairs were judged correctly but **42% of documents contained a non-transitive triple** **[P6]**; the same pair can move by up to 0.37 across identical calls **[P12]**. Resolution runs in stages:
+Pairwise `predicate` answers are independent, so they can contradict each other: *A = B*, *B = C*, *A ≠ C*. In the round-1 pilot on Jev, 95.1% of pairs were judged correctly but **42% of documents contained a non-transitive triple** **[P6]**; the same pair can move by up to 0.37 across identical calls **[P12]**. Resolution runs in stages:
 
 1. **Deterministic pre-merge, no model.** Candidates of one entity type whose text is identical under that type's `Normalizer` merge before any question is asked. **The default normaliser is lossless on case:** Unicode NFC plus whitespace collapse. Casefolding is opt-in per entity type, because it silently merges `US`/`us`, `Apple`/`apple`, `IT`/`it`, `CAT`/`cat` **[L1]**. The normaliser never merges initials or first names (`Sam`/`Samuel`, `D. Whitman`), which were the pilot's dominant failure **[P6]**.
-2. **Pairwise `noul`** over the remaining candidates, asked in the same level as membership (capped, DESIGN §8.2). Components are built over **accepted members only**: pair answers involving non-members are recorded in `decisions` and ignored, so a rejected candidate never bridges two members. Components are the connected components of member pairs with p(same) > 0.5.
+2. **Pairwise `predicate`** over the remaining candidates, asked in the same level as membership (capped, DESIGN §8.2). Components are built over **accepted members only**: pair answers involving non-members are recorded in `decisions` and ignored, so a rejected candidate never bridges two members. Components are the connected components of member pairs with p(same) > 0.5. A refused pair answer is treated as a pair inside the tie band: the components it links become `Unresolved(refused)`.
 3. **Internal consistency (always on).** A component containing a pair at or below `conflict_floor` — a confident "different" — is a possible wrong merge and becomes `Unresolved(entity_conflict)`, naming its spans and the offending pairs. Internal pairs above the floor are tolerated, so a chain such as *Dana* ↔ *Dana Whitfield* ↔ *Ms. Whitfield* still merges.
 4. **Cross-component consistency (a variant, chosen in Phase 0).** Additionally, a component linked to another by a pair in (`conflict_floor`, 0.5] is a possible split, which would emit a duplicate element; under this variant both components become `Unresolved(entity_conflict)`.
-5. Other components are emitted, and an array with any unresolved component is incomplete. A membership tie on a mention likewise leaves its array incomplete. With ~1.1% of pilot yes/no answers and 2.6% of pilot candidate choices inside the margin **[P12, P22]** (membership nouls themselves not yet measured), long arrays will sometimes be incomplete for this reason alone; Phase 7 reports how often.
+5. Other components are emitted, and an array with any unresolved component is incomplete. A membership tie on a mention likewise leaves its array incomplete. With ~1.1% of pilot yes/no answers and 2.6% of pilot candidate choices inside the margin **[P12, P22]** (membership predicates themselves not yet measured), long arrays will sometimes be incomplete for this reason alone; Phase 7 reports how often.
 
-**Why the variant is not settled.** On 48 pilot documents (1,824 pairs, two identical runs) the internal rule alone was silently wrong on 5/133 and 6/134 components, mostly *splits*, and adding the cross-component condition gave 0/133 and 0/134 at 113/133 and 109/134 correct versus 117 — but that was found and scored in-sample **[P10]**. Out of sample, on 80 new documents in new domains (5,410 pairs, two runs), **no split occurred in 160 document-runs**, both rules were silently wrong on 1/312 components (a consistent-but-wrong merge), and the cross-component condition only blanked 8–9 otherwise-correct components; each uncertain cross pair blanks two components **[P17]**. Plain connected components were silently wrong on 25/312 **[P17]**. The non-transitive rate is template-dependent: 42% of documents in the first pilot, 12% and 60% on two later sets **[P6, P17]**. `PLAN.md` Phase 0 probe 4 chooses between the internal rule and the two-directional variant on real prose by a pre-registered rule.
+**Why the variant is not settled.** On 48 pilot documents on Jev (1,824 pairs, two identical runs) the internal rule alone was silently wrong on 5/133 and 6/134 components, mostly *splits*, and adding the cross-component condition gave 0/133 and 0/134 at 113/133 and 109/134 correct versus 117 — but that was found and scored in-sample **[P10]**. Out of sample, on 80 new documents in new domains (5,410 pairs, two runs), **no split occurred in 160 document-runs**, both rules were silently wrong on 1/312 components (a consistent-but-wrong merge), and the cross-component condition only blanked 8–9 otherwise-correct components; each uncertain cross pair blanks two components **[P17]**. Plain connected components were silently wrong on 25/312 **[P17]**. The non-transitive rate is template-dependent: 42% of documents in the first pilot, 12% and 60% on two later sets **[P6, P17]**. `PLAN.md` Phase 0 probe 4 chooses between the internal rule and the two-directional variant on real prose by a pre-registered rule.
 
 6. **`conflict_floor` has no default until Phase 0 measures it**, by a rule fixed before the data is seen. The rule selected the top of its grid on every full pilot corpus — 0.30 when the grid ended there (0.20 on one subset), 0.45 when it was extended **[P10, P17]** — so in practice it may mean "any internal pair at or below 0.45 is a conflict". Phase 0 records whether the grid top binds. Until Phase 0 sets it, tests pass an explicit floor.
 
@@ -405,16 +438,16 @@ Pairwise `noul` answers are independent, so they can contradict each other: *A =
 
 ### 5.8 The source is untrusted input
 
-Provenance proves **where** a value came from, not that the source is honest. Anyone who can write a sentence into the source can steer candidate selection: a note beside the wrong address moved the selection 20/20 and turned 20/20 correct abstentions into confident commits **[P7]**. This is a documented Jev weakness **[V-jagged]**, and no rule in this document defends against it.
+Provenance proves **where** a value came from, not that the source is honest. Anyone who can write a sentence into the source can steer candidate selection: on Jev, a note beside the wrong address moved the selection 20/20 and turned 20/20 correct abstentions into confident commits **[P7]**. TypeSafe documents it as a Jev weakness **[V-jagged]**; the Decisions API documents nothing about it either way, and Phase 0r re-measures it. No rule in this document defends against it.
 
 What Jevson does:
 
 - States the limit in the README, the result documentation, and DESIGN §6.
-- Ships an **opt-in source screen**: one `noul` over the source, asked in the first decision level, asking whether the source contains text addressed to automated processors. In the first pilot one wording flagged 40/40 attacks with 0/40 false positives and a second flagged 20/20 *benign* invoices **[P7]**; out of sample, the first wording caught 60/60 attacks (all at p ≥ 0.86) but **flagged 27–28 of 60 benign invoices, e-mails, and contracts**, triggered by ordinary processing notes (EDI and AP-portal routing, "file under"), while plain instructions were flagged 0/66 **[P21]**. **The screen does not work yet**; it stays off by default until `PLAN.md` Phase 5 finds a wording that meets its bar on real documents that include processing notes. It flags at p ≥ 0.56 only — flagging the tie band caught no extra attacks and added 5–8% false positives **[P21]**. A flagged source turns **every field decided from the source** — classes D and E, and class C decisions whose question reads the source — into `Unresolved(source_flagged)`; constants and defaults (class A) are unaffected.
-- States that **the screen can itself be steered**: it is a Jev question over the same untrusted text.
+- Ships an **opt-in source screen**: one `predicate` over the source, asked in the first decision level, asking whether the source contains text addressed to automated processors. In the first pilot one wording flagged 40/40 attacks with 0/40 false positives and a second flagged 20/20 *benign* invoices **[P7]**; out of sample, the first wording caught 60/60 attacks (all at p ≥ 0.86) but **flagged 27–28 of 60 benign invoices, e-mails, and contracts**, triggered by ordinary processing notes (EDI and AP-portal routing, "file under"), while plain instructions were flagged 0/66 **[P21]**. **The screen does not work yet**; it stays off by default until `PLAN.md` Phase 5 finds a wording that meets its bar on real documents that include processing notes. It flags at p ≥ 0.56 only — flagging the tie band caught no extra attacks and added 5–8% false positives **[P21]**. A flagged source turns **every field decided from the source** — classes D and E, and class C decisions whose question reads the source — into `Unresolved(source_flagged)`; constants and defaults (class A) are unaffected.
+- States that **the screen can itself be steered**: it is a decision question over the same untrusted text. A refused screen answer counts as flagged.
 - Includes hostile sources in the adversarial suite (`PLAN.md` §4.2).
 
-Adjudication of LLM drafts (DESIGN §6.3) was not steered by the same injections (0/80) **[P7]**; that result is a regression test, not a guarantee.
+Adjudication of LLM drafts (DESIGN §6.3) was not steered on Jev by the same injections (0/80) **[P7]**; that result is a regression test, not a guarantee.
 
 ### 5.9 Provenance
 
@@ -430,7 +463,7 @@ DECLARED_OPTION  option identifier (schema enum value, rubric level)
 - Offsets are **Python `str` code-point offsets** into the **original, un-normalised** source, half-open `[start, end)` **[L1]**. Normalisation never produces provenance offsets.
 - A span is valid only if `source[start:end]` equals the candidate text exactly, **and both boundaries are extended-grapheme-cluster boundaries under Unicode UAX #29** at a pinned Unicode version, tested against the Unicode `GraphemeBreakTest.txt` conformance file. A shorthand rule ("not before a combining mark, variation selector, skin-tone modifier, or ZWJ") accepted 63,855–76,510 forbidden boundaries across 13–15 of 20 classes (depending on the reading) — CR|LF, after a ZWJ, inside flag pairs, Hangul jamo, Indic conjuncts, Thai — in a 316,621-position corpus **[L11]**. Python has no grapheme API before 3.15 **[L11]**, so Jevson vendors a generated boundary table — ~1.2 KB compressed, with a 47-line pure-Python segmenter that passed every line of the official conformance test at Unicode 15.1, 16.0, and 17.0 **[L19]** — pinned to **Unicode 17.0**, the version Python 3.15 uses. Because a draft segmenter with a real bug in one rule also passed the conformance file, the implementation is additionally tested differentially against the `regex` module **[L19]**. The table's Unicode version is recorded in `Result`.
 - Exact matching rejects an extractor's precomposed `é` for a source's decomposed one, or `\n` for `\r\n` **[L1]**. Rejection is counted and reported, never repaired: extractors return offsets into the original text, and the LLM extractor's strings are located in the source by Jevson.
-- Verification happens **before** the Jev call. An unverifiable span never becomes an option.
+- Verification happens **before** the backend call. An unverifiable span never becomes an option.
 - **v0 takes one source per call**, refused at the call boundary otherwise; `source_id` is in the type so multi-source is not a breaking change (`PLAN.md` Phase 9).
 
 **Derived provenance is out of v0** (R9), except class F applied to **one selected span** (parsing `"$1,204.50"` into the decimal `"1204.50"`: the span's digits without grouping separators and without rounding), whose provenance is the span. `multipleOf` on a parsed value is checked in decimal arithmetic on those digits, since `jsonschema`'s float check rejects valid cents **[L18]**; `satisfies_schema` therefore uses decimal `multipleOf` where stock `jsonschema` would not.
@@ -444,18 +477,18 @@ DECLARED_OPTION  option identifier (schema enum value, rubric level)
 | **Structural** | `.value` is valid JSON conforming to the structural schema, or the result says it does not | deterministic assembly + final validation; constrained decoding in the caller's LLM, where supported, reduces redrafts but is not relied on **[X1]** | **yes** |
 | **Constraint** | `minimum`, `maxItems`, `pattern`, required fields hold, or the result says they do not (`Result.violations`) | deterministic validation (`jsonschema`, draft 2020-12; `format` checked only with its optional extras **[L10]**); for a Pydantic model, also `model_validate` | **yes** |
 | **Provenance** | every value resolved from the source came from a verified span; every bounded value from a declared option | candidate architecture + substring and UAX #29 boundary verification | **yes**, for fields resolved that way |
-| **Decision** | every Jev decision's full distribution is reported; `choice` and `score` also report the vendor's `confidence` | Jev | **yes** (nouls have a probability only **[V-confidence]**) |
-| **Calibration** | reported probabilities match observed frequencies on this task | Jev | **not yet** — measured in `PLAN.md` Phase 5 |
+| **Decision** | every decision's full distribution is reported; `choice` and `score` also report the API's `confidence` | the Decisions API | **yes** (predicates have a probability only **[D2]**; a refusal has none and is `Unresolved(refused)`) |
+| **Calibration** | reported probabilities match observed frequencies on this task | the decision model | **not yet** — the API makes no calibration claim **[D1]**; measured in `PLAN.md` Phase 5 |
 | **Semantic correctness** | the value is objectively the right interpretation | — | **no. Not claimed. Not claimable.** |
 
 **Honest limits** that belong in user-facing docs:
 
-- Only fields decided by Jev carry a probability — a value parsed from a Jev-selected span carries that selection's probability; constants, defaults, direct extractions, caller-supplied values, and ungated drafts do not (`Result.decided_by` says which is which).
+- Only fields decided by the decision model carry a probability — a value parsed from a selected span carries that selection's probability; constants, defaults, direct extractions, caller-supplied values, and ungated drafts do not (`Result.decided_by` says which is which).
 - Abstention applies to source-selected fields; schema-derived choices have no `none_of_these` in v0.
 - Adjudication only checks the criteria you declare (DESIGN §6.3).
 - **The source is trusted by the model even when it should not be** (DESIGN §5.8).
-- Probabilities jitter on identical input — bools usually by ≤ 0.05, choices by up to 0.21, ambiguous pair questions by up to 0.37 **[P12, P20]**. The tie margin removes most but not all flips; replay is exact only through the response cache (DESIGN §8.4).
-- Non-English sources are supported less well **[V-models]**.
+- Probabilities jittered on identical input on `jev-1.13.0` — bools usually by ≤ 0.05, choices by up to 0.21, ambiguous pair questions by up to 0.37 **[P12, P20]**; the Decisions API is not yet measured (Phase 0r) and has no seed control **[D2]**. The tie margin removed most but not all flips; replay is exact only from recorded responses (DESIGN §8.4).
+- Non-English sources were supported less well by Jev **[V-models]**; the Decisions API documents nothing either way.
 - **Numbers and dates are read under the field's `locale`, default `en-US`.** A German `1.204` is read as 1.204 and `03.04.2026` as 4 March, silently, unless the field declares its locale.
 
 ### 6.1 The central property
@@ -477,31 +510,31 @@ DECLARED_OPTION  option identifier (schema enum value, rubric level)
 - `satisfies_schema` means `.value` validates against the original schema (and, for a Pydantic model, `model_validate` succeeds); `complete` means `unresolved` is empty. A fully resolved object can still fail a constraint the candidates could not be pre-filtered for (`minItems`, `uniqueItems`, cross-field rules **[L9]**): that is outcome 2 with `complete is True`. `absent` fields do not make a result incomplete (DESIGN §5.6).
 - An unresolved **required** field yields outcome 2 by default (`satisfies_schema=False`); with `raise_on_unresolved_required=True` it yields outcome 3. It is never outcome 1. Constraint failures on a complete object are always outcome 2.
 - At an unresolved **field** pointer the key is **omitted** from `.value`. An **array** with unresolved components is emitted with its resolved elements, and each unresolved component is one `Unresolved` at the array pointer, with the component's spans (or the tied enum value) in `detail`. An unresolved union names its whole subtree; an unresolved root yields `.value == {}`.
-- **`Unresolved` reasons are a closed set:** `abstained` and `no_candidates` (required field), `tie`, `invalid_backend_answer`, `too_many_candidates`, `budget_exceeded` (a run-time `max_tokens_exceeded` that preflight did not predict), `unparseable` (a selected span that class F cannot parse under the field's locale, e.g. `1.204,50` under the default `en-US`), `entity_conflict`, `redraft_exhausted`, `source_flagged`, `verification_failed` (second gate, `PLAN.md` Phase 5), `dependency_unresolved` (a node whose dependency did not resolve). `not_yet_supported` is a `CompileError` reason, not an `Unresolved` reason.
+- **`Unresolved` reasons are a closed set:** `abstained` and `no_candidates` (required field), `tie`, `invalid_backend_answer`, `too_many_candidates`, `budget_exceeded` (a run-time context-limit rejection that preflight did not predict), `unparseable` (a selected span that class F cannot parse under the field's locale, e.g. `1.204,50` under the default `en-US`), `entity_conflict`, `redraft_exhausted`, `source_flagged`, `verification_failed` (second gate, `PLAN.md` Phase 5), `dependency_unresolved` (a node whose dependency did not resolve), `refused` (the API answered the question with `refusal` **[D2]**; never mapped to an option, a default, or `absent`). `not_yet_supported` is a `CompileError` reason, not an `Unresolved` reason.
 - **A well-formed HTTP 200 whose JSON is malformed or mis-typed** is `invalid_backend_answer` for the affected questions; an unparseable HTTP response is a `BackendError`. An invalid answer to the source screen counts as flagged.
-- **Transport retries are not decision retries.** 429, 5xx, and timeouts are retried with exponential backoff up to `transport_retries` (default 2), counted separately in `Cost`, and exempt from the changed-input rule. Other 4xx responses are not retried. `max_tokens_exceeded` is never retried unchanged (DESIGN §8.2).
+- **Transport retries are not decision retries.** 429, 5xx, and timeouts are retried with exponential backoff up to `transport_retries` (default 2), counted separately in `Cost`, and exempt from the changed-input rule. Other 4xx responses are not retried. A context-limit rejection is never retried unchanged (DESIGN §8.2).
 
 ### 6.2 Probabilities are reported, not enforced, by default
 
 Calibration on source-span disambiguation is unmeasured, so v0 ships **no default threshold that drops a committed value**:
 
-- Every Jev decision's distribution is reported (DESIGN §8.1).
+- Every decision's distribution is reported (DESIGN §8.1).
 - `none_of_these` is the one abstention path on by default — a structural signal about the option set, not a calibration claim.
-- **The tie margin**: a decision whose top two outcomes differ by ≤ 0.10 (in hundredths) yields `Unresolved(tie)`. For a noul that is 0.45 ≤ p ≤ 0.55; for a choice or score, the top two options. It is a reproducibility rule — decisions inside it flipped on identical input **[P12, P20]** — not a confidence gate, and it removes most but not all flips (1/180 choice questions still flipped at 0.10 **[P20]**). It applies to every Jev decision that commits a value or admits a draft: bool fields, enum and candidate choices, scores, array membership, criteria (where a tie counts as a failed criterion, DESIGN §6.3), and union discriminators. Two decisions follow their own rules: entity pairs use DESIGN §5.7, which was measured with a plain 0.5 boundary **[P10, P17]**, and the source screen flags at p ≥ 0.56 **[P21]**. The margin is configurable in `JevsonConfig`. Over the 2,154 saved pilot candidate choices that use a `none_of_these` key it would have converted 56 (2.6%) to ties **[P22]**; Phase 0 reports the rate on real documents.
+- **The tie margin**: a decision whose top two outcomes differ by ≤ 0.10 (in hundredths) yields `Unresolved(tie)`. For a predicate that is 0.45 ≤ p ≤ 0.55; for a choice or score, the top two options. It is a reproducibility rule — decisions inside it flipped on identical input on Jev **[P12, P20]**; Phase 0r re-measures jitter on the Decisions API and may change the margin — not a confidence gate, and it removes most but not all flips (1/180 choice questions still flipped at 0.10 **[P20]**). It applies to every decision that commits a value or admits a draft: bool fields, enum and candidate choices, scores, array membership, criteria (where a tie counts as a failed criterion, DESIGN §6.3), and union discriminators. Two decisions follow their own rules: entity pairs use DESIGN §5.7, which was measured with a plain 0.5 boundary **[P10, P17]**, and the source screen flags at p ≥ 0.56 **[P21]**. The margin is configurable in `JevsonConfig`. Over the 2,154 saved pilot candidate choices that use a `none_of_these` key it would have converted 56 (2.6%) to ties **[P22]**; Phase 0 reports the rate on real documents.
 - **A default threshold is deferred, with a pre-registered bar** (`PLAN.md` §9). It is adopted in v1 only if, over ≥ 1,000 pre-labelled candidate-backed decisions from a corpus disjoint from Phase 0:
   1. the **one-sided 95% bootstrap upper bound of top-label ECE** on the selected option's probability is ≤ 0.05, using 15 bins with equal-mass quantile edges merged so that tied probability values are never split; and
   2. among decisions with p ≥ τ, the **Wilson 95% lower bound of accuracy** is ≥ the mean p of those decisions minus 0.03, at τ = 0.90, fixed before the corpus is labelled (τ = 0.80 is reported only); and
   3. before either is evaluated, the bar's operating characteristic is computed **on the observed probability distribution**: if a perfectly calibrated model would pass with probability < 0.95, or a model overconfident by 0.05 with probability > 0.05, the corpus is extended once to 3,000. If the check still fails at 3,000, the bar is recorded as *not decidable* and the threshold stays deferred.
 
-  Why this shape: on the empirical distribution of 2,202 real Jev top-label probabilities (49% exactly 1.00), condition 1 at n = 1,000 passed a calibrated model 100% of the time and a 0.05-overconfident one 0% **[L14]**; but on a uniform(0.5, 1) distribution the same bar at n = 1,000 passed a calibrated model 0% of the time (99.5% at n = 3,000), and on Beta(18, 2) about 50% **[L13]**, so the power check (3) is mandatory rather than assumed. The earlier "accuracy ≥ τ − 0.02" rule passed an 8-point-overconfident model 96–100% of the time and is replaced by (2) **[L13]**. Brier score is reported alongside.
+  Why this shape: on the empirical distribution of 2,202 real Jev top-label probabilities (49% exactly 1.00; measured on `jev-1.13.0`, so the shape is re-checked in Phase 0r), condition 1 at n = 1,000 passed a calibrated model 100% of the time and a 0.05-overconfident one 0% **[L14]**; but on a uniform(0.5, 1) distribution the same bar at n = 1,000 passed a calibrated model 0% of the time (99.5% at n = 3,000), and on Beta(18, 2) about 50% **[L13]**, so the power check (3) is mandatory rather than assumed. The earlier "accuracy ≥ τ − 0.02" rule passed an 8-point-overconfident model 96–100% of the time and is replaced by (2) **[L13]**. Brier score is reported alongside.
 
 ### 6.3 Generative fields and adjudication
 
-A class E field is drafted by the caller's LLM and admitted only after Jev adjudicates it.
+A class E field is drafted by the caller's LLM and admitted only after the decision model adjudicates it.
 
 - **Declaration.** `x-jevson.generate` (DESIGN §3.5), with criteria, an optional rubric and minimum level, optional drafting instructions, and `max_draft_chars`.
-- **Criteria are predicates about the draft and the supplied source, never about the world.** "The summary mentions the refund amount stated in the source" is a criterion; "the refund amount is correct" is not — Jev is not a fact-checker.
-- **Execution.** A `generate` step asks the LLM for a one-field tool schema `{value: string}`. Providers differ on the envelope — OpenAI and Anthropic strict modes require `additionalProperties: false`, and Gemini's `parameters` schema has no such field — so the schema is passed as JSON Schema and each `LLM` adapter renders it for its provider **[L20]**. The draft must be ≤ `max_draft_chars` (default 4,000), checked after the call rather than as `maxLength`, so its adjudication budget is known at preflight. Each criterion is one `noul`, all batched in one call, each passing at p ≥ 0.56; a criterion inside the tie margin, or a rubric whose top two levels are within it and straddle the declared minimum, counts as **failed** for that draft — named in `rejections` and triggering a redraft, so exhaustion is `redraft_exhausted`, never `tie`. An optional rubric is one `score` whose most probable level must be ≥ the declared minimum.
+- **Criteria are predicates about the draft and the supplied source, never about the world.** "The summary mentions the refund amount stated in the source" is a criterion; "the refund amount is correct" is not — the decision model is not a fact-checker.
+- **Execution.** A `generate` step asks the LLM for a one-field tool schema `{value: string}`. Providers differ on the envelope — OpenAI and Anthropic strict modes require `additionalProperties: false`, and Gemini's `parameters` schema has no such field — so the schema is passed as JSON Schema and each `LLM` adapter renders it for its provider **[L20]**. The draft must be ≤ `max_draft_chars` (default 4,000), checked after the call rather than as `maxLength`, so its adjudication budget is known at preflight. Each criterion is one `predicate`, all batched in one request, each passing at p ≥ 0.56; a criterion inside the tie margin or refused, or a rubric whose top two levels are within it and straddle the declared minimum or that is refused, counts as **failed** for that draft — named in `rejections` and triggering a redraft, so exhaustion is `redraft_exhausted`, never `tie`. An optional rubric is one `score` whose most probable level must be ≥ the declared minimum.
 - **Rejection** names the failing criteria (`Result.rejections`). A redraft passes them back to the LLM. A draft identical to one already adjudicated is not re-adjudicated and counts against `redraft_budget` (default 1). Exhaustion yields `Unresolved(redraft_exhausted)`.
 - **Any malformed LLM output** — a missing or misspelled key, prose instead of a tool call, a non-string value, an over-length draft — is a failed draft, never an exception or a malformed object.
 - **A field with no criteria** is admitted with a `no_criteria_declared` marker and listed in `Result.ungated`.
@@ -514,22 +547,22 @@ Settled. Changing one is a design change that updates this document.
 
 1. **Candidate-backed choices always include `none_of_these`.**
 2. **`none_of_these` triggers bounded retry, then `absent` or `Unresolved`** by the table in DESIGN §5.6 — never an exception, never a silent guess.
-3. **Independent decisions are level-batched** into one keyed Jev call per topological level, except adjudication's per-draft fallback (DESIGN §5.2).
+3. **Independent decisions are level-batched** into one request of named questions per topological level, except adjudication's per-draft fallback (DESIGN §5.2).
 4. **A single candidate is still asked** as `choice([candidate, none_of_these])` unless the field opts into direct extraction (DESIGN §5.3).
-5. **Source-grounded arrays are built from membership `noul`s** over a candidate set.
+5. **Source-grounded arrays are built from membership `predicate`s** over a candidate set.
 6. **Array deduplication is an explicit entity-resolution stage**, scoped to an entity type, lossless on case by default, emitting only components with no internal conflict, plus the cross-component condition if Phase 0 selects it (DESIGN §5.7).
 7. **Arrays are in source order.** Semantic ordering is out of v0 and tracked (`PLAN.md` §9); `x-jevson.order: semantic` refuses rather than silently source-ordering.
 8. **Overflow is never silently discarded.**
 9. **Derived provenance is out of v0**, except class F parsing of one selected span (DESIGN §5.9).
-10. **There are no global modes.** One object freely mixes deterministic, source-grounded, Jev-selected, LLM-generated, and caller-supplied fields (`resolve(source, known={pointer: value})`).
+10. **There are no global modes.** One object freely mixes deterministic, source-grounded, decision-model-selected, LLM-generated, and caller-supplied fields (`resolve(source, known={pointer: value})`).
 11. **Decision graph, compiler, and executor are the core abstractions**; compilation is separate from execution; loops are executor policy.
 12. **The taxonomy determines whether v0 is broad or deliberately narrow.**
 
 Implementation rules of equal standing:
 
-13. **Never reference state by array position.** Candidates and collections are placed in state as objects keyed by stable opaque ids, or inlined into the question **[P4]**. (The question-map key is not sent to the model **[P1]**.)
+13. **Never reference state by array position.** Candidates and collections are placed in state as objects keyed by stable opaque ids, or inlined into the question. The rule was motivated on Jev (62% vs 0% wrong **[P4]**) and stands for the decision model until Phase 0r says otherwise. Question names are opaque (DESIGN §2).
 14. **Refusal is loud and early:** at compile time or in call-time preflight, before any backend call, with the offending JSON pointers.
-15. **The model version is pinned** to an exact release; aliases are rejected by `JevBackend`.
+15. **The model version is recorded, since it cannot be pinned.** The Decisions API offers no snapshot **[D3]**: every response's `model` string is recorded, a change in it is a re-baseline, and exact replay reads records only (DESIGN §2, §8.4). (Until Revision 10 this rule pinned an exact Jev release and rejected aliases.)
 16. **The source is untrusted input** (DESIGN §5.8).
 
 ---
@@ -538,27 +571,27 @@ Implementation rules of equal standing:
 
 Five protocols, each earning its place by having a real second implementation. The three I/O protocols (`Backend`, `Extractor`, `LLM`) are **async**; `Normalizer` and `CostSink` are synchronous. The synchronous `resolve()` submits `aresolve()` to **one library-owned event loop running in a daemon thread**, so every sync call shares one loop; `resolve()` refuses to run inside an already-running loop, where `aresolve()` is the entry point. A fresh loop per call is not used: an `httpx.AsyncClient` and asyncio locks are bound to the loop that first used them, and a second `asyncio.run` fails with `Event loop is closed` **[L20]**. Caller-supplied async objects (`LLM`, `Extractor`) used from `resolve()` run on that library loop, so an object used from `resolve()` must not also be used on another loop.
 
-**Lifecycle.** The library loop keeps one long-lived client. On a caller's loop, **each `aresolve()` call uses its own client**, created on first use and closed before that call returns, so concurrent calls under `asyncio.gather` never close each other's client; if the caller has entered `async with JevBackend(...)` (or `async with Jevson(...)`, which enters its backend) on that loop, calls on that loop share one client until exit. A weak map of per-loop clients does not work, because a client that has made a request keeps its loop alive (5 of 5 survived garbage collection) **[L22]**. `Jevson` and `JevBackend` are context managers: `close()` closes the library-loop client (submitted to that loop), `aclose()` the one for the running loop. After `os.fork()`, `os.register_at_fork(after_in_child=…)` marks the library loop and thread for lazy re-creation on the next call, re-initialises every limiter lock, and drops (without closing) every inherited client. `CostSink.record` may be called from any thread.
+**Lifecycle.** The library loop keeps one long-lived client. On a caller's loop, **each `aresolve()` call uses its own client**, created on first use and closed before that call returns, so concurrent calls under `asyncio.gather` never close each other's client; if the caller has entered `async with DecisionsBackend(...)` (or `async with Jevson(...)`, which enters its backend) on that loop, calls on that loop share one client until exit. A weak map of per-loop clients does not work, because a client that has made a request keeps its loop alive (5 of 5 survived garbage collection) **[L22]**. `Jevson` and `DecisionsBackend` are context managers: `close()` closes the library-loop client (submitted to that loop), `aclose()` the one for the running loop. After `os.fork()`, `os.register_at_fork(after_in_child=…)` marks the library loop and thread for lazy re-creation on the next call, re-initialises every limiter lock, and drops (without closing) every inherited client. `CostSink.record` may be called from any thread.
 
 **Timeouts.** Every step call is bounded by `JevsonConfig.step_timeout_s` (default 120); expiry raises `ExtractorError(timeout)` or `LLMError(timeout)` with the partial `Result`. Protocol implementations must not block the event loop — blocking work belongs in `asyncio.to_thread` — because a blocking caller implementation stalls every synchronous caller in the process. Jevson's own extractors comply.
 
 | protocol | signature (abridged) | implementations |
 |---|---|---|
-| `Backend` | `async ask(state, questions, model) -> BackendResponse(answers, input_tokens, request_id, model)` | `JevBackend`, `FakeBackend`, `CachingBackend` (wraps another backend), AnyJev-style substitutes |
+| `Backend` | `async ask(state, questions, model) -> BackendResponse(answers, input_tokens, request_id, model)` | `DecisionsBackend`, `FakeBackend`, `CachingBackend` (wraps another backend), fallbacks (a Jev backend; AnyJev-style substitutes; constrained decoding over an open model) |
 | `Extractor` | `async extract(source, field: FieldSpec, exclude: list[Span]) -> list[Candidate]` | LLM-backed, pattern (money, date, email, phone, URL), NER, user-supplied |
 | `LLM` | `async complete(messages, tool_schema \| None) -> LLMResponse(arguments: dict \| None, raw: str, input_tokens, output_tokens)` | injected by the caller; `ReplayLLM` for exact replay |
 | `Normalizer` | `normalise(text) -> str`, `representative(spans) -> Span` | declared per entity type |
 | `CostSink` | `record(cost_event)` | default in-memory, user-supplied |
 
-**`JevBackend` calls the HTTP API directly with `httpx`; the vendor SDK is not a dependency.** `typesafe-sdk` is pre-1.0 with breaking releases days apart, depends on `httpx2` and `tenacity`, retries requests by default — requests that may be billed — where `Cost` cannot see them, and logs full request and response bodies unredacted when `TYPESAFE_LOG_LEVEL=debug` is set in the environment **[V-sdk, X5]**. Revisit when the SDK reaches 1.0.
+**`DecisionsBackend` calls `POST /v1/decisions` directly with `httpx`; the vendor SDK is not a dependency** — so every request, retry, and token is visible to `Cost`. The reasons were measured on TypeSafe's SDK: `typesafe-sdk` was pre-1.0 with breaking releases days apart, retried requests by default — requests that may be billed — where `Cost` could not see them, and logged bodies unredacted under `TYPESAFE_LOG_LEVEL=debug` **[V-sdk, X5]**. The `openai` SDK (≥ 3.26.0 for this endpoint **[D1]**) has not been reviewed against them; the decision is revisited when it is.
 
-**API shape.** `Jevson(backend, llm=None, extractors={name: Extractor}, config=JevsonConfig(), cost_sink=None)` with `resolve(source, *, known=None, retry_budget=None, redraft_budget=None)` / `aresolve(...)`. **There is no default backend** — constructing `JevBackend(...)` is an explicit choice to spend money, so an environment variable never silently turns a test into paid calls. The backend's clients follow the lifecycle above: one long-lived client on the library loop, and per-call clients on caller loops. The rate limiter is **per API key**, shared across every `JevBackend` in the process through a registry keyed by a hash of the key, and built on `threading.Lock` rather than asyncio primitives; that design held 20 requests/s exactly across 5 loops, while an asyncio semaphore shared across threads lost a wakeup **[L20]**.
+**API shape.** `Jevson(backend, llm=None, extractors={name: Extractor}, config=JevsonConfig(), cost_sink=None)` with `resolve(source, *, known=None, retry_budget=None, redraft_budget=None)` / `aresolve(...)`. **There is no default backend** — constructing `DecisionsBackend(...)` is an explicit choice to spend money, so an environment variable never silently turns a test into paid calls. The backend's clients follow the lifecycle above: one long-lived client on the library loop, and per-call clients on caller loops. The rate limiter is **per API key**, shared across every `DecisionsBackend` in the process through a registry keyed by a hash of the key, and built on `threading.Lock` rather than asyncio primitives; that design held 20 requests/s exactly across 5 loops, while an asyncio semaphore shared across threads lost a wakeup **[L20]**.
 
 **Caller-supplied values.** `known={pointer: value}` fills fields the caller already has. Each value is validated against the field's schema before any spend (`PreflightError` otherwise); the field's nodes are skipped; `decided_by` is `caller` and no provenance is recorded. `known` pointers name fields outside arrays; a pointer inside a union branch is used only if that branch is selected, and a known discriminator value selects its branch without a decision.
 
 **Privacy posture:** nothing is logged or written by default. Source text, spans, drafts, and values are written nowhere unless the caller supplies a sink or a cache directory.
 
-**Vendor risk:** `Backend` is the substitution point. AnyJev and jevfire provide Jev-style decisions over other models **[X3]**.
+**Vendor risk:** `Backend` is the substitution point. The Decisions API is a single-vendor public beta with no snapshot **[D1, D3]**. Fallbacks: Jev itself, and AnyJev and jevfire, which provide Jev-style decisions over other models **[X3]**.
 
 ### 8.1 The result type
 
@@ -568,11 +601,11 @@ Result
   satisfies_schema  bool — .value validates against the original schema
   complete          bool — unresolved is empty
   provenance        {pointer: SOURCE_SPAN | DECLARED_OPTION}
-  decided_by        {pointer: code | jev | llm+jev | llm | direct | caller}
+  decided_by        {pointer: code | decision | llm+decision | llm | direct | caller}
                       llm = generated with no criteria declared; caller = supplied via known=
   decisions         {f"{node_id}@{n}": Decision(kind, selected, distribution_hundredths,
                                        vendor_confidence | None, target_pointer)}
-                      every Jev decision, n = 0 for the first ask and incremented per retry
+                      every decision, n = 0 for the first ask and incremented per retry
                       or redraft: field choices, criteria, membership, pairs, discriminators,
                       the source screen
   unresolved        [Unresolved(pointer, reason, candidates_seen, abstain_probability, detail)]
@@ -581,13 +614,13 @@ Result
   ungated           [pointer]  — direct-extracted or no_criteria_declared fields
   overflow          [Overflow(pointer, spans, membership_probability)]
   rejections        [Rejection(pointer, criteria, draft)]
-  cost              Cost(jev_requests, jev_input_tokens, jev_request_ids, cache_hits,
+  cost              Cost(decision_requests, decision_input_tokens, decision_request_ids, cache_hits,
                          llm_input_tokens, llm_output_tokens,
                          decision_retries, transport_retries, redrafts, level_splits,
                          wall_clock_by_component)
-  model             exact Jev model id reported by the API
+  model             the `model` string(s) the API returned (currently unpinnable; whether the string names a version is unknown, DESIGN §2)
   versions          question template version, Unicode versions of the grapheme table and of
-                    `unicodedata` (used for NFC), and the result-affecting settings: tie margin,
+                    `unicodedata` (used for NFC), the context limits preflight used, and the result-affecting settings: tie margin,
                     conflict_floor, entity rule variant, pairwise cap, source screen on/off and
                     its wording version, default_extractor, and the retry and redraft budgets used
 ```
@@ -596,14 +629,14 @@ Every field is always present. An empty collection is the absence of a condition
 
 ### 8.2 The context budget
 
-Two limits apply to every request **[V-models, P3]**:
+On Jev, two limits applied to every request **[V-models, P3]**. **For `/v1/decisions` both are unknown**: the model-wide 1.05M-token window **[D3]** says nothing about this endpoint, and Phase 0r measures it. Preflight therefore budgets against **two configured limits**, defaulting to Jev's measured values as placeholders (not known bounds) until Phase 0r replaces them; the values used are recorded in `Result.versions`.
 
-- **(a) state + the longest single question ≤ ~32k tokens.** Exceeding it cannot be fixed by splitting.
-- **(b) state + all questions ≤ ~64k tokens.** Exceeding it splits the level; questions are independent **[P1]**, so splitting is answer-neutral, and each split re-sends and re-bills the state (`Cost.level_splits`).
+- **(a) state + the longest single question ≤ the per-question limit** (Jev: ~32k tokens). Exceeding it cannot be fixed by splitting.
+- **(b) state + all questions ≤ the per-request limit** (Jev: ~64k tokens). Exceeding it splits the level; questions are independent **[D1]** (and splitting was answer-neutral on Jev **[P1]**), and each split re-sends and re-bills the state (`Cost.level_splits`).
 
-**Preflight, before the first backend call,** budgets every level against both limits using declared maxima, not observed content: `max_candidates` options at `max_candidate_chars` plus an 80-character context window each (defaults 50 × 120) for candidate questions, `max_draft_chars` for adjudication, the pairwise cap for entity questions, and every union branch and every retry. The measured per-option costs (~27 tokens for realistic spans, ~80 with context windows **[P14]**) calibrate the estimator, and estimates are compared with `usage.input_tokens` on every response. A source or declaration that cannot fit raises `PreflightError` before any spend. Because preflight uses declared maxima, a run-time overflow can only come from estimator error; a `max_tokens_exceeded` 400 is then mapped to a split for (b), and for (a) — where the 400 does not say which question overflowed — the level is bisected to find it and that field becomes `Unresolved(budget_exceeded)`; an identical request is never retried.
+**Preflight, before the first backend call,** budgets every level against both limits using declared maxima, not observed content: `max_candidates` options at `max_candidate_chars` plus an 80-character context window each (defaults 50 × 120) for candidate questions, `max_draft_chars` for adjudication, the pairwise cap for entity questions, and every union branch and every retry. The per-option costs measured on Jev (~27 tokens for realistic spans, ~80 with context windows **[P14]**) calibrate the estimator until Phase 0r re-measures them, and estimates are compared with `usage.input_tokens` on every response **[D2]**. A source or declaration that cannot fit raises `PreflightError` before any spend. Because preflight uses declared maxima, a run-time overflow can only come from estimator error or a wrong limit; a context-limit rejection is then mapped to a split for (b), and for (a) — where, on Jev, the 400 did not say which question overflowed **[P3]** — the level is bisected to find it and that field becomes `Unresolved(budget_exceeded)`; an identical request is never retried.
 
-**The source ceiling** is 32k tokens minus the longest question: ~108k characters of English prose or ~62k of dense business text alongside a realistic 255-option question **[P14]**. Under the default declarations a 50-candidate question of 120-character spans costs ~1.6k tokens, ~2.5k with context windows **[P22]**, so the ceiling is close to the full 32k. Longer sources are refused in v0; chunking is planned (`PLAN.md` Phase 9).
+**The source ceiling** is the per-question limit minus the longest question. On Jev that was ~108k characters of English prose or ~62k of dense business text alongside a realistic 255-option question **[P14]**; under the default declarations a 50-candidate question of 120-character spans cost ~1.6k tokens, ~2.5k with context windows **[P22]**, so the ceiling was close to the full 32k. Longer sources are refused in v0; chunking is planned (`PLAN.md` Phase 9).
 
 **Pairwise entity resolution is O(n²)**: n(n−1)/2 questions. It is **capped at n = 30** (435 questions) by default. The cost depends on the template: the leanest template needs ~18k tokens for 435 questions and a verbose one ~58k, estimated with a proxy tokenizer **[L7]**, so the template is part of the budget. Pair questions are asked over every candidate, not only accepted members, so the cap applies to candidates. Keyed-batching accuracy was measured up to 320 questions per request **[P4]**, not 435, and non-transitive triples grow with the number of triples, n(n−1)(n−2)/6 — so the *quality* ceiling may be lower than the token ceiling. `PLAN.md` Phase 7 measures both and lowers the cap if needed. Above the cap the executor yields `Unresolved(too_many_candidates)` rather than approximating.
 
@@ -611,14 +644,16 @@ Two limits apply to every request **[V-models, P3]**:
 
 Anyone must be able to use the library with their own key and none of our tooling.
 
-- `JevBackend(api_key=...)` takes the key as an argument; when omitted (or empty), it falls back to the `TYPESAFE_API_KEY` environment variable, the name the vendor uses **[V-sdk-constants]**.
+- `DecisionsBackend(api_key=...)` takes the key as an argument; when omitted (or empty), it falls back to the `OPENAI_API_KEY` environment variable, the name the guide uses **[D1]**.
 - With neither, or with an empty string in both, construction raises `MissingCredentials` naming both options, before any network call.
 - The library never reads a `.env` file and never writes, logs, or `repr`s the key.
-- The repository's own tests and scripts read a gitignored `.env` (template `.env.example`). Fetching the key from the team's Infisical project is planned tooling (`PLAN.md` Phase 11).
+- The team's key lives in Infisical. Until that is set up, the repository's own tests and scripts read a local, gitignored `.env`; its template `.env.example` still names the old Jev key until it is renamed (tracked in ASTERION-7). Fetching the key from Infisical is planned tooling (`PLAN.md` Phase 11).
 
 ### 8.4 Replay
 
-Jev is near-deterministic, not deterministic (DESIGN §2.3). Jevson's own code is deterministic: given identical backend, LLM, and extractor responses it produces an identical `Result`, excluding wall-clock timings. **Exact replay** uses two opt-in wrappers, both implementations of existing protocols: `CachingBackend` (key: SHA-256 of the RFC 8785 canonical JSON of model id, state, and questions; responses stored with probabilities as integer hundredths) and `ReplayLLM` (the same scheme over LLM requests). The Python `rfc8785` and Node `canonicalize` packages produced identical hashes on unicode and edge-case requests; `canonicaljson` and a sorted `json.dumps` did not **[L21]**. A request that cannot be canonicalised (a lone surrogate, an integer beyond 2⁵³) is not cached. A cache hit is counted in `Cost.cache_hits` and spends nothing; with `replay_only=True` a miss raises `BackendError(replay_miss)` (or `LLMError(replay_miss)` for `ReplayLLM`, whose key also includes the caller's LLM id). Exact replay also requires deterministic extractors — pattern extractors are; an LLM-backed extractor is when its `LLM` is a `ReplayLLM`. Both wrappers write only to a directory the caller supplies.
+The Decisions API offers no snapshot to pin and no seed **[D2, D3]**, and Jev was near-deterministic, not deterministic (DESIGN §2.3), so **a request re-sent is a new measurement, never a replay**. Replay reads recorded responses only. Every response's `model` string is recorded with it **[D2]**; a change in that string between runs is a re-baseline (R15).
+
+Jevson's own code is deterministic: given identical backend, LLM, and extractor responses it produces an identical `Result`, excluding wall-clock timings. **Exact replay** uses two opt-in wrappers, both implementations of existing protocols: `CachingBackend` (key: SHA-256 of the RFC 8785 canonical JSON of the requested model, state, and questions; responses stored whole, with the returned `model` string and probabilities as integer hundredths) and `ReplayLLM` (the same scheme over LLM requests). The Python `rfc8785` and Node `canonicalize` packages produced identical hashes on unicode and edge-case requests; `canonicaljson` and a sorted `json.dumps` did not **[L21]**. A request that cannot be canonicalised (a lone surrogate, an integer beyond 2⁵³) is not cached. A cache hit is counted in `Cost.cache_hits` and spends nothing; with `replay_only=True` a miss raises `BackendError(replay_miss)` (or `LLMError(replay_miss)` for `ReplayLLM`, whose key also includes the caller's LLM id). Exact replay also requires deterministic extractors — pattern extractors are; an LLM-backed extractor is when its `LLM` is a `ReplayLLM`. Both wrappers write only to a directory the caller supplies.
 
 ---
 
@@ -626,13 +661,13 @@ Jev is near-deterministic, not deterministic (DESIGN §2.3). Jevson's own code i
 
 Credit where it is due. **Every mechanism below predates Jevson.**
 
-**In the Jev ecosystem** **[X3, V-cookbooks]**:
+**In the Jev ecosystem** **[X3, V-cookbooks]** — the model Jevson was designed on. These projects target Jev and remain the history of the pattern; none of them is affected by the move to the Decisions API:
 
 | project | what it does | relationship |
 |---|---|---|
 | TypeSafe cookbook *pre-parsed value extraction* | regex candidates → `choice` over spans with a `NONE` option → code copies the value verbatim | **DESIGN §5.1 and §5.4 are this pattern.** Jevson compiles it from a schema |
 | TypeSafe cookbooks *SDE cascade*, *citation check*, *entity alignment*, *date extraction*, *function calling* | per-field "absent from source" nouls over LLM extraction; claim support; merge/curate/leave decisions (the precedent for DESIGN §5.7's refusal to merge on weak evidence); date parts as choices with "not stated"; a signature → questions compiler | each covers one piece; none is a general schema compiler |
-| `TypeSafeAI/typesafe-playground` | document extraction with offsets, candidate ids, explicit `null` choice | in the vendor's GitHub organisation; describes itself as a community example |
+| `TypeSafeAI/typesafe-playground` | document extraction with offsets, candidate ids, explicit `null` choice | in TypeSafe's GitHub organisation; describes itself as a community example |
 | `gbesse/jev-extract` | typed records, candidate/absent fields, per-field provenance, request packing, chunk aggregation | closest open project; fixed record types rather than schema compilation |
 | `choxos/jev-reviewer` | "which line answers q? (+ none)" with verbatim quotes, across multiple files | multi-source candidate selection already exists (cf. `PLAN.md` Phase 9) |
 | `lzq-0529/jev-span`, `jb2197/pydantic-jev`, PyPI `jev`, `finetuningsingh/jev-extract`, `dangquan1402/jev-extract` | span NER over Jev; a Pydantic–Jev shim; a Pydantic → Jev decorator; extraction and extractive QA over Jev | adjacent |
@@ -657,17 +692,19 @@ Credit where it is due. **Every mechanism below predates Jevson.**
 
 | limit | consequence |
 |---|---|
-| Jev cannot produce free-form text | unbounded fields are drafted by the LLM, then adjudicated (DESIGN §6.3) |
-| `choice` ≤ 255 options; `none_of_these` takes one | `max_candidates` ≤ 254; more → `Unresolved(too_many_candidates)` |
+| the decision model cannot produce free-form text **[D1]** | unbounded fields are drafted by the LLM, then adjudicated (DESIGN §6.3) |
+| `choice` ≤ 255 options **[D2]**; `none_of_these` takes one | `max_candidates` ≤ 254; more → `Unresolved(too_many_candidates)` |
 | option descriptions dominate large choices | preflight budgets declared maxima; context windows only for repeated text |
-| `score` 2–10 levels; wide scales come back flat **[P13]** | only declared ordinals; value = most probable level; narrow rubrics preferred |
-| API accepts 1-option choices and 1-level scores | the compiler refuses them |
-| state + longest question ≤ ~32k tokens | ~62k–108k characters of source beside a realistic 255-option question, ~30k–50k with context windows on every option **[P14]**; longer refuses in v0 (`PreflightError`); chunking planned (`PLAN.md` Phase 9) |
-| state + all questions ≤ ~64k tokens | levels split, re-billing the state |
-| probabilities jitter; decisions near thresholds flip **[P12, P20]** | tie margin → `Unresolved(tie)`; exact replay via cache (DESIGN §8.4) |
-| Jev has no vision | image-derived fields are generative and adjudicated against declared criteria only |
-| Jev is not a fact-checker | adjudication is only as good as the declared criteria |
-| content in the source can steer selection | stated limit; source screen not yet working **[P21]**; hostile-source tests (DESIGN §5.8) |
+| `score` limited by Jevson to 2–10 levels (the API's maximum is undocumented); wide scales came back flat on Jev **[P13]** | only declared ordinals; value = most probable level; narrow rubrics preferred |
+| Jev accepted 1-option choices and 1-level scores **[P2]**; the Decisions API documents a minimum of 2 choices **[D2]** | the compiler refuses them either way |
+| state + longest question ≤ the per-question limit (Jev: ~32k tokens **[P3]**; unknown for the Decisions API) | on Jev, ~62k–108k characters of source beside a realistic 255-option question, ~30k–50k with context windows on every option **[P14]**; longer refuses in v0 (`PreflightError`); chunking planned (`PLAN.md` Phase 9) |
+| state + all questions ≤ the per-request limit (Jev: ~64k tokens **[P3]**; unknown for the Decisions API) | levels split, re-billing the state |
+| probabilities jitter; decisions near thresholds flip (measured on Jev **[P12, P20]**) | tie margin → `Unresolved(tie)`; exact replay from records (DESIGN §8.4) |
+| any question may be refused **[D2]** | `Unresolved(refused)`; never a default option |
+| no pinnable model version **[D3]** | the returned `model` string is recorded; a change is a re-baseline (R15) |
+| image input is not adopted (the API reads images **[D1]**) | no image input; adopting it needs a design change, an egress review and its own probes |
+| the decision model is not a fact-checker | adjudication is only as good as the declared criteria |
+| content in the source can steer selection (measured on Jev **[P7]**) | stated limit; source screen not yet working **[P21]**; hostile-source tests (DESIGN §5.8) |
 | candidate coverage bounds everything | `none_of_these` is the only defence (DESIGN §5.4) |
 | pairwise entity resolution is O(n²) | capped at n = 30; quality measured (DESIGN §8.2) |
 | one source per call in v0 | refused at the call boundary; multi-source planned (`PLAN.md` Phase 9) |
@@ -686,14 +723,16 @@ Credit where it is due. **Every mechanism below predates Jevson.**
 
 | term | meaning |
 |---|---|
-| **decision node** | one bounded Jev question with a kind, options, dependencies, and a target pointer |
+| **decision node** | one bounded decision-model question with a kind, options, dependencies, and a target pointer |
 | **step node** | an external operation (extract, generate) whose output a decision depends on |
 | **decision graph** | decision and step nodes with dependency edges; acyclic |
-| **level** | a set of mutually independent decision nodes, resolvable in one batched Jev call |
+| **level** | a set of mutually independent decision nodes, resolvable in one batched request |
 | **candidate** | a verified source span offered as a possible value, under an opaque option id |
 | **span** | `(source_id, start, end)` in code points of the original source, on grapheme boundaries |
 | **option source** | where a `choice`'s options came from: schema enum, rubric, or candidate spans |
 | **abstention** | `none_of_these` selected — no supplied candidate is sufficiently supported |
+| **refusal** | the API declined one question (`refusal` answer); recorded as `Unresolved(refused)`, never an abstention or an option |
+| **decision model** | the API that answers bounded questions: the OpenAI Decisions API since Revision 10, Jev before |
 | **absent** | an abstention on a field the schema allows to be missing or null; not an error |
 | **unresolved** | a named hole in the result, with a reason from a closed set |
 | **complete** | no unresolved holes |
@@ -701,7 +740,7 @@ Credit where it is due. **Every mechanism below predates Jevson.**
 | **entity resolution** | collapsing spans that refer to the same entity into one array element |
 | **conflict floor** | p(same) at or below which a pair counts as confidently different |
 | **overflow** | candidates accepted by membership but dropped by a cardinality constraint; always retained |
-| **adjudication** | Jev checking a generated draft against declared criteria before commit |
+| **adjudication** | the decision model checking a generated draft against declared criteria before commit |
 | **preflight** | the executor's pre-call budget check of every level against declared maxima |
 
 ---
@@ -717,13 +756,31 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 - **Union execution: level vs. speculative fan-out** (DESIGN §3.2) — Phase 6.
 - **The pairwise quality ceiling** (DESIGN §8.2) — Phase 7.
 - **Whether jitter on pair questions can be reduced** — for example by asking both orderings of a pair — rather than only banded (DESIGN §5.7, **[P12]**). Phase 7.
-- **The name.** "Jevson" couples us to a vendor whose replaceability is a design goal, and `jevapi.dev` asserts Jev is a TypeSafe trademark **[X4]**; no TypeSafe naming policy was found. Decided before the PyPI release in `PLAN.md` Phase 8, after asking TypeSafe.
+- **Does source selection work on the Decisions API?** Phase 0 found it did not on `jev-1.13.0` (the README's findings); Phase 0r re-runs the same pre-registered probes, with the jitter, threshold-flip, positional, injection, abstention, source-ceiling, context-limit, and latency probes, and may confirm or reverse that verdict.
+- **The name.** "Jevson" names Jev, which is no longer the decision model, and `jevapi.dev` asserts Jev is a TypeSafe trademark **[X4]**. Whether to rename is a separate follow-up; decided before the PyPI release in `PLAN.md` Phase 8.
 
-**Closed by evidence:** level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a noul gate is a worse abstention mechanism than `none_of_these` **[P5]**; a lone candidate is safer asked than committed **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording does not cost accuracy when the full value is present **[P18]**. Mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; Phase 0's repeated-text cases re-check it.
+**Closed by evidence on `jev-1.13.0`** (Phase 0r re-checks the ones that depend on model behaviour): level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a predicate gate is a worse abstention mechanism than `none_of_these` **[P5]**; a lone candidate is safer asked than committed **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording does not cost accuracy when the full value is present **[P18]**. Mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; Phase 0's repeated-text cases re-check it.
 
 ---
 
 ## 13. Changelog
+
+### Revision 10 — 2026-10-14, the OpenAI Decisions API replaces Jev
+
+The product owner replaced Jev with the OpenAI Decisions API (`gpt-6-luna`) on 2026-10-14 (`Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md`, ticket ASTERION-20). The architecture is unchanged; the backend and every statement about the model are ported. Measurements made on `jev-1.13.0` are kept and labelled as such, not transferred.
+
+| changed | now | source |
+|---|---|---|
+| **DESIGN §2** | the decision model as documented (primitives, mapping from Jev, limits documented vs unknown); Jev's measured behaviour kept in DESIGN §2.3, to be re-measured | **[D1, D2, D3]** |
+| **Primitives** | `noul` → `predicate`; choices are `{value, description}`; `score` maximum levels undocumented (Jevson keeps 2–10) | **[D2]** |
+| **Refusal** | new reason `Unresolved(refused)`: never an option, a default, `absent`, or a retry | **[D2]** |
+| **Question names** | opaque `q0…qN`, since whether `name` reaches the model is undocumented | **[D2]** |
+| **R15, replay** | no snapshot exists: the returned `model` string is recorded; replay from records only | **[D2, D3, D4]** |
+| **Context budget** | configured limits, Jev's measured values as placeholders until Phase 0r | **[D3]** |
+| **Backend, credentials** | `DecisionsBackend`; `OPENAI_API_KEY`; the `openai` SDK not yet reviewed | **[D1]** |
+| **`decided_by` values** | `jev` → `decision`, `llm+jev` → `llm+decision` (a `Result` API change; nothing is released yet) | — |
+| **Images** | readable by the API, not adopted | **[D1, D2]** |
+| **Open questions** | does source selection work on the Decisions API? (Phase 0r) | — |
 
 ### Revision 9.1 — 2026-09-29, red-team round 7 (converged)
 
