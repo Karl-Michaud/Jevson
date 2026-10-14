@@ -1,8 +1,7 @@
 """PLAN Phase 1: the fake backend resolves a hand-built graph and the assembler produces a valid object.
 
-There is no executor yet (Phase 3), so `run` below plays its part: steps run from a table, each
-level's decisions go to the backend as one request of opaque-named questions, and each answer is
-read with `interpret`.
+There is no executor yet (Phase 3), so `run` below plays its part: each level's decisions go to the
+backend as one request of opaque-named questions, and each answer is read with `interpret`.
 """
 
 from __future__ import annotations
@@ -13,12 +12,10 @@ from typing import Any, Literal
 from pydantic import BaseModel
 
 from jevson import FakeBackend, Result
-from jevson.assemble.assembler import Abstained, Committed, Outcome, assemble
+from jevson.assemble.assembler import Committed, Outcome, assemble
 from jevson.graph import DecisionGraph
 from jevson.probabilities import interpret
 from jevson.types import (
-    NONE_OF_THESE,
-    Candidate,
     DecidedBy,
     Decision,
     DecisionKind,
@@ -28,46 +25,26 @@ from jevson.types import (
     Option,
     OptionSource,
     Question,
-    Span,
-    StepKind,
-    StepNode,
     Unresolved,
     UnresolvedReason,
 )
 
-SOURCE = "Invoice from Acme Corp to Globex. Paid in full. Software licences."
+SOURCE = "Invoice from Acme Corp. Paid in full. Software licences."
 
 
 class Invoice(BaseModel):
-    vendor: str
     paid: bool
     category: Literal["software", "hardware"]
     rating: int
+    note: str = "none"
 
 
 ENUM_VALUES: dict[str, JSONValue] = {"o0": "software", "o1": "hardware"}
-CANDIDATES = {
-    "/vendor#extract": [
-        Candidate("c0", "Acme Corp", Span("doc", 13, 22)),
-        Candidate("c1", "Globex", Span("doc", 26, 32)),
-    ]
-}
 
 
 def build_graph() -> DecisionGraph:
-    vendor_options = (*(Option(c.id, c.text) for c in CANDIDATES["/vendor#extract"]), Option(NONE_OF_THESE, "none"))
     return DecisionGraph(
         [
-            StepNode("/vendor#extract", StepKind.EXTRACT, "/vendor"),
-            DecisionNode(
-                "/vendor#choice",
-                DecisionKind.CHOICE,
-                "Which is the complete vendor?",
-                OptionSource.CANDIDATE_SPANS,
-                "/vendor",
-                vendor_options,
-                frozenset({"/vendor#extract"}),
-            ),
             DecisionNode("/paid#predicate", DecisionKind.PREDICATE, "Is it paid?", OptionSource.PREDICATE, "/paid"),
             DecisionNode(
                 "/category#choice",
@@ -91,10 +68,7 @@ def build_graph() -> DecisionGraph:
     )
 
 
-def value_of(node: DecisionNode, selected: str | bool) -> tuple[JSONValue, Span | DeclaredOption | None]:
-    if node.option_source is OptionSource.CANDIDATE_SPANS:
-        candidate = next(c for cs in CANDIDATES.values() for c in cs if c.id == selected)
-        return candidate.text, candidate.span
+def value_of(node: DecisionNode, selected: str | bool) -> tuple[JSONValue, DeclaredOption | None]:
     if node.option_source is OptionSource.SCHEMA_ENUM:
         return ENUM_VALUES[str(selected)], DeclaredOption(str(selected))
     if node.option_source is OptionSource.SCHEMA_RUBRIC:
@@ -119,51 +93,38 @@ def run(graph: DecisionGraph, backend: FakeBackend) -> Result:
                 assert reading.decision.selected is not None
                 value, provenance = value_of(node, reading.decision.selected)
                 outcomes.append(Committed(node.target, value, DecidedBy.DECISION, provenance))
-            elif reading.status == "abstained":
-                spans = tuple(c.span for c in CANDIDATES["/vendor#extract"])
-                outcomes.append(Abstained(node.target, spans, reading.abstain_probability))
             else:
                 assert reading.reason is not None
                 outcomes.append(Unresolved(node.target, reading.reason))
-    return assemble(schema, outcomes, source_selected=graph.source_selected_targets(), decisions=decisions)
+    return assemble(schema, outcomes, decisions=decisions, versions={"question_templates": "0"})
 
 
 def test_the_fake_backend_resolves_a_hand_built_graph_into_a_valid_object() -> None:
     backend = FakeBackend(
         {
-            "q0": FakeBackend.select("c0", 0.90),
-            "q1": FakeBackend.predicate(0.97),
-            "q2": FakeBackend.select("o0", 0.88),
-            "q3": FakeBackend.distribution({"l1": 0.0, "l2": 0.05, "l3": 0.1, "l4": 0.7, "l5": 0.15}),
+            "q0": FakeBackend.predicate(0.97),
+            "q1": FakeBackend.select("o0", 0.88),
+            "q2": FakeBackend.distribution({"l1": 0.0, "l2": 0.05, "l3": 0.1, "l4": 0.7, "l5": 0.15}),
         }
     )
     result = run(build_graph(), backend)
-    assert result.value == {"vendor": "Acme Corp", "paid": True, "category": "software", "rating": 4}
+    assert result.value == {"paid": True, "category": "software", "rating": 4}
     assert (result.complete, result.satisfies_schema) == (True, True)
-    assert Invoice.model_validate(result.value).vendor == "Acme Corp"
-    assert SOURCE[13:22] == "Acme Corp"
-    assert result.provenance["/vendor"] == Span("doc", 13, 22)
-    assert result.provenance["/category"] == DeclaredOption("o0")
-    assert set(result.decisions) == {"/vendor#choice@0", "/paid#predicate@0", "/category#choice@0", "/rating#score@0"}
-    assert result.decisions["/vendor#choice@0"].distribution_hundredths == {"c0": 90, "c1": 5, NONE_OF_THESE: 5}
-    # Two levels, so two requests: the first holds the three independent decisions.
-    assert [len(call.questions) for call in backend.calls] == [3, 1]
-
-
-def test_a_refused_vendor_is_unresolved_refused_not_absent() -> None:
-    backend = FakeBackend({"q0": FakeBackend.refuse()}, default=FakeBackend.tie())
-    result = run(build_graph(), backend)
-    assert ("/vendor", "refused") in {(u.pointer, u.reason) for u in result.unresolved}
+    assert Invoice.model_validate(result.value).note == "none"
+    assert result.provenance == {"/category": DeclaredOption("o0"), "/rating": DeclaredOption("l4")}
+    assert set(result.decisions) == {"/paid#predicate@0", "/category#choice@0", "/rating#score@0"}
+    assert result.decisions["/category#choice@0"].distribution_hundredths == {"o0": 88, "o1": 12}
     assert result.absent == ()
-    assert "vendor" not in result.value
-    assert result.complete is False
+    # Two levels, so two requests: the first holds the two independent decisions.
+    assert [len(call.questions) for call in backend.calls] == [2, 1]
 
 
-def test_an_abstained_required_vendor_is_unresolved_abstained() -> None:
-    backend = FakeBackend({"q0": FakeBackend.abstain(0.9)}, default=FakeBackend.predicate(0.9))
-    graph = DecisionGraph([n for n in build_graph().nodes.values() if n.id.startswith(("/vendor", "/paid"))])
+def test_a_refusal_is_unresolved_refused_never_absent_or_an_option() -> None:
+    backend = FakeBackend({"q1": FakeBackend.refuse()}, default=FakeBackend.predicate(0.9))
+    graph = DecisionGraph([n for n in build_graph().nodes.values() if n.id != "/rating#score"])
     result = run(graph, backend)
-    assert result.unresolved == (
-        Unresolved("/vendor", UnresolvedReason.ABSTAINED, tuple(c.span for c in CANDIDATES["/vendor#extract"]), 90),
-    )
+    assert result.unresolved == (Unresolved("/category", UnresolvedReason.REFUSED),)
+    assert result.decisions["/category#choice@0"].selected is None
     assert result.value == {"paid": True}
+    assert result.absent == ()
+    assert result.complete is False

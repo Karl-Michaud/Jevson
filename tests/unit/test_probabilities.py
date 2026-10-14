@@ -8,7 +8,6 @@ import pytest
 
 from jevson.probabilities import interpret, sums_to_one, to_hundredths
 from jevson.types import (
-    NONE_OF_THESE,
     Answer,
     ChoiceAnswer,
     DecisionKind,
@@ -30,14 +29,6 @@ ENUM3 = DecisionNode(
     OptionSource.SCHEMA_ENUM,
     "/tier",
     (Option("o0", "gold"), Option("o1", "silver"), Option("o2", "bronze")),
-)
-CANDIDATES = DecisionNode(
-    "/vendor#choice",
-    DecisionKind.CHOICE,
-    "q",
-    OptionSource.CANDIDATE_SPANS,
-    "/vendor",
-    (Option("c0", "Acme"), Option("c1", "Globex"), Option(NONE_OF_THESE, "none")),
 )
 SCORE = DecisionNode(
     "/rating#score",
@@ -126,30 +117,18 @@ def test_the_raw_sum_is_checked_before_rounding() -> None:
 # --- refusal ---------------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize("node", [BOOL, ENUM3, CANDIDATES, SCORE])
+@pytest.mark.parametrize("node", [BOOL, ENUM3, SCORE])
 def test_a_refusal_is_unresolved_refused_never_an_option_or_an_abstention(node: DecisionNode) -> None:
     result = interpret(node, Refusal("q0"), MARGIN)
     assert (result.status, result.reason) == ("unresolved", UnresolvedReason.REFUSED)
     assert result.decision.selected is None
     assert result.decision.distribution_hundredths == {}
-    assert result.abstain_probability is None
 
 
-# --- candidates and abstention ---------------------------------------------------------------
-
-
-def test_a_candidate_choice_selecting_none_of_these_is_an_abstention() -> None:
-    answer = ChoiceAnswer("q0", NONE_OF_THESE, {"c0": 0.05, "c1": 0.05, NONE_OF_THESE: 0.90})
-    result = interpret(CANDIDATES, answer, MARGIN)
-    assert (result.status, result.reason) == ("abstained", None)
-    assert result.abstain_probability == 90
-
-
-def test_a_candidate_choice_commits_a_candidate() -> None:
-    answer = ChoiceAnswer("q0", "c1", {"c0": 0.05, "c1": 0.91, NONE_OF_THESE: 0.04}, confidence=0.8)
-    result = interpret(CANDIDATES, answer, MARGIN)
-    assert (result.status, result.decision.selected, result.decision.vendor_confidence) == ("committed", "c1", 0.8)
-    assert result.decision.target_pointer == "/vendor"
+def test_a_choice_commits_with_its_confidence_and_target() -> None:
+    result = interpret(ENUM3, choice(0.91, 0.05, 0.04, confidence=0.8), MARGIN)
+    assert (result.status, result.decision.selected, result.decision.vendor_confidence) == ("committed", "o0", 0.8)
+    assert result.decision.target_pointer == "/tier"
 
 
 # --- score -----------------------------------------------------------------------------------

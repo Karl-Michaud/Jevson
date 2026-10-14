@@ -2,7 +2,7 @@
 
 Answers are scripted per question name. A script entry is a function from the asked `Question` to
 an `Answer`; the static helpers build the common ones (a probability, a selected option, an exact
-distribution, a tie, an abstention, a refusal). The fake records every call and never touches the
+distribution, a tie, a refusal). The fake records every call and never touches the
 network or the clock.
 """
 
@@ -13,7 +13,6 @@ from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 
 from jevson.types import (
-    NONE_OF_THESE,
     Answer,
     BackendResponse,
     ChoiceAnswer,
@@ -103,10 +102,6 @@ class FakeBackend:
             return _with_distribution(question, probabilities, first, None)
 
         return answer
-
-    @staticmethod
-    def abstain(probability: float = 1.0) -> Script:
-        return FakeBackend.select(NONE_OF_THESE, probability)
 
     @staticmethod
     def refuse() -> Script:

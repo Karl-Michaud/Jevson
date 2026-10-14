@@ -43,7 +43,6 @@ EXPECTED = {
     "UnresolvedReason",
     "Violation",
     # implementing a protocol
-    "NONE_OF_THESE",
     "Answer",
     "BackendResponse",
     "Candidate",

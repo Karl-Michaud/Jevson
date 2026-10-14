@@ -4,19 +4,12 @@ import pytest
 
 from jevson.errors import CompileError
 from jevson.graph import DecisionGraph
-from jevson.types import NONE_OF_THESE, DecisionKind, DecisionNode, Option, OptionSource, StepKind, StepNode
+from jevson.types import DecisionKind, DecisionNode, OptionSource, StepKind, StepNode
 
 
 def predicate(node_id: str, *deps: str) -> DecisionNode:
     return DecisionNode(
         node_id, DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, f"/{node_id}", (), frozenset(deps)
-    )
-
-
-def candidate_choice(node_id: str, *deps: str) -> DecisionNode:
-    opts = (Option("c0", "a"), Option(NONE_OF_THESE, "none"))
-    return DecisionNode(
-        node_id, DecisionKind.CHOICE, "q", OptionSource.CANDIDATE_SPANS, f"/{node_id}", opts, frozenset(deps)
     )
 
 
@@ -40,7 +33,7 @@ def test_decisions_and_steps_level_around_each_other() -> None:
     graph = DecisionGraph(
         [
             step("vendor_extract"),
-            candidate_choice("vendor", "vendor_extract"),
+            predicate("vendor", "vendor_extract"),
             predicate("is_paid"),
             predicate("kind"),
             step("summary_generate", "kind", kind=StepKind.GENERATE),
@@ -69,6 +62,7 @@ def test_empty_graph_has_no_levels() -> None:
         ([predicate("a", "a")], ["a"]),
         ([predicate("a", "b"), predicate("b", "a")], ["a", "b"]),
         ([predicate("x"), predicate("a", "c", "x"), step("b", "a"), predicate("c", "b")], ["a", "c", "b"]),
+        ([predicate("z", "a"), predicate("a", "b"), predicate("b", "a")], ["a", "b"]),
     ],
 )
 def test_a_cycle_is_rejected_at_construction_naming_its_nodes(nodes: list[DecisionNode], cycle: list[str]) -> None:
@@ -89,7 +83,5 @@ def test_duplicate_ids_and_unknown_dependencies_are_rejected_together() -> None:
     ]
 
 
-def test_source_selected_targets_are_the_candidate_choices() -> None:
-    graph = DecisionGraph([step("e"), candidate_choice("v", "e"), predicate("p")])
-    assert graph.source_selected_targets() == frozenset({"/v"})
-    assert set(graph.nodes) == {"e", "v", "p"}
+def test_nodes_are_exposed_by_id() -> None:
+    assert set(DecisionGraph([step("e"), predicate("v", "e"), predicate("p")]).nodes) == {"e", "v", "p"}

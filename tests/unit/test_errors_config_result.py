@@ -84,13 +84,14 @@ def test_result_has_every_field_and_complete_follows_unresolved() -> None:
 def test_config_defaults_match_design() -> None:
     config = JevsonConfig()
     assert config.tie_margin_hundredths == 10
-    assert config.retry_budget == 1
     assert config.redraft_budget == 1
     assert config.transport_retries == 2
     assert config.step_timeout_s == 120.0
     assert (config.max_input_tokens, config.max_questions_per_request) == (900_000, 200)
     assert config.default_extractor is None
     assert config.raise_on_unresolved_required is False
+    assert not hasattr(config, "retry_budget")
+    assert not hasattr(config, "source_screen")
 
 
 @pytest.mark.parametrize(
@@ -99,7 +100,6 @@ def test_config_defaults_match_design() -> None:
         {"tie_margin_hundredths": -1},
         {"tie_margin_hundredths": 100},
         {"step_timeout_s": 0.0},
-        {"retry_budget": -1},
         {"redraft_budget": -1},
         {"transport_retries": -1},
         {"max_input_tokens": 0},

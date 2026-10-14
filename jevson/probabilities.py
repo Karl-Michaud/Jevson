@@ -15,13 +15,11 @@ from decimal import Decimal
 from typing import Literal
 
 from jevson.types import (
-    NONE_OF_THESE,
     Answer,
     ChoiceAnswer,
     Decision,
     DecisionKind,
     DecisionNode,
-    OptionSource,
     PredicateAnswer,
     Refusal,
     ScoreAnswer,
@@ -30,7 +28,7 @@ from jevson.types import (
 
 SUM_TOLERANCE = Decimal("0.01")
 
-Status = Literal["committed", "abstained", "unresolved"]
+Status = Literal["committed", "unresolved"]
 
 
 def is_probability(value: float) -> bool:
@@ -66,19 +64,11 @@ def argmax(hundredths: Mapping[str, int]) -> str:
 
 @dataclass(frozen=True)
 class Interpretation:
-    """One answer read against its node.
-
-    `committed` carries `decision.selected`; `abstained` means a candidate choice selected
-    `none_of_these`; `unresolved` carries the reason.
-    """
+    """One answer read against its node: `committed` carries `decision.selected`, `unresolved` a reason."""
 
     decision: Decision
     status: Status
     reason: UnresolvedReason | None = None
-
-    @property
-    def abstain_probability(self) -> int | None:
-        return self.decision.distribution_hundredths.get(NONE_OF_THESE)
 
 
 def interpret(node: DecisionNode, answer: Answer, tie_margin: int) -> Interpretation:
@@ -125,9 +115,6 @@ def _distribution(
     selected = argmax(distribution)
     if vendor_choice is not None and vendor_choice != selected:
         return _unresolved(node, UnresolvedReason.INVALID_BACKEND_ANSWER, distribution, answer.confidence)
-    if node.option_source is OptionSource.CANDIDATE_SPANS and selected == NONE_OF_THESE:
-        decision = Decision(node.kind, selected, distribution, answer.confidence, node.target)
-        return Interpretation(decision, "abstained")
     return _committed(node, selected, distribution, answer.confidence)
 
 

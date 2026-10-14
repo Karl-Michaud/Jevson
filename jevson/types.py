@@ -14,9 +14,6 @@ from typing import Literal, TypeAlias
 
 JSONValue: TypeAlias = "bool | int | float | str | list[JSONValue] | dict[str, JSONValue] | None"
 
-NONE_OF_THESE = "none_of_these"
-"""The option id of the abstention option every candidate-backed choice carries (R1)."""
-
 MAX_OPTIONS = 255
 """The API's upper bound on `choice` options (DESIGN §2.2)."""
 
@@ -33,9 +30,10 @@ class StepKind(StrEnum):
 
 
 class OptionSource(StrEnum):
+    """`candidate_spans` (class D) is deferred with source selection (PLAN §9.2); v0 has none."""
+
     SCHEMA_ENUM = "schema_enum"
     SCHEMA_RUBRIC = "schema_rubric"
-    CANDIDATE_SPANS = "candidate_spans"
     PREDICATE = "predicate"
 
 
@@ -54,7 +52,8 @@ class DecidedBy(StrEnum):
 
 
 class UnresolvedReason(StrEnum):
-    """The closed set of DESIGN §6.1. `not_yet_supported` is a CompileError reason, not this."""
+    """The closed set of DESIGN §6.1. Reachable in v0: tie, invalid_backend_answer, budget_exceeded,
+    redraft_exhausted, dependency_unresolved, refused; the rest are reserved for deferred work."""
 
     ABSTAINED = "abstained"
     NO_CANDIDATES = "no_candidates"
@@ -78,8 +77,7 @@ class UnresolvedReason(StrEnum):
 class Span:
     """A half-open [start, end) range of Python `str` code-point offsets into one original source.
 
-    Only the shape is checked here. Substring and grapheme-boundary verification is
-    `extract/spans.py`, which is not built yet.
+    Kept so reviving class D is not a breaking change; no v0 code constructs one (DESIGN §5.9).
     """
 
     source_id: str
@@ -131,16 +129,13 @@ class DecisionNode:
             raise ValueError(f"{self.id}: a predicate has no options")
         if not is_predicate and not 2 <= len(self.options) <= MAX_OPTIONS:
             raise ValueError(f"{self.id}: a {self.kind} needs 2-{MAX_OPTIONS} options, got {len(self.options)}")
-        ids = [option.id for option in self.options]
-        if len(set(ids)) != len(ids):
+        if len({option.id for option in self.options}) != len(self.options):
             raise ValueError(f"{self.id}: option ids must be unique")
-        if self.option_source is OptionSource.CANDIDATE_SPANS and NONE_OF_THESE not in ids:
-            raise ValueError(f"{self.id}: a candidate-backed choice must offer {NONE_OF_THESE} (R1)")
 
 
 @dataclass(frozen=True)
 class StepNode:
-    """An external step: extraction through an Extractor, or drafting through an LLM."""
+    """An external step: drafting through an LLM (v0), or extraction (class D, deferred)."""
 
     id: str
     kind: StepKind
@@ -150,10 +145,6 @@ class StepNode:
     @property
     def protocol(self) -> Literal["Extractor", "LLM"]:
         return "Extractor" if self.kind is StepKind.EXTRACT else "LLM"
-
-    @property
-    def produces(self) -> Literal["candidates", "draft"]:
-        return "candidates" if self.kind is StepKind.EXTRACT else "draft"
 
 
 # --- result entries (DESIGN §8.1) -----------------------------------------------------------
@@ -181,6 +172,8 @@ class Unresolved:
 
 @dataclass(frozen=True)
 class Absent:
+    """Reserved: in v0 nothing abstains, so `Result.absent` is always empty (DESIGN §5.6)."""
+
     pointer: str
     candidates_seen: tuple[Span, ...] = ()
     abstain_probability: int | None = None

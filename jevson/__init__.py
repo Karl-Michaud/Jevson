@@ -23,7 +23,6 @@ from jevson.errors import (
 from jevson.protocols import LLM, Backend, CostSink, Extractor, Normalizer
 from jevson.result import Result
 from jevson.types import (
-    NONE_OF_THESE,
     Absent,
     Answer,
     BackendResponse,
@@ -54,7 +53,6 @@ from jevson.types import (
 
 __all__ = [
     "LLM",
-    "NONE_OF_THESE",
     "Absent",
     "Answer",
     "Backend",

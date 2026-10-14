@@ -9,7 +9,6 @@ from hypothesis import strategies as st
 
 from jevson.probabilities import interpret, sums_to_one, to_hundredths, top_two_margin
 from jevson.types import (
-    NONE_OF_THESE,
     ChoiceAnswer,
     DecisionKind,
     DecisionNode,
@@ -27,10 +26,9 @@ two_decimals = st.integers(0, 100).map(lambda h: h / 100)
 margins = st.integers(0, 99)
 
 
-def choice_node(k: int, candidates: bool) -> DecisionNode:
-    ids = [f"c{i}" for i in range(k - 1)] + [NONE_OF_THESE if candidates else f"c{k - 1}"]
-    source = OptionSource.CANDIDATE_SPANS if candidates else OptionSource.SCHEMA_ENUM
-    return DecisionNode("/c#choice", DecisionKind.CHOICE, "q", source, "/c", tuple(Option(i, i) for i in ids))
+def choice_node(k: int) -> DecisionNode:
+    options = tuple(Option(f"c{i}", f"c{i}") for i in range(k))
+    return DecisionNode("/c#choice", DecisionKind.CHOICE, "q", OptionSource.SCHEMA_ENUM, "/c", options)
 
 
 @DETERMINISTIC
@@ -65,7 +63,7 @@ def test_predicates_never_raise_and_commit_only_probabilities(p: float, margin: 
 @st.composite
 def choice_answers(draw: st.DrawFn) -> tuple[DecisionNode, ChoiceAnswer]:
     k = draw(st.integers(2, 12))
-    node = choice_node(k, draw(st.booleans()))
+    node = choice_node(k)
     ids = [o.id for o in node.options]
     raw = {i: draw(st.one_of(two_decimals, any_float)) for i in ids}
     if draw(st.booleans()):  # often a well-formed distribution: hundredths that sum to 100
@@ -84,13 +82,10 @@ def test_choices_never_raise_and_commit_only_valid_clear_argmaxes(
     result = interpret(node, answer, margin)
     hundredths = result.decision.distribution_hundredths
     assert all(0 <= h <= 100 for h in hundredths.values())
-    if result.status in ("committed", "abstained"):
+    if result.status == "committed":
         assert sums_to_one(answer.probabilities)
         assert top_two_margin(hundredths) > margin
         assert result.decision.selected == answer.choice == max(hundredths, key=lambda o: hundredths[o])
-        assert (result.status == "abstained") == (
-            node.option_source is OptionSource.CANDIDATE_SPANS and answer.choice == NONE_OF_THESE
-        )
     else:
         assert result.reason in (UnresolvedReason.TIE, UnresolvedReason.INVALID_BACKEND_ANSWER)
         assert result.decision.selected is None

@@ -56,7 +56,7 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 
 ## Status
 
-**Phase 1 (core) in progress.** The `jevson` package holds the type model, the five protocols, the decision graph, the probability rules, the result type, the assembler, and a deterministic fake backend. It is not usable for extraction yet: the compiler (Phase 2) and the live backend (Phase 3) come next.
+**Design, pre-implementation.** No code yet, by design.
 
 - **[docs/DESIGN.md](docs/DESIGN.md)** — the SSOT: architecture, tiered guarantees, limits, and the evidence behind each claim
 - **[docs/PLAN.md](docs/PLAN.md)** — phases 0, 0r and 1–8 to v0, plus planned post-v0 phases 9–11, each with testable exit criteria and abandon criteria
@@ -64,7 +64,7 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 
 Phase 0 is an empirical taxonomy plus probes with pre-registered thresholds, and it is allowed to conclude that the library should be smaller than described above.
 
-**Phase 0 has run** on `jev-1.13.0` ([docs/taxonomy.md](docs/taxonomy.md), [docs/gate-probe.md](docs/gate-probe.md); one exit criterion is open for the owner). After probe 9 the verdict is to drop source selection (see the findings at the top), and pairwise entity resolution is deferred past v0. **Phase 0r has run** on the Decisions API (2026-10-14) and confirms both. Phase 1 has started; grapheme verification of spans is split out of it pending a scope decision.
+**Phase 0 has run** on `jev-1.13.0` ([docs/taxonomy.md](docs/taxonomy.md), [docs/gate-probe.md](docs/gate-probe.md); one exit criterion is open for the owner). After probe 9 the verdict is to drop source selection (see the findings at the top), and pairwise entity resolution is deferred past v0. **Phase 0r has run** on the Decisions API (2026-10-14) and confirms both; Phase 1 may start.
 
 ## Licence
 

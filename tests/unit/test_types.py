@@ -3,7 +3,6 @@ from __future__ import annotations
 import pytest
 
 from jevson.types import (
-    NONE_OF_THESE,
     Cost,
     DecisionKind,
     DecisionNode,
@@ -54,9 +53,6 @@ def test_valid_nodes_construct() -> None:
     DecisionNode("/a#predicate", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/a")
     DecisionNode("/b#choice", DecisionKind.CHOICE, "q", OptionSource.SCHEMA_ENUM, "/b", options("o0", "o1"))
     DecisionNode("/c#score", DecisionKind.SCORE, "q", OptionSource.SCHEMA_RUBRIC, "/c", options("l0", "l1", "l2"))
-    DecisionNode(
-        "/d#choice", DecisionKind.CHOICE, "q", OptionSource.CANDIDATE_SPANS, "/d", options("c0", NONE_OF_THESE)
-    )
 
 
 @pytest.mark.parametrize(
@@ -68,7 +64,6 @@ def test_valid_nodes_construct() -> None:
         (DecisionKind.CHOICE, OptionSource.SCHEMA_ENUM, options("a"), "needs 2-255"),
         (DecisionKind.CHOICE, OptionSource.SCHEMA_ENUM, options(*(f"o{i}" for i in range(256))), "needs 2-255"),
         (DecisionKind.SCORE, OptionSource.SCHEMA_RUBRIC, options("a", "a"), "unique"),
-        (DecisionKind.CHOICE, OptionSource.CANDIDATE_SPANS, options("c0", "c1"), NONE_OF_THESE),
     ],
 )
 def test_invalid_decision_nodes_are_rejected(
@@ -78,11 +73,13 @@ def test_invalid_decision_nodes_are_rejected(
         DecisionNode("/x", kind, "q", source, "/x", opts)
 
 
-def test_step_nodes_name_their_protocol_and_product() -> None:
-    extract = StepNode("/a#extract", StepKind.EXTRACT, "/a")
-    generate = StepNode("/b#generate", StepKind.GENERATE, "/b")
-    assert (extract.protocol, extract.produces) == ("Extractor", "candidates")
-    assert (generate.protocol, generate.produces) == ("LLM", "draft")
+def test_step_nodes_name_their_protocol() -> None:
+    assert StepNode("/a#extract", StepKind.EXTRACT, "/a").protocol == "Extractor"
+    assert StepNode("/b#generate", StepKind.GENERATE, "/b").protocol == "LLM"
+
+
+def test_no_candidate_option_source_in_v0() -> None:
+    assert {s.value for s in OptionSource} == {"schema_enum", "schema_rubric", "predicate"}
 
 
 def test_cost_starts_at_zero() -> None:

@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from typing import TypeAlias
 
 from jevson.errors import CompileError, RefusalReason
-from jevson.types import DecisionNode, OptionSource, StepNode
+from jevson.types import DecisionNode, StepNode
 
 Node: TypeAlias = DecisionNode | StepNode
 
@@ -41,11 +41,7 @@ class DecisionGraph:
                 problems.append(RefusalReason(node.id, "unknown_dependency", f"depends on missing node {dependency}"))
         if problems:
             raise CompileError(problems)
-        cycle = self._find_cycle()
-        if cycle:
-            path = " -> ".join([*cycle, cycle[0]])
-            raise CompileError([RefusalReason(node_id, "dependency_cycle", path) for node_id in cycle])
-        self._levels = self._level()
+        self._levels = self._level(self._topological_order())
 
     @property
     def nodes(self) -> Mapping[str, Node]:
@@ -54,52 +50,28 @@ class DecisionGraph:
     def levels(self) -> tuple[Level, ...]:
         return self._levels
 
-    def source_selected_targets(self) -> frozenset[str]:
-        """Target pointers of class D (source-selected) decisions, for the assembler (DESIGN §5.6)."""
-        return frozenset(
-            node.target
-            for node in self._nodes.values()
-            if isinstance(node, DecisionNode) and node.option_source is OptionSource.CANDIDATE_SPANS
-        )
+    def _topological_order(self) -> list[str]:
+        """Kahn's algorithm, stable in insertion order; a leftover node means a cycle, named in full."""
+        waiting = {node_id: set(node.dependencies) for node_id, node in self._nodes.items()}
+        order = [node_id for node_id, deps in waiting.items() if not deps]
+        for node_id in order:  # the list grows while it is walked
+            for other, deps in waiting.items():
+                if node_id in deps:
+                    deps.discard(node_id)
+                    if not deps:
+                        order.append(other)
+        if len(order) < len(self._nodes):
+            # Every leftover node waits on another leftover node, so following them must repeat.
+            path = [next(node_id for node_id, deps in waiting.items() if deps)]
+            while (step := min(waiting[path[-1]])) not in path:
+                path.append(step)
+            cycle = path[path.index(step) :]
+            joined = " -> ".join([*cycle, cycle[0]])
+            raise CompileError([RefusalReason(node_id, "dependency_cycle", joined) for node_id in cycle])
+        return order
 
-    def _find_cycle(self) -> list[str]:
-        """Iterative depth-first search; returns the node ids on one cycle, or [] if acyclic."""
-        state: dict[str, int] = {}  # 1 = on the current path, 2 = finished
-        for root in self._nodes:
-            if root in state:
-                continue
-            path: list[str] = [root]
-            pending = [iter(sorted(self._nodes[root].dependencies))]
-            state[root] = 1
-            while pending:
-                child = next(pending[-1], None)
-                if child is None:
-                    state[path.pop()] = 2
-                    pending.pop()
-                elif state.get(child) == 1:
-                    return path[path.index(child) :]
-                elif child not in state:
-                    state[child] = 1
-                    path.append(child)
-                    pending.append(iter(sorted(self._nodes[child].dependencies)))
-        return []
-
-    def _level(self) -> tuple[Level, ...]:
+    def _level(self, order: list[str]) -> tuple[Level, ...]:
         index: dict[str, int] = {}
-        order: list[str] = []  # topological, stable in insertion order (Kahn)
-        waiting = {node_id: len(node.dependencies) for node_id, node in self._nodes.items()}
-        dependents: dict[str, list[str]] = {node_id: [] for node_id in self._nodes}
-        for node_id, node in self._nodes.items():
-            for dependency in node.dependencies:
-                dependents[dependency].append(node_id)
-        ready = [node_id for node_id, count in waiting.items() if count == 0]
-        while ready:
-            node_id = ready.pop(0)
-            order.append(node_id)
-            for dependent in dependents[node_id]:
-                waiting[dependent] -= 1
-                if waiting[dependent] == 0:
-                    ready.append(dependent)
         for node_id in order:
             index[node_id] = max(
                 (index[d] + isinstance(self._nodes[d], DecisionNode) for d in self._nodes[node_id].dependencies),
@@ -109,10 +81,6 @@ class DecisionGraph:
         # Decisions in one level never depend on each other, so they keep insertion order.
         decisions = [n for n in self._nodes.values() if isinstance(n, DecisionNode)]
         return tuple(
-            Level(
-                i,
-                tuple(s for s in steps if index[s.id] == i),
-                tuple(d for d in decisions if index[d.id] == i),
-            )
+            Level(i, tuple(s for s in steps if index[s.id] == i), tuple(d for d in decisions if index[d.id] == i))
             for i in range(max(index.values(), default=-1) + 1)
         )

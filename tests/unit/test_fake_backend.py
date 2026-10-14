@@ -6,7 +6,6 @@ import pytest
 
 from jevson import Backend, FakeBackend
 from jevson.types import (
-    NONE_OF_THESE,
     ChoiceAnswer,
     DecisionKind,
     Option,
@@ -18,7 +17,6 @@ from jevson.types import (
 
 BOOL = Question("q0", DecisionKind.PREDICATE, "Is it paid?")
 CHOICE = Question("q1", DecisionKind.CHOICE, "Which?", (Option("c0", "Acme"), Option("c1", "Globex")))
-CANDIDATES = Question("q2", DecisionKind.CHOICE, "Which?", (Option("c0", "Acme"), Option(NONE_OF_THESE, "none")))
 SCORE = Question("q3", DecisionKind.SCORE, "How good?", tuple(Option(f"l{i}", str(i)) for i in range(3)))
 
 
@@ -54,17 +52,16 @@ def test_distribution_can_name_a_non_argmax_choice() -> None:
     assert answer.choice == "c1"
 
 
-def test_ties_abstentions_and_refusals() -> None:
-    backend = FakeBackend(
-        {"q0": FakeBackend.tie(), "q1": FakeBackend.tie(), "q2": FakeBackend.abstain(0.95), "q3": FakeBackend.refuse()}
-    )
-    paid, which, candidate, score = ask(backend, BOOL, CHOICE, CANDIDATES, SCORE)
+def test_ties_and_refusals() -> None:
+    backend = FakeBackend({"q0": FakeBackend.tie(), "q1": FakeBackend.tie(), "q3": FakeBackend.refuse()})
+    paid, which, score = ask(backend, BOOL, CHOICE, SCORE)
     assert paid == PredicateAnswer("q0", 0.5)
     assert which == ChoiceAnswer("q1", "c0", {"c0": 0.5, "c1": 0.5}, None)
-    assert isinstance(candidate, ChoiceAnswer)
-    assert candidate.choice == NONE_OF_THESE
-    assert candidate.probabilities[NONE_OF_THESE] == 0.95
     assert score == Refusal("q3")
+
+
+def test_the_fake_has_no_abstention_helper_in_v0() -> None:
+    assert not hasattr(FakeBackend, "abstain")
 
 
 def test_tie_on_a_score_spreads_over_the_first_two_levels() -> None:
