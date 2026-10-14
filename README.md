@@ -16,7 +16,7 @@ So the probability Jev reports cannot tell a confident right answer from a confi
 
 Full record: the numbers, pre-registration, corpus, labels and code are in [PR #2](https://github.com/Project-Asterion/Jevson/pull/2) (`docs/taxonomy.md`, `docs/gate-probe.md`). The design text below predates these results.
 
-On 2026-10-14 the [OpenAI Decisions API](https://developers.openai.com/api/docs/guides/decisions) replaced Jev as the decision model; these findings have not yet been re-measured on it, and [Phase 0r](docs/PLAN.md) does that.
+**Re-measured on the Decisions API (2026-10-14, Phase 0r).** On 2026-10-14 the [OpenAI Decisions API](https://developers.openai.com/api/docs/guides/decisions) (`gpt-6-luna`) replaced Jev as the decision model, and the same pre-registered probes were re-run on it, unchanged ([docs/taxonomy.md §9](docs/taxonomy.md)). The verdict holds, for a different reason: `gpt-6-luna` picks the right span more often (94%, against Jev's 88%), never abstained wrongly when the answer was present, but committed an option on about **half** of the cases whose answer was absent (abstention 53%, below the 60% bar), and the second gate does not fix it. Its reported probabilities are also less calibrated on this task (ECE 0.12 against 0.05). Unlike Jev, identical requests returned identical answers in every test.
 
 ---
 
@@ -64,7 +64,7 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 
 Phase 0 is an empirical taxonomy plus probes with pre-registered thresholds, and it is allowed to conclude that the library should be smaller than described above.
 
-**Phase 0 has run** on `jev-1.13.0` ([docs/taxonomy.md](docs/taxonomy.md), [docs/gate-probe.md](docs/gate-probe.md); one exit criterion is open for the owner). After probe 9 the verdict is to drop source selection (see the findings at the top), and pairwise entity resolution is deferred past v0. Phase 0r re-runs these probes on the Decisions API.
+**Phase 0 has run** on `jev-1.13.0` ([docs/taxonomy.md](docs/taxonomy.md), [docs/gate-probe.md](docs/gate-probe.md); one exit criterion is open for the owner). After probe 9 the verdict is to drop source selection (see the findings at the top), and pairwise entity resolution is deferred past v0. **Phase 0r has run** on the Decisions API (2026-10-14) and confirms both; Phase 1 may start.
 
 ## Licence
 

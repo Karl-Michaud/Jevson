@@ -260,6 +260,8 @@ If confirmed, the honest product is **a decision-graph compiler for the disambig
 
 ## Phase 0r — Re-probe on the Decisions API
 
+**Status: run on `gpt-6-luna`, 2026-10-14 (ASTERION-22). Verdict: source selection stays dropped** (probe 2 in its stop band; probe 9 drop) **[Q1–Q9]**; the pilots found identical requests deterministic and measured every limit **[Q10–Q14]**. Results: `docs/taxonomy.md` §9, `docs/EVIDENCE.md` Q. Phase 1 may start.
+
 **Goal:** find out whether what Phase 0 and the red-team pilots measured on `jev-1.13.0` holds on the OpenAI Decisions API (`gpt-6-luna`), which replaced Jev on 2026-10-14, before any library code depends on it.
 
 **Depends on:** Phase 0 (its pre-registration, templates, corpora, and labels), and a port of `tests/probes/` — the shared `jevclient.py` and the `probe_*.py` scripts — to the Decisions API, which is a follow-up ticket. Requires an OpenAI API key with Decisions API access. **Phase 1 does not start until this phase has a verdict.**
@@ -281,14 +283,14 @@ No library code. Phase 0's rules apply unchanged: **every threshold, band, decis
 
 ### Exit criteria
 
-- [ ] The probes are ported (follow-up ticket); each ported script's docstring names the Jev tag it re-measures
-- [ ] Every probe above runs on `gpt-6-luna` at the stated n, with rates and intervals written into `docs/taxonomy.md` and into `docs/EVIDENCE.md` under new tags **whether or not they are favourable**; no existing P entry is edited
-- [ ] Phase 0 probes 1–4 are marked **go / conditional / stop** under the Phase 0 rules; `conflict_floor` and the entity rule variant are re-chosen by the Phase 0 rule and written into `DESIGN §5.7`
-- [ ] Every **unknown** in `DESIGN §2.2` is replaced by a measured value or recorded as not measurable, and the preflight limits of `DESIGN §8.2` are set from them
-- [ ] The tie margin's flip rate is written down; whether question names affect answers is recorded (`DESIGN §2`)
-- [ ] `DESIGN §2.3` and every "on Jev" claim in `DESIGN` and the README are confirmed, revised, or marked unconfirmed, citing the new tags
-- [ ] The verdict on source selection is stated: it **confirms or reverses** Phase 0's "drop source selection"
-- [ ] No library code exists
+- [x] The probes are ported (follow-up ticket); each ported script's docstring names the Jev tag it re-measures
+- [x] Every probe above runs on `gpt-6-luna` at the stated n, with rates and intervals written into `docs/taxonomy.md` and into `docs/EVIDENCE.md` under new tags **whether or not they are favourable**; no existing P entry is edited
+- [x] Phase 0 probes 1–4 are marked **go / conditional / stop** under the Phase 0 rules; `conflict_floor` and the entity rule variant are re-chosen by the Phase 0 rule and written into `DESIGN §5.7`
+- [x] Every **unknown** in `DESIGN §2.2` is replaced by a measured value or recorded as not measurable, and the preflight limits of `DESIGN §8.2` are set from them
+- [x] The tie margin's flip rate is written down; whether question names affect answers is recorded (`DESIGN §2`)
+- [x] `DESIGN §2.3` and every "on Jev" claim in `DESIGN` and the README are confirmed, revised, or marked unconfirmed, citing the new tags
+- [x] The verdict on source selection is stated: it **confirms or reverses** Phase 0's "drop source selection"
+- [x] No library code exists
 
 ### Abandon criterion
 
@@ -297,6 +299,8 @@ Phase 0's, applied to the Decisions API results: **probe 1 below 0.70, probe 2 b
 ### Answers
 
 `DESIGN §12`: does source selection work on the Decisions API? Also re-answers, for the decision model, every Phase 0 reading (calibration, source screening, entity resolution).
+
+**Exceptions, recorded rather than hidden:** probe 5's three 320-question conditions could not run, because the API takes at most 200 questions per request **[Q5]**; the rate limit was not measured (four 429s were seen on very large requests) and the exact input limit lies between ~915k and ~928k tokens **[Q11]**; two needle choice questions were refused at every size, unexplained **[Q11]**. Determinism holds within one day's sessions only; the alias can change without notice.
 
 ---
 
@@ -311,7 +315,7 @@ Phase 0's, applied to the Decisions API results: **probe 1 below 0.70, probe 2 b
 - `types.py` — every type in the layout, with `UnresolvedReason` as the closed set of `DESIGN §6.1`
 - `protocols.py` — all five protocols (the three I/O protocols async, `Normalizer` and `CostSink` sync), with the signatures pinned in `DESIGN §8`
 - `graph.py` — `DecisionGraph`, dependency edges, acyclicity check, topological levelling of decision nodes around step nodes (R3, R11)
-- `probabilities.py` — integer hundredths for storage, the sum check on raw values (provisional tolerance until Phase 0r), the argmax-vs-vendor-`choice` check, and the tie margin (`DESIGN §2.1`, `DESIGN §6.2`)
+- `probabilities.py` — integer hundredths for storage, the sum check on raw values (1 ± 0.01, measured in Phase 0r **[Q14]**), the argmax-vs-vendor-`choice` check, and the tie margin (`DESIGN §2.1`, `DESIGN §6.2`)
 - `config.py` — `JevsonConfig` (`DESIGN §3.5`)
 - `backends/fake.py` — deterministic fake, configurable to return specified answers, distributions, ties, and abstentions
 - `result.py` — `Result` exactly as pinned in `DESIGN §8.1`
@@ -841,7 +845,7 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Sync wrapper over async code breaks** | Phase 3 | library loop thread; per-call clients on caller loops; thread-lock limiter **[L20, L22]** |
 | **Live answers jitter** | Phase 3 onward | tie margin (removes most, not all, flips); stability measured, not asserted; cache for exact replay **[P1, P12, P20]** |
 | **Vendor model changes under us** | everywhere | no snapshot exists **[D3]** and behaviour has changed under the alias before **[D4]**; the returned `model` string recorded; re-baseline when it changes; replay from records only |
-| **Jev measurements do not hold on the Decisions API** | Phase 0r onward | every Jev result labelled as such; Phase 0r re-runs the probes with the same thresholds before Phase 1 |
+| **Jev measurements do not hold on the Decisions API** | Phase 0r onward | every Jev result labelled as such; Phase 0r re-ran the probes with the same thresholds (2026-10-14): the verdict held, the limits and behaviour are measured **[Q1–Q14]** |
 | **Single-vendor public beta** | everywhere | `Backend` is the substitution point; Jev, AnyJev, and jevfire are fallbacks **[X3]** |
 | **Vendor SDK churn, hidden retries, body logging** | Phase 3 | raw `httpx`; SDK not a dependency (reasons measured on `typesafe-sdk` **[V-sdk]**; the `openai` SDK not yet reviewed) |
 | **Idiomatic Pydantic refused** | Phase 2 | the normalisation table **[L3, L16]** |
@@ -874,7 +878,7 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Question wording** | Versioned templates; complete-value wording; no negations | Partials 32/42 → 0/42 **[P11]**; literal reading **[V-jagged]** |
 | **Single candidates** | Asked with `none_of_these` by default; direct extraction opt-in | 84/84 wrong-role lone candidates abstained in the Jev pilot **[P11]**; 39/50 on real documents on Jev **[Z8]** |
 | **Abstention mechanism** | `none_of_these` inside the choice, not a separate predicate gate | The gate was worse on Jev: 0.56 vs 0.89 **[P5]** |
-| **Probabilities** | Integer hundredths for storage; sum checked on raw values (provisional on the Decisions API); one tie margin ≤ 0.10 for every committing decision | Rounding and jitter are measured; ±0.05 left 11/180 choice flips, 0.10 left 1/180 **[L17, P12, P20]** |
+| **Probabilities** | Integer hundredths for storage; sum checked on raw values, 1 ± 0.01 on the Decisions API **[Q14]**; one tie margin ≤ 0.10 for every committing decision | Rounding and jitter are measured; ±0.05 left 11/180 choice flips, 0.10 left 1/180 **[L17, P12, P20]** |
 | **Confidence gating** | Reported, never gated by default | A default threshold would assert calibration we have not measured |
 | **Calibration bar** | Tie-safe bins, one-sided bootstrap ECE bound, Wilson rule at τ, mandatory power check on the observed distribution | The bar's power depends on the distribution **[L13, L14]** |
 | **Retry defaults** | Zero for schema-derived sets; one for candidates, old ∪ new, two-sided bar on constructed misses | Near-deterministic model; relative distributions; harm as well as benefit **[L15]** |
@@ -919,7 +923,7 @@ Reversals are recorded in `DESIGN §13`.
 | What is the pairwise quality ceiling? Can pair jitter be reduced? | Post-v0 entity-resolution phase (PLAN §9.1) | Cap lowered with the measurement cited; banding only |
 | Is the name right? | before Phase 8 | Rename before publication |
 
-**Closed by evidence on `jev-1.13.0`** (Phase 0r re-checks the ones that depend on model behaviour): level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a predicate gate is a worse abstention mechanism **[P5]**; lone candidates are safer asked **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording costs nothing when the full value is present **[P18]**; mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; entity resolution on real prose is below its bar, out of v0 **[Z4]**; state references by position fail on the pinned model **[Z5]**.
+**Closed by evidence on `jev-1.13.0`**, and re-checked on the Decisions API where they depend on model behaviour **[Q5, Q9, Q10]**: level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a predicate gate is a worse abstention mechanism **[P5]**; lone candidates are safer asked **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording costs nothing when the full value is present **[P18]**; mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; entity resolution on real prose is below its bar, out of v0 **[Z4]**; state references by position fail on the pinned model **[Z5]**.
 
 ---
 
