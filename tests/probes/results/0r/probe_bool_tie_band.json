@@ -1,0 +1,100 @@
+{
+ "probe": "probe_bool_tie_band",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": {
+  "questions": 200,
+  "repeats": 10
+ },
+ "requests": 400,
+ "input_tokens": 370370,
+ "cost_usd": 0.037037,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 400
+ },
+ "measured": {
+  "questions": 200,
+  "observations": 2000,
+  "obs_exact_0.50": "0/2000 = 0.000 [95% CI 0.000-0.002]",
+  "q_with_any_exact_0.50": "0/200 = 0.000 [95% CI 0.000-0.019]",
+  "first_pass_exact_0.50": "0/200 = 0.000 [95% CI 0.000-0.019]",
+  "first_pass_in_[0.45,0.55]": "1/200 = 0.005 [95% CI 0.001-0.028]",
+  "obs_in_[0.45,0.55]": "10/2000 = 0.005 [95% CI 0.003-0.009]",
+  "q_mean_in_[0.40,0.60]": 2,
+  "q_decision_flip(p>0.5 differs across repeats)": "0/200 = 0.000 [95% CI 0.000-0.019]",
+  "q_range_max": 0.0,
+  "q_range_p50_p90_p99": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "q_sd_mean_max": [
+   0.0,
+   0.0
+  ],
+  "bands": {
+   "b=0.0": {
+    "q_outcome_inconsistent_across_10": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_true_false_flip": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_ever_tie": 0,
+    "obs_tie_rate": "0/2000 = 0.000 [95% CI 0.000-0.002]"
+   },
+   "b=0.01": {
+    "q_outcome_inconsistent_across_10": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_true_false_flip": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_ever_tie": 1,
+    "obs_tie_rate": "10/2000 = 0.005 [95% CI 0.003-0.009]"
+   },
+   "b=0.02": {
+    "q_outcome_inconsistent_across_10": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_true_false_flip": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_ever_tie": 1,
+    "obs_tie_rate": "10/2000 = 0.005 [95% CI 0.003-0.009]"
+   },
+   "b=0.05": {
+    "q_outcome_inconsistent_across_10": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_true_false_flip": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_ever_tie": 1,
+    "obs_tie_rate": "10/2000 = 0.005 [95% CI 0.003-0.009]"
+   },
+   "b=0.1": {
+    "q_outcome_inconsistent_across_10": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_true_false_flip": "0/200 = 0.000 [95% CI 0.000-0.019]",
+    "q_ever_tie": 2,
+    "obs_tie_rate": "20/2000 = 0.010 [95% CI 0.006-0.015]"
+   }
+  },
+  "by_level": {
+   "yes": {
+    "n": 68,
+    "flip": 0,
+    "mean_in_[.3,.7]": 0
+   },
+   "no": {
+    "n": 67,
+    "flip": 0,
+    "mean_in_[.3,.7]": 1
+   },
+   "amb": {
+    "n": 65,
+    "flip": 0,
+    "mean_in_[.3,.7]": 4
+   }
+  },
+  "flippers": [],
+  "hist_obs_by_0.1": {
+   "0.0": 1030,
+   "0.1": 100,
+   "0.2": 30,
+   "0.3": 30,
+   "0.5": 20,
+   "0.8": 20,
+   "0.9": 40,
+   "1.0": 730
+  }
+ }
+}

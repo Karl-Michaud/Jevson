@@ -1,0 +1,71 @@
+{
+ "probe": "probe_source_ceiling",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": "one request per size",
+ "requests": 9,
+ "input_tokens": 951279,
+ "cost_usd": 0.184845,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 9
+ },
+ "measured": {
+  "cost": {
+   "baseline_2opt_tiny_state": 140,
+   "short": {
+    "status": 200,
+    "input_tokens": 2570,
+    "question_tokens_over_baseline": 2430,
+    "desc_chars_total": 2779,
+    "refusals": 0
+   },
+   "realistic": {
+    "status": 200,
+    "input_tokens": 4650,
+    "question_tokens_over_baseline": 4510,
+    "desc_chars_total": 12052,
+    "refusals": 0
+   },
+   "long": {
+    "status": 200,
+    "input_tokens": 6550,
+    "question_tokens_over_baseline": 6410,
+    "desc_chars_total": 20256,
+    "refusals": 0
+   },
+   "context": {
+    "status": 200,
+    "input_tokens": 17811,
+    "question_tokens_over_baseline": 17671,
+    "desc_chars_total": 62857,
+    "refusals": 0
+   }
+  },
+  "search": {
+   "A_business": {
+    "chars_per_token": 3.158,
+    "derived_max_state_chars_beside_realistic_255": 2875891,
+    "derived_max_state_tokens_beside_realistic_255": 910723,
+    "verify_~900k": {
+     "chars": 2827515,
+     "status": 200,
+     "input_tokens": 897167,
+     "refusals": 0,
+     "latency_s": 9.096492542012129,
+     "answer": "none_of_these",
+     "err": null
+    }
+   },
+   "B_prose": {
+    "chars_per_token": 4.319,
+    "derived_max_state_chars_beside_realistic_255": 3933159,
+    "derived_max_state_tokens_beside_realistic_255": 910723
+   }
+  },
+  "limit_largest_accepted_input_tokens": 915373
+ }
+}

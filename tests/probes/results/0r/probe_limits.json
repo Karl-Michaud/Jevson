@@ -1,0 +1,189 @@
+{
+ "probe": "probe_limits",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": "one request per size",
+ "requests": 23,
+ "input_tokens": 62409,
+ "cost_usd": 0.006241,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 8,
+  "400": 15
+ },
+ "measured": {
+  "status_by_case": {
+   "choice_1": 400,
+   "choice_2": 200,
+   "choice_255": 200,
+   "choice_256": 400,
+   "choice_500": 400,
+   "choice_1000": 400,
+   "choice_0": 400,
+   "score_1": 400,
+   "score_2": 200,
+   "score_10": 200,
+   "score_11": 400,
+   "score_20": 400,
+   "score_50": 400,
+   "score_100": 400,
+   "score_255": 400,
+   "score_256": 400,
+   "score_max_levels_accepted": null,
+   "score_min_levels_rejected": null,
+   "nquestions_199": 200,
+   "nquestions_200": 200,
+   "nquestions_201": 400,
+   "nquestions_256": 400,
+   "nquestions_1000": 400,
+   "noul_with_confidence?": null,
+   "empty_instructions": 200
+  },
+  "error_bodies": {
+   "choice_1": {
+    "error": {
+     "message": "Invalid 'questions[0].choices': array too short. Expected an array with minimum length 2, but got an array with length 1 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].choices",
+     "code": "array_below_min_length"
+    }
+   },
+   "choice_256": {
+    "error": {
+     "message": "Invalid 'questions[0].choices': array too long. Expected an array with maximum length 255, but got an array with length 256 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].choices",
+     "code": "array_above_max_length"
+    }
+   },
+   "choice_500": {
+    "error": {
+     "message": "Invalid 'questions[0].choices': array too long. Expected an array with maximum length 255, but got an array with length 500 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].choices",
+     "code": "array_above_max_length"
+    }
+   },
+   "choice_1000": {
+    "error": {
+     "message": "Invalid 'questions[0].choices': array too long. Expected an array with maximum length 255, but got an array with length 1000 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].choices",
+     "code": "array_above_max_length"
+    }
+   },
+   "choice_0": {
+    "error": {
+     "message": "Invalid 'questions[0].choices': empty array. Expected an array with minimum length 2, but got an empty array instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].choices",
+     "code": "empty_array"
+    }
+   },
+   "score_1": {
+    "error": {
+     "message": "Invalid 'questions[0].levels': array too short. Expected an array with minimum length 2, but got an array with length 1 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].levels",
+     "code": "array_below_min_length"
+    }
+   },
+   "score_11": {
+    "error": {
+     "message": "Invalid 'questions[0].levels': array too long. Expected an array with maximum length 10, but got an array with length 11 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].levels",
+     "code": "array_above_max_length"
+    }
+   },
+   "score_20": {
+    "error": {
+     "message": "Invalid 'questions[0].levels': array too long. Expected an array with maximum length 10, but got an array with length 20 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].levels",
+     "code": "array_above_max_length"
+    }
+   },
+   "score_50": {
+    "error": {
+     "message": "Invalid 'questions[0].levels': array too long. Expected an array with maximum length 10, but got an array with length 50 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].levels",
+     "code": "array_above_max_length"
+    }
+   },
+   "score_100": {
+    "error": {
+     "message": "Invalid 'questions[0].levels': array too long. Expected an array with maximum length 10, but got an array with length 100 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].levels",
+     "code": "array_above_max_length"
+    }
+   },
+   "score_255": {
+    "error": {
+     "message": "Invalid 'questions[0].levels': array too long. Expected an array with maximum length 10, but got an array with length 255 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].levels",
+     "code": "array_above_max_length"
+    }
+   },
+   "score_256": {
+    "error": {
+     "message": "Invalid 'questions[0].levels': array too long. Expected an array with maximum length 10, but got an array with length 256 instead.",
+     "type": "invalid_request_error",
+     "param": "questions[0].levels",
+     "code": "array_above_max_length"
+    }
+   },
+   "nquestions_201": {
+    "error": {
+     "message": "Invalid 'questions': array too long. Expected an array with maximum length 200, but got an array with length 201 instead.",
+     "type": "invalid_request_error",
+     "param": "questions",
+     "code": "array_above_max_length"
+    }
+   },
+   "nquestions_256": {
+    "error": {
+     "message": "Invalid 'questions': array too long. Expected an array with maximum length 200, but got an array with length 256 instead.",
+     "type": "invalid_request_error",
+     "param": "questions",
+     "code": "array_above_max_length"
+    }
+   },
+   "nquestions_1000": {
+    "error": {
+     "message": "Invalid 'questions': array too long. Expected an array with maximum length 200, but got an array with length 1000 instead.",
+     "type": "invalid_request_error",
+     "param": "questions",
+     "code": "array_above_max_length"
+    }
+   }
+  },
+  "score_max_levels_accepted": 10,
+  "score_min_levels_rejected": 11,
+  "choice_255_tokens": {
+   "input_tokens": 1387,
+   "input_tokens_details": {
+    "cached_tokens": 0,
+    "cache_write_tokens": 0
+   },
+   "output_tokens": 0,
+   "output_tokens_details": {
+    "reasoning_tokens": 0
+   },
+   "total_tokens": 1387
+  },
+  "noul_answer_shape": [
+   {
+    "type": "predicate",
+    "name": "q",
+    "probability": 1.0
+   }
+  ]
+ }
+}

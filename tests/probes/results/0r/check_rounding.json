@@ -1,0 +1,55 @@
+{
+ "probe": "check_rounding",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [],
+ "n": "every saved answer",
+ "requests": 0,
+ "input_tokens": 0,
+ "cost_usd": 0,
+ "refusals": 0,
+ "http_statuses": {},
+ "raw_dir": "out/0r/raw",
+ "measured": {
+  "distribution_answers_unique": 173,
+  "noul_values": 2061,
+  "answer_kinds": {
+   "choice": 170,
+   "score": 3
+  },
+  "option_counts": {
+   "2": 2,
+   "3": 20,
+   "4": 36,
+   "5": 62,
+   "6": 32,
+   "10": 1,
+   "51": 10,
+   "255": 10
+  },
+  "value_types": {
+   "float": 3780
+  },
+  "decimal_places_histogram": {
+   "0": 3418,
+   "1": 148,
+   "2": 2275
+  },
+  "max_decimal_places": 2,
+  "sum_dev_hundredths_by_kind": {
+   "choice": {
+    "0": 170
+   },
+   "score": {
+    "0": 3
+   }
+  },
+  "max_abs_sum_dev": 0.0,
+  "exact_top_ties": 0,
+  "choice_not_argmax": 0,
+  "noul_exact_0.50": "65/2061",
+  "noul_at_0": 134,
+  "noul_at_1": 264,
+  "note": "unique answer objects (identical repeats collapse)"
+ }
+}

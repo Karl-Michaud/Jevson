@@ -1,4 +1,9 @@
-"""Round 2. Claim (DESIGN §2.3, §6 Rev 4): "Byte-identical requests return probabilities that jitter by up to 0.10
+"""Phase 0r: re-measures [P12] (entity half: pair ranges and flips over 12 identical calls) on the OpenAI Decisions
+API (`gpt-6-luna`) through jevclient's `decisions` backend, after `entities/probe_conflict_floor.py A` and `B` have
+been re-run on it (minutes apart). Summary: tests/probes/results/0r/probe_pair_jitter.json; it also records the
+A-vs-B flips over all 48 docs (the [P12] "16/1,824 flips between two P10 runs").
+
+Round 2. Claim (DESIGN §2.3, §6 Rev 4): "Byte-identical requests return probabilities that jitter by up to 0.10
 (range over 25 repeats; per-question standard deviation <= 0.022)"; "Probabilities jitter by up to ±0.05".
 Trigger: probe_conflict_floor runs A and B (identical requests, minutes apart) differed by up to 0.26 on one pair,
 with 16/1824 decision flips.
@@ -10,7 +15,7 @@ PROBES = _pl.Path(__file__).resolve().parents[1]
 _sys.path.insert(0, str(PROBES))
 (PROBES / "out").mkdir(exist_ok=True)
 import asyncio, json, statistics
-from jevclient import Jev, save, RAW
+from jevclient import Jev, save, save_summary, RAW
 import entities.probe_conflict_floor as E
 
 
@@ -41,6 +46,11 @@ async def main():
            "top": [(r["template"], r["ma"], r["mb"], r["ps"], r["range"], r["sd"]) for r in rows[:12]],
            "range_excluding_A_B(10 back-to-back repeats)": max(max(r["ps"][2:]) - min(r["ps"][2:]) for r in rows)}
     save("r2_jitter_entity", {"report": out, "rows": rows})
+    ab = [(x["p"], y["p"]) for a, b in zip(A, B) for x, y in zip(a["pairs"], b["pairs"])]
+    out["runA_vs_runB_all_docs"] = {"pairs": len(ab), "decision_flips": sum((x > .5) != (y > .5) for x, y in ab),
+                                    "max_abs_diff": round(max(abs(x - y) for x, y in ab), 4), "pairs_differing": sum(x != y for x, y in ab),
+                                    "exact_0.50_obs": sum((x == .5) + (y == .5) for x, y in ab)}
+    save_summary("probe_pair_jitter", j, out, n={"docs": len(pick), "obs_per_pair": 12, "ab_pairs": len(ab)})
     print(json.dumps(out, indent=1)); print("requests", j.count)
 
 
