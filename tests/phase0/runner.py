@@ -4,6 +4,8 @@ Every request is written, redacted, as one JSON line to ``tests/phase0/out/<name
 so an interrupted run resumes without re-spending: a request id already answered with HTTP 200 is skipped.
 Requests that fail at transport level are re-sent in up to ``passes`` passes (docs/taxonomy.md §2.1).
 ``--dry-run`` swaps in a deterministic fake transport and writes under ``out/dry/``.
+``--backend decisions`` (Phase 0r) sends the same requests to the OpenAI Decisions API and writes raw records under
+``out/0r/`` and summaries under ``results/0r/``, so the Phase 0 results on Jev are never overwritten.
 """
 from __future__ import annotations
 
@@ -20,6 +22,7 @@ from typing import Callable, Sequence
 
 import httpx
 
+from tests.phase0 import decisions as D
 from tests.phase0 import rules as R
 from tests.phase0.client import Budget, JevClient, load_key
 
@@ -58,6 +61,26 @@ def fake_transport(seed: int = 0) -> httpx.MockTransport:
         return httpx.Response(200, json={"answers": answers, "model": payload["model"],
                                          "usage": {"input_tokens": len(request.content) // 4}},
                               headers={"x-typesafe-request-id": "fake-" + h[:12]})
+    return httpx.MockTransport(handler)
+
+
+def fake_decisions_transport(seed: int = 0) -> httpx.MockTransport:
+    """The fake transport's answers in the Decisions API's shape (a list of named answers)."""
+    def handler(request: httpx.Request) -> httpx.Response:
+        payload = json.loads(request.content)
+        h = hashlib.sha256(request.content + str(seed).encode()).hexdigest()
+        rng = random.Random(h)
+        answers = []
+        for q in payload["questions"]:
+            if q["type"] == "predicate":
+                answers.append({"type": "predicate", "name": q["name"], "probability": round(rng.random(), 2)})
+            else:
+                a = _fake_answer({"type": "choice", "criteria": {c["value"]: "" for c in q["choices"]}}, rng)
+                answers.append({"type": "choice", "name": q["name"], "choice": a["choice"], "confidence": a["confidence"],
+                                "probabilities": [{"value": k, "probability": p} for k, p in a["probabilities"].items()]})
+        return httpx.Response(200, json={"answers": answers, "model": payload["model"],
+                                         "usage": {"input_tokens": len(request.content) // 4}},
+                              headers={"x-request-id": "fake-" + h[:12]})
     return httpx.MockTransport(handler)
 
 
@@ -139,7 +162,10 @@ def run_cli(name: str, argv: list[str], build: Callable[[], list[Request]],
     g.add_argument("--dry-run", action="store_true")
     g.add_argument("--live", action="store_true")
     ap.add_argument("--budget", type=int, default=R.MAX_REQUESTS)
+    ap.add_argument("--backend", choices=["jev", "decisions"], default="jev",
+                    help="decisions: Phase 0r on the OpenAI Decisions API, written under out/0r and results/0r")
     a = ap.parse_args(argv)
+    sub = "0r" if a.backend == "decisions" else ""
     reqs = build()
     n = len(reqs) * runs
     print(f"{name}: {n} requests ({len(reqs)} per run x {runs} run(s)); "
@@ -147,10 +173,12 @@ def run_cli(name: str, argv: list[str], build: Callable[[], list[Request]],
     if a.estimate:
         return 0
     if a.dry_run:
-        key, transport, out = "dry-run-key", transport or fake_transport(), OUT / "dry"
+        fake = fake_decisions_transport() if a.backend == "decisions" else fake_transport()
+        key, transport, out = "dry-run-key", transport or fake, OUT / "dry" / sub
     else:
-        key, out = load_key(), OUT
-    client = JevClient(key, transport=transport, budget=Budget(a.budget), allow_positional=allow_positional)
+        key, out = (load_key(name=D.KEY_NAME) if a.backend == "decisions" else load_key()), OUT / sub
+    client = JevClient(key, transport=transport, budget=Budget(a.budget), allow_positional=allow_positional,
+                       backend=a.backend)
 
     async def go() -> dict[str, dict]:
         allrecs: dict[str, dict] = {}
@@ -168,9 +196,11 @@ def run_cli(name: str, argv: list[str], build: Callable[[], list[Request]],
     summary["requests_sent_this_invocation"] = client.budget.used
     summary["models"] = sorted({str((v.get("response") or {}).get("model")) for v in recs.values()})
     summary["raw_records_scored"] = len(recs)
+    summary["backend"] = a.backend
+    summary["refusals"] = sum(D.refusals((v.get("response") or {}).get("body")) for v in recs.values())
     summary["http_status"] = dict(Counter(str((v.get("response") or {}).get("status")) for v in recs.values()))
     summary["request_ids"] = sorted(str((v.get("response") or {}).get("request_id")) for v in recs.values())
-    dest = (out / f"{name}.summary.json") if a.dry_run else (RESULTS / f"{name}.json")
+    dest = (out / f"{name}.summary.json") if a.dry_run else (RESULTS / sub / f"{name}.json")
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps(summary, indent=1, ensure_ascii=False, default=str) + "\n")
     print(f"{name}: summary written to {dest}")
