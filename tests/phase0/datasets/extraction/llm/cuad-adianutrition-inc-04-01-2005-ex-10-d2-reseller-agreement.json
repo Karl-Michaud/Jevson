@@ -1,0 +1,39 @@
+{
+ "doc_id": "cuad-adianutrition-inc-04-01-2005-ex-10-d2-reseller-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "RESELLER AGREEMENT",
+   "Reseller Agreement",
+   "Exhibit 10d-2",
+   "Exhibit A (PivX/Detto Reseller Agreement Addendum)"
+  ],
+  "contract.agreement_date": [
+   "2004",
+   "___ day of _________, 2004",
+   "Effective Date"
+  ],
+  "contract.effective_date": [
+   "2004",
+   "___ day of _________, 2004",
+   "Effective Date"
+  ],
+  "contract.expiration_date": [
+   "six (6) months"
+  ],
+  "contract.governing_law": [
+   "State of California",
+   "California",
+   "Washington"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "thirty (30) days",
+   "forty-five (45) days",
+   "10 days",
+   "six (6) months"
+  ]
+ }
+}

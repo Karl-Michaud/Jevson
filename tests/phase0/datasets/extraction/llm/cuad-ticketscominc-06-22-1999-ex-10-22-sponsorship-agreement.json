@@ -1,0 +1,9 @@
+{"doc_id": "cuad-ticketscominc-06-22-1999-ex-10-22-sponsorship-agreement", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["SPONSORSHIP AGREEMENT", "Sponsorship Agreement"],
+"contract.agreement_date": ["February 17, 1999"],
+"contract.effective_date": ["February 17, 1999", "Effective Date"],
+"contract.expiration_date": ["one (1) year subsequent to the Effective Date", "first anniversary of this Agreement"],
+"contract.governing_law": ["State of California", "California"],
+"contract.renewal_term": ["another year"],
+"contract.notice_period": ["thirty (30) days", "sixty (60) days", "thirty (30) day period"]
+}}

@@ -1,0 +1,18 @@
+{
+ "doc_id": "gsa-378095",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Zeiss Humphrey Field Analyzer 3 Model 860",
+   "Zeiss Humphrey Field Analyzer 3",
+   "Humphrey HFA3 860",
+   "860"
+  ],
+  "product.inventory": [
+   "(1)"
+  ],
+  "product.price": []
+ }
+}

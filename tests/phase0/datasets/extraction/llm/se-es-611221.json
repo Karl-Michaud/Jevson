@@ -1,0 +1,1 @@
+{"doc_id": "se-es-611221", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["chromadb", "onnxruntime", "pip", "python", "numpy~=1.21.6", "librería de chromadb para python"]}}

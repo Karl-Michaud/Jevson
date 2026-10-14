@@ -1,0 +1,182 @@
+{
+  "doc_id": "cord-test-041",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single restaurant receipt for one purchase; no distinct parties or multiple transactions.",
+  "processing_note": null,
+  "fields": {
+    "receipt.total_price": {
+      "status": "present",
+      "value": "365000.00",
+      "superseded": false,
+      "rationale": "The TOTAL line states 365000.00 as the final amount.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "correct"
+      }
+    },
+    "receipt.subtotal_price": {
+      "status": "present",
+      "value": "316017.00",
+      "superseded": false,
+      "rationale": "The Subtotal line states 316017.00 before the service charge.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "correct",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    },
+    "receipt.tax_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No separate tax amount is printed; only a service charge line appears.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong"
+      }
+    },
+    "receipt.service_price": {
+      "status": "present",
+      "value": "48982.68",
+      "superseded": false,
+      "rationale": "The Service Charge line states the amount 48982.68 (5% is the rate, not the amount).",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "correct",
+        "c13": "wrong"
+      }
+    },
+    "receipt.discount_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No discount appears on the receipt.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    },
+    "receipt.cashprice": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No cash tendered amount is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    },
+    "receipt.changeprice": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No change amount is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    },
+    "receipt.menuqty_cnt": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No total item count is printed on the receipt.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong"
+      }
+    }
+  }
+}

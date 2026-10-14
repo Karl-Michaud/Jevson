@@ -1,0 +1,21 @@
+{
+ "doc_id": "cuad-innerscopehearingtechnologiesinc-20181109-8-k-ex-10-6-114197",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Erchonia Corporation and InnerScope Hearing Technologies (Distributor).",
+ "processing_note": "Erchonia shall submit invoices to Distributor after or concurrent with shipment of Products to Distributor at the delivery address.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "ERCHONIA CORPORATION EXCLUSIVE DISTRIBUTOR AGREEMENT",
+   "superseded": false,
+   "rationale": "The heading titles the contract ERCHONIA CORPORATION EXCLUSIVE DISTRIBUTOR AGREEMENT.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  }
+ }
+}

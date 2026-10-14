@@ -1,0 +1,54 @@
+{
+ "doc_id": "fjc-1391946",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Names the subject judge plus the nominating president (George W. Bush) in a different role.",
+ "processing_note": null,
+ "fields": {
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1974",
+   "superseded": false,
+   "rationale": "B.A. from University of North Carolina awarded 1974.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "correct",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "August 1, 2003",
+   "superseded": false,
+   "rationale": "Commission for the first listed federal service (district judge) issued August 1, 2003; magistrate service is listed as other service.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  }
+ }
+}

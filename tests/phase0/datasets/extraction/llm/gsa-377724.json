@@ -1,0 +1,16 @@
+{
+ "doc_id": "gsa-377724",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "SONY DIGITAL HANDYCAM & RECORDING EQUIPMENT",
+   "Sony digital handycam with recording equipment",
+   "DCR-TRV38",
+   "Canon BP-2L12 battery pack"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

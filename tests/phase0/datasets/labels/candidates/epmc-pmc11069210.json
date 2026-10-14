@@ -1,0 +1,55 @@
+{
+ "doc_id": "epmc-pmc11069210",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient (pregnant woman); fetus and clinicians mentioned only in passing.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "SS and leptospirosis",
+   "superseded": false,
+   "rationale": "The summary names the underlying diagnoses as SS (Sjogren's syndrome, causing distal RTA and hypokalaemia) and leptospirosis; hypokalaemia/acidosis/RTA are manifestations.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "partial",
+    "c5": "partial",
+    "c6": "partial",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "ceftriaxone",
+   "superseded": false,
+   "rationale": "Ceftriaxone is the only drug given for a final diagnosis (leptospirosis); potassium and bicarbonate treated the electrolyte and acid-base disturbances.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong"
+   }
+  }
+ }
+}

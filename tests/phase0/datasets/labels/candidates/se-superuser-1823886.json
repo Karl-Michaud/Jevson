@@ -1,0 +1,27 @@
+{
+ "doc_id": "se-superuser-1823886",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "Excel",
+   "superseded": false,
+   "rationale": "Excel displays the Hindi UTF-8 text as mojibake.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,25 @@
+{
+  "doc_id": "cuad-paxmedica-inc-07-02-2020-ex-10-12-master-service-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "CRO Consulting (Pty) Limited and Purinix Pharmaceuticals LLC.",
+  "processing_note": "Fur the purposes of invoicing, invoices shall be addressed to: Purinix Pharmaceuticals LLC [***] Att: Chief Executive Officer",
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "the date of signature of the Agreement by both parties",
+      "superseded": false,
+      "rationale": "Clause 3.1 states the agreement takes effect on the date of signature by both parties, distinct from the 'entered into' date May 25th, 2018; signature blocks show 25/05/2008.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    }
+  }
+}

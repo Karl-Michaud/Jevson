@@ -1,0 +1,34 @@
+{
+  "passage_id": "cuad-bioamberinc-04-10-2013-ex-10-34-development-agreement-first-#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Jack Staboch, signatory for Cargill (VP BioTDC)",
+    "E2": "Jim Millis, signatory for BioAmber (CTO)",
+    "E3": "Pirkko Suominen, Director, Bio Technology Development Center, Cargill",
+    "E4": "Jean-François Huc, President of BioAmber SAS"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+ "doc_id": "fjc-1391131",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Brady, James J.",
+   "William J. Clinton",
+   "John V. Parker"
+  ],
+  "resume.law_institution": [
+   "Louisiana State University Law School (now Paul M. Hebert Law Center)",
+   "Louisiana State University Law School",
+   "Southeastern Louisiana College",
+   "Louisiana State University"
+  ],
+  "resume.law_year": [
+   "1969",
+   "1966",
+   "2000",
+   "1975",
+   "1980"
+  ],
+  "resume.undergrad_institution": [
+   "Southeastern Louisiana College",
+   "Louisiana State University Law School (now Paul M. Hebert Law Center)"
+  ],
+  "resume.undergrad_year": [
+   "1966",
+   "1969",
+   "1944"
+  ],
+  "resume.first_judgeship_start": [
+   "May 25, 2000",
+   "May 24, 2000",
+   "July 14, 1999",
+   "December 31, 2013",
+   "December 9, 2017"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Middle District of Louisiana",
+   "U.S. District Court for the Middle District of Louisiana"
+  ]
+ }
+}

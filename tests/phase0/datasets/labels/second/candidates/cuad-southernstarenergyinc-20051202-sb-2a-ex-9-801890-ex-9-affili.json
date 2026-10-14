@@ -1,0 +1,40 @@
+{
+  "doc_id": "cuad-southernstarenergyinc-20051202-sb-2a-ex-9-801890-ex-9-affili",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "element 5 GmbH, Software Publishers and Affiliates in different roles.",
+  "processing_note": "The payment can be made by wire transfer, Direct Deposit (US only) or check, as chosen by the Affiliate.",
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "upon acceptance of Affiliate's Program application",
+      "superseded": false,
+      "rationale": "Section IV §7 says the term begins upon acceptance of the Affiliate's Program application; the dated occurrences are filing footers.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement is for an unlimited period; there is no renewal term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    }
+  }
+}

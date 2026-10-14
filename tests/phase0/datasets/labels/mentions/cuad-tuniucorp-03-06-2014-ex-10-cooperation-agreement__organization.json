@@ -1,0 +1,32 @@
+{
+  "passage_id": "cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Nanjing Tuniu Technology Co., Ltd. (Party A)",
+    "E2": "Beijing Tuniu Technology Co., Ltd. (Party B)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

@@ -1,0 +1,23 @@
+SecurityException en administrador de dispositivos Android
+
+Estoy trabajando en una aplicación de Android que utiliza la administración del dispositivo para cambiar la contraseña del teléfono.
+
+Como muchos saben el administrador de dispositivos quedo obsoleto y solo funcionan algunos metodos como devicePolicyManager.lockNow(); pero si intento cambiar la contraseña del dispositivo como por ejemplo devicePolicyManager.resetPassword("", 0);
+
+Me lanzara un SecurityException, posiblemente por estar obsoleto el administrador de dispositivos.
+
+Recibo el siguiente error:
+
+java.lang.SecurityException: Calling identity is not authorized
+at android.os.Parcel.createExceptionOrNull(Parcel.java:3057)
+
+Registré la politica necesaria, existe otra manera de resetear con resetPasswordWithToken() pero no se si funcione, quisiera saber si existe alguna manera de saltarse el SecurityException editando alguna clase interna, o podria alguien explicarme como funciona.
+
+<?xml version="1.0" encoding="utf-8"?>
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+<uses-policies>
+...
+<reset-password/>
+...
+</uses-policies>
+</device-admin>

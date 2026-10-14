@@ -1,0 +1,33 @@
+{
+  "doc_id": "fjc-1391796",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Biography of one judge, but it names distinct other people in different roles (the nominating president and the judge whose seat was vacated).",
+  "processing_note": null,
+  "fields": {
+    "resume.first_judgeship_start": {
+      "status": "present",
+      "value": "March 27, 2003",
+      "superseded": false,
+      "rationale": "Commission issued on March 27, 2003; the identical earlier occurrence is the confirmation date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "wrong"
+      }
+    },
+    "resume.latest_position": {
+      "status": "present",
+      "value": "Judge, U.S. District Court for the Central District of California",
+      "superseded": false,
+      "rationale": "The only federal judicial service listed is the Central District of California judgeship; the Orange County post is a state court.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    }
+  }
+}

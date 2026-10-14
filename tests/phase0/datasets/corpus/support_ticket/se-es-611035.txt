@@ -1,0 +1,72 @@
+¿Por qué cuando quiero manipular el token (jwt) en React me dice que es undefined?
+
+Estoy implementando un modulo de autenticación con JWT, del lado del backend manda el token sin problemas pero cuando lo quiero almacenar en localstorage me dice que es undefined, no se si mi error está en como quiero procesarlo o almacenarlo.
+
+En el formulario del login agregue un par de console.log para depurar donde está el error y como mencioné al inicio si da como respuesta un accesstoken, pero en el segundo console.log me dice que el token es undefined.
+Este es el codigo del formulario:
+
+const Login = ({ onLogin }) => {
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [showPassword, setShowPassword] = useState(false);
+const history = useHistory();
+
+const handleTogglePassword = () => {
+setShowPassword(!showPassword);
+};
+
+const handleLogin = async () => {
+try {
+const response = await EntityClass.login({
+email,
+password,
+});
+console.log('Respuesta del servidor :', response);
+
+const { token } = response.data;
+
+localStorage.setItem('token', token);
+console.log('Inicio de sesión exitoso');
+onLogin();
+console.log('onLog');
+console.log('El token es:', localStorage.getItem('token'));
+history.push('/main');
+} catch (error) {
+console.error('Error de autenticación:', error);
+}
+};
+
+Y esta es la conexión al API:
+
+class EntityClass {
+static async login({ email, password }) {
+try {
+const response = await axios.post('http://api.com/api/authentication/login', {
+email,
+password,
+});
+
+const { token } = response.data;
+
+localStorage.setItem('token', token);
+return response;
+} catch (error) {
+throw new Error('Error de autenticación: ' + error.message);
+}
+}
+
+static async logout() {
+try {
+localStorage.removeItem('token');
+} catch (error) {
+console.error('Error al cerrar sesión:', error);
+}
+}
+}
+
+export default EntityClass;
+
+Esto me está trayendo problemas al querer implementar cualquier otro módulo, pues no puedo utilizar el token para enviar las request nuevamente al servidor. También implemente un metodo de que si el usuario se autentica puede acceder a otras rutas, sino está autenticado no deja acceder a ninguna de las páginas, por este lado no hay problemas.
+Al ser mi primera vez implementando este tipo de módulos no se que estoy pasando por alto.
+
+Aqui como se ven los console.log:

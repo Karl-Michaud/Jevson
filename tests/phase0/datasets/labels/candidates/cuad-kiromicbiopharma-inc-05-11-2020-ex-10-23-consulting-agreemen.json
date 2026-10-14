@@ -1,0 +1,91 @@
+{
+ "doc_id": "cuad-kiromicbiopharma-inc-05-11-2020-ex-10-23-consulting-agreemen",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: Kiromic, Inc. (the Company) and the individual consultant Gianluca Rotino.",
+ "processing_note": "Any required notice shall be given in writing by customary means with receipt confirmed at the address of each party set forth below, or to such other address as either party may substitute by written notice to the other.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "CONSULTING AGREEMENT",
+   "superseded": false,
+   "rationale": "The letter is headed CONSULTING AGREEMENT and calls itself this Consulting Agreement.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "July 20, 2018",
+   "superseded": false,
+   "rationale": "The letter agreement is dated July 20, 2018; July 1, 2018 is the separately stated effective date.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "July 1, 2018",
+   "superseded": false,
+   "rationale": "Section 12: the letter agreement will be effective as of July 1, 2018.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement continues until terminated; no expiration date is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "laws of the State of Texas",
+   "superseded": false,
+   "rationale": "Section 9: governed by the laws of the State of Texas; other Texas mentions are the address, arbitration seat, or gap-filling for arbitration rules.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No fixed term or renewal provision.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal, so no notice period to prevent renewal; termination is on prior written notice of unspecified length.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  }
+ }
+}

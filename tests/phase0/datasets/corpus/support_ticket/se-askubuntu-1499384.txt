@@ -1,0 +1,44 @@
+How to set pin-1 for Python in Ubuntu 22?
+
+I tried to install pharokka on Ubuntu 22.04. I first tried with conda, as suggested, then mamba, again as suggested. But the installation did not go through. I tried to install from source but I need to install the dependencies indicated. The first dependency was bcbio-gff, but during the installation from conda (conda install bcbio-gff) I got the error:
+
+$ conda install bcbio-gff
+Channels:
+- conda-forge
+- bioconda
+- defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): done
+Solving environment: / warning libmamba Added empty dependency for problem type SOLVER_RULE_UPDATE
+failed
+
+LibMambaUnsatisfiableError: Encountered problems while solving:
+- package bcbio-gff-0.6.2-py_0 requires bx-python, but none of the providers can be installed
+
+Could not solve for environment specs
+The following packages are incompatible
+├─ bcbio-gff is installable and it requires
+│ └─ bx-python with the potential options
+│ ├─ bx-python [0.10.0|0.8.13|0.9.0] would require
+│ │ └─ python >=3.10,<3.11.0a0 , which can be installed;
+...
+└─ pin-1 is not installable because it requires
+└─ python 3.11.* , which conflicts with any installable versions previously reported.
+
+Pins seem to be involved in the conflict. Currently pinned specs:
+- python 3.11.* (labeled as 'pin-1')
+
+I got the same error with conda install bx-python so I installed python 3.12 (conda install python=3.12) since I though it was more advanced than 3.11, but now I get the error:
+
+...
+└─ pin-1 is not installable because it requires
+└─ python 3.12.* , which conflicts with any installable versions previously reported.
+
+Pins seem to be involved in the conflict. Currently pinned specs:
+- python 3.12.* (labeled as 'pin-1')
+
+Thus, I thin the error was not in the version of python but on something upstream.
+
+How can I install these packages properly? How can I solve this pin-1 problem? What is pin-1 in the first place?
+
+Thank you

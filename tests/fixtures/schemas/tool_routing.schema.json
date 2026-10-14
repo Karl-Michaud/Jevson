@@ -1,0 +1,19 @@
+{
+  "description": "Route a user query to the most relevant datasource.",
+  "properties": {
+    "datasource": {
+      "description": "Given a user question choose to route it to web search or a vectorstore.",
+      "enum": [
+        "vectorstore",
+        "web_search"
+      ],
+      "title": "Datasource",
+      "type": "string"
+    }
+  },
+  "required": [
+    "datasource"
+  ],
+  "title": "RouteQuery",
+  "type": "object"
+}

@@ -1,0 +1,31 @@
+{
+ "doc_id": "se-superuser-1823915",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "A request for a sync tool recommendation; no single affected product is named, only candidate tools evaluated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  }
+ }
+}

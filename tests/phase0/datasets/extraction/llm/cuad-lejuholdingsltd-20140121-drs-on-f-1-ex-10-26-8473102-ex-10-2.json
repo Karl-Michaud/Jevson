@@ -1,0 +1,28 @@
+{
+ "doc_id": "cuad-lejuholdingsltd-20140121-drs-on-f-1-ex-10-26-8473102-ex-10-2",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "MUTUAL TERMINATION AGREEMENT",
+   "Termination Agreement",
+   "Domain Name License Agreement",
+   "Original Agreement"
+  ],
+  "contract.agreement_date": [
+   "2009",
+   "May 8, 2008"
+  ],
+  "contract.effective_date": [
+   "2009",
+   "May 8, 2008"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "PRC"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": []
+ }
+}

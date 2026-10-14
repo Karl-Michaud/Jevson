@@ -1,0 +1,26 @@
+{
+ "doc_id": "se-es-611395",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user asking a programming question; no other parties.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "php",
+   "superseded": false,
+   "rationale": "The user is building a user registration system in PHP.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  }
+ }
+}

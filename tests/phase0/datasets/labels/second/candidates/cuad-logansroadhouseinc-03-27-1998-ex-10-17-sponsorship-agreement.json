@@ -1,0 +1,32 @@
+{
+  "doc_id": "cuad-logansroadhouseinc-03-27-1998-ex-10-17-sponsorship-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Southern Racing Promotions, Inc. (SRP) and Logan's Roadhouse, Inc. as contracting parties, plus driver Brad Baker.",
+  "processing_note": null,
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "SPONSORSHIP AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading and the preamble ('THIS SPONSORSHIP AGREEMENT') both name the contract Sponsorship Agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term runs through November 30, 1998 with no renewal, so there is no non-renewal notice period; options are a cure period and an insurance cancellation notice.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    }
+  }
+}

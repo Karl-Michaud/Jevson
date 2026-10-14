@@ -1,0 +1,35 @@
+{
+ "doc_id": "cuad-rareelementresourcesltd-20171019-sc-13d-ex-99-4-10897534-ex-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "INTELLECTUAL PROPERTY RIGHTS AGREEMENT",
+   "IP Rights Agreement",
+   "IP Agreement"
+  ],
+  "contract.agreement_date": [
+   "October 2, 2017"
+  ],
+  "contract.effective_date": [
+   "Closing Date",
+   "October 2, 2017"
+  ],
+  "contract.expiration_date": [
+   "the expiration of the last to expire of the Patents",
+   "Option Period"
+  ],
+  "contract.governing_law": [
+   "state of New York and of the United States of America",
+   "state of New York",
+   "New York"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "sixty (60) days",
+   "thirty (30) days",
+   "ten (10) Business Days"
+  ]
+ }
+}

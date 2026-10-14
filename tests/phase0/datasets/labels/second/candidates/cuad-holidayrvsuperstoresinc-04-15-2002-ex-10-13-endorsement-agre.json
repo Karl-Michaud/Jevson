@@ -1,0 +1,34 @@
+{
+  "doc_id": "cuad-holidayrvsuperstoresinc-04-15-2002-ex-10-13-endorsement-agre",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: Holiday RV Superstores (the Company) and Affinity Group, Inc. (AGI).",
+  "processing_note": "Any notice shall be given by registered or certified mail, postage prepaid, and shall be deemed to have been given when deposited in the United States mail.",
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "20th day of March 2002",
+      "superseded": false,
+      "rationale": "The term commences on the date of this Agreement, which is made as of the 20th day of March 2002.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term expires on the third anniversary of the agreement date, which is not stated as a calendar date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    }
+  }
+}

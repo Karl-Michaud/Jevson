@@ -1,0 +1,109 @@
+{
+ "doc_id": "cuad-ticketscominc-06-22-1999-ex-10-22-sponsorship-agreement",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Agreement between Tickets.com, Inc. and MP3.com, Inc., each with its own address.",
+ "processing_note": "The confidential redacted portion has been omitted and filed separately with the Securities and Exchange Commission.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "SPONSORSHIP AGREEMENT",
+   "superseded": false,
+   "rationale": "The title and preamble name it the Sponsorship Agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "February 17, 1999",
+   "superseded": false,
+   "rationale": "Made and entered into on February 17, 1999.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "February 17, 1999",
+   "superseded": false,
+   "rationale": "February 17, 1999 is defined as the Effective Date; other occurrences are only the defined-term label.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The term ends one year after the Effective Date, which is not stated as a calendar date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of California",
+   "superseded": false,
+   "rationale": "Section 8 selects the laws of the State of California; the later California occurrence is the venue.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "present",
+   "value": "another year",
+   "superseded": false,
+   "rationale": "Tickets may renew the Agreement for another year.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "correct"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Renewal is an option exercised within a 30-day window; there is no notice to prevent renewal.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong"
+   }
+  }
+ }
+}

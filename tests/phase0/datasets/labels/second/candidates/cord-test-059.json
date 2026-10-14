@@ -1,0 +1,70 @@
+{
+ "doc_id": "cord-test-059",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "A single purchase transaction between one merchant and one customer.",
+ "processing_note": null,
+ "fields": {
+  "receipt.total_price": {
+   "status": "present",
+   "value": "680,500",
+   "superseded": false,
+   "rationale": "The final line \"Total 680,500\" is the amount payable; other amounts are line items, subtotal or tax.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "correct"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "present",
+   "value": "21",
+   "superseded": false,
+   "rationale": "\"Total Qty 21\" is the printed total count of items purchased; \"Total Item 9\" counts distinct lines.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong",
+    "c22": "wrong",
+    "c23": "wrong",
+    "c24": "wrong",
+    "c25": "wrong",
+    "c26": "wrong",
+    "c27": "correct",
+    "c28": "wrong",
+    "c29": "wrong",
+    "c30": "wrong"
+   }
+  }
+ }
+}

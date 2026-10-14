@@ -1,0 +1,27 @@
+{
+ "doc_id": "cuad-nyliacvariableannuityseparateaccountiii-04-10-2020-ex-99-8-k",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "SERVICE AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "1st day of January, 1998"
+  ],
+  "contract.effective_date": [
+   "1st day of January, 1998"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "Commonwealth of Massachusetts",
+   "Massachusetts"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "ninety (90) days' written notice",
+   "ninety (90) days"
+  ]
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "doc_id": "cuad-vnueinc-20150914-8-k-ex-10-1-9259571-ex-10-1-promotion-agree",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "PROMOTION AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "September 10, 2015"
+  ],
+  "contract.effective_date": [
+   "September 10, 2015"
+  ],
+  "contract.expiration_date": [
+   "January 16, 2016"
+  ],
+  "contract.governing_law": [
+   "State of Nevada",
+   "Nevada"
+  ],
+  "contract.renewal_term": [
+   "One (1) Year"
+  ],
+  "contract.notice_period": [
+   "Thirty (30) Days"
+  ]
+ }
+}

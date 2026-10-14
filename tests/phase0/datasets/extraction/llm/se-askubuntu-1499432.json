@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1499432", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Blue Yeti microphone", "Blue Yeti", "Yeti", "pavucontrol", "Ubuntu 20.04", "Digital Stereo Duplex"]}}

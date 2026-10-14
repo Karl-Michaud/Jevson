@@ -1,0 +1,43 @@
+{
+  "passage_id": "cuad-embarkcominc-19991008-s-1a-ex-10-10-6487661-ex-10-10-co-bran#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Snap (Snap Technologies, Inc., the filer embark.com)",
+    "E2": "the Sponsor (United Airlines, not named in this passage)",
+    "E3": "Securities and Exchange Commission"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

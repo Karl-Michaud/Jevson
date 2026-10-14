@@ -1,0 +1,91 @@
+{
+ "doc_id": "cuad-lejuholdingsltd-20140121-drs-on-f-1-ex-10-26-8473102-ex-10-2",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: Beijing SINA Internet Information Service Co. and Shanghai SINA Leju Information Technology Co. Ltd.",
+ "processing_note": null,
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "MUTUAL TERMINATION AGREEMENT",
+   "superseded": false,
+   "rationale": "The agreement names itself 'MUTUAL TERMINATION AGREEMENT' (short form 'Termination Agreement'); 'Domain Name License Agreement'/'Original Agreement' is the terminated prior agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "partial",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "partial",
+    "c7": "partial",
+    "c8": "wrong",
+    "c9": "partial",
+    "c10": "partial",
+    "c11": "partial",
+    "c12": "partial",
+    "c13": "partial"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "partial_only",
+   "value": "2009",
+   "superseded": false,
+   "rationale": "The date line reads 'this day of , 2009' with day and month blank, so only the year is stated; May 8, 2008 is the original agreement's date and 1/21/2014 the filing date.",
+   "options": {
+    "c0": "partial",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "partial_only",
+   "value": "2009",
+   "superseded": false,
+   "rationale": "The termination is effective as of the date of this agreement, which is stated only as '__ day of __, 2009'.",
+   "options": {
+    "c0": "partial",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "A termination agreement with no term; no expiration date is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "PRC",
+   "superseded": false,
+   "rationale": "Section 3: governed by the laws of the PRC.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal provision.",
+   "options": {}
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal or non-renewal notice provision.",
+   "options": {}
+  }
+ }
+}

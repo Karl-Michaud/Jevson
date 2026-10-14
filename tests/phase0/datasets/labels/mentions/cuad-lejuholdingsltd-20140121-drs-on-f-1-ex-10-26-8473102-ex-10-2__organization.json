@@ -1,0 +1,43 @@
+{
+  "passage_id": "cuad-lejuholdingsltd-20140121-drs-on-f-1-ex-10-26-8473102-ex-10-2#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Beijing SINA Internet Information Service Co., Ltd.",
+    "E2": "Shanghai SINA Leju Information Technology Co. Ltd.",
+    "E3": "Leju Holdings Ltd, the filer"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

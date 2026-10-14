@@ -1,0 +1,44 @@
+{
+  "doc_id": "gsa-378104",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single lot with generic roles only.",
+  "processing_note": "Additional Information: Winning bidder is responsible for palletizing and shipping.",
+  "fields": {
+    "product.title": {
+      "status": "present",
+      "value": "336 Three Inch Binders",
+      "superseded": false,
+      "rationale": "The heading is the listing title.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    },
+    "product.inventory": {
+      "status": "present",
+      "value": "336",
+      "superseded": false,
+      "rationale": "The heading and overview state 336 binders.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "product.price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The listing states no asking or sale price.",
+      "options": {}
+    }
+  }
+}

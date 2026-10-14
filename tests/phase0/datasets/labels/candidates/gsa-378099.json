@@ -1,0 +1,48 @@
+{
+  "doc_id": "gsa-378099",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Involves the VA as holder, a named GSA contact receiving the Medical Statement, the manufacturer Bioness and the bidder.",
+  "processing_note": "Must coordinate pick up 24 hours in advance.",
+  "fields": {
+    "product.title": {
+      "status": "present",
+      "value": "Orthosis Apparatus (RH) w/Wireless Remote",
+      "superseded": false,
+      "rationale": "The heading is the listing title; the overview phrase is a description.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "product.inventory": {
+      "status": "present",
+      "value": "(1)",
+      "superseded": false,
+      "rationale": "Overview states the lot contains (1) orthosis apparatus.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong"
+      }
+    },
+    "product.price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The listing states no asking or sale price.",
+      "options": {}
+    }
+  }
+}

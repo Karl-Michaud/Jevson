@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1498690", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Ubuntu 20.04.6 LTS", "Ubuntu PRO", "apt", "node", "top", "browser", "Ubuntu"]}}

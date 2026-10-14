@@ -1,0 +1,123 @@
+{
+ "doc_id": "fjc-1387921",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Biography of Frederic N. Smalkin that also names the nominating president, predecessor, a judge he clerked for, and two federal judicial positions.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Smalkin, Frederic N.",
+   "superseded": false,
+   "rationale": "Header name of the person described.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_institution": {
+   "status": "present",
+   "value": "University of Maryland School of Law (now Francis King Carey School of Law)",
+   "superseded": false,
+   "rationale": "J.D. awarded by University of Maryland School of Law (with its current name in parentheses); the later mention is a lecturer post.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong"
+   }
+  },
+  "resume.law_year": {
+   "status": "present",
+   "value": "1971",
+   "superseded": false,
+   "rationale": "J.D. dated 1971 in the Education section.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "correct",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong"
+   }
+  },
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "Johns Hopkins University",
+   "superseded": false,
+   "rationale": "B.A. from Johns Hopkins University.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1968",
+   "superseded": false,
+   "rationale": "B.A. dated 1968; other 1968 is Army service.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "correct",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "September 26, 1986",
+   "superseded": false,
+   "rationale": "Commission issued September 26, 1986 for the district judgeship; the earlier magistrate service lists no commission date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  },
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. District Court for the District of Maryland",
+   "superseded": true,
+   "rationale": "District judgeship (1986-2011) is the latest federal service; earlier magistrate position (1976-1986) preceded it.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,1 @@
+{"doc_id": "gsa-377529", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Sentry Safes, 2 ea", "Sentry Safes", "Sentry 1330 safe", "Sentry 6560 safe"], "product.inventory": ["2 ea", "(2)", "2", "one Sentry 1330 safe", "one Sentry 6560 safe"], "product.price": []}}

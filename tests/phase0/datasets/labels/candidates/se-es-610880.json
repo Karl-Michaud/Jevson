@@ -1,0 +1,25 @@
+{
+ "doc_id": "se-es-610880",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "laravel",
+   "superseded": false,
+   "rationale": "The user cannot delete a file from storage in a Laravel project.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  }
+ }
+}

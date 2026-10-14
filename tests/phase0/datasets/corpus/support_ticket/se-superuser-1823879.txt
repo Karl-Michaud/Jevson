@@ -1,0 +1,47 @@
+Often getting "This site can't be reached - refused to connect" error - WordPress and Nextcloud behind SWAG reverse proxy
+
+I've recently added a WordPress instance to my Unraid server, but now I'm often running into the error "This site can't be reached - refused to connect" when attempting to access both my Wordpress and Nextcloud instances which are connected to my personal domain behind a SWAG reverse proxy.
+
+What could be causing this?
+
+It seems completely random, and I am unable to find any hints of what is going on from any of the logs I've checked. I'll outline each step a web browser takes to arrive at my server, along with all of the troubleshooting I've done at each step.
+
+User types in either cloud2.mydomain.com or catawumpus.mydomain.com. HTTP / HTTPS doesn't matter - both work (HTTP redirects to HTTPS). These domains are linked to DuckDNS so that they track my home's dynamic IP address (this shouldn't matter too much, though, as DuckDNS says our home's IP address last changed seven months ago).
+
+I have tried restarting the DuckDNS container, but this didn't stop the error.
+
+Request continues to our home router, which forwards ports 443 and 80 to my server. Our home has a Firewalla device, so both ports are also forwarded through that to my server.
+
+I checked, and our home router does have a basic firewall enabled, which doesn't have any sort of logging with it. It seems to only block a specific range of ports. It wouldn't make sense for this to be the issue, as requests would never get through.
+
+I have checked Firewalla logs for my server, and does not seem to be blocking anything related to my domain. I did unblock an outbound request from my server to pixel.wp.com, but that didn't seem to help. I also added a rule to always allow my domain to be accessed on the network.
+
+When I am getting the "refused to connect" error, it seems that often Firewalla's logs don't ever have a record of the connection going through it on the way to the server.
+
+Request arrives at my server (running Unraid), where it goes through the SWAG reverse proxy and is routed to the requested resource.
+
+When I am getting the "refused to connect error," I can never find any record of the request in any of the SWAG logs. I have checked all of them:
+
+NGINX access / error logs: Nothing
+
+Fail2ban log (built in to SWAG): Did catch it banning our home's IP address from accessing my server for six minutes at a time because my Nextcloud Android client was making too many failed requests to my server. Logged into the app with an app password instead of the regular login page, and this stopped. Also disabled the jail responsible just in case. Problem continues, however.
+
+PHP log: Nothing
+
+LetsEncrypt log: Nothing.
+
+I do have the Netdata container, so I could potentially do some digging in its logs, but it gives me so much information I'm not sure where to start looking!
+
+Request continues to requested resource (either Nextcloud or Wordpress). It is a bit difficult for me to get logs / troubleshoot down to this level.
+
+The WordPress access log is quite difficult to read, but from what I can tell, anything that makes it down to the WordPress container is processed successfully.
+
+I can say that I have been getting dozens of emails a day from Jetpack informing me that my site has been down, and then is back up. Because the time is so short between emails, though, by the time I see the site down notification, I've already received the site back up notification.
+
+I'm using the Nextcloud AIO image, which makes it a bit more difficult to use the Nextcloud OCC command to pull logs. I took a peek in the Nextcloud logs in the UI, but I didn't seem anything particularly incriminating.
+
+Couple of other issues that may also be caused by this, which I'm noting just in case they help identify the root issue:
+
+Possibly related issue I'll note just in case it helps track down the main issue: I am unable to use Nextcloud Office. I can open a document in it, but it seems to lose connection to the server after about a minute (so it can no longer save the document).
+
+Another possibly related issue: It seems that the Nextcloud Android app refuses to believe that my server is ever online. I can log in, but it then shortly after will inform me that my server is offline, and never reconnect to it (even when I am able to access the Web UI from my phone just fine). Could be an issue with the NC app and the Nextcloud AIO image (vs. using the official one?)

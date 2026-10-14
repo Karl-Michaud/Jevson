@@ -1,0 +1,154 @@
+{
+  "doc_id": "cord-test-020",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single restaurant bill; no named parties, one transaction.",
+  "processing_note": null,
+  "fields": {
+    "receipt.total_price": {
+      "status": "present",
+      "value": "377,859",
+      "superseded": false,
+      "rationale": "TOTAL 377,859 is subtotal plus service and PB1 tax.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct"
+      }
+    },
+    "receipt.subtotal_price": {
+      "status": "present",
+      "value": "325,600",
+      "superseded": false,
+      "rationale": "SUBTOTAL 325,600.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "receipt.tax_price": {
+      "status": "present",
+      "value": "34,351",
+      "superseded": false,
+      "rationale": "10% PB1 34,351 is the tax amount; 10% is the rate.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "wrong"
+      }
+    },
+    "receipt.service_price": {
+      "status": "present",
+      "value": "17,908",
+      "superseded": false,
+      "rationale": "Service chrg 17,908.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "receipt.discount_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No discount is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "receipt.cashprice": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No payment tendered is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "receipt.changeprice": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No change is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "receipt.menuqty_cnt": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No total item count is printed; only per-line quantities (1,1,1,1,4) appear.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong"
+      }
+    }
+  }
+}

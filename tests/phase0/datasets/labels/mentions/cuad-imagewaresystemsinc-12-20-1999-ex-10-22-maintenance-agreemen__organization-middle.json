@@ -1,0 +1,39 @@
+{
+  "passage_id": "cuad-imagewaresystemsinc-12-20-1999-ex-10-22-maintenance-agreemen#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "MORPHO (SAGEM S.A., Departement MORPHO Systemes), the customer",
+    "E2": "XIMAGE corporation, the maintenance provider",
+    "E3": "the Disclosing Party - generic role, either party",
+    "E4": "the Recipient - generic role, either party"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

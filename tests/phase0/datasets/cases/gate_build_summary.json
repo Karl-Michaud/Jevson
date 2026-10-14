@@ -1,0 +1,17 @@
+{
+ "sampling": {
+  "pool_present": 152,
+  "pool_absent": 139,
+  "hard_swaps": 0,
+  "repeated_swaps": 0,
+  "n_present": 150,
+  "n_absent": 139,
+  "hard_share": 0.3737024221453287,
+  "hard_present": 56,
+  "hard_absent": 52,
+  "repeated_present": 63
+ },
+ "instances": 780,
+ "documents": 157,
+ "non_english_cases": 47
+}

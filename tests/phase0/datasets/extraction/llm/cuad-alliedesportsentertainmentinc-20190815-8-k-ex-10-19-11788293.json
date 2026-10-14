@@ -1,0 +1,39 @@
+{
+ "doc_id": "cuad-alliedesportsentertainmentinc-20190815-8-k-ex-10-19-11788293",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "JOINT CONTENT LICENSE AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "February 1, 2018",
+   "August 24, 2017"
+  ],
+  "contract.effective_date": [
+   "February 1, 2018",
+   "Effective Date"
+  ],
+  "contract.expiration_date": [
+   "three (3) years",
+   "three (3) years from the Effective Date",
+   "July 1, 2020"
+  ],
+  "contract.governing_law": [
+   "State of California",
+   "California",
+   "the laws of the State of California"
+  ],
+  "contract.renewal_term": [
+   "two (2) years",
+   "additional two (2) years"
+  ],
+  "contract.notice_period": [
+   "thirty (30) days",
+   "five (5) business days",
+   "five (5) days",
+   "two (2) months"
+  ]
+ }
+}

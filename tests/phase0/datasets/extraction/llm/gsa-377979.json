@@ -1,0 +1,1 @@
+{"doc_id": "gsa-377979", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Office Furniture - Entrance 2", "office furniture"], "product.inventory": ["(3)", "(1)", "(2)", "1605DD-6245-OFH1-4"], "product.price": []}}

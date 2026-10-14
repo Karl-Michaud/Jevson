@@ -1,0 +1,100 @@
+Notice: Undefined index: id_no_departamento
+
+Mi código en el que me marca error es este:
+
+<?php
+include ("conexion.php");
+//Recibir los datos y almacenar en variables
+$id_no_departamento = $_POST["id_no_departamento"];
+$nombre_departamento = $_POST["nombre_departamento"];
+$con=conectar();
+//Consultar para insertar
+
+$insertar = "INSERT INTO departamento(id_no_departamento, nombre_departamento) VALUES ('$id_no_departamento', '$nombre_departamento') ";
+//Ejecutar consulta
+$resultado = mysqli_query($con, $insertar);
+if (!$resultado) {
+echo 'Error al registarse';
+} else {
+echo 'Departamento registrado exitosamente';
+}
+//Cerrar conexion
+mysqli_close($con);
+
+Y mi código con el formulario es este:
+
+<!DOCTYPE html>
+<meta charset='UTF-8'>
+
+<link rel="stylesheet" type="text/css" href= "estilo2.css">
+
+<?php
+$con=mysqli_connect("localhost", "root","","registroservicios") or die ("Error");
+?>
+
+<html>
+<head>
+<title> Formulario De Departamentos </title>
+
+<meta charset="UTF-8">
+</head>
+
+<body>
+<body>
+<div align="center"> <img src="../../../registroservicios/imagenes/imgsabinas.jpg" align="left"></p></div></h1>
+<br>
+<br>
+<img src="../../../registroservicios/imagenes/imgpeñoles.png" align="right">
+<br>
+<br>
+<br>
+<h1> <div align="center"> <p><center></center>SISTEMA DE REGISTRO DE SERVICIOS REALIZADOS A UNIDADES DE MINERA SABINAS </center> </p></div></h1>
+
+<form action="registrardepartamento.php" method="post" class="form-register" onsubmit="return validar ();">
+<div class="form">
+<form action="#" method="POST">
+<h1><div align="center"> <body><center> REGISTRO DE DEPARTAMENTO NUEVO </center></body></h1>
+
+<p>Numero de Departamento </p>
+<label for="id_no_departamento "></label>
+<br>
+<input type="numero" name="id_no_departamento " placeholder="id_no_departamento " required>
+
+<p>Nombre de Departamento</p>
+<label for="nombre_departamento"></label>
+<br>
+<input type="text" name="nombre_departamento" placeholder="nombre_departamento" required>
+
+<br>
+
+<br>
+
+<div align="center"> <input type="submit" value="Finalizar"></div>
+<br>
+<br>
+</form>
+
+<?php
+
+if (isset($_POST['insert'])) {
+
+$id_no_departamento= $_POST["id_no_departamento"];
+$nombre_departamento = $_POST["nombre_departamento"];
+
+$insertar = "INSERT INTO departamento(id_no_departamento, nombre_departamento ) VALUES ('$id_no_departamento' , '$nombre_departamento')";
+
+$ejecutar= mysqli_query($con, $insertar);
+
+if($ejecutar){
+echo "<h3> Insertado correctamente</h3>";
+
+}
+
+}
+?>
+<a href="javascript: history.go(-1)">Volver</a>
+</div>
+</body>
+</html>
+
+No me registra, me aparece ese error.

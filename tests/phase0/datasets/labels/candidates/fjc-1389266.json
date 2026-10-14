@@ -1,0 +1,138 @@
+{
+ "doc_id": "fjc-1389266",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Biography of John M. Walker Jr. naming nominating presidents, predecessors, and two successive federal judgeships.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Walker, John Mercer, Jr.",
+   "superseded": false,
+   "rationale": "Header name of the person described.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_institution": {
+   "status": "present",
+   "value": "University of Michigan Law School",
+   "superseded": false,
+   "rationale": "J.D. from University of Michigan Law School.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_year": {
+   "status": "present",
+   "value": "1966",
+   "superseded": false,
+   "rationale": "J.D. dated 1966; the other 1966 is a fellowship start.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "correct",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong",
+    "c22": "wrong",
+    "c23": "wrong",
+    "c24": "wrong",
+    "c25": "wrong",
+    "c26": "wrong",
+    "c27": "wrong",
+    "c28": "wrong"
+   }
+  },
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "Yale University",
+   "superseded": false,
+   "rationale": "B.A. from Yale University.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1962",
+   "superseded": false,
+   "rationale": "B.A. dated 1962.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "correct",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong",
+    "c22": "wrong",
+    "c23": "wrong",
+    "c24": "wrong",
+    "c25": "wrong",
+    "c26": "wrong",
+    "c27": "wrong",
+    "c28": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "July 22, 1985",
+   "superseded": false,
+   "rationale": "Commission for first (district court) judgeship issued July 22, 1985.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. Court of Appeals for the Second Circuit",
+   "superseded": true,
+   "rationale": "Second Circuit judgeship replaced the earlier district judgeship.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct"
+   }
+  }
+ }
+}

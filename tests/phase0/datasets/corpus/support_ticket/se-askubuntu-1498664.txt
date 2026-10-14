@@ -1,0 +1,23 @@
+Failed to execute default browser - Why this error message?
+
+On my computer (currently still) running Xubuntu 20.04.6 LTS I have installed Firefox and the non-snap-version of Chromium in parallel. Unfortunately the snap version of Chromium does not cooperate with KeePassXC at all. That's why I installed a non-snap-version of Chromium.
+
+For that purpose I used the recipe from How to install Chromium from the Linux Mint repositories in Ubuntu? in order to install the apt package provided by Linux Mint. Before doing so, I uninstalled the Chromium Snap package which I had before:
+
+sudo snap remove chromium
+
+I kept Firefox installed because for some situations it is good to have them both.
+
+Now I encountered the error message
+
+Failed to execute default Web Browser. Input/output error.
+
+(Of course Chromium works well when activated by the Start menu.) I checked the configuration of Chromium whether it is the default web browser or nit. It is. Despite that I got the error message.
+
+Which of the configuration files defines which application is default for web browser? (I know, there are a lot of files at ~/.config and below, but which one is it?)
+
+Is editing this file the recommended way to assign Chromium to be the default web browser?
+
+Or is there alternatively an app to do this?
+
+N.b.: From my Thunderbird email client, hyperlinks from mails can not be followed. This bug is not that bad because not following a link from an email without first carefully looking at where it actually leads to is always recommended. But maybe this symptom is caused by the same bug and mentioning it gives a hint what causes my reported issue.

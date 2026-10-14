@@ -1,0 +1,37 @@
+{
+ "doc_id": "se-askubuntu-1498664",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user describing their own computer.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "Chromium",
+   "superseded": false,
+   "rationale": "The failure concerns launching the installed non-snap Chromium as the default web browser.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "correct",
+    "c9": "correct",
+    "c10": "correct",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "correct",
+    "c15": "correct",
+    "c16": "correct",
+    "c17": "wrong"
+   }
+  }
+ }
+}

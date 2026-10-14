@@ -1,0 +1,121 @@
+{
+ "doc_id": "fjc-1391676",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Biography of Linda R. Reade naming the nominating president, predecessor, and several institutions and employers.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Reade, Linda R.",
+   "superseded": false,
+   "rationale": "Header name of the person described.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_institution": {
+   "status": "present",
+   "value": "Drake University Law School",
+   "superseded": false,
+   "rationale": "J.D. from Drake University Law School; Iowa State awarded an M.S.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct"
+   }
+  },
+  "resume.law_year": {
+   "status": "present",
+   "value": "1980",
+   "superseded": false,
+   "rationale": "J.D. dated 1980; other 1980s are job dates.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "correct",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong"
+   }
+  },
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "Drake University",
+   "superseded": false,
+   "rationale": "B.A. from Drake University; the later Drake mention is the law school.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1970",
+   "superseded": false,
+   "rationale": "B.A. dated 1970.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "November 26, 2002",
+   "superseded": false,
+   "rationale": "Commission issued November 26, 2002.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong"
+   }
+  },
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. District Court for the Northern District of Iowa",
+   "superseded": false,
+   "rationale": "Only federal judicial service; Iowa District Court is a state post.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  }
+ }
+}

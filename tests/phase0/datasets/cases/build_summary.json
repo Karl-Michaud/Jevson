@@ -1,0 +1,37 @@
+{
+ "sampling": {
+  "pool_present": 199,
+  "pool_absent": 169,
+  "hard_swaps": 7,
+  "repeated_swaps": 0,
+  "n_present": 150,
+  "n_absent": 150,
+  "hard_share": 0.3,
+  "hard_present": 45,
+  "hard_absent": 45,
+  "repeated_present": 63
+ },
+ "clusters": {
+  "passages": 267,
+  "labelled": 111,
+  "eligible": 52,
+  "excluded_ambiguous": 43,
+  "chosen_by_domain": {
+   "medical_intake": 7,
+   "contract": 37,
+   "product_listing": 6
+  }
+ },
+ "pools": {
+  "present": 199,
+  "absent": 169
+ },
+ "instances": 932,
+ "hostile": 50,
+ "present_fields_with_no_correct_option": 2,
+ "probe8": {
+  "paired_groups": 50,
+  "partial_only": 17,
+  "partial_only_shortfall": 33
+ }
+}

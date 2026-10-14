@@ -1,0 +1,59 @@
+{
+  "doc_id": "fjc-13761346",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "The biography names the judge plus other people in different roles (nominating president, predecessor judge, or a judge clerked for).",
+  "processing_note": null,
+  "fields": {
+    "resume.undergrad_institution": {
+      "status": "present",
+      "value": "Harvard University",
+      "superseded": false,
+      "rationale": "The A.B. was awarded by Harvard University.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    },
+    "resume.undergrad_year": {
+      "status": "present",
+      "value": "2001",
+      "superseded": false,
+      "rationale": "The A.B. from Harvard was awarded in 2001.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong",
+        "c21": "wrong",
+        "c22": "wrong",
+        "c23": "wrong",
+        "c24": "wrong",
+        "c25": "wrong",
+        "c26": "wrong",
+        "c27": "wrong",
+        "c28": "wrong",
+        "c29": "wrong"
+      }
+    }
+  }
+}

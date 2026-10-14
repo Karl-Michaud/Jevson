@@ -1,0 +1,32 @@
+{
+ "doc_id": "cuad-primeenergyresourcescorp-04-02-2007-ex-10-28-completion-and-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "COMPLETION AND LIOUDm MAINTENANCE 4GRFFMFST",
+   "EXHIBIT 10.23",
+   "THIS COMPLEHON AGREEMENT AND UQITDITV MAINTENANCE AGREEMENT",
+   "Agreement",
+   "Credit Agreement"
+  ],
+  "contract.agreement_date": [
+   "June 29, 2006",
+   "June 29,  2006",
+   "December!, 2002"
+  ],
+  "contract.effective_date": [
+   "June 29, 2006",
+   "June 29,  2006",
+   "December!, 2002"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "State ofTexas",
+   "Texas"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": []
+ }
+}

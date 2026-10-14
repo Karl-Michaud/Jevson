@@ -1,0 +1,46 @@
+{
+ "doc_id": "cord-test-009",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single receipt for one purchase transaction from one merchant.",
+ "processing_note": null,
+ "fields": {
+  "receipt.subtotal_price": {
+   "status": "present",
+   "value": "36000",
+   "superseded": false,
+   "rationale": "The value 36000 printed under the Sub Total label is the subtotal; the earlier 36000s are the item price and line amount.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct"
+   }
+  },
+  "receipt.discount_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Only a discount rate (0%) is printed, no discount amount.",
+   "options": {
+    "c0": "wrong"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No total item count is printed; the only quantity is the single line-item quantity 1.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc10933058", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["foetal gastroschisis", "gastroschisis"], "medical.treatment_drug": []}}

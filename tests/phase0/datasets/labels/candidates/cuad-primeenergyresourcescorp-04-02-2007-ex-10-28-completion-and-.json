@@ -1,0 +1,107 @@
+{
+ "doc_id": "cuad-primeenergyresourcescorp-04-02-2007-ex-10-28-completion-and-",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Three parties (Prime Energy, Guaranty Bank, Prime Offshore) plus a separate Credit Agreement.",
+ "processing_note": null,
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "COMPLETION AND LIOUDm MAINTENANCE 4GRFFMFST",
+   "superseded": false,
+   "rationale": "OCR-garbled title 'Completion and Liquidity Maintenance Agreement' appears as heading and in the preamble; 'Agreement'/'Credit Agreement' are a defined term and another agreement.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong",
+    "c22": "wrong",
+    "c23": "wrong",
+    "c24": "wrong",
+    "c25": "wrong",
+    "c26": "wrong",
+    "c27": "wrong",
+    "c28": "wrong",
+    "c29": "wrong",
+    "c30": "wrong",
+    "c31": "wrong",
+    "c32": "wrong"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "June 29, 2006",
+   "superseded": false,
+   "rationale": "Preamble says made and entered into effective as of June 29, 2006; other dates belong to the Credit Agreements.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "June 29, 2006",
+   "superseded": false,
+   "rationale": "Agreement is 'entered into effective as of June 29, 2006'; c1 is the Credit Agreement's date.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Agreement remains in force until Project Completion; no expiration date stated.",
+   "options": {
+    "c0": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State ofTexas",
+   "superseded": false,
+   "rationale": "Governed by laws of the State of Texas; the second 'Texas' is the court venue.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal provision.",
+   "options": {}
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal or non-renewal notice provision.",
+   "options": {}
+  }
+ }
+}

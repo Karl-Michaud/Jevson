@@ -1,0 +1,44 @@
+{
+  "properties": {
+    "title": {
+      "description": "The title of the video",
+      "title": "Title",
+      "type": "string"
+    },
+    "duration": {
+      "description": "The total duration of the video in seconds",
+      "title": "Duration",
+      "type": "number"
+    },
+    "main_topics": {
+      "description": "A list of main topics covered in the video",
+      "items": {
+        "type": "string"
+      },
+      "title": "Main Topics",
+      "type": "array"
+    },
+    "key_takeaways": {
+      "description": "The most important points from the entire video",
+      "items": {
+        "type": "string"
+      },
+      "title": "Key Takeaways",
+      "type": "array"
+    },
+    "target_audience": {
+      "description": "The intended audience for this content",
+      "title": "Target Audience",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "duration",
+    "main_topics",
+    "key_takeaways",
+    "target_audience"
+  ],
+  "title": "ContentSummary",
+  "type": "object"
+}

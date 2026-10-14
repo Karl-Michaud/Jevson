@@ -1,0 +1,101 @@
+{
+ "doc_id": "cuad-rewalkroboticsltd-07-10-2014-ex-10-2-strategic-alliance-agre",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two companies (Yaskawa Electric and Argo Medical) with several addresses and related agreements.",
+ "processing_note": "The address for all notices or other communications required to be sent to ARGO or YEC will be the mailing address stated on the signature page to this Agreement, or such other address as may be provided from one party to the other on at least ten (10) days prior written notice.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "STRATEGIC ALLIANCE AGREEMENT",
+   "superseded": false,
+   "rationale": "Title heading and preamble both name the Strategic Alliance Agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "September 24, 2013",
+   "superseded": false,
+   "rationale": "Entered into as of September 24, 2013; other dates are of the old NDA and a letter.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "September 24, 2013",
+   "superseded": false,
+   "rationale": "September 24, 2013 is defined as the Effective Date; other options are the defined term only.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Initial term is ten years from the Effective Date; no expiration date stated as a date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Israel",
+   "superseded": false,
+   "rationale": "Section 12.5 applies the laws of the State of Israel; other 'Israel' mentions are addresses, incorporation and venue.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "correct",
+    "c5": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Renewal only by mutual written agreement with a period to be agreed; no renewal term length stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No automatic renewal; the 30-day deadline is for agreeing to renew, not a notice to prevent renewal.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  }
+ }
+}

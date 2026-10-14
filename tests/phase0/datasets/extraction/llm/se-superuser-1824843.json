@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1824843", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["LLVM", "llc", "Clang", "clang", "llc --version", "llc -march=arm -mattr=help", "LLVM CL"]}}

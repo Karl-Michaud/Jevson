@@ -1,0 +1,13 @@
+{
+ "doc_id": "gsa-378294",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "1991 Air Cleaning Machine"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "doc_id": "cuad-adurobiotech-inc-06-02-2020-ex-10-7-consulting-agreement-1",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "CONSULTING AGREEMENT",
+   "Consulting Agreement"
+  ],
+  "contract.agreement_date": [
+   "June 1, 2020",
+   "July 1, 2020",
+   "December 31, 2020"
+  ],
+  "contract.effective_date": [
+   "July 1, 2020",
+   "June 1, 2020"
+  ],
+  "contract.expiration_date": [
+   "December 31, 2020"
+  ],
+  "contract.governing_law": [
+   "State of California",
+   "California",
+   "the Netherlands"
+  ],
+  "contract.renewal_term": [
+   "twelve (12) months"
+  ],
+  "contract.notice_period": [
+   "thirty days",
+   "twelve (12) months"
+  ]
+ }
+}

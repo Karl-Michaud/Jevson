@@ -1,0 +1,163 @@
+{
+ "doc_id": "cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Kathy Ireland, Inc., The Sterling/Winters Co. and Diplomat Ambassador Eyewear Group, with separate addresses.",
+ "processing_note": "All the above travel expenses of KI and the members of her entourage shall be billed directly to Diplomat.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "ENDORSEMENT AGREEMENT",
+   "superseded": false,
+   "rationale": "The contract calls itself the Endorsement Agreement (title, preamble, and the addendum's reference); the addendum's own title is a different name.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "August 24, 1995",
+   "superseded": false,
+   "rationale": "'made and entered into as of August 24, 1995', restated in the addendum; the Deal Memo date and addendum signature dates are other roles.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "correct",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "August 1, 1995",
+   "superseded": false,
+   "rationale": "The license term commences August 1, 1995 (the agreement itself is dated August 24, 1995); the license-year table dates are royalty-schedule entries.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "present",
+   "value": "January 30, 2000",
+   "superseded": false,
+   "rationale": "Paragraph 2(c): the term continues until January 30, 2000; 1/30/2000 in the royalty table is a license-year boundary.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of California",
+   "superseded": false,
+   "rationale": "Paragraph 24(c) applies the laws of the State of California; other occurrences are addresses or insurer qualification.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "correct"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement has no renewal provision.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal and therefore no notice period to prevent renewal; the options are statement, termination and sell-off periods.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  }
+ }
+}

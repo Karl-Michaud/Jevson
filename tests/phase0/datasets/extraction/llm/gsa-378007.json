@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378007", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["(1) Tommy Tailgate Lift and (1) Genie SLA-10 Lift", "Tommy Tailgate Lift", "Genie SLA-10 Lift", "Genie SLA-10"], "product.inventory": ["(1)", "47651G-6258-0019"], "product.price": []}}

@@ -1,0 +1,15 @@
+{
+ "doc_id": "gsa-378366",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "2008 Ford F550 Utility Truck",
+   "Ford F550",
+   "F550"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "doc_id": "cuad-azulsa-20170303-f-1a-ex-10-3-9943903-ex-10-3-maintenance-agr",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Global Maintenance Agreement",
+   "Amendment N\u00b0 1 Global Maintenance Agreement",
+   "Amendment"
+  ],
+  "contract.agreement_date": [
+   "January 6th, 2016",
+   "December 18th, 2015",
+   "March 9t h , 2015"
+  ],
+  "contract.effective_date": [
+   "January 6th, 2016",
+   "December 18th, 2015"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "State of New York",
+   "New York",
+   "New York, U.S.A",
+   "laws of Brazil"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "five (5) years"
+  ]
+ }
+}

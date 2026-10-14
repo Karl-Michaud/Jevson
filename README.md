@@ -45,7 +45,7 @@ For source-selected fields, when the source does not support any candidate you g
 
 ## Where it comes from
 
-Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe's own documented extraction pattern](https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook) for Jev, the model Jevson was first designed on, and several open projects implement it for single fields or fixed record types. Jevson is designed to generalise it into a compiler: nested objects, unions decided before anything is built, arrays with entity resolution, criteria-gated generative fields, and a typed three-outcome result verified by an adversarial suite. See [docs/DESIGN.md §9](docs/DESIGN.md#9-prior-art) for everything it builds on.
+Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe's own documented extraction pattern](https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook) for Jev, the model Jevson was first designed on, and several open projects implement it for single fields or fixed record types. Jevson is designed to generalise it into a compiler: nested objects, unions decided before anything is built, source-grounded arrays, criteria-gated generative fields, and a typed three-outcome result verified by an adversarial suite. See [docs/DESIGN.md §9](docs/DESIGN.md#9-prior-art) for everything it builds on.
 
 ## What it does not claim
 
@@ -63,6 +63,8 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 - **[docs/EVIDENCE.md](docs/EVIDENCE.md)** — the evidence register: every factual claim in DESIGN and PLAN, and the probe or source that established it
 
 Phase 0 is an empirical taxonomy plus probes with pre-registered thresholds, and it is allowed to conclude that the library should be smaller than described above.
+
+**Phase 0 has run** on `jev-1.13.0` ([docs/taxonomy.md](docs/taxonomy.md), [docs/gate-probe.md](docs/gate-probe.md); one exit criterion is open for the owner). After probe 9 the verdict is to drop source selection (see the findings at the top), and pairwise entity resolution is deferred past v0. Phase 0r re-runs these probes on the Decisions API.
 
 ## Licence
 

@@ -1,0 +1,128 @@
+{
+  "doc_id": "cuad-cheetahmobileinc-04-22-2014-ex-10-43-cooperation-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Cooperation agreement between Beike Internet (Beijing) Security Technology Co., Ltd. and Baidu Online Network Technology (Beijing) Co., Ltd.",
+  "processing_note": "The financial settlement between the parties will be carried out monthly.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Cooperation Agreement",
+      "superseded": false,
+      "rationale": "The heading and preamble name the Cooperation Agreement; 'Exhibit 10.43' is a filing label.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "partial_only",
+      "value": "April 2013",
+      "superseded": false,
+      "rationale": "Only the cover date April 2013 is given without a day; the signature dates are blank.",
+      "options": {
+        "c0": "partial",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "May 1, 2013",
+      "superseded": false,
+      "rationale": "Article 3.1.1 makes the agreement effective on May 1, 2013, the start of the Cooperation Term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "present",
+      "value": "April 30, 2015",
+      "superseded": false,
+      "rationale": "The Cooperation Term runs to April 30, 2015; April 30, 2013 is the termination date of earlier contracts.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "PRC Laws",
+      "superseded": false,
+      "rationale": "Article 10.1 (and 11.9) subject the agreement to PRC Laws; other PRC mentions are the place of execution or definitions.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "correct",
+        "c11": "correct"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal term is stated; the parties may only negotiate before expiry.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No notice to prevent renewal is stated; the one-month reference is a negotiation window.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

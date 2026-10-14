@@ -1,0 +1,29 @@
+{
+  "doc_id": "epmc-pmc10805999",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two separate patients (a 65-year-old woman and a 43-year-old man), each with their own history and treatment.",
+  "processing_note": null,
+  "fields": {
+    "medical.treatment_drug": {
+      "status": "present",
+      "value": "carbamazepine",
+      "superseded": false,
+      "rationale": "For the first patient (neurocysticercosis), levetiracetam was not given (unaffordable); the first drug actually given was carbamazepine; the second patient's levetiracetam belongs to a different patient.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "doc_id": "epmc-pmc10981515",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single patient.",
+  "processing_note": null,
+  "fields": {
+    "medical.diagnosis": {
+      "status": "present",
+      "value": "multiple DAVFs",
+      "superseded": false,
+      "rationale": "MR angiography showed multiple dural arteriovenous fistulas, which were embolized.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "wrong"
+      }
+    },
+    "medical.treatment_drug": {
+      "status": "present",
+      "value": "injectable mannitol",
+      "superseded": false,
+      "rationale": "Mannitol is the first drug started for the DAVF presentation (glue is an embolic agent, not a medication).",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    }
+  }
+}

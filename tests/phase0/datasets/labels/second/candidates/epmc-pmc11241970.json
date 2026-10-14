@@ -1,0 +1,33 @@
+{
+  "doc_id": "epmc-pmc11241970",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single patient; three other LCNEC cases are mentioned only as IHC samples.",
+  "processing_note": null,
+  "fields": {
+    "medical.diagnosis": {
+      "status": "present",
+      "value": "paraneoplastic anti-NMDA receptor encephalitis associated with LCNEC of the lung",
+      "superseded": true,
+      "rationale": "He was finally diagnosed with paraneoplastic anti-NMDA receptor encephalitis associated with LCNEC of the lung, replacing the earlier 'some type of immune-mediated encephalitis' diagnosis.",
+      "options": {
+        "c0": "partial",
+        "c1": "correct",
+        "c2": "partial",
+        "c3": "partial",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "partial",
+        "c9": "partial",
+        "c10": "correct",
+        "c11": "partial",
+        "c12": "partial",
+        "c13": "wrong"
+      }
+    }
+  }
+}

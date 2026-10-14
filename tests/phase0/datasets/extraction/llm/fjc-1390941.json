@@ -1,0 +1,47 @@
+{
+ "doc_id": "fjc-1390941",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Kennelly, Matthew F.",
+   "William J. Clinton",
+   "Paul E. Plunkett",
+   "Prentice Marshall"
+  ],
+  "resume.law_institution": [
+   "Harvard Law School",
+   "University of Notre Dame"
+  ],
+  "resume.law_year": [
+   "1981",
+   "1978",
+   "1982",
+   "1984",
+   "1999"
+  ],
+  "resume.undergrad_institution": [
+   "University of Notre Dame",
+   "Harvard Law School"
+  ],
+  "resume.undergrad_year": [
+   "1978",
+   "1981",
+   "1956",
+   "1982"
+  ],
+  "resume.first_judgeship_start": [
+   "April 22, 1999",
+   "April 15, 1999",
+   "January 26, 1999",
+   "September 16, 1998",
+   "October 7, 2021"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Northern District of Illinois",
+   "U.S. District Court for the Northern District of Illinois",
+   "Member, U.S. Judicial Panel on Multidistrict Litigation"
+  ]
+ }
+}

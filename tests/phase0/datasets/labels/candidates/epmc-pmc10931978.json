@@ -1,0 +1,40 @@
+{
+ "doc_id": "epmc-pmc10931978",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "ROHHAD-NET syndrome",
+   "superseded": false,
+   "rationale": "The clinical picture with ganglioneuroblastoma and high anti-ZSCAN1 supports ROHHAD-NET syndrome as the final diagnosis.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "immunoglobulin",
+   "superseded": false,
+   "rationale": "Daily immunoglobulin infusions treated the encephalopathy after tumor resection.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct"
+   }
+  }
+ }
+}

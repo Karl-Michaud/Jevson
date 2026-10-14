@@ -1,0 +1,21 @@
+{
+ "doc_id": "gsa-378358",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "PPE Kits 13EA",
+   "Tychem DuPont PPE kits",
+   "PPE kits"
+  ],
+  "product.inventory": [
+   "13",
+   "13EA",
+   "13 cases",
+   "25",
+   "Each case contains 25 individual protective equipment kits"
+  ],
+  "product.price": []
+ }
+}

@@ -1,0 +1,56 @@
+Problema con express-mysql-session clearExpired
+
+En mi servidor de Express guardo 2 cookies. Utilizo express-mysql-session. El problema es el siguiente, clearExpired y checkExpirationInterval no están funcionando correctamente. Una vez expirada la cookie, no se elimina automáticamente.
+
+Configuración express-mysql-session:
+
+const MYSQL_CONFIG = { host: MYSQL_HOST, user: MYSQL_USER, password: MYSQL_PASSWORD, database: MYSQL_DATABASE, port: MYSQL_PORT };
+const MYSQL_STORE_CONFIG = {
+...MYSQL_CONFIG,
+clearExpired: true,
+checkExpirationInterval: 3000
+};
+
+Configuración del servidor
+
+const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
+const sessionStore = new MySQLStore(MYSQL_STORE_CONFIG);
+const app = express();
+app.use(
+session({
+secret: SESSION_TOKEN,
+resave: false,
+saveUninitialized: false,
+store: sessionStore,
+cookie: {
+usuario: {
+name: "usuario",
+secure: false,
+maxAge: 36000000,
+sameSite: "Strict"
+},
+usuario: {
+name: "recovery",
+secure: false,
+maxAge: 6000,
+expires: 6000,
+sameSite: "Strict"
+},
+},
+})
+);
+
+maxAge: 6000 -> está puesto en 6 segundos para facilitar el testeo de clearExpired.
+
+Row de la sesión:
+
+{
+session_id: yOb7kbwAQeRNDMqEPSExrUXLuJW21woB,
+expires: 1705041526,
+data:{"cookie":
+{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},
+"recovery":{"token":"fff0545b2517956e159258c9951a4192d85436c0","id_usuario":"1"}
+}
+
+}

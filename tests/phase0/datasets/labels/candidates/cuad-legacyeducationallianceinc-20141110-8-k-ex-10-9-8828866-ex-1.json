@@ -1,0 +1,145 @@
+{
+ "doc_id": "cuad-legacyeducationallianceinc-20141110-8-k-ex-10-9-8828866-ex-1",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Three parties/entities: Tigrent Learning UK Limited (Company), Celebrity Speakers (CSA, agent) and Robbie Fowler (Talent), with several addresses; also references a separate Primary Agreement.",
+ "processing_note": "All Materials or any part thereof shall be sent by the Company to CSA for approval by Talent.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "TALENT ENDORSEMENT AGREEMENT",
+   "superseded": false,
+   "rationale": "The document is titled TALENT ENDORSEMENT AGREEMENT; 'Supplemental Agreement' in the preamble is a descriptive reference to its relation to the Primary Agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "partial_only",
+   "value": "2013",
+   "superseded": false,
+   "rationale": "The 'made as of' date is left blank except for the year 2013, and signature dates are blank.",
+   "options": {
+    "c0": "partial",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "1st January 2013",
+   "superseded": false,
+   "rationale": "Clause 3 makes it effective on execution (dates left blank), while the Commencement Date from which the rights and Term run is defined as 1st January 2013.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "partial",
+    "c5": "wrong",
+    "c6": "partial",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "partial",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "present",
+   "value": "315t December 2013",
+   "superseded": false,
+   "rationale": "The Term is defined as 1st January 2013 to 31st December 2013 (OCR '315t December 2013'), though clause 3 inconsistently refers to a 24-month license period.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "partial",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "partial",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "laws of England and Wales",
+   "superseded": false,
+   "rationale": "Clause 13: governed by the laws of England and Wales; other England mentions are addresses, place of making or venue.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "partial",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The Term may only be extended by mutual agreement; no renewal length is stated (24 months is the license period, not a renewal).",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No automatic renewal, so no notice period to prevent renewal.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  }
+ }
+}

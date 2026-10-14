@@ -1,0 +1,35 @@
+Share bandwidth equally
+
+I have a server with 100 Mbps bandwidth.
+
+Clients with dynamic IPs could connect to web server and download large files
+
+I need to use tc to allow them to use all bandwidth when they're dowloading alone or share bandwidth equally when downloading clients > 1
+
+Never before worked with tc
+
+I came up with :
+
+tc qdisc del root dev ens3 default 10
+tc qdisc add dev ens3 root handle 1: htb rate 100mbps
+tc class add dev ens3 parent 1: classid 1:1 htb rate 10mbps ceil 90mbps
+tc class add dev ens3 parent 1:1 classid 1:10 htb rate 10mbps ceil 90mbps
+
+But when two clients start downloading then they share 10mbps bandwidth
+
+I need when
+
+1 client - max 100 Mbps
+2 clients - max 50 Mbps each
+3 clients - max 33 Mbps each
+4 clients - max 25 Mbps each
+...
+
+How to make it work?
+
+Edit:
+Forgot to add
+
+There are maximum 10 clients who can download simultaneously
+
+And I guarantee 10 Mbps bandwidth for each client

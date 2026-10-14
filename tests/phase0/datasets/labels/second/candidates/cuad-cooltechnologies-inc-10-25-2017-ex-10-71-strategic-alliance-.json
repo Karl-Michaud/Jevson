@@ -1,0 +1,22 @@
+{
+  "doc_id": "cuad-cooltechnologies-inc-10-25-2017-ex-10-71-strategic-alliance-",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Cool Technologies Inc. (COOL TECH) and Veteran Technology Group, LLC (VET TECH) in distinct roles.",
+  "processing_note": "Notwithstanding the foregoing, VET TECH may, at its election, bill the client directly for COOL TECH Services and under such circumstances COOL TECH shall bill VET TECH the pre-agreed amount for the engagement as adjusted by any client-approved change orders.",
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "26t h day of May, 2017",
+      "superseded": false,
+      "rationale": "The preamble enters into the agreement as of the 26th day of May, 2017, expressly called the effective date; May 04, 2017 is a header date and 'the date first set forth above' is only a reference.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "wrong"
+      }
+    }
+  }
+}

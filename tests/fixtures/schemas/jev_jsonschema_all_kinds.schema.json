@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "verdict": {
+      "enum": [
+        "pass",
+        "fail"
+      ],
+      "description": "The verdict"
+    },
+    "attempts": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "is_spam": {
+      "type": "boolean"
+    },
+    "correctness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "stars": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    }
+  }
+}

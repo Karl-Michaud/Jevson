@@ -1,0 +1,105 @@
+{
+ "doc_id": "cuad-globaltechnologiesltd-06-08-2020-ex-10-16-consulting-agreeme",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Global Technologies, Ltd and consultant Timothy Cabrera, with separate addresses; TCBM Holdings and Jetco Holdings also mentioned.",
+ "processing_note": "Notices shall be addressed to the \"Contact Person\" at the addresses appearing on the signature page of this Agreement, but any Party may change his address or \"Contact Person\" by written notice in accordance with this subsection.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "CONSULTING AGREEMENT",
+   "superseded": false,
+   "rationale": "The title and preamble name it the Consulting Agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "2nd day of January 2020",
+   "superseded": false,
+   "rationale": "Made and entered into as of the 2nd day of January 2020 and signed by both parties on January 2, 2020; 'January 2020' alone lacks the day, and the November 2019 dates are other transactions.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "correct"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "January 2, 2020",
+   "superseded": false,
+   "rationale": "Section 2: the agreement is in force commencing on January 2, 2020.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The term is stated only as one (1) year or until services are completed, not as a date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Florida",
+   "superseded": false,
+   "rationale": "Section 10(i) applies the laws of the State of Florida; the second Florida mention is the venue.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal term; the options are the initial term, notice-delivery periods and a mediation period.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No notice period to prevent renewal is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  }
+ }
+}

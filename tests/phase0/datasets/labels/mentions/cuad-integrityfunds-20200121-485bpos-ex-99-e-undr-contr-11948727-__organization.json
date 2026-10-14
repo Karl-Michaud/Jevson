@@ -1,0 +1,54 @@
+{
+  "passage_id": "cuad-integrityfunds-20200121-485bpos-ex-99-e-undr-contr-11948727-#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Integrity Short Term Government Fund (the Fund)",
+    "E2": "The Integrity Funds (Delaware statutory trust; filer)",
+    "E3": "Integrity Funds Distributor, LLC ('Integrity', underwriter)",
+    "E4": "Securities and Exchange Commission"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c7": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

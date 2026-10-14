@@ -1,0 +1,1 @@
+{"doc_id": "gsa-377839", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Musical Instruments Empty Case", "empty musical instrument case"], "product.inventory": ["(1)", "1"], "product.price": []}}

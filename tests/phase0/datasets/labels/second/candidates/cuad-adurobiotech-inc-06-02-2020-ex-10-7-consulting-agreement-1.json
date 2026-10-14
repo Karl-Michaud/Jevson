@@ -1,0 +1,22 @@
+{
+  "doc_id": "cuad-adurobiotech-inc-06-02-2020-ex-10-7-consulting-agreement-1",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Aduro Biotech and consultant IREYA B.V. (represented by Andrea van Elsas) in different roles.",
+  "processing_note": "Aduro shall pay Consultant any amounts due that are not reasonably disputed by Aduro, by check or direct bank deposit, within thirty days after receiving the invoice.",
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "July 1, 2020",
+      "superseded": false,
+      "rationale": "The agreement is dated June 1, 2020 but expressly effective as of July 1, 2020 (\"Effective Date\").",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "wrong"
+      }
+    }
+  }
+}

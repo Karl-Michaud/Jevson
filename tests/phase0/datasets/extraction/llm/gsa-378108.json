@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378108", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Thermo Fisher Scientific Model 4110 Forma Series 3 Incubator", "4110"], "product.inventory": ["One (1)", "(1)"], "product.price": []}}

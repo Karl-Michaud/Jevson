@@ -1,0 +1,17 @@
+{
+ "doc_id": "gsa-378087",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Stoelting frozen dessert machine",
+   "Stoelting F131-3812 frozen dessert machine",
+   "F131-3812"
+  ],
+  "product.inventory": [
+   "(1)"
+  ],
+  "product.price": []
+ }
+}

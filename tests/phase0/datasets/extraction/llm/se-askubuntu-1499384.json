@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1499384", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["conda", "mamba", "pharokka", "bcbio-gff", "bx-python", "Python", "python 3.11.*", "python 3.12.*", "pin-1", "Ubuntu 22.04"]}}

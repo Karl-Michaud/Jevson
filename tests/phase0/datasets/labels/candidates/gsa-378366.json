@@ -1,0 +1,49 @@
+{
+  "doc_id": "gsa-378366",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "One vehicle; no named parties.",
+  "processing_note": "The SF-97 will be issued to the registered individual or company and mailed to the registered address after payment is received.",
+  "fields": {
+    "product.title": {
+      "status": "present",
+      "value": "2008 Ford F550 Utility Truck",
+      "superseded": false,
+      "rationale": "Heading line is the title and the first body line restates it; make/model fragments are partial; Model spec line is another role.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "partial",
+        "c3": "correct",
+        "c4": "partial",
+        "c5": "partial",
+        "c6": "wrong"
+      }
+    },
+    "product.inventory": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No explicit unit count is stated; the listing describes a single item only implicitly.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "product.price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Auction listing states no asking or sale price.",
+      "options": {
+        "c0": "wrong"
+      }
+    }
+  }
+}

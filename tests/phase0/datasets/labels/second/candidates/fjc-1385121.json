@@ -1,0 +1,46 @@
+{
+  "doc_id": "fjc-1385121",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Biography of one judge, but it also names other people in distinct roles (nominating president, predecessor judge, etc.).",
+  "processing_note": null,
+  "fields": {
+    "resume.law_year": {
+      "status": "present",
+      "value": "1977",
+      "superseded": false,
+      "rationale": "The Howard University J.D. is dated 1977.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "correct",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong",
+        "c21": "wrong",
+        "c22": "wrong",
+        "c23": "wrong",
+        "c24": "wrong",
+        "c25": "wrong",
+        "c26": "wrong"
+      }
+    }
+  }
+}

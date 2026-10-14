@@ -1,0 +1,114 @@
+{
+ "doc_id": "fjc-13762149",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Biography of one judge that also names the nominating president, the predecessor, and a judge he clerked for.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Pozos, Antonio Miguel",
+   "superseded": false,
+   "rationale": "The record heading names the judge the biography describes; other names are nominators, predecessors or judges clerked for.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_institution": {
+   "status": "present",
+   "value": "University of Michigan Law School",
+   "superseded": false,
+   "rationale": "The Education entry for the J.D. names this school; other schools belong to the other degree or to career entries.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_year": {
+   "status": "present",
+   "value": "2007",
+   "superseded": false,
+   "rationale": "The year following the J.D. degree entry in Education; other years are birth, service or career dates.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong"
+   }
+  },
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "Harvard University",
+   "superseded": false,
+   "rationale": "The Education entry for the bachelor's degree names this school; other schools belong to the other degree or to career entries.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "2004",
+   "superseded": false,
+   "rationale": "The year following the bachelor's degree entry in Education; other years are birth, service or career dates.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "August 10, 2026",
+   "superseded": false,
+   "rationale": "Commission date of the first federal judicial service; other dates are nomination, confirmation, senior status, termination, birth/death or failed nominations.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct"
+   }
+  },
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. District Court for the Eastern District of Pennsylvania",
+   "superseded": false,
+   "rationale": "The only federal judicial service listed; state judgeships, panel memberships and failed nominations are not it, and the court name alone is partial.",
+   "options": {
+    "c0": "correct"
+   }
+  }
+ }
+}

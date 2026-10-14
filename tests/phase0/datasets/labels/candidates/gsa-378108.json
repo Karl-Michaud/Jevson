@@ -1,0 +1,48 @@
+{
+  "doc_id": "gsa-378108",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single item; generic holding activity and buyer roles only.",
+  "processing_note": "Contact the holding activity to schedule viewing in accordance with PPMS procedures.",
+  "fields": {
+    "product.title": {
+      "status": "present",
+      "value": "Thermo Fisher Scientific Model 4110 Forma Series 3 Incubator",
+      "superseded": false,
+      "rationale": "The heading is the listing title; model numbers are specs.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "product.inventory": {
+      "status": "present",
+      "value": "One (1)",
+      "superseded": false,
+      "rationale": "The description begins 'One (1)' incubator.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "correct",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "product.price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The listing states no asking or sale price.",
+      "options": {}
+    }
+  }
+}

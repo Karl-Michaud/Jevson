@@ -1,0 +1,39 @@
+{
+  "doc_id": "gsa-377730",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single camera listing; only generic seller/bidder roles.",
+  "processing_note": "Contact the property custodian (listed below) to schedule an appointment.",
+  "fields": {
+    "product.title": {
+      "status": "present",
+      "value": "FUJIFILM 12.2 MP CAMERA",
+      "superseded": false,
+      "rationale": "The heading line is the listing title.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "product.inventory": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No lot quantity is stated; 12.2 is megapixels and 2 is part of other numbers.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    }
+  }
+}

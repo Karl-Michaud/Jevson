@@ -1,0 +1,58 @@
+{
+  "doc_id": "epmc-pmc10981500",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Involves the patient and her daughter, who provides collateral history in a distinct role.",
+  "processing_note": null,
+  "fields": {
+    "medical.diagnosis": {
+      "status": "present",
+      "value": "psychosis following substance withdrawal",
+      "superseded": false,
+      "rationale": "After ruling out the differentials, the patient's condition is psychosis following (methadone) withdrawal; bare 'psychosis' mentions give only part of it.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "partial",
+        "c7": "correct",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "partial",
+        "c11": "partial"
+      }
+    },
+    "medical.treatment_drug": {
+      "status": "present",
+      "value": "aripiprazole",
+      "superseded": false,
+      "rationale": "Aripiprazole was the first drug started for the psychosis.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "correct",
+        "c12": "correct",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "correct",
+        "c18": "wrong"
+      }
+    }
+  }
+}

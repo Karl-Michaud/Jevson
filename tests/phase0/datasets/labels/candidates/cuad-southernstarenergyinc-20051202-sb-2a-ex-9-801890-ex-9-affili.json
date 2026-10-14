@@ -1,0 +1,114 @@
+{
+  "doc_id": "cuad-southernstarenergyinc-20051202-sb-2a-ex-9-801890-ex-9-affili",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Terms among element 5 GmbH, Affiliates and Software Publishers (multiple party roles).",
+  "processing_note": "The payment can be made by wire transfer, Direct Deposit (US only) or check, as chosen by the Affiliate.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Affiliate Program / Premium Affiliate Management General Terms and Conditions",
+      "superseded": false,
+      "rationale": "The heading gives the full title; later self-references use only the short form General Terms and Conditions.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "partial",
+        "c3": "partial",
+        "c4": "partial",
+        "c5": "partial",
+        "c6": "partial",
+        "c7": "partial",
+        "c8": "partial",
+        "c9": "partial"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The terms are a standard form with no date of agreement; 12/2/2005 is the SEC filing date in the page footer.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "upon acceptance of Affiliate's Program application",
+      "superseded": false,
+      "rationale": "Section IV §7 states the term begins upon acceptance of the Affiliate's Program application (an event, not a calendar date); 12/2/2005 is the filing footer.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement is entered into for an unlimited period, so there is no expiration date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "Federal Republic of Germany",
+      "superseded": false,
+      "rationale": "IV §9(4) states the law of the Federal Republic of Germany applies; other Germany mentions are the address and place of jurisdiction.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement is for an unlimited period with no renewal terms; listed durations are cookie lifespan, objection and payment-retention periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no renewal and hence no notice period to prevent renewal; either party may cancel at any time.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    }
+  }
+}

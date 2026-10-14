@@ -1,8 +1,8 @@
 # Jevson — implementation plan
 
-> **Status:** Planning document, Revision 10, 2026-10-14. Pre-implementation. The backend is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14 (PLAN §6). Phase 0 ran on `jev-1.13.0`; **Phase 0r** re-runs its probes on the Decisions API before Phase 1 starts.
+> **Status:** Planning document, Revision 10, 2026-10-14. Pre-implementation. Phase 0 has run on `jev-1.13.0` and is written up (`docs/taxonomy.md`), with one exit criterion open for the owner (probe 8's partial-only set); the v0 scope is frozen in DESIGN §10.1 (Revision 9.2). The backend is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14 (PLAN §6); **Phase 0r** re-runs Phase 0's probes on the Decisions API before Phase 1 starts.
 >
-> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 10. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** tag was measured on `jev-1.13.0`.
+> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 10. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** and **Z** tag was measured on `jev-1.13.0`.
 >
 > **Rule numbers** (R1–R16) refer to `DESIGN §7`.
 
@@ -56,7 +56,7 @@ jevson/
   protocols.py          Backend, Extractor, LLM (async); Normalizer, CostSink (sync) — DESIGN §8
   facade.py             Jevson: resolve / aresolve; wires compiler, executor, assembler
   probabilities.py      integer hundredths, sum tolerance, tie margin (DESIGN §2.1, DESIGN §6.2)
-  config.py             JevsonConfig: tie margin, conflict floor, entity rule variant, caps, budgets
+  config.py             JevsonConfig: tie margin, caps, budgets (entity-resolution settings arrive post-v0, PLAN §9.1)
   unicode/
     graphemes.py        UAX #29 boundaries from a vendored, generated table (DESIGN §5.9)
     tables/             generated table + the Unicode version it came from
@@ -96,7 +96,7 @@ jevson/
 
   assemble/
     assembler.py        resolved graph -> JSON object; absent / unresolved handling
-    entities.py         pre-merge, pairwise resolution over members, internal rule + Phase 0 variant (R6)
+    entities.py         post-v0: pairwise resolution (internal rule + cross variant, floor 0.05) [Z4]
     ordering.py         source order (R7); semantic order refused in v0
     cardinality.py      maxItems, overflow capture (R8)
     parse.py            class F on a selected span: money, number, date
@@ -122,6 +122,7 @@ tests/
   integration/          real key, marked, opt-in
   fixtures/schemas/     the Phase 0 sample, checked in with provenance
 
+tests/phase0/           Phase 0 harness, datasets, and results (docs/taxonomy.md; tags Z1–Z8); not part of the package
 tests/probes/           the probes and checks behind docs/EVIDENCE.md, by topic (jev_api, candidates,
                         entities, adversarial, calibration, schema, unicode, runtime); written for
                         jev-1.13.0, ported for Phase 0r; raw material for the test suite (not part
@@ -190,7 +191,7 @@ Classify every schema construct and extraction operation against `DESIGN §4`'s 
 
 ### 0b — The probes
 
-Throwaway code in `scripts/phase0/`, using the live key and the pinned model `jev-1.13.0`. **Every threshold, decision rule, and question template below is pre-registered** and not renegotiated after seeing the numbers.
+Throwaway code in `tests/phase0/`, using the live key and the pinned model `jev-1.13.0`. **Every threshold, decision rule, and question template below is pre-registered** and not renegotiated after seeing the numbers.
 
 **Question templates.** Before any probe runs, the question templates of `DESIGN §5.2` — including the complete-value wording — are written into `docs/taxonomy.md` with a template version. Phase 2 encodes those exact templates in `compile/questions.py`, so Phase 0's verdicts describe the library that ships.
 
@@ -222,16 +223,20 @@ Throwaway code in `scripts/phase0/`, using the live key and the pinned model `je
 
 ### Exit criteria
 
-- [ ] At least **10 schemas** sampled — 6 extraction, 4 non-extraction — each citing its source
-- [ ] At least **150 fields** classified, with counts by class, reported separately for extraction and non-extraction
-- [ ] Every class C and D entry specifies primitive, option source, `none_of_these` requirement, dependency pattern, provenance guarantee, and batching behaviour
-- [ ] Every entry records **existing alternatives** and **existing Jev implementations**
-- [ ] The question templates and the decision rule's operating characteristic are recorded **before** any probe runs
-- [ ] All eight probes run at the stated n on the pinned model, with measured rates and intervals written into `docs/taxonomy.md` **whether or not they are favourable**
-- [ ] Probes 1–4 are marked **go / conditional / stop**; `conflict_floor` and the entity rule variant are written into `DESIGN §5.7` with the data that chose them
-- [ ] The prediction below is marked **CONFIRMED** or **WRONG**, with the numbers
-- [ ] The v0 scope list is frozen and written into `DESIGN §10`
-- [ ] No library code exists
+- [x] At least **10 schemas** sampled — 6 extraction, 4 non-extraction — each citing its source — 16 schemas (6 extraction, 4 non-extraction, 6 jev_jsonschema fixtures), `tests/fixtures/schemas/provenance.json`
+- [x] At least **150 fields** classified, with counts by class, reported separately for extraction and non-extraction — 207 leaf fields, 278 nodes; `docs/taxonomy.md` §5
+- [x] Every class C and D entry specifies primitive, option source, `none_of_these` requirement, dependency pattern, provenance guarantee, and batching behaviour — every construct in `docs/taxonomy.md` §5 (each Appendix A row names its construct); per field in `tests/phase0/results/taxonomy.json`
+- [x] Every entry records **existing alternatives** and **existing Jev implementations** — every construct in `docs/taxonomy.md` §5; per field in `tests/phase0/results/taxonomy.json`
+- [x] The question templates and the decision rule's operating characteristic are recorded **before** any probe runs — commits 6f38415 (templates) and 443234c (rules, OC) precede the first live result, fd78aea
+- [ ] All eight probes run at the stated n on the pinned model, with measured rates and intervals written into `docs/taxonomy.md` **whether or not they are favourable** — **met except one set:** 796 requests, every probe at its stated n **[Z1–Z8]** (probe 6's absent-answer rows cover 46 of 50 cases, by the pre-registered ≥ 3-option rule, `docs/taxonomy.md` §2.12), but probe 8's partial-only set has 17 of 50 cases, because only 17 of the 932 labelled field instances had a source stating only a partial value (reading only; shortfall pre-registered in `docs/taxonomy.md` §2.8). Open for the owner: accept, or extend the corpus for that set
+- [x] Probes 1–4 are marked **go / conditional / stop**; `conflict_floor` and the entity rule variant are written into `DESIGN §5.7` with the data that chose them — go / conditional / go / stop; floor 0.05, cross variant **[Z4]**
+- [x] The prediction below is marked **CONFIRMED** or **WRONG**, with the numbers — **WRONG** (`docs/taxonomy.md` §8)
+- [x] The v0 scope list is frozen and written into `DESIGN §10` — `DESIGN §10.1`
+- [x] No library code exists — no `jevson/` package
+
+### Outcome (2026-09-29)
+
+Probe 1 **go** (132/150 = 0.880) **[Z1]**; probe 2 **conditional** (110/150 = 0.733) **[Z2]**; probe 3 **go** (2/150 = 0.013) **[Z3]**; probe 4 **stop** (`conflict_floor` 0.05, cross-component variant, 163/330 components correct) **[Z4]**; probe 5 reproduces **[P4]** **[Z5]**; readings for probes 6–8 **[Z6–Z8]**. The abandon criterion does not fire. Candidate selection was to ship with Phase 5's second gate, but probe 9 measured that gate on Jev and gave the verdict **drop source selection** **[Z9]** (`docs/gate-probe.md`), which Phase 0r re-decides on the Decisions API; pairwise entity resolution is out of v0 (Phase 7 below). The scope is frozen in `DESIGN §10.1`; the full record, including every number, is `docs/taxonomy.md`.
 
 ### Abandon criterion
 
@@ -527,7 +532,7 @@ Automatic criteria derivation. A criteria linter.
 - **Retry** (`DESIGN §5.5`): exclusions; a request only on a new verified span; no retry after a refusal; old ∪ new; batched per level; `retry_budget` per call
 - `screen.py` — the **opt-in source screen** (`DESIGN §5.8`), asked in the first decision level, flagging at p ≥ 0.56; the tested wording flagged 28/60 benign documents **[P21]**, so this phase searches for a wording on a development split and measures it on a held-out split
 - `tests/adversarial/hostile_extractor.py` and `hostile_sources/`
-- **If Phase 0 was *conditional* on probes 1–3:** a second gate — an independent verification predicate per committed span, batched into the same call; a failed verification yields `Unresolved(verification_failed)`; the cost delta is recorded. The measurements below run **with the gate on**
+- **Phase 0 was *conditional* on probe 2 on `jev-1.13.0` [Z2], so this applies:** a second gate — an independent verification predicate per committed span, batched into the same request; a failed verification yields `Unresolved(verification_failed)`; the cost delta is recorded. The measurements below run **with the gate on**. Probe 9 measured this gate early on Jev (`docs/gate-probe.md`): it cut commits on absent answers from 29/139 to 10/139 but left 105/150 correct commits, and the pre-registered verdict was **drop source selection** **[Z9]**. This phase therefore proceeds only if Phase 0r reverses that verdict on the Decisions API
 - **Measurement corpus**, disjoint from Phase 0, labelled before any run, under the Phase 0 corpus rules
 
 ### Exit criteria
@@ -615,53 +620,45 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 
 ## Phase 7 — Source-grounded arrays
 
-**Goal:** arrays whose membership is a set of bounded decisions over candidates, with entity resolution, source order, and honest overflow.
+**Goal:** arrays whose membership is a set of bounded decisions over candidates, in source order with honest overflow; deduplication is the extractor's declared contract in v0 **[Z4]**.
 
 **Depends on:** Phase 6 in sequence, and on Phase 5's candidate machinery. **If Phase 5 abandoned, this phase is cancelled** — except multi-label enum arrays, which need no candidates and ship regardless.
 
+> **Phase 0 outcome [Z4]:** probe 4 was *stop*, so this phase's abandon criterion applies from the start: deduplication is the extractor's declared contract. The entity-resolution deliverables and exit criteria have moved to the post-v0 entity-resolution phase (PLAN §9.1). Membership, source order, overflow, and multi-label enum arrays still ship.
+
+
 ### Deliverables
 
-- Membership: one `predicate` per candidate with the tie margin, batched with the pairwise questions in the same level (R5, `DESIGN §3.3`); candidates keyed by opaque id (R13)
+- Membership: one `predicate` per candidate with the tie margin, in one level (R5, `DESIGN §3.3`); candidates keyed by opaque id (R13); a candidate count above `max_candidates` yields `Unresolved(too_many_candidates)`
 - **Multi-label enum arrays**: one membership predicate per declared value; declared enum order; `maxItems` keeps the first k with overflow retained (`DESIGN §4.2`)
-- `assemble/entities.py` (`DESIGN §5.7`): lossless pre-merge (casefold opt-in; never initials or first names); pairwise predicates, capped; the internal-consistency rule, plus the cross-component variant if Phase 0 chose it, with `conflict_floor` from Phase 0
-- `Normalizer` canonical representative: earliest span, longest span, or user-supplied
 - `assemble/ordering.py` — source order; `order: semantic` refuses (R7)
-- `assemble/cardinality.py` — membership → pre-merge → pairwise → components ordered by earliest span → `maxItems` keeps the first k; each overflowed element records its spans and minimum membership probability (R8)
-- An experiment on reducing pair jitter by asking both orderings of each pair and averaging, measured against single-order asking on ≥ 40 documents × 2 identical runs (`DESIGN §12`); it doubles pair questions, so it is measured only at question counts already covered by keyed-batching evidence
+- `assemble/cardinality.py` — accepted members ordered by earliest span → `maxItems` keeps the first k; each overflowed element records its span and membership probability (R8)
 
 ### Exit criteria
 
 - [ ] `"Attendees were Dana, John, Sarah, and Michael"` produces a 4-element array in source order
-- [ ] **The chain case:** with a fake backend answering Dana = Dana Whitfield (0.9), Dana Whitfield = Ms. Whitfield (0.9), Dana vs Ms. Whitfield (0.4), no cross-component pairs in the uncertain band, and a floor of 0.30, the three produce **one** element
-- [ ] **The internal-conflict case:** A = B, B = C, A vs C ≤ floor → that component is `Unresolved(entity_conflict)` naming the pairs; other components are emitted
-- [ ] **The split case:** under the cross-component variant, two components linked by a pair at 0.40 (above a 0.30 floor) → both are `Unresolved(entity_conflict)`; under the internal-only variant, both are emitted
 - [ ] **Enum arrays:** a multi-label enum array emits members in declared order, with ties unresolved and `maxItems` overflow retained; this ships even if Phase 5 abandoned
-- [ ] **Pre-merge:** `"Acme Corp"` and `"Acme  Corp"` merge with zero backend questions; `"US"` and `"us"` do **not** merge by default; with casefold opted in they do; identical strings under different entity types never merge
-- [ ] Pairwise resolution for n candidates issues n(n−1)/2 keyed questions in one call, split only by the budget
-- [ ] A candidate count above the cap yields `Unresolved(too_many_candidates)`
-- [ ] **Cap measured:** component outcomes at n ∈ {10, 20, 30} on ≥ 20 real arrays per n (including how many arrays are incomplete only through membership ties), and keyed-batching accuracy at the resulting question count (measured only to 320 so far **[P4]**), are written down; the default cap is the largest n meeting the Phase 0 probe 4 go band
-- [ ] **Jitter experiment** results are written down; both-orderings asking is adopted only if it at least halves the pair-decision flip rate between identical runs and component accuracy is not lower (point estimates)
 - [ ] `maxItems: 5` with six accepted elements returns five and records the sixth in `Result.overflow`
-- [ ] An array declaring semantic order refuses; an array of unbounded items with no `source` refuses
-- [ ] **Members only:** a rejected candidate linked at 0.9 to two members A and B, with A–B at 0.10 (≤ floor), does not merge them: A and B are emitted as two elements under both variants
-- [ ] **Array holes:** an array with one unresolved component is emitted with its other elements, and the hole is one `Unresolved` at the array pointer; a tied value in a multi-label enum array likewise
+- [ ] An array declaring semantic order refuses; an array of unbounded items with no `source` refuses; an array of objects still refuses with its own named reason (`DESIGN §3.5`)
+- [ ] A candidate count above `max_candidates` yields `Unresolved(too_many_candidates)` with texts and counts in `detail`, with no membership question asked
+- [ ] **Array holes:** an array with one unresolved member (a membership tie) is emitted with its other elements, and the hole is one `Unresolved` at the array pointer; a tied value in a multi-label enum array likewise
 - [ ] Source ordering is deterministic across runs
 
 ### Abandon criterion
 
-**If component outcomes on real prose fall below the Phase 0 probe 4 go band, deduplication becomes the extractor's declared contract**: the library stops claiming it, documents that candidates must arrive normalised, and the dedup exit criteria are removed rather than weakened. Membership, ordering, and overflow still ship.
+**If component outcomes on real prose fall below the Phase 0 probe 4 go band, deduplication becomes the extractor's declared contract**: the library stops claiming it, documents that candidates must arrive normalised, and the dedup exit criteria leave this phase rather than being weakened (they moved to PLAN §9.1). Membership, ordering, and overflow still ship.
 
 ### Out of scope
 
-Nested arrays of objects. Cross-item constraints. Semantic ordering. (All tracked in PLAN §9.)
+Arrays of objects (including nested). Cross-item constraints. Semantic ordering. Pairwise entity resolution (PLAN §9.1). (All tracked in PLAN §9.)
 
 ### Answers
 
-`DESIGN §12`: the pairwise quality ceiling; pair-jitter reduction.
+None in v0: the pairwise quality ceiling and pair jitter move with entity resolution (PLAN §9.1).
 
 ### PR size
 
-~500 lines. Split entity resolution into its own PR if it grows.
+~350 lines (entity resolution moved to PLAN §9.1).
 
 ---
 
@@ -702,7 +699,7 @@ Nested arrays of objects. Cross-item constraints. Semantic ordering. (All tracke
 
 **Goal:** one call over several sources (an email thread and its attachment) or over one source longer than the per-question limit, with every committed value still traceable to one exact span in one named source.
 
-**Depends on:** Phase 8. Deferred on cost and risk: it multiplies the context budget and interacts with the pairwise cap. `source_id` has been in `Span` since Phase 1. Prior art: `choxos/jev-reviewer` and `gbesse/jev-extract` already do multi-file or chunked extraction for fixed record types **[X3]**.
+**Depends on:** Phase 8. Deferred on cost and risk: it multiplies the context budget (and, once post-v0 entity resolution ships, interacts with its pairwise cap, PLAN §9.1). `source_id` has been in `Span` since Phase 1. Prior art: `choxos/jev-reviewer` and `gbesse/jev-extract` already do multi-file or chunked extraction for fixed record types **[X3]**.
 
 ### Deliverables
 
@@ -710,7 +707,7 @@ Nested arrays of objects. Cross-item constraints. Semantic ordering. (All tracke
 - Chunking of a long source into windows under the per-question limit, with candidates carrying offsets into the original source
 - Candidates carry their `source_id`; verification runs against the named source
 - Budgeting across sources and chunks: split, never truncate
-- Cross-source entity resolution under the Phase 7 rules and cap
+- Cross-source entity resolution only if the post-v0 entity-resolution work (PLAN §9.1) has shipped, under its rules and cap; until then, deduplication across sources is the extractor's declared contract **[Z4]**
 
 ### Exit criteria
 
@@ -837,8 +834,8 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Right text, wrong provenance** when a value repeats | Phase 5 | every occurrence offered with context **[P15]**; repeated-text cases in Phase 0 and the hostile suite |
 | **Our novelty is overstated** | Phase 8 | prior art credited (`DESIGN §9`); comparison in the README; "existing Jev implementations" column |
 | **The taxonomy comes back narrow and we pad it** | Phase 0 | prediction recorded in advance; narrow scope pre-accepted |
-| **Entity resolution silently merges or splits** | Phase 7 | internal rule; cross-component variant chosen in Phase 0 **[P10, P17]**; abandon criterion |
-| **Pair questions jitter** | Phase 7 | floor measured on two runs; both-orderings experiment **[P12]** |
+| **Entity resolution silently merges or splits** | Phase 7 | measured in Phase 0: stop **[Z4]**; deduplication is the extractor's contract in v0 |
+| **Pair questions jitter** | Post-v0 (PLAN §9.1) | floor measured on two runs; both-orderings experiment **[P12]** |
 | **Candidate extraction is the weak link** | Phase 5 onward | `none_of_these` mandatory, including for single candidates; complete-value template **[P11]** |
 | **Context limits exceeded** | Phase 3 onward | preflight on declared maxima (default 50 × 120); split, bisect, or refuse; never truncate **[P14]** |
 | **Sync wrapper over async code breaks** | Phase 3 | library loop thread; per-call clients on caller loops; thread-lock limiter **[L20, L22]** |
@@ -875,14 +872,14 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **State referencing** | Opaque-id objects, never positions | 62% vs 0% wrong **[P4]** |
 | **Candidate options** | Opaque ids; every occurrence of repeated text offered with a context window | 40/40 vs 22/40; offering only one occurrence misattributes provenance **[P15]** |
 | **Question wording** | Versioned templates; complete-value wording; no negations | Partials 32/42 → 0/42 **[P11]**; literal reading **[V-jagged]** |
-| **Single candidates** | Asked with `none_of_these` by default; direct extraction opt-in | 84/84 wrong-role lone candidates abstained **[P11]** |
+| **Single candidates** | Asked with `none_of_these` by default; direct extraction opt-in | 84/84 wrong-role lone candidates abstained in the Jev pilot **[P11]**; 39/50 on real documents on Jev **[Z8]** |
 | **Abstention mechanism** | `none_of_these` inside the choice, not a separate predicate gate | The gate was worse on Jev: 0.56 vs 0.89 **[P5]** |
 | **Probabilities** | Integer hundredths for storage; sum checked on raw values (provisional on the Decisions API); one tie margin ≤ 0.10 for every committing decision | Rounding and jitter are measured; ±0.05 left 11/180 choice flips, 0.10 left 1/180 **[L17, P12, P20]** |
 | **Confidence gating** | Reported, never gated by default | A default threshold would assert calibration we have not measured |
 | **Calibration bar** | Tie-safe bins, one-sided bootstrap ECE bound, Wilson rule at τ, mandatory power check on the observed distribution | The bar's power depends on the distribution **[L13, L14]** |
 | **Retry defaults** | Zero for schema-derived sets; one for candidates, old ∪ new, two-sided bar on constructed misses | Near-deterministic model; relative distributions; harm as well as benefit **[L15]** |
-| **Entity resolution** | Lossless pre-merge; components over accepted members only; internal-consistency rule; cross-component variant and floor chosen in Phase 0 | Casefold merges distinct entities **[L1]**; the variant helped in-sample **[P10]** and did nothing out of sample **[P17]** |
-| **Pairwise cap** | n = 30, lowered if Phase 7 measures a lower quality ceiling | Token-feasible with a lean template **[L7]**; quality unmeasured |
+| **Entity resolution** | Out of v0: deduplication is the extractor's declared contract. The post-v0 design keeps the lossless pre-merge, member-only components, the internal rule, and the cross-component variant with `conflict_floor` 0.05, chosen in Phase 0 **[Z4]** | Casefold merges distinct entities **[L1]**; the variant helped in-sample **[P10]** and did nothing out of sample **[P17]** |
+| **Pairwise cap** | Post-v0 with entity resolution: n = 30, lowered if its phase measures a lower quality ceiling **[Z4]** | Token-feasible with a lean template **[L7]**; quality unmeasured |
 | **Grapheme boundaries** | UAX #29 from a vendored generated table at Unicode 17.0; conformance plus differential tests | The shorthand rule was wrong in 13–15 of 20 classes **[L11]**; ~1.2 KB, no new dependency **[L19]** |
 | **Replay** | `CachingBackend` and `ReplayLLM`, RFC 8785 keys (`rfc8785` / `canonicalize`), caller-supplied directory | Identical hashes across languages **[L21]**; nothing written by default |
 | **Source trust** | Untrusted; stated limit; screen off until a wording meets its bar | Selection is steerable **[P7]**; the tested screen wording flagged 28/60 benign documents **[P21]** |
@@ -910,19 +907,19 @@ Reversals are recorded in `DESIGN §13`.
 
 | question | closed by | if the answer is bad |
 |---|---|---|
-| Does `none_of_these` catch missing answers on real documents? | Phase 0 probe 2, Phase 5 | Stop candidate selection; ship the fallback |
-| Do we select accurately and abstain only when we should? | Phase 0 probes 1 and 3, Phase 5 | Conditional band: Phase 5 ships the second gate |
-| Which entity rule variant, and what `conflict_floor`? | Phase 0 probe 4 | Dedup becomes the extractor's contract (Phase 7) |
+| Does `none_of_these` catch missing answers on real documents? | Phase 0 probe 2 on Jev: conditional, 0.733 **[Z2]**; probe 9 on Jev: drop **[Z9]**; Phase 0r; Phase 5 | Stop candidate selection; ship the fallback |
+| Do we select accurately and abstain only when we should? | Phase 0 probes 1 and 3 on Jev: go, go **[Z1, Z3]**; Phase 0r; Phase 5 | Conditional band: Phase 5 ships the second gate |
+| Which entity rule variant, and what `conflict_floor`? | **Answered by Phase 0 on Jev:** cross-component, 0.05, and below the bar **[Z4]** | Dedup became the extractor's contract (Phase 7) |
 | Do the Jev measurements and Phase 0's "drop source selection" hold on the Decisions API? | Phase 0r | Phase 0r's verdict replaces Phase 0's; the fallback product if it is still stop |
 | Is the decision model calibrated on span disambiguation? | Phase 0 probe 7 (Jev), Phase 0r, Phase 5 | Probabilities stay reported, never gated |
 | Can any screen wording flag hostile sources without flagging ordinary processing notes? | Phase 0 probe 6, Phase 5 | The screen stays off, with its rates documented |
 | Do decision retries recover answers without adding false commits? | Phase 5 | Default retry budget becomes 0 |
 | Do redrafts recover rejected drafts without admitting bad ones? | Phase 4 | Default redraft budget becomes 0 |
 | Level or speculative fan-out for unions? | Phase 6 | Whichever the measurement favours |
-| What is the pairwise quality ceiling? Can pair jitter be reduced? | Phase 7 | Cap lowered with the measurement cited; banding only |
+| What is the pairwise quality ceiling? Can pair jitter be reduced? | Post-v0 entity-resolution phase (PLAN §9.1) | Cap lowered with the measurement cited; banding only |
 | Is the name right? | before Phase 8 | Rename before publication |
 
-**Closed by evidence on `jev-1.13.0`** (Phase 0r re-checks the ones that depend on model behaviour): level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a predicate gate is a worse abstention mechanism **[P5]**; lone candidates are safer asked **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording costs nothing when the full value is present **[P18]**; mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**.
+**Closed by evidence on `jev-1.13.0`** (Phase 0r re-checks the ones that depend on model behaviour): level splitting is answer-neutral **[P1]**; keyed state references matter **[P4]**; a predicate gate is a worse abstention mechanism **[P5]**; lone candidates are safer asked **[P11]**; the score value is the most probable level **[P13]**; the complete-value wording costs nothing when the full value is present **[P18]**; mixed option descriptions showed no decision bias at near-ceiling accuracy **[P19]**; entity resolution on real prose is below its bar, out of v0 **[Z4]**; state references by position fail on the pinned model **[Z5]**.
 
 ---
 
@@ -937,12 +934,13 @@ Phase 3   executor + budget + live backend + façade   ~500 lines   ← working 
 Phase 4   generative fields and adjudication          ~450 lines
 Phase 5   candidates and source selection             ~500 lines   ← source-grounded extraction
 Phase 6   union discrimination                        ~300 lines
-Phase 7   source-grounded arrays                      ~500 lines   (cancelled if 5 abandons, except enum arrays)
+Phase 7   source-grounded arrays                      ~350 lines   (cancelled if 5 abandons, except enum arrays)
 Phase 8   packaging and release                       ~250 lines   ← v0
 --- post-v0, planned ---
 Phase 9   multi-source and long-source extraction
 Phase 10  JavaScript / TypeScript port
 Phase 11  credentials from Infisical                               (lowest priority)
+(unnumbered) entity resolution, PLAN §9.1 — post-v0, unscheduled; its own probe first; Phase 9's cross-source resolution waits on it
 ```
 
 Every phase starts only after the previous one has merged or abandoned. If the abandon criterion of Phase 0r (which supersedes Phase 0's) or of Phase 5 fires, the product is **phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7**.
@@ -955,6 +953,7 @@ Nothing deferred is dropped. Each entry names what it waits on.
 
 | deferred item | why deferred | revisit when | where it lands |
 |---|---|---|---|
+| **Pairwise entity resolution** (the internal rule, cross-component variant, and `conflict_floor` 0.05 of `DESIGN §5.7`) | Below its bar on real prose: 163/330 components correct under the chosen variant **[Z4]** | After Phase 8 | A post-v0 phase with its own probe; Phase 7's dedup criteria move there |
 | **Default probability threshold** | Would assert calibration we have not measured (`DESIGN §6.2`) | Phase 5 calibration reading | v1, only if the pre-registered bar is met, citing the measurement |
 | **Source screen on by default** | Wording is fragile **[P7]** | Phase 5 screen measurement | v1, only if its bar is met |
 | **Semantic array ordering** | Unproven | After Phase 7 | A post-v0 phase with its own probe (pairwise preference vs. per-item `score`) |
@@ -963,6 +962,28 @@ Nothing deferred is dropped. Each entry names what it waits on.
 | **JS / TS port** | Two languages in v0 finish neither | After Phase 9 | Phase 10 |
 | **Infisical credentials** | Team convenience, not a library feature | Any time; lowest priority | Phase 11 |
 | **Recursive and dynamic `$ref`, `allOf` beyond flat merge, `dict[str, X]`, tuples, `Any`, `bytes`** | Refused loudly (`DESIGN §3.5`) | After Phase 8 | A post-v0 phase |
-| **Nested arrays of objects, cross-item constraints** | Out of Phase 7 scope | After Phase 8 | A post-v0 phase |
+| **Arrays of objects (including nested), cross-item constraints** | Out of Phase 7 scope; refused in v0 (`DESIGN §3.5`) | After Phase 8 | A post-v0 phase |
 | **`none_of_these` on schema enums and union discriminators** ("not determinable from the source") | Schema-derived choices have no abstention path in v0 | After Phase 5 measures abstention | A post-v0 phase |
 | **Relative and partial dates** ("next Friday", "the 3rd") | v0 parses selected absolute date spans only | After Phase 5 | A post-v0 phase using date-part choices with "not stated", as in TypeSafe's date-extraction cookbook **[V-cookbooks]** |
+
+### 9.1 Post-v0: entity resolution (moved out of Phase 7 by Phase 0 **[Z4]**)
+
+Probe 4 was *stop* on real prose on `jev-1.13.0`, so these Phase 7 items wait for their own phase, which re-measures them with its own probe before anything ships. They keep the Phase 0 settings: `conflict_floor` 0.05 and the cross-component variant (`DESIGN §5.7`).
+
+**Deliverables:**
+
+- `assemble/entities.py` (`DESIGN §5.7`): lossless pre-merge (casefold opt-in; never initials or first names); pairwise predicates, capped; the internal-consistency rule, plus the cross-component variant Phase 0 chose, with `conflict_floor` 0.05 **[Z4]**; pair questions share the membership level (R5); the cardinality pipeline becomes membership → pre-merge → pairwise → components ordered by earliest span → `maxItems`, each overflowed component recording its spans and minimum membership probability (R8)
+- `Normalizer` canonical representative: earliest span, longest span, or user-supplied
+- An experiment on reducing pair jitter by asking both orderings of each pair and averaging, measured against single-order asking on ≥ 40 documents × 2 identical runs (`DESIGN §12`); it doubles pair questions, so it is measured only at question counts already covered by keyed-batching evidence
+
+**Exit criteria:**
+
+- [ ] **The chain case:** with a fake backend answering Dana = Dana Whitfield (0.9), Dana Whitfield = Ms. Whitfield (0.9), Dana vs Ms. Whitfield (0.4), no cross-component pairs in the uncertain band, and a floor of 0.30, the three produce **one** element
+- [ ] **The internal-conflict case:** A = B, B = C, A vs C ≤ floor → that component is `Unresolved(entity_conflict)` naming the pairs; other components are emitted
+- [ ] **The split case:** under the cross-component variant, two components linked by a pair at 0.40 (above a 0.30 floor) → both are `Unresolved(entity_conflict)`; under the internal-only variant, both are emitted
+- [ ] **Pre-merge:** `"Acme Corp"` and `"Acme  Corp"` merge with zero backend questions; `"US"` and `"us"` do **not** merge by default; with casefold opted in they do; identical strings under different entity types never merge
+- [ ] Pairwise resolution for n candidates issues n(n−1)/2 keyed questions in one request, split only by the budget
+- [ ] A candidate count above the cap yields `Unresolved(too_many_candidates)`
+- [ ] **Cap measured:** component outcomes at n ∈ {10, 20, 30} on ≥ 20 real arrays per n (including how many arrays are incomplete only through membership ties), and keyed-batching accuracy at the resulting question count (measured only to 320 so far, on Jev **[P4]**), are written down; the default cap is the largest n meeting the Phase 0 probe 4 go band
+- [ ] **Jitter experiment** results are written down; both-orderings asking is adopted only if it at least halves the pair-decision flip rate between identical runs and component accuracy is not lower (point estimates)
+- [ ] **Members only:** a rejected candidate linked at 0.9 to two members A and B, with A–B at 0.10 (≤ floor), does not merge them: A and B are emitted as two elements under both variants

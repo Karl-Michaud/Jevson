@@ -1,0 +1,115 @@
+{
+ "doc_id": "cuad-orbsatcorp-08-17-2007-ex-7-3-strategic-alliance-agreement",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: UTEK Corporation (UTK) and World Energy Solutions (AVDU), with separate addresses.",
+ "processing_note": "All notices that are required to be or may be sent pursuant to the provision of this Agreement shall be sent by certified mail, return receipt requested, or by overnight package delivery service to each of the parties at the addresses appearing herein, and shall count from the date of mailing or the validated air bill.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "STRATEGIC ALLIANCE AGREEMENT",
+   "superseded": false,
+   "rationale": "The agreement names itself 'STRATEGIC ALLIANCE AGREEMENT' in the title and repeatedly by full name; 'Exhibit 7.3' is the filing exhibit number.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "correct",
+    "c5": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "9th day of September 2005",
+   "superseded": false,
+   "rationale": "Made and entered into on the 9th day of September 2005 and signed with 'Date: September 9, 2005'.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "correct",
+    "c3": "correct"
+   }
+  },
+  "contract.effective_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No separate effective or commencement date is stated; the 12-month term has no stated start date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The term is stated only as 12 months, not as a date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No governing-law clause; Florida and Delaware appear only in party addresses and states of incorporation.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Renewal only upon mutual written agreement, with no renewal length stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No non-renewal notice period; 30 days written notice is for termination at any time.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong"
+   }
+  }
+ }
+}

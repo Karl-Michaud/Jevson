@@ -1,0 +1,18 @@
+{
+ "doc_id": "epmc-pmc10981459",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "single patient case report; no distinct parties in different roles",
+ "processing_note": null,
+ "fields": {
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Only unnamed medication, debridement, and rehabilitation are mentioned; no drug is named.",
+   "options": {}
+  }
+ }
+}

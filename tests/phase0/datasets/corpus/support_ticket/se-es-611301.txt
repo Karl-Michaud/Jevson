@@ -1,0 +1,53 @@
+¿Como puedo actualizar la información en una capa de QGIS desde PostgresSQL?
+
+un placer saludarlos!!
+
+Estoy tratando de actualizar una capa en Qgis que se encuentra alojada en una base de datos de PostgreSQL. La idea es que tengo una tabla a que es la que quiero actualizar a partir de una tabla b que tiene toda la información necesaria. La actualización se ejecutaría en dos posibles escenarios. El primero es crea una nueva geometría (polígono) donde se genera un contador automático en el id y manualmente se le asigna un id_predial. El segundo escenario es que por algún motivo se deba cambiar solo el id_predial a una geometría existente de manera manual. Tengo un leve conocimiento en bases de datos y se que se utiliza un campo en común para realizar la actualización. La idea es usar una función y un trigguer. Les comparto el código a continuación:
+
+CREATE OR REPLACE FUNCTION fn_actualizar_pi()
+RETURNS TRIGGER AS $$
+BEGIN `
+---Se activa para inserciones y actualizaciones
+UPDATE pi
+SET
+"numCuenta" = f."numCuenta",
+"abrDistri" = f."abrDistri",
+"abrBarrio" = f."abrBarrio",
+frente1 = f.frente1,
+frente2 = f.frente2,
+frente3 = f.frente3,
+frente4 = f.frente4,
+"frenteTot" = f."frenteTot",
+"planoCat" = f."planoCat",
+"areaRegis" = f."areaRegis",
+"areaCatas" = f."areaCatas",
+"numFinca" = f."numFinca",
+"codDuplic" = f."codDuplic",
+"indFilial" = f."indFilial",
+"codZonHo" = f."codZonHo",
+"porPosesi" = f."porPosesi",
+"tipDerech" = f."tipDerech",
+latitud = f.latitud,
+longitud = f.longitud,
+"coordenaX" = f."coordenaX",
+"coordenaY" = f."coordenaY",
+"indPalma" = f."indPalma",
+"areaPalma" = f."areaPalma",
+"ideCatast" = f."ideCatast",
+"nomComple" = f."nomComple",
+telefono1 = f.telefono1,
+cedula = f.cedula,
+direccion = f.direccion
+FROM info_finca f
+WHERE f."ideCatast" = NEW.id_predial AND pi.id = NEW.id;
+
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_actualizar_pi
+AFTER UPDATE ON pi
+FOR EACH ROW
+EXECUTE FUNCTION fn_actualizar_pi();
+
+Agradezco toda ayuda.

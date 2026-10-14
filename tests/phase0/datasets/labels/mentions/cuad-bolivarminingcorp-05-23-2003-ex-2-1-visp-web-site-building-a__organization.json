@@ -1,0 +1,42 @@
+{
+  "passage_id": "cuad-bolivarminingcorp-05-23-2003-ex-2-1-visp-web-site-building-a#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "YourNetPlus.com, Inc. (the Provider)",
+    "E2": "Kingdom Connect, Inc. (KCI)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

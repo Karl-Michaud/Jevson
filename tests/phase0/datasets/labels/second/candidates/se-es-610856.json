@@ -1,0 +1,31 @@
+{
+  "doc_id": "se-es-610856",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "A single user asking about their own discord.js bot code.",
+  "processing_note": null,
+  "fields": {
+    "ticket.affected_service": {
+      "status": "present",
+      "value": "discord.js V14",
+      "superseded": false,
+      "rationale": "The error is in a bot built on discord.js V14; bare \"discord.js\" mentions lack the version, and class/command names are code identifiers.",
+      "options": {
+        "c0": "partial",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "partial",
+        "c9": "correct",
+        "c10": "partial",
+        "c11": "wrong"
+      }
+    }
+  }
+}

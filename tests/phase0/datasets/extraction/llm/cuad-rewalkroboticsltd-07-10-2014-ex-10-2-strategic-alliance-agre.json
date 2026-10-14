@@ -1,0 +1,9 @@
+{"doc_id": "cuad-rewalkroboticsltd-07-10-2014-ex-10-2-strategic-alliance-agre", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["STRATEGIC ALLIANCE AGREEMENT", "Strategic Alliance Agreement"],
+"contract.agreement_date": ["September 24, 2013", "August 25TH, 2011", "July 5t h, 2013"],
+"contract.effective_date": ["September 24, 2013", "Effective Date"],
+"contract.expiration_date": ["ten (10) years from the Effective Date", "7th anniversary"],
+"contract.governing_law": ["State of Israel", "Israel", "laws of the State of Israel"],
+"contract.renewal_term": ["renewal term", "the period of the renewal term"],
+"contract.notice_period": ["thirty (30) days", "60 days", "sixty (60) days", "ten (10) days", "twelve (12) months"]
+}}

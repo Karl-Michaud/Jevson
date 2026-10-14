@@ -1,0 +1,33 @@
+{
+ "doc_id": "cuad-canopetroleum-inc-12-13-2007-ex-10-1-sponsorship-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Sponsorship Agreement"
+  ],
+  "contract.agreement_date": [
+   "5th day of December, 2007",
+   "December, 2007"
+  ],
+  "contract.effective_date": [
+   "January 1, 2008"
+  ],
+  "contract.expiration_date": [
+   "December 31, 2008"
+  ],
+  "contract.governing_law": [
+   "State of Texas",
+   "Texas",
+   "the laws of the State of Texas"
+  ],
+  "contract.renewal_term": [
+   "one (1) year"
+  ],
+  "contract.notice_period": [
+   "(10) days",
+   "ten"
+  ]
+ }
+}

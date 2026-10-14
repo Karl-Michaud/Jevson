@@ -1,0 +1,40 @@
+{
+ "doc_id": "cuad-lejuholdingsltd-20140121-drs-on-f-1-ex-10-26-8473102-ex-10-2",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Beijing SINA and Shanghai SINA Leju.",
+ "processing_note": null,
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "MUTUAL TERMINATION AGREEMENT",
+   "superseded": false,
+   "rationale": "The contract is titled MUTUAL TERMINATION AGREEMENT, shortened to Termination Agreement; Domain Name License Agreement is the terminated original.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "partial",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "partial",
+    "c7": "partial",
+    "c8": "wrong",
+    "c9": "partial",
+    "c10": "partial",
+    "c11": "partial",
+    "c12": "partial",
+    "c13": "partial"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "A termination agreement with no renewal or notice period.",
+   "options": {}
+  }
+ }
+}

@@ -1,0 +1,113 @@
+{
+ "doc_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content-",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Fox Mobile Entertainment / Twentieth Century Fox Licensing & Merchandising and Glu Mobile, Inc. (f/k/a Sorrent), plus VGSL.",
+ "processing_note": "With respect to KOH Video Clips which Licensee distributes to VGSL, VGSL will remit directly to Fox, Fox's contractual share (pursuant to the VGSL Agreement ) of such VGSL Revenue.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "AMENDMENT NO. 1",
+   "superseded": false,
+   "rationale": "The document names itself Amendment No. 1; the Wireless Content License Agreement is the underlying agreement it amends.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "November 11, 2005",
+   "superseded": false,
+   "rationale": "The amendment is 'Dated as of November 11, 2005'; December 16, 2004 is the underlying agreement's date and the November 18, 2005 signatures differ from it.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "November 11, 2005",
+   "superseded": false,
+   "rationale": "No separate effective date is given; the amendment takes effect as of its 'Dated as of' date, November 11, 2005.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No expiration date of a term is stated; the listed dates are exclusivity limits, the assignment date and filing footers.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The amendment has no governing-law clause.",
+   "options": {}
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal term; the twelve months is a video-clip distribution period.",
+   "options": {
+    "c0": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No notice period to prevent renewal is stated.",
+   "options": {
+    "c0": "wrong"
+   }
+  }
+ }
+}

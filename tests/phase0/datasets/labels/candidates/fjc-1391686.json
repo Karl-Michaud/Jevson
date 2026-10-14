@@ -1,0 +1,111 @@
+{
+ "doc_id": "fjc-1391686",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Biography of Robert G. Klausner naming the nominating president, predecessor, and several courts and employers.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Klausner, Robert Gary",
+   "superseded": false,
+   "rationale": "Header name of the person described.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_institution": {
+   "status": "present",
+   "value": "Loyola Law School, Los Angeles, California",
+   "superseded": false,
+   "rationale": "J.D. from Loyola Law School, Los Angeles; bare \"Loyola Law School\" is incomplete.",
+   "options": {
+    "c0": "partial",
+    "c1": "correct"
+   }
+  },
+  "resume.law_year": {
+   "status": "present",
+   "value": "1967",
+   "superseded": false,
+   "rationale": "J.D. dated 1967; other 1967 is Army service start.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "University of Notre Dame",
+   "superseded": false,
+   "rationale": "Both bachelor degrees (B.A. and B.S.) are from University of Notre Dame.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1963",
+   "superseded": false,
+   "rationale": "Two bachelor degrees: B.A. 1963 (first) and B.S. 1964; both are bachelor-degree years.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "November 15, 2002",
+   "superseded": false,
+   "rationale": "Commission issued November 15, 2002.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct"
+   }
+  },
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. District Court for the Central District of California",
+   "superseded": false,
+   "rationale": "Only federal judicial service; Superior Court is a state post.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  }
+ }
+}

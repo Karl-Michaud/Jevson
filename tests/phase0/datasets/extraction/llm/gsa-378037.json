@@ -1,0 +1,16 @@
+{
+ "doc_id": "gsa-378037",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Xerox Printer",
+   "Xerox 10C enterprise printer",
+   "Xerox 10C",
+   "10C"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

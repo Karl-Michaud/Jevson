@@ -1,0 +1,42 @@
+{
+ "doc_id": "cord-test-063",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "A single purchase transaction between one merchant and one customer.",
+ "processing_note": null,
+ "fields": {
+  "receipt.cashprice": {
+   "status": "present",
+   "value": "60.000",
+   "superseded": false,
+   "rationale": "\"Cash 60.000\" is the cash handed over.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "wrong"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No total item count is printed; x1 and x2 are per-line quantities.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  }
+ }
+}

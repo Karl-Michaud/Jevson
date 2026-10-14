@@ -1,0 +1,30 @@
+{
+  "doc_id": "cuad-alliedesportsentertainmentinc-20190815-8-k-ex-10-19-11788293",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Three parties: WPT Enterprises, Zynga Inc. and Zynga Game Ireland Limited.",
+  "processing_note": "All amounts payable and due will be made in U.S. dollars.",
+  "fields": {
+    "contract.renewal_term": {
+      "status": "present",
+      "value": "two (2) years",
+      "superseded": false,
+      "rationale": "Section 3 provides an automatic extension for an additional two (2) years as the Renewal Term; other durations are the initial term, payment, cure or notice periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

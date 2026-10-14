@@ -1,0 +1,9 @@
+Excel treats unicode characters as text
+
+I have received an excel file which contains data from government website, whose text is in Hindi language.
+
+When I open the csv file, it displays the hindi texts in unicode characters like the following: à¤¬à¤¹à¥‡à¤°à¥€,,
+
+I have installed hindi fonts but it didn't work. It seems like excel is treating these characters as text instead of unicode. Any leads on how to solve this issue? I uploaded it in google sheets but still doesn't work. However, when I copy this text to ChatGPT, it does display the word in Hindi its reply.
+
+I have also tried "importing" this data as utf-8 in excel and stata and it isn't working still.

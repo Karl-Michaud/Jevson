@@ -1,0 +1,35 @@
+{
+ "doc_id": "se-superuser-1824883",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user with a home network; ISPs are mentioned only as background services.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "Netgear R7450",
+   "superseded": false,
+   "rationale": "The connection issues are attributed to the two Netgear R7450 routers.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "correct",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong"
+   }
+  }
+ }
+}

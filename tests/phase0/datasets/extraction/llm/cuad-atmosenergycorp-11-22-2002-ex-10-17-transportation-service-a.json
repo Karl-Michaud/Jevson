@@ -1,0 +1,38 @@
+{
+ "doc_id": "cuad-atmosenergycorp-11-22-2002-ex-10-17-transportation-service-a",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "TRANSPORTATION SERVICE AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "May 20, 1992",
+   "May 24, 2000"
+  ],
+  "contract.effective_date": [
+   "May 20, 1992",
+   "June 1, 2000"
+  ],
+  "contract.expiration_date": [
+   "07/31/2003",
+   "10/31/2002",
+   "10/31/2012",
+   "04/30/2012",
+   "09/30/2000"
+  ],
+  "contract.governing_law": [
+   "Arkansas"
+  ],
+  "contract.renewal_term": [
+   "month to month",
+   "ten years"
+  ],
+  "contract.notice_period": [
+   "sixty (60) days",
+   "third business day",
+   "180"
+  ]
+ }
+}

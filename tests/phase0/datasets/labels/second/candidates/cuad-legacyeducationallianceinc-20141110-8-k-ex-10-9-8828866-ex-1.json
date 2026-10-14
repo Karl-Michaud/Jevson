@@ -1,0 +1,21 @@
+{
+  "doc_id": "cuad-legacyeducationallianceinc-20141110-8-k-ex-10-9-8828866-ex-1",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Tigrent Learning UK Limited (Company), Celebrity Speakers (CSA, agent) and Robbie Fowler (Talent) in different roles.",
+  "processing_note": "CSA shall submit  invoice to the Company no later than thirty (30) days after Company provides CSA with the list of the sales of Product (containing the Property with such supporting information that may be required or requested to be disclosed).",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "TALENT ENDORSEMENT AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading titles the document TALENT ENDORSEMENT AGREEMENT; 'SUPPLEMENTAL AGREEMENT' in the preamble is a descriptive reference, not the title.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    }
+  }
+}

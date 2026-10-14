@@ -1,0 +1,64 @@
+{
+ "doc_id": "epmc-pmc10916207",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient; clinicians mentioned only in passing.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "lung T. whipplei infection and long COVID-19",
+   "superseded": true,
+   "rationale": "The document states 'The final diagnosis was lung T. whipplei infection and long COVID-19', replacing the presumptive CTD-ILD diagnosis.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "partial",
+    "c3": "correct",
+    "c4": "partial",
+    "c5": "partial",
+    "c6": "partial",
+    "c7": "wrong",
+    "c8": "partial",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "partial",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "partial",
+    "c18": "partial",
+    "c19": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "ceftriaxone",
+   "superseded": true,
+   "rationale": "Intravenous ceftriaxone is the first drug named for the T. whipplei infection; prednisone/cyclophosphamide were given for the superseded CTD-ILD diagnosis.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "correct",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,15 @@
+Slow Ubuntu after upgrade and update command.Any ideas what can be issue?
+
+I run a node on the desktop version of Ubuntu 20.04.6 LTS. In the terminal, I perform updates and upgrades using the apt command. After the last update, I received additional updates for Ubuntu PRO, which I didn't install (despite having the option to install it), and after that update, my computer and all apps are running slowly as if the computer were over 10 years old.
+
+My computer configuration is as follows: i7-10700K processor, 32GB RAM, 1TB NVMe SSD, NVIDIA GeForce RTX 3070, and a 1Gbit internet connection. Therefore, I don't believe this is a hardware issue.
+
+When I run the top command in the terminal, I see that a significant amount of CPU resources are being used by a chain that is part of the node setup. I haven't updated the node for about a year. Additionally, when I run a browser, CPU resource usage also spikes.
+
+I suspect that something from that recent update/upgrade has caused issues with my computer.
+
+free -h
+
+total used free shared buff/cache available
+Mem: 31Gi 7,3Gi 12Gi 223Mi 11Gi 23Gi
+Swap: 2,0Gi 659Mi 1,4Gi

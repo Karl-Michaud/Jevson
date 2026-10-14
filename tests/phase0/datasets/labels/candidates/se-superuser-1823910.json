@@ -1,0 +1,37 @@
+{
+ "doc_id": "se-superuser-1823910",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "MediaTek Wi-Fi 6 MT7921 Wireless LAN Card",
+   "superseded": false,
+   "rationale": "The MediaTek MT7921 Wi-Fi card stopped working and its drivers fail to install on Windows 10.",
+   "options": {
+    "c0": "wrong",
+    "c1": "partial",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "partial",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "partial",
+    "c8": "correct",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong"
+   }
+  }
+ }
+}

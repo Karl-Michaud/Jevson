@@ -1,0 +1,75 @@
+{
+  "doc_id": "cuad-gridironbionutrients-inc-02-05-2020-ex-10-3-supply-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Supply agreement between EWSD 1, LLC d/b/a Shi Farms (seller) and Gridiron BioNutrients, Inc. (buyer).",
+  "processing_note": "Both Parties agree that once the Parties have agreed to transaction which includes the purchase and sale of the Product that the Buyer will remit payment upon execution of this agreement.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "SUPPLY AGREEMENT",
+      "superseded": false,
+      "rationale": "The contract is titled SUPPLY AGREEMENT.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "1/27/2020",
+      "superseded": false,
+      "rationale": "Executed 'as of the date below'; the two signature dates differ and the agreement was fully executed on 1/27/2020, the later signature date (1/26/2020 is only the first party's signing).",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No effective date is stated separately from the signature dates.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term clause only allows termination before delivery; no expiration date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Colorado",
+      "superseded": false,
+      "rationale": "Section 5.B applies the laws of the State of Colorado; the second 'Colorado' is the litigation venue.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal term is stated.",
+      "options": {}
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No non-renewal notice period is stated.",
+      "options": {}
+    }
+  }
+}

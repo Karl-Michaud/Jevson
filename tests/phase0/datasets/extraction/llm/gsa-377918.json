@@ -1,0 +1,18 @@
+{
+ "doc_id": "gsa-377918",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Polycom VVX 501 Desktop Phone Lot",
+   "Polycom VVX 501 desktop phones",
+   "Polycom VVX 501"
+  ],
+  "product.inventory": [
+   "(2)",
+   "2"
+  ],
+  "product.price": []
+ }
+}

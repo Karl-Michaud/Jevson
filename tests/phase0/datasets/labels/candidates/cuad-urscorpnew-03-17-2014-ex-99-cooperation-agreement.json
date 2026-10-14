@@ -1,0 +1,146 @@
+{
+  "doc_id": "cuad-urscorpnew-03-17-2014-ex-99-cooperation-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Agreement between JANA Partners LLC and URS Corporation, plus several named director nominees and notice addresses.",
+  "processing_note": "All notices, consents, requests, instructions, approvals and other communications provided for herein and all legal process in regard hereto shall be in writing and shall be deemed validly given, made or served, if (a) given by telecopy and email, when such telecopy is transmitted to the telecopy number set forth below and sent to the email address set forth below and the appropriate confirmation is received or (b) if given by any other means, when actually received during normal business hours at the address specified in this Section:",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "COOPERATION AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading names the agreement Cooperation Agreement.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "March 13, 2014",
+      "superseded": false,
+      "rationale": "The preamble says the Agreement is dated March 13, 2014; other dates are meeting deadlines, press-release timing and biographies.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No separate effective date is stated; the agreement is only dated March 13, 2014 and March 27, 2014 is the board appointment effective date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement terminates on expiry of the Cooperation Period, which is defined by events rather than a stated date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "STATE OF DELAWARE",
+      "superseded": false,
+      "rationale": "Section 11(a) provides the agreement is governed by the laws of the State of Delaware; the earlier Delaware mention refers to board matters under Delaware corporate law.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal terms; the listed durations are standstill, cure periods and biography facts.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal mechanism, so no notice period to prevent renewal.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    }
+  }
+}

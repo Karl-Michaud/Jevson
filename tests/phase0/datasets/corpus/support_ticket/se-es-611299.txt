@@ -1,0 +1,101 @@
+Almacenar el numero de variable en una lista en pulp
+
+Hola estoy intentando realizar un programa que resuelva problemas de programación lineal, el primer código que realice solo admite 2 variable x1 y x2 pero quiero que el usuario ingrese el numero de variable que el decida lo cual creo que ese valor tendría que estar almacenado en una lista pero no se como hacer eso. Ejemplo Ingresa el numero de variables: (3) y luego me pida que ingrese el valor de dichas variables x1:valor x2:valor x3:valor, este es el código antiguo
+
+from pulp import *
+
+# Crea un problema de maximización
+problem = LpProblem("Programacion Lineal", LpMaximize)
+
+# Definir las variables
+x1 = LpVariable('X1', lowBound=0) # Variable x1 >= 0
+x2 = LpVariable('X2', lowBound=0) # Variable x2 >= 0
+variables = [x1, x2]
+
+print("Ingresa la funcion objetivo\n")
+num_x1 = float(input("Valor X1: "))
+num_x2 = float(input("Valor X2: "))
+
+# Función objetivo
+objective_function = num_x1 * x1 + num_x2 * x2
+problem += objective_function
+
+num_restricciones = int(input("Ingrese el número de restricciones: "))
+
+for i in range(num_restricciones):
+constraint_coeffs = [float(input(f"Coeficiente para {variable.name}: ")) * variable for variable in variables]
+
+operator = input("Operador (<=, >=, =): ")
+constraint_value = float(input("Valor de la restricción: ")) # Renombrar para evitar conflicto
+
+constraint_name = f"restriccion_{i + 1}"
+match operator:
+case "<=":
+problem += lpSum(constraint_coeffs) <= constraint_value, constraint_name
+case ">=":
+problem += lpSum(constraint_coeffs) >= constraint_value, constraint_name
+case "=":
+problem += lpSum(constraint_coeffs) == constraint_value, constraint_name
+
+problem.solve()
+
+# Imprimir resultados
+print(f"Status: {problem.status}")
+print(f"Función objetivo: {objective_function.value()}")
+print(f"Valor de x1: {x1.value()}")
+print(f"Valor de x2: {x2.value()}")
+
+Estoy intentando que el nuevo codigo haga lo mismo pero solo que el usuario ingrese el numero de varibles que el decida
+
+from pulp import *
+from fractions import Fraction # Importa la clase Fraction
+
+print("1.- Para Maximizar")
+print("2.- Para Minimizar")
+variable_lp = int(input())
+
+if variable_lp == 1:
+opc_lp = LpMaximize
+elif variable_lp == 2:
+opc_lp = LpMinimize
+else:
+print("Colocaste un valor incorrecto")
+
+# Crea un problema de maximización
+problem = LpProblem("Programacion Lineal", opc_lp)
+num_variables = int(input("ingresa el numero de variables: "))
+
+# Definir las variables
+variables = [LpVariable(f"X{i}", lowBound=0) for i in range(num_variables)]
+
+print("Ingresa la funcion objetivo\n")
+
+obj_coefficients = [Fraction(input(f"X{i}: " * variable[i] for variable in variables))]
+
+# Función objetivo
+problem += lpSum([Fraction(obj_coefficients[i]) * variables[i] for i in range(num_variables)])
+
+num_restricciones = int(input("Ingrese el número de restricciones: "))
+
+for i in range(num_restricciones):
+print("Restriccion",i+1)
+constraint_coeffs = [Fraction(input(f"Coeficiente para {variable.name}: ")) * variable for variable in variables]
+
+operator = input("Operador (<=, >=, =): ")
+constraint_value = Fraction(input("Valor de la restricción: "))
+
+constraint_name = f"restriccion_{i + 1}"
+if operator == "<=":
+problem += lpSum(constraint_coeffs) <= constraint_value, constraint_name
+elif operator == ">=":
+problem += lpSum(constraint_coeffs) >= constraint_value, constraint_name
+elif operator == "=":
+problem += lpSum(constraint_coeffs) == constraint_value, constraint_name
+
+problem.solve()
+
+# Imprimir resultados
+print(f"Status: {problem.status}")
+print(f"Función objetivo: {problem.value()}")
+
+cualquier consejo lo agradecería.
