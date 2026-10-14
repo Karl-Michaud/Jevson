@@ -56,15 +56,21 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 
 ## Status
 
-**Design, pre-implementation.** No code yet, by design.
+**Design, pre-implementation.** No library code yet; Phase 1 may start.
 
-- **[docs/DESIGN.md](docs/DESIGN.md)** — the SSOT: architecture, tiered guarantees, limits, and the evidence behind each claim
-- **[docs/PLAN.md](docs/PLAN.md)** — phases 0, 0r and 1–8 to v0, plus planned post-v0 phases 9–11, each with testable exit criteria and abandon criteria
+**What v0 will be: the fallback product.** Source selection did not pass its pre-registered tests on either decision model (Jev, then the Decisions API; see the findings at the top), so v0 does not pick values out of the document. It is a compiler for:
+
+- **bounded decisions** over options the schema declares: enums, yes/no fields, declared ordinal ratings, multi-label enum arrays, and which branch of a union to build;
+- **generative fields** drafted by your LLM and admitted only after the decision model checks them against the criteria you declare;
+- **structure** assembled by code, with a typed result that names every hole.
+
+A field declaring a source to select from is refused at compile time, with a reason that says why, rather than half-supported. The description above of source-grounded fields, spans, and *absent* entries is the full design, kept as the record for deferred work; it is not what v0 does. Pairwise entity resolution is deferred too.
+
+- **[docs/DESIGN.md](docs/DESIGN.md)** — the SSOT: architecture, tiered guarantees, limits, the evidence behind each claim, and the v0 scope (§10.1)
+- **[docs/PLAN.md](docs/PLAN.md)** — phases 0, 0r and 1–8 to v0 (Phase 5 abandoned, Phase 7 reduced to enum arrays), planned post-v0 phases 9–11, and every deferral with what would revive it (§9)
 - **[docs/EVIDENCE.md](docs/EVIDENCE.md)** — the evidence register: every factual claim in DESIGN and PLAN, and the probe or source that established it
 
-Phase 0 is an empirical taxonomy plus probes with pre-registered thresholds, and it is allowed to conclude that the library should be smaller than described above.
-
-**Phase 0 has run** on `jev-1.13.0` ([docs/taxonomy.md](docs/taxonomy.md), [docs/gate-probe.md](docs/gate-probe.md); one exit criterion is open for the owner). After probe 9 the verdict is to drop source selection (see the findings at the top), and pairwise entity resolution is deferred past v0. **Phase 0r has run** on the Decisions API (2026-10-14) and confirms both; Phase 1 may start.
+**Phase 0 has run** on `jev-1.13.0` ([docs/taxonomy.md](docs/taxonomy.md), [docs/gate-probe.md](docs/gate-probe.md); one exit criterion is open for the owner), and **Phase 0r** on the Decisions API (2026-10-14, [docs/taxonomy.md §9](docs/taxonomy.md)). Both concluded, as pre-registered, that the library should be smaller than the design: drop source selection, and defer pairwise entity resolution.
 
 ## Licence
 
