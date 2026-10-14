@@ -1,0 +1,37 @@
+{
+ "doc_id": "epmc-pmc11151406",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Patient treated at more than one hospital (initial hospital and a different hospital at age 6).",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "pilocytic astrocytoma (WHO Grade I)",
+   "superseded": false,
+   "rationale": "The document states 'The final diagnosis was pilocytic astrocytoma (WHO Grade I)', matching the earlier biopsy.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "partial",
+    "c3": "wrong",
+    "c4": "partial",
+    "c5": "correct",
+    "c6": "partial",
+    "c7": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Hydrocortisone and levothyroxine treated hypopituitarism; the chemotherapy for the astrocytoma is not named.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  }
+ }
+}

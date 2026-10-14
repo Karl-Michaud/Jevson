@@ -1,0 +1,152 @@
+{
+ "doc_id": "cuad-artaratherapeuticsinc-20200110-8-k-ex-10-5-11943350-ex-10-5-",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "ArTara, the University of Iowa (and its Research Foundation), with Chugai and the Principal Investigator named.",
+ "processing_note": "ArTara will add all applicable wire transfer fees to wire transfer payments.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "SPONSORED RESEARCH AND LICENSE AGREEMENT",
+   "superseded": false,
+   "rationale": "The heading and preamble name the contract \"Sponsored Research and License Agreement\", and the payment reference repeats the name.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "November 28, 2018",
+   "superseded": false,
+   "rationale": "The agreement is \"entered into on November 28, 2018\", and the payment reference repeats the date; 1/10/2020 is the filing footer.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "November 28, 2018",
+   "superseded": false,
+   "rationale": "November 28, 2018 is defined as the \"Effective Date\"; the later mention is the agreement date inside a payment reference.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement states no term or expiry date; ten years from the Effective Date is only a data-retention period.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Iowa",
+   "superseded": false,
+   "rationale": "Section 9.4 says the agreement is governed by the laws of the State of Iowa; the other Iowa mentions are names and addresses.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "correct",
+    "c15": "correct",
+    "c16": "correct"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement has no renewal provision.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "There is no renewal, so there is no notice period to prevent it; the 30-day periods are termination notices.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  }
+ }
+}

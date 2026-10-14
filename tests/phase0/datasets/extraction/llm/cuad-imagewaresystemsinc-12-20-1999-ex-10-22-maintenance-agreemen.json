@@ -1,0 +1,43 @@
+{
+ "doc_id": "cuad-imagewaresystemsinc-12-20-1999-ex-10-22-maintenance-agreemen",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "MAINTENANCE AGREEMENT",
+   "This Agreement",
+   "Maintenance Agreement"
+  ],
+  "contract.agreement_date": [
+   "31 January, 1994"
+  ],
+  "contract.effective_date": [
+   "December 10, 1993",
+   "31 January, 1994",
+   "Effective Date"
+  ],
+  "contract.expiration_date": [
+   "at least one year thereafter",
+   "one year"
+  ],
+  "contract.governing_law": [
+   "Washington State, USA",
+   "Washington State",
+   "California",
+   "United States"
+  ],
+  "contract.renewal_term": [
+   "consecutive one (1) year terms",
+   "one (1) year",
+   "one year"
+  ],
+  "contract.notice_period": [
+   "sixty (60) days",
+   "sixty (60) days prior written notice",
+   "sixty (60) days' written notice",
+   "sixty (60) day period",
+   "thirty (30) days"
+  ]
+ }
+}

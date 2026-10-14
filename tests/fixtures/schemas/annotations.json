@@ -1,0 +1,1226 @@
+{
+ "version": 1,
+ "annotations": {
+  "support_ticket": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/ticket_id": {
+    "origin": "span",
+    "importance": "high",
+    "note": "extracted if the ticket text states it"
+   },
+   "/severity": {
+    "origin": "enum",
+    "importance": "high"
+   },
+   "/category": {
+    "origin": "classify_free",
+    "importance": "medium",
+    "note": "a classification with no declared enum ('e.g., billing, technical, account')"
+   },
+   "/description": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/affected_services": {
+    "origin": "array_spans",
+    "importance": "medium"
+   },
+   "/affected_services/[]": {
+    "origin": "span",
+    "importance": "medium"
+   }
+  },
+  "agent_state": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/email_content": {
+    "origin": "caller",
+    "importance": "low",
+    "note": "program input"
+   },
+   "/sender_email": {
+    "origin": "caller",
+    "importance": "medium",
+    "note": "program input"
+   },
+   "/email_id": {
+    "origin": "caller",
+    "importance": "medium",
+    "note": "program input"
+   },
+   "/classification": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/classification/intent": {
+    "origin": "enum",
+    "importance": "high"
+   },
+   "/classification/urgency": {
+    "origin": "enum",
+    "importance": "high"
+   },
+   "/classification/topic": {
+    "origin": "classify_free",
+    "importance": "medium",
+    "note": "no declared enum"
+   },
+   "/classification/summary": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/search_results": {
+    "origin": "array_caller",
+    "importance": "low",
+    "note": "tool output"
+   },
+   "/search_results/[]": {
+    "origin": "caller",
+    "importance": "low",
+    "note": "tool output"
+   },
+   "/customer_history": {
+    "origin": "unsupported",
+    "importance": "medium",
+    "note": "dict[str, Any]: free-form object"
+   },
+   "/draft_response": {
+    "origin": "generate",
+    "importance": "medium"
+   },
+   "/messages": {
+    "origin": "array_caller",
+    "importance": "low",
+    "note": "conversation state"
+   },
+   "/messages/[]": {
+    "origin": "caller",
+    "importance": "low",
+    "note": "conversation state"
+   }
+  },
+  "tool_routing": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/datasource": {
+    "origin": "enum",
+    "importance": "high"
+   }
+  },
+  "summarization": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/title": {
+    "origin": "generate",
+    "importance": "medium",
+    "note": "a title for the video, not guaranteed to be stated in the transcript"
+   },
+   "/duration": {
+    "origin": "compute",
+    "importance": "medium",
+    "note": "seconds, computed from transcript timing"
+   },
+   "/main_topics": {
+    "origin": "array_generated",
+    "importance": "medium"
+   },
+   "/main_topics/[]": {
+    "origin": "generate",
+    "importance": "medium"
+   },
+   "/key_takeaways": {
+    "origin": "array_generated",
+    "importance": "medium"
+   },
+   "/key_takeaways/[]": {
+    "origin": "generate",
+    "importance": "medium"
+   },
+   "/target_audience": {
+    "origin": "generate",
+    "importance": "low"
+   }
+  },
+  "classification_rationale": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/chain_of_thought": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/label": {
+    "origin": "enum",
+    "importance": "high"
+   }
+  },
+  "product_listing": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/title": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/category": {
+    "origin": "classify_free",
+    "importance": "medium",
+    "note": "no declared enum"
+   },
+   "/discount": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/price": {
+    "origin": "span_parse",
+    "importance": "high"
+   },
+   "/rating": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/review": {
+    "origin": "span",
+    "importance": "low",
+    "note": "review count or text as printed"
+   },
+   "/description": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/inventory": {
+    "origin": "span_parse",
+    "importance": "medium"
+   }
+  },
+  "receipt": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/menu": {
+    "origin": "array_objects",
+    "importance": "medium",
+    "note": "line items"
+   },
+   "/menu/[]": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/menu/[]/nm": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/menu/[]/num": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/menu/[]/unitprice": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/menu/[]/cnt": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/menu/[]/discountprice": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/menu/[]/price": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/menu/[]/itemsubtotal": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/menu/[]/vatyn": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/menu/[]/etc": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/menu/[]/sub_nm": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/menu/[]/sub_unitprice": {
+    "origin": "span_parse",
+    "importance": "low"
+   },
+   "/menu/[]/sub_cnt": {
+    "origin": "span_parse",
+    "importance": "low"
+   },
+   "/menu/[]/sub_price": {
+    "origin": "span_parse",
+    "importance": "low"
+   },
+   "/menu/[]/sub_etc": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/void_menu": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/void_menu/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/void_menu/[]/nm": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/void_menu/[]/price": {
+    "origin": "span_parse",
+    "importance": "low"
+   },
+   "/subtotal": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/subtotal/subtotal_price": {
+    "origin": "span_parse",
+    "importance": "high"
+   },
+   "/subtotal/discount_price": {
+    "origin": "span_parse",
+    "importance": "high"
+   },
+   "/subtotal/service_price": {
+    "origin": "span_parse",
+    "importance": "high"
+   },
+   "/subtotal/othersvc_price": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/subtotal/tax_price": {
+    "origin": "span_parse",
+    "importance": "high"
+   },
+   "/subtotal/etc": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/total": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/total/total_price": {
+    "origin": "span_parse",
+    "importance": "high",
+    "note": "as printed on the receipt (CORD labels printed tokens)"
+   },
+   "/total/total_etc": {
+    "origin": "span",
+    "importance": "low",
+    "note": "as printed on the receipt (CORD labels printed tokens)"
+   },
+   "/total/cashprice": {
+    "origin": "span_parse",
+    "importance": "high",
+    "note": "as printed on the receipt (CORD labels printed tokens)"
+   },
+   "/total/changeprice": {
+    "origin": "span_parse",
+    "importance": "high",
+    "note": "as printed on the receipt (CORD labels printed tokens)"
+   },
+   "/total/creditcardprice": {
+    "origin": "span_parse",
+    "importance": "high",
+    "note": "as printed on the receipt (CORD labels printed tokens)"
+   },
+   "/total/emoneyprice": {
+    "origin": "span_parse",
+    "importance": "high",
+    "note": "as printed on the receipt (CORD labels printed tokens)"
+   },
+   "/total/menutype_cnt": {
+    "origin": "span_parse",
+    "importance": "medium",
+    "note": "as printed on the receipt (CORD labels printed tokens)"
+   },
+   "/total/menuqty_cnt": {
+    "origin": "span_parse",
+    "importance": "medium",
+    "note": "as printed on the receipt (CORD labels printed tokens)"
+   }
+  },
+  "contract": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/document_name": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/parties": {
+    "origin": "array_spans",
+    "importance": "high",
+    "note": "entity resolution over party mentions"
+   },
+   "/parties/[]": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/agreement_date": {
+    "origin": "span_parse",
+    "importance": "high",
+    "note": "a date"
+   },
+   "/effective_date": {
+    "origin": "span_parse",
+    "importance": "high",
+    "note": "a date"
+   },
+   "/expiration_date": {
+    "origin": "span_parse",
+    "importance": "high",
+    "note": "a date"
+   },
+   "/renewal_term": {
+    "origin": "span",
+    "importance": "high",
+    "note": "a duration or jurisdiction as written"
+   },
+   "/notice_period_to_terminate_renewal": {
+    "origin": "span",
+    "importance": "high",
+    "note": "a duration or jurisdiction as written"
+   },
+   "/governing_law": {
+    "origin": "span",
+    "importance": "high",
+    "note": "a duration or jurisdiction as written"
+   },
+   "/most_favored_nation": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/non_compete": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/exclusivity": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/no_solicit_of_customers": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/competitive_restriction_exception": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/no_solicit_of_employees": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/non_disparagement": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/termination_for_convenience": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/rofr_rofo_rofn": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/change_of_control": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/anti_assignment": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/revenue_profit_sharing": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/price_restrictions": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/minimum_commitment": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/volume_restriction": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/ip_ownership_assignment": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/joint_ip_ownership": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/license_grant": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/non_transferable_license": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/affiliate_license_licensor": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/affiliate_license_licensee": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/unlimited_all_you_can_eat_license": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/irrevocable_or_perpetual_license": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/source_code_escrow": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/post_termination_services": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/audit_rights": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/uncapped_liability": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/cap_on_liability": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/liquidated_damages": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/warranty_duration": {
+    "origin": "span",
+    "importance": "medium",
+    "note": "a duration or jurisdiction as written"
+   },
+   "/insurance": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/covenant_not_to_sue": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   },
+   "/third_party_beneficiary": {
+    "origin": "bool",
+    "importance": "high",
+    "note": "clause present?"
+   }
+  },
+  "resume": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/$schema": {
+    "origin": "caller",
+    "importance": "low",
+    "note": "document metadata"
+   },
+   "/basics": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/basics/name": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/basics/label": {
+    "origin": "span",
+    "importance": "medium",
+    "note": "a job title"
+   },
+   "/basics/image": {
+    "origin": "caller",
+    "importance": "low",
+    "note": "a URL to an image file"
+   },
+   "/basics/email": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/basics/phone": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/basics/url": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/basics/summary": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/basics/location": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/basics/location/address": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/basics/location/postalCode": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/basics/location/city": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/basics/location/countryCode": {
+    "origin": "compute",
+    "importance": "medium",
+    "note": "ISO-3166 code looked up from a selected country span"
+   },
+   "/basics/location/region": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/basics/profiles": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/basics/profiles/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/basics/profiles/[]/network": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/basics/profiles/[]/username": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/basics/profiles/[]/url": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/work": {
+    "origin": "array_objects",
+    "importance": "high"
+   },
+   "/work/[]": {
+    "origin": "structure",
+    "importance": "high"
+   },
+   "/work/[]/name": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/work/[]/location": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/work/[]/description": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/work/[]/position": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/work/[]/url": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/work/[]/startDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/work/[]/endDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/work/[]/summary": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/work/[]/highlights": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/work/[]/highlights/[]": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/volunteer": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/volunteer/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/volunteer/[]/organization": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/volunteer/[]/position": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/volunteer/[]/url": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/volunteer/[]/startDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/volunteer/[]/endDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/volunteer/[]/summary": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/volunteer/[]/highlights": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/volunteer/[]/highlights/[]": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/education": {
+    "origin": "array_objects",
+    "importance": "high"
+   },
+   "/education/[]": {
+    "origin": "structure",
+    "importance": "high"
+   },
+   "/education/[]/institution": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/education/[]/url": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/education/[]/area": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/education/[]/studyType": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/education/[]/startDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/education/[]/endDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/education/[]/score": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/education/[]/courses": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/education/[]/courses/[]": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/awards": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/awards/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/awards/[]/title": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/awards/[]/date": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/awards/[]/awarder": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/awards/[]/summary": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/certificates": {
+    "origin": "array_objects",
+    "importance": "medium"
+   },
+   "/certificates/[]": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/certificates/[]/name": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/certificates/[]/date": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/certificates/[]/url": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/certificates/[]/issuer": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/publications": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/publications/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/publications/[]/name": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/publications/[]/publisher": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/publications/[]/releaseDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/publications/[]/url": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/publications/[]/summary": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/skills": {
+    "origin": "array_objects",
+    "importance": "medium"
+   },
+   "/skills/[]": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/skills/[]/name": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/skills/[]/level": {
+    "origin": "classify_free",
+    "importance": "low"
+   },
+   "/skills/[]/keywords": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/skills/[]/keywords/[]": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/languages": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/languages/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/languages/[]/language": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/languages/[]/fluency": {
+    "origin": "classify_free",
+    "importance": "low"
+   },
+   "/interests": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/interests/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/interests/[]/name": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/interests/[]/keywords": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/interests/[]/keywords/[]": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/references": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/references/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/references/[]/name": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/references/[]/reference": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/projects": {
+    "origin": "array_objects",
+    "importance": "low"
+   },
+   "/projects/[]": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/projects/[]/name": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/projects/[]/description": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/projects/[]/highlights": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/projects/[]/highlights/[]": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/projects/[]/keywords": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/projects/[]/keywords/[]": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/projects/[]/startDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/projects/[]/endDate": {
+    "origin": "span_parse",
+    "importance": "medium"
+   },
+   "/projects/[]/url": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/projects/[]/roles": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/projects/[]/roles/[]": {
+    "origin": "span",
+    "importance": "low"
+   },
+   "/projects/[]/entity": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/projects/[]/type": {
+    "origin": "classify_free",
+    "importance": "low"
+   },
+   "/meta": {
+    "origin": "structure",
+    "importance": "low"
+   },
+   "/meta/canonical": {
+    "origin": "caller",
+    "importance": "low"
+   },
+   "/meta/version": {
+    "origin": "caller",
+    "importance": "low"
+   },
+   "/meta/lastModified": {
+    "origin": "caller",
+    "importance": "low"
+   }
+  },
+  "medical_intake": {
+   "/": {
+    "origin": "structure",
+    "importance": "high"
+   },
+   "/patientName": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/dateOfBirth": {
+    "origin": "span_parse",
+    "importance": "high"
+   },
+   "/bloodType": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/allergies": {
+    "origin": "array_spans",
+    "importance": "high"
+   },
+   "/allergies/[]": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/conditions": {
+    "origin": "array_spans",
+    "importance": "high"
+   },
+   "/conditions/[]": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/medications": {
+    "origin": "array_spans",
+    "importance": "high"
+   },
+   "/medications/[]": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/emergencyContact": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/emergencyContact/username": {
+    "origin": "caller",
+    "importance": "low",
+    "note": "an account attribute of the referenced user-profile schema"
+   },
+   "/emergencyContact/email": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/emergencyContact/fullName": {
+    "origin": "span",
+    "importance": "high"
+   },
+   "/emergencyContact/age": {
+    "origin": "span_parse",
+    "importance": "low"
+   },
+   "/emergencyContact/location": {
+    "origin": "span",
+    "importance": "medium"
+   },
+   "/emergencyContact/interests": {
+    "origin": "array_spans",
+    "importance": "low"
+   },
+   "/emergencyContact/interests/[]": {
+    "origin": "span",
+    "importance": "low"
+   }
+  },
+  "jev_jsonschema_all_kinds": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/verdict": {
+    "origin": "enum",
+    "importance": "high"
+   },
+   "/attempts": {
+    "origin": "enum",
+    "importance": "medium",
+    "note": "integer enum"
+   },
+   "/is_spam": {
+    "origin": "bool",
+    "importance": "high"
+   },
+   "/correctness": {
+    "origin": "unsupported",
+    "importance": "medium",
+    "note": "an unbounded number with no source"
+   },
+   "/stars": {
+    "origin": "ordinal",
+    "importance": "medium",
+    "note": "a rating"
+   }
+  },
+  "jev_jsonschema_client_schema": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/sentiment": {
+    "origin": "enum",
+    "importance": "medium"
+   },
+   "/is_spam": {
+    "origin": "bool",
+    "importance": "high"
+   },
+   "/quality": {
+    "origin": "ordinal",
+    "importance": "medium",
+    "note": "a rating"
+   }
+  },
+  "jev_jsonschema_unmappable": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/summary": {
+    "origin": "generate",
+    "importance": "low"
+   },
+   "/tags": {
+    "origin": "array_generated",
+    "importance": "low"
+   },
+   "/tags/[]": {
+    "origin": "generate",
+    "importance": "low"
+   }
+  },
+  "jev_jsonschema_question_set_order": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/verdict": {
+    "origin": "enum",
+    "importance": "high"
+   },
+   "/stars": {
+    "origin": "ordinal",
+    "importance": "medium",
+    "note": "a rating"
+   },
+   "/is_spam": {
+    "origin": "bool",
+    "importance": "high"
+   }
+  },
+  "jev_jsonschema_all_failures": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/good": {
+    "origin": "bool",
+    "importance": "medium"
+   },
+   "/bad_string": {
+    "origin": "unsupported",
+    "importance": "low",
+    "note": "deliberately unmappable fixture"
+   },
+   "/bad_enum": {
+    "origin": "unsupported",
+    "importance": "low",
+    "note": "empty enum"
+   },
+   "/bad_integer": {
+    "origin": "unsupported",
+    "importance": "low",
+    "note": "unbounded integer, no source"
+   }
+  },
+  "jev_jsonschema_root_type_omitted": {
+   "/": {
+    "origin": "structure",
+    "importance": "medium"
+   },
+   "/a": {
+    "origin": "bool",
+    "importance": "medium"
+   }
+  }
+ }
+}

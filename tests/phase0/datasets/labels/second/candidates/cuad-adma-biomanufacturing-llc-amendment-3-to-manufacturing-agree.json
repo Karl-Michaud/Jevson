@@ -1,0 +1,23 @@
+{
+  "doc_id": "cuad-adma-biomanufacturing-llc-amendment-3-to-manufacturing-agree",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Parties ADMA BioManufacturing and Sanofi Pasteur, plus predecessor BPC; several addresses.",
+  "processing_note": "Such payments shall be made in accordance with Section 3.4 of the Agreement; provided, however, that the initial payment described in Section 5(a) above shall be due no later than December 31,2017.",
+  "fields": {
+    "contract.governing_law": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The amendment contains no governing-law clause; Delaware, Florida and France appear only as party incorporation or address details.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    }
+  }
+}

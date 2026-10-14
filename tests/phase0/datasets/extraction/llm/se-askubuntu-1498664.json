@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1498664", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Chromium", "Firefox", "Xubuntu 20.04.6 LTS", "KeePassXC", "Thunderbird", "default browser", "snap version of Chromium", "non-snap-version of Chromium", "Web Browser"]}}

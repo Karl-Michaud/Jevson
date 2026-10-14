@@ -1,0 +1,44 @@
+{
+  "passage_id": "epmc-pmc10916207#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "62-year-old man with T. whipplei lung infection (the patient)",
+    "E2": "the patient's daughter in Australia",
+    "E3": "rheumatologist who assessed the patient",
+    "E4": "the treating pulmonologists (group)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E4",
+      "role_noun": true,
+      "ambiguous": true
+    }
+  }
+}

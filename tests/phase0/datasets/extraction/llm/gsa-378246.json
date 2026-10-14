@@ -1,0 +1,20 @@
+{
+ "doc_id": "gsa-378246",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Internal Hard Drives",
+   "34 2.5 inch internal hard drives",
+   "Toshiba-IMSourcing MQ01ACF050 500GB hard drives"
+  ],
+  "product.inventory": [
+   "34",
+   "one Toshiba HDD2L04 disk drive",
+   "one Seagate laptop thin HDD 320GB",
+   "one"
+  ],
+  "product.price": []
+ }
+}

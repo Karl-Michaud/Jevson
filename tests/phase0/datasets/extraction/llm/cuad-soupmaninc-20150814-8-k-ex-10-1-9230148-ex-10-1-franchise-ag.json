@@ -1,0 +1,9 @@
+{"doc_id": "cuad-soupmaninc-20150814-8-k-ex-10-1-9230148-ex-10-1-franchise-ag", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["Master Franchise Agreement", "MULTI-STATE ADDENDUM", "CALIFORNIA APPENDIX", "Attachment C to Master Franchise Agreement"],
+"contract.agreement_date": [],
+"contract.effective_date": [],
+"contract.expiration_date": [],
+"contract.governing_law": ["laws of New York", "New York", "California law"],
+"contract.renewal_term": [],
+"contract.notice_period": []
+}}

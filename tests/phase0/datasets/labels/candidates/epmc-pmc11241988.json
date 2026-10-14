@@ -1,0 +1,38 @@
+{
+ "doc_id": "epmc-pmc11241988",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "WCA",
+   "superseded": true,
+   "rationale": "CAG and OCT indicated a WCA (woven coronary artery, acquired) in the LAD, replacing the earlier unstable angina diagnosis.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "partial"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The WCA was treated with stent implantation; aspirin/nitrate/beta-blocker/statin were given in 2016 before the WCA was found.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  }
+ }
+}

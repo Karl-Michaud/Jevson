@@ -1,0 +1,119 @@
+{
+ "doc_id": "fjc-1391746",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Biography of William D. Quarles Jr. naming the nominating president, predecessor, a judge he clerked for, and two earlier failed nominations.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Quarles, William D., Jr.",
+   "superseded": false,
+   "rationale": "Header name of the person described.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_institution": {
+   "status": "present",
+   "value": "Catholic University of America, Columbus School of Law",
+   "superseded": false,
+   "rationale": "J.D. from Catholic University Columbus School of Law.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_year": {
+   "status": "present",
+   "value": "1979",
+   "superseded": false,
+   "rationale": "J.D. dated 1979; other 1979 is clerkship start.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong"
+   }
+  },
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "University of Maryland",
+   "superseded": false,
+   "rationale": "B.S. from University of Maryland; the community college awarded an A.A. (not a bachelor).",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1976",
+   "superseded": false,
+   "rationale": "B.S. dated 1976.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "March 14, 2003",
+   "superseded": false,
+   "rationale": "Commission issued March 14, 2003; earlier nominations got no vote.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. District Court for the District of Maryland",
+   "superseded": false,
+   "rationale": "Only federal judicial service; Maryland Circuit Court is a state post.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  }
+ }
+}

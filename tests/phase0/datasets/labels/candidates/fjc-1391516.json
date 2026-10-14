@@ -1,0 +1,114 @@
+{
+ "doc_id": "fjc-1391516",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Biography of Cynthia M. Rufe naming the nominating president, predecessor, and several employers including a state court.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Rufe, Cynthia M.",
+   "superseded": false,
+   "rationale": "Header name of the person described.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_institution": {
+   "status": "present",
+   "value": "State University of New York at Buffalo Law School",
+   "superseded": false,
+   "rationale": "J.D. from SUNY Buffalo Law School.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.law_year": {
+   "status": "present",
+   "value": "1977",
+   "superseded": false,
+   "rationale": "J.D. dated 1977; other 1977s are job starts.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong"
+   }
+  },
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "Adelphi University",
+   "superseded": false,
+   "rationale": "B.A. from Adelphi University.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1970",
+   "superseded": false,
+   "rationale": "B.A. dated 1970.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "May 3, 2002",
+   "superseded": false,
+   "rationale": "Commission issued May 3, 2002.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong"
+   }
+  },
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. District Court for the Eastern District of Pennsylvania",
+   "superseded": false,
+   "rationale": "Only federal judicial service; the Common Pleas judgeship is a state post.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  }
+ }
+}

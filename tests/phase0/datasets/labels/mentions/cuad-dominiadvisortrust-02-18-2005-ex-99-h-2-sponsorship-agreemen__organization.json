@@ -1,0 +1,47 @@
+{
+  "passage_id": "cuad-dominiadvisortrust-02-18-2005-ex-99-h-2-sponsorship-agreemen#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Domini Advisor Trust, Massachusetts business trust (the Trust)",
+    "E2": "Domini Social Investments LLC (Domini, the Sponsor)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

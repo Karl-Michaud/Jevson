@@ -1,0 +1,38 @@
+{
+ "doc_id": "epmc-pmc10914250",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient with advanced colon cancer.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "advanced colon cancer, protruded type, clinical stage T2N0M0",
+   "superseded": false,
+   "rationale": "Patient was diagnosed with advanced colon cancer (adenocarcinoma), protruded type, stage T2N0M0.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "partial",
+    "c5": "partial",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "partial"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Treated only with endoscopic therapies; the text states no chemotherapy or other drug therapy was given.",
+   "options": {}
+  }
+ }
+}

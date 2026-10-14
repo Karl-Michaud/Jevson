@@ -1,0 +1,45 @@
+{
+ "doc_id": "fjc-1389116",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Van Sickle, Frederick L.",
+   "George H.W. Bush"
+  ],
+  "resume.law_institution": [
+   "University of Washington School of Law",
+   "University of Wisconsin"
+  ],
+  "resume.law_year": [
+   "1968",
+   "1965",
+   "1970",
+   "1971",
+   "1975"
+  ],
+  "resume.undergrad_institution": [
+   "University of Wisconsin",
+   "University of Washington School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1965",
+   "1968",
+   "1943",
+   "1970"
+  ],
+  "resume.first_judgeship_start": [
+   "May 14, 1991",
+   "May 9, 1991",
+   "March 21, 1991",
+   "May 1, 2008",
+   "September 2, 2021"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Eastern District of Washington",
+   "U.S. District Court for the Eastern District of Washington",
+   "Judge, Superior Court of the State of Washington"
+  ]
+ }
+}

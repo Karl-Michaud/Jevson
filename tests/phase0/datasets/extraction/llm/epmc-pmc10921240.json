@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc10921240", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["OCR", "penetrating orbital injury", "commotio retinae", "fracture of the inferior wall of the right orbit"], "medical.treatment_drug": []}}

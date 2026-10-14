@@ -1,0 +1,25 @@
+{
+ "doc_id": "cuad-pelicandeliversinc-20200211-s-1-ex-10-3-11975895-ex-10-3-dev",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: DOT COM LLC / Seattle Software Developers (Developer) and Pelican Delivers Inc. (Client), plus several addresses.",
+ "processing_note": "Client shall pay Fees, Expenses (if any), and any Bonus to Developer via w re to Developer's bank account at: Chase Bank 1955 156th Avenue NE Bellevue, Washington 98007 425-590-4010 Routing: 325070760 Account :676313880",
+ "fields": {
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Washington",
+   "superseded": false,
+   "rationale": "Section 12.1 states the Agreement is governed by the laws of the State of Washington.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  }
+ }
+}

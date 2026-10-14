@@ -1,0 +1,38 @@
+{
+  "passage_id": "cuad-primeenergyresourcescorp-04-02-2007-ex-10-28-completion-and-#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Beverly A. Cummings, EVP of PrimeEnergy Corporation",
+    "E2": "Jim E. Breck, President and CFO of Prime Offshore L.L.C. (OCR-garbled)",
+    "E3": "Kelly L. Elmore, Senior Vice President of Guaranty Bank (OCR-garbled)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

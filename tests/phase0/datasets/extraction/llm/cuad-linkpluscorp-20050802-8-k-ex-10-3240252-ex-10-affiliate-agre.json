@@ -1,0 +1,36 @@
+{
+ "doc_id": "cuad-linkpluscorp-20050802-8-k-ex-10-3240252-ex-10-affiliate-agre",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "AFFILIATE AGREEMENT",
+   "AFFLIATE AGREEMENT DATED JULY 15, 2005"
+  ],
+  "contract.agreement_date": [
+   "JULY 15, 2005",
+   "July 15, 2005",
+   "May 3, 2005",
+   "8/2/2005"
+  ],
+  "contract.effective_date": [
+   "July 15, 2005",
+   "JULY 15, 2005"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "State of Maryland",
+   "Maryland"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "60 days",
+   "two weeks",
+   "thirty (30) days",
+   "45 days",
+   "sixty (60) days",
+   "fifteen (15) days"
+  ]
+ }
+}

@@ -1,0 +1,40 @@
+{
+  "doc_id": "cuad-jingweiinternationalltd-10-04-2007-ex-10-7-intellectual-prop",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: JingWei HengTong Technology (ShenZhen) (Party A) and ShenZhen JingWei Communication (Party B).",
+  "processing_note": "Party B shall pay the license fee to the account designated by Party A before December 31 each year.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Intellectual Property Agreement",
+      "superseded": false,
+      "rationale": "The agreement names itself 'Intellectual Property Agreement' in the title, preamble and running page footers.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "correct",
+        "c6": "correct",
+        "c7": "correct"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Extension is only by mutual written agreement; there is no automatic renewal and no notice period to prevent it.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "doc_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--404dc0",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Amendment between Fox Mobile Entertainment (as administrator for Twentieth Century Fox) and Glu Mobile Inc.",
+  "processing_note": null,
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "February 19, 2007",
+      "superseded": false,
+      "rationale": "This document (Amendment No. 3) is dated as of February 19, 2007; the other dates are the original agreement date, prior amendment dates, term end dates, or the filing date, and 'Effective Date' is an undefined reference.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "present",
+      "value": "December 31, 2006",
+      "superseded": false,
+      "rationale": "The amended Term clause states the Term expires on December 31, 2006; March 31, 2008 is a per-property continuation of licenses, not the Term's expiry.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    }
+  }
+}

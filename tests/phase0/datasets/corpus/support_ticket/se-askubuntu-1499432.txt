@@ -1,0 +1,11 @@
+Blue Yeti microphone not allowed as duplex
+
+Running Ubuntu 20.04. I have a Blue Yeti microphone which I used to plug my headphones into the audio jack and have it to passthrough audio from my laptop to it.
+
+Used to work flawlessly until a few weeks ago, but now I can no longer select Yeti as both input and output. When I do, the other one switches to something else I have plugged in for that direction.
+
+I installed pavucontrol and I noticed that, in Configuration, the only profiles available for Yeti are analog/digital input or output, but no duplex. Looking for answers I saw other people's screenshots where their Yeti also had profiles like "Digital Stereo Duplex."
+
+What am I missing? I don't think the Yeti has any driver or whatever I can update. I also don't really know what changed because I haven't used this mic for a month while I was away from home but still using the same laptop.
+
+Thanks!

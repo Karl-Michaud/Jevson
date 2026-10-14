@@ -1,0 +1,30 @@
+{
+ "doc_id": "se-askubuntu-1498690",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "Ubuntu 20.04.6 LTS",
+   "superseded": false,
+   "rationale": "The slowdown affects the user's Ubuntu 20.04.6 LTS desktop after an update.",
+   "options": {
+    "c0": "partial",
+    "c1": "wrong",
+    "c2": "partial",
+    "c3": "correct",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong"
+   }
+  }
+ }
+}

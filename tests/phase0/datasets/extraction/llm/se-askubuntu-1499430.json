@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1499430", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["LD_LIBRARY_PATH", "~/.bashrc", "~/.profile", "wxWidgets", "/etc/ld.so.conf.d/wx.conf", "ldconfig", ".bashrc", ".profile", "wx library"]}}

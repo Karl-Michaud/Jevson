@@ -1,0 +1,26 @@
+{
+  "doc_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--3ded74",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Fox Mobile Entertainment (for Twentieth Century Fox) and Glu Mobile as licensee.",
+  "processing_note": null,
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "March 27, 2006",
+      "superseded": false,
+      "rationale": "Amendment No. 2 is dated as of March 27, 2006; other dates belong to the underlying agreement, its prior amendment, signatures or the filing footer.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    }
+  }
+}

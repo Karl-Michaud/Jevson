@@ -1,0 +1,43 @@
+{
+ "doc_id": "fjc-1392386",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Names the subject judge, the nominating president, and the predecessor Walter Herbert Rice.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Barrett, Michael Ryan",
+   "superseded": false,
+   "rationale": "The record header names the subject.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1974",
+   "superseded": false,
+   "rationale": "B.A. from University of Cincinnati awarded 1974.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  }
+ }
+}

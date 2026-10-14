@@ -1,0 +1,34 @@
+{
+ "doc_id": "epmc-pmc10981384",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "single patient case report; no distinct parties in different roles",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "hypothyroidism due to excessive seaweed consumption",
+   "superseded": false,
+   "rationale": "The diagnosis of hypothyroidism due to excessive seaweed consumption was confirmed; dermatomyositis/anti-synthetase syndrome were only considered.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "partial",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "partial",
+    "c13": "partial",
+    "c14": "correct"
+   }
+  }
+ }
+}

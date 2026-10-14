@@ -1,0 +1,45 @@
+{
+ "doc_id": "cuad-bolivarminingcorp-05-23-2003-ex-2-1-visp-web-site-building-a",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "VISP WEB SITE BUILDING AND HOSTING AGREEMENT",
+   "This Agreement",
+   "Agreement"
+  ],
+  "contract.agreement_date": [
+   "12th day of May 2003",
+   "May 2003",
+   "5/12/03"
+  ],
+  "contract.effective_date": [
+   "12th day of May 2003",
+   "May 2003",
+   "5/12/03"
+  ],
+  "contract.expiration_date": [
+   "five years from the date of this document",
+   "five years",
+   "next five years"
+  ],
+  "contract.governing_law": [
+   "state of New York",
+   "New York",
+   "New York state"
+  ],
+  "contract.renewal_term": [
+   "each year",
+   "year",
+   "automatically each year thereafter"
+  ],
+  "contract.notice_period": [
+   "90 days",
+   "at least 90 days",
+   "2 (two) years",
+   "20 days",
+   "45 days"
+  ]
+ }
+}

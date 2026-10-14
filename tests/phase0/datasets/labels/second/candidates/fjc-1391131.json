@@ -1,0 +1,45 @@
+{
+  "doc_id": "fjc-1391131",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "The biography names the judge plus other people in different roles (nominating president, predecessor judge, or a judge clerked for).",
+  "processing_note": null,
+  "fields": {
+    "resume.undergrad_year": {
+      "status": "present",
+      "value": "1966",
+      "superseded": false,
+      "rationale": "The B.A. from Southeastern Louisiana College was awarded in 1966.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "correct",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong"
+      }
+    },
+    "resume.latest_position": {
+      "status": "present",
+      "value": "Judge, U.S. District Court for the Middle District of Louisiana",
+      "superseded": false,
+      "rationale": "The only federal judicial service listed is the Middle District of Louisiana judgeship.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial"
+      }
+    }
+  }
+}

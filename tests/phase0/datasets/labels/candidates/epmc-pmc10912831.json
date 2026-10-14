@@ -1,0 +1,39 @@
+{
+ "doc_id": "epmc-pmc10912831",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient: maxillary sinus cholesteatoma transformed into squamous cell carcinoma.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "well-differentiated SCC",
+   "superseded": true,
+   "rationale": "Final histopathology showed well-differentiated SCC, after earlier diagnoses of sinusitis and cholesteatoma.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "partial",
+    "c3": "correct",
+    "c4": "partial",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "correct",
+    "c9": "correct"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "cisplatin",
+   "superseded": false,
+   "rationale": "Adjuvant chemoradiotherapy used cisplatin (first named) and 5-fluorouracil.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  }
+ }
+}

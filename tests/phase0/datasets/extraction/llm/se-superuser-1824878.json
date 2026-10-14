@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1824878", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Windows BCDEdit", "BCDEdit", "UEFI", "bcdedit /enum all", "efi partition", "Windows"]}}

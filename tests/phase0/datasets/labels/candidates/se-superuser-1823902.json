@@ -1,0 +1,49 @@
+{
+ "doc_id": "se-superuser-1823902",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "NVIDIA Control Panel",
+   "superseded": false,
+   "rationale": "The NVIDIA Control Panel cannot open because nvcplui.exe is missing.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "correct",
+    "c12": "correct",
+    "c13": "wrong",
+    "c14": "correct",
+    "c15": "wrong",
+    "c16": "correct",
+    "c17": "correct",
+    "c18": "wrong",
+    "c19": "correct",
+    "c20": "correct",
+    "c21": "wrong",
+    "c22": "wrong",
+    "c23": "wrong",
+    "c24": "correct",
+    "c25": "wrong",
+    "c26": "wrong",
+    "c27": "wrong",
+    "c28": "wrong",
+    "c29": "wrong"
+   }
+  }
+ }
+}

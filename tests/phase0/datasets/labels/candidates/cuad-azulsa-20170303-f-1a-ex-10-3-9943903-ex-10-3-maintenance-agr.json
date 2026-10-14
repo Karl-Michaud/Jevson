@@ -1,0 +1,115 @@
+{
+ "doc_id": "cuad-azulsa-20170303-f-1a-ex-10-3-9943903-ex-10-3-maintenance-agr",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties, Azul Linhas Aereas Brasileiras and Avions de Transport Regional, signing on different dates.",
+ "processing_note": null,
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "Amendment n° 01   to the Global Maintenance Agreement",
+   "superseded": false,
+   "rationale": "The cover titles the document \"Amendment n° 01 to the Global Maintenance Agreement ref. DS/C-3957/14 Issue 7\".",
+   "options": {}
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "January 6th, 2016",
+   "superseded": false,
+   "rationale": "The amendment is \"entered into on January 6th, 2016\", which is also the second (ATR) signature date; Azul signed on December 18th, 2015.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "correct",
+    "c12": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "January 6th, 2016",
+   "superseded": false,
+   "rationale": "The amendment takes effect on the date both parties have signed, which is the later signature date of January 6th, 2016.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "correct",
+    "c11": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The amendment runs for the term of the GMA, and no expiry date is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of New York",
+   "superseded": false,
+   "rationale": "Clause 5.1 says the amendment is governed by the laws of the State of New York, U.S.A.; the other New York mentions are statute names, the \"performed within\" qualifier or the arbitration seat.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The amendment has no renewal provision; five years is the period for which confidentiality survives.",
+   "options": {
+    "c0": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No notice period for preventing renewal is stated.",
+   "options": {
+    "c0": "wrong"
+   }
+  }
+ }
+}

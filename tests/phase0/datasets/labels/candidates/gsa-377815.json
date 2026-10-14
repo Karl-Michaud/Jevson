@@ -1,0 +1,79 @@
+{
+  "doc_id": "gsa-377815",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Three SBA contacts for different dates, all in the same custodian role; one lot.",
+  "processing_note": "Contact the property custodian (listed below) to schedule an appointment.",
+  "fields": {
+    "product.title": {
+      "status": "present",
+      "value": "HP Thunderbolt Dock G2 Docking stations",
+      "superseded": false,
+      "rationale": "Heading line is the title and the overview restates it; HSN-IX01 is the model number.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "product.inventory": {
+      "status": "present",
+      "value": "4",
+      "superseded": false,
+      "rationale": "'This lot contains 4 HP Thunderbolt Dock G2 docking stations'; port counts and phone numbers are other values.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong",
+        "c21": "wrong",
+        "c22": "wrong",
+        "c23": "wrong",
+        "c24": "wrong",
+        "c25": "wrong",
+        "c26": "wrong",
+        "c27": "wrong",
+        "c28": "wrong",
+        "c29": "wrong",
+        "c30": "wrong",
+        "c31": "wrong",
+        "c32": "wrong",
+        "c33": "wrong",
+        "c34": "wrong",
+        "c35": "wrong",
+        "c36": "wrong",
+        "c37": "wrong",
+        "c38": "wrong",
+        "c39": "wrong",
+        "c40": "wrong"
+      }
+    },
+    "product.price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Auction listing states no asking or sale price.",
+      "options": {}
+    }
+  }
+}

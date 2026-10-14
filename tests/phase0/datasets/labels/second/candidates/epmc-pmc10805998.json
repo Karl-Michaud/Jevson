@@ -1,0 +1,45 @@
+{
+  "doc_id": "epmc-pmc10805998",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single patient (multiple myeloma case); only the treating team is otherwise mentioned.",
+  "processing_note": null,
+  "fields": {
+    "medical.treatment_drug": {
+      "status": "present",
+      "value": "bortezomib",
+      "superseded": false,
+      "rationale": "Final diagnosis is symptomatic multiple myeloma; the first drug named in its induction treatment (VRD) is bortezomib.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong",
+        "c21": "wrong",
+        "c22": "wrong",
+        "c23": "wrong",
+        "c24": "wrong",
+        "c25": "wrong"
+      }
+    }
+  }
+}

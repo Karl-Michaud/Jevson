@@ -1,0 +1,33 @@
+{
+  "passage_id": "gsa-378108#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Thermo Fisher Scientific (Thermo Scientific brand), incubator manufacturer",
+    "E2": "the holding agency (unnamed)",
+    "E3": "PPMS, GSA Personal Property Management System (a system, not an organization)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": true
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "doc_id": "fjc-1391676",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Biography of one judge, but it names distinct other people in different roles (the nominating president and the judge whose seat was vacated).",
+  "processing_note": null,
+  "fields": {
+    "resume.undergrad_institution": {
+      "status": "present",
+      "value": "Drake University",
+      "superseded": false,
+      "rationale": "Drake University awarded the B.A. (1970); the later Drake occurrence is the law school and Iowa State awarded the M.S.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    }
+  }
+}

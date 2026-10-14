@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378104", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["336 Three Inch Binders", "336 three-inch three-ring binders"], "product.inventory": ["336", "336 three-inch three-ring binders"], "product.price": []}}

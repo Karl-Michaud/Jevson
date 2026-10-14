@@ -1,0 +1,87 @@
+{
+ "passage_id": "cuad-bioamberinc-04-10-2013-ex-10-34-development-agreement-first-#organization",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "entities": {
+  "E1": "Cargill, Incorporated (party)",
+  "E2": "Bio Technology Development Center, Cargill's division",
+  "E3": "BioAmber S.A.S. (party)",
+  "E4": "Biotechnology Research Institute (BRI)",
+  "E5": "Canadian National Research Council",
+  "E6": "Mitsubishi Chemical Corporation (MCC)",
+  "E7": "DOE (U.S. Department of Energy), licensor of E. coli strain"
+ },
+ "mentions": {
+  "c0": {
+   "entity": "E1",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c1": {
+   "entity": "E1",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c2": {
+   "entity": "E2",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c3": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c4": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c5": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c6": {
+   "entity": "E1",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c7": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c8": {
+   "entity": "E4",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c9": {
+   "entity": "E4",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c10": {
+   "entity": "E5",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c11": {
+   "entity": "E6",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c12": {
+   "entity": "E6",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c13": {
+   "entity": "E7",
+   "role_noun": false,
+   "ambiguous": false
+  }
+ }
+}

@@ -1,0 +1,27 @@
+{
+  "doc_id": "gsa-378256",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two named parties in different roles: the VA property custodian (Chris Sinner) and the GSA recipient of the Medical Statement of Intent (christopher.n.smith@gsa.gov).",
+  "processing_note": "The successful bidder of this lot will be required to sign and date a Medical Statement of Intent and send to christopher.n.smith@gsa.gov prior to remitting full payment and initiating removal.",
+  "fields": {
+    "product.inventory": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No unit count is stated; 2007 is the year, the other numbers are a phone number and the item control number.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    }
+  }
+}

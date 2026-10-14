@@ -1,0 +1,35 @@
+{
+ "doc_id": "cuad-playahotels-resortsnv-03-14-2017-ex-10-22-strategic-alliance",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "STRATEGIC ALLIANCE AGREEMENT",
+   "Strategic Alliance Agreement"
+  ],
+  "contract.agreement_date": [
+   "December 14, 2016",
+   "August 9, 2013"
+  ],
+  "contract.effective_date": [
+   "December 14, 2016",
+   "the Effective Date"
+  ],
+  "contract.expiration_date": [
+   "December 31, 2018"
+  ],
+  "contract.governing_law": [
+   "State of Illinois (U.S.A.)",
+   "Illinois",
+   "Federal Arbitration Act"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "ten (10) business days",
+   "sixty (60) days",
+   "fifteen (15) days",
+   "two business days"
+  ]
+ }
+}

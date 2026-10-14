@@ -1,0 +1,33 @@
+{
+  "doc_id": "cord-test-018",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single point-of-sale receipt for one purchase transaction with one merchant and one payment.",
+  "processing_note": null,
+  "fields": {
+    "receipt.subtotal_price": {
+      "status": "present",
+      "value": "156000",
+      "superseded": false,
+      "rationale": "The amount under \"Sub Tofal\" (OCR of Sub Total) is 156000; the other 156000 occurrences are item price lines and the cash tendered.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "receipt.discount_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No discount is printed; \"Rp. 0\" is the change (Kembalian).",
+      "options": {
+        "c0": "wrong"
+      }
+    }
+  }
+}

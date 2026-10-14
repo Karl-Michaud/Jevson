@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1499366", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["exFAT", "Ubuntu Server", "Docker", "Jellyfin", "Samba", "exFAT Mounted HDD partition", "/etc/fstab", "chown", "Mac Mini"]}}

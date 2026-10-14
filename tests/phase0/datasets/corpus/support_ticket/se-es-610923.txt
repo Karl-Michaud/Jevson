@@ -1,0 +1,40 @@
+¿Cómo hago para fijar 2 columnas a la vez en una VDataTable?
+
+Tengo una tabla donde quiero fijar las 2 columnas que son codigo_material y descripción, estaba usando fixed, que me fija correctamente pero solo 1 a la vez, ya que cuando scroleo, se pierde el primero y queda fijado solo el segundo, y lo que busco es que ambas queden fijas al moverse la tabla, ¿Cómo para que ambas queden fijadas a la vez?. Estoy trabajando con vuetify y vue 3.
+
+<template>
+
+<VDataTable
+:headers="headers"
+:items="dataApi"
+item-key="name"
+class="elevation-0"
+fixed-header
+>
+<template v-slot:no-data>
+<VAlert :value="true" color="warning" icon="tabler-alert-triangle">
+Lo sentimos, no hay datos aquí
+</VAlert>
+</template>
+</VDataTable>
+</template>
+
+<script>
+export default{
+name: "Consolidado",
+data(){
+return{
+headers: [
+{ title: 'ID', key: 'id_version'},
+{ title: 'Código Material', key: 'codigo_material', fixed: true},
+{ title: 'Descripción', key: 'descripcion', fixed: true},
+{ title: 'Mes 1', key: 'mes_01_stock_costo_existencias_tn', align: 'center'},
+{ title: 'Mes 1', key: 'mes_01_stock_costo_existencias_costo_x_tn', align: 'center'},
+{ title: 'Mes 1', key: 'mes_01_proyeccion_ventas'},
+{ title: 'Mes 2', key: 'mes_02_proyeccion_ventas'},
+{ title: 'Mes 3', key: 'mes_03_proyeccion_ventas'},
+],
+}
+}
+}
+</script>

@@ -1,0 +1,43 @@
+{
+ "passage_id": "epmc-pmc10913624#person",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "entities": {
+  "E1": "The two infant patients of the case series (group)",
+  "E2": "Patient 1: 21-month-old female infant",
+  "E3": "Father of patient 1"
+ },
+ "mentions": {
+  "c0": {
+   "entity": "E1",
+   "role_noun": true,
+   "ambiguous": true
+  },
+  "c1": {
+   "entity": "E1",
+   "role_noun": true,
+   "ambiguous": true
+  },
+  "c2": {
+   "entity": "E2",
+   "role_noun": true,
+   "ambiguous": false
+  },
+  "c3": {
+   "entity": "E2",
+   "role_noun": true,
+   "ambiguous": false
+  },
+  "c4": {
+   "entity": "E2",
+   "role_noun": true,
+   "ambiguous": false
+  },
+  "c5": {
+   "entity": "E3",
+   "role_noun": true,
+   "ambiguous": false
+  }
+ }
+}

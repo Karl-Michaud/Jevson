@@ -1,0 +1,35 @@
+{
+ "doc_id": "cuad-bravateksolutionsinc-20170418-8-k-ex-10-1-10205739-ex-10-1-r",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "RESELLER AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "7th day of April, 2017",
+   "April 17, 2017"
+  ],
+  "contract.effective_date": [
+   "7th day of April, 2017"
+  ],
+  "contract.expiration_date": [
+   "1 Year"
+  ],
+  "contract.governing_law": [
+   "Commonwealth of Virginia",
+   "Virginia"
+  ],
+  "contract.renewal_term": [
+   "1 year extension",
+   "1 Year"
+  ],
+  "contract.notice_period": [
+   "sixty (60)",
+   "thirty (30) days",
+   "six (6) months",
+   "fifteen (15) business days"
+  ]
+ }
+}

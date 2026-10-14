@@ -1,0 +1,86 @@
+{
+ "doc_id": "cuad-adurobiotech-inc-06-02-2020-ex-10-7-consulting-agreement-1",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Aduro Biotech, Inc. and IREYA B.V. (represented by Andrea van Elsas), with two addresses.",
+ "processing_note": "On a monthly basis, Consultant shall submit to Aduro an invoice for the hours worked along with itemized documentation and receipts and other information for pre-approved travel and/or out-of- pocket expenses as Aduro reasonably requests at the time reimbursement is requested.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "CONSULTING AGREEMENT",
+   "superseded": false,
+   "rationale": "The title and preamble both name the contract Consulting Agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "June 1, 2020",
+   "superseded": false,
+   "rationale": "The agreement is 'dated June 1, 2020'; July 1 is the effective date and December 31 the end of term.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "July 1, 2020",
+   "superseded": false,
+   "rationale": "'effective as of July 1, 2020 (\"Effective Date\")'.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "present",
+   "value": "December 31, 2020",
+   "superseded": false,
+   "rationale": "Section 3: the term continues until December 31, 2020 unless extended or terminated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of California",
+   "superseded": false,
+   "rationale": "Section 10 applies the laws of the State of California; the Netherlands is an address and the last California is the conflict-of-law reference.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal term; the agreement may only be extended by mutual written agreement.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal and no notice period to prevent renewal; the options are a payment period and a non-solicit period.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  }
+ }
+}

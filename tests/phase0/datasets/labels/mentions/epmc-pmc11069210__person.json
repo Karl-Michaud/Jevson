@@ -1,0 +1,49 @@
+{
+  "passage_id": "epmc-pmc11069210#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "31-year-old pregnant Indian woman (the patient)",
+    "E2": "the obstetrician following the patient",
+    "E3": "the physician following the patient",
+    "E4": "the patient's newborn female baby"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E4",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

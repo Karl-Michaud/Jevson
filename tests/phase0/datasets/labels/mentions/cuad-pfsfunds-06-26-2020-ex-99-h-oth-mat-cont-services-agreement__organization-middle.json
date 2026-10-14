@@ -1,0 +1,34 @@
+{
+  "passage_id": "cuad-pfsfunds-06-26-2020-ex-99-h-oth-mat-cont-services-agreement#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "'the Fund' / 'each Fund' (defined term covering each of several series funds)",
+    "E2": "the Trust (PFS Funds)",
+    "E3": "the Adviser (Potomac Fund Management, Inc.)",
+    "E4": "Board of Trustees of the Trust"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

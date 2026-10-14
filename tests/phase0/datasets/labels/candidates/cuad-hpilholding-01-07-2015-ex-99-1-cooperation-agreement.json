@@ -1,0 +1,108 @@
+{
+  "doc_id": "cuad-hpilholding-01-07-2015-ex-99-1-cooperation-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Agreement between HPIL ENERGYTECH Inc. and GINARES GROUP AG (with parent HPIL Holding mentioned).",
+  "processing_note": "Any Party hereto may change its address or facsimile number for the purposes of this Section 13 by giving notice as provided herein.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "COOPERATION AGREEMENT",
+      "superseded": false,
+      "rationale": "All occurrences name the agreement itself.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "5th day of January, 2015",
+      "superseded": false,
+      "rationale": "Signed the 5th day of January, 2015, also shown on the cover as January 5, 2015.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No effective or commencement date is stated; January 5, 2015 is given as the signing/Closing Date only.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Only a one-year term length is given; no expiration date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Nevada (USA)",
+      "superseded": false,
+      "rationale": "Section 17 selects the laws of the State of Nevada (USA); other Nevada/Switzerland mentions are incorporation or addresses.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "correct",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "correct",
+        "c11": "correct",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal provision.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No non-renewal notice provision; 30 days relates to early termination.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    }
+  }
+}

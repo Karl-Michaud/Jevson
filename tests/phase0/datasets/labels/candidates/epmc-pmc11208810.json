@@ -1,0 +1,44 @@
+{
+ "doc_id": "epmc-pmc11208810",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Patient treated at an outside hospital and at the reporting hospital.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "transformed pleomorphic variant of mantle cell lymphoma",
+   "superseded": true,
+   "rationale": "The latest biopsy showed transformed pleomorphic variant of mantle cell lymphoma, superseding the earlier low-grade/classical MCL diagnoses.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "partial",
+    "c6": "partial",
+    "c7": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "Tecartus",
+   "superseded": true,
+   "rationale": "Obinutuzumab and polatuzumab are stated as given for EBV infection; Tecartus CAR-T is the treatment given for the transformed MCL, earlier regimens treated the earlier disease.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "correct"
+   }
+  }
+ }
+}

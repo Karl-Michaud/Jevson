@@ -1,0 +1,132 @@
+{
+  "doc_id": "cuad-mercatainc-03-09-2000-ex-10-21-sponsorship-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties (Football Northwest LLC and Mercata, Inc.) plus King County referenced; several notice addresses.",
+  "processing_note": "Invoices are         payable thirty (30) days after receipt.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "SPONSORSHIP AGREEMENT",
+      "superseded": false,
+      "rationale": "The document is titled Sponsorship Agreement.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "July 12, 1999",
+      "superseded": false,
+      "rationale": "The agreement is dated for reference purposes as of July 12, 1999.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "July 19, 1999",
+      "superseded": false,
+      "rationale": "Section 2 states the term commences on July 19, 1999.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term runs until benefits are completed but no later than the end of the 1999 season; no expiration date is stated as a date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "state of Washington",
+      "superseded": false,
+      "rationale": "Section 13 (Washington Law) provides the agreement is construed under the laws of the state of Washington.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "correct",
+        "c12": "correct",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no renewal term; the agreement may only be mutually extended by written agreement.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no automatic renewal, so no non-renewal notice period; the 45 days is a termination-for-cause notice.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    }
+  }
+}

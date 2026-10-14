@@ -1,0 +1,52 @@
+{
+  "doc_id": "cuad-primeenergyresourcescorp-04-02-2007-ex-10-28-completion-and-",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Three parties (PrimeEnergy Corporation, Guaranty Bank FSB, Prime Offshore L.L.C.) in different roles, plus a separate Credit Agreement.",
+  "processing_note": null,
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "COMPLETION AND LIOUDm MAINTENANCE 4GRFFMFST",
+      "superseded": false,
+      "rationale": "The OCR-garbled heading (Completion and Liquidity Maintenance Agreement) and the preamble name are the agreement's own title; bare 'Agreement' is only the defined short term and 'Credit Agreement' is a different contract.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "partial",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong",
+        "c21": "wrong",
+        "c22": "wrong",
+        "c23": "wrong",
+        "c24": "wrong",
+        "c25": "wrong",
+        "c26": "wrong",
+        "c27": "wrong",
+        "c28": "wrong",
+        "c29": "wrong",
+        "c30": "wrong",
+        "c31": "wrong",
+        "c32": "wrong"
+      }
+    }
+  }
+}

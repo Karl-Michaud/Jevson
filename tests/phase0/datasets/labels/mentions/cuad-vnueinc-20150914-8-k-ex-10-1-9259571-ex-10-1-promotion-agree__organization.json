@@ -1,0 +1,49 @@
+{
+  "passage_id": "cuad-vnueinc-20150914-8-k-ex-10-1-9259571-ex-10-1-promotion-agree#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "BookingEntertainment.com (Promoter)",
+    "E2": "VNUE, Inc.",
+    "E3": "OTCMarkets (quotation venue)",
+    "E4": "VStock Transfer (transfer agent)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

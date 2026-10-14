@@ -1,0 +1,54 @@
+{
+  "doc_id": "gsa-378289",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single lot; only VA and generic purchaser roles.",
+  "processing_note": "Must coordinate pickup 24 hours in advance.",
+  "fields": {
+    "product.title": {
+      "status": "present",
+      "value": "Lot of 10 Desktop Computers",
+      "superseded": false,
+      "rationale": "The heading is the lot title; the overview repeat is a description sentence.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "product.inventory": {
+      "status": "present",
+      "value": "10",
+      "superseded": false,
+      "rationale": "The lot contains 10 desktop computers; nine/one are sub-counts by age.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "partial",
+        "c6": "partial",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong"
+      }
+    },
+    "product.price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The listing states no asking or sale price.",
+      "options": {}
+    }
+  }
+}

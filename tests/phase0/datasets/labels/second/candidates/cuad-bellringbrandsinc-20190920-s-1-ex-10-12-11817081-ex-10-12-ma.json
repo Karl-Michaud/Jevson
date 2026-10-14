@@ -1,0 +1,42 @@
+{
+  "doc_id": "cuad-bellringbrandsinc-20190920-s-1-ex-10-12-11817081-ex-10-12-ma",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: Stremicks Heritage Foods, LLC and Premier Nutrition Corporation.",
+  "processing_note": null,
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "AMENDMENT NO. 3 TO STREMICK'S HERITAGE FOODS, LLC and PREMIER NUTRITION CORPORATION MANUFACTURING AGREEMENT",
+      "superseded": false,
+      "rationale": "The title heading gives the full name; body references are short forms or name the underlying agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "partial",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "July 3, 2019",
+      "superseded": false,
+      "rationale": "The amendment is effective as of July 3, 2019; July 1, 2017 is the date of the underlying agreement and 9/20/2019 is the filing date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The amendment states no governing law.",
+      "options": {}
+    }
+  }
+}

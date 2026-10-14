@@ -1,0 +1,65 @@
+{
+  "doc_id": "cuad-cherryhillmortgageinvestmentcorp-09-26-2013-ex-10-1-strategi",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Freedom Mortgage Corporation and Cherry Hill Mortgage Investment Corp. in distinct roles.",
+  "processing_note": "All notices or other communications hereunder shall be in writing and shall be deemed given if delivered by receipted hand delivery or mailed by prepaid registered or certified mail (return receipt requested) or by recognized overnight courier addressed as follows:",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Strategic Alliance Agreement",
+      "superseded": false,
+      "rationale": "The heading and the definition of 'Agreement' name the contract 'Strategic Alliance Agreement'; 'Exhibit 10.1' is the filing exhibit label.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of New York",
+      "superseded": false,
+      "rationale": "Section 6(g) states the agreement is governed by the laws of the State of New York; other New York mentions concern business days, the General Obligations Law carve-out, or court jurisdiction/venue.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement has a term of the later of three years or the end of the external-manager relationship and provides no renewal term; the listed durations are delinquency, cure, notice-delivery or initial-term periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    }
+  }
+}

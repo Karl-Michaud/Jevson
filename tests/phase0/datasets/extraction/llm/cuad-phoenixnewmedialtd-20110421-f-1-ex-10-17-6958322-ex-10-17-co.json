@@ -1,0 +1,33 @@
+{
+ "doc_id": "cuad-phoenixnewmedialtd-20110421-f-1-ex-10-17-6958322-ex-10-17-co",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Program Content License Agreement"
+  ],
+  "contract.agreement_date": [
+   "November 24, 2009"
+  ],
+  "contract.effective_date": [
+   "the date on which it is signed and affixed with the corporate seals by the authorized representative of each Party",
+   "November 24, 2009"
+  ],
+  "contract.expiration_date": [
+   "five (5) years"
+  ],
+  "contract.governing_law": [
+   "PRC Law",
+   "PRC laws",
+   "Hong Kong"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "ten (10) Business Days",
+   "thirty (30) Business Days",
+   "thirty days (30)",
+   "four (4) business days"
+  ]
+ }
+}

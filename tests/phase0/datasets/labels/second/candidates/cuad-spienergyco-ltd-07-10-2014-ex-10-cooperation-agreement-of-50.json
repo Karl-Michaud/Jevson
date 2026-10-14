@@ -1,0 +1,18 @@
+{
+  "doc_id": "cuad-spienergyco-ltd-07-10-2014-ex-10-cooperation-agreement-of-50",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "People's Government of Fenyi County (Party A) and Xinyu Xinwei New Energy Co., Ltd. (Party B).",
+  "processing_note": null,
+  "fields": {
+    "contract.governing_law": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The cooperation agreement has no governing-law clause.",
+      "options": {}
+    }
+  }
+}

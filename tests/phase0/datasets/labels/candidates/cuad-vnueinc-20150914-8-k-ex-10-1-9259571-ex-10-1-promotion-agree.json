@@ -1,0 +1,105 @@
+{
+  "doc_id": "cuad-vnueinc-20150914-8-k-ex-10-1-9259571-ex-10-1-promotion-agree",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Agreement between BookingEntertainment.com (Promoter) and VNUE, Inc., with two addresses.",
+  "processing_note": "Any notice or communication permitted or required by this Agreement shall be deemed effective when personally delivered, or sent by certified or registered mail, properly addressed to VNUE or Promoter at the addresses set forth above.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "PROMOTION AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading names the agreement Promotion Agreement.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "September 10, 2015",
+      "superseded": false,
+      "rationale": "The preamble says the agreement is entered into effective September 10, 2015 and it is executed as of that date; 9/14/2015 is the filing footer.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "September 10, 2015",
+      "superseded": false,
+      "rationale": "The agreement is entered into effective and commences on September 10, 2015.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term is One (1) Year from commencement; no expiration date is stated as a date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Nevada",
+      "superseded": false,
+      "rationale": "Section 13 provides governance by the laws of the State of Nevada; other Nevada mentions are incorporation, jurisdiction and venue.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "present",
+      "value": "One (1) Year",
+      "superseded": false,
+      "rationale": "Section 6 allows extension for successive One (1) Year periods (the Renewal Terms); the other One (1) Year is the initial term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Renewal requires mutual written agreement before the end of the Term; no notice period to prevent renewal is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    }
+  }
+}

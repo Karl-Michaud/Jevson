@@ -1,0 +1,102 @@
+{
+ "doc_id": "cuad-rgcresourcesinc-20151216-8-k-ex-10-3-9372751-ex-10-3-franchi",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Town of Vinton and Roanoke Gas Company, with two notice addresses.",
+ "processing_note": "For calendar year 2016, the Franchise Fee shall be paid to Grantor on or before March 31, 2017.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "GAS FRANCHISE AGREEMENT",
+   "superseded": false,
+   "rationale": "Title heading.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "17th day of November, 2015",
+   "superseded": false,
+   "rationale": "Made and entered into this 17th day of November, 2015; other dates are ordinance adoption, term start, fee deadline, filing and signature dates.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "January 1, 2016",
+   "superseded": false,
+   "rationale": "Section 7 states the effective date is January 1, 2016, and the term commences that day.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Term is twenty years from January 1, 2016; no expiration date stated as a date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No governing law clause; 'Virginia' appears only in party descriptions and addresses.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal term; twenty years is the initial term.",
+   "options": {
+    "c0": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No non-renewal notice provision.",
+   "options": {
+    "c0": "wrong"
+   }
+  }
+ }
+}

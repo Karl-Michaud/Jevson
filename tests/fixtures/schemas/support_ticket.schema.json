@@ -1,0 +1,44 @@
+{
+  "description": "Structured representation of a customer support ticket.",
+  "properties": {
+    "ticket_id": {
+      "title": "Ticket Id",
+      "type": "string"
+    },
+    "severity": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "category": {
+      "description": "e.g., billing, technical, account",
+      "title": "Category",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "affected_services": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Affected Services",
+      "type": "array"
+    }
+  },
+  "required": [
+    "ticket_id",
+    "severity",
+    "category",
+    "description",
+    "affected_services"
+  ],
+  "title": "SupportTicket",
+  "type": "object"
+}

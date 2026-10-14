@@ -1,0 +1,37 @@
+{
+ "doc_id": "epmc-pmc10900723",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "single patient case report; no distinct parties in different roles",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "IgG4-related disease",
+   "superseded": false,
+   "rationale": "The patient was diagnosed with IgG4-related disease (IgG4RD) per ACR/EULAR 2019 criteria; tuberculosis and sarcoidosis were only differentials.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "partial",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "correct"
+   }
+  }
+ }
+}

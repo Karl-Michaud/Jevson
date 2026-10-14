@@ -1,0 +1,24 @@
+{
+ "doc_id": "cuad-riseeducationcaymanltd-04-17-2020-ex-4-23-service-agreement",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: Rise (Tianjin) Education Information Consulting Co., Ltd. (Service Provider) and a placeholder Service Recipient.",
+ "processing_note": "Service Recipient shall make the payment of Service Fee through bank remittance or other payment methods to the following account designated by Service Provider:",
+ "fields": {
+  "contract.renewal_term": {
+   "status": "present",
+   "value": "five (5) years",
+   "superseded": false,
+   "rationale": "Section 13 renews the Agreement automatically for another five (5) years; the first five (5) years is the initial term.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "correct"
+   }
+  }
+ }
+}

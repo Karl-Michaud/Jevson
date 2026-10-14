@@ -1,0 +1,38 @@
+{
+ "doc_id": "cuad-integrityfunds-20200121-485bpos-ex-99-e-undr-contr-11948727-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "DISTRIBUTION AND SERVICES AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "January 18, 2020",
+   "1/21/2020"
+  ],
+  "contract.effective_date": [
+   "January 18, 2020"
+  ],
+  "contract.expiration_date": [
+   "January 18, 2022"
+  ],
+  "contract.governing_law": [
+   "State of Kansas",
+   "Kansas",
+   "Delaware",
+   "North Dakota"
+  ],
+  "contract.renewal_term": [
+   "successive annual periods",
+   "annual"
+  ],
+  "contract.notice_period": [
+   "60 days",
+   "90 days",
+   "fifteen days",
+   "ten days",
+   "at least annually"
+  ]
+ }
+}

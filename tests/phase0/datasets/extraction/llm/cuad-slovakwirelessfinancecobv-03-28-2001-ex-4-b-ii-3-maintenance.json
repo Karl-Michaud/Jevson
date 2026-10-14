@@ -1,0 +1,39 @@
+{
+ "doc_id": "cuad-slovakwirelessfinancecobv-03-28-2001-ex-4-b-ii-3-maintenance",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Maintenance and support contract",
+   "Maintenance and Support contract",
+   "M&S contract"
+  ],
+  "contract.agreement_date": [
+   "10 October 2000"
+  ],
+  "contract.effective_date": [
+   "06 October 2000",
+   "10 October 2000",
+   "06 April 1998"
+  ],
+  "contract.expiration_date": [
+   "two years"
+  ],
+  "contract.governing_law": [
+   "Switzerland",
+   "Slovakia",
+   "Slovak Republic"
+  ],
+  "contract.renewal_term": [
+   "one year"
+  ],
+  "contract.notice_period": [
+   "six (6) weeks",
+   "three (3) months",
+   "one (1) month",
+   "thirty days",
+   "10 working days"
+  ]
+ }
+}

@@ -1,0 +1,43 @@
+{
+ "doc_id": "fjc-1392386",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Barrett, Michael Ryan",
+   "George W. Bush",
+   "Walter Herbert Rice"
+  ],
+  "resume.law_institution": [
+   "University of Cincinnati College of Law",
+   "University of Cincinnati"
+  ],
+  "resume.law_year": [
+   "1977",
+   "1974",
+   "1978",
+   "1984",
+   "2006"
+  ],
+  "resume.undergrad_institution": [
+   "University of Cincinnati",
+   "University of Cincinnati College of Law"
+  ],
+  "resume.undergrad_year": [
+   "1974",
+   "1977",
+   "1951"
+  ],
+  "resume.first_judgeship_start": [
+   "May 5, 2006",
+   "May 1, 2006",
+   "December 16, 2005",
+   "February 15, 2019"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Southern District of Ohio",
+   "U.S. District Court for the Southern District of Ohio"
+  ]
+ }
+}

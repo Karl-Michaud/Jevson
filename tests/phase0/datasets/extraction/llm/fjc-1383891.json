@@ -1,0 +1,48 @@
+{
+ "doc_id": "fjc-1383891",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Lewis, Timothy K.",
+   "George H.W. Bush",
+   "Paul A. Simmons"
+  ],
+  "resume.law_institution": [
+   "Duquesne University School of Law",
+   "Tufts University"
+  ],
+  "resume.law_year": [
+   "1980",
+   "1976",
+   "1983",
+   "1991"
+  ],
+  "resume.undergrad_institution": [
+   "Tufts University",
+   "Duquesne University School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1976",
+   "1980",
+   "1954",
+   "1983"
+  ],
+  "resume.first_judgeship_start": [
+   "June 18, 1991",
+   "June 14, 1991",
+   "April 25, 1991",
+   "October 9, 1992",
+   "October 8, 1992",
+   "September 17, 1992",
+   "October 23, 1992"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. Court of Appeals for the Third Circuit",
+   "Judge, U.S. District Court for the Western District of Pennsylvania",
+   "U.S. Court of Appeals for the Third Circuit",
+   "U.S. District Court for the Western District of Pennsylvania"
+  ]
+ }
+}

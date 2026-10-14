@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1824948", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Modern Standby", "Windows 10 Home", "hibernate", "sleep", "MSI Katana GF66 12UCO", "S3 sleep", "laptop"]}}

@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc11150652", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["DIPG", "infiltrating glioma", "ocular migraines", "holocranial migraine", "ill-defined mass within the right pons"], "medical.treatment_drug": ["dexamethasone", "valproate", "acetaminophen", "Fioricet", "gabapentin"]}}

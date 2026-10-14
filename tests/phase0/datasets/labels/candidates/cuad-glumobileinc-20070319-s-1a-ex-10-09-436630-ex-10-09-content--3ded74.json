@@ -1,0 +1,89 @@
+{
+  "doc_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--3ded74",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Amendment between Fox Mobile Entertainment (as administrator for Twentieth Century Fox) and Glu Mobile as Licensee.",
+  "processing_note": "The omitted portions of this exhibit have been filed with the Securities and Exchange Commission pursuant to a request for confidential treatment under Rule 406 promulgated under the Securities Act of 1933.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "AMENDMENT NO. 2",
+      "superseded": false,
+      "rationale": "The document titles itself Amendment No. 2 (referred to in the body as Amendment 2); the Wireless Content License Agreement is the underlying agreement being amended.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "March 27, 2006",
+      "superseded": false,
+      "rationale": "The amendment is 'Dated as of March 27, 2006'; 2004/2005 dates belong to the underlying agreement, March 28 is a signing date and 3/19/2007 is the filing date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No effective date distinct from the 'dated as of' date is stated for the amendment.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The amendment states no expiration date for any term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No governing law clause appears in the amendment.",
+      "options": {}
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal term is stated.",
+      "options": {}
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No non-renewal notice period is stated.",
+      "options": {}
+    }
+  }
+}

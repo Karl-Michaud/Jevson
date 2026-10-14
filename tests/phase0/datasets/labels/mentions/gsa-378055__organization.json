@@ -1,0 +1,52 @@
+{
+  "passage_id": "gsa-378055#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "American Marine Inc., boom manufacturer",
+    "E2": "Williamson, container maker",
+    "E3": "DESMI, skimmer maker",
+    "E4": "HYDE, outrigger arm maker",
+    "E5": "DE Smithe, skimmer control stand maker",
+    "E6": "the United States (federal government)",
+    "E7": "the selling/holding government agency (unnamed)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E6",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E7",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

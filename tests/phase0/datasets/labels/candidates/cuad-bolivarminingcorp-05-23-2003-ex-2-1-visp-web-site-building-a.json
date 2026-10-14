@@ -1,0 +1,140 @@
+{
+  "doc_id": "cuad-bolivarminingcorp-05-23-2003-ex-2-1-visp-web-site-building-a",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two companies, YourNetPlus.com, Inc. (Provider) and Kingdom Connect, Inc. (KCI), with separate addresses.",
+  "processing_note": null,
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "VISP WEB SITE BUILDING AND HOSTING AGREEMENT",
+      "superseded": false,
+      "rationale": "Only the heading gives the agreement's name; other occurrences are the generic word 'Agreement'.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong",
+        "c21": "wrong",
+        "c22": "wrong",
+        "c23": "wrong",
+        "c24": "wrong",
+        "c25": "wrong"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "12th day of May 2003",
+      "superseded": false,
+      "rationale": "The agreement 'is made on this 12th day of May 2003' and both parties signed on 5/12/03.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "correct",
+        "c3": "correct"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "12th day of May 2003",
+      "superseded": false,
+      "rationale": "No separate effective date; the term runs from the date of this document, the 12th day of May 2003; the signature-block dates are signing dates.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The initial term is five years from the document date; no expiry date is stated as a date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "state of New York",
+      "superseded": false,
+      "rationale": "Section 11 applies the laws of the state of New York; other New York mentions are incorporation, arbitration location, arbitration enforceability, or courts.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "present",
+      "value": "each year",
+      "superseded": false,
+      "rationale": "The agreement renews automatically each year after the initial five-year term, i.e. one-year renewals.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "partial",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "present",
+      "value": "at least 90 days",
+      "superseded": false,
+      "rationale": "Non-renewal notice must be served at least 90 days before expiry of the current term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

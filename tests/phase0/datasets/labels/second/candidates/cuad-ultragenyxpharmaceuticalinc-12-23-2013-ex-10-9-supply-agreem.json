@@ -1,0 +1,53 @@
+{
+  "doc_id": "cuad-ultragenyxpharmaceuticalinc-12-23-2013-ex-10-9-supply-agreem",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two companies in different roles (Cremer Oleo GmbH & Co KG as supplier and Ultragenyx Pharmaceutical Inc as buyer) with separate addresses.",
+  "processing_note": "Payments shall be made by Ultragenyx in Euro and within [***] days after receipt of a proper invoice.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "SUPPLY AGREEMENT",
+      "superseded": false,
+      "rationale": "The document is headed SUPPLY AGREEMENT.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "November 19t h, 2012",
+      "superseded": false,
+      "rationale": "The agreement becomes effective on its execution date, and the only execution date given is Hamburg, November 19th, 2012; 'the date of its execution' is not itself a date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The initial term is three years from execution; no expiration date is stated as a date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "Federal Republic of Germany",
+      "superseded": false,
+      "rationale": "Article 9(1) applies the laws of the Federal Republic of Germany; other 'Germany' mentions are an address and the place of jurisdiction.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "partial",
+        "c3": "wrong"
+      }
+    }
+  }
+}

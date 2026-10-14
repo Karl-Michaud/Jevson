@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1823915", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Grsync", "Timeshift", "Vorta", "Syncthing", "Unison", "BackInTime", "Rsync", "rsync", "Debian", "KDE"]}}

@@ -1,0 +1,15 @@
+¿Porque al reenviar un correo de gmail a outlook, este pierde algunos estilos?
+
+Estoy realizando una creación de emails, cuando se envía el correo por primera vez a cualquier clientes, ya sea gmail, outlook, etc... se ve genial.
+
+El problema viene cuando se reenvía de gmail hacia outlook, pierde algunos estilos y provoca que algunas imágenes se dupliquen.
+
+Para condicionar el renderizado de las imagenes utilizo condiciones propias de outlook como lo es:
+
+<!--[if !mso]><!-->
+
+//content
+
+<!--<![endif]-->
+
+¿Puede que estas se pierdan cuando se reenvía de gmail hacía outlook? Porque de outlook hacia gmail todo se ve genial.

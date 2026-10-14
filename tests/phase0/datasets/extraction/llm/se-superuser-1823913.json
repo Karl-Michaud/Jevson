@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1823913", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["PC SCREEN ONLY", "screen", "Windows", "video card", "drivers"]}}

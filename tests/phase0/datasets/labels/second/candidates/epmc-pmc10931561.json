@@ -1,0 +1,28 @@
+{
+ "doc_id": "epmc-pmc10931561",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "single patient case report; no distinct parties in different roles",
+ "processing_note": null,
+ "fields": {
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "ceftriaxone",
+   "superseded": false,
+   "rationale": "After leptospirosis was confirmed, targeted therapy was 2 g of intravenous ceftriaxone; cefepime/vancomycin and others were empirical or for later infections.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "correct"
+   }
+  }
+ }
+}

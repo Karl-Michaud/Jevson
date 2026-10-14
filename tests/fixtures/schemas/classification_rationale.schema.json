@@ -1,0 +1,25 @@
+{
+  "description": "A few-shot example of text classification:\n\nExamples:\n- \"Buy cheap watches now!\": SPAM\n- \"Meeting at 3 PM in the conference room\": NOT_SPAM\n- \"You've won a free iPhone! Click here\": SPAM\n- \"Can you pick up some milk on your way home?\": NOT_SPAM\n- \"Increase your followers by 10000 overnight!\": SPAM",
+  "properties": {
+    "chain_of_thought": {
+      "description": "The chain of thought that led to the prediction.",
+      "title": "Chain Of Thought",
+      "type": "string"
+    },
+    "label": {
+      "description": "The predicted class label.",
+      "enum": [
+        "SPAM",
+        "NOT_SPAM"
+      ],
+      "title": "Label",
+      "type": "string"
+    }
+  },
+  "required": [
+    "chain_of_thought",
+    "label"
+  ],
+  "title": "ClassificationResponse",
+  "type": "object"
+}

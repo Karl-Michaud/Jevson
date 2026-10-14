@@ -1,0 +1,31 @@
+{
+ "doc_id": "cuad-urscorpnew-03-17-2014-ex-99-cooperation-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "COOPERATION AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "March 13, 2014"
+  ],
+  "contract.effective_date": [
+   "March 13, 2014",
+   "March 17, 2014"
+  ],
+  "contract.expiration_date": [
+   "December 31, 2014",
+   "March 27, 2014"
+  ],
+  "contract.governing_law": [
+   "STATE OF DELAWARE",
+   "Delaware"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "thirty (30) calendar days",
+   "three (3) business days"
+  ]
+ }
+}

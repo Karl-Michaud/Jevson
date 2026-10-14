@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "good": {
+      "type": "boolean"
+    },
+    "bad_string": {
+      "type": "string"
+    },
+    "bad_enum": {
+      "enum": []
+    },
+    "bad_integer": {
+      "type": "integer"
+    }
+  }
+}

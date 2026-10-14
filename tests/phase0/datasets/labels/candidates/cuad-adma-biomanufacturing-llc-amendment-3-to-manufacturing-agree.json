@@ -1,0 +1,129 @@
+{
+ "doc_id": "cuad-adma-biomanufacturing-llc-amendment-3-to-manufacturing-agree",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "ADMA BioManufacturing, Sanofi Pasteur and predecessor BPC, plus several related agreements and an instalment payment schedule.",
+ "processing_note": "Such payments shall be made in accordance with Section 3.4 of the Agreement; provided, however, that the initial payment described in Section 5(a) above shall be due no later than December 31,2017.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "Amendment #3 to the Manufacturing Agreement",
+   "superseded": false,
+   "rationale": "The title is \"Amendment #3 to the Manufacturing Agreement\"; \"Amendment #3\" alone is its short form, and the other names refer to the underlying agreement or Amendment #2.",
+   "options": {
+    "c0": "partial",
+    "c1": "correct",
+    "c2": "partial",
+    "c3": "partial",
+    "c4": "correct",
+    "c5": "partial",
+    "c6": "partial",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "partial",
+    "c11": "partial",
+    "c12": "partial",
+    "c13": "partial",
+    "c14": "partial",
+    "c15": "partial",
+    "c16": "partial"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "December 21, 2017",
+   "superseded": false,
+   "rationale": "The amendment is made as of December 21, 2017; ADMA signed on 12-21-2017 and Sanofi Pasteur on 22 Dec. 2017.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "correct"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "December 21, 2017",
+   "superseded": false,
+   "rationale": "The amendment is \"made effective as of December 21, 2017\" (the Amendment Effective Date); the other dates belong to earlier agreements, payments or signatures.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The amendment states no expiry date for the agreement; Q3/Q4 2019 are supply-period ends and the other dates are payments or earlier agreements.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The amendment has no governing-law clause; Delaware, Florida and France appear only in party descriptions and addresses.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal term is stated; 60 days is the deadline for amending the Quality Agreement.",
+   "options": {
+    "c0": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No notice period for preventing renewal is stated; 60 days is the deadline for amending the Quality Agreement.",
+   "options": {
+    "c0": "wrong"
+   }
+  }
+ }
+}

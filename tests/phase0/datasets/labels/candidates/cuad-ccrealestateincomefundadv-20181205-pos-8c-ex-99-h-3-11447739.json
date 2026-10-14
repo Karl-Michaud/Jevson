@@ -1,0 +1,141 @@
+{
+  "doc_id": "cuad-ccrealestateincomefundadv-20181205-pos-8c-ex-99-h-3-11447739",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Wholesale marketing agreement between ALPS Distributors, Inc. and S2K Financial LLC, covering several funds.",
+  "processing_note": "The marketing piece must be submitted via Distributor's AdLit system by no later than 3:00 P.M. Mountain Time (2:00 P.M. PT/5:00 P.M. ET) on a business day in order to ensure that the Distributor has a full one business day to review and provide S2K with comments within such one business day timeframe.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "WHOLESALE MARKETING AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading names the Wholesale Marketing Agreement.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "24t h day of August 2018",
+      "superseded": false,
+      "rationale": "The agreement is entered into and executed as of the 24th day of August 2018; 12/5/2018 is the filing date.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "24t h day of August 2018",
+      "superseded": false,
+      "rationale": "The agreement is entered into effective as of the 24th day of August 2018.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term runs until terminated on 60 days' notice; no expiry date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Colorado",
+      "superseded": false,
+      "rationale": "Section 13(g) selects the laws of the State of Colorado; other Colorado mentions are incorporation, address or venue.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "correct",
+        "c8": "correct",
+        "c9": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement has no fixed term and no renewal term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no renewal to prevent; the 60-day notice is a termination notice.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    }
+  }
+}

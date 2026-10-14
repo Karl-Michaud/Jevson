@@ -1,0 +1,26 @@
+{
+  "doc_id": "cord-test-088",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single point-of-sale receipt for one purchase transaction with one merchant and one payment.",
+  "processing_note": null,
+  "fields": {
+    "receipt.service_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No service charge line; subtotal equals grand total.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    }
+  }
+}

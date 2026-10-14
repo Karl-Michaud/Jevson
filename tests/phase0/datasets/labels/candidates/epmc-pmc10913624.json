@@ -1,0 +1,36 @@
+{
+ "doc_id": "epmc-pmc10913624",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Case series of two infants (21-month-old girl, 8-month-old boy) plus the first child's father with AVB; first patient taken as the subject.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "second-degree type II atrioventricular block (AVB)",
+   "superseded": false,
+   "rationale": "First infant had second-degree type II AVB that did not recover and required a pacemaker; the third-degree AVB mentions belong to the father or the second infant.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Treatment was pacemaker implantation; no medication is named.",
+   "options": {}
+  }
+ }
+}

@@ -1,0 +1,21 @@
+{
+  "doc_id": "cuad-mfafinancial-inc-07-06-2020-ex-99-d-joint-filing-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Numerous Athene and Apollo entities sign as joint filers.",
+  "processing_note": "In accordance with Rule 13d-1(k) under the Securities Exchange Act of 1934, as amended, the undersigned hereby confirm the agreement by and among them to the joint filing on behalf of them of the Statement on Schedule 13D and any and all further amendments thereto, with respect to the securities of the above referenced issuer, and that this Agreement be included as an Exhibit to such filing.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "JOINT FILING AGREEMENT",
+      "superseded": false,
+      "rationale": "The document is titled JOINT FILING AGREEMENT under the exhibit label EXHIBIT D, which is a heading label that may be included.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    }
+  }
+}

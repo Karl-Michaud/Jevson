@@ -1,0 +1,15 @@
+{
+ "doc_id": "gsa-378256",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "2007 Dentsply Porcelain Furnace",
+   "2007 Dentsply porcelain furnace",
+   "Dentsply porcelain furnace"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

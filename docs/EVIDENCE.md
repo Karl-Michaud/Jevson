@@ -1,6 +1,6 @@
 # Jevson — evidence register
 
-Every evidence tag in [`DESIGN.md`](DESIGN.md) and [`PLAN.md`](PLAN.md) resolves here. (The README states no fact that DESIGN does not; it carries no tags.) A tag names **how** a claim was established: a live probe (**P**), a local check run as code (**L**), the vendor's own documentation (**V**), or an external source (**X**). The scripts live in [`tests/probes/`](../tests/probes/), where they are the starting material for the test suite; each writes to a gitignored `out/` folder beside it. The raw responses and the per-round review reports were not kept: this register records every method, sample size, and result, and re-running a script reproduces the experiment (live answers jitter slightly, DESIGN §2.3).
+Every evidence tag in [`DESIGN.md`](DESIGN.md) and [`PLAN.md`](PLAN.md) resolves here. (The README states no fact that DESIGN does not; it carries no tags.) A tag names **how** a claim was established: a live probe (**P**), a local check run as code (**L**), the vendor's own documentation (**V**), an external source (**X**), or a pre-registered Phase 0 probe on real documents (**Z**). The scripts live in [`tests/probes/`](../tests/probes/), where they are the starting material for the test suite; each writes to a gitignored `out/` folder beside it. The raw responses and the per-round review reports were not kept: this register records every method, sample size, and result, and re-running a script reproduces the experiment (live answers jitter slightly, DESIGN §2.3).
 
 **Conventions**
 
@@ -112,6 +112,24 @@ Rounds 1–5.
 
 ---
 
+## Z — Phase 0 pre-registered probes (real documents)
+
+Run on `jev-1.13.0` with templates version 1.0.0 after the templates, decision rules, operating characteristic, datasets, and labels were committed (commits 6f38415, 443234c, ad9cb9f; first live results fd78aea). 796 requests, all HTTP 200, no 429. Documents are real and openly licensed (CUAD, CORD, FJC, Stack Exchange incl. Spanish, Europe PMC CC BY, GSA Auctions); the only team-written text is probe 6's injected notes. Full method, corpus, labelling, agreement, and every number: [`taxonomy.md`](taxonomy.md). Scripts are the thin runners in [`tests/phase0/`](../tests/phase0/); summaries in `tests/phase0/results/`; raw responses in the gitignored `tests/phase0/out/`.
+
+| tag | claim established | method | result | script |
+|---|---|---|---|---|
+| **Z1** | Disambiguation accuracy on real documents | 150 present-answer cases (candidates from pattern + LLM extractors, ≥ 3 competitors; 30% long multi-entity or superseded; 63 with the correct text at several offsets), complete-value template, ties not correct | 132/150 = 0.880 (0.818–0.923): **go**; ties 11 (0.073); wrong commits 5; repeated correct text 51/63, unique 81/87 | `run_probe_1_2_3.py`; `results/probe1_2_3.json` |
+| **Z2** | Abstention when the correct span is removed | 150 absent-answer cases from disjoint documents; every correct option and every same-text option removed from the real extractor's set; ties not abstaining | 110/150 = 0.733 (0.657–0.798): **conditional**; hard-regime 24/45, contracts 20/36; wrong-role commits 22, partial commits 9, ties 9 | `run_probe_1_2_3.py`; `results/probe1_2_3.json` |
+| **Z3** | False abstention when the answer is present | the Z1 cases; a tie is not a false abstention | 2/150 = 0.013 (0.004–0.047): **go** | `run_probe_1_2_3.py`; `results/probe1_2_3.json` |
+| **Z4** | Entity resolution on real prose | 50 clusters (37 contract, 7 case-report, 6 listing passages; role-noun mentions), all pairs keyed in one call, sent twice; floor and variant by the pre-registered rules | pair accuracy 1560/1592 = 0.980; 2/796 pair flips; floor rule selects **0.05** (0.10 puts 8/360 = 2.2% of same-entity pairs at or below); internal rule 300/330 correct, 30/330 silently wrong (20 splits, 10 merges); cross variant 163/330 correct, 4/330 silently wrong; rule chooses **cross**; verdict **stop** | `run_probe_4.py`; `results/probe4.json` |
+| **Z5** | State referencing on the pinned model | `probe_state_references.py` conditions re-run unchanged (358 requests) | indexed into the full 320-list: 199/320 wrong (0.622); keyed: 0/320; inlined, one per request: 0/320; indexed into 25-item chunks: 8/320: **reproduces [P4]** | `run_probe_5.py`; `results/probe5.json` |
+| **Z6** | Hostile notes and the source screen on real documents | 50 probe 1 cases with a team-written note advocating a wrong span (25 inline, 25 appended), vs the same documents unattacked; d1 screen on those and on 50 unmodified documents with ordinary processing notes | steered present-answer selections 10/50 (baseline 0/50); absent-answer abstention 17/46 (baseline 39/46), commits to the advocated span 19/46; screen flagged 50/50 attacked, 0/50 unattacked, 3/50 benign-with-notes (the benign set is mostly GSA auction listings with inspection and pick-up notes) | `run_probe_6.py`; `results/probe6.json` |
+| **Z7** | Calibration of p(selected), first reading | the 280 committed probe 1–3 decisions (20 ties excluded); 15 tie-safe equal-mass bins; 2,000-replicate bootstrap | mean p 0.904, accuracy 0.864; ECE 0.046 (one-sided 95% bound 0.090); Brier 0.102; 30% of decisions at p = 1.00 | `run_probe_7.py`; `results/probe7.json` |
+| **Z8** | Single candidates and partials under the complete-value template | 50 field instances × lone correct / lone wrong-role / lone partial (42 constructed partials), and 17 sources stating only a partial value | lone correct committed 49/50; lone wrong-role abstained 39/50; lone partial abstained 35/50; partial-only sources abstained 11/17 (only 17 such sources in the corpus: 33 short of the 50 target) | `run_probe_8.py`; `results/probe8.json` |
+| **Z9** | The second gate (probe 9, `docs/gate-probe.md`), fresh corpus | 150 present and 139 absent fresh cases (157 new documents), one verification `noul` per option in the choice call | committed when absent 10/139 = 0.072 with the gate vs 29/139 = 0.209 without; wrong when present 4/150 vs 10/150; correct commits 105/150 = 0.700 vs 123/150; false abstention 32/150 (stop band): the gate passes 124/227 correct options, 2/96 partial, 40/3,055 wrong. Pre-registered verdict **drop** | `run_probe_9.py`; `results/probe9.json` |
+
+---
+
 ## Round log
 
 | round | scope | outcome |
@@ -123,6 +141,8 @@ Rounds 1–5.
 | **5** | Revision 7: citation audit (329 claims: 324 supported, 5 overstated; **converged**), fresh logic review (0 blockers, 2 major, 12 minor); 20 live requests | Leaf-only defaulted-field rule, class-D-only object absence, scoped per-loop clients, fork handling, declared-only extractors revised in Revision 8 |
 | **6** | Revision 8: citation spot-check (337 tags: 336 supported, 1 overstated; **converged**), fresh logic review (1 blocker, 3 major, 9 minor, all in Revision 8 text) | Phase 2 exit, locale default, per-call clients, root never absent revised in Revision 9 |
 | **7** | Revision 9: fresh logic review (0 blockers, 0 major, 9 minor), re-checking tags in changed text | **Converged**; minors applied in Revision 9.1 |
+| **Phase 0** | Pre-registered probes on real documents, 796 live requests (tags Z1–Z8) | Candidate selection conditional (second gate); pairwise entity resolution out of v0; scope frozen in DESIGN §10.1 (Revision 9.2) |
+| **Probe 9** | The second gate, pre-registered, fresh corpus, 273 live requests (tag Z9) | Verdict *drop*: the gate cuts wrong commits on absent answers by about two thirds but rejects 45% of correct answers; consequence per `docs/gate-probe.md` §3 pending the owner |
 
 ---
 

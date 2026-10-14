@@ -1,0 +1,21 @@
+Wifi card suddenly non-functioning on Windows 10, unable to install drivers (MediaTek MT7921, Asus TUF Gaming B650-PLUS WIFI)
+
+What the title says. All of a sudden, my Wifi card (MediaTek Wi-Fi 6 MT7921 Wireless LAN Card in device manager on an ASUS TUF Gaming B650-PLUS WIFI board) stopped working on my Windows 10 install.
+
+It refuses to show any available networks. Disabling the Wifi causes it to permanently disable until the next restart, as toggling the on/off switch in the network settings causes it to instantly turn off again. I attempted to install drivers on ASUS' site, but neither using the AsusSetup exe nor the included Install batch file fix the issue. The exe just seems to do nothing, and the batch file fails with the following output:
+
+Please wait while installing drivers. Do not turn off or unplug the computer power during the installation...
+pnputil -a "mtkwl6ex.inf" /install
+Microsoft PnP Utility
+
+Processing inf : mtkwl6ex.inf
+Failed to install the driver : No more data is available.
+
+Total attempted: 1
+Number successfully imported: 0
+
+Done
+
+I'm stumped on what to do. I went into device manager to inspect the drivers on the card itself, and it showed me a list of driver files which correspond with the files in the driver folder, so assume I theoretically could replace the ones already in System32 with the downloaded ones, but I don't want to bork anything.
+
+I also booted into a live install of Ubuntu to see if it could use the card and surprise surprise: it worked without any issue, so it's not the hardware itself that's faulty. If anyone could give me some guidance on what to do next, that would be awesome.

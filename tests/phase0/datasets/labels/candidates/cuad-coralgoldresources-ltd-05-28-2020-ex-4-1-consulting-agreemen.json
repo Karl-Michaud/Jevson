@@ -1,0 +1,123 @@
+{
+  "doc_id": "cuad-coralgoldresources-ltd-05-28-2020-ex-4-1-consulting-agreemen",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: Coral Gold Resources Ltd. (Company) and Intermark Capital Corp. (Consultant), plus the Principal David Wolfin.",
+  "processing_note": "All notices required or permitted under this Agreement shall be in writing and shall be given by delivering such notice or mailing such notice by pre-paid registered mail, by facsimile transmission or electronic mail to the addresses provided under the names of each party on the first page to this Agreement.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "CONSULTING AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading, Section 21.1(a) and Schedule A name it the Consulting Agreement.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "1st day of February, 2020",
+      "superseded": false,
+      "rationale": "The agreement is dated for reference the 1st day of February, 2020; the actual execution date is not stated.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "1st day of February, 2020",
+      "superseded": false,
+      "rationale": "The preamble defines the Effective Date as 1 February 2020, restated in Section 21.1(n).",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "present",
+      "value": "January 31, 2025",
+      "superseded": false,
+      "rationale": "Section 4.2 says the five-year Term ends on January 31, 2025, repeated in Section 5.3.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "British Columbia",
+      "superseded": false,
+      "rationale": "Section 18.1: governed by the laws of the Province of British Columbia and the federal laws of Canada applicable therein.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "correct",
+        "c11": "partial",
+        "c12": "wrong",
+        "c13": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Despite the \"Term and Renewal\" heading, no renewal term is provided; the agreement terminates automatically at expiry.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no renewal; the 3-month notices are for early termination, not for preventing renewal.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    }
+  }
+}

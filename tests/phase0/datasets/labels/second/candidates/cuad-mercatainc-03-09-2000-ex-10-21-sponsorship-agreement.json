@@ -1,0 +1,32 @@
+{
+  "doc_id": "cuad-mercatainc-03-09-2000-ex-10-21-sponsorship-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Football Northwest LLC (FNW) and Mercata, Inc. (Sponsor), with King County referenced.",
+  "processing_note": "Invoices are         payable thirty (30) days after receipt.",
+  "fields": {
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term ends when benefits are completed and in no event beyond the end of the 1999 season, which is an event rather than a stated date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    }
+  }
+}

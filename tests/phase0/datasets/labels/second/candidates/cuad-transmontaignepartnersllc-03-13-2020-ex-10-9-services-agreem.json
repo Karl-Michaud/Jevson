@@ -1,0 +1,39 @@
+{
+  "doc_id": "cuad-transmontaignepartnersllc-03-13-2020-ex-10-9-services-agreem",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties in different roles: TransMontaigne Management Company, LLC (EmployeeCo) and TLP Management Services, LLC (Operating Company).",
+  "processing_note": "Such reimbursements shall be made by the Operating Company to EmployeeCo in advance or immediately upon such costs being incurred, or otherwise in accordance with historical practice, unless otherwise agreed between the Operating Company and EmployeeCo.",
+  "fields": {
+    "contract.effective_date": {
+      "status": "partial_only",
+      "value": "August __, 2019",
+      "superseded": false,
+      "rationale": "The effective date is given with the day left blank (August __, 2019).",
+      "options": {
+        "c0": "partial"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Colorado",
+      "superseded": false,
+      "rationale": "Section 2.1 says the agreement is governed by the laws of the State of Colorado; the second occurrence names the courts for jurisdiction.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement continues until terminated and has no renewal term; 5 days is a termination notice period.",
+      "options": {
+        "c0": "wrong"
+      }
+    }
+  }
+}

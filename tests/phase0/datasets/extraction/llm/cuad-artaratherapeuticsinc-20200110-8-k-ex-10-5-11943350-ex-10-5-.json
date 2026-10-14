@@ -1,0 +1,33 @@
+{
+ "doc_id": "cuad-artaratherapeuticsinc-20200110-8-k-ex-10-5-11943350-ex-10-5-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "SPONSORED RESEARCH AND LICENSE AGREEMENT",
+   "Sponsored Research and License Agreement"
+  ],
+  "contract.agreement_date": [
+   "November 28, 2018"
+  ],
+  "contract.effective_date": [
+   "November 28, 2018"
+  ],
+  "contract.expiration_date": [
+   "ten (10) years from the Effective Date"
+  ],
+  "contract.governing_law": [
+   "State of Iowa",
+   "Iowa",
+   "the laws of the State of Iowa",
+   "Delaware"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "thirty (30) days",
+   "forty-five (45) days",
+   "seven (7) years"
+  ]
+ }
+}

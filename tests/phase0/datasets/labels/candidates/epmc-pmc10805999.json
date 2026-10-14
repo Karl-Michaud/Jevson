@@ -1,0 +1,46 @@
+{
+ "doc_id": "epmc-pmc10805999",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two separate patients (a 65-year-old woman and a 43-year-old man) with neurocysticercosis; first patient taken as the subject.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "vesicular stage of parenchymal neurocysticercosis",
+   "superseded": false,
+   "rationale": "First patient was diagnosed with vesicular stage of parenchymal neurocysticercosis; the second patient's diagnosis belongs to a different entity.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "partial",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "albendazole",
+   "superseded": false,
+   "rationale": "Albendazole is the first anthelmintic given for the first patient's neurocysticercosis; carbamazepine is anti-seizure symptomatic treatment and levetiracetam was not given to her.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  }
+ }
+}

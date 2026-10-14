@@ -1,0 +1,76 @@
+{
+  "doc_id": "cuad-nyliacvariableannuityseparateaccountiii-04-10-2020-ex-99-8-k",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties (FIIOC and New York Life Insurance and Annuity Corporation) plus the Funds.",
+  "processing_note": "The resulting number shall be the quarterly fee for that quarter, which shall be paid to Company during the following month.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "SERVICE AGREEMENT",
+      "superseded": false,
+      "rationale": "The document is titled Service Agreement.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "1st day of January, 1998",
+      "superseded": false,
+      "rationale": "The agreement is entered into as of the 1st day of January, 1998.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "1st day of January, 1998",
+      "superseded": false,
+      "rationale": "The agreement is entered into and effective as of the 1st day of January, 1998.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement has no fixed term or expiration date.",
+      "options": {
+        "c0": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "Commonwealth of Massachusetts",
+      "superseded": false,
+      "rationale": "Section 5 applies the laws of the Commonwealth of Massachusetts.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement has no renewal provision.",
+      "options": {
+        "c0": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no renewal; the 90 days is a termination-for-convenience notice by FIIOC.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    }
+  }
+}

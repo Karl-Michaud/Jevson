@@ -1,0 +1,45 @@
+{
+ "doc_id": "epmc-pmc10916147",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient with S. gallolyticus epidural abscess leading to sigmoid adenocarcinoma.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "sigmoid adenocarcinoma",
+   "superseded": true,
+   "rationale": "Investigation ultimately led to the diagnosis of sigmoid adenocarcinoma, after sciatica had been suspected and an epidural abscess found.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "partial",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "partial",
+    "c14": "wrong",
+    "c15": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Adenocarcinoma was treated by resection and unspecified chemotherapy; ceftriaxone treated the epidural abscess.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  }
+ }
+}

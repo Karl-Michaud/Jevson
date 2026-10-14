@@ -1,0 +1,29 @@
+Case presentation
+
+We report a case of a 31-year-old pregnant Indian woman at 24 weeks gestation presenting with fever, gastrointestinal symptoms, and progressive quadriparesis followed by altered sensorium. Severe hypokalaemia and respiratory acidosis necessitated immediate intubation and ventilatory support. Investigations revealed hypokalaemia, normal anion gap metabolic acidosis, and positive autoimmune markers for SS. Concurrently, she tested positive for IgM Leptospira. Management involved aggressive correction of electrolyte imbalances and addressing the underlying SS and leptospirosis.
+
+Case report
+
+A 31-year-old pregnant Indian woman at 24 weeks gestation presented with fever, multiple episodes of vomiting, and loose stools for 1 week. This was followed by progressive gradual onset of quadriparesis for 5 days and altered sensorium for 1 day. She never had any vaccinations in the recent past. There was no history of smoking or alcohol intake. There was no similar illness in her family. There was history of two previous caesarean sections for obstetric indications.
+
+On arrival, her pulse rate was 130/min, BP 80/60 mm Hg, respiratory rate was 38/min, temperature was 99.8 F. Her breathing pattern was rapid and shallow. On auscultation normal vesicular breath sounds were heard, with no added sounds. Auscultation of cardiac areas was normal. Per abdominal examination revealed a gravid uterus appropriate for gestation. She was unresponsive with a GCS of E2V1M1, and her pupils were dilated and fixed. In addition, she had generalized hypotonia with absent deep tendon reflexes, plantar reflexes were mute. Signs of meningism, pain, fine touch, vibration, and temperature sensation couldn’t be assessed.
+
+Her initial arterial blood gas (ABG) analysis showed respiratory acidosis (Ph- 6.87, pCO2- 97 mmHg) with metabolic acidosis (HCO3–17.7 mEq/L) (Table 1). Her electrocardiogram showed presence of ventricular bigeminy due to severe hypokalemia (potassium–1.62 meq/L). Laboratory investigations (Table 2) showed hemoglobin of 9.2 g/dL, leukocytosis (17,100/cumm) and liver function test showed transaminitis with SGOT of 508 IU/L and SGPT–132 IU/L. Her renal function test, thyroid function tests and coagulation profile were normal.
+
+Trend of Arterial blood gas
+
+Laboratory values at admission
+
+ESR Erythrocyte Sedimentation Rate, SGOT Serum glutamic oxaloacetic transaminase, SGPT Serum glutamate pyruvate transaminase, ALP Alkaline phosphatase
+
+She was intubated immediately and ventilated. She was started on rapid potassium correction through a central venous catheter (initial 100 meq corrected over first 3 h). After her serum potassium levels began to improve (more than 2 mEq/L) and after appearance of sinus rhythm, she was started on intravenous bicarbonate replacements for metabolic acidosis. On further evaluation, ABG showed normal anion gap metabolic acidosis (NAGMA) with anion gap of 12, and hyperchloremia (chloride- 115 mEq/L). Urinary anion gap (UAG) was positive with a urinary Ph of 7, which suggested distal RTA. After ruling out that she was not on any medication (lithium, amphotericin B that is) causing distal RTA, an auto-immune panel was requested, which tested positive for SSA and RO-52, other auto-immune profiles for rheumatoid arthritis, SLE were negative. Post extubation, patient revealed history of foreign body sensation in the eyes and dry mouth for the past three years with a positive Schirmer’s test, suggesting Sjogren’s syndrome.
+
+As she had fever and mild elevation of liver enzymes, she was evaluated for hepatitis A, B, C, E, malaria, dengue, which turned out to be negative. USG abdomen showed single live intra-uterine fetus with 24 weeks 5 days of gestation, normal liver texture and no features of hepatomegaly or obstruction or any intra-abdominal source of infection. She was started empirically on injection ceftriaxone 1 gm intravenous twice daily. There was no growth in blood & urine culture. The fever workup yielded a positive report for IgM Leptospira.
+
+For evaluation of quadriparesis, nerve conduction study was done with which showed reduced CMAP (Compound muscle action potential). During her stay in ICU fetal monitoring was done and fetus was stable throughout the stay. She required large amounts of intravenous and oral potassium replacements daily. Figure 1 shows the total potassium replacements from the admission to day 5. She regained her muscle power and started tolerating spontaneous breath trials with serial improvements in potassium (Fig. 2). She got better without any residual neuro-muscular weakness. She was extubated after a week of mechanical ventilation. MRI scan of the brain and spinal cord was planned to find the cause of quadriparesis. However, we chose not to perform the MRI because she soon began to improve after having her hypokalemia addressed. She received oral replacements of potassium and bicarbonate and was discharged. Figure 3 shows the timeline of the patient’s clinical course during her stay in hospital. She was followed up by the obstetrician and physician at regular intervals till her admission for delivery. At 36 weeks of gestation, she delivered a female baby through caesarean section.
+
+Day wise potassium and bicarbonate replacements
+
+Trend of the serum potassium and muscle power (days 1–5)
+
+Timeline of the patient’s clinical course during her stay in hospital

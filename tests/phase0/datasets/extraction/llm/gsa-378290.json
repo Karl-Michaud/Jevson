@@ -1,0 +1,14 @@
+{
+ "doc_id": "gsa-378290",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Skytron Ergon 3 Lights and Boom System",
+   "Skytron Ergon 3 lights and boom system"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

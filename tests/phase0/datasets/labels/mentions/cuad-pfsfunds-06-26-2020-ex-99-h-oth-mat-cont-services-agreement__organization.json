@@ -1,0 +1,74 @@
+{
+  "passage_id": "cuad-pfsfunds-06-26-2020-ex-99-h-oth-mat-cont-services-agreement#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Conquer Risk Managed Volatility Fund",
+    "E2": "Conquer Risk Tactical Rotation Fund",
+    "E3": "Conquer Risk Tactical Opportunities Fund",
+    "E4": "Conquer Risk Defensive Bull Fund",
+    "E5": "PFS Funds (the Trust)",
+    "E6": "Potomac Fund Management, Inc. (the Adviser)",
+    "E7": "Board of Trustees of the Trust",
+    "E8": "Securities and Exchange Commission",
+    "E9": "'Fund' (defined term for each of the four Conquer Risk funds)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E5",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E6",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c7": {
+      "entity": "E9",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c8": {
+      "entity": "E6",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c9": {
+      "entity": "E7",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c10": {
+      "entity": "E8",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1498649", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Ubuntu 22.04.3 LTS", "Ubuntu", "systemd", "/etc/fstab", "boot", "systemd-analyze blame", "/etc/initramfs-tools/conf.d/resume", "EXT4-fs", "SATA hdd", "swap"]}}

@@ -1,0 +1,45 @@
+{
+  "doc_id": "cuad-martinmidstreampartnerslp-01-23-2004-ex-10-3-transportation-",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Martin Operating Partnership L.P. (Owner) and Midstream Fuel Service LLC (Charterer).",
+  "processing_note": "All monthly Owner invoices to Charterer for rates and cost items will be paid by Charterer within 30 days of invoice date in accordance with Owner's normal payment protocols, which will be specified in the applicable invoice.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "TRANSPORTATION SERVICES AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading titles the document TRANSPORTATION SERVICES AGREEMENT (the preamble inconsistently calls it MARINE TRANSPORTATION AGREEMENT); the heading title is taken as the name.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "23rd day of December, 2003",
+      "superseded": false,
+      "rationale": "The term commences on the date first set forth above (the Commencement Date), which is the execution date 23rd day of December, 2003.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "laws of the State of Texas",
+      "superseded": false,
+      "rationale": "Section 8 states the agreement is governed by the laws of the State of Texas; Delaware and Alabama are the parties' states of organisation.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct"
+      }
+    }
+  }
+}

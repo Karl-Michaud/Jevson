@@ -1,0 +1,45 @@
+{
+  "passage_id": "cuad-urscorpnew-03-17-2014-ex-99-cooperation-agreement#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "JANA (JANA Partners LLC)",
+    "E2": "the Company (URS Corporation)",
+    "E3": "the Board (Board of Directors of URS)",
+    "E4": "SEC",
+    "E5": "Wachtell, Lipton, Rosen & Katz (URS counsel)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}
