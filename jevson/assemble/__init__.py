@@ -1,0 +1,1 @@
+"""Resolved graph -> JSON object."""

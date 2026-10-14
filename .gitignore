@@ -13,6 +13,7 @@ build/
 .pytest_cache/
 .ruff_cache/
 .coverage
+coverage.json
 htmlcov/
 
 # --- os / editor ---
