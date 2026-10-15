@@ -11,6 +11,7 @@ EXPECTED = {
     "Result",
     "FakeBackend",
     "JevsonConfig",
+    "compile_schema",
     # the exception hierarchy
     "JevsonError",
     "CompileError",
