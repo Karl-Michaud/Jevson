@@ -67,12 +67,12 @@ root_package = "jevson"
 include_external_packages = true
 
 [[tool.importlinter.contracts]]
-# PLAN §2 module discipline. compile/ and execute/ are added to this contract when they land;
-# tests/architecture already checks them by path.
-name = "graph and assemble never import backends"
+# PLAN §2 module discipline; jevson.execute is forbidden before it exists, so the rule holds from
+# its first file. tests/architecture checks the same rule by path.
+name = "compile, graph and assemble never import execute or backends"
 type = "forbidden"
-source_modules = ["jevson.graph", "jevson.assemble"]
-forbidden_modules = ["jevson.backends"]
+source_modules = ["jevson.compile", "jevson.graph", "jevson.assemble"]
+forbidden_modules = ["jevson.execute", "jevson.backends"]
 
 [[tool.importlinter.contracts]]
 name = "No vendor or HTTP client in the Phase 1 core"

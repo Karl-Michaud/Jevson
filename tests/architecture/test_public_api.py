@@ -14,6 +14,7 @@ EXPECTED = {
     # the exception hierarchy
     "JevsonError",
     "CompileError",
+    "RefusalCode",
     "RefusalReason",
     "PreflightError",
     "UsageError",

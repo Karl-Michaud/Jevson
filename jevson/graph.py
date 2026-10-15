@@ -12,7 +12,7 @@ from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from typing import TypeAlias
 
-from jevson.errors import CompileError, RefusalReason
+from jevson.errors import CompileError, RefusalCode, RefusalReason
 from jevson.types import DecisionNode, StepNode
 
 Node: TypeAlias = DecisionNode | StepNode
@@ -34,11 +34,13 @@ class DecisionGraph:
         problems: list[RefusalReason] = []
         for node in nodes:
             if node.id in self._nodes:
-                problems.append(RefusalReason(node.id, "duplicate_node_id", "two nodes share this id"))
+                problems.append(RefusalReason(node.id, RefusalCode.DUPLICATE_NODE_ID, "two nodes share this id"))
             self._nodes[node.id] = node
         for node in self._nodes.values():
             for dependency in sorted(node.dependencies - self._nodes.keys()):
-                problems.append(RefusalReason(node.id, "unknown_dependency", f"depends on missing node {dependency}"))
+                problems.append(
+                    RefusalReason(node.id, RefusalCode.UNKNOWN_DEPENDENCY, f"depends on missing node {dependency}")
+                )
         if problems:
             raise CompileError(problems)
         self._levels = self._level(self._topological_order())
@@ -67,7 +69,7 @@ class DecisionGraph:
                 path.append(step)
             cycle = path[path.index(step) :]
             joined = " -> ".join([*cycle, cycle[0]])
-            raise CompileError([RefusalReason(node_id, "dependency_cycle", joined) for node_id in cycle])
+            raise CompileError([RefusalReason(node_id, RefusalCode.DEPENDENCY_CYCLE, joined) for node_id in cycle])
         return order
 
     def _level(self, order: list[str]) -> tuple[Level, ...]:
