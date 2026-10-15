@@ -62,6 +62,8 @@ def supported(draw: st.DrawFn, depth: int = 0) -> tuple[dict[str, object], list[
             expected += [f"/{token}{i}" for i in below]
         else:
             field, role = draw(decidable)
+            if field.get("type") == "boolean":  # a decided bool needs a statement; one per name
+                field = {**field, "description": f"the {name} flag holds"}
             properties[name] = field
             expected += [f"/{token}#{role}"] if role else []
     return {"type": "object", "properties": properties, "required": list(properties)}, expected
@@ -73,4 +75,7 @@ def test_the_supported_subset_always_compiles_to_exactly_its_decidable_leaves(
     case: tuple[dict[str, object], list[str]],
 ) -> None:
     schema, expected = case
-    assert list(compile_schema(schema).nodes) == expected
+    nodes = compile_schema(schema).nodes.values()
+    assert [node.id for node in nodes] == expected
+    asked = [(node.question, node.options) for node in nodes]
+    assert len(set(asked)) == len(asked), "qualified labels keep every question distinct"

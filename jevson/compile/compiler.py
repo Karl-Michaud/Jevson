@@ -6,12 +6,14 @@ an extractor, or an LLM, so every refusal happens before anything is spent.
 
 from __future__ import annotations
 
-from collections.abc import Set
+from collections.abc import Sequence, Set
 
 from jevson.compile.mapping import map_tree
 from jevson.compile.normalise import normalise
 from jevson.compile.refusal import Refusals
+from jevson.errors import RefusalCode
 from jevson.graph import DecisionGraph
+from jevson.types import DecisionNode
 
 
 def compile_schema(
@@ -27,5 +29,25 @@ def compile_schema(
     del extractors  # v0: no field is source-selected, so no extractor name is ever looked up
     refusals = Refusals()
     nodes = map_tree(normalise(schema, refusals), refusals, default_extractor=default_extractor)
+    refuse_duplicate_questions(nodes, refusals)
     refusals.raise_if_any()
     return DecisionGraph(nodes)
+
+
+def refuse_duplicate_questions(nodes: Sequence[DecisionNode], refusals: Refusals) -> None:
+    """Refuse every decision that renders the same question over the same options as an earlier one.
+
+    Every question in a level shares one input (DESIGN §2), so two such questions get the same answer
+    whatever their targets: a silent wrong value. Qualified labels prevent this unless the schema
+    declares the collision itself, for example one `x-jevson.question` on two fields."""
+    first: dict[tuple[str, tuple[str, ...]], DecisionNode] = {}
+    for node in nodes:
+        key = (node.question, tuple(option.description for option in node.options))
+        earlier = first.setdefault(key, node)
+        if earlier is not node:
+            refusals.add(
+                node.target,
+                RefusalCode.DUPLICATE_QUESTION,
+                f"asks {node.question!r} over the same options as {earlier.target}, so both would get one "
+                "answer; give one of them a distinct x-jevson.question",
+            )

@@ -63,7 +63,7 @@ class Order(BaseModel):
 
     customer: Customer
     billing: Address
-    urgent: bool
+    urgent: bool = Field(description="the order is urgent")
 
 
 class Idiomatic(BaseModel):
@@ -239,7 +239,7 @@ def test_bool_enum_and_ordinal_map_to_predicate_choice_and_score_over_opaque_ids
     assert nodes["/paid#predicate"] == DecisionNode(
         "/paid#predicate",
         DecisionKind.PREDICATE,
-        "According to the source, the invoice is paid?",
+        "According to the source, is it true that the invoice is paid?",
         OptionSource.PREDICATE,
         "/paid",
     )
@@ -340,7 +340,7 @@ def test_refusal_is_total_across_normalising_and_mapping() -> None:
         any={},
         nested=obj(rating={"type": "integer", "x-jevson": {"ordinal": True}}, tags={"type": "object"}),
         source={"type": "string", "x-jevson": {"source": {}}},
-        fine={"type": "boolean"},
+        fine={"type": "boolean", "description": "it is fine"},
     )
     assert sorted(refusals(schema)) == [
         ("/any", RefusalCode.ANY_FIELD),
@@ -361,3 +361,67 @@ def test_decision_node_values_must_align_with_options() -> None:
     options = (Option("c0", "a"), Option("c1", "b"))
     with pytest.raises(ValueError, match="align"):
         DecisionNode("/x#choice", DecisionKind.CHOICE, "q", OptionSource.SCHEMA_ENUM, "/x", options, values=("a",))
+
+
+# --- distinct questions (ASTERION-29) ------------------------------------------------------------
+
+
+class Addr(BaseModel):
+    kind: Literal["home", "work"]
+    verified: bool = Field(description="the address was verified")
+
+
+class Shipment(BaseModel):
+    billing: Addr
+    shipping: Addr | None
+
+
+def test_same_named_nested_fields_render_distinct_questions() -> None:
+    questions = {node.id: node.question for node in compile_schema(Shipment).nodes.values()}
+    assert questions == {
+        "/billing/kind#choice": "Which of these is the billing kind?",
+        "/billing/verified#predicate": (
+            "According to the source, for the billing, is it true that the address was verified?"
+        ),
+        "/shipping/kind#choice": "Which of these is the shipping kind?",
+        "/shipping/verified#predicate": (
+            "According to the source, for the shipping, is it true that the address was verified?"
+        ),
+    }
+
+
+def test_a_unique_label_stays_unqualified_and_ordinals_are_scoped_too() -> None:
+    rating = {"type": "integer", "minimum": 1, "maximum": 3, "x-jevson": {"ordinal": True}}
+    nodes = compile_schema(obj(seller=obj(rating=rating, tier={"enum": ["a", "b"]}), buyer=obj(rating=rating))).nodes
+    assert nodes["/seller/tier#choice"].question == "Which of these is the tier?"
+    assert nodes["/seller/rating#score"].question == "Which level best describes the seller rating?"
+    assert nodes["/buyer/rating#score"].question == "Which level best describes the buyer rating?"
+
+
+def test_two_fields_declaring_one_question_refuse_duplicate_question() -> None:
+    asked = {"enum": ["a", "b"], "x-jevson": {"question": "the plan"}}
+    assert refusals(obj(old=obj(tier=asked), new=obj(tier=asked))) == [("/new/tier", RefusalCode.DUPLICATE_QUESTION)]
+
+
+def test_one_declared_question_over_different_options_is_not_a_duplicate() -> None:
+    first = {"enum": ["a", "b"], "x-jevson": {"question": "plan"}}
+    second = {"enum": ["a", "c"], "x-jevson": {"question": "plan"}}
+    nodes = compile_schema(obj(old=first, new=second)).nodes
+    assert nodes["/old#choice"].question == nodes["/new#choice"].question == "Which of these is the plan?"
+
+
+def test_the_duplicate_question_refusal_names_the_first_pointer() -> None:
+    asked = {"type": "boolean", "x-jevson": {"question": "it ships today"}}
+    with pytest.raises(CompileError) as caught:
+        compile_schema(obj(a=asked, b=asked, c=asked))
+    reasons = caught.value.reasons
+    assert [(r.pointer, r.reason) for r in reasons] == [
+        ("/b", RefusalCode.DUPLICATE_QUESTION),
+        ("/c", RefusalCode.DUPLICATE_QUESTION),
+    ]
+    assert all("/a" in r.message for r in reasons)
+
+
+@pytest.mark.parametrize("field", [{"type": "boolean"}, {"type": "boolean", "description": " . "}])
+def test_a_decided_bool_with_no_statement_refuses_bool_predicate_missing(field: dict[str, object]) -> None:
+    assert refusals(obj(verified=field)) == [("/verified", RefusalCode.BOOL_PREDICATE_MISSING)]

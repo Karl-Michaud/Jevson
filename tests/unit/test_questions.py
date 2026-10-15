@@ -1,8 +1,11 @@
-"""DESIGN §5.2: class C questions render from the Phase 0 templates, byte for byte (docs/taxonomy.md §1.2)."""
+"""DESIGN §5.2: class C questions render from the versioned templates (docs/taxonomy.md §1.2).
+
+Version 1.1.0 keeps the Phase 0 enum, ordinal, and option strings byte for byte and replaces the bool one."""
 
 from __future__ import annotations
 
 import re
+from pathlib import Path
 
 import pytest
 
@@ -12,19 +15,31 @@ from jevson.compile.normalise import Kind, SchemaNode
 from tests.phase0 import templates
 
 
-def test_the_class_c_templates_are_byte_identical_to_the_phase_0_record() -> None:
-    assert questions.QUESTION_TEMPLATE_VERSION == templates.QUESTION_TEMPLATE_VERSION == "1.0.0"
+def test_1_1_0_keeps_the_phase_0_enum_ordinal_and_option_strings_and_replaces_the_bool_one() -> None:
+    assert questions.QUESTION_TEMPLATE_VERSION == "1.1.0"
+    assert templates.QUESTION_TEMPLATE_VERSION == "1.0.0"  # the Phase 0 record does not move
     assert questions.ENUM_INSTRUCTIONS == templates.ENUM_INSTRUCTIONS
     assert questions.ENUM_OPTION == templates.ENUM_OPTION
-    assert questions.BOOL_INSTRUCTIONS == templates.BOOL_INSTRUCTIONS
     assert questions.ORDINAL_INSTRUCTIONS == templates.ORDINAL_INSTRUCTIONS
+    assert questions.BOOL_INSTRUCTIONS != templates.BOOL_INSTRUCTIONS
 
 
-def test_rendered_questions_match_the_recorded_templates() -> None:
+def test_the_1_1_0_strings_are_recorded_in_taxonomy_md() -> None:
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    assert f"QUESTION_TEMPLATE_VERSION = {questions.QUESTION_TEMPLATE_VERSION}" in doc
+    assert questions.BOOL_INSTRUCTIONS in doc
+    assert questions.BOOL_SCOPED_INSTRUCTIONS in doc
+
+
+def test_rendered_questions_match_the_templates() -> None:
     assert questions.enum_question("tier") == templates.ENUM_INSTRUCTIONS.format(label="tier")
-    assert questions.bool_question("it is paid") == templates.BOOL_INSTRUCTIONS.format(predicate="it is paid")
     assert questions.ordinal_question("rating") == templates.ORDINAL_INSTRUCTIONS.format(label="rating")
     assert questions.option_description(3) == templates.ENUM_OPTION.format(value=3) == '"3"'
+    assert questions.bool_question("it is paid") == "According to the source, is it true that it is paid?"
+    assert (
+        questions.bool_question("it is paid", "billing")
+        == "According to the source, for the billing, is it true that it is paid?"
+    )
 
 
 def field(description: str | None = None, question: str | None = None) -> SchemaNode:
@@ -50,6 +65,65 @@ def test_a_name_that_trims_to_nothing_is_used_as_written() -> None:
     assert questions.label("?", field()) == "?"
 
 
+@pytest.mark.parametrize(
+    ("node", "expected"),
+    [
+        (field("the invoice is paid", "it ships today."), "it ships today"),
+        (field("the invoice is paid."), "the invoice is paid"),
+        (field("Whether the invoice is paid"), "the invoice is paid"),
+        (field("if it ships today"), "it ships today"),
+        (field("whether"), "whether"),
+        (field(), None),
+        (field("  ?"), None),
+        (field(" . ", "  "), None),
+    ],
+)
+def test_a_bools_predicate_is_its_question_else_its_description_never_its_name(
+    node: SchemaNode, expected: str | None
+) -> None:
+    assert questions.predicate(node) == expected
+
+
+def labelled(label: str, *ancestors: str, verbatim: bool = False) -> questions.Labelled:
+    return questions.Labelled(label, ancestors, verbatim)
+
+
+@pytest.mark.parametrize(
+    ("fields", "expected"),
+    [
+        ([labelled("kind", "billing"), labelled("kind", "shipping")], ("billing", "shipping")),
+        ([labelled("kind", "billing"), labelled("tier", "shipping")], ("", "")),
+        ([labelled("the kind", "billing"), labelled("Kind", "shipping")], ("billing", "shipping")),
+        (
+            [labelled("kind", "order", "billing_address"), labelled("kind", "refund", "billing_address")],
+            ("order billing address", "refund billing address"),
+        ),
+        ([labelled("kind"), labelled("kind", "x"), labelled("kind", "y", "x")], ("", "x", "y x")),
+        ([labelled("Which kind", "a", verbatim=True), labelled("Which kind", "b", verbatim=True)], ("", "")),
+        ([labelled("kind"), labelled("kind")], ("", "")),
+        ([], ()),
+    ],
+)
+def test_scopes_add_the_fewest_nearest_ancestors_that_make_each_label_unique(
+    fields: list[questions.Labelled], expected: tuple[str, ...]
+) -> None:
+    assert questions.scopes(fields) == expected
+
+
+@pytest.mark.parametrize(
+    ("label", "scope", "expected"),
+    [
+        ("kind", "", "kind"),
+        ("kind", "billing", "billing kind"),
+        ("The kind", "billing", "billing kind"),
+        ("an address type", "shipping", "shipping address type"),
+        ("theme", "site", "site theme"),
+    ],
+)
+def test_a_scoped_label_puts_the_scope_in_front_of_the_noun(label: str, scope: str, expected: str) -> None:
+    assert questions.scoped_label(label, scope) == expected
+
+
 NEGATION = re.compile(r"\b(no|not|never|none|neither|nor)\b|n't", re.IGNORECASE)
 POSITIONAL = re.compile(r"\[\d+\]")
 
@@ -59,6 +133,7 @@ POSITIONAL = re.compile(r"\[\d+\]")
     [
         questions.enum_question("X"),
         questions.bool_question("X"),
+        questions.bool_question("X", "Y"),
         questions.ordinal_question("X"),
         questions.option_description("X"),
     ],

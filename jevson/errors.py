@@ -55,6 +55,9 @@ class RefusalCode(StrEnum):
     ORDINAL_LEVELS = "ordinal_levels"
     ENUM_VALUE_TYPE = "enum_value_type"
     UNBOUNDED_FIELD = "unbounded_field"
+    BOOL_PREDICATE_MISSING = "bool_predicate_missing"
+    # compilation (checked by compile/compiler.py)
+    DUPLICATE_QUESTION = "duplicate_question"
     # later phases
     NOT_YET_SUPPORTED = "not_yet_supported"
 
