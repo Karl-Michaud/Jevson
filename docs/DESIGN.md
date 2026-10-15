@@ -1,6 +1,6 @@
 # Jevson — design
 
-> **Status:** Design document, Revision 11, 2026-10-14 (the fallback scope). Pre-implementation. Phase 0 ran on `jev-1.13.0` and Phase 0r on the Decisions API; both gave the pre-registered verdict **drop source selection** **[Z9, Q2, Q9]**. **v0 is the fallback product** (DESIGN §10.1): bounded decisions over declared options, criteria-gated generative fields, union discrimination, and multi-label enum arrays. Class D (source selection) and everything built on it — DESIGN §5.1–§5.6, span verification in §5.9, class F parsing of a selected span, the source screen — is the design of record for deferred work (`PLAN.md` §9.2), not v0 behaviour. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
+> **Status:** Design document, Revision 11.1, 2026-10-15 (the façade's call shape; Revision 11, 2026-10-14, the fallback scope). Pre-implementation. Phase 0 ran on `jev-1.13.0` and Phase 0r on the Decisions API; both gave the pre-registered verdict **drop source selection** **[Z9, Q2, Q9]**. **v0 is the fallback product** (DESIGN §10.1): bounded decisions over declared options, criteria-gated generative fields, union discrimination, and multi-label enum arrays. Class D (source selection) and everything built on it — DESIGN §5.1–§5.6, span verification in §5.9, class F parsing of a selected span, the source screen — is the design of record for deferred work (`PLAN.md` §9.2), not v0 behaviour. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
 >
 > **This document is the SSOT for Jevson.** It carries everything an agent or contributor needs to work on the project: what the library is, what it guarantees, the architecture, the vocabulary, the constraints of the model it sits on, and the rules that are not open for reinterpretation. The build sequence lives in [`PLAN.md`](PLAN.md).
 >
@@ -530,7 +530,7 @@ DECLARED_OPTION  option identifier (schema enum value, rubric level)
 > 2. a `Result` with `.complete is False` **or** `.satisfies_schema is False`, every hole named in `.unresolved` and every failed constraint named in `.violations`; or
 > 3. a typed exception from Jevson's hierarchy:
 >    - `CompileError` — the schema cannot be mapped (raised by `compile_schema()` or at the start of `resolve`);
->    - `PreflightError` — before any backend call: the source or a declared maximum exceeds a context limit, more than one source is supplied, or a `known=` value fails the schema;
+>    - `PreflightError` — before any backend call: the source or a declared maximum exceeds a context limit, the source is not a single `str` of valid Unicode text (a lone surrogate cannot be sent), or a `known=` value fails the schema;
 >    - `UsageError` — `resolve()` called inside a running event loop, or a closed instance used;
 >    - `SchemaViolation` — a required field is unresolved and the caller set `raise_on_unresolved_required=True`;
 >    - `BackendError`, `LLMError`, `ExtractorError` — a transport or protocol failure (`ExtractorError` is never raised in v0, which has no extractor step).
@@ -585,7 +585,7 @@ Settled. Changing one is a design change that updates this document. **In v0**, 
 7. **Arrays are in source order.** Semantic ordering is out of v0 and tracked (`PLAN.md` §9); `x-jevson.order: semantic` refuses rather than silently source-ordering.
 8. **Overflow is never silently discarded.**
 9. **Derived provenance is out of v0**, except class F parsing of one selected span (DESIGN §5.9).
-10. **There are no global modes.** One object freely mixes deterministic, source-grounded, decision-model-selected, LLM-generated, and caller-supplied fields (`resolve(source, known={pointer: value})`).
+10. **There are no global modes.** One object freely mixes deterministic, source-grounded, decision-model-selected, LLM-generated, and caller-supplied fields (`resolve(schema, source, known={pointer: value})`).
 11. **Decision graph, compiler, and executor are the core abstractions**; compilation is separate from execution; loops are executor policy.
 12. **The taxonomy determines whether v0 is broad or deliberately narrow.**
 
@@ -616,7 +616,7 @@ Five protocols, each earning its place by having a real second implementation. T
 
 **`DecisionsBackend` calls `POST /v1/decisions` directly with `httpx`; the vendor SDK is not a dependency** — so every request, retry, and token is visible to `Cost`. The reasons were measured on TypeSafe's SDK: `typesafe-sdk` was pre-1.0 with breaking releases days apart, retried requests by default — requests that may be billed — where `Cost` could not see them, and logged bodies unredacted under `TYPESAFE_LOG_LEVEL=debug` **[V-sdk, X5]**. The `openai` SDK (≥ 3.26.0 for this endpoint **[D1]**) has not been reviewed against them; the decision is revisited when it is.
 
-**API shape.** `Jevson(backend, llm=None, extractors={name: Extractor}, config=JevsonConfig(), cost_sink=None)` with `resolve(source, *, known=None, redraft_budget=None)` / `aresolve(...)`. In v0 `extractors` is accepted and unused (any field that would use one refuses at compile time, DESIGN §3.5); `retry_budget` arrives with class D, as a new keyword. **There is no default backend** — constructing `DecisionsBackend(...)` is an explicit choice to spend money, so an environment variable never silently turns a test into paid calls. The backend's clients follow the lifecycle above: one long-lived client on the library loop, and per-call clients on caller loops. The rate limiter is **per API key**, shared across every `DecisionsBackend` in the process through a registry keyed by a hash of the key, and built on `threading.Lock` rather than asyncio primitives; that design held 20 requests/s exactly across 5 loops, while an asyncio semaphore shared across threads lost a wakeup **[L20]**.
+**API shape.** `Jevson(backend, llm=None, extractors={name: Extractor}, config=JevsonConfig(), cost_sink=None)` with `resolve(schema, source, *, known=None, redraft_budget=None)` / `aresolve(...)`. The schema (a JSON Schema dict or a Pydantic model class) is an argument of each call, so one instance — one backend, one cost sink, one configuration — serves many schemas, and it is compiled at the start of the call, before anything is spent. Every request names `JevsonConfig.model` (default `gpt-6-luna`), which is recorded in `Result.versions` beside the returned `model` string. In v0 `extractors` is accepted and unused (any field that would use one refuses at compile time, DESIGN §3.5); `retry_budget` arrives with class D, as a new keyword. **There is no default backend** — constructing `DecisionsBackend(...)` is an explicit choice to spend money, so an environment variable never silently turns a test into paid calls. The backend's clients follow the lifecycle above: one long-lived client on the library loop, and per-call clients on caller loops. The rate limiter is **per API key**, shared across every `DecisionsBackend` in the process through a registry keyed by a hash of the key, and built on `threading.Lock` rather than asyncio primitives; that design held 20 requests/s exactly across 5 loops, while an asyncio semaphore shared across threads lost a wakeup **[L20]**.
 
 **Caller-supplied values.** `known={pointer: value}` fills fields the caller already has. Each value is validated against the field's schema before any spend (`PreflightError` otherwise); the field's nodes are skipped; `decided_by` is `caller` and no provenance is recorded. `known` pointers name fields outside arrays; a pointer inside a union branch is used only if that branch is selected, and a known discriminator value selects its branch without a decision.
 
@@ -650,8 +650,9 @@ Result
                          decision_retries, transport_retries, redrafts, level_splits,
                          wall_clock_by_component)
   model             the `model` string(s) the API returned (currently unpinnable; whether the string names a version is unknown, DESIGN §2)
-  versions          question template version, the context limits preflight used, and the result-affecting
-                    settings: tie margin, default_extractor, and the redraft budget used. Added with the
+  versions          question template version, the requested model, the context limits and token estimator
+                    preflight used, and the result-affecting settings: tie margin, default_extractor, and
+                    the redraft budget used. Added with the
                     deferred work that uses them, and absent until then (not null, not a placeholder):
                     the Unicode versions of the grapheme table and of `unicodedata` (used for NFC) and the
                     retry budget (class D); source screen on/off and its wording version (the screen);
@@ -826,6 +827,10 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 ---
 
 ## 13. Changelog
+
+### Revision 11.1 — 2026-10-15, the façade's call shape (ASTERION-30)
+
+`resolve` and `aresolve` take the schema as their first argument (§8); the API shape had no place for it. `JevsonConfig.model` names the requested model and is recorded in `Result.versions` (§8, §8.1). A source that is not valid Unicode text is a `PreflightError` (§6.1).
 
 ### Revision 11 — 2026-10-14, the fallback scope
 

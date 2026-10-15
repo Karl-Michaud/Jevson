@@ -2,8 +2,8 @@
 
 The public surface is exactly `__all__`. Phase 1 ships the result type, the fake backend, the
 configuration, the exception hierarchy, the five protocols, and the types needed to read a
-`Result` or implement a protocol; Phase 2 adds `compile_schema`; Phase 3 adds `DecisionsBackend` and `CachingBackend`.
-`Jevson` and `ReplayLLM` join it in the phases that build them (PLAN §2).
+`Result` or implement a protocol; Phase 2 adds `compile_schema`; Phase 3 adds `DecisionsBackend`,
+`CachingBackend` and `Jevson`. `ReplayLLM` joins it in Phase 4 (PLAN §2).
 """
 
 from jevson.backends.caching import CachingBackend
@@ -24,6 +24,7 @@ from jevson.errors import (
     SchemaViolation,
     UsageError,
 )
+from jevson.facade import Jevson
 from jevson.protocols import LLM, Backend, CostSink, Extractor, Normalizer
 from jevson.result import Result
 from jevson.types import (
@@ -80,6 +81,7 @@ __all__ = [
     "FakeBackend",
     "FieldSpec",
     "InvalidAnswer",
+    "Jevson",
     "JevsonConfig",
     "JevsonError",
     "LLMError",

@@ -11,6 +11,9 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class JevsonConfig:
+    model: str = "gpt-6-luna"
+    """The model every decision request names; the API offers no snapshot, so the returned `model`
+    string is recorded too (DESIGN §2, R15)."""
     tie_margin_hundredths: int = 10
     """A committing decision whose top two outcomes differ by at most this is a tie (DESIGN §6.2)."""
     default_extractor: str | None = None

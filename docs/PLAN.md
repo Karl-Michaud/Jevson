@@ -424,7 +424,7 @@ Executing anything. Generative fields (Phase 4). Unions (Phase 6). Multi-label e
 - `execute/loop.py` — the library-owned event loop in a daemon thread; `resolve()` submits `aresolve()` to it and refuses inside a running loop **[L20]**
 - `backends/decisions.py` — raw `httpx` against `POST /v1/decisions`; one long-lived client on the library loop and per-call clients on caller loops (`DESIGN §8`); opaque question names, answers matched by name and checked against question order (`DESIGN §2`); the returned `model` string recorded on every response (R15); `refusal` answers resolved to `Unresolved(refused)`; error responses mapped to typed errors from the codes Phase 0r observes; `usage.input_tokens` recorded **[D2]**; the API key is a constructor argument, falling back to `OPENAI_API_KEY` (`DESIGN §8.3`)
 - `backends/caching.py` — `CachingBackend` with RFC 8785 keys (the `rfc8785` package **[L21]**), writing only to a caller-supplied directory (`DESIGN §8.4`)
-- `facade.py` — `Jevson(backend=..., config=...)` with **no default backend**; `resolve(source, known=...)`, with `known=` values validated before any spend
+- `facade.py` — `Jevson(backend=..., config=...)` with **no default backend**; `resolve(schema, source, known=...)`, with `known=` values validated before any spend
 - `tests/adversarial/hostile_backend.py`, `hostile_transport.py` — every backend and transport row of PLAN §4.2
 - Integration suite, opt-in and marked, against the real key. Locally the key lives in a gitignored `.env`; only the test harness reads it
 
