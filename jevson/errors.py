@@ -8,6 +8,7 @@ is spent. `SchemaViolation`, `BackendError`, `LLMError` and `ExtractorError` car
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import StrEnum
 
 from jevson.result import Result
 from jevson.types import Cost
@@ -17,12 +18,53 @@ class JevsonError(Exception):
     """Base of every exception Jevson raises on purpose."""
 
 
+class RefusalCode(StrEnum):
+    """The named reasons a `RefusalReason` carries (DESIGN §3.5, §10; PLAN Phase 2).
+
+    `not_yet_supported` promises a later phase; `source_selection_dropped` does not (Phase 0r).
+    """
+
+    # graph construction
+    DUPLICATE_NODE_ID = "duplicate_node_id"
+    UNKNOWN_DEPENDENCY = "unknown_dependency"
+    DEPENDENCY_CYCLE = "dependency_cycle"
+    # normalisation
+    MALFORMED_SCHEMA = "malformed_schema"
+    PYDANTIC_TOO_OLD = "pydantic_too_old"
+    SCHEMA_TOO_LARGE = "schema_too_large"
+    RECURSIVE_REF = "recursive_ref"
+    DYNAMIC_REF = "dynamic_ref"
+    EXTERNAL_REF = "external_ref"
+    REF_SIBLING_CONFLICT = "ref_sibling_conflict"
+    NON_FLAT_ALL_OF = "non_flat_all_of"
+    DICT_FIELD = "dict_field"
+    TUPLE_FIELD = "tuple_field"
+    ANY_FIELD = "any_field"
+    BYTES_FIELD = "bytes_field"
+    ARRAY_OF_OBJECTS = "array_of_objects"
+    UNSUPPORTED_KEYWORD = "unsupported_keyword"
+    ENUM_SIZE = "enum_size"
+    # declarations
+    UNKNOWN_DECLARATION_KEY = "unknown_declaration_key"
+    MALFORMED_DECLARATION = "malformed_declaration"
+    MISPLACED_DECLARATION = "misplaced_declaration"
+    SEMANTIC_ORDER = "semantic_order"
+    SOURCE_AND_GENERATE = "source_and_generate"
+    SOURCE_SELECTION_DROPPED = "source_selection_dropped"
+    # mapping (checked by compile/mapping.py)
+    ORDINAL_LEVELS = "ordinal_levels"
+    UNBOUNDED_FIELD = "unbounded_field"
+    # later phases
+    NOT_YET_SUPPORTED = "not_yet_supported"
+
+
 @dataclass(frozen=True)
 class RefusalReason:
     """Why one schema location (or graph node) cannot be compiled. `pointer` names it."""
 
     pointer: str
     reason: str
+    """A `RefusalCode` value; graph construction and later phases share the one set."""
     message: str
 
 

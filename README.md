@@ -56,7 +56,7 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 
 ## Status
 
-**Design, pre-implementation.** No library code yet; Phase 1 may start.
+**Pre-release, in implementation.** Phase 1 (the core model, protocols, graph, fake backend and assembler) is merged; Phase 2, the compiler, is in progress.
 
 **What v0 will be: the fallback product.** Source selection did not pass its pre-registered tests on either decision model (Jev, then the Decisions API; see the findings at the top), so v0 does not pick values out of the document. It is a compiler for:
 
