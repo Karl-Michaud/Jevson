@@ -66,6 +66,21 @@ These complete the v0 surface under the same version. Later phases measure them;
 | rubric `score` (adjudication) | `Which level best describes `drafts.{node}` against this rubric: {rubric}?` |
 | `generate` step prompt | `Write the {label} for the source below. {instructions}Return only the value.` |
 
+#### Library revision: `QUESTION_TEMPLATE_VERSION = 1.1.0` (ASTERION-29)
+
+The table above is the Phase 0 record, and stays at 1.0.0 with `tests/phase0/templates.py`. `jevson/compile/questions.py` ships 1.1.0, which changes only the class C bool template and how class C labels are chosen. The probed templates of §1.1 are unchanged, and so are the enum, option, and ordinal strings.
+
+| use | 1.1.0 template |
+|---|---|
+| bool `predicate` (class C) | `According to the source, is it true that {predicate}?` |
+| bool `predicate`, scoped (class C) | `According to the source, for the {scope}, is it true that {predicate}?` |
+
+- **`{predicate}`** is the field's `x-jevson.question`, else its `description`, trimmed, with one trailing `.` or `?` and a leading `whether` or `if` dropped. A decided bool with neither is refused `bool_predicate_missing`: a property name is not a statement.
+- **Scoping.** A label (or predicate) that is not unique in the graph, ignoring case and a leading article, is qualified by the fewest nearest ancestor property names that make it unique, written outermost first with underscores read as spaces. A choice or score puts the scope in front of the noun (`Which of these is the shipping kind?`); a bool uses the scoped template. An `x-jevson.question` is never qualified.
+- **Invariant.** `compile_schema()` refuses `duplicate_question` when two decision nodes still render byte-identical questions over identical options, for example two fields with one `x-jevson.question`.
+
+**Why.** Every question in a level shares one input (`DESIGN.md` §2), so two fields asked the same question get the same answer whatever their targets. A model with `billing: Addr` and `shipping: Optional[Addr]` compiled `/billing/kind` and `/shipping/kind` both to `Which of these is the kind?`: a silent wrong value. Separately, 1.0.0's `According to the source, {predicate}?` turned a field name into `According to the source, verified?`, which is not a yes/no question. **Not measured:** neither the 1.1.0 bool wording nor scoped labels have been probed on Jev or the Decisions API.
+
 ---
 
 ## 2. Decision rules and operating characteristic

@@ -4,7 +4,8 @@
 |---|---|
 | object | its properties, recursively; an object's own default never makes it class A |
 | constant; a leaf with a default and no deciding `x-jevson` key (DESIGN §3.5) | class A: no node |
-| `bool` | `predicate` (the tie band is `probabilities.interpret`'s) |
+| `bool` with a question or description | `predicate` (the tie band is `probabilities.interpret`'s) |
+| `bool` with neither | `bool_predicate_missing`: a property name is not a statement |
 | string/int enum, 2-255 values | `choice` over opaque ids `c0…cN` in declared order |
 | integer range declared `ordinal: true`, 2-10 levels | `score`, levels lowest first |
 | any other string, number, decimal, integer, or scalar array | `unbounded_field` (class G), or |
@@ -14,12 +15,16 @@
 Subtrees the normaliser refused (`Kind.REFUSED`) are skipped, and a field whose `source` or
 `generate` `declarations.py` already refused gets no second reason; every new refusal goes to the
 same `Refusals`, so one `CompileError` names every pointer (R14).
+
+Questions are rendered after the whole tree is mapped, because a label that is not unique in the
+graph is qualified by its ancestor property names (`questions.scopes`).
 """
 
 from __future__ import annotations
 
 import math
 from collections.abc import Mapping
+from dataclasses import dataclass, replace
 from decimal import Decimal
 
 from jevson.compile import questions
@@ -42,27 +47,59 @@ def map_tree(root: SchemaNode, refusals: Refusals, *, default_extractor: str | N
         refusals.add(root.pointer, RefusalCode.MALFORMED_SCHEMA, "the root must be an object schema")
         return ()
     mapper = _Mapper(refusals, default_extractor)
-    mapper.object(root)
-    return tuple(mapper.nodes)
+    mapper.object(root, ())
+    scopes = questions.scopes([p.labelled for p in mapper.pending])
+    return tuple(p.render(scope) for p, scope in zip(mapper.pending, scopes, strict=True))
+
+
+@dataclass(frozen=True)
+class _Pending:
+    """A mapped decision whose question waits for its scope."""
+
+    node: SchemaNode
+    kind: DecisionKind
+    labelled: questions.Labelled
+    values: tuple[JSONValue, ...] = ()
+
+    def render(self, scope: str) -> DecisionNode:
+        node_ref = node_id(self.node.pointer, self.kind)
+        if self.kind is DecisionKind.PREDICATE:
+            question = questions.bool_question(self.labelled.label, scope)
+            return DecisionNode(node_ref, self.kind, question, OptionSource.PREDICATE, self.node.pointer)
+        label = questions.scoped_label(self.labelled.label, scope)
+        if self.kind is DecisionKind.SCORE:
+            question = questions.ordinal_question(label)
+        else:
+            question = questions.enum_question(label)
+        return DecisionNode(
+            node_ref,
+            self.kind,
+            question,
+            OptionSource.SCHEMA_ENUM,
+            self.node.pointer,
+            tuple(Option(option_id(i), questions.option_description(v)) for i, v in enumerate(self.values)),
+            provenance=ProvenanceKind.DECLARED_OPTION,
+            values=self.values,
+        )
 
 
 class _Mapper:
     def __init__(self, refusals: Refusals, default_extractor: str | None) -> None:
         self.refusals = refusals
         self.default_extractor = default_extractor
-        self.nodes: list[DecisionNode] = []
+        self.pending: list[_Pending] = []
 
     def refuse(self, node: SchemaNode, code: RefusalCode, message: str) -> None:
         self.refusals.add(node.pointer, code, message)
 
-    def object(self, node: SchemaNode) -> None:
+    def object(self, node: SchemaNode, ancestors: tuple[str, ...]) -> None:
         for name, child in node.properties:
             if child.kind is Kind.OBJECT:
-                self.object(child)
+                self.object(child, (*ancestors, name))
             elif child.kind not in (Kind.REFUSED, Kind.CONSTANT):
-                self.field(name, child)
+                self.field(name, child, ancestors)
 
-    def field(self, name: str, node: SchemaNode) -> None:
+    def field(self, name: str, node: SchemaNode, ancestors: tuple[str, ...]) -> None:
         declaration = node.declaration
         if declaration is not None and (declaration.declares_source or declaration.generate is not None):
             return  # declarations.py refused it: source_selection_dropped, or not_yet_supported (Phase 4)
@@ -76,54 +113,46 @@ class _Mapper:
             return self.refuse(node, RefusalCode.ORDINAL_LEVELS, "ordinal: true needs an integer range")
         if node.has_default and not (declaration is not None and declaration.decides):
             return  # class A: omitted, so the caller's default applies
-        label = questions.label(name, node)
+        verbatim = questions.declared_question(node) is not None
+        labelled = questions.Labelled(questions.label(name, node), ancestors, verbatim)
         if node.kind is Kind.BOOLEAN:
-            self.nodes.append(
-                DecisionNode(
-                    node_id(node.pointer, DecisionKind.PREDICATE),
-                    DecisionKind.PREDICATE,
-                    questions.bool_question(label),
-                    OptionSource.PREDICATE,
-                    node.pointer,
-                )
-            )
+            self.boolean(node, labelled)
         elif node.kind is Kind.ENUM:
-            self.enum(node, label)
+            self.enum(node, labelled)
         elif ordinal:
-            self.ordinal(node, label)
+            self.ordinal(node, labelled)
         else:
             self.unbounded(node)
         return None
 
-    def enum(self, node: SchemaNode, label: str) -> None:
+    def boolean(self, node: SchemaNode, labelled: questions.Labelled) -> None:
+        """A bool is labelled by its statement, never its name: "verified" is not something to ask about."""
+        statement = questions.predicate(node)
+        if statement is None:
+            return self.refuse(
+                node,
+                RefusalCode.BOOL_PREDICATE_MISSING,
+                "a decided bool needs a statement to ask about; declare x-jevson.question or a description "
+                "such as 'the invoice is paid'",
+            )
+        self.pending.append(_Pending(node, DecisionKind.PREDICATE, replace(labelled, label=statement)))
+        return None
+
+    def enum(self, node: SchemaNode, labelled: questions.Labelled) -> None:
         if not all(isinstance(v, str | int) and not isinstance(v, bool) for v in node.values):
             return self.refuse(node, RefusalCode.ENUM_VALUE_TYPE, "enum values must be strings or integers")
         if len(node.values) > MAX_OPTIONS:
             return self.refuse(node, RefusalCode.ENUM_SIZE, f"{len(node.values)} values; a choice takes 2-255")
-        self.choice(node, DecisionKind.CHOICE, questions.enum_question(label), node.values)
+        self.pending.append(_Pending(node, DecisionKind.CHOICE, labelled, node.values))
         return None
 
-    def ordinal(self, node: SchemaNode, label: str) -> None:
+    def ordinal(self, node: SchemaNode, labelled: questions.Labelled) -> None:
         levels = _levels(node.keywords)
         if levels is None or not MIN_LEVELS <= len(levels) <= MAX_LEVELS:
             found = "an unbounded range" if levels is None else f"{len(levels)} levels"
             return self.refuse(node, RefusalCode.ORDINAL_LEVELS, f"an ordinal needs 2-10 levels; found {found}")
-        self.choice(node, DecisionKind.SCORE, questions.ordinal_question(label), levels)
+        self.pending.append(_Pending(node, DecisionKind.SCORE, labelled, levels))
         return None
-
-    def choice(self, node: SchemaNode, kind: DecisionKind, question: str, values: tuple[JSONValue, ...]) -> None:
-        self.nodes.append(
-            DecisionNode(
-                node_id(node.pointer, kind),
-                kind,
-                question,
-                OptionSource.SCHEMA_ENUM,
-                node.pointer,
-                tuple(Option(option_id(i), questions.option_description(v)) for i, v in enumerate(values)),
-                provenance=ProvenanceKind.DECLARED_OPTION,
-                values=values,
-            )
-        )
 
     def unbounded(self, node: SchemaNode) -> None:
         if self.default_extractor is not None:
