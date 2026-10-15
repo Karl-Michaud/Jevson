@@ -10,6 +10,8 @@ EXPECTED = {
     # PLAN §2's surface, as far as Phase 1 builds it
     "Result",
     "FakeBackend",
+    "DecisionsBackend",
+    "CachingBackend",
     "JevsonConfig",
     "compile_schema",
     # the exception hierarchy
@@ -51,6 +53,7 @@ EXPECTED = {
     "ChoiceAnswer",
     "CostEvent",
     "FieldSpec",
+    "InvalidAnswer",
     "LLMResponse",
     "Message",
     "Option",

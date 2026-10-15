@@ -679,7 +679,7 @@ Anyone must be able to use the library with their own key and none of our toolin
 - `DecisionsBackend(api_key=...)` takes the key as an argument; when omitted (or empty), it falls back to the `OPENAI_API_KEY` environment variable, the name the guide uses **[D1]**.
 - With neither, or with an empty string in both, construction raises `MissingCredentials` naming both options, before any network call.
 - The library never reads a `.env` file and never writes, logs, or `repr`s the key.
-- The team's key lives in Infisical. Until that is set up, the repository's own tests and scripts read a local, gitignored `.env`; its template `.env.example` still names the old Jev key until it is renamed (tracked in ASTERION-7). Fetching the key from Infisical is planned tooling (`PLAN.md` Phase 11).
+- The team's key lives in Infisical. Until that is set up, the repository's own tests and scripts read a local, gitignored `.env`; its template `.env.example` names `OPENAI_API_KEY`. Fetching the key from Infisical is planned tooling (`PLAN.md` Phase 11).
 
 ### 8.4 Replay
 

@@ -7,6 +7,8 @@ from collections.abc import Iterator
 
 import pytest
 
+from jevson.execute import ratelimit
+
 
 class NetworkBlockedError(RuntimeError):
     pass
@@ -22,3 +24,11 @@ def _no_network(monkeypatch: pytest.MonkeyPatch) -> Iterator[None]:
     monkeypatch.setattr(socket, "create_connection", refuse)
     monkeypatch.setattr(socket, "getaddrinfo", refuse)
     return
+
+
+@pytest.fixture(autouse=True)
+def _fresh_limiters() -> Iterator[None]:
+    """The per-key limiter registry is process-wide by design; each test starts with it empty."""
+    ratelimit._registry.buckets.clear()  # pyright: ignore[reportPrivateUsage]
+    yield
+    ratelimit._registry.buckets.clear()  # pyright: ignore[reportPrivateUsage]
