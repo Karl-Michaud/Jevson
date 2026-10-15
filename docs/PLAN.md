@@ -1,8 +1,8 @@
 # Jevson — implementation plan
 
-> **Status:** Planning document, Revision 10, 2026-10-14. Pre-implementation. Phase 0 has run on `jev-1.13.0` and is written up (`docs/taxonomy.md`), with one exit criterion open for the owner (probe 8's partial-only set); the v0 scope is frozen in DESIGN §10.1 (Revision 9.2). The backend is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14 (PLAN §6); **Phase 0r** re-runs Phase 0's probes on the Decisions API before Phase 1 starts.
+> **Status:** Planning document, Revision 11, 2026-10-14. Pre-implementation. Phase 0 has run on `jev-1.13.0` and is written up (`docs/taxonomy.md`), with one exit criterion open for the owner (probe 8's partial-only set). The backend is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14 (PLAN §6). **Phase 0r** re-ran Phase 0's probes on it and confirmed **drop source selection** **[Q1–Q9]**, so v0 is **the fallback product**: Phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7. Phase 5 is abandoned and kept as the record; everything class D (source selection) is a tracked deferral (PLAN §9). The v0 scope is in DESIGN §10.1 (Revision 11). Phase 1 may start.
 >
-> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 10. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** and **Z** tag was measured on `jev-1.13.0`.
+> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 11. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** and **Z** tag was measured on `jev-1.13.0`.
 >
 > **Rule numbers** (R1–R16) refer to `DESIGN §7`.
 
@@ -26,14 +26,16 @@ Each phase states:
 
 **Order.** Phase 0, then Phase 0r (the same probes on the Decisions API, added 2026-10-14), then foundation (1–3), then generative fields and adjudication (4), then candidate selection (5), then unions (6) and arrays (7), then release (8). Wherever a later phase depends on a Phase 0 result, Phase 0r's result for the decision model is the one that applies. **The fallback product**, if candidate selection stops (Phase 0r or Phase 5), is phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7; it is stated this way everywhere. Post-v0 phases (9–11) are planned, not optional extras. **The order is the project owner's decision (2026-09-29).** Round-1 review argued for running Phase 5 before Phase 4 whenever Phase 0 says *go*, because Phase 5 is the existential test of source-grounded extraction; the owner considered and kept this order, and PLAN §5 records the risk.
 
-**Phase 3 is a working library** for bounded schemas. **Phase 5 is what makes Jevson a source-grounded extraction library** rather than a bounded-schema compiler, which `jev_jsonschema` already provides **[X3]**. Phase 4 alone already combines things we found in no single existing project **[X3]**.
+**Phase 0r fired the abandon criterion (2026-10-14) [Q2, Q9].** v0 is therefore the fallback product, built in the order **1 → 2 → 3 → 4 → 6 → 7 (multi-label enum arrays only) → 8**. Phase 5 is not run; its text below is kept as the record of what was planned, and every class D (source selection) item, wherever it sat in Phases 1–8, is listed under PLAN §9 with what would revive it.
+
+**Phase 3 is a working library** for bounded schemas. Phase 5 would have made Jevson a source-grounded extraction library rather than a bounded-schema compiler, which `jev_jsonschema` already provides **[X3]**; without it, **Phase 4 is what sets v0 apart**: criteria-gated generative fields combined with bounded decisions, unions decided before construction, and the typed three-outcome result, a combination we found in no single existing project **[X3]**.
 
 ### 1.1 A note on effort
 
 Recorded so the plan does not silently contradict its own timeline:
 
 - **Phase 0 is several days, dominated by labelling.** 10+ schemas and 150+ fields classified across 12 columns; ≥ 450 pre-labelled probe cases for probes 1–3 drawn from real documents; 50 entity clusters; a hostile-source set; single-candidate cases. Labelling cannot be skipped without making the probes unfalsifiable.
-- **Phase 5 needs a second, disjoint labelled corpus**: ≥ 150 present-answer and ≥ 150 absent-answer cases for coverage; ≥ 100 constructed extraction-miss cases and ≥ 300 absent cases for the retry bar; ≥ 1,000 decisions (up to 3,000 if the power check requires) for calibration; ≥ 300 benign and ≥ 150 attacked documents for the source screen. This is the largest labelling effort in the project.
+- **Phase 5 would have needed a second, disjoint labelled corpus** (not built: Phase 5 is abandoned, and the corpus is part of what reviving it costs, PLAN §9): ≥ 150 present-answer and ≥ 150 absent-answer cases for coverage; ≥ 100 constructed extraction-miss cases and ≥ 300 absent cases for the retry bar; ≥ 1,000 decisions (up to 3,000 if the power check requires) for calibration; ≥ 300 benign and ≥ 150 attacked documents for the source screen. This is the largest labelling effort in the project.
 - **Phase 0r reuses Phase 0's labelled corpora and pre-registration.** Its cost is porting the probes and the live runs.
 - **Phase 10 is a second implementation of the library**, not a port script.
 
@@ -57,7 +59,7 @@ jevson/
   facade.py             Jevson: resolve / aresolve; wires compiler, executor, assembler
   probabilities.py      integer hundredths, sum tolerance, tie margin (DESIGN §2.1, DESIGN §6.2)
   config.py             JevsonConfig: tie margin, caps, budgets (entity-resolution settings arrive post-v0, PLAN §9.1)
-  unicode/
+  unicode/              deferred with class D (PLAN §9), not in v0:
     graphemes.py        UAX #29 boundaries from a vendored, generated table (DESIGN §5.9)
     tables/             generated table + the Unicode version it came from
 
@@ -72,7 +74,7 @@ jevson/
     unions.py           anyOf/oneOf with >= 2 non-null branches -> discrimination node
     generative.py       x-jevson.generate -> generate step + criterion nodes
 
-  extract/
+  extract/              deferred with class D (PLAN §9), not in v0:
     spans.py            Span construction; substring + grapheme-boundary verification
     occurrences.py      every occurrence of a repeated text, with context windows
     llm.py              LLM-backed candidate extractor (Jevson locates its strings)
@@ -97,27 +99,27 @@ jevson/
   assemble/
     assembler.py        resolved graph -> JSON object; absent / unresolved handling
     entities.py         post-v0: pairwise resolution (internal rule + cross variant, floor 0.05) [Z4]
-    ordering.py         source order (R7); semantic order refused in v0
+    ordering.py         deferred with class D: source order of span arrays (R7)
     cardinality.py      maxItems, overflow capture (R8)
-    parse.py            class F on a selected span: money, number, date
+    parse.py            deferred with class D: class F on a selected span: money, number, date
 
   adjudicate/
     criteria.py         declared criteria -> predicate batch
     rubrics.py          rubric -> score, value = most probable level
     dryrun.py           criteria dry-run tool
 
-  screen.py             opt-in source screen (DESIGN §5.8)
+  screen.py             deferred with class D: opt-in source screen (DESIGN §5.8)
   result.py             Result (DESIGN §8.1)
 
 tests/
   unit/
   property/             hypothesis strategies over generated schemas
-  conformance/          GraphemeBreakTest.txt at the pinned Unicode version
+  conformance/          deferred with class D: GraphemeBreakTest.txt at the pinned Unicode version
   adversarial/
     hostile_backend.py  adversarial Backend double             — NOT shipped
     hostile_llm.py      adversarial LLM double                 — NOT shipped
-    hostile_extractor.py raising, never-returning (cooperative infinite await), and lying extractors — NOT shipped
-    hostile_sources/    injected and self-advocating sources   — NOT shipped
+    hostile_extractor.py deferred with class D: raising, never-returning, and lying extractors — NOT shipped
+    hostile_sources/    injected and self-advocating sources, against v0's bool, enum, and criterion decisions — NOT shipped
     hostile_transport.py timeouts, 429, 5xx, malformed HTTP    — NOT shipped
   integration/          real key, marked, opt-in
   fixtures/schemas/     the Phase 0 sample, checked in with provenance
@@ -138,13 +140,15 @@ docs/
 .env.example            API-key template (still the Jev key until ASTERION-7 renames it); the real .env is gitignored
 ```
 
+Modules marked *deferred with class D* are the source-selection work Phase 0r dropped **[Q2, Q9]**; v0 does not create them, and PLAN §9 says what revives them. `extract/occurrences.py`, `extract/llm.py`, and `extract/patterns.py` belong to the same deferral.
+
 **Module discipline**, asserted by tests:
 
 - `backends/decisions.py` is the only file that knows the vendor URL, headers, or wire format; the `openai` SDK is not a dependency (`DESIGN §8`).
 - Nothing in `compile/`, `assemble/`, or `graph.py` imports from `execute/` or `backends/`.
 - The hostile doubles live in `tests/`, never in the installed package. The fake backend ships.
 
-**All five protocols live in `protocols.py` from Phase 1**, with the signatures pinned in `DESIGN §8`.
+**All five protocols live in `protocols.py` from Phase 1**, with the signatures pinned in `DESIGN §8`. `Extractor` and `Normalizer` are defined but have no v0 implementation and no v0 caller (DESIGN §8): defining them now keeps the deferred class D work and entity resolution non-breaking.
 
 ---
 
@@ -236,7 +240,7 @@ Throwaway code in `tests/phase0/`, using the live key and the pinned model `jev-
 
 ### Outcome (2026-09-29)
 
-Probe 1 **go** (132/150 = 0.880) **[Z1]**; probe 2 **conditional** (110/150 = 0.733) **[Z2]**; probe 3 **go** (2/150 = 0.013) **[Z3]**; probe 4 **stop** (`conflict_floor` 0.05, cross-component variant, 163/330 components correct) **[Z4]**; probe 5 reproduces **[P4]** **[Z5]**; readings for probes 6–8 **[Z6–Z8]**. The abandon criterion does not fire. Candidate selection was to ship with Phase 5's second gate, but probe 9 measured that gate on Jev and gave the verdict **drop source selection** **[Z9]** (`docs/gate-probe.md`), which Phase 0r re-decides on the Decisions API; pairwise entity resolution is out of v0 (Phase 7 below). The scope is frozen in `DESIGN §10.1`; the full record, including every number, is `docs/taxonomy.md`.
+Probe 1 **go** (132/150 = 0.880) **[Z1]**; probe 2 **conditional** (110/150 = 0.733) **[Z2]**; probe 3 **go** (2/150 = 0.013) **[Z3]**; probe 4 **stop** (`conflict_floor` 0.05, cross-component variant, 163/330 components correct) **[Z4]**; probe 5 reproduces **[P4]** **[Z5]**; readings for probes 6–8 **[Z6–Z8]**. The abandon criterion does not fire. Candidate selection was to ship with Phase 5's second gate, but probe 9 measured that gate on Jev and gave the verdict **drop source selection** **[Z9]** (`docs/gate-probe.md`), which Phase 0r confirmed on the Decisions API **[Q2, Q9]**; pairwise entity resolution is out of v0 (Phase 7 below). The scope is frozen in `DESIGN §10.1`; the full record, including every number, is `docs/taxonomy.md`.
 
 ### Abandon criterion
 
@@ -294,7 +298,7 @@ No library code. Phase 0's rules apply unchanged: **every threshold, band, decis
 
 ### Abandon criterion
 
-Phase 0's, applied to the Decisions API results: **probe 1 below 0.70, probe 2 below 0.60, or probe 3 above 0.20 stops candidate selection as designed**, and the fallback product is the one Phase 0 names. If bounded decisions themselves cannot be measured stably enough for the Phase 3 live-stability bar, that is escalated to the product owner as a backend decision (Jev remains a fallback), not tuned around.
+Phase 0's, applied to the Decisions API results: **probe 1 below 0.70, probe 2 below 0.60, or probe 3 above 0.20 stops candidate selection as designed**, and the fallback product is the one Phase 0 names. **It fired:** probe 2 was 79/150 = 0.527 **[Q2]**, and probe 9 dropped the second gate **[Q9]**. Phase 5 is abandoned, and Phases 1–8 are scoped to the fallback product (PLAN §8, DESIGN §10.1). If bounded decisions themselves cannot be measured stably enough for the Phase 3 live-stability bar, that is escalated to the product owner as a backend decision (Jev remains a fallback), not tuned around.
 
 ### Answers
 
@@ -317,21 +321,23 @@ Phase 0's, applied to the Decisions API results: **probe 1 below 0.70, probe 2 b
 - `graph.py` — `DecisionGraph`, dependency edges, acyclicity check, topological levelling of decision nodes around step nodes (R3, R11)
 - `probabilities.py` — integer hundredths for storage, the sum check on raw values (1 ± 0.01, measured in Phase 0r **[Q14]**), the argmax-vs-vendor-`choice` check, and the tie margin (`DESIGN §2.1`, `DESIGN §6.2`)
 - `config.py` — `JevsonConfig` (`DESIGN §3.5`)
-- `backends/fake.py` — deterministic fake, configurable to return specified answers, distributions, ties, and abstentions
+- `backends/fake.py` — deterministic fake, configurable to return specified answers, distributions, ties, and refusals
 - `result.py` — `Result` exactly as pinned in `DESIGN §8.1`
 - `errors.py` — the full hierarchy
-- `unicode/graphemes.py` — UAX #29 boundaries from a vendored table generated at Unicode 17.0 (~1.2 KB compressed, pure Python **[L19]**)
-- `extract/spans.py` — span construction and verification (`DESIGN §5.9`)
-- `assemble/assembler.py` — resolved graph → JSON object, including the absent/null/unresolved table of `DESIGN §5.6`
+- `assemble/assembler.py` — resolved graph → JSON object, with unresolved pointers omitted (`DESIGN §6.1`)
+
+**Kept in the types, not built:** `Span` (`source_id`, start, end) and the `SOURCE_SPAN` provenance kind stay in `types.py`, so the deferred class D work adds behaviour without changing a public type; `Absent` and `Result.absent` stay too, and are always empty in v0, since nothing in v0 abstains (`DESIGN §5.6`). No v0 code constructs a `Span`.
+
+**Moved out by Phase 0r [Q2, Q9]** to the deferred class D work (PLAN §9): `unicode/graphemes.py` (UAX #29 boundaries from a vendored table generated at Unicode 17.0 **[L19]**), `extract/spans.py` (span construction and verification, `DESIGN §5.9`), their two exit criteria (span verification and graphemes, kept below struck through as the record), and the abstention rows of the `DESIGN §5.6` table. **`Result.versions` records no grapheme-table version in v0**: the key is absent, not `null` and not a placeholder, because a version for a table that does not ship would imply a boundary check that never ran. The `unicodedata` version is absent too, since NFC is used only by the post-v0 `Normalizer`. Both keys return with the work that uses them (`DESIGN §8.1`).
 
 ### Exit criteria
 
 - [ ] A hand-built graph with decision and step nodes levels correctly, including a diamond dependency
 - [ ] A dependency cycle is rejected at construction with the offending node ids
 - [ ] The fake backend resolves a hand-built graph and the assembler produces a valid object
-- [ ] `Span` verifies by substring match on **code-point** offsets into the original source, half-open, and rejects mismatches
-- [ ] **Graphemes:** `unicode/graphemes.py` passes every line of `GraphemeBreakTest.txt` for Unicode 17.0 and agrees with the `regex` module's `\X` on a generated differential corpus (the conformance file alone missed a real GB11 bug in a first draft **[L19]**); spans with a non-boundary endpoint are rejected (including CR|LF, after ZWJ, inside a flag pair, Hangul jamo, Indic conjuncts **[L11]**); precomposed-vs-decomposed and `\r\n`-vs-`\n` mismatches are rejected and counted, never repaired
-- [ ] **Absence:** for each row of the `DESIGN §5.6` table, an abstention produces the specified value and lands in `absent` or `unresolved`; `complete` is true when only `absent` entries exist; for `Optional[str] = "x"` the key is omitted and Pydantic's `model_validate` yields `"x"` **[L18]**
+- ~~`Span` verifies by substring match on **code-point** offsets into the original source, half-open, and rejects mismatches~~ — deferred with class D (PLAN §9)
+- ~~**Graphemes:** `unicode/graphemes.py` passes every line of `GraphemeBreakTest.txt` for Unicode 17.0 and agrees with the `regex` module's `\X` on a generated differential corpus (the conformance file alone missed a real GB11 bug in a first draft **[L19]**); spans with a non-boundary endpoint are rejected (including CR|LF, after ZWJ, inside a flag pair, Hangul jamo, Indic conjuncts **[L11]**); precomposed-vs-decomposed and `\r\n`-vs-`\n` mismatches are rejected and counted, never repaired~~ — deferred with class D (PLAN §9)
+- [ ] **Defaults and absence:** an undeclared defaulted leaf field (`Optional[str] = "x"`) is omitted from `.value` and Pydantic's `model_validate` yields `"x"` **[L18]**; `Result.absent` is present and empty; `Result.versions` has no grapheme-table or `unicodedata` key
 - [ ] `Unresolved` is a value in the result, never raised; the unresolved key is omitted from `.value`; an unresolved root yields `{}`; `satisfies_schema` is computed by validation, not inferred, and a fully resolved object that fails `maxLength` yields `complete is True`, `satisfies_schema is False`, and a `Violation` naming the keyword
 - [ ] **Probabilities:** a distribution summing to 0.99 with K = 3 is accepted; one summing to 0.95 is an invalid answer; on a bool, p = 0.45 and p = 0.55 are ties, p = 0.56 is true and p = 0.44 false; a choice at 0.52/0.42/0.06 is a tie; a vendor `choice` naming a non-argmax option outside the margin is invalid
 - [ ] Property: `levels(graph)` preserves every node exactly once and respects every edge
@@ -344,11 +350,11 @@ None. If this phase is hard, the type model is wrong and is reworked in place.
 
 ### Out of scope
 
-Compilation from a schema. Any real backend. Candidates. Arrays.
+Compilation from a schema. Any real backend. Arrays. Candidates, spans, and graphemes (deferred with class D, PLAN §9).
 
 ### PR size
 
-~500 lines. Split `unicode/` into its own PR if it runs over.
+~450 lines.
 
 ---
 
@@ -366,13 +372,15 @@ Compilation from a schema. Any real backend. Candidates. Arrays.
 - `compile/questions.py` — the versioned templates recorded in Phase 0 (`DESIGN §5.2`)
 - `compile/nodes.py` — node ids from the **target instance pointer** plus a role suffix
 - `compile/compiler.py`, `compile/refusal.py` — `CompileError` carrying **every** offending pointer (R14)
-- Standalone, network-free `compile_schema(schema, extractors={names}, default_extractor=None)` — class G depends on which extractors exist
+- Standalone, network-free `compile_schema(schema, extractors={names}, default_extractor=None)`. The two extractor parameters are kept so the deferred class D work is not a signature change; in v0 they can only change which refusal a field gets (below)
+
+**Source selection refuses permanently in v0.** Phase 0r dropped it **[Q2, Q9]**, so these refuse with the named reason **`source_selection_dropped`**, never `not_yet_supported` (which promises a later phase): a field declaring `x-jevson.source` (whatever its extractor, so an unknown extractor name is not separately reported); and, when `default_extractor` is set, every unbounded `string` or `number` field it would have source-selected. The message cites the Phase 0r verdict and says to declare `generate` or an enum instead. With no `default_extractor`, an unbounded field with neither `source` nor `generate` is class G and refuses with its own reason, as before. Reviving class D replaces this reason with the real mapping (PLAN §9).
 
 ### Exit criteria
 
 - [ ] Every class A construct is handled by code with no decision node emitted
 - [ ] Every class C construct in the Phase 0 v0 list compiles to the primitive the taxonomy specifies, **except union discrimination and enum arrays**, which refuse with `not_yet_supported` until Phases 6 and 7
-- [ ] **Idiomatic Pydantic compiles:** a model with a nested submodel, an `Enum` field, a single-member `Enum`, an `Optional[Literal[...]]` field, a `Literal` field, and undeclared defaulted leaf fields (`str = "USD"`, `Tier = Tier.basic`, treated as class A) compiles without refusal; an `Optional[Address] = None` whose leaves are enums or bools compiles to decision nodes (not class A), and one whose leaves declare sources refuses only with `not_yet_supported` (not class A), and `list[Literal[...]] = []` and `Field(default_factory=list)` are treated identically (both refuse `not_yet_supported` until Phase 7); an `Optional[Decimal]` field and a `Decimal` field, each declaring a source, normalise correctly and then refuse only with `not_yet_supported` (lifted in Phase 5) **[L3, L16, L18]**
+- [ ] **Idiomatic Pydantic compiles:** a model with a nested submodel, an `Enum` field, a single-member `Enum`, an `Optional[Literal[...]]` field, a `Literal` field, and undeclared defaulted leaf fields (`str = "USD"`, `Tier = Tier.basic`, treated as class A) compiles without refusal; an `Optional[Address] = None` whose leaves are enums or bools compiles to decision nodes (not class A), and one whose leaves declare sources refuses only with `source_selection_dropped` (not class A), and `list[Literal[...]] = []` and `Field(default_factory=list)` are treated identically (both refuse `not_yet_supported` until Phase 7); an `Optional[Decimal]` field and a `Decimal` field, each declaring a source, normalise correctly and then refuse only with `source_selection_dropped` **[L3, L16, L18]**
 - [ ] `x-jevson` declared on a field whose type is a nested model (placed beside the `$ref`) is found and applied; a model-level `json_schema_extra` inside `$defs` is not mistaken for a field declaration **[L18]**
 - [ ] A flat `allOf` of object schemas merges; a non-flat `allOf` refuses; `oneOf` + `discriminator` refuses with `not_yet_supported`
 - [ ] A three-level nested object compiles with every node carrying its full instance pointer, and assembles back to the correct shape
@@ -380,8 +388,9 @@ Compilation from a schema. Any real backend. Candidates. Arrays.
 - [ ] A Pydantic model and its emitted JSON Schema compile to identical graphs
 - [ ] Refusal is **total and specific**: an unmappable schema lists *every* offending pointer
 - [ ] `compile_schema()` makes **zero network calls** — asserted with the network stubbed to raise
-- [ ] Each of these refuses with a distinct named reason: enum > 255 or < 2 values; ordinal > 10 or < 2 levels; unbounded strings or numbers with no `source` or `generate` declaration and no default extractor; an unknown extractor name; recursive or dynamic `$ref`; `dict[str, X]`; tuples; `Any`; `bytes`; unknown `x-jevson` keys; `x-jevson.order: semantic`
-- [ ] `x-jevson.source` fields, `x-jevson.generate` fields, and unions with ≥ 2 non-null branches refuse with `not_yet_supported` (lifted in Phases 5, 4, and 6)
+- [ ] Each of these refuses with a distinct named reason: enum > 255 or < 2 values; ordinal > 10 or < 2 levels; unbounded strings or numbers with no `source` or `generate` declaration and no default extractor; recursive or dynamic `$ref`; `dict[str, X]`; tuples; `Any`; `bytes`; unknown `x-jevson` keys; `x-jevson.order: semantic`
+- [ ] **Source selection:** a field declaring `x-jevson.source` (with a known, an unknown, or a pattern extractor), and an unbounded field compiled with `default_extractor` set, each refuse with `source_selection_dropped`, listed with every other offending pointer (R14)
+- [ ] `x-jevson.generate` fields and unions with ≥ 2 non-null branches refuse with `not_yet_supported` (lifted in Phases 4 and 6)
 - [ ] Rendered questions contain no negation from the template and match the recorded template version
 - [ ] Property: over generated schemas, `compile_schema()` returns a graph or raises `CompileError` — never a third outcome, never a partial graph
 
@@ -391,7 +400,7 @@ None.
 
 ### Out of scope
 
-Executing anything. Generative fields (Phase 4). Candidates (Phase 5). Unions (Phase 6). Arrays (Phase 7) — which refuse with `not_yet_supported` until then.
+Executing anything. Generative fields (Phase 4). Unions (Phase 6). Multi-label enum arrays (Phase 7) — which refuse with `not_yet_supported` until then. Source selection, which refuses permanently in v0.
 
 ### PR size
 
@@ -426,7 +435,7 @@ Executing anything. Generative fields (Phase 4). Candidates (Phase 5). Unions (P
 - [ ] **R13:** no template text or state path references a collection element by position — a test fails on any `[<digits>]` reference outside interpolated source or option text
 - [ ] **Budget:** a level exceeding the total limit splits, recorded in `Cost.level_splits`; a declaration whose maxima exceed the per-question limit raises `PreflightError` before the *first* call
 - [ ] **Invalid backend answers** in a well-formed HTTP 200 (an option never offered, malformed or mis-typed JSON for a question, a probability outside [0, 1], a sum outside tolerance) resolve to `Unresolved(invalid_backend_answer)` for the affected questions; an unparseable HTTP response is a `BackendError`; neither is an untyped exception
-- [ ] **Step timeouts:** a fake step that never returns raises `ExtractorError(timeout)` after `step_timeout_s`, with the partial `Result`
+- [ ] **Step timeouts:** a fake step that never returns raises its protocol's timeout error after `step_timeout_s`, with the partial `Result` (in v0 the only real step is `generate`, so `LLMError(timeout)`; `ExtractorError` stays in the hierarchy and is never raised in v0)
 - [ ] **Lifecycle:** `Jevson` and `DecisionsBackend` work as context managers; a closed instance raises `UsageError`; `resolve()` inside a running loop raises `UsageError`
 - [ ] **Ties:** a bool predicate at 0.45, 0.50, or 0.55, and a choice whose top two differ by ≤ 0.10, yield `Unresolved(tie)`
 - [ ] **Refusal:** a fake backend answering one question in a level with `refusal` yields `Unresolved(refused)` for that field, records it in `Result.decisions`, resolves the others, and issues no retry; a refusal is never mapped to an option or to `absent`
@@ -445,7 +454,7 @@ Executing anything. Generative fields (Phase 4). Candidates (Phase 5). Unions (P
 - [ ] **The key never leaks:** a sentinel key appears in no exception message, `repr`, log record, cache file, or `Result`, across success, 4xx, 5xx, and timeout paths
 - [ ] **Rate limit:** two `DecisionsBackend` instances with one key share one limiter
 - [ ] **No vendor SDK** in the dependency closure
-- [ ] Cost is populated on every result and on every exception raised after the first spend (`SchemaViolation`, `BackendError`, `LLMError`, `ExtractorError`), and every event reaches the `CostSink`
+- [ ] Cost is populated on every result and on every exception raised after the first spend (`SchemaViolation`, `BackendError`, `LLMError`), and every event reaches the `CostSink`
 
 ### Abandon criterion
 
@@ -516,7 +525,9 @@ Automatic criteria derivation. A criteria linter.
 
 ---
 
-## Phase 5 — Candidates and source selection
+## Phase 5 — Candidates and source selection *(abandoned by Phase 0r; kept as the record)*
+
+> **Status: abandoned, not run.** Phase 0r applied this phase's own gate on the Decisions API before any of it was built: probe 2 (abstention with the answer absent) was 79/150 = 0.527, in its stop band, and probe 9's second gate was **drop** **[Q1–Q9]** (`docs/taxonomy.md` §9). Under the pre-registered rule, candidate selection does not ship in v0. The text below is unchanged, as the record of what was planned. Every item in it, and every class D item that sat in Phases 1, 2, 7 and 8, is a tracked deferral in PLAN §9 (*Source selection (class D)*), which says what would revive it and where it would land. Nothing below is an exit criterion for v0.
 
 **Goal:** the capability that makes Jevson a source-grounded extraction library. Fields whose values come from the source, chosen by the decision model among verified spans, with provenance and mandatory abstention.
 
@@ -586,7 +597,7 @@ Arrays of candidates (Phase 7). More than one source (Phase 9).
 
 **Goal:** `anyOf` / `oneOf` with two or more non-null branches resolved as a decision that determines which branch is *executed* (`DESIGN §3.2`).
 
-**Depends on:** Phase 5 in sequence. Its content needs only Phase 3, so it proceeds if Phase 5 abandons.
+**Depends on:** Phase 4 (Phase 5 is abandoned, PLAN §1). Its content needs only Phase 3.
 
 ### Deliverables
 
@@ -622,47 +633,44 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 
 ---
 
-## Phase 7 — Source-grounded arrays
+## Phase 7 — Multi-label enum arrays
 
-**Goal:** arrays whose membership is a set of bounded decisions over candidates, in source order with honest overflow; deduplication is the extractor's declared contract in v0 **[Z4]**.
+**Goal:** arrays of declared enum values, one bounded membership decision per value, in declared order with honest overflow.
 
-**Depends on:** Phase 6 in sequence, and on Phase 5's candidate machinery. **If Phase 5 abandoned, this phase is cancelled** — except multi-label enum arrays, which need no candidates and ship regardless.
+**Depends on:** Phase 6.
 
-> **Phase 0 outcome [Z4]:** probe 4 was *stop*, so this phase's abandon criterion applies from the start: deduplication is the extractor's declared contract. The entity-resolution deliverables and exit criteria have moved to the post-v0 entity-resolution phase (PLAN §9.1). Membership, source order, overflow, and multi-label enum arrays still ship.
-
+> **Reduced by Phase 0r [Q2, Q9].** This phase was *Source-grounded arrays*: membership over candidate spans, source order, and overflow by span, with multi-label enum arrays as the part that needed no candidates. Source selection was dropped, so only the enum arrays ship in v0. Source-grounded arrays of spans (membership over candidates, `assemble/ordering.py`'s source order, overflow by earliest span, and their exit criteria, including the attendees and `max_candidates` cases) move to the deferred class D work in PLAN §9; pairwise entity resolution was already in PLAN §9.1 **[Z4]**. The original text is in this file's history (Revision 10).
 
 ### Deliverables
 
-- Membership: one `predicate` per candidate with the tie margin, in one level (R5, `DESIGN §3.3`); candidates keyed by opaque id (R13); a candidate count above `max_candidates` yields `Unresolved(too_many_candidates)`
-- **Multi-label enum arrays**: one membership predicate per declared value; declared enum order; `maxItems` keeps the first k with overflow retained (`DESIGN §4.2`)
-- `assemble/ordering.py` — source order; `order: semantic` refuses (R7)
-- `assemble/cardinality.py` — accepted members ordered by earliest span → `maxItems` keeps the first k; each overflowed element records its span and membership probability (R8)
+- `compile/mapping.py` — an array of a string or integer enum (2–255 values) compiles to one membership `predicate` per declared value, with the tie margin, in one level (`DESIGN §4.2`); lifts the Phase 2 `not_yet_supported` refusal for enum arrays
+- `assemble/cardinality.py` — accepted values in declared enum order; `maxItems` keeps the first k in that order; each overflowed value is recorded in `Result.overflow` with its membership probability (R8)
+- Fake-backend support for membership answers
 
 ### Exit criteria
 
-- [ ] `"Attendees were Dana, John, Sarah, and Michael"` produces a 4-element array in source order
-- [ ] **Enum arrays:** a multi-label enum array emits members in declared order, with ties unresolved and `maxItems` overflow retained; this ships even if Phase 5 abandoned
-- [ ] `maxItems: 5` with six accepted elements returns five and records the sixth in `Result.overflow`
-- [ ] An array declaring semantic order refuses; an array of unbounded items with no `source` refuses; an array of objects still refuses with its own named reason (`DESIGN §3.5`)
-- [ ] A candidate count above `max_candidates` yields `Unresolved(too_many_candidates)` with texts and counts in `detail`, with no membership question asked
-- [ ] **Array holes:** an array with one unresolved member (a membership tie) is emitted with its other elements, and the hole is one `Unresolved` at the array pointer; a tied value in a multi-label enum array likewise
-- [ ] Source ordering is deterministic across runs
+- [ ] **Enum arrays:** `list[Literal["billing", "technical", "account"]]` compiles to three membership predicates in one level and emits accepted values in declared order, whatever the probabilities' order
+- [ ] `maxItems: 2` with three accepted values returns the first two in declared order and records the third in `Result.overflow`
+- [ ] **Array holes:** a value inside the tie margin is one `Unresolved(tie)` at the array pointer naming the value, and the other values are emitted; a refused membership question is `Unresolved(refused)` the same way
+- [ ] `uniqueItems` holds by construction; `minItems` that the accepted values do not meet is a `Violation`, not a padded array
+- [ ] An array declaring `x-jevson.order: semantic` refuses; an array of unbounded items refuses (with `source_selection_dropped` if it declares a `source`); an array of objects still refuses with its own named reason (`DESIGN §3.5`)
+- [ ] Output is deterministic across runs with the fake backend
 
 ### Abandon criterion
 
-**If component outcomes on real prose fall below the Phase 0 probe 4 go band, deduplication becomes the extractor's declared contract**: the library stops claiming it, documents that candidates must arrive normalised, and the dedup exit criteria leave this phase rather than being weakened (they moved to PLAN §9.1). Membership, ordering, and overflow still ship.
+None. If membership questions prove unstable, enum arrays refuse, which is the prior art's status quo.
 
 ### Out of scope
 
-Arrays of objects (including nested). Cross-item constraints. Semantic ordering. Pairwise entity resolution (PLAN §9.1). (All tracked in PLAN §9.)
+Source-grounded arrays of spans (deferred with class D, PLAN §9). Arrays of objects (including nested). Cross-item constraints. Semantic ordering. Pairwise entity resolution (PLAN §9.1). (All tracked in PLAN §9.)
 
 ### Answers
 
-None in v0: the pairwise quality ceiling and pair jitter move with entity resolution (PLAN §9.1).
+None in v0.
 
 ### PR size
 
-~350 lines (entity resolution moved to PLAN §9.1).
+~150 lines.
 
 ---
 
@@ -670,12 +678,14 @@ None in v0: the pairwise quality ceiling and pair jitter move with entity resolu
 
 **Goal:** the library is usable by someone who did not build it.
 
-**Depends on:** Phase 7, or whichever phases survived their abandon criteria.
+**Depends on:** Phase 7.
+
+**What ships is the fallback product** (DESIGN §10.1): a compiler for bounded decisions over schemas — enums, booleans, declared ordinals, union discrimination, and multi-label enum arrays, decided by the decision model from declared options — plus generative fields drafted by the caller's LLM and admitted against declared criteria, assembled in code, with a typed three-outcome result. Every committed value carries a `DECLARED_OPTION` provenance or is a draft, a constant, a default, or a caller-supplied value. **No value is selected from the source**, so the README and examples make no source-span provenance or abstention claim.
 
 ### Deliverables
 
 - `CostSink` default implementation and documentation
-- README rewritten to `DESIGN §9.1`, describing only what shipped
+- README rewritten to the v0 claim of `DESIGN §9.1`, describing only what shipped, and saying plainly that source selection was built as a design, measured on two decision models, and dropped (Phase 0 **[Z9]**, Phase 0r **[Q2, Q9]**), with a link to the record
 - Quickstart and worked examples **using only capabilities that shipped**
 - A fair comparison with `jev_jsonschema`, TypeSafe's extraction cookbooks and playground, `jev-extract`, LangExtract, and Instructor, stating plainly what each does better **[X2, X3]**
 - `pyproject.toml`, MIT licence, `py.typed`, Python 3.11+
@@ -685,12 +695,13 @@ None in v0: the pairwise quality ceiling and pair jitter move with entity resolu
 
 ### Exit criteria
 
-- [ ] README makes no claim outside the tiers in `DESIGN §6`, states the source-trust limit, and does not claim guaranteed JSON validity or novelty of candidate selection
-- [ ] README names anything that did not ship and why
+- [ ] README makes no claim outside the tiers in `DESIGN §6`, states the source-trust limit (source text can steer bounded decisions and adjudication), and does not claim guaranteed JSON validity, source-span provenance, abstention, or novelty of candidate selection
+- [ ] README names anything that did not ship and why: source selection (class D) and everything that depends on it, and pairwise entity resolution
+- [ ] `x-jevson.source` and `default_extractor` are documented as refused in v0 with `source_selection_dropped`
 - [ ] Every public symbol is typed and documented
 - [ ] Quickstart runs end to end against the fake backend with **no API key**
 - [ ] Installed package exposes only the intended public surface and contains no hostile test doubles
-- [ ] Dependencies: `jsonschema`, `pydantic` (≥ 2.12), `httpx`. Extractors and LLM providers are extras. `format` keywords are documented as unchecked unless the caller installs `jsonschema`'s format extras **[L10]**
+- [ ] Dependencies: `jsonschema`, `pydantic` (≥ 2.12), `httpx`. LLM providers are extras; no extractor ships in v0. `format` keywords are documented as unchecked unless the caller installs `jsonschema`'s format extras **[L10]**
 - [ ] The package name is recorded in PLAN §6 before publication
 
 ### PR size
@@ -703,7 +714,7 @@ None in v0: the pairwise quality ceiling and pair jitter move with entity resolu
 
 **Goal:** one call over several sources (an email thread and its attachment) or over one source longer than the per-question limit, with every committed value still traceable to one exact span in one named source.
 
-**Depends on:** Phase 8. Deferred on cost and risk: it multiplies the context budget (and, once post-v0 entity resolution ships, interacts with its pairwise cap, PLAN §9.1). `source_id` has been in `Span` since Phase 1. Prior art: `choxos/jev-reviewer` and `gbesse/jev-extract` already do multi-file or chunked extraction for fixed record types **[X3]**.
+**Depends on:** Phase 8, **and on the deferred class D work (PLAN §9)**: every deliverable below selects spans, so this phase cannot start until source selection is revived. Deferred on cost and risk: it multiplies the context budget (and, once post-v0 entity resolution ships, interacts with its pairwise cap, PLAN §9.1). `source_id` has been in the `Span` type since Phase 1, though v0 constructs no span. Prior art: `choxos/jev-reviewer` and `gbesse/jev-extract` already do multi-file or chunked extraction for fixed record types **[X3]**.
 
 ### Deliverables
 
@@ -736,14 +747,14 @@ Retrieval over a corpus. Non-text sources.
 ### Deliverables
 
 - **A language-neutral conformance suite first**, extracted from the Python tests: JSON fixtures of schema + source + recorded backend responses → expected `Result`. Python must pass it before the port starts
-- A TypeScript package implementing `DESIGN` at whatever scope Python shipped, with the same grapheme table version and RFC 8785 cache keys
+- A TypeScript package implementing `DESIGN` at whatever scope Python shipped, with RFC 8785 cache keys (and the same grapheme table version, if class D has shipped)
 - Zod (v4 `toJSONSchema`) and JSON Schema as the schema surface **[X7]**
 - Credentials: an explicit `apiKey` argument; the `OPENAI_API_KEY` fallback in Node only
 
 ### Exit criteria
 
 - [ ] Both packages pass the same conformance suite in CI
-- [ ] Span offsets agree across languages: Python offsets are code points, JavaScript strings index UTF-16 code units, so the port converts explicitly **[L2, X7]**; fixtures include astral-plane characters, and a span whose boundary would fall inside a surrogate pair is rejected
+- [ ] *(if class D has shipped)* Span offsets agree across languages: Python offsets are code points, JavaScript strings index UTF-16 code units, so the port converts explicitly **[L2, X7]**; fixtures include astral-plane characters, and a span whose boundary would fall inside a surrogate pair is rejected
 - [ ] Cache keys computed in JavaScript equal those computed in Python for the same request
 - [ ] The JS package passes the central-property adversarial suite (PLAN §4.1)
 
@@ -796,7 +807,7 @@ True at every phase; each PR is checked against them.
 
 Asserted over generated schemas × every hostile behaviour, exactly as `DESIGN §6.1`: a call returns a complete `Result` that satisfies the schema; a `Result` that is incomplete or invalid, with every hole in `unresolved` and every failed constraint in `violations`; or a typed exception from Jevson's hierarchy. Never a fourth outcome.
 
-Owned by: Phase 3 (backend, transport), Phase 4 (LLM), Phase 5 (spans, sources, extractors), Phase 10 (JS).
+Owned by: Phase 3 (backend, transport), Phase 4 (LLM), Phase 10 (JS). Spans, candidate sources, and extractors were Phase 5's and are deferred with class D (PLAN §9).
 
 ### 4.2 The adversarial suite
 
@@ -807,9 +818,10 @@ Owned by: Phase 3 (backend, transport), Phase 4 (LLM), Phase 5 (spans, sources, 
 | **transport** | timeouts, 429, 5xx, connection reset, unparseable HTTP responses, context-limit rejections (on Jev, 400 `max_tokens_exceeded` **[P3]**) | Phase 3 |
 | **hostile LLM** | prose instead of a tool call, wrong tool, missing or misspelled keys, non-string values, enormous strings, text that looks like JSON, repeated drafts, exceptions | Phase 4 |
 | **hostile drafts** | self-advocacy, targeted false claims, injected overrides **[P7]** | Phase 4 |
-| **hostile extractors** | exceptions, never returning, unlocatable strings, offsets that do not match, empty and oversized candidate sets | Phase 5 |
-| **hostile spans** | offsets absent from the source, overlaps, mismatched text, grapheme-splitting boundaries, duplicates | Phase 5 |
-| **hostile sources** | injected notes to automated systems, self-advocating spans, planted near-duplicates, the correct text repeated in a wrong role **[P7, P15]** | Phase 5 |
+| **hostile sources** | injected notes to automated systems in the source of a bool, enum, union, or criterion decision: the central property holds; how far they steer those decisions is a stated limit (`DESIGN §5.8`), not a v0 measurement | Phases 3–4 |
+| **hostile extractors** | exceptions, never returning, unlocatable strings, offsets that do not match, empty and oversized candidate sets | deferred with class D (PLAN §9) |
+| **hostile spans** | offsets absent from the source, overlaps, mismatched text, grapheme-splitting boundaries, duplicates | deferred with class D (PLAN §9) |
+| **hostile sources against selection** | self-advocating spans, planted near-duplicates, the correct text repeated in a wrong role **[P7, P15]** | deferred with class D (PLAN §9) |
 
 ### 4.3 Property-based tests
 
@@ -818,7 +830,7 @@ Owned by: Phase 3 (backend, transport), Phase 4 (LLM), Phase 5 (spans, sources, 
 - `compile_schema()` returns a graph or raises `CompileError` — never a partial graph
 - Levelling preserves every node exactly once and respects every edge
 - Assembly of a fully resolved graph either validates against the original schema or yields `satisfies_schema is False` naming the violated keyword **[L9]**
-- Provenance spans always verify against the original source and lie on grapheme boundaries
+- Every provenance entry in v0 is a `DECLARED_OPTION` naming an option the compiled node offered (span verification is deferred with class D)
 - Cost is monotonic within a call
 
 ### 4.4 Integration tests
@@ -831,16 +843,17 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 
 | risk | where it bites | mitigation |
 |---|---|---|
-| **`none_of_these` doesn't work on real documents** | Phase 0, fatal to Phase 5 | pre-registered bands; long multi-entity and repeated-text cases required; probes 2 and 3 read together; fallback product named |
-| **We build Phase 4 before learning Phase 5 fails** | Phases 4–5 | accepted by the owner with the order (PLAN §1); Phase 4 survives the fallback, so the work is not wasted |
+| **`none_of_these` doesn't work on real documents** | Phase 0, fatal to Phase 5 | **happened**: stop on the Decisions API **[Q2]**, drop on both models **[Z9, Q9]**; the fallback product is v0 |
+| **We build Phase 4 before learning Phase 5 fails** | Phases 4–5 | did not happen: Phase 0r decided before Phase 1 started; Phase 4 is in v0 |
+| **The fallback is too narrow to be worth using** | Phase 8 | the README states what did not ship and why; the narrow scope was pre-accepted (PLAN §6, *Scope if the band is narrow*) |
 | **We abstain on everything and call it safety** | Phase 0 | probe 3 is the counter-metric |
-| **Source text steers selection** | Phase 5 onward | measured **[P7]**; stated limit; the screen does not work yet **[P21]**; hostile-source suite |
-| **Right text, wrong provenance** when a value repeats | Phase 5 | every occurrence offered with context **[P15]**; repeated-text cases in Phase 0 and the hostile suite |
+| **Source text steers decisions** | Phase 3 onward | measured on selection **[P7, Q6]**; stated limit for every decision that reads the source; the screen is deferred (PLAN §9) |
+| **Right text, wrong provenance** when a value repeats | deferred with class D | every occurrence offered with context **[P15]**, when revived |
 | **Our novelty is overstated** | Phase 8 | prior art credited (`DESIGN §9`); comparison in the README; "existing Jev implementations" column |
 | **The taxonomy comes back narrow and we pad it** | Phase 0 | prediction recorded in advance; narrow scope pre-accepted |
 | **Entity resolution silently merges or splits** | Phase 7 | measured in Phase 0: stop **[Z4]**; deduplication is the extractor's contract in v0 |
 | **Pair questions jitter** | Post-v0 (PLAN §9.1) | floor measured on two runs; both-orderings experiment **[P12]** |
-| **Candidate extraction is the weak link** | Phase 5 onward | `none_of_these` mandatory, including for single candidates; complete-value template **[P11]** |
+| **Candidate extraction is the weak link** | deferred with class D | `none_of_these` mandatory, including for single candidates; complete-value template **[P11]** |
 | **Context limits exceeded** | Phase 3 onward | preflight on declared maxima (default 50 × 120); split, bisect, or refuse; never truncate **[P14]** |
 | **Sync wrapper over async code breaks** | Phase 3 | library loop thread; per-call clients on caller loops; thread-lock limiter **[L20, L22]** |
 | **Live answers jitter** | Phase 3 onward | tie margin (removes most, not all, flips); stability measured, not asserted; cache for exact replay **[P1, P12, P20]** |
@@ -850,8 +863,8 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Vendor SDK churn, hidden retries, body logging** | Phase 3 | raw `httpx`; SDK not a dependency (reasons measured on `typesafe-sdk` **[V-sdk]**; the `openai` SDK not yet reviewed) |
 | **Idiomatic Pydantic refused** | Phase 2 | the normalisation table **[L3, L16]** |
 | **Adjudication admits bad drafts** | Phase 4 | criteria rule; dry-run tool; `no_criteria_declared` visible; injection regression; labelled redraft bar |
-| **Retries burn money** | Phases 3–5 | decision retries only on changed input; two-sided retry bar; per-call budgets |
-| **Scope creep via derived values** | Phase 5+ | out of v0 (R9) except parsing a selected span |
+| **Retries burn money** | Phases 3–4 | v0 has no decision retries (schema-derived sets have budget zero; candidate retry is deferred); redrafts bounded and measured; per-call budgets |
+| **Scope creep via derived values** | post-v0 | out of v0 (R9); parsing a selected span is deferred with class D |
 | **README drifts past what is true** | Phase 8 | exit criteria bind it to `DESIGN §6` |
 
 ---
@@ -865,7 +878,8 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Target user** | Extraction steps in pipelines where a wrong-but-valid value silently corrupts everything downstream | The unserved gap is a signal to route on, as a general compiler |
 | **Language** | Python 3.11+ first | The target pipeline ecosystem (LangChain, LlamaIndex, Instructor) is Python-first; much Jev prior art is JS/TS **[X3]**, which is why a JS port is planned (Phase 10) |
 | **Schema surface** | Pydantic (validation-mode schema) or JSON Schema draft 2020-12, with one `x-jevson` keyword | One declaration syntax for both surfaces |
-| **Phase order** | Strictly sequential: 0 → 0r → 8, then 9 → 11; adjudication (4) before candidates (5) | **Set by the project owner.** Round-1 review E-40 (run 5 before 4 when Phase 0 says *go*) was considered and declined; Phase 4 survives Phase 5's abandon criterion |
+| **Phase order** | Strictly sequential: 0 → 0r → 1 → 2 → 3 → 4 → 6 → 7 → 8, then 9 → 11; Phase 5 abandoned by Phase 0r **[Q2, Q9]** | **Set by the project owner.** Round-1 review E-40 (run 5 before 4 when Phase 0 says *go*) was considered and declined; Phase 4 survives Phase 5's abandon criterion, which fired in Phase 0r |
+| **Source selection (class D)** | Dropped from v0 (2026-10-14); refused at compile time with `source_selection_dropped`; tracked in PLAN §9 | Pre-registered verdicts on two models: Jev **[Z9]**, the Decisions API **[Q2, Q9]** |
 | **Decision model** | The OpenAI Decisions API (`gpt-6-luna`) replaces Jev (2026-10-14); Jev stays a possible fallback | Product owner's decision, recorded in `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (ASTERION-20); Jev measurements do not transfer, hence Phase 0r **[D1, D2, D3]** |
 | **Vendor access** | Raw `httpx`; no vendor SDK | Every request, retry, and token visible to `Cost`; the reasons were measured on `typesafe-sdk` (pre-1.0 churn, retries that may be billed, unredacted body logging **[V-sdk, X5]**); the `openai` SDK is not yet reviewed |
 | **Model version** | Recorded, not pinned: the returned `model` string on every response; replay from records only | No snapshot exists **[D3]**; behaviour has changed under the alias before **[D4]**. (Until 2026-10-14: pinned `jev-1.13.0`, aliases refused **[P9, V-models]**) |
@@ -874,23 +888,23 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Default backend** | None; `Jevson(backend=...)` is required | An environment variable must never silently turn tests into paid calls |
 | **Protocols** | I/O protocols async, `Normalizer` and `CostSink` sync, pinned in DESIGN from Phase 1; sync `resolve()` on one library loop thread; per-call clients on caller loops; per-key limiter on `threading.Lock` | Pipelines are async; the rate limit is per key; a loop per call breaks shared clients **[L20]** |
 | **State referencing** | Opaque-id objects, never positions | 62% vs 0% wrong **[P4]** |
-| **Candidate options** | Opaque ids; every occurrence of repeated text offered with a context window | 40/40 vs 22/40; offering only one occurrence misattributes provenance **[P15]** |
+| **Candidate options** *(class D, deferred)* | Opaque ids; every occurrence of repeated text offered with a context window | 40/40 vs 22/40; offering only one occurrence misattributes provenance **[P15]** |
 | **Question wording** | Versioned templates; complete-value wording; no negations | Partials 32/42 → 0/42 **[P11]**; literal reading **[V-jagged]** |
-| **Single candidates** | Asked with `none_of_these` by default; direct extraction opt-in | 84/84 wrong-role lone candidates abstained in the Jev pilot **[P11]**; 39/50 on real documents on Jev **[Z8]** |
-| **Abstention mechanism** | `none_of_these` inside the choice, not a separate predicate gate | The gate was worse on Jev: 0.56 vs 0.89 **[P5]** |
+| **Single candidates** *(class D, deferred)* | Asked with `none_of_these` by default; direct extraction opt-in | 84/84 wrong-role lone candidates abstained in the Jev pilot **[P11]**; 39/50 on real documents on Jev **[Z8]** |
+| **Abstention mechanism** *(class D, deferred)* | `none_of_these` inside the choice, not a separate predicate gate | The gate was worse on Jev: 0.56 vs 0.89 **[P5]** |
 | **Probabilities** | Integer hundredths for storage; sum checked on raw values, 1 ± 0.01 on the Decisions API **[Q14]**; one tie margin ≤ 0.10 for every committing decision | Rounding and jitter are measured; ±0.05 left 11/180 choice flips, 0.10 left 1/180 **[L17, P12, P20]** |
 | **Confidence gating** | Reported, never gated by default | A default threshold would assert calibration we have not measured |
 | **Calibration bar** | Tie-safe bins, one-sided bootstrap ECE bound, Wilson rule at τ, mandatory power check on the observed distribution | The bar's power depends on the distribution **[L13, L14]** |
-| **Retry defaults** | Zero for schema-derived sets; one for candidates, old ∪ new, two-sided bar on constructed misses | Near-deterministic model; relative distributions; harm as well as benefit **[L15]** |
+| **Retry defaults** | Zero for schema-derived sets (all of v0); one for candidates (deferred with class D), old ∪ new, two-sided bar on constructed misses | Near-deterministic model; relative distributions; harm as well as benefit **[L15]** |
 | **Entity resolution** | Out of v0: deduplication is the extractor's declared contract. The post-v0 design keeps the lossless pre-merge, member-only components, the internal rule, and the cross-component variant with `conflict_floor` 0.05, chosen in Phase 0 **[Z4]** | Casefold merges distinct entities **[L1]**; the variant helped in-sample **[P10]** and did nothing out of sample **[P17]** |
 | **Pairwise cap** | Post-v0 with entity resolution: n = 30, lowered if its phase measures a lower quality ceiling **[Z4]** | Token-feasible with a lean template **[L7]**; quality unmeasured |
-| **Grapheme boundaries** | UAX #29 from a vendored generated table at Unicode 17.0; conformance plus differential tests | The shorthand rule was wrong in 13–15 of 20 classes **[L11]**; ~1.2 KB, no new dependency **[L19]** |
+| **Grapheme boundaries** *(class D, deferred; no table ships in v0)* | UAX #29 from a vendored generated table at Unicode 17.0; conformance plus differential tests | The shorthand rule was wrong in 13–15 of 20 classes **[L11]**; ~1.2 KB, no new dependency **[L19]** |
 | **Replay** | `CachingBackend` and `ReplayLLM`, RFC 8785 keys (`rfc8785` / `canonicalize`), caller-supplied directory | Identical hashes across languages **[L21]**; nothing written by default |
-| **Source trust** | Untrusted; stated limit; screen off until a wording meets its bar | Selection is steerable **[P7]**; the tested screen wording flagged 28/60 benign documents **[P21]** |
-| **Candidate defaults** | `max_candidates` 50 options (after repeated-text expansion), `max_candidate_chars` 120 | ~1.6k tokens, so the source ceiling stays high **[P22]** |
-| **Undeclared defaulted leaf fields** | Class A: omitted so the default applies; objects and arrays compile from their contents | Neither decided nor refused; declare `source` or `generate` to have them decided |
+| **Source trust** | Untrusted; stated limit; the screen is deferred with class D (PLAN §9) | Selection is steerable **[P7]**; the tested screen wording flagged 28/60 benign documents **[P21]** |
+| **Candidate defaults** *(class D, deferred)* | `max_candidates` 50 options (after repeated-text expansion), `max_candidate_chars` 120 | ~1.6k tokens, so the source ceiling stays high **[P22]** |
+| **Undeclared defaulted leaf fields** | Class A: omitted so the default applies; objects and arrays compile from their contents | Neither decided nor refused; declare `generate` (or, for a bool, enum, or integer range, `question` or `ordinal`) to have them decided |
 | **Step timeouts** | `step_timeout_s` (default 120) on every caller step | A never-returning step must not hang every synchronous caller |
-| **Absence** | Not required → omitted (defaults apply); required nullable → null; required → unresolved | A nullable field with a default must keep its default **[L18]** |
+| **Absence** *(class D, deferred; `Result.absent` is always empty in v0)* | Not required → omitted (defaults apply); required nullable → null; required → unresolved | A nullable field with a default must keep its default **[L18]** |
 | **Semantic ordering** | Out of v0; declaring it refuses | Unproven; refusing beats silently wrong order |
 | **Adjudication criteria** | About the draft and the source only | The decision model is not a fact-checker |
 | **Multi-source and long sources** | Out of v0, planned as Phase 9 | Budget and cross-source resolution |
@@ -911,13 +925,13 @@ Reversals are recorded in `DESIGN §13`.
 
 | question | closed by | if the answer is bad |
 |---|---|---|
-| Does `none_of_these` catch missing answers on real documents? | Phase 0 probe 2 on Jev: conditional, 0.733 **[Z2]**; probe 9 on Jev: drop **[Z9]**; Phase 0r; Phase 5 | Stop candidate selection; ship the fallback |
-| Do we select accurately and abstain only when we should? | Phase 0 probes 1 and 3 on Jev: go, go **[Z1, Z3]**; Phase 0r; Phase 5 | Conditional band: Phase 5 ships the second gate |
+| Does `none_of_these` catch missing answers on real documents? | **Answered: no.** Phase 0 probe 2 on Jev: conditional, 0.733 **[Z2]**; probe 9 on Jev: drop **[Z9]**; Phase 0r probe 2: stop, 0.527 **[Q2]**; probe 9: drop **[Q9]** | Candidate selection stopped; v0 is the fallback |
+| Do we select accurately and abstain only when we should? | **Answered:** selection yes, abstention no. Phase 0 probes 1 and 3 on Jev: go, go **[Z1, Z3]**; Phase 0r: go, go **[Q1, Q3]** | Moot while class D is deferred |
 | Which entity rule variant, and what `conflict_floor`? | **Answered by Phase 0 on Jev:** cross-component, 0.05, and below the bar **[Z4]** | Dedup became the extractor's contract (Phase 7) |
-| Do the Jev measurements and Phase 0's "drop source selection" hold on the Decisions API? | Phase 0r | Phase 0r's verdict replaces Phase 0's; the fallback product if it is still stop |
-| Is the decision model calibrated on span disambiguation? | Phase 0 probe 7 (Jev), Phase 0r, Phase 5 | Probabilities stay reported, never gated |
-| Can any screen wording flag hostile sources without flagging ordinary processing notes? | Phase 0 probe 6, Phase 5 | The screen stays off, with its rates documented |
-| Do decision retries recover answers without adding false commits? | Phase 5 | Default retry budget becomes 0 |
+| Do the Jev measurements and Phase 0's "drop source selection" hold on the Decisions API? | **Answered by Phase 0r:** the verdict holds **[Q1–Q14]** | v0 is the fallback product |
+| Is the decision model calibrated on span disambiguation? | Readings only: Phase 0 probe 7 (Jev, ECE 0.046 **[Z7]**), Phase 0r (ECE 0.120 **[Q7]**); the full measurement was Phase 5's, deferred with class D | Probabilities stay reported, never gated |
+| Can any screen wording flag hostile sources without flagging ordinary processing notes? | Readings only: Phase 0 probe 6 **[Z6]**, Phase 0r **[Q6]**; deferred with class D | The screen does not ship in v0 |
+| Do decision retries recover answers without adding false commits? | Deferred with class D (was Phase 5) | Default retry budget becomes 0 |
 | Do redrafts recover rejected drafts without admitting bad ones? | Phase 4 | Default redraft budget becomes 0 |
 | Level or speculative fan-out for unions? | Phase 6 | Whichever the measurement favours |
 | What is the pairwise quality ceiling? Can pair jitter be reduced? | Post-v0 entity-resolution phase (PLAN §9.1) | Cap lowered with the measurement cited; banding only |
@@ -932,22 +946,24 @@ Reversals are recorded in `DESIGN §13`.
 ```text
 Phase 0   taxonomy + probes + scope verdict           no code, gates everything   (run on jev-1.13.0)
 Phase 0r  the Phase 0 probes on the Decisions API     no code, gates Phase 1
-Phase 1   core model, protocols, graph, fake, spans   ~500 lines
-Phase 2   normaliser + declarations + compiler        ~500 lines
+Phase 0r  verdict: drop source selection [Q2, Q9]   → v0 is the fallback product
+Phase 1   core model, protocols, graph, fake          ~450 lines
+Phase 2   normaliser + declarations + compiler        ~500 lines   (x-jevson.source refuses: source_selection_dropped)
 Phase 3   executor + budget + live backend + façade   ~500 lines   ← working library
 Phase 4   generative fields and adjudication          ~450 lines
-Phase 5   candidates and source selection             ~500 lines   ← source-grounded extraction
+Phase 5   candidates and source selection             ABANDONED by Phase 0r; kept as the record; PLAN §9
 Phase 6   union discrimination                        ~300 lines
-Phase 7   source-grounded arrays                      ~350 lines   (cancelled if 5 abandons, except enum arrays)
-Phase 8   packaging and release                       ~250 lines   ← v0
+Phase 7   multi-label enum arrays                     ~150 lines   (source-grounded arrays deferred, PLAN §9)
+Phase 8   packaging and release                       ~250 lines   ← v0: the fallback product
 --- post-v0, planned ---
-Phase 9   multi-source and long-source extraction
+(unnumbered) source selection (class D), PLAN §9 — only if revived by its own probe
+Phase 9   multi-source and long-source extraction                  (needs class D revived)
 Phase 10  JavaScript / TypeScript port
 Phase 11  credentials from Infisical                               (lowest priority)
 (unnumbered) entity resolution, PLAN §9.1 — post-v0, unscheduled; its own probe first; Phase 9's cross-source resolution waits on it
 ```
 
-Every phase starts only after the previous one has merged or abandoned. If the abandon criterion of Phase 0r (which supersedes Phase 0's) or of Phase 5 fires, the product is **phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7**.
+Every phase starts only after the previous one has merged or abandoned. **Phase 0r's abandon criterion fired (2026-10-14) [Q2, Q9]**, so the product is **phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7**, and Phase 6 follows Phase 4 directly.
 
 ---
 
@@ -957,9 +973,10 @@ Nothing deferred is dropped. Each entry names what it waits on.
 
 | deferred item | why deferred | revisit when | where it lands |
 |---|---|---|---|
+| **Source selection (class D)**, and everything that depends on it: all of Phase 5, the span and grapheme work of Phase 1, the source mapping of Phase 2, the source-grounded arrays of Phase 7 (PLAN §9.2) | Abandoned by Phase 0r: abstention with the answer absent was 0.527, in the stop band, and the second gate was *drop*, on the Decisions API **[Q2, Q9]** as on Jev **[Z2, Z9]** | A decision model, a new version under the `gpt-6-luna` alias (R15), or a new abstention mechanism passes Phase 0 probes 1–3 **and** probe 9 under the same pre-registered rules and bands, on a fresh corpus | A post-v0 phase built from Phase 5's text and the moved items in PLAN §9.2 |
 | **Pairwise entity resolution** (the internal rule, cross-component variant, and `conflict_floor` 0.05 of `DESIGN §5.7`) | Below its bar on real prose: 163/330 components correct under the chosen variant **[Z4]** | After Phase 8 | A post-v0 phase with its own probe; Phase 7's dedup criteria move there |
-| **Default probability threshold** | Would assert calibration we have not measured (`DESIGN §6.2`) | Phase 5 calibration reading | v1, only if the pre-registered bar is met, citing the measurement |
-| **Source screen on by default** | Wording is fragile **[P7]** | Phase 5 screen measurement | v1, only if its bar is met |
+| **Default probability threshold** | Would assert calibration we have not measured (`DESIGN §6.2`); Phase 0r's reading was worse than Jev's (ECE 0.120) **[Q7]** | A calibration measurement over ≥ 1,000 decisions (was Phase 5's; now with class D, or a separate measurement on bounded decisions) | v1, only if the pre-registered bar is met, citing the measurement |
+| **Source screen** (opt-in in the plan; on by default in v1) | It was a Phase 5 deliverable; its wording bar needs ≥ 300 held-out benign documents **[P21]**. Readings were encouraging: 50/50 attacks and 1/50 benign on the Decisions API **[Q6]** | With class D, or earlier as its own phase if injection into bool, enum, and criterion decisions proves to matter | A post-v0 phase; default-on only if its bar is met |
 | **Semantic array ordering** | Unproven | After Phase 7 | A post-v0 phase with its own probe (pairwise preference vs. per-item `score`) |
 | **Derived provenance** (R9) | Needs an expression layer | After Phase 8 | A post-v0 phase |
 | **Multi-source and long sources** | Budget and cross-source resolution | After Phase 8 | Phase 9 |
@@ -967,8 +984,8 @@ Nothing deferred is dropped. Each entry names what it waits on.
 | **Infisical credentials** | Team convenience, not a library feature | Any time; lowest priority | Phase 11 |
 | **Recursive and dynamic `$ref`, `allOf` beyond flat merge, `dict[str, X]`, tuples, `Any`, `bytes`** | Refused loudly (`DESIGN §3.5`) | After Phase 8 | A post-v0 phase |
 | **Arrays of objects (including nested), cross-item constraints** | Out of Phase 7 scope; refused in v0 (`DESIGN §3.5`) | After Phase 8 | A post-v0 phase |
-| **`none_of_these` on schema enums and union discriminators** ("not determinable from the source") | Schema-derived choices have no abstention path in v0 | After Phase 5 measures abstention | A post-v0 phase |
-| **Relative and partial dates** ("next Friday", "the 3rd") | v0 parses selected absolute date spans only | After Phase 5 | A post-v0 phase using date-part choices with "not stated", as in TypeSafe's date-extraction cookbook **[V-cookbooks]** |
+| **`none_of_these` on schema enums and union discriminators** ("not determinable from the source") | Schema-derived choices have no abstention path in v0; abstention measured below its bar on both models **[Z2, Q2]** | After an abstention mechanism passes its bar | A post-v0 phase |
+| **Relative and partial dates** ("next Friday", "the 3rd") | v0 parses no dates: parsing a selected span is deferred with class D | After class D | A post-v0 phase using date-part choices with "not stated", as in TypeSafe's date-extraction cookbook **[V-cookbooks]** |
 
 ### 9.1 Post-v0: entity resolution (moved out of Phase 7 by Phase 0 **[Z4]**)
 
@@ -991,3 +1008,25 @@ Probe 4 was *stop* on real prose on `jev-1.13.0`, so these Phase 7 items wait fo
 - [ ] **Cap measured:** component outcomes at n ∈ {10, 20, 30} on ≥ 20 real arrays per n (including how many arrays are incomplete only through membership ties), and keyed-batching accuracy at the resulting question count (measured only to 320 so far, on Jev **[P4]**), are written down; the default cap is the largest n meeting the Phase 0 probe 4 go band
 - [ ] **Jitter experiment** results are written down; both-orderings asking is adopted only if it at least halves the pair-decision flip rate between identical runs and component accuracy is not lower (point estimates)
 - [ ] **Members only:** a rejected candidate linked at 0.9 to two members A and B, with A–B at 0.10 (≤ floor), does not merge them: A and B are emitted as two elements under both variants
+
+### 9.2 Post-v0: source selection (class D), moved out of v0 by Phase 0r **[Q2, Q9]**
+
+Phase 5 is abandoned (its text is kept above as the record), and these items moved out of the phases that would have built them. Their v0 fate is stated so that nothing is silently half-built:
+
+| item | was in | v0 fate |
+|---|---|---|
+| Candidates, `none_of_these`, the complete-value template, context windows for repeated text, lone candidates and `direct_extraction`, `max_candidates`, the pre-filter | Phase 5 | not built; `x-jevson.source` refuses with `source_selection_dropped` (Phase 2) |
+| Extractors: `extract/llm.py`, `extract/patterns.py`, `extract/occurrences.py`; `hostile_extractor.py` | Phase 5 | not built; the `Extractor` protocol and `ExtractorError` are defined (Phase 1) with no v0 implementation, caller, or raise |
+| `default_extractor` and `extractors=` | Phase 2 (mapping), Phase 5 (lift) | parameters kept; any field they would source-select refuses with `source_selection_dropped` |
+| `unicode/graphemes.py`, its vendored Unicode 17.0 table, `tests/conformance/`, and the graphemes exit criterion | Phase 1 | not built; `Result.versions` has no grapheme-table or `unicodedata` key |
+| `extract/spans.py` and the span-verification exit criterion | Phase 1 | not built; the `Span` type and `SOURCE_SPAN` provenance kind (with `source_id`) stay in `types.py`, and v0 constructs neither |
+| Class F parsing of a selected span (`assemble/parse.py`), `locale`, decimal-string emission for parsed values | Phase 5 | not built; no v0 value is parsed from the source |
+| Abstention, the `DESIGN §5.6` table, object absence | Phase 1 (assembler), Phase 5 | not reachable; `Absent` and `Result.absent` stay in the type and are always empty |
+| Decision retry with exclusions and `retry_budget` | Phase 5 | not built; v0 has no decision retries, and `resolve()` takes no `retry_budget` (adding the keyword later is not breaking) |
+| The second gate and `Unresolved(verification_failed)` | Phase 5 | not built; the reason is reserved |
+| The source screen and `Unresolved(source_flagged)` | Phase 5 | not built (row above); the reason is reserved |
+| Source-grounded arrays of spans: membership over candidates, source order (`assemble/ordering.py`), overflow by span | Phase 7 | not built; only multi-label enum arrays ship |
+| Hostile spans, hostile extractors, hostile sources against selection | PLAN §4.2 | not built |
+| Coverage, retry, calibration, and screen measurements on a fresh labelled corpus | Phase 5 | not run; the corpus is part of reviving class D |
+
+`Unresolved` reasons that only class D can produce (`abstained`, `no_candidates`, `too_many_candidates`, `unparseable`, `verification_failed`, `source_flagged`) stay in the closed set as reserved, so reviving class D does not change `UnresolvedReason` (`DESIGN §6.1`). Multi-source extraction (Phase 9) depends on this work.
