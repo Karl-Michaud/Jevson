@@ -137,7 +137,7 @@ docs/
   taxonomy.md           Phase 0 output, including measured probe results
   criteria-guide.md     how to write adjudication criteria that work
 
-.env.example            API-key template (still the Jev key until ASTERION-7 renames it); the real .env is gitignored
+.env.example            API-key template (OPENAI_API_KEY); the real .env is gitignored
 ```
 
 Modules marked *deferred with class D* are the source-selection work Phase 0r dropped **[Q2, Q9]**; v0 does not create them, and PLAN §9 says what revives them. `extract/occurrences.py`, `extract/llm.py`, and `extract/patterns.py` belong to the same deferral.

@@ -265,7 +265,16 @@ class Refusal:
     name: str
 
 
-Answer: TypeAlias = PredicateAnswer | ChoiceAnswer | ScoreAnswer | Refusal
+@dataclass(frozen=True)
+class InvalidAnswer:
+    """A well-formed response carried no usable answer for this question (DESIGN §6.1): a missing,
+    duplicated, misplaced or mis-typed entry. It resolves to `Unresolved(invalid_backend_answer)`."""
+
+    name: str
+    detail: str
+
+
+Answer: TypeAlias = PredicateAnswer | ChoiceAnswer | ScoreAnswer | Refusal | InvalidAnswer
 
 
 @dataclass(frozen=True)
@@ -274,6 +283,12 @@ class BackendResponse:
     input_tokens: int
     request_id: str
     model: str
+    cache_hit: bool = False
+    """True when a `CachingBackend` served the response from its directory; nothing was spent."""
+    transport_retries: int = 0
+    """Failed attempts retried before this response (DESIGN §6.1), counted apart from decision retries."""
+    retried_request_ids: tuple[str, ...] = ()
+    """Request ids of those failed attempts, where the server sent one (PLAN §3)."""
 
 
 @dataclass(frozen=True)
