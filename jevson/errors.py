@@ -53,6 +53,7 @@ class RefusalCode(StrEnum):
     SOURCE_SELECTION_DROPPED = "source_selection_dropped"
     # mapping (checked by compile/mapping.py)
     ORDINAL_LEVELS = "ordinal_levels"
+    ENUM_VALUE_TYPE = "enum_value_type"
     UNBOUNDED_FIELD = "unbounded_field"
     # later phases
     NOT_YET_SUPPORTED = "not_yet_supported"

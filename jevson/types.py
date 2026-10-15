@@ -120,8 +120,13 @@ class DecisionNode:
     options: tuple[Option, ...] = ()
     dependencies: frozenset[str] = frozenset()
     provenance: ProvenanceKind | None = None
+    values: tuple[JSONValue, ...] = ()
+    """The schema value each option stands for, aligned with `options`; empty for a predicate or a
+    hand-built node. Descriptions are quoted text, so `1` and `"1"` cannot be recovered from them."""
 
     def __post_init__(self) -> None:
+        if self.values and len(self.values) != len(self.options):
+            raise ValueError(f"{self.id}: values must align with options")
         is_predicate = self.kind is DecisionKind.PREDICATE
         if is_predicate != (self.option_source is OptionSource.PREDICATE):
             raise ValueError(f"{self.id}: a predicate, and only a predicate, has option_source predicate")
