@@ -7,9 +7,12 @@ Two configured limits apply to every request: `max_input_tokens` (state plus que
   raises `PreflightError` before anything is spent;
 - (b) a level over either limit is split, greedily in level order, into requests that fit.
 
-There is no tokenizer dependency. The estimate is deliberately pessimistic: a token per 3 UTF-8 bytes
-(English runs ~4) plus fixed per-question and per-option overheads above the ~160 tokens per short
-question Phase 0r measured [Q11, Q12].
+There is no tokenizer dependency. The estimate aims to be pessimistic: a token per 3 UTF-8 bytes
+(English runs ~4), plus a fixed 160 tokens per question (the ~160 tokens per short question Phase 0r
+measured [Q11]) on top of its text, and 8 per option [Q12]. Measured against billed tokens [Q15]:
+with a 40-token question overhead, all 36 requests of 32 questions were under-estimated (0.62-0.72);
+at 160 they sit at 1.23-1.27. It is not a guarantee: one single-question request of 164 still came in
+under (0.96), from text the byte rate under-counted.
 
 Each question is budgeted at its node's *declared* size, through a per-node hook (`DeclaredSize`), so
 later phases can budget content that does not exist yet: Phase 4 adds a node's `max_draft_chars` for
@@ -31,9 +34,9 @@ from jevson.types import DecisionNode, Question
 DeclaredSize = Callable[[DecisionNode], int]
 """A node's declared maximum size in estimated tokens: its question, options, and any state it adds."""
 
-ESTIMATOR_VERSION = "bytes/3+40q+8o"
+ESTIMATOR_VERSION = "bytes/3+160q+8o"
 BYTES_PER_TOKEN = 3
-QUESTION_OVERHEAD = 40
+QUESTION_OVERHEAD = 160  # [Q11] ~160 tokens per short question; 40 under-counted 32-question requests [Q15]
 OPTION_OVERHEAD = 8
 
 
