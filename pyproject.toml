@@ -32,7 +32,7 @@ build-backend = "hatchling.build"
 packages = ["jevson"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests/phase0/tests", "tests/unit", "tests/property", "tests/architecture", "tests/adversarial"]
+testpaths = ["tests/phase0/tests", "tests/j4b/tests", "tests/unit", "tests/property", "tests/architecture", "tests/adversarial"]
 markers = ["integration: makes real, billed API calls; opt-in, never in CI (PLAN §4.4)"]
 addopts = "-p no:cacheprovider"
 

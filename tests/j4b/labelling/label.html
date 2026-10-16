@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Draft Labeller</title>
+<!--
+  Blind labelling tool for the Jevson redraft bar (PLAN Phase 4). Open this file from disk; it makes no network
+  requests. It reads ONLY an items.jsonl file ({id, source, field, criteria, draft} per line) and refuses any row with
+  other keys, so a key or run file (which carry the model's verdict) cannot be loaded. It never shows a draft's role.
+  Labels are kept in this browser's localStorage while you work and downloaded as labels.jsonl.
+-->
+<style>
+  :root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#6b6a65; --card:#fff; --line:#dedbd2; --accent:#2b5fab; --yes:#1f7a3a; --no:#a8322d; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#161615; --fg:#ecebe6; --muted:#a09e96; --card:#21211f; --line:#3a3935; --accent:#7fa8e8; --yes:#5fc27c; --no:#e57a73; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.5 -apple-system, system-ui, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:16px; margin:14px 0; }
+  label.file { display:block; margin:10px 0; }
+  pre { white-space:pre-wrap; word-break:break-word; margin:6px 0 0; font:14px/1.5 ui-monospace, Menlo, monospace; }
+  .crit { display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-top:1px solid var(--line); }
+  .crit:first-of-type { border-top:0; }
+  .crit p { flex:1; margin:0; }
+  .choice button { min-width:56px; padding:6px 10px; border:1px solid var(--line); background:transparent; color:var(--fg); border-radius:6px; cursor:pointer; }
+  .choice button.on.yes { background:var(--yes); border-color:var(--yes); color:#fff; }
+  .choice button.on.no { background:var(--no); border-color:var(--no); color:#fff; }
+  textarea, input[type=text] { width:100%; padding:8px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); font:inherit; }
+  .nav { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .nav button { padding:8px 14px; border-radius:6px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; }
+  .nav button.secondary { background:transparent; color:var(--accent); }
+  .nav button:disabled { opacity:.4; cursor:default; }
+  .err { color:var(--no); }
+  .hidden { display:none; }
+  h2 { font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Draft labeller</h1>
+  <p class="muted">For each draft, answer each criterion from the source and the draft alone. You are not shown whether the draft is a first attempt or a redraft, or what any model decided.</p>
+
+  <section id="setup" class="card">
+    <label class="file">Your name or initials <input type="text" id="labeller" autocomplete="off"></label>
+    <label class="file">Items file (<code>items.jsonl</code>) <input type="file" id="items" accept=".jsonl,.json,.txt"></label>
+    <label class="file">Resume from a labels file you downloaded earlier (optional) <input type="file" id="resume" accept=".jsonl,.json,.txt"></label>
+    <p id="setupErr" class="err"></p>
+  </section>
+
+  <section id="work" class="hidden">
+    <div class="nav">
+      <span id="progress" class="muted"></span>
+      <span style="flex:1"></span>
+      <button class="secondary" id="download">Download labels</button>
+    </div>
+    <div class="card"><h2>Source</h2><pre id="source"></pre></div>
+    <div class="card"><h2>Field <span id="field"></span>: draft</h2><pre id="draft"></pre></div>
+    <div class="card"><h2>Criteria: does the draft satisfy each one?</h2><div id="criteria"></div></div>
+    <div class="card"><h2>Note (optional)</h2><textarea id="note" rows="2"></textarea></div>
+    <div class="nav">
+      <button class="secondary" id="prev">Back</button>
+      <button id="next">Save and next</button>
+      <span id="workErr" class="err"></span>
+    </div>
+  </section>
+
+  <section id="done" class="card hidden">
+    <p><strong>All items are labelled.</strong> Download the labels and send <code>labels.jsonl</code> back.</p>
+    <div class="nav"><button id="download2">Download labels</button><button class="secondary" id="review">Review from the start</button></div>
+  </section>
+</main>
+<script>
+"use strict";
+const ITEM_KEYS = ["criteria", "draft", "field", "id", "source"];
+const $ = (id) => document.getElementById(id);
+let items = [], order = [], pos = 0, labels = {}, storeKey = null, current = {};
+
+function parseJsonl(text) {
+  return text.split(/\r?\n/).filter((l) => l.trim()).map((l, i) => {
+    try { return JSON.parse(l); } catch (e) { throw new Error(`line ${i + 1} is not JSON`); }
+  });
+}
+
+function checkItem(o, i) {
+  if (!o || typeof o !== "object" || Array.isArray(o)) throw new Error(`line ${i + 1} is not an object`);
+  const keys = Object.keys(o).sort();
+  if (keys.join() !== ITEM_KEYS.join())
+    throw new Error(`line ${i + 1} has keys [${keys.join(", ")}]; an items file has exactly [${ITEM_KEYS.join(", ")}]. This tool never loads a key or run file.`);
+  if (typeof o.id !== "string" || typeof o.draft !== "string" || typeof o.source !== "string" || !Array.isArray(o.criteria) || !o.criteria.length)
+    throw new Error(`line ${i + 1} is not a valid item`);
+  for (const c of o.criteria) if (typeof c.id !== "string" || typeof c.statement !== "string") throw new Error(`line ${i + 1} has a bad criterion`);
+}
+
+function shuffled(n) {
+  const a = [...Array(n).keys()], r = new Uint32Array(1);
+  for (let i = n - 1; i > 0; i--) { crypto.getRandomValues(r); const j = r[0] % (i + 1); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+async function digest(text) {
+  const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(h)].slice(0, 8).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function save() {
+  try { localStorage.setItem(storeKey, JSON.stringify({ order, pos, labels })); } catch (e) { /* storage is a convenience */ }
+}
+
+async function loadItems(file) {
+  const text = await file.text();
+  const rows = parseJsonl(text);
+  rows.forEach(checkItem);
+  const ids = new Set(rows.map((r) => r.id));
+  if (ids.size !== rows.length) throw new Error("item ids are not unique");
+  items = rows;
+  storeKey = "draft-labeller:" + (await digest(text));
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(storeKey) || "null"); } catch (e) { saved = null; }
+  if (saved && Array.isArray(saved.order) && saved.order.length === items.length) {
+    ({ order, pos, labels } = saved);
+  } else {
+    order = shuffled(items.length); pos = 0; labels = {};
+  }
+  const resume = $("resume").files[0];
+  if (resume) {
+    for (const l of parseJsonl(await resume.text())) if (ids.has(l.id)) labels[l.id] = l;
+  }
+  pos = firstUnlabelled();
+  save();
+  $("setup").classList.add("hidden");
+  show();
+}
+
+function firstUnlabelled() {
+  const i = order.findIndex((k) => !labels[items[k].id]);
+  return i === -1 ? order.length : i;
+}
+
+function show() {
+  $("workErr").textContent = "";
+  const n = Object.keys(labels).length;
+  if (pos >= order.length) { $("work").classList.add("hidden"); $("done").classList.remove("hidden"); return; }
+  $("done").classList.add("hidden"); $("work").classList.remove("hidden");
+  const it = items[order[pos]], prior = labels[it.id];
+  $("progress").textContent = `Item ${pos + 1} of ${order.length} · ${n} labelled`;
+  $("source").textContent = it.source;
+  $("field").textContent = it.field;
+  $("draft").textContent = it.draft;
+  $("note").value = prior ? prior.note || "" : "";
+  current = prior ? { ...prior.criteria } : {};
+  const box = $("criteria"); box.replaceChildren();
+  for (const c of it.criteria) {
+    const row = document.createElement("div"); row.className = "crit";
+    const p = document.createElement("p"); p.textContent = c.statement;
+    const ch = document.createElement("div"); ch.className = "choice";
+    for (const [val, text] of [[true, "Yes"], [false, "No"]]) {
+      const b = document.createElement("button");
+      b.textContent = text; b.className = val ? "yes" : "no";
+      if (current[c.id] === val) b.classList.add("on");
+      b.onclick = () => { current[c.id] = val; [...ch.children].forEach((x) => x.classList.remove("on")); b.classList.add("on"); };
+      ch.append(b);
+    }
+    row.append(p, ch); box.append(row);
+  }
+  $("prev").disabled = pos === 0;
+}
+
+function next() {
+  const it = items[order[pos]];
+  if (it.criteria.some((c) => typeof current[c.id] !== "boolean")) { $("workErr").textContent = "Answer every criterion first."; return; }
+  const crit = {}; for (const c of it.criteria) crit[c.id] = current[c.id];
+  labels[it.id] = { id: it.id, criteria: crit, note: $("note").value.trim(), labeller: $("labeller").value.trim(), labelled_at: new Date().toISOString() };
+  pos += 1;
+  if (pos >= order.length) pos = firstUnlabelled();
+  save(); show();
+}
+
+function download() {
+  const rows = order.map((k) => labels[items[k].id]).filter(Boolean);
+  const blob = new Blob(rows.map((r) => JSON.stringify(r) + "\n"), { type: "application/x-ndjson" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "labels.jsonl"; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+$("items").addEventListener("change", async (e) => {
+  $("setupErr").textContent = "";
+  try { await loadItems(e.target.files[0]); } catch (err) { $("setupErr").textContent = err.message; }
+});
+$("next").onclick = next;
+$("prev").onclick = () => { if (pos > 0) { pos -= 1; save(); show(); } };
+$("download").onclick = download;
+$("download2").onclick = download;
+$("review").onclick = () => { pos = 0; save(); show(); };
+</script>
+</body>
+</html>

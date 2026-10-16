@@ -1,0 +1,3 @@
+{"admitted": false, "criterion_ids": ["k0", "k1"], "instance_id": "s1", "item_id": "f2a752e6b438", "role": "first"}
+{"admitted": true, "criterion_ids": ["k0", "k1"], "instance_id": "s1", "item_id": "6513269e0d37", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["k0", "k1"], "instance_id": "s2", "item_id": "0c5ca6a3a450", "role": "first"}
