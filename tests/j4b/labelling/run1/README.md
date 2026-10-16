@@ -1,10 +1,15 @@
 # Redraft-bar labelling set, run 1 (ASTERION-36)
 
-`items.jsonl` holds 444 drafts to label blind. The key that joins items to roles and verdicts, and `sampling.json`
-(the seeds, the stopping rule and which instances were admitted and sampled), are held back outside the repository
-until labelling ends (PLAN Phase 4); both are committed with the scored verdict.
+- `items.jsonl`: the 444 drafts as the labeller saw them (no role, no verdict).
+- `labels.jsonl`: the labels. **Model-labelled, not human-labelled**: the owner did not label them, and a separate
+  Claude session labelled every item blind from `items.jsonl` alone (PLAN Phase 4, stated deviation).
+- `key.jsonl` and `sampling.json`: held back during labelling, committed with the verdict.
+- `report.json`: the scored verdict, pooled and per domain.
 
-To label: open `../label.html` in a browser, enter your initials, choose this folder's `items.jsonl`, answer Yes/No for
-every criterion of every draft from the source and the draft alone, then **Download labels** and save the file as
-`labels.jsonl` in this folder. You can stop at any point: progress stays in the browser, and a downloaded
-`labels.jsonl` can be loaded again under *Resume*.
+Rescore:
+
+```bash
+uv run --frozen python -m tests.j4b.labelling.score tests/j4b/labelling/run1/key.jsonl tests/j4b/labelling/run1/labels.jsonl --sampling tests/j4b/labelling/run1/sampling.json
+```
+
+For a human relabel, open `../label.html`, load `items.jsonl`, label every criterion, and score the download the same way.

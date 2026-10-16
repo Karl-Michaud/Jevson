@@ -81,5 +81,8 @@ rely on them.
   (PLAN §9, *draft self-claim mitigation*).
 - **Don't count in a criterion.** Sentence or word limits are judged unreliably; set
   `max_draft_chars`, which code enforces.
-- **Whether a redraft fixes a rejected draft** is measured against human labels before the default
-  `redraft_budget` of 1 is kept (PLAN Phase 4, the redraft bar).
+- **Redrafts help, and the default `redraft_budget` of 1 is kept** on a model-labelled measurement
+  (`docs/EVIDENCE.md` Q17; the labels came from a separate model, not a human): 42% of redrafts were
+  admitted and truly met their criteria, and redrafts were admitted while violating them at a rate
+  6 points *below* first drafts. The same labels say over half of the rejected first drafts already
+  met their criteria, so expect false rejections; a redraft usually recovers them.

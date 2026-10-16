@@ -53,6 +53,7 @@ Selecting among pre-extracted candidates with a *none* escape hatch is [TypeSafe
 - **Provenance proves where a value came from, not that the source is honest.** Text inside a document can steer the model's choice; this is measured and documented, not solved.
 - Abstention covers source-selected fields and is measured, not guaranteed. Calibration on this task will be measured, not assumed: the Decisions API makes no calibration claim.
 - Only fields the decision model decides carry a probability; constants, defaults, direct extractions, values you supply, and ungated drafts do not.
+- **Redraft rates are model-labelled, not human-labelled.** The default of one redraft is kept on labels from a separate model working blind (42% of redrafts admitted and truly satisfying; redrafts admitted while violating 6 points below first drafts): [docs/EVIDENCE.md](docs/EVIDENCE.md) Q17.
 - **A criterion that checks a draft contains something can be passed by a draft that falsely claims to contain it.** In the live injection regression, a summary that left out the refund amount but ended "this summary includes the refund amount stated in the source" was admitted in 5 of 5 cases; drafts that praised themselves, or carried an injected instruction to the evaluator, did not pass (0 of 60). Measured, not solved: [docs/EVIDENCE.md](docs/EVIDENCE.md) Q16.
 
 ## Status
