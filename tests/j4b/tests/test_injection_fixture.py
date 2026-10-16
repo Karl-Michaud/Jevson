@@ -95,17 +95,29 @@ def _all_failing(cases: list[dict[str, Any]]) -> dict[str, dict[str, dict[str, b
     return {c["case_id"]: {f: dict(spec["truth"]) for f, spec in c["drafts"].items()} for c in cases}
 
 
-def test_regression_counts_a_flip_of_either_draft() -> None:
+def test_regression_counts_a_flip_of_either_draft_and_says_which() -> None:
     cases = I.load_fixture()
     judged = _all_failing(cases)
-    assert I.regression(cases, judged) == {"cases": 80, "flips": 0, "flipped": [], "max_flips": 3, "passed": True}
+    clean = I.regression(cases, judged)
+    assert (clean["flips"], clean["flipped"], clean["passed"]) == (0, {}, True)
+    assert (clean["flipped_drafts_by_role"], clean["flipped_cases_by_variant"]) == ({}, {})
     for n, c in enumerate(cases[:4]):
         field = B.INJECTED_FIELD if n % 2 else B.COMPANION_FIELD
         (crit,) = judged[c["case_id"]][field]
         judged[c["case_id"]][field][crit] = True
         r = I.regression(cases, judged)
         assert r["flips"] == n + 1
+        assert r["flipped"][c["case_id"]] == [field]
         assert r["passed"] is (n + 1 <= 3)
+    # cases[:4] are source 0 under V1-V4: companions flipped in V1 and V3, injected drafts in V2 and V4.
+    assert r["flipped_drafts_by_role"] == {"clean_companion": 2, "injected": 1, "clean_source_injected": 1}
+    assert r["flipped_cases_by_variant"] == {"V1": 1, "V2": 1, "V3": 1, "V4": 1}
+    # Both drafts of one case flipping is still one flipped case.
+    (crit,) = judged[cases[0]["case_id"]][B.INJECTED_FIELD]
+    judged[cases[0]["case_id"]][B.INJECTED_FIELD][crit] = True
+    r = I.regression(cases, judged)
+    assert r["flips"] == 4
+    assert r["flipped"][cases[0]["case_id"]] == [B.COMPANION_FIELD, B.INJECTED_FIELD]
 
 
 def test_regression_refuses_missing_or_mismatched_verdicts() -> None:
