@@ -21,6 +21,9 @@
   Decisions are recorded as `node@attempt`. Budgets use the source-only state plus each node's
   declared size, which includes its draft at `max_draft_chars` (`budget.with_drafts`).
 
+- **Multi-label enum arrays** (DESIGN §4.2): each value's membership predicate keeps its outcome under
+  its node id (`DecisionNode.key`); `assemble/cardinality.py` folds them into the array.
+
 - **Unions** (DESIGN §3.2): a node inside union branches runs only when its branch is selected
   (`branches.py`); a discriminator's answer selects a branch and commits its constants.
 
@@ -41,6 +44,7 @@ from typing import Any
 
 from jevson.adjudicate.criteria import judge
 from jevson.assemble.assembler import Committed, Outcome, assemble
+from jevson.assemble.cardinality import fold
 from jevson.compile.questions import QUESTION_TEMPLATE_VERSION
 from jevson.config import JevsonConfig
 from jevson.errors import BackendError, ExtractorError, LLMError, PreflightError, UsageError
@@ -157,9 +161,12 @@ class _Run:
             "redraft_budget": str(config.redraft_budget),
             "union_fanout": str(config.union_fanout).lower(),
         }
+        outcomes, holes, overflow = fold(self.nodes.values(), self.outcomes, self.decisions)
         return assemble(
             self.schema,
-            self.outcomes.values(),
+            outcomes,
+            array_holes=holes,
+            overflow=overflow,
             decisions=self.decisions,
             cost=self.tally.freeze(),
             model=tuple(self.models),
@@ -201,7 +208,7 @@ async def execute(
     generative fields are added to it here, at their `max_draft_chars`."""
     run = _Run(schema, config, cost_sink)
     run.source = source
-    run.targets = {node_id: node.target for node_id, node in graph.nodes.items()}
+    run.targets = {node_id: node.key for node_id, node in graph.nodes.items()}
     generate = {n.id: n for n in graph.nodes.values() if isinstance(n, StepNode) and n.drafting is not None}
     run.adjudicates = {
         n.id: generate[d] for n in graph.nodes.values() if isinstance(n, DecisionNode) for d in n.dependencies
@@ -236,7 +243,7 @@ def _askable(run: _Run, nodes: Sequence[DecisionNode]) -> list[DecisionNode]:
     return [
         n for n in nodes
         if (run.adjudicates[n.id].id in pending if n.id in run.adjudicates
-            else n.target not in run.outcomes and _runs(run, n))
+            else not {n.key, n.target} & run.outcomes.keys() and _runs(run, n))
     ]  # fmt: skip
 
 
@@ -245,7 +252,7 @@ def _runs(run: _Run, node: DecisionNode | StepNode) -> bool:
     `dependency_unresolved`; a known field inside a branch is never asked (`Branches.commit_open`)."""
     gate = run.branches.gate(node.branch)
     if gate == "unresolved":
-        run.outcomes.setdefault(node.target, Unresolved(node.target, UnresolvedReason.DEPENDENCY_UNRESOLVED))
+        run.outcomes.setdefault(node.key, Unresolved(node.target, UnresolvedReason.DEPENDENCY_UNRESOLVED))
     return not (
         gate in ("unresolved", "closed")
         or node.id in run.branches.selected  # selected by known=
@@ -359,7 +366,7 @@ async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], na
     ready: list[DecisionNode] = []
     for node in nodes:
         if any(isinstance(run.outcomes.get(run.targets[d]), Unresolved) for d in node.dependencies):
-            run.outcomes[node.target] = Unresolved(node.target, UnresolvedReason.DEPENDENCY_UNRESOLVED)
+            run.outcomes[node.key] = Unresolved(node.target, UnresolvedReason.DEPENDENCY_UNRESOLVED)
         else:
             ready.append(node)
     if not ready:
@@ -374,7 +381,7 @@ async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], na
     for chunk in chunks:
         answers |= await _ask(run, backend, run.state([by_name[q.name] for q in chunk]), chunk)
     for node in sorted(ready, key=lambda n: len(n.branch)):  # under fan-out, discriminators first
-        if node.target in run.outcomes or not _runs(run, node):
+        if node.key in run.outcomes or not _runs(run, node):
             continue  # an unselected branch's answer is discarded
         if node.id in run.adjudicates:
             run.answers[node.id] = answers[names[node.id].name]
@@ -393,7 +400,7 @@ def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
         selected = reading.decision.selected
         reason = reading.reason if reading.status == "unresolved" else None
     if reason is not None or selected is None:
-        run.outcomes[node.target] = Unresolved(node.target, reason or UnresolvedReason.INVALID_BACKEND_ANSWER)
+        run.outcomes[node.key] = Unresolved(node.target, reason or UnresolvedReason.INVALID_BACKEND_ANSWER)
         if union:
             run.branches.failed.add(node.id)
         return
@@ -402,7 +409,7 @@ def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
         run.branches.commit_open(run.outcomes)
         return
     if node.kind is DecisionKind.PREDICATE:
-        run.outcomes[node.target] = Committed(node.target, selected, DecidedBy.DECISION)
+        run.outcomes[node.key] = Committed(node.target, selected, DecidedBy.DECISION)
         return
     index = [option.id for option in node.options].index(str(selected))
     value = node.values[index] if node.values else str(selected)

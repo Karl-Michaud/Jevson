@@ -19,6 +19,12 @@ ancestor property names that make it unique ("billing kind", "shipping kind"); a
 `x-jevson.question` is never qualified. Templates add no negation and never reference state by
 position (R13). The union discriminator template ships as docs/taxonomy.md §1.2 recorded it
 (Phase 6, ASTERION-37).
+
+The membership template of a multi-label enum array (Phase 7, ASTERION-38) is added under 1.1.0
+because it changes no existing question: it is docs/taxonomy.md §1.2's array membership `noul`
+with the candidate reference (`candidates.{cid}`) replaced by the declared value, quoted as an enum
+option is, and the bool template's "According to the source" lead. Each value's question names its
+value, so the predicates of one array never share a question.
 """
 
 from __future__ import annotations
@@ -38,6 +44,7 @@ BOOL_INSTRUCTIONS = "According to the source, is it true that {predicate}?"
 BOOL_SCOPED_INSTRUCTIONS = "According to the source, for the {scope}, is it true that {predicate}?"
 ORDINAL_INSTRUCTIONS = "Which level best describes the {label}?"
 UNION_INSTRUCTIONS = "Which of these does the source describe as the {label}?"
+MEMBER_INSTRUCTIONS = 'According to the source, is "{value}" one of the {label}?'
 CRITERION_INSTRUCTIONS = "Does `drafts.{node}` meet this criterion: {criterion}?"
 RUBRIC_INSTRUCTIONS = "Which level best describes `drafts.{node}` against this rubric: {rubric}?"
 GENERATE_PROMPT = "Write the {label} for the source below. {instructions}Return only the value."
@@ -119,6 +126,11 @@ def ordinal_question(label: str) -> str:
 def union_question(label: str) -> str:
     """A union discriminator's question (DESIGN §3.2); its options are the branches' texts."""
     return UNION_INSTRUCTIONS.format(label=label)
+
+
+def member_question(value: JSONValue, label: str) -> str:
+    """One declared value's membership question in a multi-label enum array."""
+    return MEMBER_INSTRUCTIONS.format(value=value, label=label)
 
 
 def criterion_question(node: str, criterion: str) -> str:

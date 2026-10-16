@@ -187,17 +187,16 @@ def test_an_optional_submodel_whose_leaves_declare_sources_refuses_only_with_sou
     assert refusals(Holder) == [("/place/city", RefusalCode.SOURCE_SELECTION_DROPPED)]
 
 
-def test_list_literal_with_an_empty_default_and_a_default_factory_refuse_alike_until_phase_7() -> None:
+def test_list_literal_with_a_schema_default_is_class_a_and_a_default_factory_is_decided() -> None:
+    """Pydantic writes no `default` for a `default_factory`, so that field is decided like any other."""
+
     class Tagged(BaseModel):
         labels: list[Literal["p", "q"]] = []
         tags: list[Literal["p", "q"]] = Field(default_factory=list)
         required: list[Literal["p", "q"]]
 
-    assert refusals(Tagged) == [
-        ("/labels", RefusalCode.NOT_YET_SUPPORTED),
-        ("/tags", RefusalCode.NOT_YET_SUPPORTED),
-        ("/required", RefusalCode.NOT_YET_SUPPORTED),
-    ]
+    graph = compile_schema(Tagged)
+    assert sorted(graph.nodes) == ["/required#member:c0", "/required#member:c1", "/tags#member:c0", "/tags#member:c1"]
 
 
 def test_decimal_and_optional_decimal_declaring_a_source_refuse_only_with_source_selection_dropped() -> None:

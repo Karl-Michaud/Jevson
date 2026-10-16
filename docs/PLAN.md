@@ -660,12 +660,12 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 
 ### Exit criteria
 
-- [ ] **Enum arrays:** `list[Literal["billing", "technical", "account"]]` compiles to three membership predicates in one level and emits accepted values in declared order, whatever the probabilities' order
-- [ ] `maxItems: 2` with three accepted values returns the first two in declared order and records the third in `Result.overflow`
-- [ ] **Array holes:** a value inside the tie margin is one `Unresolved(tie)` at the array pointer naming the value, and the other values are emitted; a refused membership question is `Unresolved(refused)` the same way
-- [ ] `uniqueItems` holds by construction; `minItems` that the accepted values do not meet is a `Violation`, not a padded array
-- [ ] An array declaring `x-jevson.order: semantic` refuses; an array of unbounded items refuses (with `source_selection_dropped` if it declares a `source`); an array of objects still refuses with its own named reason (`DESIGN §3.5`)
-- [ ] Output is deterministic across runs with the fake backend
+- [x] **Enum arrays:** `list[Literal["billing", "technical", "account"]]` compiles to three membership predicates in one level and emits accepted values in declared order, whatever the probabilities' order
+- [x] `maxItems: 2` with three accepted values returns the first two in declared order and records the third in `Result.overflow`
+- [x] **Array holes:** a value inside the tie margin is one `Unresolved(tie)` at the array pointer naming the value, and the other values are emitted; a refused membership question is `Unresolved(refused)` the same way
+- [x] `uniqueItems` holds by construction; `minItems` that the accepted values do not meet is a `Violation`, not a padded array
+- [x] An array declaring `x-jevson.order: semantic` refuses; an array of unbounded items refuses (with `source_selection_dropped` if it declares a `source`); an array of objects still refuses with its own named reason (`DESIGN §3.5`)
+- [x] Output is deterministic across runs with the fake backend
 
 ### Abandon criterion
 

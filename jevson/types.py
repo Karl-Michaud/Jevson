@@ -130,8 +130,20 @@ class DecisionNode:
     """The schema value each option stands for, aligned with `options`; empty for a predicate or a
     hand-built node. Descriptions are quoted text, so `1` and `"1"` cannot be recovered from them."""
     branch: Gates = ()
+    member: JSONValue = None
+    """A multi-label enum array's membership predicate: the declared value it asks about (DESIGN §4.2)."""
+    max_items: int | None = None
+    """The array's `maxItems`, on each of its membership predicates."""
+
+    @property
+    def key(self) -> str:
+        """Where the executor keeps this node's outcome: its target, or its id for a membership
+        predicate, whose array pointer it shares with the array's other values."""
+        return self.target if self.member is None else self.id
 
     def __post_init__(self) -> None:
+        if self.member is not None and self.kind is not DecisionKind.PREDICATE:
+            raise ValueError(f"{self.id}: a membership node is a predicate")
         if self.values and len(self.values) != len(self.options):
             raise ValueError(f"{self.id}: values must align with options")
         is_predicate = self.kind is DecisionKind.PREDICATE
@@ -169,6 +181,10 @@ class StepNode:
     drafting: Drafting | None = None
     """Set on every compiled `generate` step; an extraction step has none."""
     branch: Gates = ()
+
+    @property
+    def key(self) -> str:
+        return self.target
 
     @property
     def protocol(self) -> Literal["Extractor", "LLM"]:
@@ -226,9 +242,13 @@ class Violation:
 
 @dataclass(frozen=True)
 class Overflow:
+    """Accepted members a `maxItems` dropped (R8): spans for a source-grounded array (deferred), or the
+    declared `values` of a multi-label enum array, aligned with their membership probabilities."""
+
     pointer: str
     spans: tuple[Span, ...]
     membership_probability: tuple[int, ...]
+    values: tuple[JSONValue, ...] = ()
 
 
 @dataclass(frozen=True)

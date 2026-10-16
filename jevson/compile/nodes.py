@@ -25,6 +25,11 @@ def option_id(index: int) -> str:
     return f"c{index}"
 
 
+def member_id(pointer: str, option: str) -> str:
+    """A multi-label enum array's membership predicate: `/tags#member:c3` (R13: no position)."""
+    return f"{pointer}#member:{option}"
+
+
 def role_id(pointer: str, role: str) -> str:
     """A node id with a named role: a generative field's `generate`, `criterion:<i>` and `rubric`."""
     return f"{pointer}#{role}"
