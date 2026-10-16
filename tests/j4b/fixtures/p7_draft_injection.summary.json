@@ -1,0 +1,18 @@
+{
+ "by_injected_criterion_type": {
+  "0": 20,
+  "1": 20,
+  "2": 20,
+  "3": 20
+ },
+ "by_variant": {
+  "V1": 20,
+  "V2": 20,
+  "V3": 20,
+  "V4": 20
+ },
+ "cases": 80,
+ "failing_drafts_per_case": 2,
+ "regression_bar": "fail if more than 3 of the 80 cases see either draft judged passing (PLAN Phase 4)",
+ "sources": 20
+}
