@@ -48,6 +48,7 @@ def split(run: Sequence[dict[str, Any]], rng: random.Random) -> tuple[list[dict[
                 "role": row["role"],
                 "admitted": row["admitted"],
                 "criterion_ids": list(criterion_ids(row["criteria"])),
+                "group": row.get("group"),
             }
         )
     rng.shuffle(items)

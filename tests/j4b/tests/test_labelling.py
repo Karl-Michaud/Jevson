@@ -12,7 +12,7 @@ from hypothesis import strategies as st
 
 from tests.j4b.labelling import prepare_items as P
 from tests.j4b.labelling import score as S
-from tests.j4b.labelling.intervals import newcombe_paired, newcombe_unpaired, wilson
+from tests.j4b.labelling.intervals import newcombe_hybrid, newcombe_paired, newcombe_unpaired, scaled, wilson
 from tests.j4b.labelling.records import ITEM_KEYS, check_run_row, key_row, label, read_jsonl, write_jsonl
 
 # --- intervals: published values ---
@@ -271,3 +271,60 @@ def test_command_lines_end_to_end(tmp_path: Path, capsys: pytest.CaptureFixture[
     assert "fewer than 100 rejected" in err
     assert P.main([str(run), str(tmp_path / "out2")]) == 0  # unseeded: random ids
     assert S.main([str(tmp_path / "out" / "key.jsonl"), str(tmp_path / "labels.jsonl")]) == 0
+
+
+# --- sampled admitted first drafts (PLAN Phase 4 stated interpretation) ---
+
+
+def test_score_weights_c_by_the_exact_admitted_share_when_admitted_firsts_are_sampled() -> None:
+    items, key = P.split(RUN, random.Random(1))
+    labs = [label(x) for x in _label_all(items)]
+    keys = [key_row(k) for k in key]
+    # The run's 2 admitted first drafts stand for 10 of 14 first drafts (4 rejected, all labelled).
+    r = S.score(keys, labs, {"first_drafts": 14, "admitted_first_drafts": 10})
+    c = r["C_first_admitted_while_violating"]
+    assert (c["k_sampled"], c["n_sampled_admitted"], c["n"]) == (1, 2, 14)
+    assert c["estimate"] == pytest.approx(0.5 * 10 / 14)
+    assert c["high"] == pytest.approx(wilson(1, 2).high * 10 / 14)
+    assert r["first_drafts"] == 14
+    expected = newcombe_hybrid(wilson(1, 4), scaled(wilson(1, 2), 10 / 14))
+    assert r["B_minus_C"]["low"] == pytest.approx(expected.low)
+    for bad in ({"first_drafts": 15, "admitted_first_drafts": 10}, {"first_drafts": 5, "admitted_first_drafts": 1}):
+        with pytest.raises(ValueError, match="sampling does not match"):
+            S.score(keys, labs, bad)
+
+
+def test_score_cli_reads_sampling(tmp_path: Path) -> None:
+    items, key = P.split(RUN, random.Random(1))
+    write_jsonl(tmp_path / "key.jsonl", key)
+    write_jsonl(tmp_path / "labels.jsonl", _label_all(items))
+    (tmp_path / "s.json").write_text(json.dumps({"first_drafts": 14, "admitted_first_drafts": 10}))
+    args = [str(tmp_path / "key.jsonl"), str(tmp_path / "labels.jsonl"), "--sampling", str(tmp_path / "s.json")]
+    assert S.main([*args, "--out", str(tmp_path / "r.json")]) == 0
+    assert json.loads((tmp_path / "r.json").read_text())["first_drafts"] == 14
+
+
+def test_score_reports_every_number_per_group() -> None:
+    run = [dict(r, group="g1" if r["instance_id"] in {"i1", "i2", "i3", "i4"} else "g2") for r in RUN]
+    items, key = P.split(run, random.Random(1))
+    assert {k["group"] for k in key} == {"g1", "g2"}
+    keys, labs = [key_row(k) for k in key], [label(x) for x in _label_all(items)]
+    pooled = S.score(keys, labs)
+    g1, g2 = pooled["by_group"]["g1"], pooled["by_group"]["g2"]
+    assert (g1["instances"], g1["redrafts"], g2["instances"], g2["redrafts"]) == (4, 2, 2, 2)
+    assert g1["A_redraft_admitted_and_satisfies"]["k"] + g2["A_redraft_admitted_and_satisfies"]["k"] == 1
+    assert "bar" in pooled
+    assert "bar" not in g1
+    sampling = {
+        "first_drafts": 6,
+        "admitted_first_drafts": 2,
+        "by_group": {
+            "g1": {"first_drafts": 4, "admitted_first_drafts": 2},
+            "g2": {"first_drafts": 2, "admitted_first_drafts": 0},
+        },
+    }
+    weighted = S.score(keys, labs, sampling)
+    assert weighted["by_group"]["g1"]["C_first_admitted_while_violating"]["admitted_share"] == 0.5
+    assert weighted["by_group"]["g2"]["C_first_admitted_while_violating"]["estimate"] == 0.0  # none admitted in g2
+    sampling["by_group"]["g2"] = {"first_drafts": 3, "admitted_first_drafts": 1}
+    assert "no admitted first draft" in S.score(keys, labs, sampling)["by_group"]["g2"]["not_computed"]

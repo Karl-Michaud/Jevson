@@ -1,6 +1,6 @@
 # J4b measurement tooling
 
-Tooling for the two live Phase 4 exit criteria in `docs/PLAN.md`: the **injection regression** and the **redraft bar**. Nothing here is library code, and nothing here calls an API. The live runs are stubs in `live.py` until J4a (ASTERION-32) merges.
+Tooling for the two live Phase 4 exit criteria in `docs/PLAN.md`: the **injection regression** and the **redraft bar**. Nothing here is library code, and nothing here reads a key; the billed runs live in `tests/integration/` (ASTERION-36).
 
 | File | What it is |
 |---|---|
@@ -11,7 +11,8 @@ Tooling for the two live Phase 4 exit criteria in `docs/PLAN.md`: the **injectio
 | `labelling/prepare_items.py` | Splits a run record into the labeller's `items.jsonl` and the held-back `key.jsonl` |
 | `labelling/score.py`, `intervals.py`, `records.py` | Joins labels with the key and computes the bar |
 | `labelling/sample/` | A 3-draft sample run, with its items and key |
-| `live.py` | J4b stubs, with the steps as TODOs |
+| `live.py` | The injection regression through `Jevson.aresolve()`, multi- or single-draft layout; billed by `tests/integration/test_live_injection.py` |
+| `redraft.py` | The redraft-bar run: fields and criteria per corpus domain, the stopping rule, decoys, the labelling set; billed by `tests/integration/run_redraft.py` (drafts by `tests/integration/openai_chat.py`, recorded under `recordings/redraft/`) |
 
 ## 1. Injection regression
 
@@ -49,7 +50,7 @@ Under V4 the override sits in the shared source, so it may steer the companion t
 
 ### How J4b produces the items
 
-1. Once J4a merges, `live.collect_redraft_run` resolves fields with `redraft_budget=1` through a real `LLM`, and writes one **run row** per draft (format in `labelling/records.py`):
+1. `uv run --frozen python -m tests.integration.run_redraft main` resolves the fields of `redraft.py` with `redraft_budget=1` through a real `LLM`, and writes one **run row** per draft to label (format in `labelling/records.py`), plus `sampling.json`:
 
    ```json
    {"instance_id": "…", "role": "first|redraft|decoy", "source": "…", "field": "/summary",
@@ -84,7 +85,7 @@ Under V4 the override sits in the shared source, so it may steer the companion t
 ### How the score is computed
 
 ```bash
-uv run --frozen python -m tests.j4b.labelling.score out/key.jsonl labels.jsonl --out report.json
+uv run --frozen python -m tests.j4b.labelling.score out/key.jsonl labels.jsonl --sampling sampling.json --out report.json
 ```
 
 A draft **truly satisfies** its criteria when every answer is yes, and **violates** them when any answer is no. Decoys are excluded from every number.
@@ -113,4 +114,4 @@ uv run --frozen python -m tests.j4b.labelling.score tests/j4b/labelling/sample/k
 
 ### Known limit of the blinding
 
-A first draft that was rejected appears together with its redraft (same source and field), while an admitted first draft appears alone. A labeller who notices that a source shows up twice can infer that its first draft was rejected. `role: "decoy"` exists so that J4b can add an extra draft to admitted instances and close that gap. Decoys are labelled, then ignored by the scorer.
+A first draft that was rejected appears together with its redraft (same source and field), while an admitted first draft would appear alone. J4b closes that gap: each sampled admitted first draft gets a decoy second draft (`role: "decoy"`), made through the same redraft prompt with one random criterion named as failing, so every labelled (source, field) appears exactly twice. Decoys are labelled, then ignored by the scorer. `--sampling` weights C by the exact admitted share, because only a sample of admitted first drafts is labelled (PLAN Phase 4, stated interpretations).
