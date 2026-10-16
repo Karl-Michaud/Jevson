@@ -228,8 +228,20 @@ def test_replay_only_miss_is_a_backend_error_with_the_partial_result(tmp_path: P
 def test_every_cost_event_reaches_the_sink() -> None:
     sink = Events()
     resolve(Invoice, FakeBackend(default=confident), cost_sink=sink)
-    assert sink.events == [CostEvent("decision", "fake-1", input_tokens=sink.events[0].input_tokens)]
-    assert sink.events[0].input_tokens > 0
+    (event,) = sink.events
+    assert (event.component, event.request_id, event.succeeded) == ("decision", "fake-1", True)
+    assert event.input_tokens > 0
+
+
+def test_the_estimate_is_recorded_beside_the_billed_input_tokens() -> None:
+    """DESIGN §8.2: every response's billed `input_tokens` is compared with preflight's estimate."""
+    sink = Events()
+    result = resolve(Invoice, FakeBackend(default=confident), cost_sink=sink)
+    (event,) = sink.events
+    assert event.estimated_input_tokens is not None
+    assert event.estimated_input_tokens >= event.input_tokens > 0  # pessimistic against the fake's chars/4
+    assert result.cost.decision_input_tokens == event.input_tokens
+    assert result.cost.decision_input_tokens_estimated == event.estimated_input_tokens
 
 
 def test_a_schema_that_cannot_compile_raises_before_any_call() -> None:

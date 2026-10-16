@@ -21,6 +21,7 @@ from jevson import (
     FakeBackend,
     JevsonConfig,
     LLMError,
+    PreflightError,
     Result,
     UsageError,
     compile_schema,
@@ -265,20 +266,24 @@ def test_transport_retries_and_cache_hits_are_counted_apart() -> None:
     graph = DecisionGraph([flag("a"), flag("b", frozenset({"/a#predicate"}))])
     sink = Recorder()
     result = run(graph, Replies(retried, hit), cost_sink=sink)
+    # Both requests hold one same-length question over the same state, so one estimate fits both.
+    state = LevelState("the source").serialise()
+    estimate = budget.estimate_tokens(state) + budget.declared_tokens(flag("a"))
     assert result.cost == replace(
         result.cost,
         decision_requests=3,
         decision_input_tokens=40,
+        decision_input_tokens_estimated=estimate,  # the cache hit is billed nothing and estimated nothing
         decision_request_ids=("f1", "f2", "ok"),
         cache_hits=1,
         transport_retries=2,
     )
     assert result.model == ("m1", "m2")
     assert sink.events == [
-        CostEvent("decision", "f1", transport_retry=True, succeeded=False),
-        CostEvent("decision", "f2", transport_retry=True, succeeded=False),
-        CostEvent("decision", "ok", 40),
-        CostEvent("decision", "old", cache_hit=True),
+        CostEvent("decision", "f1", transport_retry=True, succeeded=False, estimated_input_tokens=estimate),
+        CostEvent("decision", "f2", transport_retry=True, succeeded=False, estimated_input_tokens=estimate),
+        CostEvent("decision", "ok", 40, estimated_input_tokens=estimate),
+        CostEvent("decision", "old", cache_hit=True, estimated_input_tokens=estimate),
     ]
 
 
@@ -295,11 +300,40 @@ def test_state_is_keyed_objects_only() -> None:
 def test_split_packs_in_order_within_both_limits() -> None:
     qs = [Question(f"q{i}", DecisionKind.PREDICATE, "x" * 30) for i in range(5)]
     per = budget.question_tokens(qs[0])
+    sizes = {q.name: per for q in qs}
     config = JevsonConfig(max_input_tokens=budget.estimate_tokens("s") + 2 * per, max_questions_per_request=200)
-    assert [[q.name for q in c] for c in budget.split("s", qs, config)] == [["q0", "q1"], ["q2", "q3"], ["q4"]]
-    assert budget.oversized("s", qs, JevsonConfig(max_input_tokens=per)) == qs
+    chunks = budget.split("s", qs, sizes, config)
+    assert [[q.name for q in c] for c in chunks] == [["q0", "q1"], ["q2", "q3"], ["q4"]]
+    assert budget.oversized("s", qs, sizes, JevsonConfig(max_input_tokens=per)) == qs
+    assert budget.request_tokens("s", qs[:2], sizes) == budget.estimate_tokens("s") + 2 * per
     assert budget.estimate_tokens("ab") == 1
     assert budget.estimate_tokens("é" * 3) == 2
+
+
+def test_each_node_is_budgeted_at_its_declared_size() -> None:
+    """The hook Phase 4 uses to budget drafts before they exist: a node declared larger than its text
+    is split out, or refused before any call when it cannot fit at all."""
+    graph = DecisionGraph([flag("a"), flag("big"), flag("c")])
+    small = budget.declared_tokens(flag("a"))
+    room = budget.estimate_tokens(LevelState("the source").serialise()) + 3 * small  # a+big fit; c does not
+
+    def declared(node: DecisionNode) -> int:
+        return 2 * small if node.target == "/big" else small
+
+    backend = FakeBackend(default=FakeBackend.predicate(0.9))
+    result = run(graph, backend, config=JevsonConfig(max_input_tokens=room), declared_size=declared)
+    assert [[q.name for q in call.questions] for call in backend.calls] == [["q0", "q1"], ["q2"]]
+    assert result.cost.level_splits == 1
+    state = budget.estimate_tokens(LevelState("the source").serialise())
+    assert result.cost.decision_input_tokens_estimated == (state + 3 * small) + (state + small)
+
+    def huge(node: DecisionNode) -> int:
+        return room * 2 if node.target == "/big" else small
+
+    untouched = FakeBackend(default=FakeBackend.predicate(0.9))
+    with pytest.raises(PreflightError, match="/big"):
+        run(graph, untouched, config=JevsonConfig(max_input_tokens=room), declared_size=huge)
+    assert untouched.calls == []
 
 
 POSITIONAL = re.compile(r"\[\d+\]")
