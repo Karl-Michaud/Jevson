@@ -15,6 +15,9 @@ EXPECTED = {
     "Jevson",
     "JevsonConfig",
     "compile_schema",
+    "ReplayLLM",
+    "dry_run",
+    "DryRun",
     # the exception hierarchy
     "JevsonError",
     "CompileError",

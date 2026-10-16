@@ -1,4 +1,5 @@
-"""The versioned question templates of DESIGN §5.2 for class C decisions (docs/taxonomy.md §1.2).
+"""The versioned question templates of DESIGN §5.2 (docs/taxonomy.md §1.2): class C decisions, and
+the adjudication questions and drafting prompts of generative fields (class E, DESIGN §6.3).
 
 Version 1.1.0 (ASTERION-29). The enum, ordinal, and option strings are byte-identical to
 `tests/phase0/templates.py`, the Phase 0 record (1.0.0). The bool template is new: 1.0.0 wrapped a
@@ -35,6 +36,10 @@ ENUM_OPTION = '"{value}"'
 BOOL_INSTRUCTIONS = "According to the source, is it true that {predicate}?"
 BOOL_SCOPED_INSTRUCTIONS = "According to the source, for the {scope}, is it true that {predicate}?"
 ORDINAL_INSTRUCTIONS = "Which level best describes the {label}?"
+CRITERION_INSTRUCTIONS = "Does `drafts.{node}` meet this criterion: {criterion}?"
+RUBRIC_INSTRUCTIONS = "Which level best describes `drafts.{node}` against this rubric: {rubric}?"
+GENERATE_PROMPT = "Write the {label} for the source below. {instructions}Return only the value."
+REDRAFT_PROMPT = "That draft does not meet these criteria: {criteria}. Write the {label} again. Return only the value."
 
 _ARTICLES = ("the ", "a ", "an ")
 _CONJUNCTIONS = ("whether ", "if ")
@@ -107,6 +112,26 @@ def bool_question(predicate: str, scope: str = "") -> str:
 
 def ordinal_question(label: str) -> str:
     return ORDINAL_INSTRUCTIONS.format(label=label)
+
+
+def criterion_question(node: str, criterion: str) -> str:
+    return CRITERION_INSTRUCTIONS.format(node=node, criterion=_trim(criterion))
+
+
+def rubric_question(node: str, rubric: str) -> str:
+    return RUBRIC_INSTRUCTIONS.format(node=node, rubric=_trim(rubric))
+
+
+def generate_prompt(label: str, instructions: str | None) -> str:
+    """The drafting prompt; instructions, when declared, end in a full stop before the closing line."""
+    text = (instructions or "").strip()
+    if text and not text.endswith((".", "!", "?")):
+        text += "."
+    return GENERATE_PROMPT.format(label=label, instructions=f"{text} " if text else "")
+
+
+def redraft_prompt(label: str, criteria: Sequence[str]) -> str:
+    return REDRAFT_PROMPT.format(label=label, criteria="; ".join(_trim(c) for c in criteria))
 
 
 def option_description(value: JSONValue) -> str:

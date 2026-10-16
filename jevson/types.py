@@ -139,6 +139,19 @@ class DecisionNode:
 
 
 @dataclass(frozen=True)
+class Drafting:
+    """What a `generate` step needs (DESIGN §6.3): its rendered prompt, its label for a redraft, the
+    draft limit, and the text each of its adjudication nodes checks, by node id. `rubric_minimum` is
+    the id of the lowest passing rubric level, when the field declares a rubric."""
+
+    prompt: str
+    label: str
+    max_draft_chars: int = 4000
+    checks: tuple[tuple[str, str], ...] = ()
+    rubric_minimum: str | None = None
+
+
+@dataclass(frozen=True)
 class StepNode:
     """An external step: drafting through an LLM (v0), or extraction (class D, deferred)."""
 
@@ -146,6 +159,8 @@ class StepNode:
     kind: StepKind
     target: str
     dependencies: frozenset[str] = frozenset()
+    drafting: Drafting | None = None
+    """Set on every compiled `generate` step; an extraction step has none."""
 
     @property
     def protocol(self) -> Literal["Extractor", "LLM"]:

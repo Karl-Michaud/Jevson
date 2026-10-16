@@ -51,11 +51,13 @@ class RefusalCode(StrEnum):
     SEMANTIC_ORDER = "semantic_order"
     SOURCE_AND_GENERATE = "source_and_generate"
     SOURCE_SELECTION_DROPPED = "source_selection_dropped"
+    RUBRIC_DESCRIPTION_MISSING = "rubric_description_missing"
     # mapping (checked by compile/mapping.py)
     ORDINAL_LEVELS = "ordinal_levels"
     ENUM_VALUE_TYPE = "enum_value_type"
     UNBOUNDED_FIELD = "unbounded_field"
     BOOL_PREDICATE_MISSING = "bool_predicate_missing"
+    GENERATE_FIELD_TYPE = "generate_field_type"
     # compilation (checked by compile/compiler.py)
     DUPLICATE_QUESTION = "duplicate_question"
     # later phases

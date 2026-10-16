@@ -11,9 +11,11 @@
 | any other string, number, decimal, integer, or scalar array | `unbounded_field` (class G), or |
 |  | `source_selection_dropped` when a `default_extractor` is set |
 | array of enum (multi-label) | `not_yet_supported` until Phase 7, with or without a default |
+| string declaring `generate` (with or without a default) | a `generate` step + criteria (`generative.py`) |
+| any other field declaring `generate` | `generate_field_type`: class E is a string (generative lists are class G) |
 
 Subtrees the normaliser refused (`Kind.REFUSED`) are skipped, and a field whose `source` or
-`generate` `declarations.py` already refused gets no second reason; every new refusal goes to the
+malformed `generate` `declarations.py` already refused gets no second reason; every new refusal goes to the
 same `Refusals`, so one `CompileError` names every pointer (R14).
 
 Questions are rendered after the whole tree is mapped, because a label that is not unique in the
@@ -28,19 +30,33 @@ from dataclasses import dataclass, replace
 from decimal import Decimal
 
 from jevson.compile import questions
+from jevson.compile.declarations import GenerateDeclaration
+from jevson.compile.generative import generative_nodes
 from jevson.compile.nodes import node_id, option_id
 from jevson.compile.normalise import Kind, SchemaNode
 from jevson.compile.refusal import Refusals
 from jevson.errors import RefusalCode
-from jevson.types import MAX_OPTIONS, DecisionKind, DecisionNode, JSONValue, Option, OptionSource, ProvenanceKind
+from jevson.types import (
+    MAX_OPTIONS,
+    DecisionKind,
+    DecisionNode,
+    JSONValue,
+    Option,
+    OptionSource,
+    ProvenanceKind,
+    StepNode,
+)
 
 MIN_LEVELS, MAX_LEVELS = 2, 10
 MAX_ORDINAL_SPAN = 10_000
 """An ordinal range wider than this is refused before its levels are listed."""
 
 
-def map_tree(root: SchemaNode, refusals: Refusals, *, default_extractor: str | None) -> tuple[DecisionNode, ...]:
-    """The decision nodes of a normalised tree, in schema order; problems go to `refusals`."""
+def map_tree(
+    root: SchemaNode, refusals: Refusals, *, default_extractor: str | None
+) -> tuple[DecisionNode | StepNode, ...]:
+    """The class C decision nodes of a normalised tree in schema order, then the generative fields'
+    steps and adjudication nodes; problems go to `refusals`."""
     if root.kind is Kind.REFUSED:
         return ()
     if root.kind is not Kind.OBJECT:
@@ -49,7 +65,7 @@ def map_tree(root: SchemaNode, refusals: Refusals, *, default_extractor: str | N
     mapper = _Mapper(refusals, default_extractor)
     mapper.object(root, ())
     scopes = questions.scopes([p.labelled for p in mapper.pending])
-    return tuple(p.render(scope) for p, scope in zip(mapper.pending, scopes, strict=True))
+    return (*(p.render(scope) for p, scope in zip(mapper.pending, scopes, strict=True)), *mapper.generated)
 
 
 @dataclass(frozen=True)
@@ -88,21 +104,25 @@ class _Mapper:
         self.refusals = refusals
         self.default_extractor = default_extractor
         self.pending: list[_Pending] = []
+        self.generated: list[DecisionNode | StepNode] = []
 
     def refuse(self, node: SchemaNode, code: RefusalCode, message: str) -> None:
         self.refusals.add(node.pointer, code, message)
 
     def object(self, node: SchemaNode, ancestors: tuple[str, ...]) -> None:
         for name, child in node.properties:
-            if child.kind is Kind.OBJECT:
+            generated = child.declaration is not None and child.declaration.declares_generate
+            if child.kind is Kind.OBJECT and not generated:
                 self.object(child, (*ancestors, name))
-            elif child.kind not in (Kind.REFUSED, Kind.CONSTANT):
+            elif child.kind is not Kind.REFUSED and (generated or child.kind is not Kind.CONSTANT):
                 self.field(name, child, ancestors)
 
     def field(self, name: str, node: SchemaNode, ancestors: tuple[str, ...]) -> None:
         declaration = node.declaration
-        if declaration is not None and (declaration.declares_source or declaration.generate is not None):
-            return  # declarations.py refused it: source_selection_dropped, or not_yet_supported (Phase 4)
+        if declaration is not None and (declaration.declares_source or declaration.declares_generate):
+            if declaration.generate is not None:
+                self.generative(name, node, declaration.generate)
+            return None  # otherwise declarations.py refused it: source_selection_dropped, or malformed
         items = node.items
         if items is not None and items.kind is Kind.REFUSED:
             return
@@ -123,6 +143,16 @@ class _Mapper:
             self.ordinal(node, labelled)
         else:
             self.unbounded(node)
+        return None
+
+    def generative(self, name: str, node: SchemaNode, declared: GenerateDeclaration) -> None:
+        if node.kind is not Kind.STRING:
+            return self.refuse(
+                node,
+                RefusalCode.GENERATE_FIELD_TYPE,
+                f"x-jevson.generate drafts one string; this field is {node.kind} (generative lists are class G)",
+            )
+        self.generated += generative_nodes(node.pointer, questions.label(name, node), declared)
         return None
 
     def boolean(self, node: SchemaNode, labelled: questions.Labelled) -> None:

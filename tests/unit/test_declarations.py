@@ -60,26 +60,30 @@ def test_source_refuses_only_with_source_selection_dropped_whatever_its_contents
     assert declaration.declares_source
 
 
-def test_a_valid_generate_parses_then_refuses_until_phase_4() -> None:
+def test_a_valid_generate_parses_with_no_refusal() -> None:
     raw = {
         "generate": {
             "criteria": ["Only states facts in the source"],
-            "rubric": {"levels": ["poor", "ok", "good"], "minimum": "ok"},
+            "rubric": {"description": "how faithful it is", "levels": ["poor", "ok", "good"], "minimum": "ok"},
             "instructions": "One sentence.",
             "max_draft_chars": 200,
         }
     }
     declaration, codes = parse(raw)
-    assert codes == [RefusalCode.NOT_YET_SUPPORTED]
+    assert codes == []
     assert declaration is not None
+    assert declaration.declares_generate
     assert declaration.generate == GenerateDeclaration(
-        ("Only states facts in the source",), Rubric(("poor", "ok", "good"), "ok"), "One sentence.", 200
+        ("Only states facts in the source",),
+        Rubric(("poor", "ok", "good"), "ok", "how faithful it is"),
+        "One sentence.",
+        200,
     )
 
 
 def test_generate_with_no_criteria_parses_as_ungated() -> None:
     declaration, codes = parse({"generate": {}})
-    assert codes == [RefusalCode.NOT_YET_SUPPORTED]
+    assert codes == []
     assert declaration is not None
     assert declaration.generate == GenerateDeclaration()
 
@@ -90,11 +94,11 @@ def test_generate_with_no_criteria_parses_as_ungated() -> None:
         "summarise",
         {"criteria": "one"},
         {"criteria": ["ok", ""]},
-        {"rubric": {"levels": ["only"], "minimum": "only"}},
-        {"rubric": {"levels": ["a", "a"], "minimum": "a"}},
-        {"rubric": {"levels": ["a", "b"], "minimum": "c"}},
-        {"rubric": {"levels": ["a", "b"], "minimum": "a", "extra": 1}},
-        {"rubric": {"levels": [str(i) for i in range(11)], "minimum": "0"}},
+        {"rubric": {"description": "d", "levels": ["only"], "minimum": "only"}},
+        {"rubric": {"description": "d", "levels": ["a", "a"], "minimum": "a"}},
+        {"rubric": {"description": "d", "levels": ["a", "b"], "minimum": "c"}},
+        {"rubric": {"description": "d", "levels": ["a", "b"], "minimum": "a", "extra": 1}},
+        {"rubric": {"description": "d", "levels": [str(i) for i in range(11)], "minimum": "0"}},
         {"rubric": "a-b"},
         {"instructions": ""},
         {"max_draft_chars": 0},
@@ -102,9 +106,21 @@ def test_generate_with_no_criteria_parses_as_ungated() -> None:
         {"max_draft_chars": "9"},
     ],
 )
-def test_a_malformed_generate_refuses_as_malformed_not_as_not_yet_supported(generate: object) -> None:
+def test_a_malformed_generate_refuses_as_malformed(generate: object) -> None:
     declaration, codes = parse({"generate": generate})
     assert codes == [RefusalCode.MALFORMED_DECLARATION]
+    assert declaration is not None
+    assert declaration.generate is None
+    assert declaration.declares_generate
+
+
+@pytest.mark.parametrize("description", [None, "", "  ", 3])
+def test_a_rubric_without_a_description_refuses_by_name(description: object) -> None:
+    rubric: dict[str, object] = {"levels": ["poor", "good"], "minimum": "good"}
+    if description is not None:
+        rubric["description"] = description
+    declaration, codes = parse({"generate": {"criteria": ["c"], "rubric": rubric}})
+    assert codes == [RefusalCode.RUBRIC_DESCRIPTION_MISSING]
     assert declaration is not None
     assert declaration.generate is None
 
@@ -117,7 +133,6 @@ def test_source_and_generate_together_refuse_with_every_applicable_reason() -> N
     codes = parse({"source": {"extractor": "llm"}, "generate": {"criteria": ["x"]}})[1]
     assert set(codes) == {
         RefusalCode.SOURCE_SELECTION_DROPPED,
-        RefusalCode.NOT_YET_SUPPORTED,
         RefusalCode.SOURCE_AND_GENERATE,
     }
 

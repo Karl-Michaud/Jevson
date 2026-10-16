@@ -1,8 +1,8 @@
 """The `x-jevson` keyword: parse, validate, refuse unknown keys (DESIGN §3.5).
 
 In v0, `source` always refuses with `source_selection_dropped` (Phase 0r **[Q2, Q9]**), whatever its
-extractor and keys, so its contents are not validated; `generate` is validated and then refuses
-with `not_yet_supported` until Phase 4.
+extractor and keys, so its contents are not validated. `generate` is validated here and compiled
+by `compile/generative.py` (Phase 4).
 """
 
 from __future__ import annotations
@@ -29,6 +29,8 @@ SOURCE_DROPPED_MESSAGE = (
 class Rubric:
     levels: tuple[str, ...]
     minimum: str
+    description: str
+    """What is being rated, e.g. "how faithfully the summary reflects the source" (DESIGN §3.5)."""
 
 
 @dataclass(frozen=True)
@@ -48,6 +50,8 @@ class FieldDeclaration:
     order: Literal["source"] | None = None
     generate: GenerateDeclaration | None = None
     declares_source: bool = False
+    declares_generate: bool = False
+    """True when `generate` is present, even if it was malformed and refused (so `generate` is None)."""
 
     @property
     def decides(self) -> bool:
@@ -94,8 +98,6 @@ def parse_declaration(raw: object, pointer: str, refusals: Refusals) -> FieldDec
     if declares_source:
         bad(SOURCE_DROPPED_MESSAGE, RefusalCode.SOURCE_SELECTION_DROPPED)
     generate = _generate(items["generate"], bad) if "generate" in items else None
-    if generate is not None:
-        bad("x-jevson.generate is lifted in Phase 4 (generative fields)", RefusalCode.NOT_YET_SUPPORTED)
     if declares_source and "generate" in items:
         bad("a field can declare source or generate, not both", RefusalCode.SOURCE_AND_GENERATE)
 
@@ -105,6 +107,7 @@ def parse_declaration(raw: object, pointer: str, refusals: Refusals) -> FieldDec
         order="source" if order == "source" else None,
         generate=generate,
         declares_source=declares_source,
+        declares_generate="generate" in items,
     )
 
 
@@ -118,6 +121,8 @@ def _generate(raw: object, bad: _Report) -> GenerateDeclaration | None:
         bad(f"unknown x-jevson.generate key {key!r}", RefusalCode.UNKNOWN_DECLARATION_KEY)
     criteria = _texts(items.get("criteria", []))
     rubric = _rubric(items["rubric"]) if "rubric" in items else None
+    rubric_items = as_object(items.get("rubric"))
+    undescribed = rubric_items is not None and as_text(rubric_items.get("description")) is None
     instructions = items.get("instructions")
     max_chars = items.get("max_draft_chars")
     malformed = [
@@ -125,8 +130,9 @@ def _generate(raw: object, bad: _Report) -> GenerateDeclaration | None:
         for failed, message in (
             (criteria is None, "x-jevson.generate.criteria must be a list of non-empty texts"),
             (
-                "rubric" in items and rubric is None,
-                "x-jevson.generate.rubric must be {levels: 2-10 distinct texts, minimum: one of them}",
+                "rubric" in items and rubric is None and not undescribed,
+                "x-jevson.generate.rubric must be {description: non-empty text naming what is rated, "
+                "levels: 2-10 distinct texts, minimum: one of them}",
             ),
             (
                 instructions is not None and as_text(instructions) is None,
@@ -141,7 +147,13 @@ def _generate(raw: object, bad: _Report) -> GenerateDeclaration | None:
     ]
     for message in malformed:
         bad(message)
-    if unknown or malformed:
+    if undescribed:
+        bad(
+            "x-jevson.generate.rubric needs a description naming what is rated, e.g. 'how faithfully the "
+            "summary reflects the source'",
+            RefusalCode.RUBRIC_DESCRIPTION_MISSING,
+        )
+    if unknown or malformed or undescribed:
         return None
     return GenerateDeclaration(
         criteria=criteria or (),
@@ -158,16 +170,18 @@ def _positive_int(value: object) -> bool:
 def _rubric(raw: object) -> Rubric | None:
     items = as_object(raw) or {}
     levels, minimum = _texts(items.get("levels")), items.get("minimum")
+    description = as_text(items.get("description"))
     if (
-        levels is None
+        description is None
+        or levels is None
         or not MIN_LEVELS <= len(levels) <= MAX_LEVELS
         or len(set(levels)) != len(levels)
         or not isinstance(minimum, str)
         or minimum not in levels
-        or items.keys() - {"levels", "minimum"}
+        or items.keys() - {"levels", "minimum", "description"}
     ):
         return None
-    return Rubric(levels, minimum)
+    return Rubric(levels, minimum, description)
 
 
 def _texts(raw: object) -> tuple[str, ...] | None:

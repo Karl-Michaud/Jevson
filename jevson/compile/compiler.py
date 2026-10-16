@@ -29,7 +29,7 @@ def compile_schema(
     del extractors  # v0: no field is source-selected, so no extractor name is ever looked up
     refusals = Refusals()
     nodes = map_tree(normalise(schema, refusals), refusals, default_extractor=default_extractor)
-    refuse_duplicate_questions(nodes, refusals)
+    refuse_duplicate_questions([n for n in nodes if isinstance(n, DecisionNode)], refusals)
     refusals.raise_if_any()
     return DecisionGraph(nodes)
 
