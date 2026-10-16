@@ -200,9 +200,10 @@ def test_a_non_flat_all_of_refuses(branches: object) -> None:
     assert refusals_of(obj(x={"allOf": branches})) == [("/x", RefusalCode.NON_FLAT_ALL_OF)]
 
 
-def test_one_of_with_a_discriminator_is_not_yet_supported() -> None:
+def test_a_discriminated_union_normalises_to_its_branches_at_its_own_pointer() -> None:
     class Cat(BaseModel):
         pet: Literal["cat"]
+        indoor: bool
 
     class Dog(BaseModel):
         pet: Literal["dog"]
@@ -210,19 +211,35 @@ def test_one_of_with_a_discriminator_is_not_yet_supported() -> None:
     class Owner(BaseModel):
         pet: Cat | Dog = Field(discriminator="pet")
 
-    assert refusals_of(Owner) == [("/pet", RefusalCode.NOT_YET_SUPPORTED)]
+    union = dict(normalise_schema(Owner).properties)["pet"]
+    assert union.kind is Kind.UNION
+    assert [(b.pointer, b.kind, b.title) for b in union.branches] == [
+        ("/pet", Kind.OBJECT, "Cat"),
+        ("/pet", Kind.OBJECT, "Dog"),
+    ]
+    assert [p.pointer for _, p in union.branches[0].properties] == ["/pet/pet", "/pet/indoor"]
 
 
 @pytest.mark.parametrize(
-    "field",
+    ("field", "kinds", "nullable"),
     [
-        {"anyOf": [{"type": "string"}, {"type": "integer"}, {"type": "null"}]},
-        {"type": ["string", "integer"]},
-        {"anyOf": [{"type": "string"}], "oneOf": [{"type": "string"}]},
+        ({"anyOf": [{"type": "string"}, {"type": "integer"}, {"type": "null"}]}, [Kind.STRING, Kind.INTEGER], True),
+        ({"type": ["boolean", "integer"], "description": "d"}, [Kind.BOOLEAN, Kind.INTEGER], False),
+        ({"oneOf": [{"enum": ["a", "b"]}, obj(x={"type": "boolean"})]}, [Kind.ENUM, Kind.OBJECT], False),
     ],
 )
-def test_unions_with_two_or_more_non_null_branches_are_not_yet_supported(field: object) -> None:
-    assert refusals_of(obj(u=field)) == [("/u", RefusalCode.NOT_YET_SUPPORTED)]
+def test_unions_with_two_or_more_non_null_branches_normalise(field: object, kinds: list[Kind], nullable: bool) -> None:
+    union = dict(normalise_schema(obj(u=field)).properties)["u"]
+    assert (union.kind, [b.kind for b in union.branches], union.nullable) == (Kind.UNION, kinds, nullable)
+    assert all(b.description is None for b in union.branches)  # a type list's annotations stay on the union
+
+
+def test_any_of_beside_one_of_and_arrays_of_unions_refuse() -> None:
+    schema = obj(
+        u={"anyOf": [{"type": "string"}], "oneOf": [{"type": "string"}]},
+        a={"type": "array", "items": {"anyOf": [{"type": "string"}, {"type": "integer"}]}},
+    )
+    assert refusals_of(schema) == [("/u", RefusalCode.UNSUPPORTED_KEYWORD), ("/a", RefusalCode.UNION_IN_ARRAY)]
 
 
 def test_null_forms_strip_to_nullable_values() -> None:
@@ -316,7 +333,7 @@ def test_refusal_is_total_and_lists_every_offending_pointer() -> None:
         b={"type": "object", "additionalProperties": {}},
         c={"type": "string", "x-jevson": {"source": {"extractor": "llm"}}},
         d=obj(e={"type": "string", "x-jevson": {"order": "semantic", "bogus": 1}}),
-        f={"anyOf": [{"type": "string"}, {"type": "integer"}]},
+        f={"anyOf": [obj(t={"type": "array", "prefixItems": []}), {"type": "integer"}]},
         ok={"type": "boolean"},
     )
     with pytest.raises(CompileError) as raised:
@@ -327,7 +344,7 @@ def test_refusal_is_total_and_lists_every_offending_pointer() -> None:
         ("/c", RefusalCode.SOURCE_SELECTION_DROPPED),
         ("/d/e", RefusalCode.UNKNOWN_DECLARATION_KEY),
         ("/d/e", RefusalCode.SEMANTIC_ORDER),
-        ("/f", RefusalCode.NOT_YET_SUPPORTED),
+        ("/f/t", RefusalCode.TUPLE_FIELD),  # inside a union branch: every branch is normalised
     ]
 
 

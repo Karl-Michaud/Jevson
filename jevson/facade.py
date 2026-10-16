@@ -126,7 +126,9 @@ class Jevson:
         if not isinstance(source, str):  # pyright: ignore[reportUnnecessaryIsInstance]
             raise PreflightError("aresolve takes exactly one source, as a str")
         config = self._config if redraft_budget is None else replace(self._config, redraft_budget=redraft_budget)
-        graph = compile_schema(schema, frozenset(self._extractors), config.default_extractor)
+        graph = compile_schema(
+            schema, frozenset(self._extractors), config.default_extractor, union_fanout=config.union_fanout
+        )
         fields = _fields(normalise_schema(schema))
         checked = _check_known(graph, fields, known)
         result = await execute(
@@ -149,6 +151,8 @@ def _fields(node: SchemaNode) -> dict[str, SchemaNode]:
     for _, child in node.properties:
         found[child.pointer] = replace(child, required=child.required and node.required)
         found |= _fields(found[child.pointer])
+    for branch in node.branches:  # a union's branches sit at its pointer; only one is selected
+        found |= _fields(replace(branch, required=node.required))
     return found
 
 
@@ -163,8 +167,11 @@ def _check_known(
     for node in graph.nodes.values():
         if isinstance(node, StepNode) or node.target not in by_target:
             by_target[node.target] = node  # a generative field is known by its step
+    constants = {c.pointer for c in graph.constants}  # checked by the executor (`execute/branches.py`)
     for pointer, value in known.items():
         node = by_target.get(pointer)
+        if node is None and pointer in constants:
+            continue
         if node is None:
             raise PreflightError(f"known= names {pointer!r}, which is not a decided field")
         if not _allowed(node, fields.get(pointer, _OPTIONAL), value):

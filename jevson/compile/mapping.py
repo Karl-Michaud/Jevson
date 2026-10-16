@@ -12,6 +12,8 @@
 |  | `source_selection_dropped` when a `default_extractor` is set |
 | array of enum (multi-label) | `not_yet_supported` until Phase 7, with or without a default |
 | string declaring `generate` (with or without a default) | a `generate` step + criteria (`generative.py`) |
+| a required constant with no default; any constant in a union branch | a `Constant` committed by code |
+| union (two or more non-null branches) | a discriminator `choice`, then each branch mapped (`unions.py`) |
 | any other field declaring `generate` | `generate_field_type`: class E is a string (generative lists are class G) |
 
 Subtrees the normaliser refused (`Kind.REFUSED`) are skipped, and a field whose `source` or
@@ -26,10 +28,10 @@ from __future__ import annotations
 
 import math
 from collections.abc import Mapping
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from decimal import Decimal
 
-from jevson.compile import questions
+from jevson.compile import questions, unions
 from jevson.compile.declarations import GenerateDeclaration
 from jevson.compile.generative import generative_nodes
 from jevson.compile.nodes import node_id, option_id
@@ -38,6 +40,7 @@ from jevson.compile.refusal import Refusals
 from jevson.errors import RefusalCode
 from jevson.types import (
     MAX_OPTIONS,
+    Constant,
     DecisionKind,
     DecisionNode,
     JSONValue,
@@ -52,20 +55,33 @@ MAX_ORDINAL_SPAN = 10_000
 """An ordinal range wider than this is refused before its levels are listed."""
 
 
-def map_tree(
-    root: SchemaNode, refusals: Refusals, *, default_extractor: str | None
-) -> tuple[DecisionNode | StepNode, ...]:
+@dataclass(frozen=True)
+class Mapped:
+    nodes: tuple[DecisionNode | StepNode, ...] = ()
+    constants: tuple[Constant, ...] = ()
+
+
+def map_tree(root: SchemaNode, refusals: Refusals, *, default_extractor: str | None, fanout: bool = False) -> Mapped:
     """The class C decision nodes of a normalised tree in schema order, then the generative fields'
-    steps and adjudication nodes; problems go to `refusals`."""
+    steps and adjudication nodes, and the constants code commits; problems go to `refusals`."""
     if root.kind is Kind.REFUSED:
-        return ()
+        return Mapped()
+    if root.kind is Kind.UNION:
+        refusals.add(
+            root.pointer,
+            RefusalCode.ROOT_UNION,
+            "a root union is refused in v0: Result.value is an object and a Pydantic model's root is a model; "
+            "wrap the union in a field",
+        )
+        return Mapped()
     if root.kind is not Kind.OBJECT:
         refusals.add(root.pointer, RefusalCode.MALFORMED_SCHEMA, "the root must be an object schema")
-        return ()
-    mapper = _Mapper(refusals, default_extractor)
+        return Mapped()
+    mapper = _Mapper(refusals, default_extractor, fanout)
     mapper.object(root, ())
     scopes = questions.scopes([p.labelled for p in mapper.pending])
-    return (*(p.render(scope) for p, scope in zip(mapper.pending, scopes, strict=True)), *mapper.generated)
+    rendered = (p.render(scope) for p, scope in zip(mapper.pending, scopes, strict=True))
+    return Mapped((*rendered, *mapper.generated), tuple(mapper.constants))
 
 
 @dataclass(frozen=True)
@@ -76,12 +92,16 @@ class _Pending:
     kind: DecisionKind
     labelled: questions.Labelled
     values: tuple[JSONValue, ...] = ()
+    at: unions.Branching = field(default_factory=unions.Branching)
 
     def render(self, scope: str) -> DecisionNode:
-        node_ref = node_id(self.node.pointer, self.kind)
+        node_ref = node_id(self.at.qualify(self.node.pointer), self.kind)
         if self.kind is DecisionKind.PREDICATE:
             question = questions.bool_question(self.labelled.label, scope)
-            return DecisionNode(node_ref, self.kind, question, OptionSource.PREDICATE, self.node.pointer)
+            return DecisionNode(
+                node_ref, self.kind, question, OptionSource.PREDICATE, self.node.pointer,
+                dependencies=self.at.after, branch=self.at.gates,
+            )  # fmt: skip
         label = questions.scoped_label(self.labelled.label, scope)
         if self.kind is DecisionKind.SCORE:
             question = questions.ordinal_question(label)
@@ -96,15 +116,20 @@ class _Pending:
             tuple(Option(option_id(i), questions.option_description(v)) for i, v in enumerate(self.values)),
             provenance=ProvenanceKind.DECLARED_OPTION,
             values=self.values,
+            dependencies=self.at.after,
+            branch=self.at.gates,
         )
 
 
 class _Mapper:
-    def __init__(self, refusals: Refusals, default_extractor: str | None) -> None:
+    def __init__(self, refusals: Refusals, default_extractor: str | None, fanout: bool) -> None:
         self.refusals = refusals
         self.default_extractor = default_extractor
-        self.pending: list[_Pending] = []
+        self.fanout = fanout
+        self.pending: list[_Pending | unions.PendingUnion] = []
         self.generated: list[DecisionNode | StepNode] = []
+        self.constants: list[Constant] = []
+        self.at = unions.Branching()
 
     def refuse(self, node: SchemaNode, code: RefusalCode, message: str) -> None:
         self.refusals.add(node.pointer, code, message)
@@ -114,8 +139,39 @@ class _Mapper:
             generated = child.declaration is not None and child.declaration.declares_generate
             if child.kind is Kind.OBJECT and not generated:
                 self.object(child, (*ancestors, name))
-            elif child.kind is not Kind.REFUSED and (generated or child.kind is not Kind.CONSTANT):
+            elif child.kind is Kind.UNION and not generated:
+                self.union(name, child, ancestors)
+            elif child.kind is Kind.CONSTANT and not generated:
+                if self.at.gates or (child.required and not child.has_default):
+                    self.constants.append(Constant(child.pointer, child.values[0], self.at.gates))
+            elif child.kind is not Kind.REFUSED:
                 self.field(name, child, ancestors)
+
+    def union(self, name: str, node: SchemaNode, ancestors: tuple[str, ...]) -> None:
+        texts = unions.branch_texts(node.branches)
+        if texts is None:
+            return self.refuse(
+                node,
+                RefusalCode.UNDISCRIMINABLE_UNION,
+                "two branches have identical titles, descriptions and required properties; give each a title "
+                "or a description",
+            )
+        verbatim = questions.declared_question(node) is not None
+        labelled = questions.Labelled(questions.label(name, node), ancestors, verbatim)
+        self.pending.append(unions.PendingUnion(node, labelled, texts, self.at))
+        outer = self.at
+        for index, branch in enumerate(node.branches):
+            self.at = outer.enter(node, index, fanout=self.fanout)
+            if branch.kind is Kind.OBJECT:
+                self.object(branch, (*ancestors, name))
+            elif branch.kind is Kind.UNION:
+                self.union(name, branch, ancestors)
+            elif branch.kind is Kind.CONSTANT:
+                self.constants.append(Constant(branch.pointer, branch.values[0], self.at.gates))
+            elif branch.kind is not Kind.REFUSED:
+                self.field(name, branch, ancestors)
+        self.at = outer
+        return None
 
     def field(self, name: str, node: SchemaNode, ancestors: tuple[str, ...]) -> None:
         declaration = node.declaration
@@ -152,7 +208,8 @@ class _Mapper:
                 RefusalCode.GENERATE_FIELD_TYPE,
                 f"x-jevson.generate drafts one string; this field is {node.kind} (generative lists are class G)",
             )
-        self.generated += generative_nodes(node.pointer, questions.label(name, node), declared)
+        nodes = generative_nodes(node.pointer, questions.label(name, node), declared, self.at.qualify(node.pointer))
+        self.generated += [replace(n, dependencies=n.dependencies | self.at.after, branch=self.at.gates) for n in nodes]
         return None
 
     def boolean(self, node: SchemaNode, labelled: questions.Labelled) -> None:
@@ -165,7 +222,7 @@ class _Mapper:
                 "a decided bool needs a statement to ask about; declare x-jevson.question or a description "
                 "such as 'the invoice is paid'",
             )
-        self.pending.append(_Pending(node, DecisionKind.PREDICATE, replace(labelled, label=statement)))
+        self.pending.append(_Pending(node, DecisionKind.PREDICATE, replace(labelled, label=statement), at=self.at))
         return None
 
     def enum(self, node: SchemaNode, labelled: questions.Labelled) -> None:
@@ -173,7 +230,7 @@ class _Mapper:
             return self.refuse(node, RefusalCode.ENUM_VALUE_TYPE, "enum values must be strings or integers")
         if len(node.values) > MAX_OPTIONS:
             return self.refuse(node, RefusalCode.ENUM_SIZE, f"{len(node.values)} values; a choice takes 2-255")
-        self.pending.append(_Pending(node, DecisionKind.CHOICE, labelled, node.values))
+        self.pending.append(_Pending(node, DecisionKind.CHOICE, labelled, node.values, self.at))
         return None
 
     def ordinal(self, node: SchemaNode, labelled: questions.Labelled) -> None:
@@ -181,7 +238,7 @@ class _Mapper:
         if levels is None or not MIN_LEVELS <= len(levels) <= MAX_LEVELS:
             found = "an unbounded range" if levels is None else f"{len(levels)} levels"
             return self.refuse(node, RefusalCode.ORDINAL_LEVELS, f"an ordinal needs 2-10 levels; found {found}")
-        self.pending.append(_Pending(node, DecisionKind.SCORE, labelled, levels))
+        self.pending.append(_Pending(node, DecisionKind.SCORE, labelled, levels, self.at))
         return None
 
     def unbounded(self, node: SchemaNode) -> None:

@@ -607,13 +607,24 @@ Arrays of candidates (Phase 7). More than one source (Phase 9).
 
 ### Exit criteria
 
-- [ ] A union resolves its discriminator first, and **only the selected branch's nodes are executed** — asserted by counting executed nodes and backend questions
-- [ ] An unmappable construct inside **any** branch refuses at compile time, before any call
-- [ ] Branches whose required properties and descriptions are identical after normalisation refuse as undiscriminable
-- [ ] A nested union levels correctly
-- [ ] The unselected branch's fields never appear in the result, even as nulls
-- [ ] The discrimination decision appears in `Result.decisions`; a tie or invalid answer yields `Unresolved` for the whole subtree (reason `tie` or `invalid_backend_answer`, children `dependency_unresolved`)
-- [ ] **Fan-out vs level:** latency and tokens for both strategies measured on ≥ 50 fixtures; the default is chosen from the numbers, which are written down
+Met by ASTERION-37 (2026-10-16). The tests are in `tests/unit/test_unions.py` unless named.
+
+- [x] A union resolves its discriminator first, and **only the selected branch's nodes are executed** — asserted by counting executed nodes and backend questions. With `union_fanout=False`, a two-level run sends the discriminator, then only the selected branch's questions. Under the fan-out default, the unselected answers are discarded, and a union with a `generate` field never fans out: its unselected step is never drafted.
+- [x] An unmappable construct inside **any** branch refuses at compile time, before any call.
+- [x] Branches whose required properties and descriptions are identical after normalisation refuse as undiscriminable (`undiscriminable_union`).
+- [x] A nested union levels correctly: 3 levels under the separate-level strategy, 1 under fan-out, with the same value.
+- [x] The unselected branch's fields never appear in the result, even as nulls. A Hypothesis property over random answers and both strategies checks that nothing off the selected path is committed or recorded.
+- [x] The discrimination decision appears in `Result.decisions` as `<pointer>#branch@0`. A tie or invalid answer yields `Unresolved` for the whole subtree, with reason `tie` or `invalid_backend_answer` and children `dependency_unresolved`. An overflowing discriminator gives `budget_exceeded`.
+- [x] **Fan-out vs level:** latency and tokens for both strategies measured on 50 fixtures (`tests/integration/test_live_union_fanout.py`, opt-in, billed ~$0.04 in all). The default is chosen from the numbers below.
+
+| 50 fixtures, `gpt-6-luna` | requests | questions | input tokens | median resolve | mean resolve | same value |
+|---|---|---|---|---|---|---|
+| level, one-line sources | 100 | 188 | 27,951 | 0.366 s | 0.400 s | 50/50 |
+| fan-out, one-line sources | 50 | 320 | 42,754 | 0.197 s | 0.215 s | 50/50 |
+| level, ~1,800-char preamble + source | 100 | 188 | 63,051 | 0.369 s | 0.393 s | 50/50 |
+| fan-out, ~1,800-char preamble + source | 50 | 320 | 59,326 | 0.190 s | 0.207 s | 50/50 |
+
+**Default: fan-out** (`JevsonConfig.union_fanout = True`). It halves latency and requests and leaves values unchanged. It costs more input only when the source is shorter than the unselected branches' questions, because the separate level re-sends the state. The first run of the one-line case read 0.386 s against 0.203 s.
 
 ### Abandon criterion
 
@@ -625,7 +636,7 @@ None. If unions prove intractable they are refused, which is the prior art's sta
 
 ### Answers
 
-`DESIGN §12`: union execution strategy.
+`DESIGN §12`: union execution strategy — **fan-out by default**, measured above.
 
 ### PR size
 

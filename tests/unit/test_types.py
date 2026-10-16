@@ -79,7 +79,7 @@ def test_step_nodes_name_their_protocol() -> None:
 
 
 def test_no_candidate_option_source_in_v0() -> None:
-    assert {s.value for s in OptionSource} == {"schema_enum", "schema_rubric", "predicate"}
+    assert {s.value for s in OptionSource} == {"schema_enum", "schema_rubric", "schema_union", "predicate"}
 
 
 def test_cost_starts_at_zero() -> None:

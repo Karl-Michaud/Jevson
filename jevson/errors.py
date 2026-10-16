@@ -42,6 +42,8 @@ class RefusalCode(StrEnum):
     ANY_FIELD = "any_field"
     BYTES_FIELD = "bytes_field"
     ARRAY_OF_OBJECTS = "array_of_objects"
+    UNION_IN_ARRAY = "union_in_array"
+    ROOT_UNION = "root_union"
     UNSUPPORTED_KEYWORD = "unsupported_keyword"
     ENUM_SIZE = "enum_size"
     # declarations
@@ -58,6 +60,7 @@ class RefusalCode(StrEnum):
     UNBOUNDED_FIELD = "unbounded_field"
     BOOL_PREDICATE_MISSING = "bool_predicate_missing"
     GENERATE_FIELD_TYPE = "generate_field_type"
+    UNDISCRIMINABLE_UNION = "undiscriminable_union"
     # compilation (checked by compile/compiler.py)
     DUPLICATE_QUESTION = "duplicate_question"
     # later phases

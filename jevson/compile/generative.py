@@ -17,15 +17,19 @@ from jevson.types import DecisionKind, DecisionNode, Drafting, Option, OptionSou
 DEFAULT_MAX_DRAFT_CHARS = 4000
 
 
-def generative_nodes(pointer: str, label: str, declared: GenerateDeclaration) -> tuple[StepNode | DecisionNode, ...]:
-    """The step and its adjudication nodes, step first."""
-    step_id = role_id(pointer, "generate")
+def generative_nodes(
+    pointer: str, label: str, declared: GenerateDeclaration, id_pointer: str | None = None
+) -> tuple[StepNode | DecisionNode, ...]:
+    """The step and its adjudication nodes, step first; ids use `id_pointer` (a union branch's
+    qualified pointer, `unions.py`) when given."""
+    named = id_pointer or pointer
+    step_id = role_id(named, "generate")
     after = frozenset({step_id})
     checks: list[tuple[str, str]] = []
     nodes: list[DecisionNode] = []
     for index, criterion in enumerate(declared.criteria):
         node = DecisionNode(
-            role_id(pointer, f"criterion:{index}"),
+            role_id(named, f"criterion:{index}"),
             DecisionKind.PREDICATE,
             questions.criterion_question(step_id, criterion),
             OptionSource.PREDICATE,
@@ -41,7 +45,7 @@ def generative_nodes(pointer: str, label: str, declared: GenerateDeclaration) ->
             Option(option_id(i), questions.option_description(level)) for i, level in enumerate(rubric.levels)
         )
         node = DecisionNode(
-            role_id(pointer, "rubric"),
+            role_id(named, "rubric"),
             DecisionKind.SCORE,
             questions.rubric_question(step_id, rubric.description),
             OptionSource.SCHEMA_RUBRIC,

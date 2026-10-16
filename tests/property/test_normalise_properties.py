@@ -13,7 +13,7 @@ from jevson.compile.normalise import Kind, SchemaNode, normalise, normalise_sche
 from jevson.compile.refusal import Refusals
 from jevson.errors import CompileError
 
-DETERMINISTIC = settings(derandomize=True, database=None, max_examples=400)
+DETERMINISTIC = settings(derandomize=True, database=None, max_examples=400, deadline=None)  # no wall clock in tests
 
 scalars = st.one_of(st.none(), st.booleans(), st.integers(-3, 3), st.sampled_from(["a", "b", "null", "#", ""]))
 types = st.sampled_from(["string", "number", "integer", "boolean", "null", "object", "array", "decimal", "date"])

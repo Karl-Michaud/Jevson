@@ -24,6 +24,11 @@ class JevsonConfig:
     max_input_tokens: int = 900_000
     """Preflight's per-request input limit: Phase 0r measured ~915k, less a margin (DESIGN §8.2)."""
     max_questions_per_request: int = 200
+    union_fanout: bool = True
+    """Ask a decisions-only union's branches in its discriminator's request and discard the unselected
+    answers (speculative fan-out, DESIGN §3.2); False asks them one level later, after the
+    discriminator. A union with a `generate` field always takes the later level. PLAN Phase 6 measured
+    fan-out at about half the latency and requests, with the same values on 50/50 fixtures."""
 
     def __post_init__(self) -> None:
         if not 0 <= self.tie_margin_hundredths < 100:

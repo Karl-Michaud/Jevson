@@ -10,7 +10,7 @@ from jevson.errors import CompileError
 from jevson.graph import DecisionGraph, Node
 from jevson.types import DecisionKind, DecisionNode, OptionSource, StepKind, StepNode
 
-DETERMINISTIC = settings(derandomize=True, database=None, max_examples=300)
+DETERMINISTIC = settings(derandomize=True, database=None, max_examples=300, deadline=None)  # no wall clock in tests
 
 
 @st.composite

@@ -1,6 +1,6 @@
 # Jevson — design
 
-> **Status:** Design document, Revision 11.1, 2026-10-15 (the façade's call shape; Revision 11, 2026-10-14, the fallback scope). Pre-implementation. Phase 0 ran on `jev-1.13.0` and Phase 0r on the Decisions API; both gave the pre-registered verdict **drop source selection** **[Z9, Q2, Q9]**. **v0 is the fallback product** (DESIGN §10.1): bounded decisions over declared options, criteria-gated generative fields, union discrimination, and multi-label enum arrays. Class D (source selection) and everything built on it — DESIGN §5.1–§5.6, span verification in §5.9, class F parsing of a selected span, the source screen — is the design of record for deferred work (`PLAN.md` §9.2), not v0 behaviour. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
+> **Status:** Design document, Revision 11.3, 2026-10-16 (union discrimination; Revision 11, 2026-10-14, the fallback scope). Pre-implementation. Phase 0 ran on `jev-1.13.0` and Phase 0r on the Decisions API; both gave the pre-registered verdict **drop source selection** **[Z9, Q2, Q9]**. **v0 is the fallback product** (DESIGN §10.1): bounded decisions over declared options, criteria-gated generative fields, union discrimination, and multi-label enum arrays. Class D (source selection) and everything built on it — DESIGN §5.1–§5.6, span verification in §5.9, class F parsing of a selected span, the source screen — is the design of record for deferred work (`PLAN.md` §9.2), not v0 behaviour. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
 >
 > **This document is the SSOT for Jevson.** It carries everything an agent or contributor needs to work on the project: what the library is, what it guarantees, the architecture, the vocabulary, the constraints of the model it sits on, and the rules that are not open for reinterpretation. The build sequence lives in [`PLAN.md`](PLAN.md).
 >
@@ -239,6 +239,15 @@ decision model: Person 0.04 / Organization 0.96
 
 TypeSafe documents *speculative fan-out* for Jev: ask every branch's questions in one call and let code discard the irrelevant ones **[V-fanout]**. For branches whose nodes are pure decision questions, that saves a round trip at a small token cost; for branches with steps it would run work whose output is discarded. The choice is measured in `PLAN.md` Phase 6.
 
+**As built (Phase 6, ASTERION-37):**
+
+- **The discriminator** is one `choice`, `<pointer>#branch`, over one option per branch, asked with the union template of `docs/taxonomy.md` §1.2. An option's text is the branch's `title: description`, or whichever of the two it has, or else a summary of its shape (`with name, email`, its required properties). A text two branches share gets the summary appended; branches still identical after that refuse with `undiscriminable_union`. Pydantic titles every model with its class name.
+- **Gates.** A node inside a branch carries its gates, the `(discriminator, option)` pairs above it, outermost first, so nested unions compose. Its id is its pointer with `|<option>` after the union's pointer (`/payment|c1/speed#choice`), because two branches may decide the same instance pointer. `|` is not a JSON pointer escape, the `#role` suffix, or the `@n` attempt suffix, and it is not an index (R13).
+- **Execution.** A node whose branch was not selected never runs and leaves nothing in `.value`, not even a null. The selected branch's constants (a Pydantic tag such as `type: "card"`) are committed by code (`decided_by: code`), and so is every required constant with no default outside a union. Without them, a discriminated union fails `oneOf` and `model_validate`.
+- **Strategy: fan-out by default** (`JevsonConfig.union_fanout`, chosen from the Phase 6 measurement, §12). A union whose branches hold only decisions asks them in the discriminator's request; the executor records the discriminator first and discards the unselected branches' answers, which never reach `Result.decisions`. A union with a `generate` field anywhere in it always takes the separate level, so its steps never run speculatively. With `union_fanout=False` every union takes the separate level, and only the selected branch's questions are sent.
+- **A root-level union refuses** with `root_union`. `.value` is an object, a Pydantic model's root is a model, and a root discriminator would leave nothing to name in `.unresolved` but `""`. Wrap the union in a field.
+- **Arrays of unions** refuse with `union_in_array`, beside arrays of objects. `anyOf` beside `oneOf` refuses with `unsupported_keyword`. `generate` on a union refuses with `generate_field_type`.
+
 ### 3.3 Level batching
 
 ```text
@@ -280,10 +289,10 @@ Source: an invoice naming two companies, two addresses, and a subtotal, tax, and
 |---|---|
 | static, acyclic local `$ref` / `$defs` (nested models, `Enum` classes) | inlined, merging any sibling keywords on the referencing property (Pydantic places `x-jevson`, `description`, and `default` next to the `$ref`) **[L18]**; node ids come from **instance** pointers, so two fields of one `$defs` type get distinct ids |
 | `anyOf: [T, {type: null}]`, `type: [T, "null"]` (`Optional[T]`); a flat `anyOf` whose non-null branches are themselves one normalisable type (e.g. `Optional[Decimal]` emits three branches) | the null branch is stripped first; nullable T, no discrimination node **[L18]** |
-| `const`, single-value `Literal`, single-member `Enum` (emitted as a `$ref` to a one-value `enum`) | deterministic constant **[L18]** |
+| `const`, single-value `Literal`, single-member `Enum` (emitted as a `$ref` to a one-value `enum`) | deterministic constant **[L18]**, committed by code when it is required with no default, or sits in the selected union branch (§3.2) |
 | `Decimal` (`anyOf [number, string with pattern]`) | a decimal value, emitted in `.value` as the **string** form, because `jsonschema` rejects valid cents under `multipleOf: 0.01` as floats (11,426 of 100,001 values) and Pydantic's unanchored pattern accepts too many digits **[L18]** |
 | flat `allOf` of object schemas (raw JSON Schema; Pydantic ≥ 2.10 emits none **[L18]**) | merged; anything else refused |
-| `oneOf` + `discriminator` (Pydantic discriminated unions) | a union, resolved by `PLAN.md` Phase 6 |
+| `anyOf` / `oneOf` with ≥ 2 non-null branches, a type list with ≥ 2 non-null types, `oneOf` + `discriminator` (Pydantic discriminated unions) | a union: a discriminator `choice`, then the selected branch (§3.2); a root-level union refuses (`root_union`) |
 | `exclusiveMinimum`/`exclusiveMaximum`, `multipleOf`, `format` | kept for final validation only |
 | recursive or dynamic `$ref`, `dict[str, X]` (`additionalProperties` schema), tuples (`prefixItems`), `Any`, `bytes`, arrays of objects | refused with a named reason (tracked in `PLAN.md` §9) |
 
@@ -752,7 +761,7 @@ That is the claim for the full design. **The v0 claim** (the fallback product, D
 | pairwise entity resolution is O(n²) | post-v0 **[Z4]**; capped at n = 30, quality measured in its phase (DESIGN §8.2) |
 | one source per call in v0 | refused at the call boundary; multi-source planned (`PLAN.md` Phase 9) |
 | unbounded array cardinality | v0 ships multi-label enum arrays only; source-grounded membership is deferred with class D; generative lists refused |
-| `anyOf` / `oneOf` with ≥ 2 non-null branches | resolved where the branch is a bounded decision (`PLAN.md` Phase 6), refused loudly otherwise |
+| `anyOf` / `oneOf` with ≥ 2 non-null branches | a discriminator `choice`, then only the selected branch (§3.2); every branch is compiled, so a refusal in any branch is total; a root-level union, an array of unions, and undiscriminable branches refuse |
 | recursive or dynamic `$ref`, `dict[str, X]`, tuples, `Any`, `bytes`, arrays of objects | refused with a named reason (DESIGN §3.5) |
 | dates and amounts in the source | not parsed in v0 (class F on a selected span is deferred with class D); relative dates ("next Friday") tracked (`PLAN.md` §9) |
 | non-English sources | supported, less well; documented |
@@ -818,7 +827,7 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 - **Retry's real value** — was Phase 5 (DESIGN §5.5); deferred with class D (`PLAN.md` §9.2).
 - **Calibration on this task** — was Phase 5 (DESIGN §6.2); deferred (`PLAN.md` §9). Readings: ECE 0.046 on 280 committed candidate decisions on Jev **[Z7]**; ECE 0.120 on 276 on the Decisions API **[Q7]**.
 - **Source screening** — whether any detector wording can flag hostile sources without flagging ordinary processing notes; the tested wording flagged 27–28 of 60 benign documents **[P21]**, 3/50 on a first reading on real documents on Jev **[Z6]**, and 1/50 on the Decisions API **[Q6]**. Was Phase 5; deferred (`PLAN.md` §9).
-- **Union execution: level vs. speculative fan-out** (DESIGN §3.2) — Phase 6.
+- **Union execution: level vs. speculative fan-out** (DESIGN §3.2) — Phase 6. **Answered: fan-out by default** (ASTERION-37, 2026-10-16; `tests/integration/test_live_union_fanout.py`). The test ran 50 fixtures (5 schemas of 2–3-branch unions, 10 sources each), one resolve per strategy each, on `gpt-6-luna`. Fan-out cut the median resolve from 0.366 s to 0.197 s and the requests from 100 to 50, and gave the same value on 50/50 fixtures. It asked 320 questions against 188. On the fixtures' one-line sources it billed 53% more input (42,754 against 27,951 tokens). With a ~1,800-character preamble before every source, it billed 6% less (59,326 against 63,051), because the separate level re-sends the state, so real documents favour it. A union with a `generate` field never fans out.
 - **The pairwise quality ceiling** (DESIGN §8.2) — the post-v0 entity-resolution phase (`PLAN.md` §9.1); not answered in v0, since pairwise resolution does not ship **[Z4]**.
 - **Whether jitter on pair questions can be reduced** — for example by asking both orderings of a pair — rather than only banded (DESIGN §5.7, **[P12]**). The post-v0 entity-resolution phase (`PLAN.md` §9.1); Phase 0 saw 2/796 pair flips between identical runs on Jev **[Z4]**.
 - **Does source selection work on the Decisions API?** Phase 0 found it did not on `jev-1.13.0`: after probe 9 measured the second gate, the pre-registered verdict was to drop source selection (**[Z9]**, `docs/gate-probe.md`; the README's findings). **Answered: no.** Phase 0r re-ran the same pre-registered probes on `gpt-6-luna`: probe 2 fell in its stop band (abstention 79/150 = 0.527) and probe 9 dropped the gate, so the verdict is confirmed **[Q2, Q9]**.
@@ -829,6 +838,24 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 ---
 
 ## 13. Changelog
+
+### Revision 11.3 — 2026-10-16, union discrimination (ASTERION-37)
+
+**Unions (§3.2, §3.5, §10, §12).**
+- A union compiles to a discriminator `choice` over its branches. Every branch is compiled, and only the selected branch runs.
+- Branch nodes are gated, and their ids are qualified with `|<option>`.
+- Undiscriminable branches refuse (`undiscriminable_union`), and so do root unions (`root_union`) and arrays of unions (`union_in_array`).
+- Fan-out is the default, chosen from the Phase 6 measurement.
+
+**Constants.**
+- A required constant with no default (a `Literal["invoice"]` field) is now committed by code. Before, it was omitted, so `.value` failed the schema.
+- The selected branch's constants are committed the same way.
+
+**`known=` (§8).**
+- A known value for a branch constant selects that branch. It must match exactly one branch.
+
+**`.unresolved`.**
+- `Unresolved` entries inside an unresolved subtree are now listed, so an unresolved union names its children `dependency_unresolved` (§6.1).
 
 ### Revision 11.2 — 2026-10-16, the rubric names what it rates (ASTERION-32)
 
