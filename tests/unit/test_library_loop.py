@@ -10,7 +10,9 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import signal
 import threading
+import time
 import traceback
 import uuid
 from collections.abc import Callable
@@ -161,6 +163,81 @@ def test_the_per_key_limiter_holds_its_rate_across_calls_threads_and_loops() -> 
     with backend(key=key) as other:  # a second backend on the same key shares the bucket
         assert other._limiter is b._limiter  # pyright: ignore[reportPrivateUsage]
     assert sorted(waits.waits) == [float(k) for k in range(1, 8)]  # 8 requests; the first does not wait
+
+
+# --- interrupting a blocked resolve() ---------------------------------------------------------
+
+
+def pending_on_library_loop() -> set[asyncio.Task[Any]]:
+    async def others() -> set[asyncio.Task[Any]]:
+        return asyncio.all_tasks() - {asyncio.current_task()}  # pyright: ignore[reportReturnType]
+
+    future = library.submit(others)
+    assert future is not None
+    return future.result(timeout=5)
+
+
+def test_ctrl_c_during_resolve_cancels_the_call_on_the_library_loop() -> None:
+    assert threading.current_thread() is threading.main_thread()  # SIGINT is delivered to the main thread
+    entered, unwound = threading.Event(), threading.Event()
+    hang = True
+
+    async def handler(request: httpx.Request) -> httpx.Response:
+        if not hang:
+            return answer(request)
+        entered.set()
+        try:
+            await asyncio.Event().wait()  # never answers: the request is in flight until cancelled
+        finally:
+            unwound.set()
+        raise AssertionError("unreachable")  # pragma: no cover - the wait above only ends by cancellation
+
+    def ctrl_c() -> None:
+        assert entered.wait(5)
+        signal.pthread_kill(threading.main_thread().ident or 0, signal.SIGINT)
+
+    b = backend(handler)  # type: ignore[arg-type]  # MockTransport awaits an async handler
+    jevson = Jevson(b)
+    presser = threading.Thread(target=ctrl_c)
+    presser.start()
+    with pytest.raises(KeyboardInterrupt):
+        jevson.resolve(SCHEMA, SOURCE)
+    presser.join()
+    assert unwound.is_set()  # run() waited for the cancellation to reach the request before re-raising
+    assert pending_on_library_loop() == set()
+    hang = False
+    assert ok(jevson.resolve(SCHEMA, SOURCE))  # the shared client and the limiter still work
+    jevson.close()
+    assert clients(b) == 0
+
+
+def test_an_interrupt_does_not_wait_past_the_grace_period_for_a_call_that_ignores_cancellation(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(library, "CANCEL_GRACE_S", 0.05)
+    release = threading.Event()
+
+    async def stubborn() -> None:
+        while not release.is_set():
+            try:
+                await asyncio.sleep(0.01)
+            except asyncio.CancelledError:
+                continue  # swallows the cancellation and keeps going
+
+    def interrupt_wait(self: Any, timeout: float | None = None) -> None:
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr("concurrent.futures.Future.result", interrupt_wait)
+    started = time.monotonic()
+    with pytest.raises(KeyboardInterrupt):
+        library.run(stubborn)
+    assert time.monotonic() - started < 2
+    monkeypatch.undo()
+    release.set()
+    deadline = time.monotonic() + 5
+    while pending_on_library_loop() and time.monotonic() < deadline:
+        time.sleep(0.01)
+    assert pending_on_library_loop() == set()
 
 
 # --- context managers and closing -----------------------------------------------------------

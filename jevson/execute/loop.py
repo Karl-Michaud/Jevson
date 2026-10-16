@@ -6,6 +6,10 @@ call is not used: a client and asyncio locks are bound to the loop that first us
 
 - `run()` refuses inside a running loop (the caller's or this one), pointing at `aresolve()`. The
   coroutine is built only after that check, so a refusal leaves nothing un-awaited.
+- If the caller's wait is interrupted (Ctrl-C, or any exception raised while blocked), the submitted
+  coroutine is cancelled on the library loop and `run()` waits up to `CANCEL_GRACE_S` for it to
+  unwind before re-raising, so the interrupted call stops spending. A coroutine that ignores
+  cancellation, or a wedged loop, is not waited on past the grace period.
 - After `os.fork()` the child has no loop thread. The fork hook forgets the loop, the thread and the
   lock without touching them, and bumps `generation()`; the next call builds a fresh loop. Objects
   bound to the old loop (clients) compare their generation and are dropped, never closed.
@@ -23,6 +27,8 @@ from typing import Any, TypeVar
 from jevson.errors import UsageError
 
 T = TypeVar("T")
+
+CANCEL_GRACE_S = 2.0
 
 
 class _LibraryLoop:
@@ -70,7 +76,21 @@ def run(make: Callable[[], Coroutine[Any, Any, T]]) -> T:
     """Run `make()` on the library loop and block for its result."""
     if _running() is not None:
         raise UsageError("resolve() cannot run inside a running event loop; await aresolve() instead")
-    return asyncio.run_coroutine_threadsafe(make(), _library.get()).result()
+    unwound = threading.Event()
+    future = asyncio.run_coroutine_threadsafe(_signalling(make(), unwound), _library.get())
+    try:
+        return future.result()
+    except BaseException:
+        if future.cancel():  # still running: cancel its task on the loop and let it unwind
+            unwound.wait(CANCEL_GRACE_S)
+        raise
+
+
+async def _signalling(coro: Coroutine[Any, Any, T], unwound: threading.Event) -> T:
+    try:
+        return await coro
+    finally:
+        unwound.set()
 
 
 def submit(make: Callable[[], Coroutine[Any, Any, None]]) -> concurrent.futures.Future[None] | None:
