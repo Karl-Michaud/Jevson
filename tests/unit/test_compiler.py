@@ -308,7 +308,7 @@ UNBOUNDED, ORDINAL = RefusalCode.UNBOUNDED_FIELD, RefusalCode.ORDINAL_LEVELS
         ({"type": "number", "minimum": 0, "maximum": 1}, UNBOUNDED),
         ({"type": "integer", "minimum": 1, "maximum": 5}, UNBOUNDED),
         ({"type": "array", "items": {"type": "string"}}, UNBOUNDED),
-        ({"x-jevson": {"generate": {"criteria": ["c"]}}, "type": "string"}, RefusalCode.NOT_YET_SUPPORTED),
+        ({"x-jevson": {"generate": {"criteria": ["c"]}}, "type": "integer"}, RefusalCode.GENERATE_FIELD_TYPE),
         ({"x-jevson": {"source": {"extractor": "nope"}}, "type": "string"}, RefusalCode.SOURCE_SELECTION_DROPPED),
     ],
 )

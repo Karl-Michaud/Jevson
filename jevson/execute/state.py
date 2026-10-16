@@ -25,9 +25,6 @@ class LevelState:
             if _has_list(draft):
                 raise ValueError(f"draft {key!r} holds a list; state collections are keyed objects (R13)")
 
-    def with_draft(self, step_id: str, draft: JSONValue) -> LevelState:
-        return LevelState(self.source, {**self.drafts, step_id: draft})
-
     def serialise(self) -> str:
         state: dict[str, JSONValue] = {"source": self.source}
         if self.drafts:

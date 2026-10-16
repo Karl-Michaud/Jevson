@@ -35,7 +35,7 @@ from jevson.execute.executor import execute
 from jevson.graph import DecisionGraph
 from jevson.protocols import LLM, Backend, CostSink, Extractor
 from jevson.result import Result
-from jevson.types import DecisionKind, DecisionNode, JSONValue, Violation
+from jevson.types import DecisionKind, DecisionNode, JSONValue, StepNode, Violation
 
 
 class Jevson:
@@ -50,7 +50,7 @@ class Jevson:
         if not isinstance(backend, Backend):  # pyright: ignore[reportUnnecessaryIsInstance]
             raise UsageError("Jevson needs a backend; there is no default (construct DecisionsBackend explicitly)")
         self._backend = backend
-        self._llm = llm  # v0: no generative fields until Phase 4
+        self._llm = llm
         self._extractors = dict(extractors or {})  # v0: accepted and unused (DESIGN §8)
         self._config = config or JevsonConfig()
         self._cost_sink = cost_sink
@@ -131,7 +131,7 @@ class Jevson:
         checked = _check_known(graph, fields, known)
         result = await execute(
             graph, _json_schema(schema), source,
-            backend=self._backend, config=config, known=checked, cost_sink=self._cost_sink,
+            backend=self._backend, config=config, known=checked, cost_sink=self._cost_sink, llm=self._llm,
         )  # fmt: skip
         result = _model_validate(schema, result)
         missing = [u.pointer for u in result.unresolved if fields.get(u.pointer, _OPTIONAL).required]
@@ -159,10 +159,10 @@ def _check_known(
         return {}
     if not isinstance(known, Mapping):  # pyright: ignore[reportUnnecessaryIsInstance]
         raise PreflightError("known= must map JSON pointers to values")
-    by_target: dict[str, DecisionNode] = {}
+    by_target: dict[str, DecisionNode | StepNode] = {}
     for node in graph.nodes.values():
-        if isinstance(node, DecisionNode):
-            by_target[node.target] = node
+        if isinstance(node, StepNode) or node.target not in by_target:
+            by_target[node.target] = node  # a generative field is known by its step
     for pointer, value in known.items():
         node = by_target.get(pointer)
         if node is None:
@@ -172,9 +172,11 @@ def _check_known(
     return dict(known)
 
 
-def _allowed(node: DecisionNode, field: SchemaNode, value: JSONValue) -> bool:
+def _allowed(node: DecisionNode | StepNode, field: SchemaNode, value: JSONValue) -> bool:
     if value is None:
         return field.nullable
+    if isinstance(node, StepNode):
+        return isinstance(value, str)
     if node.kind is DecisionKind.PREDICATE:
         return isinstance(value, bool)
     return any(type(value) is type(v) and value == v for v in node.values)

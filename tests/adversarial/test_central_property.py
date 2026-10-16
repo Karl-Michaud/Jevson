@@ -23,6 +23,7 @@ from hypothesis import strategies as st
 from jevson import (
     BackendError,
     CompileError,
+    DecidedBy,
     ExtractorError,
     Jevson,
     LLMError,
@@ -33,7 +34,6 @@ from jevson import (
     compile_schema,
 )
 from jevson.config import JevsonConfig
-from jevson.types import DecisionNode
 from tests.adversarial.hostile_backend import ENVELOPES, SENTINEL_KEY, backend, envelope, respond
 from tests.adversarial.hostile_transport import FINAL, RETRYABLE
 from tests.property.test_compiler_properties import supported
@@ -105,12 +105,12 @@ def check(schema: dict[str, Any], outcome: Result | Exception) -> None:
     assert outcome.complete is (not outcome.unresolved)
     assert outcome.satisfies_schema is (not outcome.violations)
     holes = {u.pointer for u in outcome.unresolved}
-    for node in compile_schema(schema).nodes.values():
-        assert isinstance(node, DecisionNode)
+    for node in compile_schema(schema).nodes.values():  # decision and generate-step nodes alike
         assert node.target in outcome.decided_by or node.target in holes, f"{node.target} vanished"
         assert not (node.target in outcome.decided_by and node.target in holes)
     if not outcome.unresolved:
-        assert outcome.cost.decision_requests + outcome.cost.cache_hits >= (1 if outcome.decided_by else 0)
+        decided = any(by in (DecidedBy.DECISION, DecidedBy.LLM_DECISION) for by in outcome.decided_by.values())
+        assert outcome.cost.decision_requests + outcome.cost.cache_hits >= (1 if decided else 0)
 
 
 @settings(derandomize=True, database=None, max_examples=300, deadline=None,

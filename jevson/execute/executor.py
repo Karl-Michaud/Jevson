@@ -13,7 +13,18 @@
   Every event goes to the `CostSink` as it happens, and every exception raised after the first spend
   carries the partial `Result` with its `Cost`.
 
-Steps have no producers in v0 (generative fields are Phase 4); a runner per `StepKind` is injected.
+- **Generative fields** (DESIGN §6.3): a `generate` step drafts through the caller's `LLM`
+  (`drafting.py`); a well-formed draft enters the level state at `drafts.<step id>`, and its criteria
+  ride in the level's one request. Each request's state holds only the drafts its questions name.
+  After the level's request, failing fields are redrafted and re-adjudicated together, one request
+  per round, until each is admitted or its `redraft_budget` is spent (`policy.RedraftLoop`).
+  Decisions are recorded as `node@attempt`. Budgets use the source-only state plus each node's
+  declared size, which includes its draft at `max_draft_chars` (`budget.with_drafts`).
+
+An extraction step (class D, deferred) runs through an injected runner per `StepKind`.
+
+Length (~440 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
+and moving it out would make both public for one caller. Split if either grows again.
 """
 
 from __future__ import annotations
@@ -24,15 +35,18 @@ from collections.abc import Awaitable, Callable, Mapping, Sequence
 from dataclasses import dataclass, field, replace
 from typing import Any
 
+from jevson.adjudicate.criteria import judge
 from jevson.assemble.assembler import Committed, Outcome, assemble
 from jevson.compile.questions import QUESTION_TEMPLATE_VERSION
 from jevson.config import JevsonConfig
 from jevson.errors import BackendError, ExtractorError, LLMError, PreflightError, UsageError
 from jevson.execute import budget
+from jevson.execute.drafting import TOOL_SCHEMA, messages, read
+from jevson.execute.policy import RedraftLoop
 from jevson.execute.state import LevelState
 from jevson.graph import DecisionGraph
 from jevson.probabilities import interpret
-from jevson.protocols import Backend, CostSink
+from jevson.protocols import LLM, Backend, CostSink
 from jevson.result import Result
 from jevson.types import (
     Answer,
@@ -44,16 +58,19 @@ from jevson.types import (
     DecisionKind,
     DecisionNode,
     DeclaredOption,
+    Drafting,
     InvalidAnswer,
     JSONValue,
     ProvenanceKind,
     Question,
+    Rejection,
     StepKind,
     StepNode,
     Unresolved,
     UnresolvedReason,
 )
 
+_NO_DRAFTING = Drafting("", "")
 StepRunner = Callable[[StepNode, LevelState], Awaitable[JSONValue]]
 LIMIT_CODES = frozenset({"context_limit", "question_limit"})
 _OVERFLOW = "budget_exceeded"
@@ -70,6 +87,9 @@ class _Tally:
     cache_hits: int = 0
     transport_retries: int = 0
     level_splits: int = 0
+    llm_input_tokens: int = 0
+    llm_output_tokens: int = 0
+    redrafts: int = 0
     wall_clock: dict[str, float] = field(default_factory=dict[str, float])
 
     def freeze(self) -> Cost:
@@ -81,6 +101,9 @@ class _Tally:
             cache_hits=self.cache_hits,
             transport_retries=self.transport_retries,
             level_splits=self.level_splits,
+            llm_input_tokens=self.llm_input_tokens,
+            llm_output_tokens=self.llm_output_tokens,
+            redrafts=self.redrafts,
             wall_clock_by_component=dict(self.wall_clock),
         )
 
@@ -97,6 +120,15 @@ class _Run:
         self.targets: dict[str, str] = {}
         self.sizes: dict[str, int] = {}
         """Each question's declared size in estimated tokens, by question name."""
+        self.source = ""
+        self.extracted: dict[str, JSONValue] = {}
+        """Extraction step outputs by step id; they are budgeted as part of the state."""
+        self.drafting = RedraftLoop(config.redraft_budget)
+        self.adjudicates: dict[str, StepNode] = {}
+        """The generate step each adjudication node checks, by node id."""
+        self.nodes: dict[str, DecisionNode] = {}
+        self.answers: dict[str, Answer | str] = {}
+        """Adjudication answers awaiting their field's verdict, by node id."""
 
     def emit(self, event: CostEvent) -> None:
         if self.sink is not None:
@@ -124,7 +156,22 @@ class _Run:
             cost=self.tally.freeze(),
             model=tuple(self.models),
             versions=versions,
+            rejections=tuple(self.drafting.rejections),
         )
+
+    def state(self, nodes: Sequence[DecisionNode], *, budgeted: bool = False) -> str:
+        """The state for a request over `nodes`: the drafts they read. A budgeted state leaves out the
+        generated drafts, which each node's declared size already counts."""
+        drafts: dict[str, JSONValue] = {}
+        for node in nodes:
+            for dependency in sorted(node.dependencies):
+                if dependency in self.extracted:
+                    drafts[dependency] = self.extracted[dependency]
+        pending = self.drafting.pending()
+        if not budgeted:
+            drafts |= {self.adjudicates[n.id].id: pending[self.adjudicates[n.id].id] for n in nodes
+                       if n.id in self.adjudicates}  # fmt: skip
+        return LevelState(self.source, drafts).serialise()
 
 
 async def execute(
@@ -137,24 +184,101 @@ async def execute(
     known: Mapping[str, JSONValue] | None = None,
     cost_sink: CostSink | None = None,
     steps: Mapping[StepKind, StepRunner] | None = None,
+    llm: LLM | None = None,
     declared_size: budget.DeclaredSize = budget.declared_tokens,
 ) -> Result:
     """Resolve `graph` over `source`. `known` values (already validated) replace their nodes.
 
-    `declared_size` budgets each node at its declared maximum (DESIGN §8.2); v0 needs no other."""
+    `declared_size` budgets each node at its declared maximum (DESIGN §8.2); the drafts of
+    generative fields are added to it here, at their `max_draft_chars`."""
     run = _Run(schema, config, cost_sink)
+    run.source = source
     run.targets = {node_id: node.target for node_id, node in graph.nodes.items()}
+    generate = {n.id: n for n in graph.nodes.values() if isinstance(n, StepNode) and n.drafting is not None}
+    run.adjudicates = {
+        n.id: generate[d] for n in graph.nodes.values() if isinstance(n, DecisionNode) for d in n.dependencies
+        if d in generate
+    }  # fmt: skip
     runners = dict(steps or {})
-    names = _preflight(run, graph, source, runners, known=known or {}, declared_size=declared_size)
+    sized = budget.with_drafts(declared_size, run.adjudicates)
+    names = _preflight(run, graph, source, runners, llm, known=known or {}, declared_size=sized)
     for pointer, value in (known or {}).items():
         run.outcomes[pointer] = Committed(pointer, value, DecidedBy.CALLER)
-    state = LevelState(source)
     for level in graph.levels():
+        drafted: list[StepNode] = []
         for step in level.steps:
-            state = state.with_draft(step.id, await _run_step(run, runners[step.kind], step, state))
-        pending = [node for node in level.decisions if node.target not in run.outcomes]
-        await _decide(run, backend, state, pending, names)
+            if step.target in run.outcomes:
+                continue
+            if step.drafting is not None and llm is not None:
+                await _draft(run, llm, step, step.drafting, None)
+                drafted.append(step)
+            else:
+                run.extracted[step.id] = await _run_step(run, runners[step.kind], step, LevelState(source))
+        await _decide(run, backend, _askable(run, level.decisions), names)
+        await _redraft(run, backend, llm, drafted, names)
     return run.result()
+
+
+def _askable(run: _Run, nodes: Sequence[DecisionNode]) -> list[DecisionNode]:
+    """The nodes to ask now: undecided class C nodes, and the checks of drafts awaiting a verdict."""
+    pending = run.drafting.pending()
+    return [
+        n for n in nodes
+        if (run.adjudicates[n.id].id in pending if n.id in run.adjudicates else n.target not in run.outcomes)
+    ]  # fmt: skip
+
+
+async def _redraft(
+    run: _Run, backend: Backend, llm: LLM | None, drafted: Sequence[StepNode], names: Mapping[str, Question]
+) -> None:
+    """Judge this level's drafts, then redraft the failing ones until each is admitted or exhausted."""
+    checks = {step.id: [n for n in run.nodes.values() if run.adjudicates.get(n.id) is step] for step in drafted}
+    while True:
+        pending = run.drafting.pending()
+        for step in drafted:
+            if step.id in pending:
+                _judge(run, step, checks[step.id])
+        due = run.drafting.to_redraft()
+        if not due or llm is None:
+            break
+        for step, rejection in due:
+            run.tally.redrafts += 1
+            await _draft(run, llm, step, step.drafting or _NO_DRAFTING, rejection)
+        await _decide(run, backend, _askable(run, [n for step, _ in due for n in checks[step.id]]), names)
+    for step in drafted:
+        run.outcomes[step.target] = run.drafting.outcome(step.id, gated=bool(checks[step.id]))
+
+
+def _judge(run: _Run, step: StepNode, nodes: Sequence[DecisionNode]) -> None:
+    attempt = run.drafting.attempt(step.id)
+    answers = {n.id: a for n in nodes if not isinstance(a := run.answers.pop(n.id, _OVERFLOW), str)}
+    drafting = step.drafting or _NO_DRAFTING
+    decisions, failing = judge(drafting, {n.id: n for n in nodes}, answers, run.config.tie_margin_hundredths)
+    for node_id, decision in decisions.items():
+        run.decisions[f"{node_id}@{attempt}"] = decision
+    run.drafting.verdict(step.id, failing)
+
+
+async def _draft(run: _Run, llm: LLM, step: StepNode, drafting: Drafting, rejection: Rejection | None) -> None:
+    started = time.perf_counter()
+    try:
+        response = await asyncio.wait_for(
+            llm.complete(messages(drafting, run.source, rejection), TOOL_SCHEMA), run.config.step_timeout_s
+        )
+    except TimeoutError:
+        run.emit(CostEvent("llm", succeeded=False))
+        raise LLMError("timeout", f"{step.id} exceeded step_timeout_s", run.result()) from None
+    except Exception as failure:
+        run.emit(CostEvent("llm", succeeded=False))
+        code = failure.code if isinstance(failure, LLMError) else "llm_exception"
+        raise LLMError(code, f"{step.id}: {type(failure).__name__}", run.result()) from None
+    finally:
+        run.clock("LLM", started)
+    draft = read(response, drafting.max_draft_chars)
+    run.tally.llm_input_tokens += draft.input_tokens
+    run.tally.llm_output_tokens += draft.output_tokens
+    run.emit(CostEvent("llm", input_tokens=draft.input_tokens, output_tokens=draft.output_tokens))
+    run.drafting.offer(step, drafting.max_draft_chars, draft)
 
 
 def _preflight(
@@ -162,6 +286,7 @@ def _preflight(
     graph: DecisionGraph,
     source: str,
     runners: Mapping[StepKind, StepRunner],
+    llm: LLM | None,
     *,
     known: Mapping[str, JSONValue],
     declared_size: budget.DeclaredSize,
@@ -169,9 +294,13 @@ def _preflight(
     """Every check that must fail before anything is spent; returns each decision's question."""
     config = run.config
     nodes = [n for level in graph.levels() for n in level.decisions if n.target not in known]
+    run.nodes = {n.id: n for n in nodes}
     questions = {n.id: Question(f"q{i}", n.kind, n.question, n.options) for i, n in enumerate(nodes)}
     run.sizes = {questions[n.id].name: declared_size(n) for n in nodes}
-    missing = sorted({s.kind.value for level in graph.levels() for s in level.steps} - {k.value for k in runners})
+    steps = [s for level in graph.levels() for s in level.steps if s.target not in known]
+    if llm is None and any(s.drafting is not None for s in steps):
+        raise UsageError("a generative field needs an LLM: Jevson(backend, llm=...)")
+    missing = sorted({s.kind.value for s in steps if s.drafting is None} - {k.value for k in runners})
     if missing:
         raise UsageError(f"no step runner for {', '.join(missing)}")
     try:
@@ -199,9 +328,9 @@ async def _run_step(run: _Run, runner: StepRunner, step: StepNode, state: LevelS
         run.clock(step.protocol, started)
 
 
-async def _decide(
-    run: _Run, backend: Backend, state: LevelState, nodes: Sequence[DecisionNode], names: Mapping[str, Question]
-) -> None:
+async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], names: Mapping[str, Question]) -> None:
+    """Ask `nodes` in as few requests as fit. Class C answers are recorded at once; adjudication
+    answers wait in `run.answers` for their field's verdict."""
     ready: list[DecisionNode] = []
     for node in nodes:
         if any(isinstance(run.outcomes.get(run.targets[d]), Unresolved) for d in node.dependencies):
@@ -210,16 +339,20 @@ async def _decide(
             ready.append(node)
     if not ready:
         return
-    serialised = state.serialise()
+    budgeted = run.state(ready, budgeted=True)
     questions = [names[node.id] for node in ready]
-    too_big = budget.oversized(serialised, questions, run.sizes, run.config)  # only drafts grow a state
-    chunks = budget.split(serialised, [q for q in questions if q not in too_big], run.sizes, run.config)
+    by_name = {names[node.id].name: node for node in ready}
+    too_big = budget.oversized(budgeted, questions, run.sizes, run.config)  # extracted outputs grow a state
+    chunks = budget.split(budgeted, [q for q in questions if q not in too_big], run.sizes, run.config)
     run.tally.level_splits += max(len(chunks) - 1, 0)
     answers: dict[str, Answer | str] = {q.name: _OVERFLOW for q in too_big}
     for chunk in chunks:
-        answers |= await _ask(run, backend, serialised, chunk)
+        answers |= await _ask(run, backend, run.state([by_name[q.name] for q in chunk]), chunk)
     for node in ready:
-        _record(run, node, answers[names[node.id].name])
+        if node.id in run.adjudicates:
+            run.answers[node.id] = answers[names[node.id].name]
+        else:
+            _record(run, node, answers[names[node.id].name])
 
 
 def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:

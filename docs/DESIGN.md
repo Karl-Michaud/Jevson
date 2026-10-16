@@ -294,8 +294,9 @@ source:    { extractor: <name>, entity_type?: <name>, direct_extraction?: bool,
              scope?: <text>, max_candidates?: int (default 50, ≤ 254),
              max_candidate_chars?: int (default 120), locale?: <BCP 47 tag> }
                            # refuses in v0: source_selection_dropped (below)
-generate:  { criteria: [<text>], rubric?: {levels: [...], minimum: <level>},
+generate:  { criteria: [<text>], rubric?: {description: <text>, levels: [...], minimum: <level>},
              instructions?: <text>, max_draft_chars?: int }
+                           # a rubric without a non-empty description refuses: rubric_description_missing
 ordinal:   true            # an integer range is an ordinal rating → score (DESIGN §4.2)
 order:     source | semantic   # semantic refuses in v0 (R7)
 question:  <text>          # overrides the compiled field description
@@ -565,7 +566,7 @@ A class E field is drafted by the caller's LLM and admitted only after the decis
 
 - **Declaration.** `x-jevson.generate` (DESIGN §3.5), with criteria, an optional rubric and minimum level, optional drafting instructions, and `max_draft_chars`.
 - **Criteria are predicates about the draft and the supplied source, never about the world.** "The summary mentions the refund amount stated in the source" is a criterion; "the refund amount is correct" is not — the decision model is not a fact-checker.
-- **Execution.** A `generate` step asks the LLM for a one-field tool schema `{value: string}`. Providers differ on the envelope — OpenAI and Anthropic strict modes require `additionalProperties: false`, and Gemini's `parameters` schema has no such field — so the schema is passed as JSON Schema and each `LLM` adapter renders it for its provider **[L20]**. The draft must be ≤ `max_draft_chars` (default 4,000), checked after the call rather than as `maxLength`, so its adjudication budget is known at preflight. Each criterion is one `predicate`, all batched in one request, each passing at p ≥ 0.56; a criterion inside the tie margin or refused, or a rubric whose top two levels are within it and straddle the declared minimum or that is refused, counts as **failed** for that draft — named in `rejections` and triggering a redraft, so exhaustion is `redraft_exhausted`, never `tie`. An optional rubric is one `score` whose most probable level must be ≥ the declared minimum.
+- **Execution.** A `generate` step asks the LLM for a one-field tool schema `{value: string}`. Providers differ on the envelope — OpenAI and Anthropic strict modes require `additionalProperties: false`, and Gemini's `parameters` schema has no such field — so the schema is passed as JSON Schema and each `LLM` adapter renders it for its provider **[L20]**. The draft must be ≤ `max_draft_chars` (default 4,000), checked after the call rather than as `maxLength`, so its adjudication budget is known at preflight. Each criterion is one `predicate`, all batched in one request, each passing at p ≥ 0.56; a criterion inside the tie margin or refused, or a rubric whose top two levels are within it and straddle the declared minimum or that is refused, counts as **failed** for that draft — named in `rejections` and triggering a redraft, so exhaustion is `redraft_exhausted`, never `tie`. An optional rubric is one `score` whose most probable level must be ≥ the declared minimum; its question names what is rated by the rubric's required `description` (e.g. "how faithfully the summary reflects the source"), since levels alone do not say what they measure.
 - **Rejection** names the failing criteria (`Result.rejections`). A redraft passes them back to the LLM. A draft identical to one already adjudicated is not re-adjudicated and counts against `redraft_budget` (default 1). Exhaustion yields `Unresolved(redraft_exhausted)`.
 - **Any malformed LLM output** — a missing or misspelled key, prose instead of a tool call, a non-string value, an over-length draft — is a failed draft, never an exception or a malformed object.
 - **A field with no criteria** is admitted with a `no_criteria_declared` marker and listed in `Result.ungated`.
@@ -828,6 +829,10 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 ---
 
 ## 13. Changelog
+
+### Revision 11.2 — 2026-10-16, the rubric names what it rates (ASTERION-32)
+
+`x-jevson.generate.rubric` requires a non-empty `description`, rendered as `{rubric}` in the rubric question (§3.5, §6.3; `docs/taxonomy.md` §1.2); a rubric without one refuses at compile time with `rubric_description_missing`, beside every other offending pointer (R14). The template had a `{rubric}` slot that nothing declared. `generate` on anything but a string refuses with `generate_field_type`.
 
 ### Revision 11.1 — 2026-10-15, the façade's call shape (ASTERION-30)
 

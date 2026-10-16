@@ -3,9 +3,10 @@
 The public surface is exactly `__all__`. Phase 1 ships the result type, the fake backend, the
 configuration, the exception hierarchy, the five protocols, and the types needed to read a
 `Result` or implement a protocol; Phase 2 adds `compile_schema`; Phase 3 adds `DecisionsBackend`,
-`CachingBackend` and `Jevson`. `ReplayLLM` joins it in Phase 4 (PLAN §2).
+`CachingBackend` and `Jevson`; Phase 4 adds `ReplayLLM` and `dry_run` (PLAN §2).
 """
 
+from jevson.adjudicate.dryrun import DryRun, dry_run
 from jevson.backends.caching import CachingBackend
 from jevson.backends.decisions import DecisionsBackend
 from jevson.backends.fake import FakeBackend
@@ -25,6 +26,7 @@ from jevson.errors import (
     UsageError,
 )
 from jevson.facade import Jevson
+from jevson.llm.replay import ReplayLLM
 from jevson.protocols import LLM, Backend, CostSink, Extractor, Normalizer
 from jevson.result import Result
 from jevson.types import (
@@ -76,6 +78,7 @@ __all__ = [
     "DecisionKind",
     "DecisionsBackend",
     "DeclaredOption",
+    "DryRun",
     "Extractor",
     "ExtractorError",
     "FakeBackend",
@@ -99,6 +102,7 @@ __all__ = [
     "RefusalCode",
     "RefusalReason",
     "Rejection",
+    "ReplayLLM",
     "Result",
     "SchemaViolation",
     "ScoreAnswer",
@@ -108,4 +112,5 @@ __all__ = [
     "UsageError",
     "Violation",
     "compile_schema",
+    "dry_run",
 ]

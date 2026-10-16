@@ -29,7 +29,7 @@ import math
 from collections.abc import Callable, Mapping, Sequence
 
 from jevson.config import JevsonConfig
-from jevson.types import DecisionNode, Question
+from jevson.types import DecisionNode, Question, StepNode
 
 DeclaredSize = Callable[[DecisionNode], int]
 """A node's declared maximum size in estimated tokens: its question, options, and any state it adds."""
@@ -38,6 +38,7 @@ ESTIMATOR_VERSION = "bytes/3+160q+8o"
 BYTES_PER_TOKEN = 3
 QUESTION_OVERHEAD = 160  # [Q11] ~160 tokens per short question; 40 under-counted 32-question requests [Q15]
 OPTION_OVERHEAD = 8
+DRAFT_BYTES_PER_CHAR = 6  # the worst case for one character of a draft in JSON state: a \\u escape
 
 
 def estimate_tokens(text: str) -> int:
@@ -52,6 +53,23 @@ def question_tokens(question: Question) -> int:
 def declared_tokens(node: DecisionNode) -> int:
     """The v0 `DeclaredSize`: the node's question and option text, all known at compile time."""
     return question_tokens(Question("", node.kind, node.question, node.options))
+
+
+def draft_tokens(step: StepNode) -> int:
+    """A generated draft at its declared maximum, as it sits in the state under its key."""
+    limit = step.drafting.max_draft_chars if step.drafting is not None else 0
+    return math.ceil(limit * DRAFT_BYTES_PER_CHAR / BYTES_PER_TOKEN) + estimate_tokens(f'"{step.id}": "", ')
+
+
+def with_drafts(declared_size: DeclaredSize, checks: Mapping[str, StepNode]) -> DeclaredSize:
+    """`declared_size` plus, for each adjudication node, the draft it reads (`checks`: node id → its
+    step). Preflight then refuses a field whose draft could not fit, before anything is spent."""
+
+    def sized(node: DecisionNode) -> int:
+        step = checks.get(node.id)
+        return declared_size(node) + (draft_tokens(step) if step is not None else 0)
+
+    return sized
 
 
 def request_tokens(state: str, questions: Sequence[Question], sizes: Mapping[str, int]) -> int:
