@@ -209,6 +209,8 @@ class Rejection:
 class Cost:
     decision_requests: int = 0
     decision_input_tokens: int = 0
+    decision_input_tokens_estimated: int = 0
+    """Preflight's estimate for the same requests `decision_input_tokens` counts (DESIGN §8.2)."""
     decision_request_ids: tuple[str, ...] = ()
     cache_hits: int = 0
     llm_input_tokens: int = 0
@@ -337,3 +339,5 @@ class CostEvent:
     cache_hit: bool = False
     transport_retry: bool = False
     succeeded: bool = True
+    estimated_input_tokens: int | None = None
+    """For a decision request, preflight's estimate of its input, beside the billed `input_tokens`."""

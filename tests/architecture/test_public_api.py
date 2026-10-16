@@ -12,6 +12,7 @@ EXPECTED = {
     "FakeBackend",
     "DecisionsBackend",
     "CachingBackend",
+    "Jevson",
     "JevsonConfig",
     "compile_schema",
     # the exception hierarchy
