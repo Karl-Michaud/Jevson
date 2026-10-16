@@ -187,8 +187,8 @@ def test_an_optional_submodel_whose_leaves_declare_sources_refuses_only_with_sou
     assert refusals(Holder) == [("/place/city", RefusalCode.SOURCE_SELECTION_DROPPED)]
 
 
-def test_list_literal_with_a_schema_default_is_class_a_and_a_default_factory_is_decided() -> None:
-    """Pydantic writes no `default` for a `default_factory`, so that field is decided like any other."""
+def test_list_literal_with_an_empty_default_and_a_default_factory_are_decided_alike() -> None:
+    """An array's default never makes it class A while its items are decided (DESIGN §3.5)."""
 
     class Tagged(BaseModel):
         labels: list[Literal["p", "q"]] = []
@@ -196,7 +196,12 @@ def test_list_literal_with_a_schema_default_is_class_a_and_a_default_factory_is_
         required: list[Literal["p", "q"]]
 
     graph = compile_schema(Tagged)
-    assert sorted(graph.nodes) == ["/required#member:c0", "/required#member:c1", "/tags#member:c0", "/tags#member:c1"]
+    ids = sorted(graph.nodes)
+    assert ids == [f"/{name}#member:c{i}" for name in ("labels", "required", "tags") for i in (0, 1)]
+    by_target = {name: [n for n in graph.nodes.values() if n.target == f"/{name}"] for name in ("labels", "tags")}
+    assert [n.question for n in by_target["labels"]] == [
+        n.question.replace("tags", "labels") for n in by_target["tags"]
+    ]
 
 
 def test_decimal_and_optional_decimal_declaring_a_source_refuse_only_with_source_selection_dropped() -> None:

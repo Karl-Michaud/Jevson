@@ -10,7 +10,8 @@
 | integer range declared `ordinal: true`, 2-10 levels | `score`, levels lowest first |
 | any other string, number, decimal, integer, or scalar array | `unbounded_field` (class G), or |
 |  | `source_selection_dropped` when a `default_extractor` is set |
-| array of a string/int enum, 2-255 values (multi-label) | a membership `predicate` per value, one level |
+| array of a string/int enum, 2-255 values (multi-label) | a membership `predicate` per value, one level, |
+|  | with or without a default (an array's default never makes it class A, DESIGN §3.5) |
 | string declaring `generate` (with or without a default) | a `generate` step + criteria (`generative.py`) |
 | a required constant with no default; any constant in a union branch | a `Constant` committed by code |
 | union (two or more non-null branches) | a discriminator `choice`, then each branch mapped (`unions.py`) |
@@ -211,13 +212,14 @@ class _Mapper:
         ordinal = declaration is not None and declaration.ordinal
         if ordinal and node.kind is not Kind.INTEGER:
             return self.refuse(node, RefusalCode.ORDINAL_LEVELS, "ordinal: true needs an integer range")
-        if node.has_default and not (declaration is not None and declaration.decides):
+        multi_label = items is not None and items.kind is Kind.ENUM
+        if node.has_default and not multi_label and not (declaration is not None and declaration.decides):
             return  # class A: omitted, so the caller's default applies
         verbatim = questions.declared_question(node) is not None
         labelled = questions.Labelled(questions.label(name, node), ancestors, verbatim)
         if node.kind is Kind.BOOLEAN:
             self.boolean(node, labelled)
-        elif node.kind is Kind.ENUM or (items is not None and items.kind is Kind.ENUM):
+        elif node.kind is Kind.ENUM or multi_label:
             self.enum(node, labelled)
         elif ordinal:
             self.ordinal(node, labelled)
