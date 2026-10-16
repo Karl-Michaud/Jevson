@@ -17,7 +17,8 @@ Every question in a level shares one input (DESIGN §2), so two fields asked the
 the same answer. `scopes()` qualifies a label that is not unique in the graph with the nearest
 ancestor property names that make it unique ("billing kind", "shipping kind"); an
 `x-jevson.question` is never qualified. Templates add no negation and never reference state by
-position (R13).
+position (R13). The union discriminator template ships as docs/taxonomy.md §1.2 recorded it
+(Phase 6, ASTERION-37).
 """
 
 from __future__ import annotations
@@ -36,6 +37,7 @@ ENUM_OPTION = '"{value}"'
 BOOL_INSTRUCTIONS = "According to the source, is it true that {predicate}?"
 BOOL_SCOPED_INSTRUCTIONS = "According to the source, for the {scope}, is it true that {predicate}?"
 ORDINAL_INSTRUCTIONS = "Which level best describes the {label}?"
+UNION_INSTRUCTIONS = "Which of these does the source describe as the {label}?"
 CRITERION_INSTRUCTIONS = "Does `drafts.{node}` meet this criterion: {criterion}?"
 RUBRIC_INSTRUCTIONS = "Which level best describes `drafts.{node}` against this rubric: {rubric}?"
 GENERATE_PROMPT = "Write the {label} for the source below. {instructions}Return only the value."
@@ -112,6 +114,11 @@ def bool_question(predicate: str, scope: str = "") -> str:
 
 def ordinal_question(label: str) -> str:
     return ORDINAL_INSTRUCTIONS.format(label=label)
+
+
+def union_question(label: str) -> str:
+    """A union discriminator's question (DESIGN §3.2); its options are the branches' texts."""
+    return UNION_INSTRUCTIONS.format(label=label)
 
 
 def criterion_question(node: str, criterion: str) -> str:

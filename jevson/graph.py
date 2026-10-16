@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from typing import TypeAlias
 
 from jevson.errors import CompileError, RefusalCode, RefusalReason
-from jevson.types import DecisionNode, StepNode
+from jevson.types import Constant, DecisionNode, StepNode
 
 Node: TypeAlias = DecisionNode | StepNode
 
@@ -27,9 +27,11 @@ class Level:
 
 
 class DecisionGraph:
-    """An acyclic graph of decision and step nodes, checked at construction."""
+    """An acyclic graph of decision and step nodes, checked at construction, plus the constants code
+    commits (they are not nodes: nothing decides them)."""
 
-    def __init__(self, nodes: Iterable[Node]) -> None:
+    def __init__(self, nodes: Iterable[Node], constants: Iterable[Constant] = ()) -> None:
+        self.constants: tuple[Constant, ...] = tuple(constants)
         self._nodes: dict[str, Node] = {}
         problems: list[RefusalReason] = []
         for node in nodes:

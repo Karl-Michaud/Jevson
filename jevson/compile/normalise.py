@@ -2,9 +2,11 @@
 
 Class A, before mapping: static local `$ref`s are inlined (merging the keywords beside them),
 `Optional` and flat `anyOf` null branches are stripped, constants are recognised, `Decimal` becomes
-a decimal value, a flat `allOf` merges, and every construct the compiler cannot honour is refused
-with a named reason. Node pointers are **instance** pointers (RFC 6901), so two fields of one
-`$defs` type get distinct pointers. Array items sit at `<array>/-`.
+a decimal value, a flat `allOf` merges, a union with two or more non-null branches (Pydantic's
+discriminated unions included) becomes a `Kind.UNION` whose branches sit at its own pointer, and
+every construct the compiler cannot honour is refused with a named reason. Node pointers are
+**instance** pointers (RFC 6901), so two fields of one `$defs` type get distinct pointers. Array
+items sit at `<array>/-`.
 
 `normalise()` keeps collecting after a refusal and marks the refused subtree `Kind.REFUSED`, so the
 mapping stage can add its own refusals to the same `CompileError` (R14). `normalise_schema()`
@@ -50,6 +52,10 @@ UNSUPPORTED = frozenset(
 SCALARS = frozenset({"string", "number", "integer", "boolean"})
 _DECIMAL = object()
 """The `type` the normaliser gives Pydantic's `Decimal` shape; no schema can spell it."""
+_UNION = object()
+"""The `type` the normaliser gives a union of two or more non-null branches."""
+_BRANCHES = "\x00branches"
+"""Where a `_UNION` schema keeps its resolved branches; no schema can spell the key's first character."""
 _NO_SCHEMA = object()
 """A Pydantic model whose schema could not be read; distinct from a literal `None` schema."""
 FLAT_ALL_OF_KEYS = frozenset({"type", "properties", "required", "title", "description"})
@@ -66,6 +72,8 @@ class Kind(StrEnum):
     CONSTANT = "constant"
     DECIMAL = "decimal"
     """Emitted in `.value` as the string form (DESIGN §3.5, [L18])."""
+    UNION = "union"
+    """Two or more non-null branches, resolved by a discriminator (DESIGN §3.2, `compile/unions.py`)."""
     REFUSED = "refused"
     """Only from `normalise()`; the reason is in its `Refusals`."""
 
@@ -82,6 +90,9 @@ class SchemaNode:
     """An `ENUM`'s options in declared order, or a `CONSTANT`'s one value."""
     properties: tuple[tuple[str, SchemaNode], ...] = ()
     items: SchemaNode | None = None
+    branches: tuple[SchemaNode, ...] = ()
+    """A `UNION`'s branches in declared order, each at the union's own instance pointer."""
+    title: str | None = None
     keywords: Mapping[str, object] = field(default_factory=dict[str, object])
     description: str | None = None
     declaration: FieldDeclaration | None = None
@@ -157,6 +168,8 @@ class _Normaliser:
             values=shaped.values,
             properties=shaped.properties,
             items=shaped.items,
+            branches=shaped.branches,
+            title=t if isinstance(t := schema.get("title"), str) else None,
             keywords={k: v for k, v in schema.items() if k in KEPT or (k == "additionalProperties" and v is False)},
             description=d if isinstance(d := schema.get("description"), str) else None,
             declaration=declaration,
@@ -245,15 +258,17 @@ class _Normaliser:
         if types is not None:
             rest = [t for t in types if t != "null"]
             if len(rest) > 1:
-                return self.union(pointer, "a type list with several non-null types"), False
+                shared = {k: v for k, v in schema.items() if k not in ANNOTATIONS and k != "type"}
+                branches = [shared | {"type": t} for t in rest]
+                annotations = {k: v for k, v in schema.items() if k in ANNOTATIONS}
+                return annotations | {"type": _UNION, _BRANCHES: branches}, len(rest) < len(types)
             return {k: v for k, v in schema.items() if k != "type"} | {"type": rest[0] if rest else "null"}, len(
                 rest
             ) < len(types)
         keys = sorted({"anyOf", "oneOf"} & schema.keys())
-        if len(keys) > 1 or "discriminator" in schema:
-            return self.union(
-                pointer, "oneOf with a discriminator" if "discriminator" in schema else "anyOf with oneOf"
-            ), False
+        if len(keys) > 1:
+            self.refusals.add(pointer, RefusalCode.UNSUPPORTED_KEYWORD, "anyOf beside oneOf is not supported")
+            return None, False
         raw = [as_object(b) for b in as_list(schema[keys[0]]) or [None]]
         branches = [b for b in raw if b is not None]
         if len(branches) < len(raw):
@@ -263,7 +278,8 @@ class _Normaliser:
             self.refusals.add(
                 pointer, RefusalCode.MISPLACED_DECLARATION, "x-jevson belongs on the property, not a branch"
             )
-        siblings = {k: v for k, v in schema.items() if k != keys[0]}
+        # `discriminator` (OpenAPI, emitted by Pydantic) only names the tag; the branches carry it.
+        siblings = {k: v for k, v in schema.items() if k not in (keys[0], "discriminator")}
         return self.collapse(branches, siblings, pointer, stack)
 
     def collapse(
@@ -281,15 +297,22 @@ class _Normaliser:
         if sorted(str(b.get("type")) for b in kept) == ["number", "string"] and any("pattern" in b for b in kept):
             number = next(b for b in kept if b.get("type") == "number")
             return siblings | number | {"type": _DECIMAL}, nullable  # Pydantic's Decimal [L18]
-        return self.union(pointer, f"{len(kept)} non-null branches"), nullable
+        return siblings | {"type": _UNION, _BRANCHES: kept}, nullable
 
-    def union(self, pointer: str, what: str) -> None:
-        self.refusals.add(pointer, RefusalCode.NOT_YET_SUPPORTED, f"union ({what}) is lifted in Phase 6")
+    def union(self, schema: Schema, pointer: str, stack: Stack, depth: int) -> SchemaNode:
+        """Every branch is normalised, so a refusal in any branch is found before any call (R14)."""
+        branches = tuple(
+            self.node(b, pointer, "inner", required=True, stack=stack, depth=depth + 1)
+            for b in as_list(schema[_BRANCHES]) or []
+        )
+        return SchemaNode(pointer, Kind.UNION, branches=branches)
 
     # --- kinds ----------------------------------------------------------------------------------
 
     def shape(self, schema: Schema, pointer: str, stack: Stack, depth: int) -> SchemaNode:
         """The node's kind and children; `node()` adds what every kind shares."""
+        if schema.get("type") is _UNION:
+            return self.union(schema, pointer, stack, depth)
         if unsupported := sorted(UNSUPPORTED & schema.keys()):
             return self.refuse(pointer, RefusalCode.UNSUPPORTED_KEYWORD, f"{', '.join(unsupported)} not supported")
         if schema.get("format") == "binary" or "contentEncoding" in schema:
@@ -350,6 +373,8 @@ class _Normaliser:
         if "prefixItems" in schema or as_list(items) is not None:
             return self.refuse(pointer, RefusalCode.TUPLE_FIELD, "tuples are not supported")
         item = self.node(items, f"{pointer}/-", "inner", required=True, stack=stack, depth=depth + 1)
+        if item.kind is Kind.UNION:
+            return self.refuse(pointer, RefusalCode.UNION_IN_ARRAY, "arrays of unions are not supported in v0")
         if item.kind is Kind.OBJECT:
             return self.refuse(pointer, RefusalCode.ARRAY_OF_OBJECTS, "arrays of objects are not supported in v0")
         return SchemaNode(pointer, Kind.ARRAY, items=item)

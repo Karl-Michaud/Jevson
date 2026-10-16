@@ -34,6 +34,8 @@ class OptionSource(StrEnum):
 
     SCHEMA_ENUM = "schema_enum"
     SCHEMA_RUBRIC = "schema_rubric"
+    SCHEMA_UNION = "schema_union"
+    """A union discriminator's options: one per branch (DESIGN §3.2)."""
     PREDICATE = "predicate"
 
 
@@ -98,6 +100,10 @@ class DeclaredOption:
 
 Provenance: TypeAlias = Span | DeclaredOption
 
+Gates: TypeAlias = tuple[tuple[str, str], ...]
+"""The (discriminator node id, option id) pairs, outermost first, that must all be selected for a
+node inside union branches to run (DESIGN §3.2). Empty outside every union."""
+
 
 # --- the decision graph (DESIGN §3.1) -------------------------------------------------------
 
@@ -123,6 +129,7 @@ class DecisionNode:
     values: tuple[JSONValue, ...] = ()
     """The schema value each option stands for, aligned with `options`; empty for a predicate or a
     hand-built node. Descriptions are quoted text, so `1` and `"1"` cannot be recovered from them."""
+    branch: Gates = ()
 
     def __post_init__(self) -> None:
         if self.values and len(self.values) != len(self.options):
@@ -161,10 +168,21 @@ class StepNode:
     dependencies: frozenset[str] = frozenset()
     drafting: Drafting | None = None
     """Set on every compiled `generate` step; an extraction step has none."""
+    branch: Gates = ()
 
     @property
     def protocol(self) -> Literal["Extractor", "LLM"]:
         return "Extractor" if self.kind is StepKind.EXTRACT else "LLM"
+
+
+@dataclass(frozen=True)
+class Constant:
+    """A class A value committed by code (DESIGN §3.5): a required constant with no default, or any
+    constant of a union branch, which is committed when its branch is selected."""
+
+    pointer: str
+    value: JSONValue
+    branch: Gates = ()
 
 
 # --- result entries (DESIGN §8.1) -----------------------------------------------------------

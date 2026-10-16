@@ -18,7 +18,7 @@ from jevson.types import (
     UnresolvedReason,
 )
 
-DETERMINISTIC = settings(derandomize=True, database=None, max_examples=500)
+DETERMINISTIC = settings(derandomize=True, database=None, max_examples=500, deadline=None)  # no wall clock in tests
 BOOL = DecisionNode("/b#predicate", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/b")
 probabilities = st.floats(0, 1)
 any_float = st.floats(allow_nan=True, allow_infinity=True)

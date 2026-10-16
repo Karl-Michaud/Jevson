@@ -2,7 +2,8 @@
 
 The input is one outcome per decided pointer: a committed value or an `Unresolved`. A pointer with
 no outcome (an undeclared defaulted leaf, class A) is omitted so the caller's default applies. An
-unresolved pointer omits its whole subtree, so an unresolved root yields `{}`. Nothing abstains in
+unresolved pointer omits its whole subtree, so an unresolved root yields `{}`; an `Unresolved` inside
+it is still listed, so an unresolved union names its children `dependency_unresolved`. Nothing abstains in
 v0, so `Result.absent` is always empty (DESIGN §5.6). `satisfies_schema` is computed by validation
 (draft 2020-12), never inferred.
 """
@@ -69,9 +70,11 @@ def assemble(
     decided_by: dict[str, DecidedBy] = {}
     unresolved: list[Unresolved] = []
     for pointer in sorted(by_pointer, key=_tokens):
-        if any(_strictly_under(pointer, hole) for hole in holes):
-            continue
         outcome = by_pointer[pointer]
+        if any(_strictly_under(pointer, hole) for hole in holes):
+            if isinstance(outcome, Unresolved):  # named, e.g. a union's children (DESIGN §6.1)
+                unresolved.append(outcome)
+            continue
         if isinstance(outcome, Unresolved):
             unresolved.append(outcome)
             continue

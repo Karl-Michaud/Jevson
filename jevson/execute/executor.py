@@ -21,10 +21,14 @@
   Decisions are recorded as `node@attempt`. Budgets use the source-only state plus each node's
   declared size, which includes its draft at `max_draft_chars` (`budget.with_drafts`).
 
+- **Unions** (DESIGN §3.2): a node inside union branches runs only when its branch is selected
+  (`branches.py`); a discriminator's answer selects a branch and commits its constants.
+
 An extraction step (class D, deferred) runs through an injected runner per `StepKind`.
 
-Length (~440 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
-and moving it out would make both public for one caller. Split if either grows again.
+Length (~480 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
+and moving it out would make both public for one caller; union gating lives in `branches.py`, leaving
+only its call sites here. Split if either grows again.
 """
 
 from __future__ import annotations
@@ -41,6 +45,7 @@ from jevson.compile.questions import QUESTION_TEMPLATE_VERSION
 from jevson.config import JevsonConfig
 from jevson.errors import BackendError, ExtractorError, LLMError, PreflightError, UsageError
 from jevson.execute import budget
+from jevson.execute.branches import Branches
 from jevson.execute.drafting import TOOL_SCHEMA, messages, read
 from jevson.execute.policy import RedraftLoop
 from jevson.execute.state import LevelState
@@ -61,6 +66,7 @@ from jevson.types import (
     Drafting,
     InvalidAnswer,
     JSONValue,
+    OptionSource,
     ProvenanceKind,
     Question,
     Rejection,
@@ -129,6 +135,7 @@ class _Run:
         self.nodes: dict[str, DecisionNode] = {}
         self.answers: dict[str, Answer | str] = {}
         """Adjudication answers awaiting their field's verdict, by node id."""
+        self.branches: Branches
 
     def emit(self, event: CostEvent) -> None:
         if self.sink is not None:
@@ -148,6 +155,7 @@ class _Run:
             "tie_margin_hundredths": str(config.tie_margin_hundredths),
             "default_extractor": config.default_extractor or "none",
             "redraft_budget": str(config.redraft_budget),
+            "union_fanout": str(config.union_fanout).lower(),
         }
         return assemble(
             self.schema,
@@ -202,12 +210,15 @@ async def execute(
     runners = dict(steps or {})
     sized = budget.with_drafts(declared_size, run.adjudicates)
     names = _preflight(run, graph, source, runners, llm, known=known or {}, declared_size=sized)
+    run.branches = Branches(graph, known or {})
     for pointer, value in (known or {}).items():
-        run.outcomes[pointer] = Committed(pointer, value, DecidedBy.CALLER)
+        if pointer not in run.branches.deferred:
+            run.outcomes[pointer] = Committed(pointer, value, DecidedBy.CALLER)
+    run.branches.commit_open(run.outcomes)
     for level in graph.levels():
         drafted: list[StepNode] = []
         for step in level.steps:
-            if step.target in run.outcomes:
+            if step.target in run.outcomes or not _runs(run, step):
                 continue
             if step.drafting is not None and llm is not None:
                 await _draft(run, llm, step, step.drafting, None)
@@ -224,8 +235,22 @@ def _askable(run: _Run, nodes: Sequence[DecisionNode]) -> list[DecisionNode]:
     pending = run.drafting.pending()
     return [
         n for n in nodes
-        if (run.adjudicates[n.id].id in pending if n.id in run.adjudicates else n.target not in run.outcomes)
+        if (run.adjudicates[n.id].id in pending if n.id in run.adjudicates
+            else n.target not in run.outcomes and _runs(run, n))
     ]  # fmt: skip
+
+
+def _runs(run: _Run, node: DecisionNode | StepNode) -> bool:
+    """Whether a node's branch lets it run. A node under an unresolved discriminator is
+    `dependency_unresolved`; a known field inside a branch is never asked (`Branches.commit_open`)."""
+    gate = run.branches.gate(node.branch)
+    if gate == "unresolved":
+        run.outcomes.setdefault(node.target, Unresolved(node.target, UnresolvedReason.DEPENDENCY_UNRESOLVED))
+    return not (
+        gate in ("unresolved", "closed")
+        or node.id in run.branches.selected  # selected by known=
+        or node.target in run.branches.deferred
+    )
 
 
 async def _redraft(
@@ -348,7 +373,9 @@ async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], na
     answers: dict[str, Answer | str] = {q.name: _OVERFLOW for q in too_big}
     for chunk in chunks:
         answers |= await _ask(run, backend, run.state([by_name[q.name] for q in chunk]), chunk)
-    for node in ready:
+    for node in sorted(ready, key=lambda n: len(n.branch)):  # under fan-out, discriminators first
+        if node.target in run.outcomes or not _runs(run, node):
+            continue  # an unselected branch's answer is discarded
         if node.id in run.adjudicates:
             run.answers[node.id] = answers[names[node.id].name]
         else:
@@ -356,14 +383,23 @@ async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], na
 
 
 def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
+    union = node.option_source is OptionSource.SCHEMA_UNION
     if isinstance(answer, str):
-        run.outcomes[node.target] = Unresolved(node.target, UnresolvedReason.BUDGET_EXCEEDED)
+        reason: UnresolvedReason | None = UnresolvedReason.BUDGET_EXCEEDED
+        selected = None
+    else:
+        reading = interpret(node, answer, run.config.tie_margin_hundredths)
+        run.decisions[f"{node.id}@0"] = reading.decision
+        selected = reading.decision.selected
+        reason = reading.reason if reading.status == "unresolved" else None
+    if reason is not None or selected is None:
+        run.outcomes[node.target] = Unresolved(node.target, reason or UnresolvedReason.INVALID_BACKEND_ANSWER)
+        if union:
+            run.branches.failed.add(node.id)
         return
-    reading = interpret(node, answer, run.config.tie_margin_hundredths)
-    run.decisions[f"{node.id}@0"] = reading.decision
-    selected = reading.decision.selected
-    if reading.status == "unresolved" or selected is None:
-        run.outcomes[node.target] = Unresolved(node.target, reading.reason or UnresolvedReason.INVALID_BACKEND_ANSWER)
+    if union:
+        run.branches.selected[node.id] = str(selected)
+        run.branches.commit_open(run.outcomes)
         return
     if node.kind is DecisionKind.PREDICATE:
         run.outcomes[node.target] = Committed(node.target, selected, DecidedBy.DECISION)
