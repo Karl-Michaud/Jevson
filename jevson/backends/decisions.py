@@ -16,11 +16,15 @@ a dependency, so every request, retry, and token is visible to `Cost`.
   no measured rate, DESIGN §2.2); pass `requests_per_minute` to change it, and the lower rate wins.
 - Without `async with`, each `ask` uses its own client and closes it before returning; inside
   `async with`, calls on that loop share one client until exit (DESIGN §8 lifecycle).
+- On the library loop (the synchronous `resolve()`, `execute/loop.py`) calls share one long-lived
+  client; `close()` closes it by submitting to that loop. After a fork, every inherited client
+  belongs to a dead loop and is dropped without being closed.
 """
 
 from __future__ import annotations
 
 import asyncio
+import concurrent.futures
 import os
 import time
 from collections.abc import Mapping, Sequence
@@ -30,6 +34,7 @@ from typing import Any, cast
 import httpx
 
 from jevson.errors import BackendError, MissingCredentials, UsageError
+from jevson.execute import loop as library
 from jevson.execute.policy import TransportFailure, TransportPolicy, parse_retry_after, retrying
 from jevson.execute.ratelimit import Clock, Sleep, acquire, limiter_for
 from jevson.result import Result
@@ -80,7 +85,8 @@ class DecisionsBackend:
         self._transport = transport
         self._sleep = sleep
         self._closed = False
-        self._shared: tuple[asyncio.AbstractEventLoop, httpx.AsyncClient] | None = None
+        self._shared: tuple[asyncio.AbstractEventLoop, int, httpx.AsyncClient] | None = None
+        self._library: tuple[int, httpx.AsyncClient] | None = None
         self._depth = 0
         self._live_clients = 0
 
@@ -99,8 +105,9 @@ class DecisionsBackend:
     async def __aenter__(self) -> DecisionsBackend:
         self._check_open()
         loop = asyncio.get_running_loop()
+        self._drop_inherited()
         if self._shared is None:
-            self._shared = (loop, self._new_client())
+            self._shared = (loop, library.generation(), self._new_client())
         elif self._shared[0] is not loop:
             raise UsageError("this DecisionsBackend is already entered with `async with` on another event loop")
         self._depth += 1
@@ -109,22 +116,49 @@ class DecisionsBackend:
     async def __aexit__(
         self, exc_type: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None
     ) -> None:
-        self._depth -= 1
+        self._depth = max(self._depth - 1, 0)  # 0 already if a fork dropped the shared client
         if self._depth == 0 and self._shared is not None:
-            _, client = self._shared
+            _, _, client = self._shared
             self._shared = None
             await self._close_client(client)
 
     def close(self) -> None:
-        """Refuse further calls. A shared client is closed by the `async with` that opened it."""
+        """Refuse further calls and close the library-loop client on that loop.
+
+        A client shared under `async with` is closed by the `async with` that opened it.
+        """
         self._closed = True
+        closing = self._close_library_client()
+        if closing is not None and not _on_library_loop():
+            closing.result()
 
     async def aclose(self) -> None:
         self._closed = True
         if self._shared is not None and self._shared[0] is asyncio.get_running_loop():
-            _, client = self._shared
+            _, _, client = self._shared
             self._shared, self._depth = None, 0
             await self._close_client(client)
+        closing = self._close_library_client()
+        if closing is not None and not _on_library_loop():
+            await asyncio.wrap_future(closing)
+
+    def _close_library_client(self) -> concurrent.futures.Future[None] | None:
+        self._drop_inherited()
+        if self._library is None:
+            return None
+        _, client = self._library
+        self._library = None
+        return library.submit(lambda: self._close_client(client))
+
+    def _drop_inherited(self) -> None:
+        """Forget clients made before a fork: their loop is gone in this process, so never close them."""
+        now = library.generation()
+        if self._library is not None and self._library[0] != now:
+            self._library = None
+            self._live_clients -= 1
+        if self._shared is not None and self._shared[1] != now:
+            self._shared, self._depth = None, 0
+            self._live_clients -= 1
 
     def _check_open(self) -> None:
         if self._closed:
@@ -147,8 +181,13 @@ class DecisionsBackend:
             raise UsageError("ask() needs at least one question")
         payload = {"model": model, "input": state, "questions": [_encode(i, q) for i, q in enumerate(questions)]}
         loop = asyncio.get_running_loop()
+        self._drop_inherited()
         if self._shared is not None and self._shared[0] is loop:
-            return await self._ask_with(self._shared[1], payload, questions)
+            return await self._ask_with(self._shared[2], payload, questions)
+        if library.is_library_loop(loop):
+            if self._library is None:
+                self._library = (library.generation(), self._new_client())
+            return await self._ask_with(self._library[1], payload, questions)
         client = self._new_client()
         try:
             return await self._ask_with(client, payload, questions)
@@ -197,6 +236,13 @@ class DecisionsBackend:
             transport_retries=max(attempts - 1, 0),
         )
         return BackendError(code, detail.replace(self.__key, "<redacted>"), Result({}, False, cost=cost))
+
+
+def _on_library_loop() -> bool:
+    try:
+        return library.is_library_loop(asyncio.get_running_loop())
+    except RuntimeError:
+        return False
 
 
 # --- the wire -------------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 """`Jevson`: the public entry point. Compiles the schema, runs the executor, and checks the result.
 
 `Jevson(backend, llm=None, extractors=None, config=None, cost_sink=None)` with
-`aresolve(schema, source, *, known=None, redraft_budget=None)` (DESIGN §8). There is no default
-backend: constructing a `DecisionsBackend` is an explicit choice to spend money.
+`resolve()` / `aresolve(schema, source, *, known=None, redraft_budget=None)` (DESIGN §8). There is no
+default backend: constructing a `DecisionsBackend` is an explicit choice to spend money.
 
 - `CompileError`, `PreflightError` and `UsageError` are raised before anything is spent; `known=`
   values are checked against their field's declared values before the first call, then recorded as
@@ -11,15 +11,17 @@ backend: constructing a `DecisionsBackend` is an explicit choice to spend money.
   and each error is a `Violation` with keyword `model_validate` [L18].
 - With `raise_on_unresolved_required`, an unresolved required field raises `SchemaViolation`
   carrying the `Result`.
+- `resolve()` submits `aresolve()` to the library-owned loop (`execute/loop.py`) and blocks; inside
+  a running loop it raises `UsageError` pointing at `aresolve()`.
 - Lifecycle: `async with Jevson(...)` enters its backend's `async with`, if it has one, so calls on
-  that loop share one client. `close()` and `aclose()` refuse further calls; they never close a
-  client bound to another loop. The synchronous `resolve()` and the library loop arrive in J3c
-  (`execute/loop.py`), which submits `aresolve` to that loop and closes its client in `close()`.
+  that loop share one client. `close()` and `aclose()` refuse further calls and close the backend
+  too (its `close()` / `aclose()`, if it has them), so a backend should not be shared between
+  `Jevson` instances that are closed separately.
 """
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Awaitable, Callable, Mapping
 from dataclasses import replace
 from types import TracebackType
 from typing import Any, cast
@@ -28,6 +30,7 @@ from jevson.compile.compiler import compile_schema
 from jevson.compile.normalise import Kind, SchemaNode, normalise_schema
 from jevson.config import JevsonConfig
 from jevson.errors import PreflightError, SchemaViolation, UsageError
+from jevson.execute import loop
 from jevson.execute.executor import execute
 from jevson.graph import DecisionGraph
 from jevson.protocols import LLM, Backend, CostSink, Extractor
@@ -83,15 +86,33 @@ class Jevson:
 
     def close(self) -> None:
         self._closed = True
+        close = getattr(self._backend, "close", None)
+        if callable(close):
+            close()
 
     async def aclose(self) -> None:
         self._closed = True
+        aclose = getattr(self._backend, "aclose", None)
+        if callable(aclose):
+            await cast("Callable[[], Awaitable[object]]", aclose)()
 
     def _check_open(self) -> None:
         if self._closed:
             raise UsageError("this Jevson is closed")
 
     # --- resolve --------------------------------------------------------------------------
+
+    def resolve(
+        self,
+        schema: object,
+        source: str,
+        *,
+        known: Mapping[str, JSONValue] | None = None,
+        redraft_budget: int | None = None,
+    ) -> Result:
+        """The synchronous `aresolve()`, run on the library loop; refuses inside a running loop."""
+        self._check_open()
+        return loop.run(lambda: self.aresolve(schema, source, known=known, redraft_budget=redraft_budget))
 
     async def aresolve(
         self,
