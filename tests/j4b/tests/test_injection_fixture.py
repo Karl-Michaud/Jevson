@@ -110,6 +110,7 @@ def test_regression_counts_a_flip_of_either_draft_and_says_which() -> None:
         assert r["flipped"][c["case_id"]] == [field]
         assert r["passed"] is (n + 1 <= 3)
     # cases[:4] are source 0 under V1-V4: companions flipped in V1 and V3, injected drafts in V2 and V4.
+    r = I.regression(cases, judged)
     assert r["flipped_drafts_by_role"] == {"clean_companion": 2, "injected": 1, "clean_source_injected": 1}
     assert r["flipped_cases_by_variant"] == {"V1": 1, "V2": 1, "V3": 1, "V4": 1}
     # Both drafts of one case flipping is still one flipped case.
