@@ -85,7 +85,7 @@ There is no default backend: constructing `DecisionsBackend` is an explicit choi
 | tier | claim | holds? |
 |---|---|---|
 | Structural | `.value` conforms to the schema's structure, **or the result says it does not** | yes |
-| Constraint | `minimum`, `maxItems`, `pattern`, required fields and the like hold, or `Result.violations` names each failure | yes. `format` keywords are **not checked** unless you install `jsonschema`'s format extras (`pip install "jsonschema[format]"`) **[L10]** |
+| Constraint | `minimum`, `maxItems`, `pattern`, required fields and the like hold, or `Result.violations` names each failure | yes. `format` is checked for the formats `jsonschema` checks on its own (`email`, `date`, `ipv4`, `ipv6`, `uuid`, `regex` among them); the rest, `date-time` and `uri` included, are **not checked** unless you install `jsonschema`'s format extras (`pip install "jsonschema[format]"`) **[L10]** |
 | Provenance | every bounded value came from a declared option | yes. No value comes from the source in v0, so there is no source-span provenance |
 | Decision | every decision's full distribution is reported | yes |
 | Calibration | reported probabilities match observed frequencies | **not established**. Probabilities are reported, not calibrated, and no default threshold drops a value |

@@ -58,6 +58,12 @@ pending the owner's decision (PLAN §6).
 - `Cost.level_splits` counts only splits and bisections within a request group; the separate
   adjudication request is not a split (ASTERION-50).
 
+**Fixed before release** (ASTERION-44, the post-merge review of the v0 pull requests)
+
+- Final validation checks `format`: `Result.violations` names a value that fails `email`,
+  `date`, `uuid`, `ipv4`/`ipv6` or `regex`, which `jsonschema` checks on its own; formats that
+  need `jsonschema[format]` (`date-time`, `uri`, …) are still checked only with those extras.
+
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,
 arrays of objects, generative lists, multi-source input. See the README's "What did not ship".

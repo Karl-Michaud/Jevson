@@ -107,7 +107,9 @@ def assemble(
 
 
 def _validate(schema: Mapping[str, Any], value: dict[str, JSONValue]) -> list[Violation]:
-    validator: Any = Draft202012Validator(schema)  # jsonschema's overloads are partially untyped
+    # `format` is checked: always for the formats jsonschema checks itself (e.g. `email`), and for the
+    # rest only when the caller installs jsonschema's format extras [L10] (DESIGN §6.1).
+    validator: Any = Draft202012Validator(schema, format_checker=Draft202012Validator.FORMAT_CHECKER)
     errors: list[ValidationError] = list(validator.iter_errors(value))
     violations = [
         Violation("".join(f"/{_escape(str(t))}" for t in e.absolute_path), str(e.validator), e.message) for e in errors

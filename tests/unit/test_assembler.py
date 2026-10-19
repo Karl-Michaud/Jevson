@@ -114,6 +114,16 @@ def test_violation_pointers_escape_tokens() -> None:
     assert [v.pointer for v in result.violations] == ["/a~1b~0c"]
 
 
+def test_format_is_checked_in_final_validation() -> None:
+    # DESIGN §6.1: `format` is checked; jsonschema's `email` checker needs no extras.
+    schema = {"type": "object", "properties": {"contact": {"type": "string", "format": "email"}}}
+    bad = assemble(schema, [Committed("/contact", "not an address", DecidedBy.LLM)])
+    assert bad.satisfies_schema is False
+    assert [(v.pointer, v.keyword) for v in bad.violations] == [("/contact", "format")]
+    good = assemble(schema, [Committed("/contact", "a@example.com", DecidedBy.LLM)])
+    assert good.satisfies_schema is True
+
+
 # --- pass-through and ungated ----------------------------------------------------------------
 
 
