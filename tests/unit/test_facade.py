@@ -84,6 +84,8 @@ def test_n_independent_nodes_resolve_in_exactly_one_backend_call() -> None:
     assert result.versions["model"] == "gpt-6-luna"
     assert backend.calls[0].model == "gpt-6-luna"
     assert backend.calls[0].state == '{"source": "' + SOURCE + '"}'
+    assert result.absent == ()  # PLAN Phase 1: present and empty in v0
+    assert not [key for key in result.versions if "grapheme" in key or "unicode" in key]
 
 
 @pytest.mark.parametrize("p", [0.45, 0.50, 0.55])
@@ -117,6 +119,16 @@ def test_a_low_probability_commit_is_reported_not_dropped() -> None:
     assert result.value["category"] == "services"
     assert result.decisions["/category#choice@0"].distribution_hundredths["c2"] == 52
     assert result.complete
+
+
+def test_a_choice_whose_top_is_below_half_still_commits() -> None:
+    """No default threshold: 0.34 against three options at 0.22 is outside the tie margin, so it commits."""
+    low = FakeBackend.distribution({"c0": 0.34, "c1": 0.22, "c2": 0.22, "c3": 0.22})
+    schema = {"type": "object", "properties": {"k": {"enum": ["a", "b", "c", "d"]}}, "required": ["k"]}
+    result = resolve(schema, FakeBackend(default=low))
+    assert result.value == {"k": "a"}
+    assert result.complete
+    assert result.decisions["/k#choice@0"].distribution_hundredths["c0"] == 34
 
 
 def test_known_values_skip_their_nodes_and_are_decided_by_the_caller() -> None:

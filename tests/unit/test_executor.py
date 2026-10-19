@@ -338,6 +338,20 @@ def test_each_node_is_budgeted_at_its_declared_size() -> None:
     assert untouched.calls == []
 
 
+def test_an_oversized_node_in_a_later_level_raises_before_the_first_call() -> None:
+    """Preflight sizes every level, not only the first: no spend on level 0 when level 1 cannot fit."""
+    graph = DecisionGraph([flag("a"), flag("big", frozenset({"/a#predicate"}))])
+    small = budget.declared_tokens(flag("a"))
+
+    def huge(node: DecisionNode) -> int:
+        return 10**6 if node.target == "/big" else small
+
+    backend = FakeBackend(default=FakeBackend.predicate(0.9))
+    with pytest.raises(PreflightError, match="/big"):
+        run(graph, backend, config=JevsonConfig(max_input_tokens=10_000), declared_size=huge)
+    assert backend.calls == []
+
+
 POSITIONAL = re.compile(r"\[\d+\]")
 
 
