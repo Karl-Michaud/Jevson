@@ -27,6 +27,7 @@ graph is qualified by its ancestor property names (`questions.scopes`).
 
 from __future__ import annotations
 
+import json
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass, field, replace
@@ -254,10 +255,21 @@ class _Mapper:
     def enum(self, node: SchemaNode, labelled: questions.Labelled) -> None:
         """A choice over an enum, or a multi-label enum array's membership predicates (DESIGN §4.2)."""
         values = node.items.values if node.items is not None else node.values
+        if node.items is not None and node.items.nullable:  # R14: never strip the null silently
+            return self.refuse(
+                node,
+                RefusalCode.ENUM_VALUE_TYPE,
+                "a multi-label array's item enum cannot include null: membership is asked per declared value; "
+                "drop the null, or make the whole array optional instead",
+            )
         if not all(isinstance(v, str | int) and not isinstance(v, bool) for v in values):
             return self.refuse(node, RefusalCode.ENUM_VALUE_TYPE, "enum values must be strings or integers")
-        if len(values) > MAX_OPTIONS:
-            return self.refuse(node, RefusalCode.ENUM_SIZE, f"{len(values)} values; an enum takes 2-255")
+        if len(values) > MAX_OPTIONS:  # at least 2: normalise.py makes one value a constant
+            return self.refuse(
+                node, RefusalCode.ENUM_SIZE, f"{len(values)} values; an enum takes at most {MAX_OPTIONS}"
+            )
+        if clash := _indistinguishable(values):
+            return self.refuse(node, RefusalCode.INDISTINGUISHABLE_OPTIONS, clash)
         if node.items is None:
             self.pending.append(_Pending(node, DecisionKind.CHOICE, labelled, values, self.at))
             return None
@@ -288,6 +300,18 @@ class _Mapper:
                 RefusalCode.UNBOUNDED_FIELD,
                 "class G: an unbounded value with no default and no `generate`; declare one, or make it an enum",
             )
+
+
+def _indistinguishable(values: tuple[JSONValue, ...]) -> str | None:
+    """The first two values whose options render alike ("a" twice, or "1" and 1): the model sees one
+    option text for both, so whichever it chose, code could not tell which value was meant."""
+    seen: dict[str, JSONValue] = {}
+    for value in values:
+        rendered = questions.option_description(value)
+        if rendered in seen:
+            return f"values {json.dumps(seen[rendered])} and {json.dumps(value)} render as the same option {rendered}"
+        seen[rendered] = value
+    return None
 
 
 def _levels(keywords: Mapping[str, object]) -> tuple[JSONValue, ...] | None:

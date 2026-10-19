@@ -349,11 +349,11 @@ The mapping from `jev_jsonschema` **[X3]** is adopted with corrections:
 | construct | mapping | note |
 |---|---|---|
 | `bool` | `predicate`; true iff p ≥ 0.56; false iff p ≤ 0.44; 0.45–0.55 inclusive is `Unresolved(tie)` | on Jev, the band that removed every true↔false flip across 10 identical calls on 200 questions counted 0.45 and 0.55 as ties **[P12]**; it is the tie margin of DESIGN §6.2 applied to a binary answer |
-| string/int enum, 2–255 values | `choice` over opaque ids; a top-two margin ≤ 0.10 → `Unresolved(tie)` | on Jev, a ±0.05 band left 11/180 argmax flips; a 0.10 margin left 1/180, converting 7.8% of answers to ties **[P20]** |
+| string/int enum, 2–255 values | `choice` over opaque ids; a top-two margin ≤ 0.10 → `Unresolved(tie)`; two values whose quoted options render alike (`"a"` twice, or `"1"` and `1`) refuse `indistinguishable_options`, because the model could not tell them apart | on Jev, a ±0.05 band left 11/180 argmax flips; a 0.10 margin left 1/180, converting 7.8% of answers to ties **[P20]** |
 | integer range 2–10 **declared `ordinal: true`** | `score`; the value is the **most probable level**; a top-two margin ≤ 0.10 → tie | the API's `score` is a probability-weighted mean of level indices **[D1]** (e.g. 3.20 for p = [.45,0,0,0,.55]) that can fail `type: integer` **[L4]**; on Jev, round(score) and argmax disagreed on 8/60 live scores **[P13]** |
 | integer range not declared ordinal (a count, a quantity) | a number: source-selected (class D + F) or refused | counts are not ratings; counting is never asked of the decision model (Jev documented that it cannot count **[V-jagged]**) |
 | number bounded 0–1 | **not** a probability; a number like any other | mapping it to the decision model's probability writes a belief into value fields such as `tax_rate: 0.20` **[L4]** |
-| array of enum (multi-label) | one membership `predicate` per declared value, with the bool rule; elements in declared enum order; `maxItems` keeps the first k in that order, overflow retained; a tied value is `Unresolved(tie)` at the array pointer naming the value, the others emitted | `PLAN.md` Phase 7 |
+| array of enum (multi-label) | one membership `predicate` per declared value, with the bool rule; elements in declared enum order; `maxItems` keeps the first k in that order, overflow retained; a tied value is `Unresolved(tie)` at the array pointer naming the value, the others emitted; a `null` among the item enum's values refuses `enum_value_type` (R14: membership of null cannot be asked, and it is never stripped silently) | `PLAN.md` Phase 7 |
 
 ---
 

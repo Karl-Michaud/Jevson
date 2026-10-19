@@ -301,6 +301,9 @@ UNBOUNDED, ORDINAL = RefusalCode.UNBOUNDED_FIELD, RefusalCode.ORDINAL_LEVELS
         ({"enum": [f"v{i}" for i in range(256)]}, RefusalCode.ENUM_SIZE),
         ({"enum": [1.5, 2.5]}, RefusalCode.ENUM_VALUE_TYPE),
         ({"enum": [True, "x"]}, RefusalCode.ENUM_VALUE_TYPE),
+        ({"enum": ["a", "a"]}, RefusalCode.INDISTINGUISHABLE_OPTIONS),
+        ({"enum": ["1", 1]}, RefusalCode.INDISTINGUISHABLE_OPTIONS),
+        ({"enum": ["a", "b", "a", None]}, RefusalCode.INDISTINGUISHABLE_OPTIONS),
         ({"type": "integer", "minimum": 0, "maximum": 10, "x-jevson": {"ordinal": True}}, RefusalCode.ORDINAL_LEVELS),
         ({"type": "integer", "minimum": 3, "maximum": 3, "x-jevson": {"ordinal": True}}, RefusalCode.ORDINAL_LEVELS),
         ({"type": "integer", "minimum": 0, "x-jevson": {"ordinal": True}}, RefusalCode.ORDINAL_LEVELS),
@@ -318,6 +321,15 @@ UNBOUNDED, ORDINAL = RefusalCode.UNBOUNDED_FIELD, RefusalCode.ORDINAL_LEVELS
 )
 def test_each_unmappable_field_refuses_with_one_named_reason(field: dict[str, object], code: RefusalCode) -> None:
     assert refusals(obj(f=field)) == [("/f", code)]
+
+
+def test_indistinguishable_enum_options_are_named_and_the_size_message_states_the_real_bound() -> None:
+    with pytest.raises(CompileError) as caught:
+        compile_schema(obj(f={"enum": ["1", 1, "b"]}))
+    assert [r.message for r in caught.value.reasons] == ['values "1" and 1 render as the same option "1"']
+    with pytest.raises(CompileError) as caught:
+        compile_schema(obj(f={"enum": [f"v{i}" for i in range(256)]}))
+    assert [r.message for r in caught.value.reasons] == ["256 values; an enum takes at most 255"]
 
 
 def test_default_extractor_turns_unbounded_fields_into_source_selection_dropped() -> None:

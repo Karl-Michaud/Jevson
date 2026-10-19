@@ -261,8 +261,32 @@ def test_known_array_replaces_its_membership_questions() -> None:
 def test_oversized_enum_arrays_and_non_scalar_values_refuse() -> None:
     many = {"type": "array", "items": {"enum": [f"v{i}" for i in range(256)]}}
     mixed = {"type": "array", "items": {"enum": ["a", 1.5]}}
-    schema = {"type": "object", "properties": {"many": many, "mixed": mixed}, "required": ["many", "mixed"]}
-    assert refusals(schema) == [("/many", RefusalCode.ENUM_SIZE), ("/mixed", RefusalCode.ENUM_VALUE_TYPE)]
+    twice = {"type": "array", "items": {"enum": ["a", "b", "a"]}}
+    properties = {"many": many, "mixed": mixed, "twice": twice}
+    schema = {"type": "object", "properties": properties, "required": list(properties)}
+    assert refusals(schema) == [
+        ("/many", RefusalCode.ENUM_SIZE),
+        ("/mixed", RefusalCode.ENUM_VALUE_TYPE),
+        ("/twice", RefusalCode.INDISTINGUISHABLE_OPTIONS),
+    ]
+
+
+class NullableTopics(BaseModel):
+    topics: list[Literal["refund", "account"] | None] = Field(description="the topics the ticket raises")
+
+
+@pytest.mark.parametrize(
+    "items",
+    [
+        {"enum": ["refund", "account", None]},
+        {"anyOf": [{"enum": ["refund", "account"]}, {"type": "null"}]},
+    ],
+)
+def test_a_null_in_a_multi_label_items_enum_refuses_loudly(items: dict[str, object]) -> None:
+    # R14: a membership predicate cannot ask whether "null" is one of the values; never strip it silently.
+    schema = {"type": "object", "properties": {"topics": {"type": "array", "items": items}}, "required": ["topics"]}
+    assert refusals(schema) == [("/topics", RefusalCode.ENUM_VALUE_TYPE)]
+    assert refusals(NullableTopics) == [("/topics", RefusalCode.ENUM_VALUE_TYPE)]
 
 
 class Email(BaseModel):

@@ -57,6 +57,7 @@ class RefusalCode(StrEnum):
     # mapping (checked by compile/mapping.py)
     ORDINAL_LEVELS = "ordinal_levels"
     ENUM_VALUE_TYPE = "enum_value_type"
+    INDISTINGUISHABLE_OPTIONS = "indistinguishable_options"
     UNBOUNDED_FIELD = "unbounded_field"
     BOOL_PREDICATE_MISSING = "bool_predicate_missing"
     GENERATE_FIELD_TYPE = "generate_field_type"

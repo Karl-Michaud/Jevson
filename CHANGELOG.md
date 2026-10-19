@@ -69,6 +69,11 @@ pending the owner's decision (PLAN §6).
 - `DecisionsBackend` ignores a malformed `Retry-After` (`nan`, `inf`, `1e309`, negative) and
   backs off as usual, and no longer retries early when the server asks for more than 30 s: it
   raises `BackendError` at once, with that attempt in `Cost`.
+- New `RefusalCode.INDISTINGUISHABLE_OPTIONS`: an enum with two values whose options render alike
+  (`["a", "a"]`, `["1", 1]`) refuses at compile time instead of asking a choice the model cannot
+  answer. The `enum_size` message states the real bound ("at most 255"; one value is a constant).
+- A multi-label enum array whose item enum includes `null` (`list[Literal[...] | None]`) refuses
+  with `enum_value_type` instead of dropping the `null` silently.
 
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,
