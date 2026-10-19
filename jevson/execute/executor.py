@@ -1,4 +1,5 @@
-"""Runs a decision graph: steps in dependency order, then each level's decisions as one request (R3).
+"""Runs a decision graph: steps in dependency order, then each level's decisions in one request (R3),
+and its adjudication questions in another.
 
 - **Preflight** (DESIGN §8.2) budgets every level before the first call; a question that cannot fit
   even alone raises `PreflightError`, and a level over a limit is split (`Cost.level_splits`).
@@ -15,7 +16,9 @@
 
 - **Generative fields** (DESIGN §6.3): a `generate` step drafts through the caller's `LLM`
   (`drafting.py`); a well-formed draft enters the level state at `drafts.<step id>`, and its criteria
-  ride in the level's one request. Each request's state holds only the drafts its questions name.
+  ride in the level's adjudication request, apart from every other question: only adjudication is
+  ever asked over a state holding drafts (DESIGN §5.2), and each such state holds only the drafts its
+  questions name. The two groups are budgeted and split separately.
   After the level's request, failing fields are redrafted and re-adjudicated together, one request
   per round, until each is admitted or its `redraft_budget` is spent (`policy.RedraftLoop`).
   Decisions are recorded as `node@attempt`. Budgets use the source-only state plus each node's
@@ -29,7 +32,7 @@
 
 An extraction step (class D, deferred) runs through an injected runner per `StepKind`.
 
-Length (~480 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
+Length (~500 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
 and moving it out would make both public for one caller; union gating lives in `branches.py`, leaving
 only its call sites here. Split if either grows again.
 """
@@ -369,17 +372,11 @@ async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], na
             run.outcomes[node.key] = Unresolved(node.target, UnresolvedReason.DEPENDENCY_UNRESOLVED)
         else:
             ready.append(node)
-    if not ready:
-        return
-    budgeted = run.state(ready, budgeted=True)
-    questions = [names[node.id] for node in ready]
-    by_name = {names[node.id].name: node for node in ready}
-    too_big = budget.oversized(budgeted, questions, run.sizes, run.config)  # extracted outputs grow a state
-    chunks = budget.split(budgeted, [q for q in questions if q not in too_big], run.sizes, run.config)
-    run.tally.level_splits += max(len(chunks) - 1, 0)
-    answers: dict[str, Answer | str] = {q.name: _OVERFLOW for q in too_big}
-    for chunk in chunks:
-        answers |= await _ask(run, backend, run.state([by_name[q.name] for q in chunk]), chunk)
+    answers: dict[str, Answer | str] = {}
+    plain = [node for node in ready if node.id not in run.adjudicates]
+    for group in (plain, [node for node in ready if node.id in run.adjudicates]):
+        if group:
+            answers |= await _ask_group(run, backend, group, names)
     for node in sorted(ready, key=lambda n: len(n.branch)):  # under fan-out, discriminators first
         if node.key in run.outcomes or not _runs(run, node):
             continue  # an unselected branch's answer is discarded
@@ -387,6 +384,23 @@ async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], na
             run.answers[node.id] = answers[names[node.id].name]
         else:
             _record(run, node, answers[names[node.id].name])
+
+
+async def _ask_group(
+    run: _Run, backend: Backend, group: Sequence[DecisionNode], names: Mapping[str, Question]
+) -> dict[str, Answer | str]:
+    """Ask one group in as few requests as fit the budget. Adjudication questions form their own group,
+    so a state holding drafts reaches only the questions that check them (invariant 7)."""
+    budgeted = run.state(group, budgeted=True)
+    questions = [names[node.id] for node in group]
+    by_name = {names[node.id].name: node for node in group}
+    too_big = budget.oversized(budgeted, questions, run.sizes, run.config)  # extracted outputs grow a state
+    chunks = budget.split(budgeted, [q for q in questions if q not in too_big], run.sizes, run.config)
+    run.tally.level_splits += max(len(chunks) - 1, 0)
+    answers: dict[str, Answer | str] = {q.name: _OVERFLOW for q in too_big}
+    for chunk in chunks:
+        answers |= await _ask(run, backend, run.state([by_name[q.name] for q in chunk]), chunk)
+    return answers
 
 
 def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
