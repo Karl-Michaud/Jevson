@@ -77,6 +77,10 @@ pending the owner's decision (PLAN §6).
 - Question templates 1.1.1: a label's leading article is dropped, so a description such as "the
   ticket's topic" asks `Which of these is the ticket's topic?`, not `... the the ticket's topic?`.
   Questions over such labels change, so `CachingBackend` records made under 1.1.0 miss for them.
+- Question templates 1.1.2: the article is dropped only from a label taken from an
+  `x-jevson.question` or a `description`; a property name used as the label keeps it (`a_rating`
+  asks `Which of these is the a rating?`, not `... the rating?`), scoped or not. Questions over
+  such names change, so `CachingBackend` records made under 1.1.1 miss for them.
 - `x-jevson.question` or `ordinal: true` declared on an object field (a nested model, beside its
   `$ref`) refuses with `misplaced_declaration` or `ordinal_levels` instead of being ignored: an
   object is compiled from its properties. Move the key to the property it was meant for.

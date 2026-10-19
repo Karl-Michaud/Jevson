@@ -7,9 +7,11 @@ bare name or a statement as "According to the source, verified?", which is not a
 The templates say "noul"; on the Decisions API that primitive is `predicate`, with the same wording.
 
 A choice or score field's `{label}` is its `x-jevson.question`, else its `description`, else its
-property name with underscores read as spaces, with a leading article ("the", "a", "an") dropped
-because every template that takes a label supplies its own "the" (1.1.1, ASTERION-44: 1.1.0 asked
-"Which of these is the the ticket's topic?"; no template string changed). A bool's `{predicate}`
+property name with underscores read as spaces. A question or description has a leading article
+("the", "a", "an") dropped because every template that takes a label supplies its own "the" (1.1.1,
+ASTERION-44: 1.1.0 asked "Which of these is the the ticket's topic?"; no template string changed).
+A property name keeps it (1.1.2): it is an identifier, so `a_rating` beside `b_rating` names "a
+rating", which 1.1.1 asked about as "rating". A bool's `{predicate}`
 is its `x-jevson.question` or its `description`, phrased as a statement; a bool with neither is
 refused by the mapper, because a property name is not a statement. `title` is never used, because
 Pydantic generates one from the name. The text is used verbatim, trimmed, with one trailing `.` or
@@ -39,7 +41,7 @@ from dataclasses import dataclass
 from jevson.compile.normalise import SchemaNode
 from jevson.types import JSONValue
 
-QUESTION_TEMPLATE_VERSION = "1.1.1"
+QUESTION_TEMPLATE_VERSION = "1.1.2"
 
 ENUM_INSTRUCTIONS = "Which of these is the {label}?"
 ENUM_OPTION = '"{value}"'
@@ -64,13 +66,14 @@ def declared_question(node: SchemaNode) -> str | None:
 
 
 def label(name: str, node: SchemaNode) -> str:
-    """The field's label: the first non-empty of its question, its description, and its name, with a
-    leading article dropped, because every template that takes a label supplies its own "the" (1.1.1)."""
-    for text in (declared_question(node), node.description, name.replace("_", " ")):
+    """The field's label: the first non-empty of its question and its description, with a leading
+    article dropped because every template that takes a label supplies its own "the" (1.1.1), else its
+    name with underscores read as spaces, article kept: a name is an identifier, not prose (1.1.2)."""
+    for text in (declared_question(node), node.description):
         trimmed = _strip_prefix(_trim(text or ""), _ARTICLES)
         if trimmed:
             return trimmed
-    return name
+    return _trim(name.replace("_", " ")) or name
 
 
 def predicate(node: SchemaNode) -> str | None:
@@ -109,8 +112,9 @@ def scopes(fields: Sequence[Labelled]) -> tuple[str, ...]:
 
 
 def scoped_label(label: str, scope: str) -> str:
-    """A noun-phrase label with its scope in front: "the kind" under "billing" is "billing kind"."""
-    return f"{scope} {_strip_prefix(label, _ARTICLES)}" if scope else label
+    """A `label()` with its scope in front: "kind" under "billing" is "billing kind". The label's article,
+    if any, was already dropped from prose and is kept on a name (1.1.2), so none is stripped here."""
+    return f"{scope} {label}" if scope else label
 
 
 def enum_question(label: str) -> str:
