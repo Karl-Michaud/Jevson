@@ -4,7 +4,7 @@ A generative field compiles to the step `<pointer>#generate`, one criterion `pre
 `<pointer>#criterion:<i>` per declared criterion, and, when a rubric is declared, one `score`
 `<pointer>#rubric` over its levels; every adjudication node depends on the step, so it lands in the
 step's level and reads the draft at `drafts.<step id>` (DESIGN §5.2). A field with no criteria and
-no rubric is the step alone: its draft is admitted ungated (`no_criteria_declared`).
+no rubric is the step alone: its draft is admitted ungated (`decided_by = llm`, listed in `Result.ungated`).
 """
 
 from __future__ import annotations

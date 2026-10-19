@@ -579,7 +579,7 @@ A class E field is drafted by the caller's LLM and admitted only after the decis
 - **Execution.** A `generate` step asks the LLM for a one-field tool schema `{value: string}`. Providers differ on the envelope — OpenAI and Anthropic strict modes require `additionalProperties: false`, and Gemini's `parameters` schema has no such field — so the schema is passed as JSON Schema and each `LLM` adapter renders it for its provider **[L20]**. The draft must be ≤ `max_draft_chars` (default 4,000), checked after the call rather than as `maxLength`, so its adjudication budget is known at preflight. Each criterion is one `predicate`, batched with the level's other adjudication questions in a request that holds no other question (DESIGN §5.2), each passing at p ≥ 0.56; a criterion inside the tie margin or refused, or a rubric whose top two levels are within it and straddle the declared minimum or that is refused, counts as **failed** for that draft — named in `rejections` and triggering a redraft, so exhaustion is `redraft_exhausted`, never `tie`. An optional rubric is one `score` whose most probable level must be ≥ the declared minimum; its question names what is rated by the rubric's required `description` (e.g. "how faithfully the summary reflects the source"), since levels alone do not say what they measure.
 - **Rejection** names the failing criteria (`Result.rejections`). A redraft passes them back to the LLM. A draft identical to one already adjudicated is not re-adjudicated and counts against `redraft_budget` (default 1). Exhaustion yields `Unresolved(redraft_exhausted)`.
 - **Any malformed LLM output** — a missing or misspelled key, prose instead of a tool call, a non-string value, an over-length draft — is a failed draft, never an exception or a malformed object.
-- **A field with no criteria** is admitted with a `no_criteria_declared` marker and listed in `Result.ungated`.
+- **A field with no criteria** (and no rubric) is admitted with `decided_by = llm` (not `llm+decision`) and listed in `Result.ungated`; those two are the marker, and no separate `no_criteria_declared` value is emitted.
 
 ---
 
@@ -653,7 +653,7 @@ Result
   unresolved        [Unresolved(pointer, reason, candidates_seen, abstain_probability, detail)]
   violations        [Violation(pointer, keyword, message)]  — failed schema constraints
   absent            [Absent(pointer, candidates_seen, abstain_probability)]
-  ungated           [pointer]  — direct-extracted or no_criteria_declared fields
+  ungated           [pointer]  — direct-extracted fields, and generative fields with no criteria (decided_by llm)
   overflow          [Overflow(pointer, spans, membership_probability, values)]
                       one per array: a multi-label enum array's dropped declared values (spans empty),
                       or (deferred, class D) a source-grounded array's dropped spans (values empty)

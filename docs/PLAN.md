@@ -505,7 +505,7 @@ None open. (Level splitting was closed by evidence **[P1]**.)
 - [ ] **Criterion ties:** a criterion inside the tie margin counts as failed, is named in `rejections`, and triggers a redraft; `Result.decisions` holds `…@0` and `…@1` for one redraft
 - [ ] `ReplayLLM` reproduces a recorded run exactly
 - [ ] The dry-run tool runs against the fake backend with no key
-- [ ] A field with no declared criteria is admitted with `no_criteria_declared` and listed in `Result.ungated`
+- [ ] A field with no declared criteria is admitted with `decided_by = llm` and listed in `Result.ungated` (*amended 2026-10-19, ASTERION-44: the `no_criteria_declared` marker was never a separate value; DESIGN §6.3*)
 - [ ] **Redraft bar, measured against human labels:** over ≥ 100 rejected drafts, each redraft labelled after generation by a labeller who does not see the decision model's verdict, the rate at which a redraft is admitted *and* truly satisfies the criteria is written down, together with the rate at which a redraft is admitted while violating them, and the paired difference from first drafts with its 95% interval; the default `redraft_budget` stays 1 only if the first is ≥ 10% and the second is no more than 2 points above the same rate for first drafts, otherwise it becomes 0
   - **Result (2026-10-16, ASTERION-36), model-labelled:** 123 rejected first drafts of 225 (≥ 100, so it counts). A = 52/123 = 42.3% (Wilson 33.9–51.1%); B = 8/123 = 6.5% (3.3–12.3%); C = 12.7% (9.1–17.0%: 28 of the 100 sampled admitted first drafts violate, × the admitted share 102/225); **B − C = −6.2 points** (Newcombe −11.5 to +0.6); paired truly-satisfies(redraft) − truly-satisfies(first) over the 123 rejected instances **+32.5 points** (23.4 to 41.0; both 63, redraft only 42, first only 2, neither 16). A ≥ 10% and B − C ≤ 2 points, so under the pre-registered rule **the default `redraft_budget` stays 1** (unchanged in code). Per domain (`tests/j4b/labelling/run1/report.json`): only contracts have B − C above 2 points (+5.0: B 3/60, and no contract first draft was admitted, so C = 0); A ranges from 28% (contracts) to 67% (support tickets). The labels also say 65 of the 123 rejected first drafts (53%) truly satisfied their criteria: the decision model over-rejects **[Q17]**
   - **Stated interpretations (the owner's decisions, 2026-10-16, ASTERION-36):**
@@ -519,7 +519,7 @@ None open. (Level splitting was closed by evidence **[P1]**.)
 
 ### Abandon criterion
 
-None. If adjudication proves weak, generative fields ship with the measured rates documented and `no_criteria_declared` visible.
+None. If adjudication proves weak, generative fields ship with the measured rates documented and ungated fields visible in `Result.ungated`.
 
 ### Out of scope
 
@@ -885,7 +885,7 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Single-vendor public beta** | everywhere | `Backend` is the substitution point; Jev, AnyJev, and jevfire are fallbacks **[X3]** |
 | **Vendor SDK churn, hidden retries, body logging** | Phase 3 | raw `httpx`; SDK not a dependency (reasons measured on `typesafe-sdk` **[V-sdk]**; the `openai` SDK not yet reviewed) |
 | **Idiomatic Pydantic refused** | Phase 2 | the normalisation table **[L3, L16]** |
-| **Adjudication admits bad drafts** | Phase 4 | criteria rule; dry-run tool; `no_criteria_declared` visible; injection regression; labelled redraft bar |
+| **Adjudication admits bad drafts** | Phase 4 | criteria rule; dry-run tool; ungated fields visible in `Result.ungated`; injection regression; labelled redraft bar |
 | **Retries burn money** | Phases 3–4 | v0 has no decision retries (schema-derived sets have budget zero; candidate retry is deferred); redrafts bounded and measured; per-call budgets |
 | **Scope creep via derived values** | post-v0 | out of v0 (R9); parsing a selected span is deferred with class D |
 | **README drifts past what is true** | Phase 8 | exit criteria bind it to `DESIGN §6` |
