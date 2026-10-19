@@ -88,11 +88,32 @@ def test_transport_retries_zero_means_one_attempt() -> None:
     assert len(seen) == 1
 
 
-def test_a_retry_after_header_is_honoured_and_capped() -> None:
+def test_a_retry_after_header_is_honoured_within_the_cap() -> None:
     sleeps: list[float] = []
-    flaky = Flaky(lambda request: respond({}, 429, {"retry-after": "900"}), failures=1)
+    flaky = Flaky(lambda request: respond({}, 429, {"retry-after": "30"}), failures=1)
     run(flaky, sleeps=sleeps)
     assert sleeps == [30.0]
+
+
+def test_a_retry_after_beyond_the_cap_surfaces_at_once_with_its_attempt_counted() -> None:
+    sleeps: list[float] = []
+    handler, seen = counting(lambda request: respond({}, 429, {"retry-after": "900", "x-request-id": "req-1"}))
+    with pytest.raises(BackendError) as raised:
+        run(handler, sleeps=sleeps)
+    assert (raised.value.code, len(seen), sleeps) == ("rate_limited", 1, [])
+    assert "Retry-After 900 s exceeds the 30 s cap" in str(raised.value)
+    cost = raised.value.cost
+    assert (cost.decision_requests, cost.transport_retries, cost.decision_request_ids) == (1, 0, ("req-1",))
+
+
+@pytest.mark.parametrize("header", ["nan", "-1", "1e309", "inf"])
+def test_a_malformed_retry_after_falls_back_to_the_backoff(header: str) -> None:
+    sleeps: list[float] = []
+    handler, seen = counting(lambda request: respond({}, 429, {"retry-after": header}))
+    with pytest.raises(BackendError) as raised:
+        run(handler, sleeps=sleeps)
+    assert (raised.value.code, len(seen), sleeps) == ("rate_limited", 3, [0.5, 1.0])
+    assert (raised.value.cost.decision_requests, raised.value.cost.transport_retries) == (3, 2)
 
 
 # --- the key never leaks (DESIGN §8.3) ------------------------------------------------------

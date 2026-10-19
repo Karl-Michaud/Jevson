@@ -66,6 +66,9 @@ pending the owner's decision (PLAN §6).
 - `JevsonConfig.transport_retries` is removed: nothing read it. Transport retries are set on the
   backend that makes the requests, `DecisionsBackend(transport_retries=...)` (default 2). Passing
   `transport_retries` to `JevsonConfig` is now a `TypeError`; move it to `DecisionsBackend`.
+- `DecisionsBackend` ignores a malformed `Retry-After` (`nan`, `inf`, `1e309`, negative) and
+  backs off as usual, and no longer retries early when the server asks for more than 30 s: it
+  raises `BackendError` at once, with that attempt in `Cost`.
 
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,

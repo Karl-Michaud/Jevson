@@ -2,8 +2,11 @@
 
 Transport retries are not decision retries: 429, 5xx, timeouts and dropped connections are retried
 with exponential backoff (or the server's `Retry-After`) up to `retries` times, counted separately,
-and exempt from the changed-input rule. Every other failure surfaces at once. A context-limit
-rejection is never retried unchanged: it surfaces for the executor to split or bisect (DESIGN §8.2).
+and exempt from the changed-input rule. A `Retry-After` beyond `max_delay_s` is not cut short: the
+failure surfaces at once, rather than retrying before the server asked. A malformed one (not a finite,
+non-negative number of seconds) is ignored, so the backoff applies. Every other failure surfaces at
+once. A context-limit rejection is never retried unchanged: it surfaces for the executor to split or
+bisect (DESIGN §8.2).
 
 The redraft loop is per generative field, bounded by `redraft_budget`: a draft that fails a check is
 rejected (`Result.rejections` names the checks and the draft) and redrafted with the failing checks
@@ -14,6 +17,7 @@ keeps the books; the executor does the calls.
 
 from __future__ import annotations
 
+import math
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from typing import TypeVar
@@ -45,18 +49,23 @@ class TransportPolicy:
     max_delay_s: float = 30.0
 
     def delay(self, failures: int, retry_after_s: float | None) -> float:
-        """Seconds to wait after the `failures`-th failed attempt (1-based)."""
+        """Seconds to wait after the `failures`-th failed attempt (1-based). `retrying` never passes a
+        `retry_after_s` beyond `max_delay_s`: it gives up instead."""
         if retry_after_s is not None:
-            return min(max(retry_after_s, 0.0), self.max_delay_s)
+            return retry_after_s
         return min(self.base_delay_s * 2 ** (failures - 1), self.max_delay_s)
 
 
 def parse_retry_after(header: str | None) -> float | None:
-    """`Retry-After` in seconds; the HTTP-date form is not used by this API and is ignored."""
+    """`Retry-After` in seconds; the HTTP-date form is not used by this API and is ignored, and so is
+    anything that is not a finite, non-negative number (`nan`, `inf`, `1e309`, `-1`)."""
+    if header is None:
+        return None
     try:
-        return float(header) if header is not None else None
+        seconds = float(header)
     except ValueError:
         return None
+    return seconds if math.isfinite(seconds) and seconds >= 0 else None
 
 
 async def retrying(attempt: Callable[[], Awaitable[T]], policy: TransportPolicy, sleep: Sleep) -> T:
@@ -68,8 +77,12 @@ async def retrying(attempt: Callable[[], Awaitable[T]], policy: TransportPolicy,
         except TransportFailure as failure:
             if failure.code not in RETRYABLE or failures >= policy.retries:
                 raise
+            wait = failure.retry_after_s
+            if wait is not None and wait > policy.max_delay_s:
+                cap = f"Retry-After {wait:g} s exceeds the {policy.max_delay_s:g} s cap; not retried"
+                raise TransportFailure(failure.code, f"{failure.detail}; {cap}") from None
             failures += 1
-            await sleep(policy.delay(failures, failure.retry_after_s))
+            await sleep(policy.delay(failures, wait))
 
 
 @dataclass

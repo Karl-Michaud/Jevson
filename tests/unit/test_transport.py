@@ -80,12 +80,43 @@ def test_after_fork_every_lock_is_new() -> None:
 def test_backoff_doubles_and_retry_after_wins_within_the_cap() -> None:
     policy = TransportPolicy()
     assert [policy.delay(n, None) for n in (1, 2, 3, 10)] == [0.5, 1.0, 2.0, 30.0]
-    assert (policy.delay(1, 4.0), policy.delay(1, 999.0), policy.delay(1, -3.0)) == (4.0, 30.0, 0.0)
+    assert (policy.delay(1, 4.0), policy.delay(1, 0.0), policy.delay(1, 30.0)) == (4.0, 0.0, 30.0)
 
 
-@pytest.mark.parametrize(("header", "seconds"), [(None, None), ("2", 2.0), ("0.25", 0.25), ("Wed, 21 Oct", None)])
+@pytest.mark.parametrize(
+    ("header", "seconds"),
+    [
+        (None, None),
+        ("2", 2.0),
+        ("0.25", 0.25),
+        ("0", 0.0),
+        ("Wed, 21 Oct", None),
+        # Malformed: ignored, so the backoff applies (never a sleep of nan, inf or a negative time).
+        ("nan", None),
+        ("inf", None),
+        ("-inf", None),
+        ("1e309", None),
+        ("-1", None),
+    ],
+)
 def test_retry_after_parsing(header: str | None, seconds: float | None) -> None:
     assert parse_retry_after(header) == seconds
+
+
+def test_a_retry_after_beyond_the_cap_gives_up_rather_than_retrying_early() -> None:
+    attempts: list[int] = []
+
+    async def attempt() -> str:
+        attempts.append(1)
+        raise TransportFailure("rate_limited", "HTTP 429", retry_after_s=30.5)
+
+    async def sleep(seconds: float) -> None:
+        raise AssertionError("never sleeps")
+
+    with pytest.raises(TransportFailure) as raised:
+        asyncio.run(retrying(attempt, TransportPolicy(retries=5), sleep))
+    assert (raised.value.code, len(attempts)) == ("rate_limited", 1)
+    assert "Retry-After 30.5 s exceeds the 30 s cap; not retried" in raised.value.detail
 
 
 def test_a_non_retryable_failure_is_raised_on_the_first_attempt() -> None:
