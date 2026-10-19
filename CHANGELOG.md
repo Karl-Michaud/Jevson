@@ -74,6 +74,9 @@ pending the owner's decision (PLAN §6).
   answer. The `enum_size` message states the real bound ("at most 255"; one value is a constant).
 - A multi-label enum array whose item enum includes `null` (`list[Literal[...] | None]`) refuses
   with `enum_value_type` instead of dropping the `null` silently.
+- Question templates 1.1.1: a label's leading article is dropped, so a description such as "the
+  ticket's topic" asks `Which of these is the ticket's topic?`, not `... the the ticket's topic?`.
+  Questions over such labels change, so `CachingBackend` records made under 1.1.0 miss for them.
 
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,

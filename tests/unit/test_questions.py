@@ -1,6 +1,7 @@
 """DESIGN §5.2: class C questions render from the versioned templates (docs/taxonomy.md §1.2).
 
-Version 1.1.0 keeps the Phase 0 enum, ordinal, and option strings byte for byte and replaces the bool one."""
+Version 1.1.x keeps the Phase 0 enum, ordinal, and option strings byte for byte and replaces the bool one;
+1.1.1 drops a label's leading article."""
 
 from __future__ import annotations
 
@@ -16,7 +17,7 @@ from tests.phase0 import templates
 
 
 def test_1_1_0_keeps_the_phase_0_enum_ordinal_and_option_strings_and_replaces_the_bool_one() -> None:
-    assert questions.QUESTION_TEMPLATE_VERSION == "1.1.0"
+    assert questions.QUESTION_TEMPLATE_VERSION == "1.1.1"
     assert templates.QUESTION_TEMPLATE_VERSION == "1.0.0"  # the Phase 0 record does not move
     assert questions.ENUM_INSTRUCTIONS == templates.ENUM_INSTRUCTIONS
     assert questions.ENUM_OPTION == templates.ENUM_OPTION
@@ -50,8 +51,11 @@ def field(description: str | None = None, question: str | None = None) -> Schema
 @pytest.mark.parametrize(
     ("node", "expected"),
     [
-        (field("the customer's tier", "the account tier"), "the account tier"),
-        (field("the customer's tier."), "the customer's tier"),
+        (field("the customer's tier", "the account tier"), "account tier"),
+        (field("the customer's tier."), "customer's tier"),
+        (field("An order's state"), "order's state"),
+        (field("theme"), "theme"),
+        (field("the"), "the"),
         (field("  is it refundable?  "), "is it refundable"),
         (field(), "billing tier"),
         (field("  ."), "billing tier"),
@@ -59,6 +63,21 @@ def field(description: str | None = None, question: str | None = None) -> Schema
 )
 def test_the_label_is_the_question_else_the_description_else_the_name(node: SchemaNode, expected: str) -> None:
     assert questions.label("billing_tier", node) == expected
+
+
+@pytest.mark.parametrize("text", ["the ticket's topic", "The ticket's topic", "a ticket's topic", "an ticket's topic"])
+def test_a_template_that_says_the_never_renders_a_second_article(text: str) -> None:
+    # 1.1.0 rendered "Which of these is the the ticket's topic?" from a description starting "the".
+    label = questions.label("topic", field(text))
+    assert questions.enum_question(label) == "Which of these is the ticket's topic?"
+    assert questions.ordinal_question(label) == "Which level best describes the ticket's topic?"
+    assert questions.union_question(label) == "Which of these does the source describe as the ticket's topic?"
+    assert questions.member_question("x", label) == 'According to the source, is "x" one of the ticket\'s topic?'
+    assert (
+        questions.generate_prompt(label, None)
+        == "Write the ticket's topic for the source below. Return only the value."
+    )
+    assert questions.redraft_prompt(label, ["c"]).endswith("Write the ticket's topic again. Return only the value.")
 
 
 def test_a_name_that_trims_to_nothing_is_used_as_written() -> None:
