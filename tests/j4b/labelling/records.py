@@ -28,6 +28,8 @@ class KeyRow:
     role: str
     admitted: bool
     criterion_ids: tuple[str, ...]
+    group: str | None = None
+    """The run row's optional `group` (J4b: the corpus domain), for per-group rates beside the pooled ones."""
 
 
 @dataclass(frozen=True)
@@ -74,7 +76,9 @@ def criterion_ids(criteria: Iterable[Mapping[str, Any]]) -> tuple[str, ...]:
 
 
 def key_row(obj: Mapping[str, Any]) -> KeyRow:
-    return KeyRow(obj["item_id"], obj["instance_id"], obj["role"], obj["admitted"], tuple(obj["criterion_ids"]))
+    return KeyRow(
+        obj["item_id"], obj["instance_id"], obj["role"], obj["admitted"], tuple(obj["criterion_ids"]), obj.get("group")
+    )
 
 
 def label(obj: Mapping[str, Any]) -> Label:

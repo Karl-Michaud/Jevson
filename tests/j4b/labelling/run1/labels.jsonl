@@ -1,0 +1,444 @@
+{"id": "96c644f34df7", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Offers two alternative actions (profile change or package restore), not one."}
+{"id": "1581675538b1", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Term conveyed only via termination-on-notice; open-ended duration implied."}
+{"id": "10d460fbc226", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "96a8002193d1", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "e3a6f15868c7", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "63abf30b984b", "criteria": {"c0": true, "c1": false, "c2": false}}
+{"id": "b320bcff6353", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Says each controls own client relationships; source gives VET TECH responsibility when it bills."}
+{"id": "df5192a88bf4", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "aadbccf88a4d", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "b95e35e69807", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "8263b14957bc", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "58f79e52ffd4", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "4862a6ed62a1", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "f95f30145971", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "d3dd5d3ee458", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "47cc6b22b8a4", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "038d5d1aa2cd", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "3bf23c62c314", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "\"As-is, where-is\" judged supported by the no-warranty and buyer-removal terms."}
+{"id": "73c014e9e8d6", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}, "note": "Duration given only as \"the 1998 season\", not the Nov 30, 1998 end; judged sufficient."}
+{"id": "049ecfcffb97", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Mentions used but omits stated caveat that parts may be missing and repairs required."}
+{"id": "af5ff60450f9", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "9ade49fffd94", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "78ffaf6742fb", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "96a72b7b2e0c", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Source gives no fixed term, only 30-day termination rights, which the draft states."}
+{"id": "dd9d8dda7bab", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "d470483e62e8", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "179e2e2ae82f", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "eb17f4832f2c", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "a8033b1bf765", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "73956d515e24", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "4daa5eefbbe2", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "22aee0ac79ee", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Asks for response.data log; source references logs but their content is absent from the text."}
+{"id": "607652eb1d74", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "63a8c5da3a8c", "criteria": {"c0": true, "c1": true, "c2": true, "c3": false}}
+{"id": "84979fd6a4cc", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "c138df3b90e3", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "741da0445c06", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "dbc742b61cad", "criteria": {"c0": true, "c1": false, "c2": true}, "note": "Gives diagnoses only; omits presenting complaint (pulmonary edema at ED admission)."}
+{"id": "09af4f4273ab", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "e8654b2861da", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "b76e3be9dac7", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "f7ffcaee3cac", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "4d79e6375bc4", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "8d952f461bd1", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Bundles several separate checks (proxy target, VPN route push, firewall) rather than one action."}
+{"id": "233de550be3e", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Gives an alternative but clearly recommends one action (pass the form)."}
+{"id": "088504e9e963", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "\"Brand-new/unissued\" judged equivalent to source's \"new or unused\"."}
+{"id": "824d70b8e349", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "7b0326ef1d75", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "572cddd5846c", "criteria": {"c0": true, "c1": false, "c2": true}, "note": "Attributes missing parts to outdoor storage, which the source does not say."}
+{"id": "4265c3bb6e97", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Adds water-standard condition and \"up to\" 3M GPD; minor, payments otherwise correct."}
+{"id": "e5b53fdd3fa1", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "26a64b6721e8", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "9750dcb55cba", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "48de7f59c522", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "78ff4d4de2f6", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "03b89bb54ae6", "criteria": {"c0": true, "c1": false, "c2": false}}
+{"id": "c1f52268a4ba", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "23c9834f676f", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "b9015b97bf44", "criteria": {"c0": true, "c1": true, "c2": true, "c3": false}, "note": "Says MediaCo pays the Programmer no fee; source says no payment is due from Programmer to Licensee."}
+{"id": "612bf7f77ee5", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "008377499f5e", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "6d6f32cec970", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "18d8642500dd", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "ec752d7389c9", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "ba41491d1aee", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Asks the user to rerun bcdedit /enum all, whose result the source already reports."}
+{"id": "d2d6e2b18d1f", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "547876e4facd", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Mentions used and missing parts but omits that repairs may be required."}
+{"id": "461d99e1209b", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "57c56db938d1", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}, "note": "\"Death later that year\" implies 2003; source gives death in 2004."}
+{"id": "53fd602f2986", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "506062641812", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Offers xdg-settings command \"or\" a desktop settings tool as equal alternatives."}
+{"id": "3e1bc807792f", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "e2d2247355b4", "criteria": {"c0": true, "c1": true, "c2": true, "c3": false}, "note": "Lists confidentiality among covered terms; the agreement has no confidentiality clause."}
+{"id": "9d436226e86b", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated missing parts."}
+{"id": "8bf6a4186332", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "cc4127f441f3", "criteria": {"c0": true, "c1": false, "c2": true, "c3": true}, "note": "Omits the stated 5-year term with automatic renewal."}
+{"id": "283c3659617a", "criteria": {"c0": false, "c1": false, "c2": false, "c3": true}}
+{"id": "439fb1af71e4", "criteria": {"c0": true, "c1": false, "c2": false, "c3": true}}
+{"id": "539fd234442c", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "8b21abafb48a", "criteria": {"c0": true, "c1": false, "c2": false, "c3": true}}
+{"id": "105ca305a568", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "30e2340f0089", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "57698c04c471", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Parties given loosely as \"Fidelity\"/\"New York Life\"; term only via termination provisions."}
+{"id": "9168074fd115", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Says STW \"must\" deepen first where source authorizes it; judged minor."}
+{"id": "4ae08d98f02e", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "4bb191c45ec5", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "68a1eafdca00", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "ca5d460f10ff", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that it was last operated 8+ years ago."}
+{"id": "81a9b25ffad5", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "4a58b82902b9", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "72aa9630e061", "criteria": {"c0": false, "c1": true, "c2": true, "c3": true}, "note": "Never names Stratton, Cheeseman & Walsh-Nevada; term conveyed only via termination on notice."}
+{"id": "c30878810e6e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "53b1aa823ffd", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "3ec412e32cec", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Mostly explanation; only a generic conditional suggestion, not a concrete agent action."}
+{"id": "0bcef58ec434", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "f6c81975439e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "74459b1ce766", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "fa0ae37b3c1b", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "e6e83e0dcdec", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Title only; omits opened box, possibly missing bottles, sold as is."}
+{"id": "94885ac7ea02", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "f697519520d2", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "88e04369842e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "ab4cca822cc8", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "fd8bd2b50425", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Term duration is redacted in source; draft reproduces the redaction."}
+{"id": "1eec9fffd7b5", "criteria": {"c0": true, "c1": false, "c2": false, "c3": true}, "note": "Only says the project can end \"with notice\"; no term or no-fixed-term statement."}
+{"id": "809aff84a456", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "72f453a4dd27", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "5f44be5a1054", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "f14a20a73284", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Source's \"Governing Law\" clause names only courts; draft mirrors it. Indefinite term implied by termination rights."}
+{"id": "014c1c644746", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Offers several alternative techniques rather than one action."}
+{"id": "39d121297200", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "2c18a525760f", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "8865d785570d", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "a1fb81b3d010", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "bd0b5861510d", "criteria": {"c0": false, "c1": true, "c2": false, "c3": true}}
+{"id": "eb373ff8c90c", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "71aec58aabfe", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "25c00fabf922", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "1fcc89bef5a6", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "85014da2d3a8", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Omits senior status but still a judge of the court."}
+{"id": "92e16ca8eb79", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "71e1899e353d", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "0f1527a69bdd", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "1bfe450ff437", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "ba8045b75ae8", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "1883625bd403", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "41b3c95fce28", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "7d233af5d59f", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "b4a6d6a2a756", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "6ac9955bdb67", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "a68e669d40b0", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "3b081b59d34c", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "2283c81b261b", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that repairs may be required."}
+{"id": "8bc53272493f", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "25cf2d17c2a8", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "a0e6e65f52bc", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "4dac0151c919", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "a012ea2213da", "criteria": {"c0": true, "c1": false, "c2": false, "c3": true}}
+{"id": "88c69fca986e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "c7f17f22fcf3", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "7886353930f9", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "e24538b74670", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing."}
+{"id": "2f572f33a392", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "3c5d45e6ad88", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}, "note": "Names the companies, not the signing directors the source lists as parties; judged sufficient."}
+{"id": "bac9f7340f49", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "ba12453b741b", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "37c05c7389aa", "criteria": {"c0": false, "c1": false, "c2": true, "c3": false}, "note": "\"Ford\" is ambiguous with Ford Motor Company, a non-party; FMM (division of J. Walter Thompson) is the party."}
+{"id": "4b2852f3846e", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "2d779c5fcf5f", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Calls the PET result a \"complete metabolic response\"; source says only no lymphadenopathy."}
+{"id": "4caee97296dd", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "c3f9792e3b02", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "States ROHHAD-NET as a diagnosis; source says it was \"considered\" and supports it."}
+{"id": "aa7908e0f6ce", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "97e4ba1c1560", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "59732f6e9db3", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "33a44917ca39", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Term conveyed only as terminable at any time; unlimited duration implied."}
+{"id": "22b067b3c263", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "8a842d386ec7", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "38339a73265a", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "8a3c05d6f72a", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "872fada5aac9", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "ef7009f80548", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "e86d0856b781", "criteria": {"c0": true, "c1": false, "c2": true}, "note": "Claims \"good auction-ready condition\"; source states no condition beyond not warranted."}
+{"id": "6af78d8a153a", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Labels AUD \"severe\" and diagnoses \"acute blood loss anemia\"; neither stated in source."}
+{"id": "1d2749bd124e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "6e2553c9db0f", "criteria": {"c0": true, "c1": false, "c2": false}, "note": "\"Ready for a new purpose\" implies usability; omits missing parts and unknown repairs caveat."}
+{"id": "92c0b3611fa6", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "9860ef201162", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Multi-step HTB approach with a side alternative; judged one main action."}
+{"id": "aba6a14223aa", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "4f2489ba8b4f", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "e55ae46979a8", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "2f49508ec0a2", "criteria": {"c0": true, "c1": true, "c2": true, "c3": false}, "note": "Calls the $100,000 deposit \"refundable\"; source says non-refundable except $1 per delivered pager."}
+{"id": "f6406936a141", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "887b1c9aad56", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "694b21896e73", "criteria": {"c0": true, "c1": false, "c2": true}, "note": "\"Sold as shown\" conflicts with source note that photos may show equipment not included."}
+{"id": "e1ad6afea430", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "20d38a1e29dc", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "11461c7fcbf8", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "68fe59daffa1", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "2a8bfc17181b", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "839cfb9d32ec", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Term given only as the development period ending Dec 31, 2018, which is the only period the source states."}
+{"id": "32f7ebd7c4a3", "criteria": {"c0": false, "c1": true, "c2": false, "c3": true}}
+{"id": "1757045a04e7", "criteria": {"c0": true, "c1": false, "c2": true}, "note": "\"Sold as pictured\" conflicts with source note that photos may show equipment not included."}
+{"id": "7ff675a32494", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing."}
+{"id": "73bf4f608042", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "\"Appointed in 1987\" loosely refers to the 1987 nomination; judged minor."}
+{"id": "b6cb541cd1e0", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "adc6f13407d8", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "52de81672bc8", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "\"Pneumatic tires\" vs source's solid tire on pneumatic rim; title supports it."}
+{"id": "6b77194c1136", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and repairs may be required."}
+{"id": "b59f704d5e97", "criteria": {"c0": false, "c1": false, "c2": false, "c3": true}, "note": "Omits Kathy Ireland, Inc. and Sterling/Winters as parties; term given only as \"a set term\"."}
+{"id": "c87218b84467", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits the parts-missing/repairs caveat and \"sold as is\"."}
+{"id": "c0668d685eb2", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "e09fbfdecc93", "criteria": {"c0": true, "c1": true, "c2": true, "c3": false}, "note": "Calls the agreement non-exclusive, which the source never states."}
+{"id": "4e9d65772e38", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "7e8fb13e3e58", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Mentions used/wear but omits that parts may be missing and repairs may be required."}
+{"id": "ba84c2a7340b", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "8992d6b69d92", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "fc74fa0a11e1", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "4bac9fdb2e99", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Vague \"confirm it isn't supported\"; no concrete action."}
+{"id": "6da5ad941195", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "695731bc44ce", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "d624e466f41b", "criteria": {"c0": true, "c1": false, "c2": true}, "note": "Adds \"normal wear\", which the source does not state."}
+{"id": "fa90713f3cfd", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and repairs may be required."}
+{"id": "3352722173e6", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "e5a7f0f6279b", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "a77d42b139ae", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "0d182f87270f", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "cfe882dcf71c", "criteria": {"c0": true, "c1": false, "c2": true, "c3": true}}
+{"id": "1e457e46f63c", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "99e9eb574857", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and repairs may be required."}
+{"id": "6c4b61b8d8b6", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "f14a397c5366", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "2a0b3d05f0a3", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "55ac752d1bbc", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "e799e9667a8d", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "bbb25ae04b57", "criteria": {"c0": true, "c1": false, "c2": false}, "note": "Omits recurrent fevers as presenting complaint; adds \"complete metabolic response\" not stated."}
+{"id": "e1bc01fb70c9", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "5dd0627a1c06", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "fe8a43a75f8c", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "4b8ffd3dd083", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "d59a01770a03", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "ab5dfc831806", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "4a2fc3c38a02", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "caad930f804c", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Asserts cavernous sinus/cranial nerve compression and \"endovascular\" options; source states neither."}
+{"id": "f39dd029d991", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "c3ca16fbef60", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "41244418165b", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "ae02583d6d6d", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "6bc3d92aa9c7", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing."}
+{"id": "b3145e0f524c", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "b9a13d83774f", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Item names only; no condition caveats."}
+{"id": "213f7aba2853", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "53ed77159dc1", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "ce6688060fa0", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "ea7dee652b4e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "2536322b9f24", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "e030f202c924", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "a06da13335b9", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "aa1e022addff", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "714066f72e37", "criteria": {"c0": true, "c1": false, "c2": false}, "note": "Gives diagnoses, not presenting complaints; calls both AV blocks congenital, which the source says only of case 2."}
+{"id": "166f5fe6aa0a", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "0fde9e9b70a1", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "65abe0850089", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "dbb8da438d5b", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "\"Inoperable, does not run\" judged to convey the repairs-needed caveat."}
+{"id": "96e39e5d6126", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Seller named by its d/b/a \"Shi Farms\"; term given only as terminable before delivery."}
+{"id": "e0e6f650c784", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "ced46c41f858", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "7853970f014e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "1e30692baa86", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "f45a8b90a51c", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits that it is untested and may need cleaning, calibration or servicing."}
+{"id": "9b6bd5db9cde", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "85e7b88f6b98", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "50a6b6468606", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "a666f6fd4dec", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "eb0e9f8c11e4", "criteria": {"c0": true, "c1": false, "c2": true, "c3": true}, "note": "Source states no term; draft gives only for-cause termination and does not say none is stated."}
+{"id": "d92d2cf50b49", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Somewhat general, but names a specific fix (stop the AFTER UPDATE trigger re-firing itself)."}
+{"id": "9ed76e63f7e7", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "248ec4b2e0f2", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "bf7f036c099d", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "d24f1f7f6177", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "2e0da9266fbd", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "32bf2be34dff", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Title only; no condition caveats."}
+{"id": "6b0bac9526d4", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "2acf7a439c29", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "d1dd38e75bd9", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "1a31e0529f3c", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits untested/unknown operational condition and possible repairs."}
+{"id": "93b1c38402fd", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that it may require cleaning, calibration or servicing."}
+{"id": "d2ed91d43186", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "af995b6c78e0", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "cb8655151fc6", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "2a170cf58798", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "10aa234f1693", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "0448352a7319", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "affd36d6858f", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "aafeae48fa43", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "5d75e52897e3", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "49fb72cf7e46", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "590fe40b04ca", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "cd172d80dc30", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "5eb5c37817f4", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "8fc2185b0a1c", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "26d60ec62f5a", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "98b87fea092b", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "df6f5675823b", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "349bdf4063ca", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "ed9f49f3d83a", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Asks user to try selecting a duplex profile the source says is not offered."}
+{"id": "8144cb176355", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "1d08625c0b62", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "a4524b9ad40a", "criteria": {"c0": true, "c1": false, "c2": true, "c3": true}}
+{"id": "288b02c291a2", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "d6809059202b", "criteria": {"c0": false, "c1": true, "c2": false, "c3": true}}
+{"id": "139687e86618", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "1691f2c862ae", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "2d52e9831311", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "2b7e7510735e", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}, "note": "\"Death later that year\" implies 2003; source gives death in 2004."}
+{"id": "b6ba7430a1e1", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Title only; no condition caveats."}
+{"id": "4c8ee2d61fcd", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "e5504d975697", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Multi-step HTB approach with a side alternative; judged one main action."}
+{"id": "073bc02ad505", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Names Ubuntu without the 22.04.3 version; old-UUID hypothesis is the user's own."}
+{"id": "2d93c44ed2fe", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "995986a8c416", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "39b7981b2a04", "criteria": {"c0": true, "c1": false, "c2": true, "c3": true}, "note": "Omits the stated term (until project completion or termination); gives only termination rights."}
+{"id": "1210f775195f", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "9f2d261363d1", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "f94676d69ff1", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "654a9df33c46", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}, "note": "Parties given only by the source's defined abbreviations NVOS and HGF."}
+{"id": "b18ca3523101", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "e8e231493639", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "aca234f1c1cd", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "763e02438f71", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Source's \"Governing Law\" clause gives only venue; draft reports that accurately."}
+{"id": "10a23c8e832a", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "997bc6a18711", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "72ed622c7ae9", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "ddd9e1db9908", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "572339ad84bc", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Draft is only clarifying questions to the customer, not a proposed agent action."}
+{"id": "4c5ef518ce3e", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "\"Healthy infant at term\" (source: 36 weeks) is an outcome error, not a diagnosis, test or treatment."}
+{"id": "085070bedfd8", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "cf9c885d4a53", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "cc93597ea7ac", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "\"Widely respected\" is reputational fluff, not a stated date, title, employer or honour."}
+{"id": "9e65e992201f", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts are missing and repairs are required."}
+{"id": "1cbc9a72b100", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and repairs may be required."}
+{"id": "14b09dd086fd", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Labels the fetus as having growth restriction; source says only it measured 2 weeks small."}
+{"id": "62994ec06d36", "criteria": {"c0": false, "c1": false, "c2": false}, "note": "No ages or sexes; no presenting complaints; calls both AV blocks congenital."}
+{"id": "3eab4cd33357", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "804cfc63632c", "criteria": {"c0": false, "c1": true, "c2": true, "c3": true}, "note": "Never names American General Life Insurance Company of Delaware."}
+{"id": "7e851314a214", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "09162a45c860", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "4dd5e7a83898", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "57e863c5f528", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "51b86d509ed0", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "00ad8e9e4f99", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "34cebfee5d35", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "b0213f23f4d1", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "d14bdbd08962", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "c9f07bbfabbf", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "f3abd5314093", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Only clarifying questions to the customer, not a proposed action."}
+{"id": "27bc4d81481e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "993eeffa88ff", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "244c4dac0600", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "8f6dfc52362d", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and repairs may be required."}
+{"id": "09899607e573", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Reports \"bradycardia\"; source gives pulse 60 bpm and never calls it bradycardia."}
+{"id": "1fa41253705d", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "9704e1a41cc5", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "3b299653098d", "criteria": {"c0": true, "c1": false, "c2": true, "c3": true}}
+{"id": "13b331ddc44b", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "32cca1f1bd7d", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "04dd343adf60", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "8f63d4143fac", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "d74d8e091f1d", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "bde9374a4936", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Asks the user to rerun llc -march=<arch> -mattr=help, which the user already did."}
+{"id": "14422cfe1821", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits unknown working condition, possible missing parts and required repairs."}
+{"id": "682c75ee53c1", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "2930606eb761", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "433141e8235e", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "4b1158ee7561", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "The source names no specific affiliate; \"the affiliate program participant\" matches it."}
+{"id": "d7106c60c161", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}}
+{"id": "1e19437ca06a", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "8697215c34a8", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "79e08253bfeb", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "69ad7ada9305", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "524b41613a99", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "1c199cb11980", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "10ac41d3c5c5", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Explanation plus a list of several tools; no single concrete action."}
+{"id": "cf472e391001", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Main action: tell the user live change is unsupported, with alternatives offered."}
+{"id": "63b58eaa9c9a", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "889929227c55", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "a9938763b94e", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Leads with one fix (field name) plus extra corrections."}
+{"id": "7629155f8bdf", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Vague compound check (throttling or node CPU or auto-update), not one concrete action."}
+{"id": "3017feaf3cf4", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Asks the user to show the destroy() code, which the source already includes."}
+{"id": "5115cbacff31", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "edc419d023a3", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "e74573f0a06d", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "d19331f09ebc", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Version-mismatch \"bug\" is the user's own diagnosis; \"repository inconsistency\" is a mild addition."}
+{"id": "4122f0553d24", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "4c61a35f1f01", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "5f5a621bdb27", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "83154f5ea46d", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "5878f64b3df5", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "fa45004c072c", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "759aaa97e2fa", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "bd81bbee1dcf", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "e2f17075d38a", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "bea6a662ce99", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "bf82dd0426dd", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "18578d013d4a", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "e9c2297e8fd5", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "a41b328748c3", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "72b0b9324d65", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "fd6dc97fcd3e", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits the stated \"parts may be missing, repairs may be required\" caveat."}
+{"id": "2490d53e4b7c", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "71dc61704530", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "3d8b11b422b8", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "3ceefb084969", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "272dda13ebec", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "48027dd2f670", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "f1dc9ed7fb6b", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "153adc4f2960", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "c472fb9b60db", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "ba4867a56876", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "abbd2fab3517", "criteria": {"c0": true, "c1": false, "c2": false}, "note": "Adds \"fair\" condition and \"visible wear\"; omits missing parts and repairs caveat."}
+{"id": "6d43f5b44915", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "dd7b33509606", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "fa24437e13fb", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "5800137ca101", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "de449554f3aa", "criteria": {"c0": true, "c1": true, "c2": false, "c3": false}, "note": "Adds a confidentiality obligation and an \"end their dispute\" framing not in the source; no governing law."}
+{"id": "cc449ca8cb21", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "f464105d2e6f", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and repairs may be required."}
+{"id": "b148d98f3ba9", "criteria": {"c0": true, "c1": true, "c2": false, "c3": true}, "note": "Mentions only that both sides \"follow PRC law\", not that PRC law governs the agreement."}
+{"id": "4e9ebb4f49d4", "criteria": {"c0": true, "c1": true, "c2": false, "c3": false}, "note": "Gives \"Florida jurisdiction\" but not Florida law; says insurance is required (source: may) and 30 days (source: 30 business days)."}
+{"id": "c8416aa3cce1", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "f82a68901534", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "9c1c5b2a8589", "criteria": {"c0": true, "c1": true, "c2": true}, "note": "Main action plus an if-needed fallback; counted as one concrete action."}
+{"id": "3c91793abf01", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "cf14c131dcee", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Several separate checks before the list conversion; not one concrete action."}
+{"id": "ecca6d626262", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "b42cecdaae02", "criteria": {"c0": true, "c1": true, "c2": true, "c3": false}, "note": "\"Monthly fee equal to 0.50%\" misstates an annual 0.50% rate payable monthly."}
+{"id": "14735ba6a092", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "891f663ff23e", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "39122c640e10", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "4a1bbc40b5cf", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "07c657b703e0", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveats that parts may be missing and further repairs may be required."}
+{"id": "17931783ecfb", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "559083a6c3b6", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "9cdd4a29abfa", "criteria": {"c0": true, "c1": true, "c2": false}}
+{"id": "00a560a16ca6", "criteria": {"c0": false, "c1": true, "c2": true}, "note": "Vague, with two loose options (adjust angles or \"a geometric layer\")."}
+{"id": "e2f4ebc050a5", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "670daa92e8c7", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "13b6eea4a957", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and repairs may be required."}
+{"id": "6e6a0725ac72", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "077d42365697", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "9291eac3c3f9", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "269a353a340b", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}, "note": "Affiliate is unnamed in source; term conveyed only as terminable at any time."}
+{"id": "ff060f828aff", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and repairs may be required."}
+{"id": "3675aa29e1fd", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "529a9984b333", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "76e478f194be", "criteria": {"c0": false, "c1": true, "c2": true}}
+{"id": "c251a3972763", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "6cb8034c073e", "criteria": {"c0": true, "c1": true, "c2": true, "c3": true}}
+{"id": "76ff0d165402", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Attributes the failure to path handling, a cause the user does not state."}
+{"id": "7071f2849391", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "d81a04cf5040", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "592088e58dd2", "criteria": {"c0": true, "c1": true, "c2": true}}
+{"id": "85b769ce171b", "criteria": {"c0": true, "c1": true, "c2": false}, "note": "Omits stated caveat that parts may be missing and unknown repairs may be required."}
+{"id": "0e1c233fc7c2", "criteria": {"c0": false, "c1": true, "c2": false}}
+{"id": "7be13b9dc88d", "criteria": {"c0": true, "c1": true, "c2": true}}

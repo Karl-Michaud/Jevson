@@ -2,7 +2,8 @@
 
 - `wilson`: the Wilson score interval for one proportion (the interval EVIDENCE.md quotes throughout).
 - `newcombe_unpaired`: Newcombe's hybrid score interval for p1 - p2 from independent samples (Newcombe 1998,
-  Statistics in Medicine 17:873, method 10).
+  Statistics in Medicine 17:873, method 10); `newcombe_hybrid` is its recombination step over any two intervals,
+  used with `scaled` when one rate is a sampled rate times an exactly known share.
 - `newcombe_paired`: Newcombe's interval for p1 - p2 from paired binary outcomes (Newcombe 1998, Statistics in
   Medicine 17:2635, method 10), with the phi correction and no continuity correction.
 """
@@ -34,7 +35,16 @@ def wilson(k: int, n: int, z: float = Z95) -> Interval:
 
 
 def newcombe_unpaired(k1: int, n1: int, k2: int, n2: int) -> Interval:
-    a, b = wilson(k1, n1), wilson(k2, n2)
+    return newcombe_hybrid(wilson(k1, n1), wilson(k2, n2))
+
+
+def scaled(interval: Interval, factor: float) -> Interval:
+    """A proportion's interval multiplied by a known constant (e.g. a sampled rate times an exact share)."""
+    return Interval(interval.estimate * factor, interval.low * factor, interval.high * factor)
+
+
+def newcombe_hybrid(a: Interval, b: Interval) -> Interval:
+    """a - b from each proportion's own score interval (Newcombe's method 10 recombination)."""
     d = a.estimate - b.estimate
     low = d - math.sqrt((a.estimate - a.low) ** 2 + (b.high - b.estimate) ** 2)
     high = d + math.sqrt((a.high - a.estimate) ** 2 + (b.estimate - b.low) ** 2)

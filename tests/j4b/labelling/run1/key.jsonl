@@ -1,0 +1,446 @@
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11208810/intake_summary", "item_id": "bbb25ae04b57", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11208810/intake_summary", "item_id": "2d779c5fcf5f", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-transmontaignepartnersllc-03-13-2020-ex-10-9-services-agreem/plain_summary", "item_id": "1581675538b1", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-transmontaignepartnersllc-03-13-2020-ex-10-9-services-agreem/plain_summary", "item_id": "1e19437ca06a", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-chinarecyclingenergycorp-11-14-2013-ex-10-6-cooperation-agre/plain_summary", "item_id": "1bfe450ff437", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-chinarecyclingenergycorp-11-14-2013-ex-10-6-cooperation-agre/plain_summary", "item_id": "1691f2c862ae", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--404dc0/plain_summary", "item_id": "32f7ebd7c4a3", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--404dc0/plain_summary", "item_id": "085070bedfd8", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378198/listing_blurb", "item_id": "166f5fe6aa0a", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378198/listing_blurb", "item_id": "18d8642500dd", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-mjbiotech-inc-12-06-2018-ex-99-01-joint-venture-agreement/plain_summary", "item_id": "4e9ebb4f49d4", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-mjbiotech-inc-12-06-2018-ex-99-01-joint-venture-agreement/plain_summary", "item_id": "4e9d65772e38", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10979817/intake_summary", "item_id": "0f1527a69bdd", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10979817/intake_summary", "item_id": "51b86d509ed0", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391686/bio", "item_id": "ec752d7389c9", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391686/bio", "item_id": "6d6f32cec970", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10916147/intake_summary", "item_id": "e0e6f650c784", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10916147/intake_summary", "item_id": "872fada5aac9", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391916/bio", "item_id": "d1dd38e75bd9", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391916/bio", "item_id": "bea6a662ce99", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392551/bio", "item_id": "3e1bc807792f", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392551/bio", "item_id": "65abe0850089", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-coralgoldresources-ltd-05-28-2020-ex-4-1-consulting-agreemen/plain_summary", "item_id": "88e04369842e", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-coralgoldresources-ltd-05-28-2020-ex-4-1-consulting-agreemen/plain_summary", "item_id": "e74573f0a06d", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610856/summary", "item_id": "008377499f5e", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610856/summary", "item_id": "4b2852f3846e", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610856/next_step", "item_id": "8a3c05d6f72a", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610856/next_step", "item_id": "9f2d261363d1", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394611/bio", "item_id": "cc449ca8cb21", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394611/bio", "item_id": "2a0b3d05f0a3", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-novointegratedsciences-inc-12-23-2019-ex-10-1-joint-venture-/plain_summary", "item_id": "654a9df33c46", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-novointegratedsciences-inc-12-23-2019-ex-10-1-joint-venture-/plain_summary", "item_id": "b6cb541cd1e0", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377975/listing_blurb", "item_id": "63abf30b984b", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377975/listing_blurb", "item_id": "cd172d80dc30", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-mercatainc-03-09-2000-ex-10-21-sponsorship-agreement/plain_summary", "item_id": "213f7aba2853", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-mercatainc-03-09-2000-ex-10-21-sponsorship-agreement/plain_summary", "item_id": "6e6a0725ac72", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-talcottresolutionlifeinsuranceco-separateaccounttwelve-04-30/plain_summary", "item_id": "e030f202c924", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-talcottresolutionlifeinsuranceco-separateaccounttwelve-04-30/plain_summary", "item_id": "105ca305a568", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11150568/intake_summary", "item_id": "8f63d4143fac", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11150568/intake_summary", "item_id": "53ed77159dc1", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391571/bio", "item_id": "59732f6e9db3", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391571/bio", "item_id": "c30878810e6e", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391016/bio", "item_id": "32cca1f1bd7d", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391016/bio", "item_id": "38339a73265a", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378058/listing_blurb", "item_id": "c87218b84467", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378058/listing_blurb", "item_id": "83154f5ea46d", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378247/listing_blurb", "item_id": "d624e466f41b", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378247/listing_blurb", "item_id": "1cbc9a72b100", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377779/listing_blurb", "item_id": "14735ba6a092", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377779/listing_blurb", "item_id": "8992d6b69d92", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-11662366/bio", "item_id": "09162a45c860", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-11662366/bio", "item_id": "a77d42b139ae", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-nelnetinc-04-08-2020-ex-1-joint-filing-agreement/plain_summary", "item_id": "283c3659617a", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-nelnetinc-04-08-2020-ex-1-joint-filing-agreement/plain_summary", "item_id": "d2ed91d43186", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-separateaccountiiofagl-05-02-2011-ex-99-j-4-unconditional-ca/plain_summary", "item_id": "804cfc63632c", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-separateaccountiiofagl-05-02-2011-ex-99-j-4-unconditional-ca/plain_summary", "item_id": "72f453a4dd27", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10981515/intake_summary", "item_id": "09899607e573", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10981515/intake_summary", "item_id": "4a58b82902b9", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-emmiscommunicationscorp-20191125-8-k-ex-10-6-11906433-ex-10-/plain_summary", "item_id": "94885ac7ea02", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-emmiscommunicationscorp-20191125-8-k-ex-10-6-11906433-ex-10-/plain_summary", "item_id": "b9015b97bf44", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610880/summary", "item_id": "adc6f13407d8", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610880/summary", "item_id": "76ff0d165402", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610880/next_step", "item_id": "524b41613a99", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610880/next_step", "item_id": "3017feaf3cf4", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377529/listing_blurb", "item_id": "ff060f828aff", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377529/listing_blurb", "item_id": "13b6eea4a957", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378017/listing_blurb", "item_id": "52de81672bc8", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378017/listing_blurb", "item_id": "c7f17f22fcf3", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1380466/bio", "item_id": "cc93597ea7ac", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1380466/bio", "item_id": "1d2749bd124e", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1381431/bio", "item_id": "590fe40b04ca", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1381431/bio", "item_id": "e799e9667a8d", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499384/summary", "item_id": "aafeae48fa43", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499384/summary", "item_id": "f7ffcaee3cac", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611035/summary", "item_id": "03b89bb54ae6", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611035/summary", "item_id": "fa45004c072c", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611035/next_step", "item_id": "5d75e52897e3", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611035/next_step", "item_id": "22aee0ac79ee", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377724/listing_blurb", "item_id": "607652eb1d74", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377724/listing_blurb", "item_id": "2c18a525760f", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-riseeducationcaymanltd-04-17-2020-ex-4-23-service-agreement/plain_summary", "item_id": "1fa41253705d", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-riseeducationcaymanltd-04-17-2020-ex-4-23-service-agreement/plain_summary", "item_id": "cc4127f441f3", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378000/listing_blurb", "item_id": "9d436226e86b", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378000/listing_blurb", "item_id": "78ffaf6742fb", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391516/bio", "item_id": "7886353930f9", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391516/bio", "item_id": "8a842d386ec7", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391946/bio", "item_id": "57c56db938d1", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391946/bio", "item_id": "2b7e7510735e", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391831/bio", "item_id": "e8654b2861da", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391831/bio", "item_id": "887b1c9aad56", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378013/listing_blurb", "item_id": "f14a397c5366", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378013/listing_blurb", "item_id": "48027dd2f670", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-kiromicbiopharma-inc-05-11-2020-ex-10-23-consulting-agreemen/plain_summary", "item_id": "71dc61704530", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-kiromicbiopharma-inc-05-11-2020-ex-10-23-consulting-agreemen/plain_summary", "item_id": "53fd602f2986", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377812/listing_blurb", "item_id": "cf9c885d4a53", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377812/listing_blurb", "item_id": "aba6a14223aa", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-cooltechnologies-inc-10-25-2017-ex-10-71-strategic-alliance-/plain_summary", "item_id": "b320bcff6353", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-cooltechnologies-inc-10-25-2017-ex-10-71-strategic-alliance-/plain_summary", "item_id": "995986a8c416", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392221/bio", "item_id": "71e1899e353d", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392221/bio", "item_id": "22b067b3c263", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-bnlfinancialcorp-03-30-2007-ex-10-8-outsourcing-agreement/plain_summary", "item_id": "741da0445c06", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-bnlfinancialcorp-03-30-2007-ex-10-8-outsourcing-agreement/plain_summary", "item_id": "df6f5675823b", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10933058/intake_summary", "item_id": "14b09dd086fd", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10933058/intake_summary", "item_id": "2930606eb761", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10913635/intake_summary", "item_id": "5f5a621bdb27", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10913635/intake_summary", "item_id": "8697215c34a8", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378358/listing_blurb", "item_id": "088504e9e963", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378358/listing_blurb", "item_id": "592088e58dd2", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498649/summary", "item_id": "073bc02ad505", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498649/summary", "item_id": "682c75ee53c1", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498649/next_step", "item_id": "6ac9955bdb67", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498649/next_step", "item_id": "695731bc44ce", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-rareelementresourcesltd-20171019-sc-13d-ex-99-4-10897534-ex-/plain_summary", "item_id": "a012ea2213da", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-rareelementresourcesltd-20171019-sc-13d-ex-99-4-10897534-ex-/plain_summary", "item_id": "af995b6c78e0", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10909951/intake_summary", "item_id": "bac9f7340f49", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10909951/intake_summary", "item_id": "529a9984b333", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610813/summary", "item_id": "bf82dd0426dd", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610813/summary", "item_id": "aca234f1c1cd", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610813/next_step", "item_id": "10aa234f1693", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610813/next_step", "item_id": "7b0326ef1d75", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-urscorpnew-03-17-2014-ex-99-cooperation-agreement/plain_summary", "item_id": "de449554f3aa", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-urscorpnew-03-17-2014-ex-99-cooperation-agreement/plain_summary", "item_id": "85e7b88f6b98", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378104/listing_blurb", "item_id": "993eeffa88ff", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378104/listing_blurb", "item_id": "f697519520d2", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10931561/intake_summary", "item_id": "dd9d8dda7bab", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10931561/intake_summary", "item_id": "b95e35e69807", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-canopetroleum-inc-12-13-2007-ex-10-1-sponsorship-agreement/plain_summary", "item_id": "d470483e62e8", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-canopetroleum-inc-12-13-2007-ex-10-1-sponsorship-agreement/plain_summary", "item_id": "fa24437e13fb", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611198/summary", "item_id": "3352722173e6", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611198/summary", "item_id": "9ed76e63f7e7", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611198/next_step", "item_id": "014c1c644746", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611198/next_step", "item_id": "00a560a16ca6", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610923/summary", "item_id": "4daa5eefbbe2", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610923/summary", "item_id": "e5b53fdd3fa1", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610923/next_step", "item_id": "eb17f4832f2c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610923/next_step", "item_id": "0e1c233fc7c2", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378011/listing_blurb", "item_id": "4dd5e7a83898", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378011/listing_blurb", "item_id": "6c4b61b8d8b6", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10912831/intake_summary", "item_id": "d74d8e091f1d", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10912831/intake_summary", "item_id": "76e478f194be", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377822/listing_blurb", "item_id": "abbd2fab3517", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377822/listing_blurb", "item_id": "99e9eb574857", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824867/summary", "item_id": "d24f1f7f6177", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824867/summary", "item_id": null, "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824867/next_step", "item_id": "cf472e391001", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824867/next_step", "item_id": "4bac9fdb2e99", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-nyliacvariableannuityseparateaccountiii-04-10-2020-ex-99-8-k/plain_summary", "item_id": "57698c04c471", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-nyliacvariableannuityseparateaccountiii-04-10-2020-ex-99-8-k/plain_summary", "item_id": "f1dc9ed7fb6b", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement/plain_summary", "item_id": "39d121297200", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement/plain_summary", "item_id": "077d42365697", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement/plain_summary", "item_id": "37c05c7389aa", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement/plain_summary", "item_id": "63a8c5da3a8c", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392376/bio", "item_id": "3d8b11b422b8", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392376/bio", "item_id": "1e30692baa86", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-stwresourcesholdingcorp-08-06-2014-ex-10-1-cooperation-agree/plain_summary", "item_id": "9168074fd115", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-stwresourcesholdingcorp-08-06-2014-ex-10-1-cooperation-agree/plain_summary", "item_id": "4265c3bb6e97", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377730/listing_blurb", "item_id": "f464105d2e6f", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377730/listing_blurb", "item_id": "6b77194c1136", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1823913/summary", "item_id": "a0e6e65f52bc", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1823913/summary", "item_id": "58f79e52ffd4", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1823913/next_step", "item_id": "9c1c5b2a8589", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1823913/next_step", "item_id": "68fe59daffa1", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392446/bio", "item_id": "139687e86618", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392446/bio", "item_id": "ea7dee652b4e", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-cheetahmobileinc-04-22-2014-ex-10-43-cooperation-agreement/plain_summary", "item_id": "b148d98f3ba9", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-cheetahmobileinc-04-22-2014-ex-10-43-cooperation-agreement/plain_summary", "item_id": "f6c81975439e", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-dragonsystemsinc-01-08-1999-ex-10-17-outsourcing-agreement/plain_summary", "item_id": "f14a20a73284", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-dragonsystemsinc-01-08-1999-ex-10-17-outsourcing-agreement/plain_summary", "item_id": "763e02438f71", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378126/listing_blurb", "item_id": "2a170cf58798", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378126/listing_blurb", "item_id": "4d79e6375bc4", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-smartrxsystemsinc-20180914-1-a-ex1a-6-mat-ctrct-11351705-ex1/plain_summary", "item_id": "288b02c291a2", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-smartrxsystemsinc-20180914-1-a-ex1a-6-mat-ctrct-11351705-ex1/plain_summary", "item_id": "c138df3b90e3", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11241988/intake_summary", "item_id": "7e851314a214", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11241988/intake_summary", "item_id": "b18ca3523101", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-solutionsvendinginternational-inc-03-31-2020-ex1a-1-undr-agm/plain_summary", "item_id": "bd0b5861510d", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-solutionsvendinginternational-inc-03-31-2020-ex1a-1-undr-agm/plain_summary", "item_id": "71aec58aabfe", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10916208/intake_summary", "item_id": "7be13b9dc88d", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10916208/intake_summary", "item_id": "b3145e0f524c", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378151/listing_blurb", "item_id": "9e65e992201f", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378151/listing_blurb", "item_id": "3675aa29e1fd", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392826/bio", "item_id": "96a8002193d1", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392826/bio", "item_id": "85014da2d3a8", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-4022586/bio", "item_id": "9750dcb55cba", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-4022586/bio", "item_id": "4bb191c45ec5", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377786/listing_blurb", "item_id": "891f663ff23e", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377786/listing_blurb", "item_id": "2d93c44ed2fe", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10931831/intake_summary", "item_id": "dbc742b61cad", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10931831/intake_summary", "item_id": "1883625bd403", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-artaratherapeuticsinc-20200110-8-k-ex-10-5-11943350-ex-10-5-/plain_summary", "item_id": "1eec9fffd7b5", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-artaratherapeuticsinc-20200110-8-k-ex-10-5-11943350-ex-10-5-/plain_summary", "item_id": "96a72b7b2e0c", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10981384/intake_summary", "item_id": "a68e669d40b0", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10981384/intake_summary", "item_id": "b4a6d6a2a756", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ecosciencesolutionsinc-20180406-8-k-ex-10-1-11135398-ex-10-1/plain_summary", "item_id": "5f44be5a1054", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ecosciencesolutionsinc-20180406-8-k-ex-10-1-11135398-ex-10-1/plain_summary", "item_id": "48de7f59c522", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-adurobiotech-inc-06-02-2020-ex-10-7-consulting-agreement-1/plain_summary", "item_id": "c8416aa3cce1", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-adurobiotech-inc-06-02-2020-ex-10-7-consulting-agreement-1/plain_summary", "item_id": "81a9b25ffad5", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378055/listing_blurb", "item_id": "53b1aa823ffd", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378055/listing_blurb", "item_id": "3bf23c62c314", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10981500/intake_summary", "item_id": "23c9834f676f", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10981500/intake_summary", "item_id": "68a1eafdca00", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-gridironbionutrientsinc-20171206-8-k-ex-10-1-10972555-ex-10-/plain_summary", "item_id": "c1f52268a4ba", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-gridironbionutrientsinc-20171206-8-k-ex-10-1-10972555-ex-10-/plain_summary", "item_id": "670daa92e8c7", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-innerscopehearingtechnologiesinc-20181109-8-k-ex-10-6-114197/plain_summary", "item_id": "39122c640e10", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-innerscopehearingtechnologiesinc-20181109-8-k-ex-10-6-114197/plain_summary", "item_id": "aa1e022addff", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-americanphysicianscapitalinc-03-31-2003-ex-10-26-agency-agre/plain_summary", "item_id": "72aa9630e061", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-americanphysicianscapitalinc-03-31-2003-ex-10-26-agency-agre/plain_summary", "item_id": "4dac0151c919", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824843/summary", "item_id": "153adc4f2960", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824843/summary", "item_id": "63b58eaa9c9a", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824843/next_step", "item_id": "10ac41d3c5c5", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824843/next_step", "item_id": "bde9374a4936", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392396/bio", "item_id": "5115cbacff31", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392396/bio", "item_id": "4b8ffd3dd083", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-freecook-20180605-s-1-ex-10-3-11233807-ex-10-3-hosting-agree/plain_summary", "item_id": "3c5d45e6ad88", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-freecook-20180605-s-1-ex-10-3-11233807-ex-10-3-hosting-agree/plain_summary", "item_id": "d3dd5d3ee458", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10916207/intake_summary", "item_id": "4c61a35f1f01", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10916207/intake_summary", "item_id": "2f572f33a392", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378006/listing_blurb", "item_id": "14422cfe1821", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378006/listing_blurb", "item_id": "1fcc89bef5a6", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10805999/intake_summary", "item_id": "539fd234442c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10805999/intake_summary", "item_id": "2acf7a439c29", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378108/listing_blurb", "item_id": "f45a8b90a51c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378108/listing_blurb", "item_id": "93b1c38402fd", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610925/summary", "item_id": "8263b14957bc", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610925/summary", "item_id": "2e0da9266fbd", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610925/next_step", "item_id": "572339ad84bc", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610925/next_step", "item_id": "34cebfee5d35", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ultragenyxpharmaceuticalinc-12-23-2013-ex-10-9-supply-agreem/plain_summary", "item_id": "6cb8034c073e", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ultragenyxpharmaceuticalinc-12-23-2013-ex-10-9-supply-agreem/plain_summary", "item_id": "78ff4d4de2f6", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10805998/intake_summary", "item_id": "f95f30145971", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10805998/intake_summary", "item_id": "20d38a1e29dc", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-pandiontherapeuticsholdcollc-05-22-2020-ex-10-17-consulting-/plain_summary", "item_id": "6b0bac9526d4", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-pandiontherapeuticsholdcollc-05-22-2020-ex-10-17-consulting-/plain_summary", "item_id": "92e16ca8eb79", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378216/listing_blurb", "item_id": "559083a6c3b6", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378216/listing_blurb", "item_id": "ca5d460f10ff", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377971/listing_blurb", "item_id": "4862a6ed62a1", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377971/listing_blurb", "item_id": "df5192a88bf4", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement/plain_summary", "item_id": "2f49508ec0a2", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement/plain_summary", "item_id": "69ad7ada9305", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-9354856/bio", "item_id": "9b6bd5db9cde", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-9354856/bio", "item_id": "72ed622c7ae9", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10900673/intake_summary", "item_id": "5eb5c37817f4", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10900673/intake_summary", "item_id": "9ade49fffd94", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1380671/bio", "item_id": "10a23c8e832a", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1380671/bio", "item_id": "7853970f014e", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-creditcardscominc-20070810-s-1-ex-10-33-362297-ex-10-33-affi/plain_summary", "item_id": "269a353a340b", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-creditcardscominc-20070810-s-1-ex-10-33-362297-ex-10-33-affi/plain_summary", "item_id": "4b1158ee7561", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610965/summary", "item_id": "41b3c95fce28", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610965/summary", "item_id": "84979fd6a4cc", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610965/next_step", "item_id": "a9938763b94e", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610965/next_step", "item_id": "e1ad6afea430", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11150652/intake_summary", "item_id": "244c4dac0600", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11150652/intake_summary", "item_id": "f82a68901534", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1393696/bio", "item_id": "349bdf4063ca", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1393696/bio", "item_id": "4caee97296dd", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-lejuholdingsltd-20140121-drs-on-f-1-ex-10-26-8473102-ex-10-2/plain_summary", "item_id": "cfe882dcf71c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-lejuholdingsltd-20140121-drs-on-f-1-ex-10-26-8473102-ex-10-2/plain_summary", "item_id": "ae02583d6d6d", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-orbsatcorp-08-17-2007-ex-7-3-strategic-alliance-agreement/plain_summary", "item_id": "97e4ba1c1560", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-orbsatcorp-08-17-2007-ex-7-3-strategic-alliance-agreement/plain_summary", "item_id": "00ad8e9e4f99", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10913624/intake_summary", "item_id": "714066f72e37", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10913624/intake_summary", "item_id": "62994ec06d36", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378196/listing_blurb", "item_id": "2490d53e4b7c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378196/listing_blurb", "item_id": "b9a13d83774f", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-playahotels-resortsnv-03-14-2017-ex-10-22-strategic-alliance/plain_summary", "item_id": "839cfb9d32ec", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-playahotels-resortsnv-03-14-2017-ex-10-22-strategic-alliance/plain_summary", "item_id": "e2f17075d38a", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-adianutrition-inc-04-01-2005-ex-10-d2-reseller-agreement/plain_summary", "item_id": "13b331ddc44b", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-adianutrition-inc-04-01-2005-ex-10-d2-reseller-agreement/plain_summary", "item_id": "ddd9e1db9908", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498659/summary", "item_id": "179e2e2ae82f", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498659/summary", "item_id": "759aaa97e2fa", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498659/next_step", "item_id": "e5504d975697", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498659/next_step", "item_id": "9860ef201162", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391746/bio", "item_id": "fa0ae37b3c1b", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391746/bio", "item_id": "a666f6fd4dec", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-integritymediainc-20010329-10-k405-ex-10-17-2373875-ex-10-17/plain_summary", "item_id": "e2d2247355b4", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-integritymediainc-20010329-10-k405-ex-10-17-2373875-ex-10-17/plain_summary", "item_id": "aa7908e0f6ce", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391711/bio", "item_id": "9291eac3c3f9", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391711/bio", "item_id": "0448352a7319", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-logansroadhouseinc-03-27-1998-ex-10-17-sponsorship-agreement/plain_summary", "item_id": "73c014e9e8d6", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-logansroadhouseinc-03-27-1998-ex-10-17-sponsorship-agreement/plain_summary", "item_id": "49fb72cf7e46", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11241970/intake_summary", "item_id": "5dd0627a1c06", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11241970/intake_summary", "item_id": "47cc6b22b8a4", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378096/listing_blurb", "item_id": "17931783ecfb", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378096/listing_blurb", "item_id": "32bf2be34dff", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377631/listing_blurb", "item_id": "fa90713f3cfd", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377631/listing_blurb", "item_id": "8f6dfc52362d", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377997/listing_blurb", "item_id": "6bc3d92aa9c7", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377997/listing_blurb", "item_id": "b6ba7430a1e1", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378122/listing_blurb", "item_id": "9cdd4a29abfa", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378122/listing_blurb", "item_id": "4ae08d98f02e", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ibioinc-20200313-8-k-ex-10-1-12052678-ex-10-1-development-ag/plain_summary", "item_id": "a4524b9ad40a", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ibioinc-20200313-8-k-ex-10-1-12052678-ex-10-1-development-ag/plain_summary", "item_id": "fd8bd2b50425", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-southernstarenergyinc-20051202-sb-2a-ex-9-801890-ex-9-affili/plain_summary", "item_id": "33a44917ca39", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-southernstarenergyinc-20051202-sb-2a-ex-9-801890-ex-9-affili/plain_summary", "item_id": "d2d6e2b18d1f", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10900723/intake_summary", "item_id": "b0213f23f4d1", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10900723/intake_summary", "item_id": "ecca6d626262", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377744/listing_blurb", "item_id": "3eab4cd33357", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377744/listing_blurb", "item_id": "dbb8da438d5b", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag/plain_summary", "item_id": "b59f704d5e97", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag/plain_summary", "item_id": "04dd343adf60", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378007/listing_blurb", "item_id": "572cddd5846c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378007/listing_blurb", "item_id": "c472fb9b60db", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378326/listing_blurb", "item_id": "272dda13ebec", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378326/listing_blurb", "item_id": "461d99e1209b", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824924/summary", "item_id": "8144cb176355", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824924/summary", "item_id": "0bcef58ec434", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824924/next_step", "item_id": "8d952f461bd1", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824924/next_step", "item_id": "25c00fabf922", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378246/listing_blurb", "item_id": "fe8a43a75f8c", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378246/listing_blurb", "item_id": "c0668d685eb2", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611025/summary", "item_id": "e3a6f15868c7", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611025/summary", "item_id": "433141e8235e", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611025/next_step", "item_id": "aadbccf88a4d", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611025/next_step", "item_id": "233de550be3e", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378219/listing_blurb", "item_id": "7ff675a32494", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378219/listing_blurb", "item_id": "affd36d6858f", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1393866/bio", "item_id": "50a6b6468606", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1393866/bio", "item_id": "ba4867a56876", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-rgcresourcesinc-20151216-8-k-ex-10-3-9372751-ex-10-3-franchi/plain_summary", "item_id": "d7106c60c161", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-rgcresourcesinc-20151216-8-k-ex-10-3-9372751-ex-10-3-franchi/plain_summary", "item_id": "6d43f5b44915", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391986/bio", "item_id": "74459b1ce766", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391986/bio", "item_id": "8bc53272493f", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--3ded74/plain_summary", "item_id": "439fb1af71e4", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--3ded74/plain_summary", "item_id": "8bf6a4186332", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394541/bio", "item_id": "41244418165b", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394541/bio", "item_id": "4c8ee2d61fcd", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377600/listing_blurb", "item_id": "694b21896e73", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377600/listing_blurb", "item_id": "1757045a04e7", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611301/summary", "item_id": "f39dd029d991", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611301/summary", "item_id": "bf7f036c099d", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611301/next_step", "item_id": "d92d2cf50b49", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611301/next_step", "item_id": "f3abd5314093", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378048/listing_blurb", "item_id": "e86d0856b781", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378048/listing_blurb", "item_id": "6da5ad941195", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377719/listing_blurb", "item_id": "9704e1a41cc5", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377719/listing_blurb", "item_id": "e6e83e0dcdec", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378070/listing_blurb", "item_id": "6e2553c9db0f", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378070/listing_blurb", "item_id": "85b769ce171b", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499428/summary", "item_id": "d19331f09ebc", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499428/summary", "item_id": "5800137ca101", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499428/next_step", "item_id": "79e08253bfeb", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499428/next_step", "item_id": "c3ca16fbef60", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498690/summary", "item_id": "dd7b33509606", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498690/summary", "item_id": "ced46c41f858", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498690/next_step", "item_id": "7629155f8bdf", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498690/next_step", "item_id": "8fc2185b0a1c", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10979712/intake_summary", "item_id": "caad930f804c", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10979712/intake_summary", "item_id": "2d52e9831311", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10905892/intake_summary", "item_id": "6af78d8a153a", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10905892/intake_summary", "item_id": "26a64b6721e8", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-pelicandeliversinc-20200211-s-1-ex-10-3-11975895-ex-10-3-dev/plain_summary", "item_id": "39b7981b2a04", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-pelicandeliversinc-20200211-s-1-ex-10-3-11975895-ex-10-3-dev/plain_summary", "item_id": "889929227c55", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377873/listing_blurb", "item_id": "fd6dc97fcd3e", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377873/listing_blurb", "item_id": "ef7009f80548", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378363/listing_blurb", "item_id": "55ac752d1bbc", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378363/listing_blurb", "item_id": "7071f2849391", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824878/summary", "item_id": "eb373ff8c90c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824878/summary", "item_id": "f94676d69ff1", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824878/next_step", "item_id": "3ec412e32cec", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-superuser-1824878/next_step", "item_id": "ba41491d1aee", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377787/listing_blurb", "item_id": "4a2fc3c38a02", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377787/listing_blurb", "item_id": null, "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391046/bio", "item_id": "a1fb81b3d010", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391046/bio", "item_id": "ce6688060fa0", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392296/bio", "item_id": "25cf2d17c2a8", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1392296/bio", "item_id": "18578d013d4a", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-premierbiomedicalinc-05-14-2020-ex-10-2-intellectual-propert/plain_summary", "item_id": "3b299653098d", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-premierbiomedicalinc-05-14-2020-ex-10-2-intellectual-propert/plain_summary", "item_id": "1d08625c0b62", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377651/listing_blurb", "item_id": "c251a3972763", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377651/listing_blurb", "item_id": "10d460fbc226", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ccrealestateincomefundadv-20181205-pos-8c-ex-99-h-3-11447739/plain_summary", "item_id": "824d70b8e349", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-ccrealestateincomefundadv-20181205-pos-8c-ex-99-h-3-11447739/plain_summary", "item_id": "a06da13335b9", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10931978/intake_summary", "item_id": "c3f9792e3b02", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10931978/intake_summary", "item_id": "7d233af5d59f", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-bioamberinc-04-10-2013-ex-10-34-development-agreement-first-/plain_summary", "item_id": "8b21abafb48a", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-bioamberinc-04-10-2013-ex-10-34-development-agreement-first-/plain_summary", "item_id": "30e2340f0089", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-gridironbionutrients-inc-02-05-2020-ex-10-3-supply-agreement/plain_summary", "item_id": "96e39e5d6126", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-gridironbionutrients-inc-02-05-2020-ex-10-3-supply-agreement/plain_summary", "item_id": "1c199cb11980", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-blackrockmuniholdingsinvestmentqualityfund-04-07-2020-ex-99-/plain_summary", "item_id": "d6809059202b", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-blackrockmuniholdingsinvestmentqualityfund-04-07-2020-ex-99-/plain_summary", "item_id": "d14bdbd08962", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378009/listing_blurb", "item_id": "e24538b74670", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378009/listing_blurb", "item_id": "07c657b703e0", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499432/summary", "item_id": "92c0b3611fa6", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499432/summary", "item_id": "997bc6a18711", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499432/next_step", "item_id": "96c644f34df7", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1499432/next_step", "item_id": "ed9f49f3d83a", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1393791/bio", "item_id": "8865d785570d", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1393791/bio", "item_id": "e55ae46979a8", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-atmosenergycorp-11-22-2002-ex-10-17-transportation-service-a/plain_summary", "item_id": "ab4cca822cc8", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-atmosenergycorp-11-22-2002-ex-10-17-transportation-service-a/plain_summary", "item_id": "5878f64b3df5", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-rewalkroboticsltd-07-10-2014-ex-10-2-strategic-alliance-agre/plain_summary", "item_id": "98b87fea092b", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-rewalkroboticsltd-07-10-2014-ex-10-2-strategic-alliance-agre/plain_summary", "item_id": "612bf7f77ee5", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-7470666/bio", "item_id": "cb8655151fc6", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-7470666/bio", "item_id": "0fde9e9b70a1", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-dominiadvisortrust-02-18-2005-ex-99-h-2-sponsorship-agreemen/plain_summary", "item_id": "b42cecdaae02", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-dominiadvisortrust-02-18-2005-ex-99-h-2-sponsorship-agreemen/plain_summary", "item_id": "4f2489ba8b4f", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11058707/intake_summary", "item_id": "4122f0553d24", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11058707/intake_summary", "item_id": "e5a7f0f6279b", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11069210/intake_summary", "item_id": "4c5ef518ce3e", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc11069210/intake_summary", "item_id": "2536322b9f24", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498664/summary", "item_id": "248ec4b2e0f2", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498664/summary", "item_id": "bd81bbee1dcf", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498664/next_step", "item_id": "506062641812", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-askubuntu-1498664/next_step", "item_id": "1210f775195f", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610994/summary", "item_id": "3ceefb084969", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610994/summary", "item_id": "d59a01770a03", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610994/next_step", "item_id": "1e457e46f63c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610994/next_step", "item_id": "ba12453b741b", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-13263786/bio", "item_id": "73956d515e24", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-13263786/bio", "item_id": "af5ff60450f9", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10979707/intake_summary", "item_id": "4a1bbc40b5cf", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "medical_intake", "instance_id": "epmc-pmc10979707/intake_summary", "item_id": "09af4f4273ab", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378288/listing_blurb", "item_id": "2283c81b261b", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378288/listing_blurb", "item_id": "1a31e0529f3c", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378033/listing_blurb", "item_id": "f6406936a141", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378033/listing_blurb", "item_id": "e2f4ebc050a5", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377839/listing_blurb", "item_id": "547876e4facd", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377839/listing_blurb", "item_id": "049ecfcffb97", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394236/bio", "item_id": "88c69fca986e", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394236/bio", "item_id": "a41b328748c3", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377974/listing_blurb", "item_id": "7e8fb13e3e58", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-377974/listing_blurb", "item_id": "b76e3be9dac7", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-hpilholding-01-07-2015-ex-99-1-cooperation-agreement/plain_summary", "item_id": "e09fbfdecc93", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-hpilholding-01-07-2015-ex-99-1-cooperation-agreement/plain_summary", "item_id": "a8033b1bf765", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394866/bio", "item_id": "26d60ec62f5a", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394866/bio", "item_id": "fc74fa0a11e1", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378355/listing_blurb", "item_id": "2a8bfc17181b", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "product_listing", "instance_id": "gsa-378355/listing_blurb", "item_id": "0d182f87270f", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-5675191/bio", "item_id": "edc419d023a3", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-5675191/bio", "item_id": "e8e231493639", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391131/bio", "item_id": "57e863c5f528", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1391131/bio", "item_id": "038d5d1aa2cd", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-hubeiminkangpharmaceuticalltd-09-19-2006-ex-10-1-outsourcing/plain_summary", "item_id": "eb0e9f8c11e4", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-hubeiminkangpharmaceuticalltd-09-19-2006-ex-10-1-outsourcing/plain_summary", "item_id": "3c91793abf01", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610951/summary", "item_id": "809aff84a456", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610951/summary", "item_id": "d81a04cf5040", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610951/next_step", "item_id": "cf14c131dcee", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-610951/next_step", "item_id": "ab5dfc831806", "role": "decoy"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1380586/bio", "item_id": "73bf4f608042", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1380586/bio", "item_id": "ba84c2a7340b", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-phoenixnewmedialtd-20110421-f-1-ex-10-17-6958322-ex-10-17-co/plain_summary", "item_id": "3b081b59d34c", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "contract", "instance_id": "cuad-phoenixnewmedialtd-20110421-f-1-ex-10-17-6958322-ex-10-17-co/plain_summary", "item_id": "27bc4d81481e", "role": "redraft"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611221/summary", "item_id": "ba8045b75ae8", "role": "first"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611221/summary", "item_id": "72b0b9324d65", "role": "redraft"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611221/next_step", "item_id": "e1bc01fb70c9", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2"], "group": "support_ticket", "instance_id": "se-es-611221/next_step", "item_id": "11461c7fcbf8", "role": "decoy"}
+{"admitted": true, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394841/bio", "item_id": "c9f07bbfabbf", "role": "first"}
+{"admitted": false, "criterion_ids": ["c0", "c1", "c2", "c3"], "group": "resume", "instance_id": "fjc-1394841/bio", "item_id": "e9c2297e8fd5", "role": "decoy"}
