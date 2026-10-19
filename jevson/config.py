@@ -11,6 +11,9 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class JevsonConfig:
+    """Per-instance settings. In v0 a `default_extractor` makes an unbounded string field refuse with
+    `source_selection_dropped` instead of `unbounded_field`: nothing is selected from the source."""
+
     model: str = "gpt-6-luna"
     """The model every decision request names; the API offers no snapshot, so the returned `model`
     string is recorded too (DESIGN §2, R15)."""

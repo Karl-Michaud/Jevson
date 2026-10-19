@@ -1,9 +1,10 @@
-"""Jevson: source-grounded structured extraction.
+"""Jevson: a schema compiler for bounded decisions and criteria-gated generative fields.
 
 The public surface is exactly `__all__`. Phase 1 ships the result type, the fake backend, the
 configuration, the exception hierarchy, the five protocols, and the types needed to read a
 `Result` or implement a protocol; Phase 2 adds `compile_schema`; Phase 3 adds `DecisionsBackend`,
-`CachingBackend` and `Jevson`; Phase 4 adds `ReplayLLM` and `dry_run` (PLAN §2).
+`CachingBackend` and `Jevson`; Phase 4 adds `ReplayLLM` and `dry_run`; Phase 8 adds
+`InMemoryCostSink`, the default `CostSink` (PLAN §2).
 """
 
 from jevson.adjudicate.dryrun import DryRun, dry_run
@@ -12,6 +13,7 @@ from jevson.backends.decisions import DecisionsBackend
 from jevson.backends.fake import FakeBackend
 from jevson.compile.compiler import compile_schema
 from jevson.config import JevsonConfig
+from jevson.cost import InMemoryCostSink
 from jevson.errors import (
     BackendError,
     CompileError,
@@ -83,6 +85,7 @@ __all__ = [
     "ExtractorError",
     "FakeBackend",
     "FieldSpec",
+    "InMemoryCostSink",
     "InvalidAnswer",
     "Jevson",
     "JevsonConfig",

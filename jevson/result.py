@@ -21,6 +21,8 @@ from jevson.types import (
 
 @dataclass(frozen=True)
 class Result:
+    """The outcome of one call: the assembled value and, for every field, how it was decided or why not."""
+
     value: Mapping[str, JSONValue]
     satisfies_schema: bool
     provenance: Mapping[str, Provenance] = field(default_factory=dict[str, Provenance])

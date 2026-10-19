@@ -42,6 +42,8 @@ FORMAT_VERSION = 1
 
 
 class CachingBackend:
+    """Wraps a backend and replays recorded responses exactly from `directory` (DESIGN §8.4)."""
+
     def __init__(self, inner: Backend, directory: str | os.PathLike[str], *, replay_only: bool = False) -> None:
         self._inner = inner
         self._directory = Path(directory)
@@ -53,6 +55,7 @@ class CachingBackend:
         return f"CachingBackend(directory={str(self._directory)!r}, replay_only={self._replay_only})"
 
     async def ask(self, state: str, questions: Sequence[Question], model: str) -> BackendResponse:
+        """Return the recorded response for this exact request, else ask `inner` and record it."""
         key = cache_key(state, questions, model)
         path = self._directory / f"{key}.json" if key is not None else None
         if path is not None and path.exists():

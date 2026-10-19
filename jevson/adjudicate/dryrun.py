@@ -23,6 +23,8 @@ from jevson.types import Answer, DecisionKind, DecisionNode, PredicateAnswer, Qu
 
 @dataclass(frozen=True)
 class DryRun:
+    """What a dry run asked about a draft and which checks it failed."""
+
     state: str
     """The state sent: the source and the draft under its key."""
     questions: tuple[str, ...]
@@ -48,6 +50,7 @@ async def dry_run(
     backend: Backend | None = None,
     config: JevsonConfig | None = None,
 ) -> DryRun:
+    """Ask a generative field's criteria and rubric about `draft`; offline and free with no `backend`."""
     graph = compile_schema(schema)
     steps = [n for n in graph.nodes.values() if isinstance(n, StepNode) and n.target == pointer]
     if not steps or steps[0].drafting is None:

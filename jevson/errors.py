@@ -120,12 +120,12 @@ class _ProtocolError(_SpentError):
 
 
 class BackendError(_ProtocolError):
-    pass
+    """A decision backend failed in transport or protocol; carries the partial `Result` and its `Cost`."""
 
 
 class LLMError(_ProtocolError):
-    pass
+    """The caller's LLM failed in transport, timed out, or a replay missed; carries the partial `Result`."""
 
 
 class ExtractorError(_ProtocolError):
-    pass
+    """An extractor failed or timed out. Never raised in v0, which has no extractor step."""

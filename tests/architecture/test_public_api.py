@@ -18,6 +18,7 @@ EXPECTED = {
     "ReplayLLM",
     "dry_run",
     "DryRun",
+    "InMemoryCostSink",
     # the exception hierarchy
     "JevsonError",
     "CompileError",
