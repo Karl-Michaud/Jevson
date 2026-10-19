@@ -79,5 +79,5 @@ pending the owner's decision (PLAN §6).
   Questions over such labels change, so `CachingBackend` records made under 1.1.0 miss for them.
 
 **Not included** (refused with a named reason, never half-supported): source selection
-(`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,
+(`x-jevson.source`, and the unbounded fields a `default_extractor` would select → `source_selection_dropped`), pairwise entity resolution,
 arrays of objects, generative lists, multi-source input. See the README's "What did not ship".
