@@ -34,6 +34,8 @@ class FakeCall:
 
 
 class FakeBackend:
+    """A scripted, offline `Backend` for tests and examples; it spends nothing and records every call."""
+
     def __init__(
         self,
         script: Mapping[str, Script] | None = None,
@@ -47,6 +49,7 @@ class FakeBackend:
         self.calls: list[FakeCall] = []
 
     async def ask(self, state: str, questions: Sequence[Question], model: str) -> BackendResponse:
+        """Answer each question from its script, or `default`; an unscripted question raises `KeyError`."""
         self.calls.append(FakeCall(state, tuple(questions), model))
         answers: list[Answer] = []
         for question in questions:
@@ -66,6 +69,7 @@ class FakeBackend:
 
     @staticmethod
     def predicate(probability: float) -> Script:
+        """Answer a predicate with this probability of yes."""
         return lambda question: PredicateAnswer(question.name, probability)
 
     @staticmethod
@@ -105,6 +109,7 @@ class FakeBackend:
 
     @staticmethod
     def refuse() -> Script:
+        """Refuse the question, as the API may; it resolves to `Unresolved(refused)`."""
         return lambda question: Refusal(question.name)
 
     @staticmethod

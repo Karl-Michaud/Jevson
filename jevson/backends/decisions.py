@@ -62,6 +62,8 @@ class _Unparseable(Exception):
 
 
 class DecisionsBackend:
+    """The live backend: `POST /v1/decisions` over `httpx`. Constructing it is a choice to spend money."""
+
     def __init__(
         self,
         api_key: str | None = None,
@@ -133,6 +135,7 @@ class DecisionsBackend:
             closing.result()
 
     async def aclose(self) -> None:
+        """Refuse further calls and close the client this loop shares, if any."""
         self._closed = True
         if self._shared is not None and self._shared[0] is asyncio.get_running_loop():
             _, _, client = self._shared
@@ -176,6 +179,7 @@ class DecisionsBackend:
     # --- Backend --------------------------------------------------------------------------
 
     async def ask(self, state: str, questions: Sequence[Question], model: str) -> BackendResponse:
+        """Send one level's questions in one request, retrying transport failures only."""
         self._check_open()
         if not questions:
             raise UsageError("ask() needs at least one question")

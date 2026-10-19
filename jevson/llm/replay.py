@@ -29,6 +29,8 @@ FORMAT_VERSION = 1
 
 
 class ReplayLLM:
+    """Wraps an `LLM` and replays recorded completions exactly from `directory` (DESIGN §8.4)."""
+
     def __init__(
         self, inner: LLM | None, directory: str | os.PathLike[str], *, llm_id: str, replay_only: bool = False
     ) -> None:
@@ -49,6 +51,7 @@ class ReplayLLM:
         )
 
     async def complete(self, messages: Sequence[Message], tool_schema: Mapping[str, JSONValue] | None) -> LLMResponse:
+        """Return the recorded completion for this exact request, else ask `inner` and record it."""
         key = replay_key(self._llm_id, messages, tool_schema)
         path = self._directory / f"{key}.json" if key is not None else None
         if path is not None and path.exists():

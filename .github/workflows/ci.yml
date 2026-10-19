@@ -40,9 +40,9 @@ jobs:
       # The Phase 0 harness under tests/phase0 and tests/probes predates these rules; the package and
       # its tests are held to them.
       - name: Ruff lint
-        run: uv run --frozen ruff check jevson tests/unit tests/property tests/architecture tests/adversarial tests/integration tests/j4b scripts
+        run: uv run --frozen ruff check jevson tests/unit tests/property tests/architecture tests/adversarial tests/integration tests/j4b scripts examples
       - name: Ruff format
-        run: uv run --frozen ruff format --check jevson tests/unit tests/property tests/architecture tests/adversarial tests/integration tests/j4b scripts
+        run: uv run --frozen ruff format --check jevson tests/unit tests/property tests/architecture tests/adversarial tests/integration tests/j4b scripts examples
       - name: Pyright (strict, jevson/)
         run: uv run --frozen pyright
       - name: Import contracts

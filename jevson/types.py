@@ -19,6 +19,8 @@ MAX_OPTIONS = 255
 
 
 class DecisionKind(StrEnum):
+    """The decision primitive a question uses: `choice`, `score` (ordinal levels) or `predicate`."""
+
     CHOICE = "choice"
     SCORE = "score"
     PREDICATE = "predicate"
@@ -45,6 +47,8 @@ class ProvenanceKind(StrEnum):
 
 
 class DecidedBy(StrEnum):
+    """How a field's value was decided; `Result.decided_by` maps each pointer to one of these."""
+
     CODE = "code"
     DECISION = "decision"
     LLM_DECISION = "llm+decision"
@@ -217,6 +221,8 @@ class Decision:
 
 @dataclass(frozen=True)
 class Unresolved:
+    """A hole in the result: the pointer and a reason from the closed set (DESIGN §6.1)."""
+
     pointer: str
     reason: UnresolvedReason
     candidates_seen: tuple[Span, ...] = ()
@@ -235,6 +241,8 @@ class Absent:
 
 @dataclass(frozen=True)
 class Violation:
+    """A failed schema constraint on `.value`: the pointer, the JSON Schema keyword, and the message."""
+
     pointer: str
     keyword: str
     message: str
@@ -253,6 +261,8 @@ class Overflow:
 
 @dataclass(frozen=True)
 class Rejection:
+    """A draft adjudication rejected, with the criteria it failed."""
+
     pointer: str
     criteria: tuple[str, ...]
     draft: str
@@ -260,6 +270,8 @@ class Rejection:
 
 @dataclass(frozen=True)
 class Cost:
+    """What one call spent: decision requests and tokens, LLM tokens, cache hits, retries and redrafts."""
+
     decision_requests: int = 0
     decision_input_tokens: int = 0
     decision_input_tokens_estimated: int = 0
@@ -290,12 +302,16 @@ class Question:
 
 @dataclass(frozen=True)
 class PredicateAnswer:
+    """A `predicate` answer: the probability of yes. Predicates carry no confidence."""
+
     name: str
     probability: float
 
 
 @dataclass(frozen=True)
 class ChoiceAnswer:
+    """A `choice` answer: the chosen option id, the distribution over option ids, and the API's confidence."""
+
     name: str
     choice: str
     probabilities: Mapping[str, float]
@@ -334,6 +350,8 @@ Answer: TypeAlias = PredicateAnswer | ChoiceAnswer | ScoreAnswer | Refusal | Inv
 
 @dataclass(frozen=True)
 class BackendResponse:
+    """A backend's answers to one request, with the billed input tokens, request id and returned model."""
+
     answers: tuple[Answer, ...]
     input_tokens: int
     request_id: str
@@ -361,6 +379,8 @@ class FieldSpec:
 
 @dataclass(frozen=True)
 class Candidate:
+    """A candidate span offered for source selection. Reserved: v0 selects nothing from the source."""
+
     id: str
     text: str
     span: Span
@@ -369,12 +389,16 @@ class Candidate:
 
 @dataclass(frozen=True)
 class Message:
+    """One chat message sent to the caller's LLM."""
+
     role: Literal["system", "user", "assistant"]
     content: str
 
 
 @dataclass(frozen=True)
 class LLMResponse:
+    """An LLM completion: the tool-call arguments (None if there were none), the raw text, and token counts."""
+
     arguments: Mapping[str, JSONValue] | None
     raw: str
     input_tokens: int

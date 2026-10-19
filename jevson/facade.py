@@ -39,6 +39,8 @@ from jevson.types import DecisionKind, DecisionNode, JSONValue, StepNode, Violat
 
 
 class Jevson:
+    """Resolves schemas against a source with one backend, optional LLM, config and cost sink."""
+
     def __init__(
         self,
         backend: Backend,
@@ -85,12 +87,14 @@ class Jevson:
         await self.aclose()
 
     def close(self) -> None:
+        """Refuse further calls and close the backend, if it has a `close()`."""
         self._closed = True
         close = getattr(self._backend, "close", None)
         if callable(close):
             close()
 
     async def aclose(self) -> None:
+        """Refuse further calls and close the backend, if it has an `aclose()`."""
         self._closed = True
         aclose = getattr(self._backend, "aclose", None)
         if callable(aclose):
@@ -122,6 +126,7 @@ class Jevson:
         known: Mapping[str, JSONValue] | None = None,
         redraft_budget: int | None = None,
     ) -> Result:
+        """The async `resolve()`: use this inside a running event loop."""
         self._check_open()
         if not isinstance(source, str):  # pyright: ignore[reportUnnecessaryIsInstance]
             raise PreflightError("aresolve takes exactly one source, as a str")

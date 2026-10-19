@@ -716,14 +716,16 @@ None in v0.
 
 ### Exit criteria
 
-- [ ] README makes no claim outside the tiers in `DESIGN §6`, states the source-trust limit (source text can steer bounded decisions and adjudication), and does not claim guaranteed JSON validity, source-span provenance, abstention, or novelty of candidate selection
-- [ ] README names anything that did not ship and why: source selection (class D) and everything that depends on it, and pairwise entity resolution
-- [ ] `x-jevson.source` and `default_extractor` are documented as refused in v0 with `source_selection_dropped`
-- [ ] Every public symbol is typed and documented
-- [ ] Quickstart runs end to end against the fake backend with **no API key**
-- [ ] Installed package exposes only the intended public surface and contains no hostile test doubles
-- [ ] Dependencies: `jsonschema`, `pydantic` (≥ 2.12), `httpx`. LLM providers are extras; no extractor ships in v0. `format` keywords are documented as unchecked unless the caller installs `jsonschema`'s format extras **[L10]**
+- [x] README makes no claim outside the tiers in `DESIGN §6`, states the source-trust limit (source text can steer bounded decisions and adjudication), and does not claim guaranteed JSON validity, source-span provenance, abstention, or novelty of candidate selection
+- [x] README names anything that did not ship and why: source selection (class D) and everything that depends on it, and pairwise entity resolution
+- [x] `x-jevson.source` and `default_extractor` are documented as refused in v0 with `source_selection_dropped`
+- [x] Every public symbol is typed and documented
+- [x] Quickstart runs end to end against the fake backend with **no API key**
+- [x] Installed package exposes only the intended public surface and contains no hostile test doubles
+- [x] Dependencies: `jsonschema`, `pydantic` (≥ 2.12), `httpx`, and `rfc8785` (*amended 2026-10-18, ASTERION-39, owner's decision: it builds the replay keys of `CachingBackend` and `ReplayLLM`, PLAN §6 "Replay"*). LLM providers are extras, and none ships because no adapter does; no extractor ships in v0. `format` keywords are documented as unchecked unless the caller installs `jsonschema`'s format extras **[L10]**
 - [ ] The package name is recorded in PLAN §6 before publication
+
+Met in ASTERION-39 (2026-10-18), checked by `tests/architecture/test_docstrings.py`, `test_distribution.py`, `test_public_api.py` and `tests/unit/test_examples.py`, except the name, which is pending (PLAN §6), and the PyPI release, which waits on it.
 
 ### PR size
 
@@ -934,7 +936,7 @@ Opt-in and marked. They **measure** where the quantity is a property of the mode
 | **Integration tests in CI** | On demand and on release | Rate limit and cost |
 | **Versioning** | `0.x` | No stability promise before the scope verdict meets users |
 | **Licence** | MIT | Permissive, like most neighbours (jevc and AnyJev are Apache-2.0) **[X6]** |
-| **Name** | Keep "Jevson" for now; whether to rename now that Jev is not the backend is a separate follow-up, decided before the Phase 8 release | Renaming after publication breaks users |
+| **Name** | Keep "Jevson" for now; whether to rename now that Jev is not the backend is a separate follow-up, decided before the Phase 8 release. **Name: pending owner decision before publication (keep with TypeSafe's OK, or rename).** | Renaming after publication breaks users |
 | **Fake backend** | Shipped | Users need it to test without spending |
 | **Scope if the band is narrow** | Ship the narrow version | Pre-committed, to defeat sunk cost |
 
