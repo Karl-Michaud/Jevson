@@ -32,6 +32,13 @@ def test_the_1_1_0_strings_are_recorded_in_taxonomy_md() -> None:
     assert questions.BOOL_SCOPED_INSTRUCTIONS in doc
 
 
+def test_every_shipped_template_string_is_recorded_in_taxonomy_md() -> None:
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    shipped = {k: v for k, v in vars(questions).items() if k.isupper() and isinstance(v, str)}
+    shipped.pop("QUESTION_TEMPLATE_VERSION")
+    assert {k for k, v in shipped.items() if v not in doc} == set()
+
+
 def test_rendered_questions_match_the_templates() -> None:
     assert questions.enum_question("tier") == templates.ENUM_INSTRUCTIONS.format(label="tier")
     assert questions.ordinal_question("rating") == templates.ORDINAL_INSTRUCTIONS.format(label="rating")
@@ -155,6 +162,10 @@ POSITIONAL = re.compile(r"\[\d+\]")
         questions.bool_question("X", "Y"),
         questions.ordinal_question("X"),
         questions.option_description("X"),
+        questions.union_question("X"),
+        questions.member_question("X", "Y"),
+        questions.criterion_question("/x#generate", "X"),
+        questions.rubric_question("/x#generate", "X"),
     ],
 )
 def test_templates_add_no_negation_and_no_positional_reference(rendered: str) -> None:
