@@ -9,11 +9,12 @@ The templates say "noul"; on the Decisions API that primitive is `predicate`, wi
 A choice or score field's `{label}` is its `x-jevson.question`, else its `description`, else its
 property name with underscores read as spaces, with a leading article ("the", "a", "an") dropped
 because every template that takes a label supplies its own "the" (1.1.1, ASTERION-44: 1.1.0 asked
-"Which of these is the the ticket's topic?"; no template string changed). A bool's `{predicate}` is its `x-jevson.question` or
-its `description`, phrased as a statement; a bool with neither is refused by the mapper, because a
-property name is not a statement. `title` is never used, because Pydantic generates one from the
-name. The text is used verbatim, trimmed, with one trailing `.` or `?` dropped because the template
-supplies its own `?`, and a bool's leading "whether" or "if" dropped because the template says "that".
+"Which of these is the the ticket's topic?"; no template string changed). A bool's `{predicate}`
+is its `x-jevson.question` or its `description`, phrased as a statement; a bool with neither is
+refused by the mapper, because a property name is not a statement. `title` is never used, because
+Pydantic generates one from the name. The text is used verbatim, trimmed, with one trailing `.` or
+`?` dropped because the template supplies its own `?`, and a bool's leading "whether" or "if" dropped
+because the template says "that".
 
 Every question in a level shares one input (DESIGN §2), so two fields asked the same question get
 the same answer. `scopes()` qualifies a label that is not unique in the graph with the nearest

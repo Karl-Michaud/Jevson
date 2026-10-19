@@ -116,8 +116,9 @@ class _Call(Generic[T]):
         return True
 
     def _cancel_task(self) -> None:
-        if self.task is not None:  # always set: `start` ran before the future could leave PENDING
-            self.task.cancel()
+        # Set: the future leaves PENDING only in `start`, in the same callback that makes the task.
+        assert self.task is not None
+        self.task.cancel()
 
     def _finish(self, task: asyncio.Task[T]) -> None:
         if task.cancelled():
