@@ -34,6 +34,15 @@ pending the owner's decision (PLAN §6).
   `.github/workflows/branch-policy.yml`) now name the shared `plane-workflow` skill in
   `Agents/.claude/skills/plane-workflow` instead of a global one (ASTERION-43).
 
+**Fixed**
+
+- A generative field's draft no longer reaches unrelated questions (ASTERION-50). Adjudication
+  questions were batched with the same level's enum, boolean, ordinal, membership and
+  discriminator questions, whose shared state then carried the LLM's draft, so drafted text could
+  steer a bounded decision it was not written for. Adjudication now goes in request(s) of its own,
+  the only ones whose state holds `drafts`; each group is budgeted, split and bisected separately.
+  A level with drafts costs one more decision request. DESIGN Revision 11.5.
+
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,
 arrays of objects, generative lists, multi-source input. See the README's "What did not ship".
