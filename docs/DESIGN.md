@@ -1,6 +1,6 @@
 # Jevson — design
 
-> **Status:** Design document, Revision 11.3, 2026-10-16 (union discrimination; Revision 11, 2026-10-14, the fallback scope). Pre-implementation. Phase 0 ran on `jev-1.13.0` and Phase 0r on the Decisions API; both gave the pre-registered verdict **drop source selection** **[Z9, Q2, Q9]**. **v0 is the fallback product** (DESIGN §10.1): bounded decisions over declared options, criteria-gated generative fields, union discrimination, and multi-label enum arrays. Class D (source selection) and everything built on it — DESIGN §5.1–§5.6, span verification in §5.9, class F parsing of a selected span, the source screen — is the design of record for deferred work (`PLAN.md` §9.2), not v0 behaviour. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
+> **Status:** Design document, Revision 11.4, 2026-10-16 (multi-label enum arrays; 11.3, union discrimination; Revision 11, 2026-10-14, the fallback scope). Pre-implementation. Phase 0 ran on `jev-1.13.0` and Phase 0r on the Decisions API; both gave the pre-registered verdict **drop source selection** **[Z9, Q2, Q9]**. **v0 is the fallback product** (DESIGN §10.1): bounded decisions over declared options, criteria-gated generative fields, union discrimination, and multi-label enum arrays. Class D (source selection) and everything built on it — DESIGN §5.1–§5.6, span verification in §5.9, class F parsing of a selected span, the source screen — is the design of record for deferred work (`PLAN.md` §9.2), not v0 behaviour. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
 >
 > **This document is the SSOT for Jevson.** It carries everything an agent or contributor needs to work on the project: what the library is, what it guarantees, the architecture, the vocabulary, the constraints of the model it sits on, and the rules that are not open for reinterpretation. The build sequence lives in [`PLAN.md`](PLAN.md).
 >
@@ -653,7 +653,9 @@ Result
   violations        [Violation(pointer, keyword, message)]  — failed schema constraints
   absent            [Absent(pointer, candidates_seen, abstain_probability)]
   ungated           [pointer]  — direct-extracted or no_criteria_declared fields
-  overflow          [Overflow(pointer, spans, membership_probability)]
+  overflow          [Overflow(pointer, spans, membership_probability, values)]
+                      one per array: a multi-label enum array's dropped declared values (spans empty),
+                      or (deferred, class D) a source-grounded array's dropped spans (values empty)
   rejections        [Rejection(pointer, criteria, draft)]
   cost              Cost(decision_requests, decision_input_tokens, decision_input_tokens_estimated,
                          decision_request_ids, cache_hits,
@@ -838,6 +840,11 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 ---
 
 ## 13. Changelog
+
+### Revision 11.4 — 2026-10-16, multi-label enum arrays (ASTERION-38)
+
+- **`Overflow` gains `values` (§8.1).** A multi-label enum array's overflow has no spans, so the dropped declared values are recorded, one `Overflow` per array, aligned with their membership probabilities.
+- Membership predicates are ids `<array>#member:c<i>` and ask `According to the source, is "<value>" one of the <label>?`, recorded under question template version 1.1.0 (§4.2, §5.2).
 
 ### Revision 11.3 — 2026-10-16, union discrimination (ASTERION-37)
 

@@ -187,16 +187,20 @@ def test_an_optional_submodel_whose_leaves_declare_sources_refuses_only_with_sou
     assert refusals(Holder) == [("/place/city", RefusalCode.SOURCE_SELECTION_DROPPED)]
 
 
-def test_list_literal_with_an_empty_default_and_a_default_factory_refuse_alike_until_phase_7() -> None:
+def test_list_literal_with_an_empty_default_and_a_default_factory_are_decided_alike() -> None:
+    """An array's default never makes it class A while its items are decided (DESIGN §3.5)."""
+
     class Tagged(BaseModel):
         labels: list[Literal["p", "q"]] = []
         tags: list[Literal["p", "q"]] = Field(default_factory=list)
         required: list[Literal["p", "q"]]
 
-    assert refusals(Tagged) == [
-        ("/labels", RefusalCode.NOT_YET_SUPPORTED),
-        ("/tags", RefusalCode.NOT_YET_SUPPORTED),
-        ("/required", RefusalCode.NOT_YET_SUPPORTED),
+    graph = compile_schema(Tagged)
+    ids = sorted(graph.nodes)
+    assert ids == [f"/{name}#member:c{i}" for name in ("labels", "required", "tags") for i in (0, 1)]
+    by_target = {name: [n for n in graph.nodes.values() if n.target == f"/{name}"] for name in ("labels", "tags")}
+    assert [n.question for n in by_target["labels"]] == [
+        n.question.replace("tags", "labels") for n in by_target["tags"]
     ]
 
 

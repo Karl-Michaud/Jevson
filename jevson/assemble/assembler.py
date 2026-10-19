@@ -5,7 +5,8 @@ no outcome (an undeclared defaulted leaf, class A) is omitted so the caller's de
 unresolved pointer omits its whole subtree, so an unresolved root yields `{}`; an `Unresolved` inside
 it is still listed, so an unresolved union names its children `dependency_unresolved`. Nothing abstains in
 v0, so `Result.absent` is always empty (DESIGN §5.6). `satisfies_schema` is computed by validation
-(draft 2020-12), never inferred.
+(draft 2020-12), never inferred. `array_holes` are the unresolved values of an array that is still emitted
+(`cardinality.py`), listed after the outcomes'.
 """
 
 from __future__ import annotations
@@ -54,6 +55,7 @@ def assemble(
     model: tuple[str, ...] = (),
     versions: Mapping[str, str] | None = None,
     overflow: tuple[Overflow, ...] = (),
+    array_holes: tuple[Unresolved, ...] = (),
     rejections: tuple[Rejection, ...] = (),
 ) -> Result:
     by_pointer: dict[str, Outcome] = {}
@@ -84,6 +86,7 @@ def assemble(
         if outcome.provenance is not None:
             provenance[pointer] = outcome.provenance
 
+    unresolved += array_holes
     violations = _validate(schema, value)
     return Result(
         value=value,

@@ -184,6 +184,14 @@ def _allowed(node: DecisionNode | StepNode, field: SchemaNode, value: JSONValue)
         return field.nullable
     if isinstance(node, StepNode):
         return isinstance(value, str)
+    if node.member is not None:  # a multi-label enum array: distinct declared values
+        declared = field.items.values if field.items is not None else ()
+        items = cast("list[JSONValue]", value) if isinstance(value, list) else None
+        return (
+            items is not None
+            and len(set(map(repr, items))) == len(items)
+            and all(any(type(item) is type(v) and item == v for v in declared) for item in items)
+        )
     if node.kind is DecisionKind.PREDICATE:
         return isinstance(value, bool)
     return any(type(value) is type(v) and value == v for v in node.values)

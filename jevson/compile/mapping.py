@@ -10,7 +10,8 @@
 | integer range declared `ordinal: true`, 2-10 levels | `score`, levels lowest first |
 | any other string, number, decimal, integer, or scalar array | `unbounded_field` (class G), or |
 |  | `source_selection_dropped` when a `default_extractor` is set |
-| array of enum (multi-label) | `not_yet_supported` until Phase 7, with or without a default |
+| array of a string/int enum, 2-255 values (multi-label) | a membership `predicate` per value, one level, |
+|  | with or without a default (an array's default never makes it class A, DESIGN §3.5) |
 | string declaring `generate` (with or without a default) | a `generate` step + criteria (`generative.py`) |
 | a required constant with no default; any constant in a union branch | a `Constant` committed by code |
 | union (two or more non-null branches) | a discriminator `choice`, then each branch mapped (`unions.py`) |
@@ -34,7 +35,7 @@ from decimal import Decimal
 from jevson.compile import questions, unions
 from jevson.compile.declarations import GenerateDeclaration
 from jevson.compile.generative import generative_nodes
-from jevson.compile.nodes import node_id, option_id
+from jevson.compile.nodes import member_id, node_id, option_id
 from jevson.compile.normalise import Kind, SchemaNode
 from jevson.compile.refusal import Refusals
 from jevson.errors import RefusalCode
@@ -80,7 +81,10 @@ def map_tree(root: SchemaNode, refusals: Refusals, *, default_extractor: str | N
     mapper = _Mapper(refusals, default_extractor, fanout)
     mapper.object(root, ())
     scopes = questions.scopes([p.labelled for p in mapper.pending])
-    rendered = (p.render(scope) for p, scope in zip(mapper.pending, scopes, strict=True))
+    rendered: list[DecisionNode] = []
+    for pending, scope in zip(mapper.pending, scopes, strict=True):
+        node = pending.render(scope)
+        rendered += node if isinstance(node, tuple) else (node,)
     return Mapped((*rendered, *mapper.generated), tuple(mapper.constants))
 
 
@@ -121,12 +125,35 @@ class _Pending:
         )
 
 
+@dataclass(frozen=True)
+class _PendingMembers:
+    """A multi-label enum array: one membership predicate per declared value, keyed by option id."""
+
+    node: SchemaNode
+    labelled: questions.Labelled
+    values: tuple[JSONValue, ...]
+    max_items: int | None
+    at: unions.Branching
+
+    def render(self, scope: str) -> tuple[DecisionNode, ...]:
+        label = questions.scoped_label(self.labelled.label, scope)
+        pointer = self.at.qualify(self.node.pointer)
+        return tuple(
+            DecisionNode(
+                member_id(pointer, option_id(i)), DecisionKind.PREDICATE, questions.member_question(value, label),
+                OptionSource.PREDICATE, self.node.pointer, dependencies=self.at.after, branch=self.at.gates,
+                member=value, max_items=self.max_items,
+            )
+            for i, value in enumerate(self.values)
+        )  # fmt: skip
+
+
 class _Mapper:
     def __init__(self, refusals: Refusals, default_extractor: str | None, fanout: bool) -> None:
         self.refusals = refusals
         self.default_extractor = default_extractor
         self.fanout = fanout
-        self.pending: list[_Pending | unions.PendingUnion] = []
+        self.pending: list[_Pending | _PendingMembers | unions.PendingUnion] = []
         self.generated: list[DecisionNode | StepNode] = []
         self.constants: list[Constant] = []
         self.at = unions.Branching()
@@ -182,18 +209,17 @@ class _Mapper:
         items = node.items
         if items is not None and items.kind is Kind.REFUSED:
             return
-        if items is not None and items.kind is Kind.ENUM:
-            return self.refuse(node, RefusalCode.NOT_YET_SUPPORTED, "multi-label enum arrays are lifted in Phase 7")
         ordinal = declaration is not None and declaration.ordinal
         if ordinal and node.kind is not Kind.INTEGER:
             return self.refuse(node, RefusalCode.ORDINAL_LEVELS, "ordinal: true needs an integer range")
-        if node.has_default and not (declaration is not None and declaration.decides):
+        multi_label = items is not None and items.kind is Kind.ENUM
+        if node.has_default and not multi_label and not (declaration is not None and declaration.decides):
             return  # class A: omitted, so the caller's default applies
         verbatim = questions.declared_question(node) is not None
         labelled = questions.Labelled(questions.label(name, node), ancestors, verbatim)
         if node.kind is Kind.BOOLEAN:
             self.boolean(node, labelled)
-        elif node.kind is Kind.ENUM:
+        elif node.kind is Kind.ENUM or multi_label:
             self.enum(node, labelled)
         elif ordinal:
             self.ordinal(node, labelled)
@@ -226,11 +252,18 @@ class _Mapper:
         return None
 
     def enum(self, node: SchemaNode, labelled: questions.Labelled) -> None:
-        if not all(isinstance(v, str | int) and not isinstance(v, bool) for v in node.values):
+        """A choice over an enum, or a multi-label enum array's membership predicates (DESIGN §4.2)."""
+        values = node.items.values if node.items is not None else node.values
+        if not all(isinstance(v, str | int) and not isinstance(v, bool) for v in values):
             return self.refuse(node, RefusalCode.ENUM_VALUE_TYPE, "enum values must be strings or integers")
-        if len(node.values) > MAX_OPTIONS:
-            return self.refuse(node, RefusalCode.ENUM_SIZE, f"{len(node.values)} values; a choice takes 2-255")
-        self.pending.append(_Pending(node, DecisionKind.CHOICE, labelled, node.values, self.at))
+        if len(values) > MAX_OPTIONS:
+            return self.refuse(node, RefusalCode.ENUM_SIZE, f"{len(values)} values; an enum takes 2-255")
+        if node.items is None:
+            self.pending.append(_Pending(node, DecisionKind.CHOICE, labelled, values, self.at))
+            return None
+        limit = node.keywords.get("maxItems")
+        max_items = limit if isinstance(limit, int) and not isinstance(limit, bool) and limit >= 0 else None
+        self.pending.append(_PendingMembers(node, labelled, values, max_items, self.at))
         return None
 
     def ordinal(self, node: SchemaNode, labelled: questions.Labelled) -> None:
