@@ -1,6 +1,6 @@
 # Jevson — design
 
-> **Status:** Design document, Revision 11.5, 2026-10-19 (adjudication asked apart from other questions; 11.4, multi-label enum arrays; 11.3, union discrimination; Revision 11, 2026-10-14, the fallback scope). Pre-implementation. Phase 0 ran on `jev-1.13.0` and Phase 0r on the Decisions API; both gave the pre-registered verdict **drop source selection** **[Z9, Q2, Q9]**. **v0 is the fallback product** (DESIGN §10.1): bounded decisions over declared options, criteria-gated generative fields, union discrimination, and multi-label enum arrays. Class D (source selection) and everything built on it — DESIGN §5.1–§5.6 (except §5.2's template rules and level state layout, which v0 uses), span verification in §5.9, class F parsing of a selected span, the source screen — is the design of record for deferred work (`PLAN.md` §9.2), not v0 behaviour. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
+> **Status:** Design document, Revision 11.6, 2026-10-20 (the post-merge review fixes of ASTERION-44; 11.5, adjudication asked apart from other questions; 11.4, multi-label enum arrays; 11.3, union discrimination; Revision 11, 2026-10-14, the fallback scope). **v0 is built** as specified here: `PLAN.md` Phases 1–4, 6 and 7 and the Phase 8 package are merged on `staging` (ASTERION-24 to ASTERION-39, review fixes ASTERION-44). Not yet released: CI on GitHub is pending (ASTERION-42), the package name is undecided (`PLAN.md` §6), and the release is ASTERION-45. Phase 0 ran on `jev-1.13.0` and Phase 0r on the Decisions API; both gave the pre-registered verdict **drop source selection** **[Z9, Q2, Q9]**. **v0 is the fallback product** (DESIGN §10.1): bounded decisions over declared options, criteria-gated generative fields, union discrimination, and multi-label enum arrays. Class D (source selection) and everything built on it — DESIGN §5.1–§5.6 (except §5.2's template rules and level state layout, which v0 uses), span verification in §5.9, class F parsing of a selected span, the source screen — is the design of record for deferred work (`PLAN.md` §9.2), not v0 behaviour. The decision model is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14; the decision record is `Agents/docs/decisions/2026-10-14-decisions-api-replaces-jev.md` (Project-Asterion/Agents). The library keeps the name Jevson for now (DESIGN §12).
 >
 > **This document is the SSOT for Jevson.** It carries everything an agent or contributor needs to work on the project: what the library is, what it guarantees, the architecture, the vocabulary, the constraints of the model it sits on, and the rules that are not open for reinterpretation. The build sequence lives in [`PLAN.md`](PLAN.md).
 >
@@ -841,6 +841,15 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 ---
 
 ## 13. Changelog
+
+### Revision 11.6 — 2026-10-20, post-merge review fixes (ASTERION-44)
+
+- **Final validation checks `format` (§6.1).** The formats `jsonschema` checks without extras (`email`, `date`, `uuid`, `ipv4`/`ipv6`, `regex`) now reach `Result.violations`; the others still need `jsonschema[format]`.
+- **Transport retries are a backend argument (§3.5, §8.2).** `JevsonConfig.transport_retries` was never read and is removed; `DecisionsBackend(transport_retries=...)` sets them.
+- **Enums the model cannot tell apart refuse (§4.2):** `indistinguishable_options` for two values whose quoted options render alike.
+- **Labels drop a leading article (§5.2),** template version 1.1.1: no question says "the the".
+- **No `no_criteria_declared` value (§6.3, §8.1).** An ungated generative field is marked by `decided_by = llm` and its pointer in `Result.ungated`, which is what the code always emitted.
+- **`question` or `ordinal` beside a nested model's `$ref` refuses (§3.5)**, with `misplaced_declaration` or `ordinal_levels`, instead of being dropped silently (R14).
 
 ### Revision 11.5 — 2026-10-19, adjudication asked apart from other questions (ASTERION-50)
 

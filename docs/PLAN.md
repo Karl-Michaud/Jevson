@@ -1,8 +1,8 @@
 # Jevson — implementation plan
 
-> **Status:** Planning document, Revision 11, 2026-10-14. Pre-implementation. Phase 0 has run on `jev-1.13.0` and is written up (`docs/taxonomy.md`), with one exit criterion open for the owner (probe 8's partial-only set). The backend is now the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14 (PLAN §6). **Phase 0r** re-ran Phase 0's probes on it and confirmed **drop source selection** **[Q1–Q9]**, so v0 is **the fallback product**: Phases 1–4, 6 and 8 plus the multi-label enum arrays of Phase 7. Phase 5 is abandoned and kept as the record; everything class D (source selection) is a tracked deferral (PLAN §9). The v0 scope is in DESIGN §10.1 (Revision 11). Phase 1 may start.
+> **Status:** Planning document, Revision 11.6, 2026-10-20 (Phases 1–4 exit criteria checked against the built code, ASTERION-44; Revision 11, 2026-10-14, the fallback scope). **v0 is built:** Phases 1–4, 6 and 7 and the Phase 8 package are merged on `staging` (ASTERION-24 to ASTERION-39) and their exit criteria are ticked with their proofs, except four that wait on the owner: the injection bar (Phase 4, ASTERION-48), the redraft bar's model labels (Phase 4, ASTERION-46), the package name (Phase 8, PLAN §6), and Phase 0's probe 8 partial-only set. The backend is the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14 (PLAN §6); Phase 0 ran on `jev-1.13.0` and **Phase 0r** re-ran its probes on the Decisions API and confirmed **drop source selection** **[Q1–Q9]**, so v0 is **the fallback product** (DESIGN §10.1). Phase 5 is abandoned and kept as the record; everything class D (source selection) is a tracked deferral (PLAN §9). Not yet released: CI on GitHub is pending (ASTERION-42) and the release is ASTERION-45.
 >
-> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 11. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** and **Z** tag was measured on `jev-1.13.0`.
+> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 11.6. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** and **Z** tag was measured on `jev-1.13.0`.
 >
 > **Rule numbers** (R1–R16) refer to `DESIGN §7`.
 
@@ -332,17 +332,28 @@ Phase 0's, applied to the Decisions API results: **probe 1 below 0.70, probe 2 b
 
 ### Exit criteria
 
-- [ ] A hand-built graph with decision and step nodes levels correctly, including a diamond dependency
-- [ ] A dependency cycle is rejected at construction with the offending node ids
-- [ ] The fake backend resolves a hand-built graph and the assembler produces a valid object
+Met by ASTERION-24 (Phase 1a) and the phases after it; each box re-checked on ASTERION-44 (2026-10-19). The tests are in `tests/unit/` unless named.
+
+- [x] A hand-built graph with decision and step nodes levels correctly, including a diamond dependency
+  - Proof: `test_graph.py::test_diamond_of_decisions_levels_correctly`, `::test_decisions_and_steps_level_around_each_other`, `::test_a_diamond_through_steps_keeps_steps_before_their_consumers`.
+- [x] A dependency cycle is rejected at construction with the offending node ids
+  - Proof: `test_graph.py::test_a_cycle_is_rejected_at_construction_naming_its_nodes` (exact cycle ids and `a -> c -> b -> a`); `tests/property/test_graph_properties.py::test_closing_any_path_into_a_cycle_is_rejected_with_a_real_cycle`.
+- [x] The fake backend resolves a hand-built graph and the assembler produces a valid object
+  - Proof: `test_end_to_end.py::test_the_fake_backend_resolves_a_hand_built_graph_into_a_valid_object` (`Invoice.model_validate` succeeds).
 - ~~`Span` verifies by substring match on **code-point** offsets into the original source, half-open, and rejects mismatches~~ — deferred with class D (PLAN §9)
 - ~~**Graphemes:** `unicode/graphemes.py` passes every line of `GraphemeBreakTest.txt` for Unicode 17.0 and agrees with the `regex` module's `\X` on a generated differential corpus (the conformance file alone missed a real GB11 bug in a first draft **[L19]**); spans with a non-boundary endpoint are rejected (including CR|LF, after ZWJ, inside a flag pair, Hangul jamo, Indic conjuncts **[L11]**); precomposed-vs-decomposed and `\r\n`-vs-`\n` mismatches are rejected and counted, never repaired~~ — deferred with class D (PLAN §9)
-- [ ] **Defaults and absence:** an undeclared defaulted leaf field (`Optional[str] = "x"`) is omitted from `.value` and Pydantic's `model_validate` yields `"x"` **[L18]**; `Result.absent` is present and empty; `Result.versions` has no grapheme-table or `unicodedata` key
-- [ ] `Unresolved` is a value in the result, never raised; the unresolved key is omitted from `.value`; an unresolved root yields `{}`; `satisfies_schema` is computed by validation, not inferred, and a fully resolved object that fails `maxLength` yields `complete is True`, `satisfies_schema is False`, and a `Violation` naming the keyword
-- [ ] **Probabilities:** a distribution summing to 0.99 with K = 3 is accepted; one summing to 0.95 is an invalid answer; on a bool, p = 0.45 and p = 0.55 are ties, p = 0.56 is true and p = 0.44 false; a choice at 0.52/0.42/0.06 is a tie; a vendor `choice` naming a non-argmax option outside the margin is invalid
-- [ ] Property: `levels(graph)` preserves every node exactly once and respects every edge
-- [ ] All five protocols are defined here; no later phase introduces one without amending `DESIGN §8`
-- [ ] Public API is exported from `__init__.py` and nothing else is
+- [x] **Defaults and absence:** an undeclared defaulted leaf field (`Optional[str] = "x"`) is omitted from `.value` and Pydantic's `model_validate` yields `"x"` **[L18]**; `Result.absent` is present and empty; `Result.versions` has no grapheme-table or `unicodedata` key
+  - Proof: `test_assembler.py::test_an_undeclared_defaulted_leaf_is_omitted_and_pydantic_supplies_the_default`; the real `versions` dict from the executor, and `absent == ()`, through `test_facade.py::test_n_independent_nodes_resolve_in_exactly_one_backend_call` (added in ASTERION-44: it fails if `Executor.result()` gains a grapheme key).
+- [x] `Unresolved` is a value in the result, never raised; the unresolved key is omitted from `.value`; an unresolved root yields `{}`; `satisfies_schema` is computed by validation, not inferred, and a fully resolved object that fails `maxLength` yields `complete is True`, `satisfies_schema is False`, and a `Violation` naming the keyword
+  - Proof: `test_assembler.py::test_an_unresolved_field_is_a_value_with_its_key_omitted`, `::test_an_unresolved_root_yields_an_empty_object`, `::test_a_complete_object_failing_max_length_is_complete_but_not_satisfying`; through a backend, `test_end_to_end.py::test_a_refusal_is_unresolved_refused_never_absent_or_an_option`.
+- [x] **Probabilities:** a distribution summing to 0.99 with K = 3 is accepted; one summing to 0.95 is an invalid answer; on a bool, p = 0.45 and p = 0.55 are ties, p = 0.56 is true and p = 0.44 false; a choice at 0.52/0.42/0.06 is a tie; a vendor `choice` naming a non-argmax option outside the margin is invalid
+  - Proof: `test_probabilities.py` (`::test_a_distribution_summing_to_0_99_with_k3_is_accepted`, `::test_bool_tie_band`, `::test_a_choice_at_52_42_06_is_a_tie`, `::test_a_vendor_choice_naming_a_non_argmax_option_outside_the_margin_is_invalid`) and `tests/property/test_probability_properties.py`.
+- [x] Property: `levels(graph)` preserves every node exactly once and respects every edge
+  - Proof: `tests/property/test_graph_properties.py::test_levels_preserve_every_node_exactly_once_and_respect_every_edge` (300 derandomized DAGs).
+- [x] All five protocols are defined here; no later phase introduces one without amending `DESIGN §8`
+  - Proof: `tests/architecture/test_module_discipline.py`: `::test_the_five_protocols_live_in_protocols_py`; `::test_no_module_defines_a_protocol_outside_protocols_py_however_it_spells_it` (runtime check, added in ASTERION-44: the AST check missed `Protocol[T]` and aliased imports); `::test_the_three_io_protocols_are_async_and_the_other_two_sync`.
+- [x] Public API is exported from `__init__.py` and nothing else is
+  - Proof: `tests/architecture/test_public_api.py::test_all_is_exactly_the_public_surface`, `::test_nothing_else_public_is_exported`.
 
 ### Abandon criterion
 
@@ -378,21 +389,38 @@ Compilation from a schema. Any real backend. Arrays. Candidates, spans, and grap
 
 ### Exit criteria
 
-- [ ] Every class A construct is handled by code with no decision node emitted
-- [ ] Every class C construct in the Phase 0 v0 list compiles to the primitive the taxonomy specifies, **except union discrimination and enum arrays**, which refuse with `not_yet_supported` until Phases 6 and 7
-- [ ] **Idiomatic Pydantic compiles:** a model with a nested submodel, an `Enum` field, a single-member `Enum`, an `Optional[Literal[...]]` field, a `Literal` field, and undeclared defaulted leaf fields (`str = "USD"`, `Tier = Tier.basic`, treated as class A) compiles without refusal; an `Optional[Address] = None` whose leaves are enums or bools compiles to decision nodes (not class A), and one whose leaves declare sources refuses only with `source_selection_dropped` (not class A), and `list[Literal[...]] = []` and `Field(default_factory=list)` are treated identically (both refuse `not_yet_supported` until Phase 7); an `Optional[Decimal]` field and a `Decimal` field, each declaring a source, normalise correctly and then refuse only with `source_selection_dropped` **[L3, L16, L18]**
-- [ ] `x-jevson` declared on a field whose type is a nested model (placed beside the `$ref`) is found and applied; a model-level `json_schema_extra` inside `$defs` is not mistaken for a field declaration **[L18]**
-- [ ] A flat `allOf` of object schemas merges; a non-flat `allOf` refuses; `oneOf` + `discriminator` refuses with `not_yet_supported`
-- [ ] A three-level nested object compiles with every node carrying its full instance pointer, and assembles back to the correct shape
-- [ ] Two fields sharing one `$defs` type produce distinct, stable node ids
-- [ ] A Pydantic model and its emitted JSON Schema compile to identical graphs
-- [ ] Refusal is **total and specific**: an unmappable schema lists *every* offending pointer
-- [ ] `compile_schema()` makes **zero network calls** — asserted with the network stubbed to raise
-- [ ] Each of these refuses with a distinct named reason: enum > 255 or < 2 values; ordinal > 10 or < 2 levels; unbounded strings or numbers with no `source` or `generate` declaration and no default extractor; recursive or dynamic `$ref`; `dict[str, X]`; tuples; `Any`; `bytes`; unknown `x-jevson` keys; `x-jevson.order: semantic`
-- [ ] **Source selection:** a field declaring `x-jevson.source` (with a known, an unknown, or a pattern extractor), and an unbounded field compiled with `default_extractor` set, each refuse with `source_selection_dropped`, listed with every other offending pointer (R14)
-- [ ] `x-jevson.generate` fields and unions with ≥ 2 non-null branches refuse with `not_yet_supported` (lifted in Phases 4 and 6)
-- [ ] Rendered questions contain no negation from the template and match the recorded template version
-- [ ] Property: over generated schemas, `compile_schema()` returns a graph or raises `CompileError` — never a third outcome, never a partial graph
+Met by Phases 2a and 2b (#10, #11) and ASTERION-29, with the `not_yet_supported` refusals lifted by Phases 4, 6 and 7 as planned; each box re-checked on ASTERION-44 (2026-10-19). The tests are in `tests/unit/` unless named.
+
+- [x] Every class A construct is handled by code with no decision node emitted
+  - Proof: `test_compiler.py::test_idiomatic_pydantic_compiles_and_its_class_a_fields_emit_no_node`, `::test_defaulted_leaves_are_class_a_unless_a_key_asks_for_a_decision`, `::test_a_flat_all_of_a_defaulted_decimal_and_bound_keywords_emit_no_node_of_their_own` (added in ASTERION-44).
+- [x] Every class C construct in the Phase 0 v0 list compiles to the primitive the taxonomy specifies, **except union discrimination and enum arrays**, which refuse with `not_yet_supported` until Phases 6 and 7
+  - Proof: `test_compiler.py::test_bool_enum_and_ordinal_map_to_predicate_choice_and_score_over_opaque_ids`, `::test_ordinal_levels_honour_every_bound_keyword`. The two exceptions were lifted as planned, by Phase 6 (`test_unions.py`) and Phase 7 (`test_enum_arrays.py`); no code path emits `not_yet_supported` any more.
+- [x] **Idiomatic Pydantic compiles:** a model with a nested submodel, an `Enum` field, a single-member `Enum`, an `Optional[Literal[...]]` field, a `Literal` field, and undeclared defaulted leaf fields (`str = "USD"`, `Tier = Tier.basic`, treated as class A) compiles without refusal; an `Optional[Address] = None` whose leaves are enums or bools compiles to decision nodes (not class A), and one whose leaves declare sources refuses only with `source_selection_dropped` (not class A), and `list[Literal[...]] = []` and `Field(default_factory=list)` are treated identically (both refuse `not_yet_supported` until Phase 7); an `Optional[Decimal]` field and a `Decimal` field, each declaring a source, normalise correctly and then refuse only with `source_selection_dropped` **[L3, L16, L18]**
+  - Proof: `test_compiler.py::test_idiomatic_pydantic_compiles_and_its_class_a_fields_emit_no_node`, `::test_an_optional_submodel_whose_leaves_declare_sources_refuses_only_with_source_selection_dropped`, `::test_list_literal_with_an_empty_default_and_a_default_factory_are_decided_alike` (identical member predicates since Phase 7), `::test_decimal_and_optional_decimal_declaring_a_source_refuse_only_with_source_selection_dropped`.
+- [x] `x-jevson` declared on a field whose type is a nested model (placed beside the `$ref`) is found and applied; a model-level `json_schema_extra` inside `$defs` is not mistaken for a field declaration **[L18]**
+  - Proof: `test_normalise.py::test_x_jevson_beside_a_ref_is_found_and_model_level_extra_is_not_a_declaration`; applied at compile level by `test_compiler.py::test_x_jevson_beside_a_nested_models_ref_is_applied_or_refused_never_dropped` (added in ASTERION-44, which also made `question` and `ordinal` beside a `$ref` refuse, `misplaced_declaration` and `ordinal_levels`, where they were dropped silently; DESIGN §3.5).
+- [x] A flat `allOf` of object schemas merges; a non-flat `allOf` refuses; `oneOf` + `discriminator` refuses with `not_yet_supported`
+  - Proof: `test_normalise.py::test_a_flat_all_of_of_object_schemas_merges`, `::test_a_non_flat_all_of_refuses`. `oneOf` + `discriminator` was lifted by Phase 6 as planned: `test_normalise.py::test_a_discriminated_union_normalises_to_its_branches_at_its_own_pointer`, `test_unions.py`.
+- [x] A three-level nested object compiles with every node carrying its full instance pointer, and assembles back to the correct shape
+  - Proof: `test_compiler.py::test_a_three_level_nested_object_compiles_with_instance_pointers_and_assembles_back`.
+- [x] Two fields sharing one `$defs` type produce distinct, stable node ids
+  - Proof: `test_compiler.py::test_two_fields_sharing_one_defs_type_get_distinct_stable_ids`; `test_normalise.py::test_two_fields_of_one_defs_type_get_distinct_instance_pointers`.
+- [x] A Pydantic model and its emitted JSON Schema compile to identical graphs
+  - Proof: `test_compiler.py::test_a_pydantic_model_and_its_emitted_json_schema_compile_to_identical_graphs` (nodes, order and, since ASTERION-44, constants); `test_normalise.py::test_a_pydantic_model_and_its_emitted_json_schema_normalise_identically`.
+- [x] Refusal is **total and specific**: an unmappable schema lists *every* offending pointer
+  - Proof: `test_compiler.py::test_refusal_is_total_across_normalising_and_mapping`; `test_normalise.py::test_refusal_is_total_and_lists_every_offending_pointer`; `tests/property/test_compiler_properties.py::test_refusal_names_exactly_the_refusing_leaves_and_never_returns_a_partial_graph`.
+- [x] `compile_schema()` makes **zero network calls** — asserted with the network stubbed to raise
+  - Proof: the autouse socket stub in `tests/unit/conftest.py`; `test_compiler.py::test_compile_schema_makes_no_network_call` over every `tests/fixtures/schemas/*.schema.json`.
+- [x] Each of these refuses with a distinct named reason: enum > 255 or < 2 values; ordinal > 10 or < 2 levels; unbounded strings or numbers with no `source` or `generate` declaration and no default extractor; recursive or dynamic `$ref`; `dict[str, X]`; tuples; `Any`; `bytes`; unknown `x-jevson` keys; `x-jevson.order: semantic`
+  - Proof: `test_compiler.py::test_each_unmappable_field_refuses_with_one_named_reason`, `test_normalise.py::test_each_unsupported_construct_refuses_with_its_named_reason`, `test_declarations.py::test_bad_declarations_refuse_with_a_named_reason`. *Amended 2026-10-19, ASTERION-44:* "< 2 values" means an empty enum; a one-value enum is a constant committed by code (DESIGN §3.5).
+- [x] **Source selection:** a field declaring `x-jevson.source` (with a known, an unknown, or a pattern extractor), and an unbounded field compiled with `default_extractor` set, each refuse with `source_selection_dropped`, listed with every other offending pointer (R14)
+  - Proof: `test_declarations.py` (known, unknown, pattern and malformed extractors), `test_compiler.py::test_default_extractor_turns_unbounded_fields_into_source_selection_dropped`, `::test_refusal_is_total_across_normalising_and_mapping`.
+- [x] `x-jevson.generate` fields and unions with ≥ 2 non-null branches refuse with `not_yet_supported` (lifted in Phases 4 and 6)
+  - Proof: Lifted as planned by Phase 4 (`test_generative.py::test_a_declared_generative_field_compiles_to_a_step_plus_criterion_nodes`) and Phase 6 (`test_unions.py`, `test_normalise.py::test_unions_with_two_or_more_non_null_branches_normalise`).
+- [x] Rendered questions contain no negation from the template and match the recorded template version
+  - Proof: `test_questions.py::test_templates_add_no_negation_and_no_positional_reference` (every decision template, since ASTERION-44), `::test_every_shipped_template_string_is_recorded_in_taxonomy_md` (added in ASTERION-44, with the Phase 7 membership template written into `docs/taxonomy.md`); `executor.py` records `QUESTION_TEMPLATE_VERSION` (1.1.1) in `Result.versions`.
+- [x] Property: over generated schemas, `compile_schema()` returns a graph or raises `CompileError` — never a third outcome, never a partial graph
+  - Proof: `tests/property/test_compiler_properties.py`: `::test_compile_schema_returns_a_whole_graph_or_raises_compile_error`, `::test_the_supported_subset_always_compiles_to_exactly_its_decidable_leaves`, and `::test_refusal_names_exactly_the_refusing_leaves_and_never_returns_a_partial_graph` (added in ASTERION-44: the first two passed with mapping refusals dropped).
 
 ### Abandon criterion
 
@@ -430,31 +458,58 @@ Executing anything. Generative fields (Phase 4). Unions (Phase 6). Multi-label e
 
 ### Exit criteria
 
-- [ ] A graph with N independent nodes resolves in exactly **one** backend call — asserted by counting calls
-- [ ] A graph with a (fake) step node runs the step before the decisions that depend on it
-- [ ] **R13:** no template text or state path references a collection element by position — a test fails on any `[<digits>]` reference outside interpolated source or option text
-- [ ] **Budget:** a level exceeding the total limit splits, recorded in `Cost.level_splits`; a declaration whose maxima exceed the per-question limit raises `PreflightError` before the *first* call
-- [ ] **Invalid backend answers** in a well-formed HTTP 200 (an option never offered, malformed or mis-typed JSON for a question, a probability outside [0, 1], a sum outside tolerance) resolve to `Unresolved(invalid_backend_answer)` for the affected questions; an unparseable HTTP response is a `BackendError`; neither is an untyped exception
-- [ ] **Step timeouts:** a fake step that never returns raises its protocol's timeout error after `step_timeout_s`, with the partial `Result` (in v0 the only real step is `generate`, so `LLMError(timeout)`; `ExtractorError` stays in the hierarchy and is never raised in v0)
-- [ ] **Lifecycle:** `Jevson` and `DecisionsBackend` work as context managers; a closed instance raises `UsageError`; `resolve()` inside a running loop raises `UsageError`
-- [ ] **Ties:** a bool predicate at 0.45, 0.50, or 0.55, and a choice whose top two differ by ≤ 0.10, yield `Unresolved(tie)`
-- [ ] **Refusal:** a fake backend answering one question in a level with `refusal` yields `Unresolved(refused)` for that field, records it in `Result.decisions`, resolves the others, and issues no retry; a refusal is never mapped to an option or to `absent`
-- [ ] **Run-time overflow:** a fake backend returning a context-limit rejection for one question in a level causes a bisection that isolates it; that field is `Unresolved(budget_exceeded)` and the others resolve
-- [ ] **Lifecycle on caller loops:** 20 sequential `asyncio.run(aresolve(...))` calls leave no live client for a dead loop **[L22]**; two `aresolve()` calls run concurrently under `asyncio.gather` on one loop both succeed and leave no open client; inside `async with DecisionsBackend(...)` the calls share one client, closed on exit; `resolve()` succeeds in a forked child, including when the parent was blocked mid-request on a mock transport
-- [ ] **Async:** two sequential `resolve()` calls on one backend both succeed; `resolve()` from 4 threads at once succeeds; `aresolve()` from two different event loops succeeds; `resolve()` inside a running loop raises with a pointer to `aresolve()`; the per-key limiter holds its rate across all of these **[L20]**
-- [ ] **Known values:** a `known=` value that fails its field schema raises `PreflightError` before any call; a valid one skips its nodes and is recorded as `decided_by: caller`
-- [ ] **Satisfies schema:** for a Pydantic input, a `.value` that passes `jsonschema` but fails `model_validate` yields `satisfies_schema is False` **[L18]**
-- [ ] **Transport:** every hostile transport behaviour yields `BackendError` carrying the partial `Result` and `Cost`; transport retries are counted separately
-- [ ] **Central property (PLAN §4.1)** holds over generated schemas × every hostile backend and transport behaviour
-- [ ] An unresolved required field yields `satisfies_schema is False` by default and `SchemaViolation` with `raise_on_unresolved_required=True`
-- [ ] **No default probability threshold drops a commit** — a committed low-probability answer is reported, not dropped
-- [ ] **Determinism of our code:** with the fake backend, identical inputs produce identical `Result`s excluding wall-clock timings; a run replayed through `CachingBackend` reproduces the original `Result`, excluding `Cost` and wall clock, with every call counted as a cache hit; with `replay_only=True` a miss raises `BackendError(replay_miss)`; a request containing a lone surrogate is not cached
-- [ ] **Live stability is measured, not asserted:** ≥ 100 schema-derived decisions with a top-two margin ≥ 0.20 are chosen in a separate selection run; two further live runs are compared, where a flip is any change of committed value or between a value and `tie`, and the flip rate is written down; the suite fails only if it exceeds 2% (a bar set from Jev measurements **[P1, P12]**). The returned `model` string is recorded; a change is a re-baseline — measured 2026-10-16: 0/410 flips, `gpt-6-luna` **[Q15]**
-- [ ] **Credentials:** an explicit `api_key` wins; with neither argument nor environment (or with empty strings), `DecisionsBackend()` raises `MissingCredentials` before any network call; the library never reads a `.env` file
-- [ ] **The key never leaks:** a sentinel key appears in no exception message, `repr`, log record, cache file, or `Result`, across success, 4xx, 5xx, and timeout paths
-- [ ] **Rate limit:** two `DecisionsBackend` instances with one key share one limiter
-- [ ] **No vendor SDK** in the dependency closure
-- [ ] Cost is populated on every result and on every exception raised after the first spend (`SchemaViolation`, `BackendError`, `LLMError`), and every event reaches the `CostSink`
+Met by Phase 3a (#13), ASTERION-30, ASTERION-31 and #16; each box re-checked on ASTERION-44 (2026-10-19). The tests are in `tests/unit/` unless named.
+
+- [x] A graph with N independent nodes resolves in exactly **one** backend call — asserted by counting calls
+  - Proof: `test_facade.py::test_n_independent_nodes_resolve_in_exactly_one_backend_call`.
+- [x] A graph with a (fake) step node runs the step before the decisions that depend on it
+  - Proof: `test_executor.py::test_a_step_runs_before_the_decisions_that_depend_on_it_and_its_draft_is_in_state`.
+- [x] **R13:** no template text or state path references a collection element by position — a test fails on any `[<digits>]` reference outside interpolated source or option text
+  - Proof: `test_executor.py::test_no_template_references_a_collection_element_by_position`, a Hypothesis check over compiled schemas, and `LevelState` raising on a list.
+- [x] **Budget:** a level exceeding the total limit splits, recorded in `Cost.level_splits`; a declaration whose maxima exceed the per-question limit raises `PreflightError` before the *first* call
+  - Proof: `test_facade.py` and `test_executor.py::test_each_node_is_budgeted_at_its_declared_size` (`level_splits == 1`); `test_executor.py::test_an_oversized_node_in_a_later_level_raises_before_the_first_call` (added in ASTERION-44: no test put the oversized node past level 0).
+- [x] **Invalid backend answers** in a well-formed HTTP 200 (an option never offered, malformed or mis-typed JSON for a question, a probability outside [0, 1], a sum outside tolerance) resolve to `Unresolved(invalid_backend_answer)` for the affected questions; an unparseable HTTP response is a `BackendError`; neither is an untyped exception
+  - Proof: `tests/adversarial/test_hostile_backend.py` (every value, answer and envelope row) and `test_executor.py`.
+- [x] **Step timeouts:** a fake step that never returns raises its protocol's timeout error after `step_timeout_s`, with the partial `Result` (in v0 the only real step is `generate`, so `LLMError(timeout)`; `ExtractorError` stays in the hierarchy and is never raised in v0)
+  - Proof: `test_executor.py` (parametrised `GENERATE` → `LLMError`, `EXTRACT` → `ExtractorError`, code `timeout`, with the partial `Result`).
+- [x] **Lifecycle:** `Jevson` and `DecisionsBackend` work as context managers; a closed instance raises `UsageError`; `resolve()` inside a running loop raises `UsageError`
+  - Proof: `test_library_loop.py`, `test_facade.py`, `test_decisions_backend.py`.
+- [x] **Ties:** a bool predicate at 0.45, 0.50, or 0.55, and a choice whose top two differ by ≤ 0.10, yield `Unresolved(tie)`
+  - Proof: `test_facade.py::test_a_predicate_inside_the_tie_band_is_unresolved_tie`, `::test_a_choice_whose_top_two_are_within_the_margin_is_a_tie`; boundaries in `test_probabilities.py`.
+- [x] **Refusal:** a fake backend answering one question in a level with `refusal` yields `Unresolved(refused)` for that field, records it in `Result.decisions`, resolves the others, and issues no retry; a refusal is never mapped to an option or to `absent`
+  - Proof: `test_facade.py::test_a_refusal_is_unresolved_refused_recorded_and_never_retried`; `test_end_to_end.py`; `tests/adversarial/test_hostile_backend.py`.
+- [x] **Run-time overflow:** a fake backend returning a context-limit rejection for one question in a level causes a bisection that isolates it; that field is `Unresolved(budget_exceeded)` and the others resolve
+  - Proof: `test_executor.py` (context-limit and question-limit bisection isolates `/d`, no identical retry); `tests/adversarial/test_hostile_transport.py` (the real 400 body maps to `context_limit`).
+- [x] **Lifecycle on caller loops:** 20 sequential `asyncio.run(aresolve(...))` calls leave no live client for a dead loop **[L22]**; two `aresolve()` calls run concurrently under `asyncio.gather` on one loop both succeed and leave no open client; inside `async with DecisionsBackend(...)` the calls share one client, closed on exit; `resolve()` succeeds in a forked child, including when the parent was blocked mid-request on a mock transport
+  - Proof: `test_decisions_backend.py` (20 × `asyncio.run`, `gather`, `async with`) and `test_library_loop.py` (fork, including a parent blocked in the transport).
+- [x] **Async:** two sequential `resolve()` calls on one backend both succeed; `resolve()` from 4 threads at once succeeds; `aresolve()` from two different event loops succeeds; `resolve()` inside a running loop raises with a pointer to `aresolve()`; the per-key limiter holds its rate across all of these **[L20]**
+  - Proof: `test_library_loop.py` (sequential, 4 threads, two loops, the `aresolve()` pointer, and one limiter across all of them on a frozen clock).
+- [x] **Known values:** a `known=` value that fails its field schema raises `PreflightError` before any call; a valid one skips its nodes and is recorded as `decided_by: caller`
+  - Proof: `test_facade.py` (no question sent for a known field, `DecidedBy.CALLER`; five invalid values raise with `backend.calls == []`).
+- [x] **Satisfies schema:** for a Pydantic input, a `.value` that passes `jsonschema` but fails `model_validate` yields `satisfies_schema is False` **[L18]**
+  - Proof: `test_facade.py` (a `field_validator` rejects the value: `satisfies_schema is False`, violation keyword `model_validate`).
+- [x] **Transport:** every hostile transport behaviour yields `BackendError` carrying the partial `Result` and `Cost`; transport retries are counted separately
+  - Proof: `tests/adversarial/test_hostile_transport.py` (retryable and final rows, `transport_retries` counted); `test_executor.py` (the partial `Result` keeps earlier levels and all cost).
+- [x] **Central property (PLAN §4.1)** holds over generated schemas × every hostile backend and transport behaviour
+  - Proof: `tests/adversarial/test_central_property.py::test_the_central_property_holds_over_generated_schemas_and_hostile_backends` (300 derandomized examples through a real `DecisionsBackend` on a mock transport; since ASTERION-44 it also rejects an untyped backend exception and a sleep outside 0–30 s).
+- [x] An unresolved required field yields `satisfies_schema is False` by default and `SchemaViolation` with `raise_on_unresolved_required=True`
+  - Proof: `test_facade.py` (and an optional field does not raise).
+- [x] **No default probability threshold drops a commit** — a committed low-probability answer is reported, not dropped
+  - Proof: `test_facade.py::test_a_low_probability_commit_is_reported_not_dropped` and `::test_a_choice_whose_top_is_below_half_still_commits` (added in ASTERION-44: 0.34 against three 0.22s commits; a default 0.5 threshold passed the old test).
+- [x] **Determinism of our code:** with the fake backend, identical inputs produce identical `Result`s excluding wall-clock timings; a run replayed through `CachingBackend` reproduces the original `Result`, excluding `Cost` and wall clock, with every call counted as a cache hit; with `replay_only=True` a miss raises `BackendError(replay_miss)`; a request containing a lone surrogate is not cached
+  - Proof: `test_facade.py` (identical runs; `CachingBackend` replay with every call a cache hit; `replay_only` miss → `BackendError(replay_miss)`); `test_caching_backend.py` (a lone surrogate is not cached).
+- [x] **Live stability is measured, not asserted:** ≥ 100 schema-derived decisions with a top-two margin ≥ 0.20 are chosen in a separate selection run; two further live runs are compared, where a flip is any change of committed value or between a value and `tie`, and the flip rate is written down; the suite fails only if it exceeds 2% (a bar set from Jev measurements **[P1, P12]**). The returned `model` string is recorded; a change is a re-baseline — measured 2026-10-16: 0/410 flips, `gpt-6-luna` **[Q15]**
+  - Proof: Ticked on the recorded measurement **[Q15]** (`docs/EVIDENCE.md`): 410 decisions with margin ≥ 0.20, 0 flips over two further runs, every response `gpt-6-luna`. The opt-in `tests/integration/test_live_stability.py` re-measures it with a key; it was not re-run on ASTERION-44 (no key).
+- [x] **Credentials:** an explicit `api_key` wins; with neither argument nor environment (or with empty strings), `DecisionsBackend()` raises `MissingCredentials` before any network call; the library never reads a `.env` file
+  - Proof: `test_decisions_backend.py` (explicit key wins; `None`/`''` × `None`/`''` raise `MissingCredentials` with no request; a `.env` in the working directory is ignored).
+- [x] **The key never leaks:** a sentinel key appears in no exception message, `repr`, log record, cache file, or `Result`, across success, 4xx, 5xx, and timeout paths
+  - Proof: `tests/adversarial/test_hostile_transport.py` (success and every retryable and final path, including 401/400 bodies echoing the key); `test_caching_backend.py` (cache files); the central property.
+- [x] **Rate limit:** two `DecisionsBackend` instances with one key share one limiter
+  - Proof: `test_decisions_backend.py` (`a._limiter is b._limiter`); behaviourally `test_library_loop.py`.
+- [x] **No vendor SDK** in the dependency closure
+  - Proof: `tests/architecture/test_vendor_isolation.py::test_no_vendor_sdk_in_the_dependency_closure`.
+- [x] Cost is populated on every result and on every exception raised after the first spend (`SchemaViolation`, `BackendError`, `LLMError`), and every event reaches the `CostSink`
+  - Proof: `test_facade.py` (`SchemaViolation`, the sink), `test_executor.py` (`BackendError`, `LLMError`, sink events); the central property asserts `error.cost is error.result.cost`.
 
 ### Abandon criterion
 
@@ -493,20 +548,33 @@ None open. (Level splitting was closed by evidence **[P1]**.)
 
 ### Exit criteria
 
-- [ ] A declared generative field compiles to a step plus criterion nodes; an unbounded string with neither `source` nor `generate` still refuses
-- [ ] All criteria for a field are adjudicated in **one** batched call
-- [ ] Rejection names the specific failing criteria
-- [ ] Redraft budget is bounded; exhaustion yields `Unresolved(redraft_exhausted)`, never an exception or a silently accepted string
-- [ ] A fake LLM that repeats its draft triggers **no** second adjudication call, and the repeat counts against the budget
-- [ ] Preflight accounts for `max_draft_chars`; an over-length draft is a failed draft, not a context-limit error after spend
-- [ ] **Central property (PLAN §4.1)** holds with every hostile LLM behaviour: wrong keys, prose instead of a tool call, non-string values, enormous strings, text that looks like JSON, exceptions from the LLM (→ `LLMError` with partial result)
-- [ ] **Injection regression:** over the **[P7]** draft-injection set (20 sources × 4 variants, 80 cases, 0 flips in the pilot), the suite fails if more than 3 failing drafts are judged passing (the Wilson upper bound for 0/80 is ≈ 0.046); it is run under the keyed multi-draft level layout of `DESIGN §5.2`, with each injected draft placed beside a second, clean draft that fails its own criteria, and a flip of either draft's verdict counts; if that layout fails where the single-draft layout passes, adjudication issues one call per draft
+Met by ASTERION-32, ASTERION-35 and ASTERION-36, except the two live bars, which need the owner (ASTERION-48, ASTERION-46); each box re-checked on ASTERION-44 (2026-10-19). The tests are in `tests/unit/` unless named.
+
+- [x] A declared generative field compiles to a step plus criterion nodes; an unbounded string with neither `source` nor `generate` still refuses
+  - Proof: `test_generative.py::test_a_declared_generative_field_compiles_to_a_step_plus_criterion_nodes`, `::test_an_unbounded_string_with_neither_source_nor_generate_still_refuses`.
+- [x] All criteria for a field are adjudicated in **one** batched call
+  - Proof: `test_generative.py::test_all_criteria_for_a_field_are_adjudicated_in_one_batched_call` (3 criteria and a rubric in one request; holds while a field's checks fit `max_questions_per_request`).
+- [x] Rejection names the specific failing criteria
+  - Proof: `test_generative.py::test_rejection_names_the_specific_failing_criteria`.
+- [x] Redraft budget is bounded; exhaustion yields `Unresolved(redraft_exhausted)`, never an exception or a silently accepted string
+  - Proof: `test_generative.py::test_redraft_budget_is_bounded_and_exhaustion_is_unresolved_redraft_exhausted`, `::test_a_redraft_budget_of_zero_never_redrafts`.
+- [x] A fake LLM that repeats its draft triggers **no** second adjudication call, and the repeat counts against the budget
+  - Proof: `test_generative.py::test_a_repeated_draft_triggers_no_second_adjudication_and_counts_against_the_budget`.
+- [x] Preflight accounts for `max_draft_chars`; an over-length draft is a failed draft, not a context-limit error after spend
+  - Proof: `test_generative.py::test_preflight_accounts_for_max_draft_chars_before_any_spend`, `::test_an_over_length_draft_is_a_failed_draft_not_a_context_limit_error_after_spend`.
+- [x] **Central property (PLAN §4.1)** holds with every hostile LLM behaviour: wrong keys, prose instead of a tool call, non-string values, enormous strings, text that looks like JSON, exceptions from the LLM (→ `LLMError` with partial result)
+  - Proof: `tests/adversarial/test_hostile_llm.py::test_the_central_property_holds_over_generated_schemas_and_hostile_llms` (200 derandomized examples over every behaviour in `hostile_llm.py`); `test_generative.py::test_an_llm_exception_is_llm_error_with_the_partial_result`.
+- [ ] **Injection regression:** over the **[P7]** draft-injection set (20 sources × 4 variants, 80 cases, 0 flips in the pilot), the suite fails if more than 3 failing drafts are judged passing (the Wilson upper bound for 0/80 is ≈ 0.046); it is run under the keyed multi-draft level layout of `DESIGN §5.2`, with each injected draft placed beside a second, clean draft that fails its own criteria, and a flip of either draft's verdict counts; if that layout fails where the single-draft layout passes, adjudication issues one call per draft — **Deviation (needs owner sign-off):** the measured bar failed, 5/80 flips against a limit of 3 under both layouts **[Q16]**; v0 ships with the rate documented and the self-claim mitigation deferred (sub-bullet below). Whether that closes the box is the owner's call, tracked in ASTERION-48. The offline harness (`tests/j4b/injection.py`, `tests/integration/test_live_injection.py`) is in place; re-measuring needs the live API.
   - **Result (2026-10-16, ASTERION-36): failed.** 5/80 flipped cases under the keyed multi-draft layout and the same 5/80 under the single-draft layout, all in V2 × *the draft mentions the refund amount* (a draft that omits the amount but claims to include it), p(true) 0.60–1.00; every other cell 0, refusals 0, model `gpt-6-luna` **[Q16]**. Single-draft does not pass either, so adjudication stays one call per level. Phase 4 has no abandon criterion: v0 ships with the rate documented (README, `docs/criteria-guide.md`), and a draft self-claim mitigation is a tracked post-v0 deferral (PLAN §9), to be measured on fresh cases
-- [ ] **Criterion ties:** a criterion inside the tie margin counts as failed, is named in `rejections`, and triggers a redraft; `Result.decisions` holds `…@0` and `…@1` for one redraft
-- [ ] `ReplayLLM` reproduces a recorded run exactly
-- [ ] The dry-run tool runs against the fake backend with no key
-- [ ] A field with no declared criteria is admitted with `decided_by = llm` and listed in `Result.ungated` (*amended 2026-10-19, ASTERION-44: the `no_criteria_declared` marker was never a separate value; DESIGN §6.3*)
-- [ ] **Redraft bar, measured against human labels:** over ≥ 100 rejected drafts, each redraft labelled after generation by a labeller who does not see the decision model's verdict, the rate at which a redraft is admitted *and* truly satisfies the criteria is written down, together with the rate at which a redraft is admitted while violating them, and the paired difference from first drafts with its 95% interval; the default `redraft_budget` stays 1 only if the first is ≥ 10% and the second is no more than 2 points above the same rate for first drafts, otherwise it becomes 0
+- [x] **Criterion ties:** a criterion inside the tie margin counts as failed, is named in `rejections`, and triggers a redraft; `Result.decisions` holds `…@0` and `…@1` for one redraft
+  - Proof: `test_generative.py::test_a_criterion_tie_counts_as_failed_is_named_and_triggers_a_redraft`.
+- [x] `ReplayLLM` reproduces a recorded run exactly
+  - Proof: `test_generative.py::test_replay_llm_reproduces_a_recorded_run_exactly`.
+- [x] The dry-run tool runs against the fake backend with no key
+  - Proof: `test_generative.py::test_the_dry_run_runs_criteria_against_the_fake_backend_with_no_key`, run with `OPENAI_API_KEY` unset.
+- [x] A field with no declared criteria is admitted with `decided_by = llm` and listed in `Result.ungated` (*amended 2026-10-19, ASTERION-44: the `no_criteria_declared` marker was never a separate value; DESIGN §6.3*)
+  - Proof: `test_generative.py::test_a_field_with_no_declared_criteria_is_admitted_ungated`.
+- [ ] **Redraft bar, measured against human labels:** over ≥ 100 rejected drafts, each redraft labelled after generation by a labeller who does not see the decision model's verdict, the rate at which a redraft is admitted *and* truly satisfies the criteria is written down, together with the rate at which a redraft is admitted while violating them, and the paired difference from first drafts with its 95% interval; the default `redraft_budget` stays 1 only if the first is ≥ 10% and the second is no more than 2 points above the same rate for first drafts, otherwise it becomes 0 — **Deviation (needs owner sign-off):** the numbers pass the bar (A 42.3%, B − C −6.2 points, `redraft_budget` stays 1; `report.json` re-scores byte-identically offline), but the labels are model-labelled, not human, and contracts alone have B − C = +5.0 points **[Q17]**. Accepting the deviation or a human relabel of the 444 items is the owner's call, tracked in ASTERION-46.
   - **Result (2026-10-16, ASTERION-36), model-labelled:** 123 rejected first drafts of 225 (≥ 100, so it counts). A = 52/123 = 42.3% (Wilson 33.9–51.1%); B = 8/123 = 6.5% (3.3–12.3%); C = 12.7% (9.1–17.0%: 28 of the 100 sampled admitted first drafts violate, × the admitted share 102/225); **B − C = −6.2 points** (Newcombe −11.5 to +0.6); paired truly-satisfies(redraft) − truly-satisfies(first) over the 123 rejected instances **+32.5 points** (23.4 to 41.0; both 63, redraft only 42, first only 2, neither 16). A ≥ 10% and B − C ≤ 2 points, so under the pre-registered rule **the default `redraft_budget` stays 1** (unchanged in code). Per domain (`tests/j4b/labelling/run1/report.json`): only contracts have B − C above 2 points (+5.0: B 3/60, and no contract first draft was admitted, so C = 0); A ranges from 28% (contracts) to 67% (support tickets). The labels also say 65 of the 123 rejected first drafts (53%) truly satisfied their criteria: the decision model over-rejects **[Q17]**
   - **Stated interpretations (the owner's decisions, 2026-10-16, ASTERION-36):**
     - *Which drafts are labelled.* Every rejected first draft and its redraft, plus a seeded random sample of 100 admitted first drafts; the run's seeds, stopping rule and sample are recorded in `sampling.json`. Generation stops on first-draft counts only (≥ 110 rejected and ≥ 100 admitted, documents in a seeded order), never on redraft outcomes.
