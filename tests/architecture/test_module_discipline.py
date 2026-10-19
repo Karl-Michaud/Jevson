@@ -7,7 +7,13 @@ import-linter enforces the same rules in CI for the modules that exist; this tes
 from __future__ import annotations
 
 import ast
+import importlib
+import inspect
+import pkgutil
 from pathlib import Path
+
+import jevson
+from jevson import protocols
 
 PACKAGE = Path(__file__).resolve().parents[2] / "jevson"
 
@@ -71,6 +77,25 @@ def test_the_five_protocols_live_in_protocols_py() -> None:
     tree = ast.parse((PACKAGE / "protocols.py").read_text(encoding="utf-8"))
     defined = {node.name for node in tree.body if isinstance(node, ast.ClassDef)}
     assert defined == {"Backend", "Extractor", "LLM", "Normalizer", "CostSink"}
+
+
+def test_no_module_defines_a_protocol_outside_protocols_py_however_it_spells_it() -> None:
+    """The AST check above misses `Protocol[T]` and aliased imports; the runtime flag does not."""
+    found: dict[str, str] = {}
+    for info in pkgutil.walk_packages(jevson.__path__, "jevson."):
+        module = importlib.import_module(info.name)
+        for name, value in vars(module).items():
+            if inspect.isclass(value) and value.__module__ == info.name and getattr(value, "_is_protocol", False):
+                found[f"{info.name}.{name}"] = value.__module__
+    assert set(found) == {f"jevson.protocols.{n}" for n in ("Backend", "Extractor", "LLM", "Normalizer", "CostSink")}
+
+
+def test_the_three_io_protocols_are_async_and_the_other_two_sync() -> None:
+    """DESIGN §8: Backend, Extractor and LLM are async; Normalizer and CostSink are sync."""
+    asynchronous = [protocols.Backend.ask, protocols.Extractor.extract, protocols.LLM.complete]
+    synchronous = [protocols.Normalizer.normalise, protocols.Normalizer.representative, protocols.CostSink.record]
+    assert all(inspect.iscoroutinefunction(method) for method in asynchronous)
+    assert not any(inspect.iscoroutinefunction(method) for method in synchronous)
 
 
 def test_hostile_doubles_are_not_shipped() -> None:
