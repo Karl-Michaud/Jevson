@@ -63,6 +63,9 @@ pending the owner's decision (PLAN §6).
 - Final validation checks `format`: `Result.violations` names a value that fails `email`,
   `date`, `uuid`, `ipv4`/`ipv6` or `regex`, which `jsonschema` checks on its own; formats that
   need `jsonschema[format]` (`date-time`, `uri`, …) are still checked only with those extras.
+- `JevsonConfig.transport_retries` is removed: nothing read it. Transport retries are set on the
+  backend that makes the requests, `DecisionsBackend(transport_retries=...)` (default 2). Passing
+  `transport_retries` to `JevsonConfig` is now a `TypeError`; move it to `DecisionsBackend`.
 
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,

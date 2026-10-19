@@ -85,13 +85,14 @@ def test_config_defaults_match_design() -> None:
     config = JevsonConfig()
     assert config.tie_margin_hundredths == 10
     assert config.redraft_budget == 1
-    assert config.transport_retries == 2
     assert config.step_timeout_s == 120.0
     assert (config.max_input_tokens, config.max_questions_per_request) == (900_000, 200)
     assert config.default_extractor is None
     assert config.raise_on_unresolved_required is False
     assert not hasattr(config, "retry_budget")
     assert not hasattr(config, "source_screen")
+    # Transport retries belong to the backend: DecisionsBackend(transport_retries=...) (DESIGN §6.1).
+    assert not hasattr(config, "transport_retries")
 
 
 @pytest.mark.parametrize(
@@ -101,7 +102,6 @@ def test_config_defaults_match_design() -> None:
         {"tie_margin_hundredths": 100},
         {"step_timeout_s": 0.0},
         {"redraft_budget": -1},
-        {"transport_retries": -1},
         {"max_input_tokens": 0},
         {"max_questions_per_request": 0},
     ],
