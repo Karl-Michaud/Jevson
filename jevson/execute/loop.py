@@ -5,11 +5,13 @@ call shares it and an `httpx.AsyncClient` bound to it stays usable across calls.
 call is not used: a client and asyncio locks are bound to the loop that first used them [L20].
 
 - `run()` refuses inside a running loop (the caller's or this one), pointing at `aresolve()`. The
-  coroutine is built only after that check, so a refusal leaves nothing un-awaited.
-- If the caller's wait is interrupted (Ctrl-C, or any exception raised while blocked), the submitted
-  coroutine is cancelled on the library loop and `run()` waits up to `CANCEL_GRACE_S` for it to
-  unwind before re-raising, so the interrupted call stops spending. A coroutine that ignores
-  cancellation, or a wedged loop, is not waited on past the grace period.
+  coroutine is built on the library loop, only once the call starts, so neither a refusal nor an
+  interrupt that lands before the call starts leaves a coroutine un-awaited.
+- If the caller's wait is interrupted (Ctrl-C, or any exception raised while blocked), a call that has
+  not started never will, and `run()` re-raises at once; a running call's task is cancelled on the
+  library loop and `run()` waits up to `CANCEL_GRACE_S` for it to unwind before re-raising, so the
+  interrupted call stops spending. A coroutine that ignores cancellation, or a wedged loop, is not
+  waited on past the grace period.
 - After `os.fork()` the child has no loop thread. The fork hook forgets the loop, the thread and the
   lock without touching them, and bumps `generation()`; the next call builds a fresh loop. Objects
   bound to the old loop (clients) compare their generation and are dropped, never closed.
@@ -22,7 +24,7 @@ import concurrent.futures
 import os
 import threading
 from collections.abc import Callable, Coroutine
-from typing import Any, TypeVar
+from typing import Any, Generic, TypeVar
 
 from jevson.errors import UsageError
 
@@ -76,21 +78,55 @@ def run(make: Callable[[], Coroutine[Any, Any, T]]) -> T:
     """Run `make()` on the library loop and block for its result."""
     if _running() is not None:
         raise UsageError("resolve() cannot run inside a running event loop; await aresolve() instead")
-    unwound = threading.Event()
-    future = asyncio.run_coroutine_threadsafe(_signalling(make(), unwound), _library.get())
+    call = _Call(make, _library.get())
+    call.loop.call_soon_threadsafe(call.start)
     try:
-        return future.result()
+        return call.future.result()
     except BaseException:
-        if future.cancel():  # still running: cancel its task on the loop and let it unwind
-            unwound.wait(CANCEL_GRACE_S)
+        if call.cancel():  # it was running: let its task unwind
+            call.unwound.wait(CANCEL_GRACE_S)
         raise
 
 
-async def _signalling(coro: Coroutine[Any, Any, T], unwound: threading.Event) -> T:
-    try:
-        return await coro
-    finally:
-        unwound.set()
+class _Call(Generic[T]):
+    """One synchronous call on the library loop. `unwound` is set once nothing of it runs any more:
+    its task finished, or it was cancelled before it started and so never built its coroutine."""
+
+    def __init__(self, make: Callable[[], Coroutine[Any, Any, T]], loop: asyncio.AbstractEventLoop) -> None:
+        self.make = make
+        self.loop = loop
+        self.future: concurrent.futures.Future[T] = concurrent.futures.Future()
+        self.unwound = threading.Event()
+        self.task: asyncio.Task[T] | None = None
+
+    def start(self) -> None:
+        """On the loop: build the coroutine and its task, unless the caller already gave up."""
+        if not self.future.set_running_or_notify_cancel():
+            self.unwound.set()
+            return
+        self.task = self.loop.create_task(self.make())
+        self.task.add_done_callback(self._finish)
+
+    def cancel(self) -> bool:
+        """From the caller's thread: a call not yet started never starts (False: nothing to wait for);
+        a started one has its task cancelled on the loop (True)."""
+        if self.future.cancel():
+            return False
+        self.loop.call_soon_threadsafe(self._cancel_task)
+        return True
+
+    def _cancel_task(self) -> None:
+        if self.task is not None:  # always set: `start` ran before the future could leave PENDING
+            self.task.cancel()
+
+    def _finish(self, task: asyncio.Task[T]) -> None:
+        if task.cancelled():
+            self.future.set_exception(concurrent.futures.CancelledError())
+        elif (error := task.exception()) is not None:
+            self.future.set_exception(error)
+        else:
+            self.future.set_result(task.result())
+        self.unwound.set()
 
 
 def submit(make: Callable[[], Coroutine[Any, Any, None]]) -> concurrent.futures.Future[None] | None:

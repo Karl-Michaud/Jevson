@@ -8,6 +8,7 @@ limiter bucket is not shared with any other test.
 from __future__ import annotations
 
 import asyncio
+import gc
 import json
 import os
 import signal
@@ -15,6 +16,7 @@ import threading
 import time
 import traceback
 import uuid
+import warnings
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any
@@ -215,29 +217,76 @@ def test_an_interrupt_does_not_wait_past_the_grace_period_for_a_call_that_ignore
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setattr(library, "CANCEL_GRACE_S", 0.05)
-    release = threading.Event()
+    started, cancelled, release = threading.Event(), threading.Event(), threading.Event()
 
     async def stubborn() -> None:
+        started.set()
         while not release.is_set():
             try:
                 await asyncio.sleep(0.01)
             except asyncio.CancelledError:
+                cancelled.set()
                 continue  # swallows the cancellation and keeps going
 
     def interrupt_wait(self: Any, timeout: float | None = None) -> None:
+        assert started.wait(5)  # the interrupt lands while the coroutine is running, not before it starts
         raise KeyboardInterrupt
 
     monkeypatch.setattr("concurrent.futures.Future.result", interrupt_wait)
-    started = time.monotonic()
+    began = time.monotonic()
     with pytest.raises(KeyboardInterrupt):
         library.run(stubborn)
-    assert time.monotonic() - started < 2
+    waited = time.monotonic() - began
     monkeypatch.undo()
+    assert cancelled.wait(5)  # the cancellation reached the running coroutine, which ignored it
+    assert waited < 2
     release.set()
     deadline = time.monotonic() + 5
     while pending_on_library_loop() and time.monotonic() < deadline:
         time.sleep(0.01)
     assert pending_on_library_loop() == set()
+
+
+def test_an_interrupt_before_the_call_starts_returns_at_once_and_builds_no_coroutine(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(library, "CANCEL_GRACE_S", 1.0)
+    made: list[int] = []
+
+    async def body() -> None:
+        made.append(1)  # pragma: no cover - the call is interrupted before it starts
+
+    def make() -> Any:
+        made.append(0)
+        return body()
+
+    loop_busy, release = threading.Event(), threading.Event()
+
+    def block() -> None:  # holds the library loop, so the call cannot start before the interrupt
+        loop_busy.set()
+        release.wait(5)
+
+    loop = library._library.get()  # pyright: ignore[reportPrivateUsage]
+    loop.call_soon_threadsafe(block)
+    assert loop_busy.wait(5)
+
+    def interrupt_wait(self: Any, timeout: float | None = None) -> None:
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr("concurrent.futures.Future.result", interrupt_wait)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        began = time.monotonic()
+        with pytest.raises(KeyboardInterrupt):
+            library.run(make)
+        waited = time.monotonic() - began
+        monkeypatch.undo()
+        release.set()
+        assert pending_on_library_loop() == set()
+        gc.collect()
+    assert waited < 0.5  # not the 1 s grace: a call that never started has nothing to unwind
+    assert made == []  # the coroutine is built on the loop only once the call starts
+    assert not [w for w in caught if "never awaited" in str(w.message)]
 
 
 # --- context managers and closing -----------------------------------------------------------
