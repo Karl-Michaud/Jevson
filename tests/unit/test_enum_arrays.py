@@ -165,6 +165,13 @@ def test_an_array_declaring_order_semantic_refuses() -> None:
     assert refusals(Semantic) == [("/topics", RefusalCode.SEMANTIC_ORDER)]
 
 
+def test_an_array_declaring_order_source_refuses_because_its_order_is_the_declared_enum_order() -> None:
+    class Source(BaseModel):
+        topics: list[Literal["a", "b"]] = Field(json_schema_extra={"x-jevson": {"order": "source"}})
+
+    assert refusals(Source) == [("/topics", RefusalCode.SOURCE_SELECTION_DROPPED)]
+
+
 def test_an_array_of_unbounded_items_refuses_with_source_selection_dropped_if_it_declares_a_source() -> None:
     class Unbounded(BaseModel):
         names: list[str]

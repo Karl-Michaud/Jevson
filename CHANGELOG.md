@@ -80,6 +80,9 @@ pending the owner's decision (PLAN §6).
 - `x-jevson.question` or `ordinal: true` declared on an object field (a nested model, beside its
   `$ref`) refuses with `misplaced_declaration` or `ordinal_levels` instead of being ignored: an
   object is compiled from its properties. Move the key to the property it was meant for.
+- `x-jevson.order: source` refuses with `source_selection_dropped` instead of being accepted and
+  never read: source order applies only to arrays of spans, and v0's multi-label enum arrays are
+  in declared enum order. Remove the key. (`order: semantic` still refuses with `semantic_order`.)
 - A synchronous `resolve()` whose coroutine factory, or the task made from it, raises on the
   library loop now re-raises that error at once instead of blocking forever.
 

@@ -2,13 +2,14 @@
 
 In v0, `source` always refuses with `source_selection_dropped` (Phase 0r **[Q2, Q9]**), whatever its
 extractor and keys, so its contents are not validated. `generate` is validated here and compiled
-by `compile/generative.py` (Phase 4).
+by `compile/generative.py` (Phase 4). `order` has no value v0 can consume: `semantic` is out of v0
+(R7), and `source` is R7's order for arrays of spans, dropped with source selection (v0's
+multi-label enum arrays are in declared enum order), so both refuse rather than being ignored.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal
 
 from jevson.compile.refusal import Refusals
 from jevson.compile.untyped import as_list, as_object, as_text
@@ -19,6 +20,10 @@ KEYS = frozenset({"source", "generate", "ordinal", "order", "question"})
 GENERATE_KEYS = frozenset({"criteria", "rubric", "instructions", "max_draft_chars"})
 MIN_LEVELS, MAX_LEVELS = 2, 10
 
+SOURCE_ORDER_DROPPED_MESSAGE = (
+    "x-jevson.order: source refuses in v0: source order applies to arrays of spans, which Phase 0r "
+    "dropped with source selection [Q2, Q9]; v0's enum arrays are in declared enum order, so remove the key"
+)
 SOURCE_DROPPED_MESSAGE = (
     "x-jevson.source refuses in v0: Phase 0r dropped source selection on the Decisions API (abstention "
     "0.527, in the stop band) [Q2, Q9]; declare `generate`, or make the field an enum, instead"
@@ -47,7 +52,6 @@ class FieldDeclaration:
 
     question: str | None = None
     ordinal: bool = False
-    order: Literal["source"] | None = None
     generate: GenerateDeclaration | None = None
     declares_source: bool = False
     declares_generate: bool = False
@@ -55,7 +59,7 @@ class FieldDeclaration:
 
     @property
     def decides(self) -> bool:
-        """True when a key other than `order` asks for the field to be decided (DESIGN §3.5)."""
+        """True when a declared key asks for the field to be decided (DESIGN §3.5)."""
         return self.question is not None or self.ordinal or self.generate is not None or self.declares_source
 
 
@@ -88,10 +92,10 @@ def parse_declaration(raw: object, pointer: str, refusals: Refusals) -> FieldDec
         bad("x-jevson.ordinal must be true or false")
     order = items.get("order")
     if order == "semantic":
-        bad(
-            "x-jevson.order: semantic is out of v0 (R7); remove it or declare order: source", RefusalCode.SEMANTIC_ORDER
-        )
-    elif order not in (None, "source"):
+        bad("x-jevson.order: semantic is out of v0 (R7); remove the key", RefusalCode.SEMANTIC_ORDER)
+    elif order == "source":
+        bad(SOURCE_ORDER_DROPPED_MESSAGE, RefusalCode.SOURCE_SELECTION_DROPPED)
+    elif "order" in items:
         bad("x-jevson.order must be 'source' or 'semantic'")
 
     declares_source = "source" in items
@@ -104,7 +108,6 @@ def parse_declaration(raw: object, pointer: str, refusals: Refusals) -> FieldDec
     return FieldDeclaration(
         question=as_text(question),
         ordinal=ordinal is True,
-        order="source" if order == "source" else None,
         generate=generate,
         declares_source=declares_source,
         declares_generate="generate" in items,

@@ -217,6 +217,7 @@ class Kinded(BaseModel):
         ({"ordinal": True}, "ordinal_levels"),
         ({"bogus": 1}, "unknown_declaration_key"),
         ({"order": "semantic"}, "semantic_order"),
+        ({"order": "source"}, "source_selection_dropped"),
     ],
 )
 def test_x_jevson_beside_a_nested_models_ref_is_applied_or_refused_never_dropped(
@@ -336,7 +337,6 @@ def test_defaulted_leaves_are_class_a_unless_a_key_asks_for_a_decision() -> None
     schema = obj(
         flag={"type": "boolean", "default": False},
         asked={"type": "boolean", "default": False, "x-jevson": {"question": "it ships today"}},
-        ordered={"type": "boolean", "default": False, "x-jevson": {"order": "source"}},
         rating={"type": "integer", "minimum": 1, "maximum": 2, "default": 1, "x-jevson": {"ordinal": True}},
         note={"type": "string", "default": ""},
         notes={"type": "array", "items": {"type": "string"}, "default": []},
