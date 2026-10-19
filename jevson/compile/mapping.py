@@ -166,6 +166,7 @@ class _Mapper:
         for name, child in node.properties:
             generated = child.declaration is not None and child.declaration.declares_generate
             if child.kind is Kind.OBJECT and not generated:
+                self.misplaced_on_object(child)
                 self.object(child, (*ancestors, name))
             elif child.kind is Kind.UNION and not generated:
                 self.union(name, child, ancestors)
@@ -174,6 +175,20 @@ class _Mapper:
                     self.constants.append(Constant(child.pointer, child.values[0], self.at.gates))
             elif child.kind is not Kind.REFUSED:
                 self.field(name, child, ancestors)
+
+    def misplaced_on_object(self, node: SchemaNode) -> None:
+        """`question` and `ordinal` decide one field; an object is compiled from its properties, so
+        either key beside a nested model's `$ref` is refused rather than dropped (R14)."""
+        declaration = node.declaration
+        if declaration is not None and declaration.ordinal:
+            self.refuse(node, RefusalCode.ORDINAL_LEVELS, "ordinal: true needs an integer range, not an object")
+        if declaration is not None and declaration.question is not None:
+            self.refuse(
+                node,
+                RefusalCode.MISPLACED_DECLARATION,
+                "x-jevson.question decides one field; an object is compiled from its properties, so declare "
+                "the question on the property it asks about",
+            )
 
     def union(self, name: str, node: SchemaNode, ancestors: tuple[str, ...]) -> None:
         texts = unions.branch_texts(node.branches)

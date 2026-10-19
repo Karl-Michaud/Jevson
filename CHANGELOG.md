@@ -77,6 +77,9 @@ pending the owner's decision (PLAN §6).
 - Question templates 1.1.1: a label's leading article is dropped, so a description such as "the
   ticket's topic" asks `Which of these is the ticket's topic?`, not `... the the ticket's topic?`.
   Questions over such labels change, so `CachingBackend` records made under 1.1.0 miss for them.
+- `x-jevson.question` or `ordinal: true` declared on an object field (a nested model, beside its
+  `$ref`) refuses with `misplaced_declaration` or `ordinal_levels` instead of being ignored: an
+  object is compiled from its properties. Move the key to the property it was meant for.
 
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, and the unbounded fields a `default_extractor` would select → `source_selection_dropped`), pairwise entity resolution,

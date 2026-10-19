@@ -69,7 +69,7 @@ class Order(BaseModel):
 class Idiomatic(BaseModel):
     """PLAN Phase 2: nested submodel, Enum, single-member Enum, Optional[Literal], Literal, defaulted leaves."""
 
-    address: Address = Field(json_schema_extra={"x-jevson": {"question": "Which address?"}})
+    address: Address = Field(description="where the order goes")  # a sibling keyword beside the $ref
     shipping: Address | None = None
     tier: Tier
     only: Only
@@ -163,6 +163,7 @@ def test_a_pydantic_model_and_its_emitted_json_schema_compile_to_identical_graph
     from_schema = compile_schema(model.model_json_schema(mode="validation")).nodes
     assert from_model == from_schema
     assert list(from_model) == list(from_schema)
+    assert compile_schema(model).constants == compile_schema(model.model_json_schema(mode="validation")).constants
 
 
 def test_idiomatic_pydantic_compiles_and_its_class_a_fields_emit_no_node() -> None:
@@ -175,6 +176,58 @@ def test_idiomatic_pydantic_compiles_and_its_class_a_fields_emit_no_node() -> No
         "/shipping/country#choice",
         "/tier#choice",
     ]  # only, marker (constants), size, currency, plan (undeclared defaulted leaves) are class A
+
+
+def test_a_flat_all_of_a_defaulted_decimal_and_bound_keywords_emit_no_node_of_their_own() -> None:
+    """Class A at compile level, not only in the normaliser: the merged allOf decides only its enum."""
+    schema = {
+        "type": "object",
+        "required": ["x", "c", "r"],
+        "properties": {
+            "x": {
+                "allOf": [
+                    {"type": "object", "properties": {"a": {"enum": ["1", "2"]}}, "required": ["a"]},
+                    {"type": "object", "properties": {"b": {"const": 5}}, "required": ["b"]},
+                ]
+            },
+            "c": {"const": "k"},
+            "r": {"type": "integer", "x-jevson": {"ordinal": True}, "exclusiveMinimum": 0, "maximum": 3},
+            "f": {"type": "string", "format": "date", "default": "2020-01-01"},
+            "money": {
+                "anyOf": [{"type": "number"}, {"type": "string", "pattern": "^-?\\d+(\\.\\d+)?$"}],
+                "default": "1",
+            },
+        },
+    }
+    graph = compile_schema(schema)
+    assert list(graph.nodes) == ["/x/a#choice", "/r#score"]
+    assert [(c.pointer, c.value) for c in graph.constants] == [("/x/b", 5), ("/c", "k")]
+
+
+class Kinded(BaseModel):
+    kind: Literal["a", "b"]
+
+
+@pytest.mark.parametrize(
+    ("declaration", "reason"),
+    [
+        ({"source": {"extractor": "llm"}}, "source_selection_dropped"),
+        ({"generate": {"criteria": ["is short"]}}, "generate_field_type"),
+        ({"question": "Which one?"}, "misplaced_declaration"),
+        ({"ordinal": True}, "ordinal_levels"),
+        ({"bogus": 1}, "unknown_declaration_key"),
+        ({"order": "semantic"}, "semantic_order"),
+    ],
+)
+def test_x_jevson_beside_a_nested_models_ref_is_applied_or_refused_never_dropped(
+    declaration: dict[str, Any], reason: str
+) -> None:
+    class Holder(BaseModel):
+        a: Kinded = Field(json_schema_extra={"x-jevson": declaration})
+
+    assert "$ref" in Holder.model_json_schema(mode="validation")["properties"]["a"]
+    assert refusals(Holder) == [("/a", reason)]
+    assert refusals(Holder.model_json_schema(mode="validation")) == [("/a", reason)]
 
 
 def test_an_optional_submodel_whose_leaves_declare_sources_refuses_only_with_source_selection_dropped() -> None:
