@@ -80,6 +80,8 @@ pending the owner's decision (PLAN §6).
 - `x-jevson.question` or `ordinal: true` declared on an object field (a nested model, beside its
   `$ref`) refuses with `misplaced_declaration` or `ordinal_levels` instead of being ignored: an
   object is compiled from its properties. Move the key to the property it was meant for.
+- A synchronous `resolve()` whose coroutine factory, or the task made from it, raises on the
+  library loop now re-raises that error at once instead of blocking forever.
 
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, and the unbounded fields a `default_extractor` would select → `source_selection_dropped`), pairwise entity resolution,

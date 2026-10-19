@@ -7,6 +7,8 @@ call is not used: a client and asyncio locks are bound to the loop that first us
 - `run()` refuses inside a running loop (the caller's or this one), pointing at `aresolve()`. The
   coroutine is built on the library loop, only once the call starts, so neither a refusal nor an
   interrupt that lands before the call starts leaves a coroutine un-awaited.
+- If building the coroutine or its task raises on the library loop, the call finishes with that error
+  (a loop callback's exception would otherwise reach only the loop's handler and `run()` would block).
 - If the caller's wait is interrupted (Ctrl-C, or any exception raised while blocked), a call that has
   not started never will, and `run()` re-raises at once; a running call's task is cancelled on the
   library loop and `run()` waits up to `CANCEL_GRACE_S` for it to unwind before re-raising, so the
@@ -104,21 +106,32 @@ class _Call(Generic[T]):
         if not self.future.set_running_or_notify_cancel():
             self.unwound.set()
             return
-        self.task = self.loop.create_task(self.make())
+        try:
+            coroutine = self.make()
+            try:
+                self.task = self.loop.create_task(coroutine)
+            except BaseException:
+                coroutine.close()  # never awaited: close it so it is not reported as such
+                raise
+        except BaseException as error:  # in a loop callback it would reach only the loop's handler
+            self.future.set_exception(error)
+            self.unwound.set()
+            return
         self.task.add_done_callback(self._finish)
 
     def cancel(self) -> bool:
-        """From the caller's thread: a call not yet started never starts (False: nothing to wait for);
-        a started one has its task cancelled on the loop (True)."""
-        if self.future.cancel():
+        """From the caller's thread: a call not yet started never starts, and a finished one has nothing
+        left to cancel (False: nothing to wait for); a running one has its task cancelled on the loop (True)."""
+        if self.future.cancel() or self.future.done():
             return False
         self.loop.call_soon_threadsafe(self._cancel_task)
         return True
 
     def _cancel_task(self) -> None:
-        # Set: the future leaves PENDING only in `start`, in the same callback that makes the task.
-        assert self.task is not None
-        self.task.cancel()
+        # Runs after `start` (both are loop callbacks, scheduled in that order). No task means `start`
+        # failed and already finished the future: an interrupt that raced it has nothing to cancel.
+        if self.task is not None:
+            self.task.cancel()
 
     def _finish(self, task: asyncio.Task[T]) -> None:
         if task.cancelled():

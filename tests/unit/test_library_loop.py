@@ -289,6 +289,90 @@ def test_an_interrupt_before_the_call_starts_returns_at_once_and_builds_no_corou
     assert not [w for w in caught if "never awaited" in str(w.message)]
 
 
+def run_in_thread(make: Callable[[], Any]) -> tuple[list[BaseException], float]:
+    """Call `library.run(make)` on a worker thread; a call whose future is never resolved would block
+    forever, so the worker is a daemon and the caller's join is bounded."""
+    raised: list[BaseException] = []
+
+    def call() -> None:
+        try:
+            library.run(make)
+        except BaseException as error:
+            raised.append(error)
+
+    worker = threading.Thread(target=call, daemon=True)
+    began = time.monotonic()
+    worker.start()
+    worker.join(5)
+    assert not worker.is_alive(), "run() never returned: the call's future was never resolved"
+    return raised, time.monotonic() - began
+
+
+def test_a_factory_that_raises_on_the_loop_reraises_at_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(library, "CANCEL_GRACE_S", 3.0)
+
+    def make() -> Any:
+        raise ValueError("factory failed")
+
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        raised, waited = run_in_thread(make)
+        assert pending_on_library_loop() == set()
+    assert [type(e) for e in raised] == [ValueError]
+    assert waited < 1  # not the 3 s grace: nothing of the call is running
+    assert not caught
+
+
+def test_a_task_that_cannot_be_created_closes_its_coroutine_and_reraises_at_once(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(library, "CANCEL_GRACE_S", 3.0)
+    loop = library._library.get()  # pyright: ignore[reportPrivateUsage]
+
+    async def body() -> None:  # pragma: no cover - its task is never created, so it never runs
+        pass
+
+    def refuse(coroutine: Any) -> Any:
+        raise RuntimeError("no task")
+
+    monkeypatch.setattr(loop, "create_task", refuse)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        raised, waited = run_in_thread(body)
+        monkeypatch.undo()
+        assert pending_on_library_loop() == set()
+        gc.collect()
+    assert [type(e) for e in raised] == [RuntimeError]
+    assert waited < 1
+    assert not [w for w in caught if "never awaited" in str(w.message)]
+
+
+def test_an_interrupt_that_races_a_failing_start_cancels_nothing() -> None:
+    """The caller's interrupt lands while `start` is building the call (its future RUNNING), and the
+    factory then raises: the scheduled cancellation finds no task and must do nothing."""
+    loop = asyncio.new_event_loop()
+    errors: list[dict[str, Any]] = []
+    loop.set_exception_handler(lambda _loop, context: errors.append(context))
+
+    def make() -> Any:
+        assert call.cancel()  # still running: a cancellation is scheduled on the loop
+        raise ValueError("factory failed")
+
+    call = library._Call(make, loop)  # pyright: ignore[reportPrivateUsage]
+
+    async def drive() -> None:
+        call.start()
+        await asyncio.sleep(0)  # the scheduled cancellation runs before this resumes
+
+    try:
+        loop.run_until_complete(drive())
+    finally:
+        loop.close()
+    assert errors == []
+    assert isinstance(call.future.exception(0), ValueError)
+    assert call.unwound.is_set()
+
+
 # --- context managers and closing -----------------------------------------------------------
 
 
