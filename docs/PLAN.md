@@ -417,7 +417,7 @@ Executing anything. Generative fields (Phase 4). Unions (Phase 6). Multi-label e
 ### Deliverables
 
 - `execute/state.py` — every collection in state is an object keyed by opaque ids, never a list referenced by position (R13)
-- `execute/executor.py` — runs step nodes through their protocols and decision levels as one batched call each (R3); `resolve()` and `aresolve()`; emits every cost event to the `CostSink`
+- `execute/executor.py` — runs step nodes through their protocols and decision levels as one batched call per request group: bounded, then adjudication (R3, DESIGN §5.2); `resolve()` and `aresolve()`; emits every cost event to the `CostSink`
 - `execute/budget.py` — **preflight on declared maxima** against both limits (`DESIGN §8.2`); `PreflightError` before any spend
 - `execute/policy.py` — transport retry for 429/5xx/timeout with backoff, bounded by `transport_retries` (default 2), counted separately; no retry for other 4xx; a context-limit rejection mapped to a split or to `Unresolved(budget_exceeded)` (DESIGN §8.2), never an identical retry
 - `execute/ratelimit.py` — one token bucket per API key on `threading.Lock`, shared across backends, threads, and event loops **[L20]**

@@ -19,8 +19,9 @@ and its adjudication questions in another.
   ride in the level's adjudication request, apart from every other question: only adjudication is
   ever asked over a state holding drafts (DESIGN §5.2), and each such state holds only the drafts its
   questions name. The two groups are budgeted and split separately.
-  After the level's request, failing fields are redrafted and re-adjudicated together, one request
-  per round, until each is admitted or its `redraft_budget` is spent (`policy.RedraftLoop`).
+  After the level's requests, failing fields are redrafted and re-adjudicated together, one
+  adjudication request per round (split only by DESIGN §8.2), until each is admitted or its
+  `redraft_budget` is spent (`policy.RedraftLoop`).
   Decisions are recorded as `node@attempt`. Budgets use the source-only state plus each node's
   declared size, which includes its draft at `max_draft_chars` (`budget.with_drafts`).
 
@@ -30,11 +31,15 @@ and its adjudication questions in another.
 - **Unions** (DESIGN §3.2): a node inside union branches runs only when its branch is selected
   (`branches.py`); a discriminator's answer selects a branch and commits its constants.
 
-An extraction step (class D, deferred) runs through an injected runner per `StepKind`.
+An extraction step (class D, deferred) runs through an injected runner per `StepKind`. Its output
+also sits under `drafts` in the state of the nodes that depend on it; no compiled v0 graph has one
+(the façade passes no runner), and the key is renamed when class D returns (PLAN §9.2).
 
-Length (~500 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
-and moving it out would make both public for one caller; union gating lives in `branches.py`, leaving
-only its call sites here. Split if either grows again.
+Length (~510 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
+and moving it out would make both public for one caller; request grouping and bisection (`_decide`,
+`_ask_group`, `_ask`) stay here because they update `_Run`'s tally and outcomes, and moving them to
+their own module would share `_Run` across modules; union gating lives in `branches.py`, leaving only
+its call sites here. Split if any of these grows again.
 """
 
 from __future__ import annotations

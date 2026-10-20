@@ -1,9 +1,10 @@
 """The decision graph: nodes, dependency edges, acyclicity, and topological levelling (R3, R11).
 
 A level is the unit of execution: its step nodes run first (in dependency order), then its decision
-nodes go to the backend as one batched request. A node's level index counts the decision nodes on
-its longest dependency path, so a decision always lands in a later level than every decision it
-depends on, and a step lands in the level whose decisions consume it.
+nodes go to the backend batched: one request for the bounded questions and one for adjudication
+(DESIGN §5.2), each split only by DESIGN §8.2. A node's level index counts the decision nodes on its
+longest dependency path, so a decision always lands in a later level than every decision it depends
+on, and a step lands in the level whose decisions consume it.
 """
 
 from __future__ import annotations

@@ -40,9 +40,10 @@ summary: str = Field(json_schema_extra={"x-jevson": {"generate": {
 
 ## How a verdict is reached
 
-- All of a field's criteria (and its rubric) go to the decision model in **one** request, with the
-  draft in the state under its own key (`drafts./summary#generate`). Other fields' adjudication may
-  share that request; no other question does, so the draft is never input to an unrelated field.
+- All of a field's criteria (and its rubric) go to the decision model in **one** request unless a
+  limit splits the level (DESIGN §8.2), with the draft in the state under its own key
+  (`drafts./summary#generate`). Other fields' adjudication may share that request; no other
+  question does, so the draft is never input to a bounded field.
 - A criterion passes at p ≥ 0.56. A criterion inside the tie margin (0.45–0.55), refused, or answered
   invalidly **fails**. A rubric whose top levels tie across the minimum fails.
 - A failed draft is rejected (`Result.rejections` names the criteria and the draft) and redrafted once
