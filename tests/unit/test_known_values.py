@@ -135,5 +135,7 @@ def test_each_refusal_says_what_is_wrong() -> None:
         resolve(INVOICE, {"/nowhere": 1})
     with pytest.raises(PreflightError, match="'/paid' is not one of the field's declared values"):
         resolve(INVOICE, {"/paid": "yes"})
-    with pytest.raises(PreflightError, match="'/summary' fails its field schema: .* does not match .*; .* is too long"):
+    with pytest.raises(
+        PreflightError, match=r"'/summary' fails its field schema: .* does not match .*; .* is too long"
+    ):
         resolve(summary(maxLength=3, pattern="^[a-z]+$"), {"/summary": "TOO LONG"})
