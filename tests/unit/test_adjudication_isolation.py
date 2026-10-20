@@ -136,6 +136,7 @@ def test_p2_an_injected_draft_no_longer_reaches_or_steers_an_unrelated_enum() ->
     assert json.loads(checked_state) == {"source": SOURCE, "drafts": {"/summary#generate": INJECTION}}
     assert [adjudicates(q) for q in checks] == [True]
     assert (result.cost.decision_requests, result.cost.level_splits) == (2, 0)
+    assert result.versions["budget_estimator"] == "bytes/3+160q+8o+dw"
 
 
 # --- the invariant across shapes --------------------------------------------------------------------

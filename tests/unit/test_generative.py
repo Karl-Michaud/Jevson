@@ -8,7 +8,6 @@ redraft bar are J4b's.
 from __future__ import annotations
 
 import asyncio
-import json
 from dataclasses import replace
 from pathlib import Path
 from typing import Any
@@ -38,6 +37,7 @@ from jevson.adjudicate.criteria import judge
 from jevson.adjudicate.rubrics import rubric_passes
 from jevson.execute import budget
 from jevson.execute.drafting import TOOL_SCHEMA, malformed, read
+from jevson.execute.state import LevelState
 from jevson.llm import replay as replay_module
 from jevson.types import (
     DecisionKind,
@@ -457,13 +457,24 @@ def test_an_over_length_draft_is_a_failed_draft_not_a_context_limit_error_after_
     assert result.unresolved[0].reason is UnresolvedReason.REDRAFT_EXHAUSTED
 
 
-def test_the_declared_draft_size_covers_the_worst_case_serialised_draft() -> None:
-    step = StepNode("/s#generate", StepKind.GENERATE, "/s", drafting=Drafting("p", "s", 50))
-    worst = json.dumps({"/s#generate": "\x00" * 50}, ensure_ascii=False)
-    assert budget.draft_tokens(step) >= budget.estimate_tokens(worst)
-    assert budget.draft_tokens(StepNode("/e#extract", StepKind.EXTRACT, "/e")) == budget.estimate_tokens(
-        '"/e#extract": "", '
-    )
+@pytest.mark.parametrize("source", ["", "s", "abc"])
+@pytest.mark.parametrize("n", [0, 1, 3, 10, 50])
+@pytest.mark.parametrize("char", ["\x00", "a", "\U0001f600"])
+def test_the_declared_draft_size_covers_what_a_worst_case_draft_adds_to_a_state(source: str, n: int, char: str) -> None:
+    """The `drafts` wrapper included: a draft is budgeted at what it adds to the request's state."""
+    step = StepNode("/s#generate", StepKind.GENERATE, "/s", drafting=Drafting("p", "s", n))
+    bare = budget.estimate_tokens(LevelState(source).serialise())
+    drafted = budget.estimate_tokens(LevelState(source, {"/s#generate": char * n}).serialise())
+    assert budget.draft_tokens(step) >= drafted - bare
+
+
+@pytest.mark.parametrize("source", ["", "s", "abc", "a longer source text"])
+def test_a_step_without_drafting_is_budgeted_at_what_its_empty_entry_adds_to_a_state(source: str) -> None:
+    """Measured on the state itself, not on the budget's own constants: covered, and within the one
+    token that rounding the key and the wrapper together can add."""
+    bare = budget.estimate_tokens(LevelState(source).serialise())
+    added = budget.estimate_tokens(LevelState(source, {"/e#extract": ""}).serialise()) - bare
+    assert added <= budget.draft_tokens(StepNode("/e#extract", StepKind.EXTRACT, "/e")) <= added + 1
 
 
 def test_each_request_carries_only_the_drafts_its_questions_name() -> None:

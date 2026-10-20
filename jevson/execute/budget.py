@@ -16,11 +16,11 @@ under (0.96), from text the byte rate under-counted.
 
 Each question is budgeted at its node's *declared* size, through a per-node hook (`DeclaredSize`), so
 later phases can budget content that does not exist yet: Phase 4 adds a node's `max_draft_chars` for
-the draft it will place in state. v0 options are all declared at compile time, so the v0 hook,
-`declared_tokens`, is the actual question and option text. Every request's estimate is recorded next
-to the `usage.input_tokens` it was billed (`CostEvent`, `Cost`), so a live run shows whether the
-estimator stays conservative; a run-time context-limit rejection means it or a limit was wrong, and
-the executor bisects (DESIGN §8.2).
+the draft it will place in state, and the `drafts` wrapper around it. v0 options are all declared at
+compile time, so the v0 hook, `declared_tokens`, is the actual question and option text. Every
+request's estimate is recorded next to the `usage.input_tokens` it was billed (`CostEvent`, `Cost`),
+so a live run shows whether the estimator stays conservative; a run-time context-limit rejection
+means it or a limit was wrong, and the executor bisects (DESIGN §8.2).
 """
 
 from __future__ import annotations
@@ -34,11 +34,12 @@ from jevson.types import DecisionNode, Question, StepNode
 DeclaredSize = Callable[[DecisionNode], int]
 """A node's declared maximum size in estimated tokens: its question, options, and any state it adds."""
 
-ESTIMATOR_VERSION = "bytes/3+160q+8o"
+ESTIMATOR_VERSION = "bytes/3+160q+8o+dw"
 BYTES_PER_TOKEN = 3
 QUESTION_OVERHEAD = 160  # [Q11] ~160 tokens per short question; 40 under-counted 32-question requests [Q15]
 OPTION_OVERHEAD = 8
 DRAFT_BYTES_PER_CHAR = 6  # the worst case for one character of a draft in JSON state: a \\u escape
+DRAFTS_WRAPPER = ', "drafts": {}'  # what the first draft adds around itself in a state
 
 
 def estimate_tokens(text: str) -> int:
@@ -58,7 +59,9 @@ def declared_tokens(node: DecisionNode) -> int:
 def draft_tokens(step: StepNode) -> int:
     """A generated draft at its declared maximum, as it sits in the state under its key."""
     limit = step.drafting.max_draft_chars if step.drafting is not None else 0
-    return math.ceil(limit * DRAFT_BYTES_PER_CHAR / BYTES_PER_TOKEN) + estimate_tokens(f'"{step.id}": "", ')
+    return math.ceil(limit * DRAFT_BYTES_PER_CHAR / BYTES_PER_TOKEN) + estimate_tokens(
+        f'"{step.id}": "", ' + DRAFTS_WRAPPER
+    )
 
 
 def with_drafts(declared_size: DeclaredSize, checks: Mapping[str, StepNode]) -> DeclaredSize:
