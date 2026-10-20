@@ -129,16 +129,18 @@ def test_a_multi_label_known_value_must_be_a_list() -> None:
 
 
 def test_each_refusal_says_what_is_wrong() -> None:
-    with pytest.raises(PreflightError, match="must map JSON pointers to values"):
+    with pytest.raises(PreflightError, match=r"^known= must map JSON pointers to values$"):
         resolve(INVOICE, [("/paid", True)])  # type: ignore[arg-type]
     with pytest.raises(PreflightError, match="'/nowhere', which is not a decided field"):
         resolve(INVOICE, {"/nowhere": 1})
     with pytest.raises(PreflightError, match="'/paid' is not one of the field's declared values"):
         resolve(INVOICE, {"/paid": "yes"})
-    with pytest.raises(
-        PreflightError, match=r"'/summary' fails its field schema: .* does not match .*; .* is too long"
-    ):
+    with pytest.raises(PreflightError) as caught:
         resolve(summary(maxLength=3, pattern="^[a-z]+$"), {"/summary": "TOO LONG"})
+    assert str(caught.value) == (
+        "known= value for '/summary' fails its field schema: "
+        "'TOO LONG' does not match '^[a-z]+$'; 'TOO LONG' is too long"
+    )
 
 
 UNION_GENERATE = {"generate": {"criteria": ["is short"]}}

@@ -385,6 +385,45 @@ def test_indistinguishable_enum_options_are_named_and_the_size_message_states_th
     assert [r.message for r in caught.value.reasons] == ["256 values; an enum takes at most 255"]
 
 
+def test_an_enum_of_exactly_255_values_compiles_as_a_choice_or_a_multi_label_array() -> None:
+    values = [f"v{i}" for i in range(255)]
+    graph = compile_schema(obj(f={"enum": values}, tags={"type": "array", "items": {"enum": values}}))
+    assert len(graph.nodes["/f#choice"].options) == 255
+    assert len([n for n in graph.nodes.values() if n.target == "/tags"]) == 255  # one membership each
+
+
+def messages(schema: object) -> list[str]:
+    with pytest.raises(CompileError) as caught:
+        compile_schema(schema)
+    return [r.message for r in caught.value.reasons]
+
+
+@pytest.mark.parametrize(
+    ("declaration", "message"),
+    [
+        ({"ordinal": True}, "ordinal: true needs an integer range, not an object"),
+        (
+            {"question": "Which one?"},
+            "x-jevson.question decides one field; an object is compiled from its properties, so declare "
+            "the question on the property it asks about",
+        ),
+        ({"order": "semantic"}, "x-jevson.order: semantic is out of v0 (R7); remove the key"),
+    ],
+)
+def test_each_new_refusal_beside_a_ref_says_exactly_what_to_do(declaration: dict[str, Any], message: str) -> None:
+    class Holder(BaseModel):
+        a: Kinded = Field(json_schema_extra={"x-jevson": declaration})
+
+    assert messages(Holder) == [message]
+
+
+def test_a_null_in_a_multi_label_items_enum_says_exactly_what_to_do() -> None:
+    assert messages(obj(tags={"type": "array", "items": {"enum": ["a", "b", None]}})) == [
+        "a multi-label array's item enum cannot include null: membership is asked per declared value; "
+        "drop the null, or make the whole array optional instead"
+    ]
+
+
 def test_default_extractor_turns_unbounded_fields_into_source_selection_dropped() -> None:
     schema = obj(vendor={"type": "string"}, total={"type": "number"}, kind={"enum": ["a", "b"]})
     dropped = RefusalCode.SOURCE_SELECTION_DROPPED

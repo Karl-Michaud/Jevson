@@ -179,3 +179,13 @@ def test_two_billed_responses_add_up_in_cost() -> None:
     assert result.cost.decision_requests == 2
     assert result.cost.decision_input_tokens == sum(e.input_tokens for e in billed)
     assert len(result.cost.decision_request_ids) == 2
+
+
+def test_a_replayed_malformed_draft_keeps_the_llms_raw_text(tmp_path: Path) -> None:
+    malformed = LLMResponse({"summary": "no value key"}, "RAW TEXT FROM THE LLM", 5, 2, "claude-x-1")
+    recording = ReplayLLM(ScriptedLLM([malformed]), tmp_path, llm_id="scripted")
+    first, _ = run(GENERATED, FakeBackend(default=passes), recording, redraft_budget=0)
+    replay = ReplayLLM(None, tmp_path, llm_id="scripted", replay_only=True)
+    replayed, _ = run(GENERATED, FakeBackend(default=passes), replay, redraft_budget=0)
+    assert [r.draft for r in first.rejections] == ["RAW TEXT FROM THE LLM"]
+    assert [r.draft for r in replayed.rejections] == [r.draft for r in first.rejections]
