@@ -1,5 +1,5 @@
 {
-  "$comment": "Per-repo config for the global `plane-workflow` skill (~/.claude/skills/plane-workflow). IDs are Plane UUIDs in workspace project-asterion; resolve by name if one ever stops matching. Same Plane project for all four Project Asterion repos.",
+  "$comment": "Per-repo config for the shared `plane-workflow` skill (Agents/.claude/skills/plane-workflow, linked into the workspace by Agents/scripts/bootstrap.sh). IDs are Plane UUIDs in workspace project-asterion; resolve by name if one ever stops matching. Same Plane project for all four Project Asterion repos.",
   "plane": {
     "workspace_slug": "project-asterion",
     "project_id": "1d97b9f6-6ae2-49e8-a54f-e26bb356d69d",

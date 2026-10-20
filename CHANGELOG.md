@@ -28,6 +28,12 @@ pending the owner's decision (PLAN §6).
 - `InMemoryCostSink`, the default `CostSink`.
 - Examples in `examples/`, each runnable offline with no API key.
 
+**Changed**
+
+- Repository tooling, not the package: the Plane workflow pointers (`.claude/plane-workflow.json`,
+  `.github/workflows/branch-policy.yml`) now name the shared `plane-workflow` skill in
+  `Agents/.claude/skills/plane-workflow` instead of a global one (ASTERION-43).
+
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,
 arrays of objects, generative lists, multi-source input. See the README's "What did not ship".

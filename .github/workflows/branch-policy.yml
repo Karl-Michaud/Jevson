@@ -5,7 +5,8 @@
 # PRs into staging also get an ancestry check (.githooks/check-work-branch.sh):
 # the branch must have been cut from staging and carry only its own ticket.
 #
-# The rules live in the global plane-workflow skill and in Agents/CLAUDE.md §7.2;
+# The rules live in the shared plane-workflow skill (Agents/.claude/skills/plane-workflow,
+# linked into the workspace by Agents/scripts/bootstrap.sh) and in Agents/CLAUDE.md §7.2;
 # this file is the server-side half of them. Once the org can use rulesets
 # (ASTERION-10), the `staging` and `main` rulesets require this check, so a PR
 # that breaks the flow cannot merge. Until then it reports but does not block.
