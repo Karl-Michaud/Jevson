@@ -291,6 +291,30 @@ def test_a_rejected_request_records_its_estimate() -> None:
     assert all(e.estimated_input_tokens for e in failed)
 
 
+class FailsOnDrafts(Recorder):
+    """Answers the source-only request, then fails the adjudication request with a non-limit error."""
+
+    async def ask(self, state: str, questions: Sequence[Question], model: str) -> BackendResponse:
+        if "drafts" in json.loads(state):
+            self.calls.append((state, tuple(questions)))
+            raise BackendError("bad_request", "refused", Result({}, False, cost=Cost(decision_requests=1)))
+        return await super().ask(state, questions, model)
+
+
+def test_a_failed_adjudication_request_keeps_the_billed_bounded_answers_in_the_partial_result() -> None:
+    """DESIGN §6: the error carries the partial `Result`; the bounded group was answered and billed
+    before the adjudication request failed, so its answers are in it."""
+    backend = FailsOnDrafts(steered)
+    with pytest.raises(BackendError) as raised:
+        run(MOOD, backend, drafts=[INJECTION])
+    partial = raised.value.result
+    assert partial is not None
+    assert len(backend.calls) == partial.cost.decision_requests == 2
+    assert partial.value == {"mood": "angry"}
+    assert partial.decided_by["/mood"] is DecidedBy.DECISION
+    assert list(partial.decisions) == ["/mood#choice@0"]
+
+
 def reads_of(schema: object) -> dict[str, str]:
     """Question text -> the drafting step it reads, for every adjudication node of `schema`'s graph."""
     graph = compile_schema(schema)

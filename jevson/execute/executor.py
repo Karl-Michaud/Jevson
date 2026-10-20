@@ -92,6 +92,7 @@ _NO_DRAFTING = Drafting("", "")
 StepRunner = Callable[[StepNode, LevelState], Awaitable[JSONValue]]
 LIMIT_CODES = frozenset({"context_limit", "question_limit"})
 _OVERFLOW = "budget_exceeded"
+Answers = dict[str, Answer | str]  # by question name; `_OVERFLOW` for a question that cannot fit
 StateOf = Callable[[list[Question]], str]
 """The state of a request over these questions: only what they read."""
 
@@ -371,31 +372,29 @@ async def _run_step(run: _Run, runner: StepRunner, step: StepNode, state: LevelS
 
 
 async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], names: Mapping[str, Question]) -> None:
-    """Ask `nodes` in as few requests as fit. Class C answers are recorded at once; adjudication
-    answers wait in `run.answers` for their field's verdict."""
+    """Ask `nodes` in as few requests as fit. Each group's answers are taken as it returns (a later failure keeps
+    them in the partial `Result`): class C ones are recorded, adjudication ones wait in `run.answers`."""
     ready: list[DecisionNode] = []
     for node in nodes:
         if any(isinstance(run.outcomes.get(run.targets[d]), Unresolved) for d in node.dependencies):
             run.outcomes[node.key] = Unresolved(node.target, UnresolvedReason.DEPENDENCY_UNRESOLVED)
         else:
             ready.append(node)
-    answers: dict[str, Answer | str] = {}
     plain = [node for node in ready if node.id not in run.adjudicates]
     for group in (plain, [node for node in ready if node.id in run.adjudicates]):
-        if group:
-            answers |= await _ask_group(run, backend, group, names)
-    for node in sorted(ready, key=lambda n: len(n.branch)):  # under fan-out, discriminators first
-        if node.key in run.outcomes or not _runs(run, node):
-            continue  # an unselected branch's answer is discarded
-        if node.id in run.adjudicates:
-            run.answers[node.id] = answers[names[node.id].name]
-        else:
-            _record(run, node, answers[names[node.id].name])
+        answers = await _ask_group(run, backend, group, names) if group else {}
+        for node in sorted(group, key=lambda n: len(n.branch)):  # under fan-out, discriminators first
+            if node.key in run.outcomes or not _runs(run, node):
+                continue  # an unselected branch's answer is discarded
+            if node.id in run.adjudicates:
+                run.answers[node.id] = answers[names[node.id].name]
+            else:
+                _record(run, node, answers[names[node.id].name])
 
 
 async def _ask_group(
     run: _Run, backend: Backend, group: Sequence[DecisionNode], names: Mapping[str, Question]
-) -> dict[str, Answer | str]:
+) -> Answers:
     """Ask one group in as few requests as fit the budget. Adjudication questions form their own group,
     so a state holding drafts reaches only the questions that check them (invariant 7)."""
     budgeted = run.state(group, budgeted=True)
@@ -404,7 +403,7 @@ async def _ask_group(
     too_big = budget.oversized(budgeted, questions, run.sizes, run.config)  # extracted outputs grow a state
     chunks = budget.split(budgeted, [q for q in questions if q not in too_big], run.sizes, run.config)
     run.tally.level_splits += max(len(chunks) - 1, 0)
-    answers: dict[str, Answer | str] = {q.name: _OVERFLOW for q in too_big}
+    answers: Answers = {q.name: _OVERFLOW for q in too_big}
 
     def state_of(chunk: list[Question]) -> str:
         return run.state([by_name[q.name] for q in chunk])
@@ -442,7 +441,7 @@ def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
     run.outcomes[node.target] = Committed(node.target, value, DecidedBy.DECISION, provenance)
 
 
-async def _ask(run: _Run, backend: Backend, state_of: StateOf, chunk: list[Question]) -> dict[str, Answer | str]:
+async def _ask(run: _Run, backend: Backend, state_of: StateOf, chunk: list[Question]) -> Answers:
     """One request, bisected on a limit rejection; never the same request twice. Each half's state is
     rebuilt from its own questions, so it carries only the drafts they read."""
     state = state_of(chunk)
@@ -470,12 +469,12 @@ async def _ask(run: _Run, backend: Backend, state_of: StateOf, chunk: list[Quest
     return await _ask(run, backend, state_of, chunk[:half]) | await _ask(run, backend, state_of, chunk[half:])
 
 
-def _match(chunk: list[Question], response: BackendResponse) -> dict[str, Answer | str]:
+def _match(chunk: list[Question], response: BackendResponse) -> Answers:
     """Answers by name; a missing or duplicated name is an invalid answer for that question."""
     seen: dict[str, list[Answer]] = {}
     for answer in response.answers:
         seen.setdefault(getattr(answer, "name", ""), []).append(answer)
-    matched: dict[str, Answer | str] = {}
+    matched: Answers = {}
     for question in chunk:
         found = seen.get(question.name, [])
         matched[question.name] = found[0] if len(found) == 1 else InvalidAnswer(question.name, "missing or repeated")
