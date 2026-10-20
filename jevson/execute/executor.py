@@ -409,7 +409,7 @@ async def _ask_group(
         return run.state([by_name[q.name] for q in chunk])
 
     for chunk in chunks:
-        answers |= await _ask(run, backend, state_of, chunk)
+        answers |= await _ask(run, backend, state_of, chunk, budgeted)
     return answers
 
 
@@ -441,12 +441,13 @@ def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
     run.outcomes[node.target] = Committed(node.target, value, DecidedBy.DECISION, provenance)
 
 
-async def _ask(run: _Run, backend: Backend, state_of: StateOf, chunk: list[Question]) -> Answers:
+async def _ask(run: _Run, backend: Backend, state_of: StateOf, chunk: list[Question], budgeted: str) -> Answers:
     """One request, bisected on a limit rejection; never the same request twice. Each half's state is
-    rebuilt from its own questions, so it carries only the drafts they read."""
+    rebuilt from its own questions, so it carries only the drafts they read. Its recorded estimate is
+    preflight's: the `budgeted` state plus declared sizes, so a draft is not counted twice."""
     state = state_of(chunk)
     started = time.perf_counter()
-    estimate = budget.request_tokens(state, chunk, run.sizes)
+    estimate = budget.request_tokens(budgeted, chunk, run.sizes)
     try:
         response = await backend.ask(state, chunk, run.config.model)
     except BackendError as error:
@@ -465,8 +466,8 @@ async def _ask(run: _Run, backend: Backend, state_of: StateOf, chunk: list[Quest
     if len(chunk) == 1:
         return {chunk[0].name: _OVERFLOW}
     run.tally.level_splits += 1
-    half = len(chunk) // 2
-    return await _ask(run, backend, state_of, chunk[:half]) | await _ask(run, backend, state_of, chunk[half:])
+    head, tail = chunk[: len(chunk) // 2], chunk[len(chunk) // 2 :]
+    return await _ask(run, backend, state_of, head, budgeted) | await _ask(run, backend, state_of, tail, budgeted)
 
 
 def _match(chunk: list[Question], response: BackendResponse) -> Answers:

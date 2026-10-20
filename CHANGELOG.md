@@ -50,6 +50,11 @@ pending the owner's decision (PLAN §6).
   ASTERION-50).
 - `CachingBackend` recordings of levels that mix bounded and generative fields no longer match
   (with `replay_only=True` that is `BackendError(replay_miss)`); re-record them (ASTERION-50).
+- The estimate recorded for each decision request (`CostEvent.estimated_input_tokens`,
+  `Cost.decision_input_tokens_estimated`) is the one preflight budgeted; an adjudication request's
+  draft and `drafts` wrapper were counted twice in it (ASTERION-50).
+- A `BackendError` on a level's adjudication request keeps that level's bounded answers, already
+  received and billed, in the partial `Result` it carries (ASTERION-50).
 - `Cost.level_splits` counts only splits and bisections within a request group; the separate
   adjudication request is not a split (ASTERION-50).
 

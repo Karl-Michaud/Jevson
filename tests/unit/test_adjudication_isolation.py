@@ -281,14 +281,31 @@ def test_a_group_is_budgeted_on_declared_draft_sizes_not_on_the_drafts_it_carrie
     assert result.cost.level_splits == 0
 
 
-def test_a_rejected_request_records_its_estimate() -> None:
+def preflight_estimate(schema: dict[str, Any], questions: Sequence[Question]) -> int:
+    """What preflight budgets for a request: the source-only state plus each question's declared size,
+    its draft at `max_draft_chars` included for a check (DESIGN §8.2)."""
+    nodes = compile_schema(schema).nodes
+    total = budget.estimate_tokens(json.dumps({"source": SOURCE}))
+    for question in questions:
+        step = nodes.get(draft_read_by(question) or "")
+        total += budget.question_tokens(question) + (budget.draft_tokens(step) if isinstance(step, StepNode) else 0)
+    return total
+
+
+def test_every_request_records_the_estimate_preflight_budgeted_it_at_rejected_or_billed() -> None:
+    """The recorded estimate is preflight's: a check's draft is counted once, at its declared size,
+    not again from the drafts in the state it was sent with."""
     sink = InMemoryCostSink()
+    schema = wide(1, 1)
     backend = Recorder(reject=lambda state, questions: len(questions) > 1)
     jevson = Jevson(backend, llm=ScriptedLLM(["d"]), config=JevsonConfig(), cost_sink=sink)
-    asyncio.run(jevson.aresolve(wide(0, 1), SOURCE))
-    failed = [e for e in sink.events if e.component == "decision" and not e.succeeded]
-    assert failed
-    assert all(e.estimated_input_tokens for e in failed)
+    result = asyncio.run(jevson.aresolve(schema, SOURCE))
+    events = [e for e in sink.events if e.component == "decision"]
+    expected = [preflight_estimate(schema, questions) for _, questions in backend.calls]
+    assert [len(qs) for _, qs in backend.calls] == [1, 2, 1, 1]  # the plain request, then a bisected check pair
+    assert [e.estimated_input_tokens for e in events] == expected
+    assert [e.succeeded for e in events] == [True, False, True, True]
+    assert result.cost.decision_input_tokens_estimated == expected[0] + expected[2] + expected[3]
 
 
 class FailsOnDrafts(Recorder):
