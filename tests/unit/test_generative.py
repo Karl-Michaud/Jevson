@@ -203,6 +203,21 @@ def test_all_criteria_for_a_field_are_adjudicated_in_one_batched_call() -> None:
     assert llm.calls[0][1] == TOOL_SCHEMA
 
 
+@pytest.mark.parametrize(("limit", "sizes", "splits"), [(200, [3], 0), (3, [3], 0), (2, [2, 1], 1)])
+def test_a_fields_criteria_split_across_requests_only_under_design_8_2(
+    limit: int, sizes: list[int], splits: int
+) -> None:
+    """PLAN Phase 4, amended 2026-10-19: one request unless the level is split under DESIGN §8.2."""
+    backend = passing()
+    criteria = [*CRITERIA, "is polite"]
+    config = JevsonConfig(max_questions_per_request=limit)
+    result = resolve(backend, ScriptedLLM(["Refund of $40."]), schema({"criteria": criteria}), config=config)
+    assert [len(call.questions) for call in backend.calls] == sizes
+    assert result.cost.level_splits == splits
+    assert result.value == {"summary": "Refund of $40."}
+    assert result.decided_by == {"/summary": DecidedBy.LLM_DECISION}
+
+
 def test_rejection_names_the_specific_failing_criteria() -> None:
     backend = by_criterion(sentence=FakeBackend.predicate(0.1))
     result = resolve(backend, ScriptedLLM(["Draft one. Two.", "Draft three. Four."]))

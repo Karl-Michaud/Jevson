@@ -553,7 +553,7 @@ Met by ASTERION-32, ASTERION-35 and ASTERION-36, except the two live bars, which
 - [x] A declared generative field compiles to a step plus criterion nodes; an unbounded string with neither `source` nor `generate` still refuses
   - Proof: `test_generative.py::test_a_declared_generative_field_compiles_to_a_step_plus_criterion_nodes`, `::test_an_unbounded_string_with_neither_source_nor_generate_still_refuses`.
 - [x] All criteria for a field are adjudicated in **one** request unless the level is split under DESIGN §8.2 (*amended 2026-10-19, ASTERION-44, owner decision: the split rule is DESIGN §8.2's, as DESIGN §3.3 already says*)
-  - Proof: `test_generative.py::test_all_criteria_for_a_field_are_adjudicated_in_one_batched_call` (3 criteria and a rubric in one request).
+  - Proof: `test_generative.py::test_all_criteria_for_a_field_are_adjudicated_in_one_batched_call` (3 criteria and a rubric in one request) and `::test_a_fields_criteria_split_across_requests_only_under_design_8_2` (3 criteria stay in one request at `max_questions_per_request` 200 and 3, and split 2 + 1 with `Cost.level_splits == 1` only at 2; added in ASTERION-44).
 - [x] Rejection names the specific failing criteria
   - Proof: `test_generative.py::test_rejection_names_the_specific_failing_criteria`.
 - [x] Redraft budget is bounded; exhaustion yields `Unresolved(redraft_exhausted)`, never an exception or a silently accepted string
