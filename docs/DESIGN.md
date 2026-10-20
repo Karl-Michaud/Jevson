@@ -850,6 +850,7 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 - **Labels drop a leading article (§5.2),** template version 1.1.1: no question says "the the". Version 1.1.2 drops it only from a question or description: a property-name label (`a_rating`) keeps it.
 - **No `no_criteria_declared` value (§6.3, §8.1).** An ungated generative field is marked by `decided_by = llm` and its pointer in `Result.ungated`, which is what the code always emitted.
 - **`question` or `ordinal` beside a nested model's `$ref` refuses (§3.5)**, with `misplaced_declaration` or `ordinal_levels`, instead of being dropped silently (R14).
+- **`known=` values meet their field's constraints (§8).** A known value that is a declared value but breaks the field's own `maxLength`, `pattern`, `format` or other kept keyword now raises `PreflightError` before any call; preflight and final validation share one validator.
 - **`x-jevson.order: source` refuses (§3.5, R7)** with `source_selection_dropped`: nothing in v0 is in source order, so the key was accepted and never read.
 
 ### Revision 11.5 — 2026-10-19, adjudication asked apart from other questions (ASTERION-50)

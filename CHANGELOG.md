@@ -60,6 +60,10 @@ pending the owner's decision (PLAN §6).
 
 **Fixed before release** (ASTERION-44, the post-merge review of the v0 pull requests)
 
+- A `known=` value that breaks its field's own constraints (`maxLength`, `minLength`, `pattern`,
+  `format`, …, through a `$ref` too) raises `PreflightError` before any call; it used to be sent
+  as known and fail only in final validation. Pydantic field validators still run only in final
+  validation.
 - Final validation checks `format`: `Result.violations` names a value that fails `email`,
   `date`, `uuid`, `ipv4`/`ipv6` or `regex`, which `jsonschema` checks on its own; formats that
   need `jsonschema[format]` (`date-time`, `uri`, …) are still checked only with those extras.
