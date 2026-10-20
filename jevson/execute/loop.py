@@ -81,8 +81,8 @@ def run(make: Callable[[], Coroutine[Any, Any, T]]) -> T:
     if _running() is not None:
         raise UsageError("resolve() cannot run inside a running event loop; await aresolve() instead")
     call = _Call(make, _library.get())
-    call.loop.call_soon_threadsafe(call.start)
-    try:
+    try:  # scheduling is inside: an interrupt that lands right after it still cancels the call
+        call.loop.call_soon_threadsafe(call.start)
         return call.future.result()
     except BaseException:
         if call.cancel():  # it was running: let its task unwind

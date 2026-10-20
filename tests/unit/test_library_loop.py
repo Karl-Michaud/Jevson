@@ -262,6 +262,45 @@ def test_ctrl_c_during_resolve_cancels_the_call_on_the_library_loop() -> None:
     assert clients(b) == 0
 
 
+def test_an_interrupt_that_lands_just_after_the_call_is_scheduled_still_cancels_it(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The interrupt lands after `run()` has scheduled `start` (and the request is in flight) but before
+    the caller blocks on the result: the call must still be cancelled, not left spending."""
+    entered, unwound, release = threading.Event(), threading.Event(), threading.Event()
+
+    async def handler(request: httpx.Request) -> httpx.Response:
+        entered.set()
+        try:
+            while not release.is_set():
+                await asyncio.sleep(0.01)
+        finally:
+            unwound.set()
+        return answer(request)  # pragma: no cover - reached only if the call was never cancelled
+
+    loop = library._library.get()  # pyright: ignore[reportPrivateUsage]
+    schedule = loop.call_soon_threadsafe
+
+    def interrupted_after_start(callback: Any, *args: Any) -> Any:
+        handle = schedule(callback, *args)
+        if getattr(callback, "__name__", "") == "start":
+            assert entered.wait(5)  # the request is in flight
+            raise KeyboardInterrupt  # Ctrl-C lands here, before the caller waits on the result
+        return handle
+
+    monkeypatch.setattr(loop, "call_soon_threadsafe", interrupted_after_start)
+    with pytest.raises(KeyboardInterrupt):
+        Jevson(backend(handler)).resolve(SCHEMA, SOURCE)  # type: ignore[arg-type]
+    monkeypatch.undo()
+    leaked = not unwound.is_set()
+    release.set()  # lets a leaked request finish, so a failure here does not leak into later tests
+    deadline = time.monotonic() + 5
+    while pending_on_library_loop() and time.monotonic() < deadline:
+        time.sleep(0.01)
+    assert not leaked, "the interrupted call was never cancelled"
+    assert pending_on_library_loop() == set()
+
+
 def test_an_interrupt_does_not_wait_past_the_grace_period_for_a_call_that_ignores_cancellation(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
