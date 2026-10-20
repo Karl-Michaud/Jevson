@@ -72,7 +72,9 @@ class Recorder:
 # --- steps --------------------------------------------------------------------------------
 
 
-def test_a_step_runs_before_the_decisions_that_depend_on_it_and_its_draft_is_in_state() -> None:
+def test_a_runner_step_runs_before_the_decisions_that_depend_on_it_and_its_output_is_in_state() -> None:
+    """A hand-built graph with an injected runner (class D's path, deferred; no compiled v0 graph has
+    one). Its output sits under `drafts` until class D returns (PLAN §9.2); no LLM draft is involved."""
     order: list[str] = []
 
     async def draft(step: StepNode, state: LevelState) -> JSONValue:

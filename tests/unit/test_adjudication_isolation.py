@@ -27,6 +27,7 @@ from jevson import (
     Cost,
     DecidedBy,
     FakeBackend,
+    InMemoryCostSink,
     Jevson,
     JevsonConfig,
     Result,
@@ -263,6 +264,33 @@ def test_a_bisected_adjudication_request_rebuilds_each_halfs_drafts_from_its_own
     assert result.complete
 
 
+def test_a_group_is_budgeted_on_declared_draft_sizes_not_on_the_drafts_it_carries() -> None:
+    """Checks that fit at their declared sizes go in one request even when the draft is at its maximum:
+    the draft is not counted a second time from the state."""
+    schema = wide(0, 1, max_draft_chars=40)
+    step = compile_schema(schema).nodes["/g0#generate"]
+    assert isinstance(step, StepNode)
+    probe = Recorder()
+    run(schema, probe, drafts=["x" * 40])
+    [(_, checks)] = probe.calls
+    state = budget.estimate_tokens(json.dumps({"source": SOURCE}))
+    limit = state + sum(budget.question_tokens(q) + budget.draft_tokens(step) for q in checks)
+    backend = Recorder()
+    result = run(schema, backend, drafts=["x" * 40], max_input_tokens=limit)
+    assert [len(questions) for _, questions in backend.calls] == [2]
+    assert result.cost.level_splits == 0
+
+
+def test_a_rejected_request_records_its_estimate() -> None:
+    sink = InMemoryCostSink()
+    backend = Recorder(reject=lambda state, questions: len(questions) > 1)
+    jevson = Jevson(backend, llm=ScriptedLLM(["d"]), config=JevsonConfig(), cost_sink=sink)
+    asyncio.run(jevson.aresolve(wide(0, 1), SOURCE))
+    failed = [e for e in sink.events if e.component == "decision" and not e.succeeded]
+    assert failed
+    assert all(e.estimated_input_tokens for e in failed)
+
+
 def reads_of(schema: object) -> dict[str, str]:
     """Question text -> the drafting step it reads, for every adjudication node of `schema`'s graph."""
     graph = compile_schema(schema)
@@ -281,7 +309,7 @@ READS: dict[str, str] = reads_of(MOOD) | reads_of(Review) | reads_of(wide(0, 3))
 # --- the property -----------------------------------------------------------------------------------
 
 
-@settings(max_examples=60, deadline=None)
+@settings(derandomize=True, database=None, max_examples=60, deadline=None)
 @given(
     n_enums=st.integers(0, 4),
     n_generated=st.integers(1, 3),
