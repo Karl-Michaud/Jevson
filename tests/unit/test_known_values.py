@@ -11,7 +11,7 @@ final validation (`satisfies_schema`), as before.
 from __future__ import annotations
 
 import asyncio
-from typing import Any
+from typing import Any, Literal
 
 import pytest
 from pydantic import BaseModel, Field
@@ -139,3 +139,86 @@ def test_each_refusal_says_what_is_wrong() -> None:
         PreflightError, match=r"'/summary' fails its field schema: .* does not match .*; .* is too long"
     ):
         resolve(summary(maxLength=3, pattern="^[a-z]+$"), {"/summary": "TOO LONG"})
+
+
+UNION_GENERATE = {"generate": {"criteria": ["is short"]}}
+
+
+def ticket_branch(title: str, kind: str, max_length: int) -> dict[str, Any]:
+    note = {"type": "string", "maxLength": max_length, "x-jevson": UNION_GENERATE}
+    return {
+        "type": "object",
+        "title": title,
+        "description": f"{title} ticket",
+        "properties": {"kind": {"const": kind}, "note": note},
+        "required": ["kind", "note"],
+    }
+
+
+def union_of(first: int, second: int) -> dict[str, Any]:
+    branches = [ticket_branch("Short", "s", first), ticket_branch("Long", "l", second)]
+    return {"type": "object", "properties": {"t": {"anyOf": branches}}, "required": ["t"]}
+
+
+def first_branch(question: Question) -> Any:
+    if question.kind is DecisionKind.CHOICE:
+        return FakeBackend.select(question.options[0].id)(question)
+    return passes(question)
+
+
+def resolve_first_branch(schema: object, known: dict[str, Any]) -> tuple[Result, FakeBackend, ScriptedLLM]:
+    backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"] * 4)
+    result = asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known=known))
+    return result, backend, llm
+
+
+@pytest.mark.parametrize(("first", "second"), [(50, 5), (5, 50)], ids=["valid in the first", "valid in the last"])
+def test_a_known_value_inside_union_branches_is_refused_only_if_every_branch_refuses_it(
+    first: int, second: int
+) -> None:
+    note = "x" * 20  # within one branch's maxLength, over the other's
+    result, _, llm = resolve_first_branch(union_of(first, second), {"/t/note": note})  # no PreflightError
+    assert result.value["t"]["note"] == note
+    assert llm.calls == []
+    assert result.satisfies_schema is (first == 50)  # the selected branch's own constraint decides, after the run
+
+
+def test_a_known_value_inside_union_branches_that_every_branch_refuses_raises_before_any_call() -> None:
+    backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"])
+    with pytest.raises(PreflightError, match="'/t/note' fails its field schema"):
+        asyncio.run(Jevson(backend, llm=llm).aresolve(union_of(50, 5), "Refund: $40.", known={"/t/note": "x" * 60}))
+    assert backend.calls == []
+    assert llm.calls == []
+
+
+class Cat(BaseModel):
+    kind: Literal["cat"]
+    note: str = Field(max_length=100, json_schema_extra={"x-jevson": UNION_GENERATE})
+
+
+class Dog(BaseModel):
+    kind: Literal["dog"]
+    note: str = Field(max_length=3, json_schema_extra={"x-jevson": UNION_GENERATE})
+
+
+class Pet(BaseModel):
+    pet: Cat | Dog = Field(discriminator="kind")
+
+
+@pytest.mark.parametrize(
+    ("kind", "note", "valid"),
+    [("cat", "x" * 40, True), ("cat", "ab", True), ("dog", "ab", True), ("dog", "x" * 40, False)],
+)
+def test_a_known_value_in_a_discriminated_union_is_checked_against_its_selected_branch(
+    kind: str, note: str, valid: bool
+) -> None:
+    result, backend, llm = resolve(Pet, {"/pet/kind": kind, "/pet/note": note})
+    assert result.value == {"pet": {"kind": kind, "note": note}}
+    assert result.satisfies_schema is valid  # a value only another branch admits fails final validation
+    assert backend.calls == []
+    assert llm.calls == []
+
+
+def test_a_known_value_in_a_discriminated_union_that_no_branch_admits_raises_before_any_call() -> None:
+    with pytest.raises(PreflightError, match="'/pet/note' fails its field schema"):
+        resolve(Pet, {"/pet/kind": "cat", "/pet/note": "x" * 101})

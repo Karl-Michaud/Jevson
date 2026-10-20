@@ -4,14 +4,18 @@ A known value is accepted only if it names a decided field (or a constant the ex
 one of the field's declared values (an enum's options, a bool, distinct declared items for a
 multi-label array, a string for a generative field, or null for a nullable field), and meets the
 field's own JSON Schema constraints (`maxLength`, `pattern`, `format`, …, carried on the normalised
-node, through a `$ref` too). Anything else raises `PreflightError` before any call. For a Pydantic
+node, through a `$ref` too). Anything else raises `PreflightError` before any call. Union branches can
+declare the same pointer differently, and preflight does not know which branch will be selected, so a
+value is refused only if every declaration at its pointer refuses it; the selected branch's own schema
+decides in final validation (DESIGN §8: a known value inside a branch is used only if that branch is
+selected). For a Pydantic
 model only the emitted JSON Schema is checked; field validators run in final validation
 (`satisfies_schema`).
 """
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from typing import cast
 
 from jevson.assemble.validation import validator
@@ -24,31 +28,49 @@ _OPTIONAL = SchemaNode("", Kind.REFUSED, required=False)
 
 
 def check_known(
-    graph: DecisionGraph, fields: Mapping[str, SchemaNode], known: Mapping[str, JSONValue] | None
+    graph: DecisionGraph, schema: SchemaNode, known: Mapping[str, JSONValue] | None
 ) -> dict[str, JSONValue]:
     """The checked `known=` values by pointer, or `PreflightError` naming the first bad one."""
     if known is None:
         return {}
     if not isinstance(known, Mapping):  # pyright: ignore[reportUnnecessaryIsInstance]
         raise PreflightError("known= must map JSON pointers to values")
-    by_target: dict[str, DecisionNode | StepNode] = {}
+    by_target: dict[str, list[DecisionNode | StepNode]] = {}
     for node in graph.nodes.values():
-        if isinstance(node, StepNode) or node.target not in by_target:
-            by_target[node.target] = node  # a generative field is known by its step
+        by_target.setdefault(node.target, []).append(node)
+    fields = declarations(schema)
     constants = {c.pointer for c in graph.constants}  # checked by the executor (`execute/branches.py`)
     for pointer, value in known.items():
-        node = by_target.get(pointer)
-        if node is None and pointer in constants:
+        nodes = by_target.get(pointer)
+        if nodes is None and pointer in constants:
             continue
-        if node is None:
+        if nodes is None:
             raise PreflightError(f"known= names {pointer!r}, which is not a decided field")
-        field = fields.get(pointer, _OPTIONAL)
-        if not _allowed(node, field, value):
-            raise PreflightError(f"known= value for {pointer!r} is not one of the field's declared values")
-        broken = sorted(str(e.message) for e in validator(dict(field.keywords)).iter_errors(value))
-        if broken:
-            raise PreflightError(f"known= value for {pointer!r} fails its field schema: {'; '.join(broken)}")
+        _check(pointer, value, nodes, fields.get(pointer, [_OPTIONAL]))
     return dict(known)
+
+
+def declarations(node: SchemaNode) -> dict[str, list[SchemaNode]]:
+    """Every property's normalised node by pointer, one per union branch that declares it."""
+    found: dict[str, list[SchemaNode]] = {}
+    for _, child in node.properties:
+        found.setdefault(child.pointer, []).append(child)
+    for child in (*(c for _, c in node.properties), *node.branches):  # a branch sits at its union's pointer
+        for pointer, nodes in declarations(child).items():
+            found.setdefault(pointer, []).extend(nodes)
+    return found
+
+
+def _check(
+    pointer: str, value: JSONValue, nodes: Sequence[DecisionNode | StepNode], fields: Sequence[SchemaNode]
+) -> None:
+    """Raise unless some declaration at `pointer` admits `value`: a declared value meeting its constraints."""
+    declared = [f for f in fields if any(_allowed(n, f, value) for n in nodes)]
+    if not declared:
+        raise PreflightError(f"known= value for {pointer!r} is not one of the field's declared values")
+    broken = [sorted(str(e.message) for e in validator(dict(f.keywords)).iter_errors(value)) for f in declared]
+    if all(broken):
+        raise PreflightError(f"known= value for {pointer!r} fails its field schema: {'; '.join(broken[0])}")
 
 
 def _allowed(node: DecisionNode | StepNode, field: SchemaNode, value: JSONValue) -> bool:

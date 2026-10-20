@@ -134,8 +134,9 @@ class Jevson:
         graph = compile_schema(
             schema, frozenset(self._extractors), config.default_extractor, union_fanout=config.union_fanout
         )
-        fields = _fields(normalise_schema(schema))
-        checked = check_known(graph, fields, known)
+        normalised = normalise_schema(schema)
+        fields = _fields(normalised)
+        checked = check_known(graph, normalised, known)
         result = await execute(
             graph, _json_schema(schema), source,
             backend=self._backend, config=config, known=checked, cost_sink=self._cost_sink, llm=self._llm,
