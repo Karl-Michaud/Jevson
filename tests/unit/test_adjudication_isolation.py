@@ -1,4 +1,7 @@
-"""ASTERION-50: LLM-drafted text reaches only the questions that adjudicate it (Agents invariant 7).
+"""ASTERION-50: LLM-drafted text reaches adjudication questions only (DESIGN §5.2; Agents invariant 7).
+
+No bounded question is asked over a state holding drafts, and an adjudication request carries exactly
+the drafts its questions read (fields judged in one request see each other's drafts, under their keys).
 
 A generative field's draft sits in the state under `drafts`. Only adjudication questions (criteria
 and rubrics) may be asked over such a state; every enum, boolean, membership and discriminator

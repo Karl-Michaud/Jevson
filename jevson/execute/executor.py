@@ -396,7 +396,7 @@ async def _ask_group(
     run: _Run, backend: Backend, group: Sequence[DecisionNode], names: Mapping[str, Question]
 ) -> Answers:
     """Ask one group in as few requests as fit the budget. Adjudication questions form their own group,
-    so a state holding drafts reaches only the questions that check them (invariant 7)."""
+    so a state holding drafts reaches only adjudication questions (DESIGN §5.2; Asterion invariant 7)."""
     budgeted = run.state(group, budgeted=True)
     questions = [names[node.id] for node in group]
     by_name = {names[node.id].name: node for node in group}

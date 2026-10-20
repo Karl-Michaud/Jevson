@@ -24,7 +24,8 @@ from jevson.types import (
 
 @runtime_checkable
 class Backend(Protocol):
-    """Asks one level's questions over one shared state; answers come back in question order."""
+    """Asks one request's questions (a request group of a level, DESIGN §5.2, §8.2) over one shared state;
+    answers come back in question order."""
 
     async def ask(self, state: str, questions: Sequence[Question], model: str) -> BackendResponse:
         """Answer `questions` over `state` with `model`, in question order."""

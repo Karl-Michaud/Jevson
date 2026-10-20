@@ -179,7 +179,7 @@ class DecisionsBackend:
     # --- Backend --------------------------------------------------------------------------
 
     async def ask(self, state: str, questions: Sequence[Question], model: str) -> BackendResponse:
-        """Send one level's questions in one request, retrying transport failures only."""
+        """Send one request's questions, retrying transport failures only."""
         self._check_open()
         if not questions:
             raise UsageError("ask() needs at least one question")
