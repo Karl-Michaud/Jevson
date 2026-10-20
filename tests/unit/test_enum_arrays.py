@@ -369,7 +369,7 @@ def test_two_enum_arrays_with_one_label_are_scoped_by_their_ancestors() -> None:
 
 
 def test_the_membership_template_is_recorded_under_the_current_version() -> None:
-    assert QUESTION_TEMPLATE_VERSION == "1.1.2"
+    assert QUESTION_TEMPLATE_VERSION == "1.1.1"
     assert member_question(3, "levels") == 'According to the source, is "3" one of the levels?'
 
 

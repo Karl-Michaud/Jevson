@@ -1,7 +1,7 @@
 """DESIGN §5.2: class C questions render from the versioned templates (docs/taxonomy.md §1.2).
 
 Version 1.1.x keeps the Phase 0 enum, ordinal, and option strings byte for byte and replaces the bool one;
-1.1.1 drops a label's leading article; 1.1.2 keeps it on a property-name fallback."""
+1.1.1 drops a leading article from a question or description label and keeps it on a property-name fallback."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from tests.phase0 import templates
 
 
 def test_1_1_0_keeps_the_phase_0_enum_ordinal_and_option_strings_and_replaces_the_bool_one() -> None:
-    assert questions.QUESTION_TEMPLATE_VERSION == "1.1.2"
+    assert questions.QUESTION_TEMPLATE_VERSION == "1.1.1"
     assert templates.QUESTION_TEMPLATE_VERSION == "1.0.0"  # the Phase 0 record does not move
     assert questions.ENUM_INSTRUCTIONS == templates.ENUM_INSTRUCTIONS
     assert questions.ENUM_OPTION == templates.ENUM_OPTION
@@ -90,7 +90,7 @@ def test_a_template_that_says_the_never_renders_a_second_article(text: str) -> N
 @pytest.mark.parametrize(("name", "expected"), [("a_rating", "a rating"), ("the_end", "the end"), ("An_x", "An x")])
 def test_the_name_fallback_keeps_a_leading_article(name: str, expected: str) -> None:
     # A property name is an identifier, not prose: `a_rating` beside `b_rating` names "a rating",
-    # and 1.1.1 dropped its "a". Only a question or a description loses its article (1.1.2).
+    # not "rating". Only a question or a description loses its article (1.1.1).
     assert questions.label(name, field()) == expected
     assert questions.label(name, field("the rating")) == "rating"
     assert questions.enum_question(questions.label(name, field())) == f"Which of these is the {expected}?"
@@ -152,7 +152,7 @@ def test_scopes_add_the_fewest_nearest_ancestors_that_make_each_label_unique(
         ("kind", "billing", "billing kind"),
         ("address type", "shipping", "shipping address type"),
         ("theme", "site", "site theme"),
-        ("a rating", "billing", "billing a rating"),  # a name fallback keeps its article (1.1.2)
+        ("a rating", "billing", "billing a rating"),  # a name fallback keeps its article (1.1.1)
     ],
 )
 def test_a_scoped_label_puts_the_scope_in_front_of_the_noun(label: str, scope: str, expected: str) -> None:
