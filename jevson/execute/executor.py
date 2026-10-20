@@ -1,4 +1,5 @@
-"""Runs a decision graph: steps in dependency order, then each level's decisions as one request (R3).
+"""Runs a decision graph: steps in dependency order, then each level's decisions in one request (R3),
+and its adjudication questions in another.
 
 - **Preflight** (DESIGN §8.2) budgets every level before the first call; a question that cannot fit
   even alone raises `PreflightError`, and a level over a limit is split (`Cost.level_splits`).
@@ -15,9 +16,12 @@
 
 - **Generative fields** (DESIGN §6.3): a `generate` step drafts through the caller's `LLM`
   (`drafting.py`); a well-formed draft enters the level state at `drafts.<step id>`, and its criteria
-  ride in the level's one request. Each request's state holds only the drafts its questions name.
-  After the level's request, failing fields are redrafted and re-adjudicated together, one request
-  per round, until each is admitted or its `redraft_budget` is spent (`policy.RedraftLoop`).
+  ride in the level's adjudication request, apart from every other question: only adjudication is
+  ever asked over a state holding drafts (DESIGN §5.2), and each such state holds only the drafts its
+  questions name. The two groups are budgeted and split separately.
+  After the level's requests, failing fields are redrafted and re-adjudicated together, one
+  adjudication request per round (split only by DESIGN §8.2), until each is admitted or its
+  `redraft_budget` is spent (`policy.RedraftLoop`).
   Decisions are recorded as `node@attempt`. Budgets use the source-only state plus each node's
   declared size, which includes its draft at `max_draft_chars` (`budget.with_drafts`).
 
@@ -27,11 +31,15 @@
 - **Unions** (DESIGN §3.2): a node inside union branches runs only when its branch is selected
   (`branches.py`); a discriminator's answer selects a branch and commits its constants.
 
-An extraction step (class D, deferred) runs through an injected runner per `StepKind`.
+An extraction step (class D, deferred) runs through an injected runner per `StepKind`. Its output
+also sits under `drafts` in the state of the nodes that depend on it; no compiled v0 graph has one
+(the façade passes no runner), and the key is renamed when class D returns (PLAN §9.2).
 
-Length (~480 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
-and moving it out would make both public for one caller; union gating lives in `branches.py`, leaving
-only its call sites here. Split if either grows again.
+Length (~510 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
+and moving it out would make both public for one caller; request grouping and bisection (`_decide`,
+`_ask_group`, `_ask`) stay here because they update `_Run`'s tally and outcomes, and moving them to
+their own module would share `_Run` across modules; union gating lives in `branches.py`, leaving only
+its call sites here. Split if any of these grows again.
 """
 
 from __future__ import annotations
@@ -84,6 +92,9 @@ _NO_DRAFTING = Drafting("", "")
 StepRunner = Callable[[StepNode, LevelState], Awaitable[JSONValue]]
 LIMIT_CODES = frozenset({"context_limit", "question_limit"})
 _OVERFLOW = "budget_exceeded"
+Answers = dict[str, Answer | str]  # by question name; `_OVERFLOW` for a question that cannot fit
+StateOf = Callable[[list[Question]], str]
+"""The state of a request over these questions: only what they read."""
 
 
 @dataclass
@@ -361,32 +372,45 @@ async def _run_step(run: _Run, runner: StepRunner, step: StepNode, state: LevelS
 
 
 async def _decide(run: _Run, backend: Backend, nodes: Sequence[DecisionNode], names: Mapping[str, Question]) -> None:
-    """Ask `nodes` in as few requests as fit. Class C answers are recorded at once; adjudication
-    answers wait in `run.answers` for their field's verdict."""
+    """Ask `nodes` in as few requests as fit. Each group's answers are taken as it returns (a later failure keeps
+    them in the partial `Result`): class C ones are recorded, adjudication ones wait in `run.answers`."""
     ready: list[DecisionNode] = []
     for node in nodes:
         if any(isinstance(run.outcomes.get(run.targets[d]), Unresolved) for d in node.dependencies):
             run.outcomes[node.key] = Unresolved(node.target, UnresolvedReason.DEPENDENCY_UNRESOLVED)
         else:
             ready.append(node)
-    if not ready:
-        return
-    budgeted = run.state(ready, budgeted=True)
-    questions = [names[node.id] for node in ready]
-    by_name = {names[node.id].name: node for node in ready}
+    plain = [node for node in ready if node.id not in run.adjudicates]
+    for group in (plain, [node for node in ready if node.id in run.adjudicates]):
+        answers = await _ask_group(run, backend, group, names) if group else {}
+        for node in sorted(group, key=lambda n: len(n.branch)):  # under fan-out, discriminators first
+            if node.key in run.outcomes or not _runs(run, node):
+                continue  # an unselected branch's answer is discarded
+            if node.id in run.adjudicates:
+                run.answers[node.id] = answers[names[node.id].name]
+            else:
+                _record(run, node, answers[names[node.id].name])
+
+
+async def _ask_group(
+    run: _Run, backend: Backend, group: Sequence[DecisionNode], names: Mapping[str, Question]
+) -> Answers:
+    """Ask one group in as few requests as fit the budget. Adjudication questions form their own group,
+    so a state holding drafts reaches only adjudication questions (DESIGN §5.2; Asterion invariant 7)."""
+    budgeted = run.state(group, budgeted=True)
+    questions = [names[node.id] for node in group]
+    by_name = {names[node.id].name: node for node in group}
     too_big = budget.oversized(budgeted, questions, run.sizes, run.config)  # extracted outputs grow a state
     chunks = budget.split(budgeted, [q for q in questions if q not in too_big], run.sizes, run.config)
     run.tally.level_splits += max(len(chunks) - 1, 0)
-    answers: dict[str, Answer | str] = {q.name: _OVERFLOW for q in too_big}
+    answers: Answers = {q.name: _OVERFLOW for q in too_big}
+
+    def state_of(chunk: list[Question]) -> str:
+        return run.state([by_name[q.name] for q in chunk])
+
     for chunk in chunks:
-        answers |= await _ask(run, backend, run.state([by_name[q.name] for q in chunk]), chunk)
-    for node in sorted(ready, key=lambda n: len(n.branch)):  # under fan-out, discriminators first
-        if node.key in run.outcomes or not _runs(run, node):
-            continue  # an unselected branch's answer is discarded
-        if node.id in run.adjudicates:
-            run.answers[node.id] = answers[names[node.id].name]
-        else:
-            _record(run, node, answers[names[node.id].name])
+        answers |= await _ask(run, backend, state_of, chunk, budgeted)
+    return answers
 
 
 def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
@@ -417,10 +441,13 @@ def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
     run.outcomes[node.target] = Committed(node.target, value, DecidedBy.DECISION, provenance)
 
 
-async def _ask(run: _Run, backend: Backend, state: str, chunk: list[Question]) -> dict[str, Answer | str]:
-    """One request, bisected on a limit rejection; never the same request twice."""
+async def _ask(run: _Run, backend: Backend, state_of: StateOf, chunk: list[Question], budgeted: str) -> Answers:
+    """One request, bisected on a limit rejection; never the same request twice. Each half's state is
+    rebuilt from its own questions, so it carries only the drafts they read. Its recorded estimate is
+    preflight's: the `budgeted` state plus declared sizes, so a draft is not counted twice."""
+    state = state_of(chunk)
     started = time.perf_counter()
-    estimate = budget.request_tokens(state, chunk, run.sizes)
+    estimate = budget.request_tokens(budgeted, chunk, run.sizes)
     try:
         response = await backend.ask(state, chunk, run.config.model)
     except BackendError as error:
@@ -439,16 +466,16 @@ async def _ask(run: _Run, backend: Backend, state: str, chunk: list[Question]) -
     if len(chunk) == 1:
         return {chunk[0].name: _OVERFLOW}
     run.tally.level_splits += 1
-    half = len(chunk) // 2
-    return await _ask(run, backend, state, chunk[:half]) | await _ask(run, backend, state, chunk[half:])
+    head, tail = chunk[: len(chunk) // 2], chunk[len(chunk) // 2 :]
+    return await _ask(run, backend, state_of, head, budgeted) | await _ask(run, backend, state_of, tail, budgeted)
 
 
-def _match(chunk: list[Question], response: BackendResponse) -> dict[str, Answer | str]:
+def _match(chunk: list[Question], response: BackendResponse) -> Answers:
     """Answers by name; a missing or duplicated name is an invalid answer for that question."""
     seen: dict[str, list[Answer]] = {}
     for answer in response.answers:
         seen.setdefault(getattr(answer, "name", ""), []).append(answer)
-    matched: dict[str, Answer | str] = {}
+    matched: Answers = {}
     for question in chunk:
         found = seen.get(question.name, [])
         matched[question.name] = found[0] if len(found) == 1 else InvalidAnswer(question.name, "missing or repeated")

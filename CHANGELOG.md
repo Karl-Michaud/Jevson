@@ -34,6 +34,30 @@ pending the owner's decision (PLAN §6).
   `.github/workflows/branch-policy.yml`) now name the shared `plane-workflow` skill in
   `Agents/.claude/skills/plane-workflow` instead of a global one (ASTERION-43).
 
+**Fixed**
+
+- A generative field's draft no longer reaches the level's bounded questions (ASTERION-50).
+  Adjudication questions were batched with the same level's enum, boolean, ordinal, membership and
+  discriminator questions, whose shared state then carried the LLM's draft, so drafted text could
+  steer a bounded decision it was not written for. Adjudication now goes in request(s) of its own,
+  the only ones whose state holds `drafts`; each group is budgeted, split and bisected separately.
+  A level that holds both bounded questions and adjudication costs one more decision request; a
+  level of adjudication only is unchanged. DESIGN Revision 11.5.
+- Bisecting an adjudication request rebuilds each half's state, so it carries only its own
+  questions' drafts (ASTERION-50).
+- Preflight budgets the `drafts` wrapper, so a request no longer goes out a few tokens over
+  `max_input_tokens` (`Result.versions["budget_estimator"]` is now `bytes/3+160q+8o+dw`;
+  ASTERION-50).
+- `CachingBackend` recordings of levels that mix bounded and generative fields no longer match
+  (with `replay_only=True` that is `BackendError(replay_miss)`); re-record them (ASTERION-50).
+- The estimate recorded for each decision request (`CostEvent.estimated_input_tokens`,
+  `Cost.decision_input_tokens_estimated`) is the one preflight budgeted; an adjudication request's
+  draft and `drafts` wrapper were counted twice in it (ASTERION-50).
+- A `BackendError` on a level's adjudication request keeps that level's bounded answers, already
+  received and billed, in the partial `Result` it carries (ASTERION-50).
+- `Cost.level_splits` counts only splits and bisections within a request group; the separate
+  adjudication request is not a split (ASTERION-50).
+
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, `default_extractor` → `source_selection_dropped`), pairwise entity resolution,
 arrays of objects, generative lists, multi-source input. See the README's "What did not ship".

@@ -2,7 +2,8 @@
 
 Each criterion is a `predicate` that passes at p ≥ 0.56; a criterion inside the tie margin, refused,
 answered invalidly, or never answered (its request overflowed) counts as failed. A field's criteria
-and rubric are asked together, in one batched request over the keyed drafts layout (DESIGN §5.2).
+and rubric are asked together, in one batched request over the keyed drafts layout, which holds
+adjudication questions only (DESIGN §5.2; split only by DESIGN §8.2).
 """
 
 from __future__ import annotations
