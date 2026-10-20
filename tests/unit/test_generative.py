@@ -18,10 +18,12 @@ from jevson import (
     CompileError,
     CostEvent,
     DecidedBy,
+    DecisionsBackend,
     FakeBackend,
     Jevson,
     JevsonConfig,
     LLMError,
+    MissingCredentials,
     PreflightError,
     RefusalCode,
     Rejection,
@@ -535,7 +537,10 @@ def test_replay_llm_validates_its_arguments_and_survives_odd_requests(tmp_path: 
     assert raised.value.code == "replay_corrupt"
 
 
-def test_the_dry_run_runs_criteria_against_the_fake_backend_with_no_key() -> None:
+def test_the_dry_run_runs_criteria_against_the_fake_backend_with_no_key(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    with pytest.raises(MissingCredentials):
+        DecisionsBackend()  # there really is no key to find
     declared = schema({"criteria": CRITERIA, "rubric": RUBRIC})
     run = asyncio.run(dry_run(declared, "/summary", "A refund of $40.", "Refund: $40."))
     assert run.failing == ()

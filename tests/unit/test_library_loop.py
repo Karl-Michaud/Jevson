@@ -167,6 +167,55 @@ def test_the_per_key_limiter_holds_its_rate_across_calls_threads_and_loops() -> 
     assert sorted(waits.waits) == [float(k) for k in range(1, 8)]  # 8 requests; the first does not wait
 
 
+# --- caller loops, through the facade (PLAN Phase 3, lifecycle on caller loops) --------------
+
+
+def test_twenty_sequential_asyncio_run_aresolve_calls_leave_no_live_client() -> None:
+    b = backend()
+    jevson = Jevson(b)
+    for _ in range(20):
+        assert ok(asyncio.run(jevson.aresolve(SCHEMA, SOURCE)))  # a fresh, then dead, loop each time
+        assert clients(b) == 0
+
+
+def test_two_aresolve_calls_under_gather_on_one_loop_succeed_and_leave_no_client() -> None:
+    b = backend()
+    jevson = Jevson(b)
+
+    async def both() -> list[Result]:
+        return await asyncio.gather(jevson.aresolve(SCHEMA, SOURCE), jevson.aresolve(SCHEMA, SOURCE))
+
+    results = asyncio.run(both())
+    assert len(results) == 2
+    assert all(ok(r) for r in results)
+    assert clients(b) == 0
+
+
+def test_inside_async_with_jevson_the_calls_share_one_client_closed_on_exit(monkeypatch: pytest.MonkeyPatch) -> None:
+    b = backend()
+    made: list[httpx.AsyncClient] = []
+    original = b._new_client  # pyright: ignore[reportPrivateUsage]
+
+    def counting() -> httpx.AsyncClient:
+        made.append(original())
+        return made[-1]
+
+    monkeypatch.setattr(b, "_new_client", counting)
+
+    async def session() -> None:
+        async with Jevson(b) as jevson:
+            assert ok(await jevson.aresolve(SCHEMA, SOURCE))
+            results = await asyncio.gather(jevson.aresolve(SCHEMA, SOURCE), jevson.aresolve(SCHEMA, SOURCE))
+            assert all(ok(r) for r in results)
+            assert len(made) == 1
+            assert not made[0].is_closed
+
+    asyncio.run(session())
+    assert len(made) == 1
+    assert made[0].is_closed
+    assert clients(b) == 0
+
+
 # --- interrupting a blocked resolve() ---------------------------------------------------------
 
 

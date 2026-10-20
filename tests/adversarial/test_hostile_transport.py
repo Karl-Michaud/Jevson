@@ -3,13 +3,15 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import traceback
+from typing import Any
 
 import httpx
 import pytest
 
-from jevson import BackendError, BackendResponse
+from jevson import BackendError, BackendResponse, Jevson
 from tests.adversarial.hostile_backend import (
     MODEL,
     QUESTIONS,
@@ -138,6 +140,57 @@ def test_the_key_appears_in_no_exception_repr_or_log(path: str, caplog: pytest.L
     try:
         texts.append(repr(asyncio.run(b.ask("source", QUESTIONS, MODEL))))
     except BackendError as error:
+        texts += [str(error), repr(error), repr(error.args), repr(error.result)]
+        texts.append("".join(traceback.format_exception(error)))
+    texts += [record.getMessage() for record in caplog.records] + [repr(r.args) for r in caplog.records]
+    assert seen_authorization[0] == f"Bearer {SENTINEL_KEY}"  # the key was really used
+    assert not [t for t in texts if SENTINEL_KEY in t]
+
+
+SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {
+        "paid": {"type": "boolean", "description": "the invoice is paid"},
+        "category": {"enum": ["software", "hardware"]},
+    },
+    "required": ["paid", "category"],
+}
+
+
+def answer_every_question(request: httpx.Request) -> httpx.Response:
+    """Answers whatever the facade asks: predicates true, choices their first option."""
+    answers: list[dict[str, Any]] = []
+    for q in json.loads(request.content)["questions"]:
+        if q["type"] == "predicate":
+            answers.append({"type": "predicate", "name": q["name"], "probability": 0.95})
+        else:
+            values = [c["value"] for c in q["choices"]]
+            listed = [{"value": v, "probability": 0.95 if i == 0 else 0.05} for i, v in enumerate(values)]
+            answers.append({"type": "choice", "name": q["name"], "choice": values[0], "probabilities": listed,
+                            "confidence": 0.9})  # fmt: skip
+    return respond(envelope(answers))
+
+
+@pytest.mark.parametrize("path", ["success", "401 echoing the key"])
+def test_the_key_appears_nowhere_a_jevson_caller_can_see(path: str, caplog: pytest.LogCaptureFixture) -> None:
+    """PLAN Phase 3, the key never leaks, through `Jevson.aresolve()`: the `Result` (and the error's)."""
+    caplog.set_level(logging.DEBUG)
+    seen_authorization: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen_authorization.append(request.headers["authorization"])
+        if path == "success":
+            return answer_every_question(request)
+        return respond({"error": {"message": f"Incorrect API key provided: {SENTINEL_KEY}"}}, status=401)
+
+    jevson = Jevson(backend(handler, transport_retries=0))
+    texts = [repr(jevson), str(jevson)]
+    try:
+        result = asyncio.run(jevson.aresolve(SCHEMA, "Invoice 7: software licences, paid in full."))
+        assert result.complete
+        texts += [repr(result), str(result), repr(result.cost), repr(dict(result.versions)), repr(result.model)]
+    except BackendError as error:
+        assert path != "success"
         texts += [str(error), repr(error), repr(error.args), repr(error.result)]
         texts.append("".join(traceback.format_exception(error)))
     texts += [record.getMessage() for record in caplog.records] + [repr(r.args) for r in caplog.records]
