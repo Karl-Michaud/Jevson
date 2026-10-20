@@ -104,3 +104,36 @@ def test_a_known_null_is_checked_by_nullability_not_by_string_constraints() -> N
     assert backend.calls == []
     with pytest.raises(PreflightError, match="/size"):
         resolve(schema, {"/size": "large"})  # declared, but over the field's own maxLength
+
+
+INVOICE = {
+    "type": "object",
+    "properties": {
+        "kind": {"enum": ["invoice"]},  # a one-value enum is a constant, checked by the executor
+        "paid": {"type": "boolean", "description": "the invoice is paid"},
+        "tags": {"type": "array", "items": {"enum": ["urgent", "late"]}},
+    },
+    "required": ["kind", "paid"],
+}
+
+
+def test_a_known_constant_does_not_stop_the_check_of_the_values_after_it() -> None:
+    with pytest.raises(PreflightError, match="/paid"):
+        resolve(INVOICE, {"/kind": "invoice", "/paid": "yes"})
+
+
+def test_a_multi_label_known_value_must_be_a_list() -> None:
+    for value in (5, "urgent", {"urgent": True}):
+        with pytest.raises(PreflightError, match="/tags"):
+            resolve(INVOICE, {"/tags": value})
+
+
+def test_each_refusal_says_what_is_wrong() -> None:
+    with pytest.raises(PreflightError, match="must map JSON pointers to values"):
+        resolve(INVOICE, [("/paid", True)])  # type: ignore[arg-type]
+    with pytest.raises(PreflightError, match="'/nowhere', which is not a decided field"):
+        resolve(INVOICE, {"/nowhere": 1})
+    with pytest.raises(PreflightError, match="'/paid' is not one of the field's declared values"):
+        resolve(INVOICE, {"/paid": "yes"})
+    with pytest.raises(PreflightError, match="'/summary' fails its field schema: .* does not match .*; .* is too long"):
+        resolve(summary(maxLength=3, pattern="^[a-z]+$"), {"/summary": "TOO LONG"})
