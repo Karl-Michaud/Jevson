@@ -87,6 +87,8 @@ _NO_DRAFTING = Drafting("", "")
 StepRunner = Callable[[StepNode, LevelState], Awaitable[JSONValue]]
 LIMIT_CODES = frozenset({"context_limit", "question_limit"})
 _OVERFLOW = "budget_exceeded"
+StateOf = Callable[[list[Question]], str]
+"""The state of a request over these questions: only what they read."""
 
 
 @dataclass
@@ -398,8 +400,12 @@ async def _ask_group(
     chunks = budget.split(budgeted, [q for q in questions if q not in too_big], run.sizes, run.config)
     run.tally.level_splits += max(len(chunks) - 1, 0)
     answers: dict[str, Answer | str] = {q.name: _OVERFLOW for q in too_big}
+
+    def state_of(chunk: list[Question]) -> str:
+        return run.state([by_name[q.name] for q in chunk])
+
     for chunk in chunks:
-        answers |= await _ask(run, backend, run.state([by_name[q.name] for q in chunk]), chunk)
+        answers |= await _ask(run, backend, state_of, chunk)
     return answers
 
 
@@ -431,8 +437,10 @@ def _record(run: _Run, node: DecisionNode, answer: Answer | str) -> None:
     run.outcomes[node.target] = Committed(node.target, value, DecidedBy.DECISION, provenance)
 
 
-async def _ask(run: _Run, backend: Backend, state: str, chunk: list[Question]) -> dict[str, Answer | str]:
-    """One request, bisected on a limit rejection; never the same request twice."""
+async def _ask(run: _Run, backend: Backend, state_of: StateOf, chunk: list[Question]) -> dict[str, Answer | str]:
+    """One request, bisected on a limit rejection; never the same request twice. Each half's state is
+    rebuilt from its own questions, so it carries only the drafts they read."""
+    state = state_of(chunk)
     started = time.perf_counter()
     estimate = budget.request_tokens(state, chunk, run.sizes)
     try:
@@ -454,7 +462,7 @@ async def _ask(run: _Run, backend: Backend, state: str, chunk: list[Question]) -
         return {chunk[0].name: _OVERFLOW}
     run.tally.level_splits += 1
     half = len(chunk) // 2
-    return await _ask(run, backend, state, chunk[:half]) | await _ask(run, backend, state, chunk[half:])
+    return await _ask(run, backend, state_of, chunk[:half]) | await _ask(run, backend, state_of, chunk[half:])
 
 
 def _match(chunk: list[Question], response: BackendResponse) -> dict[str, Answer | str]:
