@@ -115,6 +115,8 @@ def parse_declaration(raw: object, pointer: str, refusals: Refusals) -> FieldDec
 
 
 def _generate(raw: object, bad: _Report) -> GenerateDeclaration | None:
+    # Length (~50 lines, over the ~40 convention): one check per `x-jevson.generate` key, each reporting
+    # to the same refusal list, so every bad key is named at once (R14); split per key if keys are added.
     items = as_object(raw)
     if items is None:
         bad("x-jevson.generate must be an object")

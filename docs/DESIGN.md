@@ -621,7 +621,7 @@ Five protocols, each earning its place by having a real second implementation. T
 |---|---|---|
 | `Backend` | `async ask(state, questions, model) -> BackendResponse(answers, input_tokens, request_id, model)` | `DecisionsBackend`, `FakeBackend`, `CachingBackend` (wraps another backend), fallbacks (a Jev backend; AnyJev-style substitutes; constrained decoding over an open model) |
 | `Extractor` | `async extract(source, field: FieldSpec, exclude: list[Span]) -> list[Candidate]` | **none in v0** (defined, never called; class D, `PLAN.md` §9.2); planned: LLM-backed, pattern (money, date, email, phone, URL), NER, user-supplied |
-| `LLM` | `async complete(messages, tool_schema \| None) -> LLMResponse(arguments: dict \| None, raw: str, input_tokens, output_tokens)` | injected by the caller; `ReplayLLM` for exact replay |
+| `LLM` | `async complete(messages, tool_schema \| None) -> LLMResponse(arguments: dict \| None, raw: str, input_tokens, output_tokens, model: str \| None = None)` | injected by the caller; `ReplayLLM` for exact replay |
 | `Normalizer` | `normalise(text) -> str`, `representative(spans) -> Span` | declared per entity type; used by entity resolution, post-v0 **[Z4]** |
 | `CostSink` | `record(cost_event)` | default in-memory, user-supplied |
 
@@ -666,14 +666,15 @@ Result
   model             the `model` string(s) the API returned (currently unpinnable; whether the string names a version is unknown, DESIGN §2)
   versions          question template version, the requested model, the context limits and token estimator
                     preflight used, and the result-affecting settings: tie margin, default_extractor, and
-                    the redraft budget used. Added with the
+                    the redraft budget used; `llm_model`, the model id(s) the caller's LLM reported,
+                    first-seen and joined by ",", present only when an LLM response named one. Added with the
                     deferred work that uses them, and absent until then (not null, not a placeholder):
                     the Unicode versions of the grapheme table and of `unicodedata` (used for NFC) and the
                     retry budget (class D); source screen on/off and its wording version (the screen);
                     conflict_floor, entity rule variant, and pairwise cap (entity resolution, post-v0)
 ```
 
-Every field is always present. An empty collection is the absence of a condition; `None` never means "nothing happened". The executor emits every cost event to the configured `CostSink` as it happens.
+Every field is always present. An empty collection is the absence of a condition; `None` never means "nothing happened". The executor emits every cost event to the configured `CostSink` as it happens; each `CostEvent` of a received response carries that response's `model` string (the API's for a decision, cache hits included; the LLM's for `llm`), so every response's model is recorded (R15), while `model` above stays the distinct set.
 
 ### 8.2 The context budget
 
@@ -850,6 +851,7 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 - **Labels drop a leading article (§5.2),** template version 1.1.0 → 1.1.1: no question says "the the". The article is dropped only from a question or description; a property-name label (`a_rating`) keeps it.
 - **No `no_criteria_declared` value (§6.3, §8.1).** An ungated generative field is marked by `decided_by = llm` and its pointer in `Result.ungated`, which is what the code always emitted.
 - **`question` or `ordinal` beside a nested model's `$ref` refuses (§3.5)**, with `misplaced_declaration` or `ordinal_levels`, instead of being dropped silently (R14).
+- **Every response's model is recorded (§8, §8.1, R15).** `CostEvent.model` names the model of each decision response (cache hits too) and each LLM response; `LLMResponse` gains an optional `model`, which `ReplayLLM` stores (older recordings load with none); `Result.versions["llm_model"]` lists the LLM's ids, first-seen, joined by ",". `Decision` is unchanged.
 - **`known=` values meet their field's constraints (§8).** A known value that is a declared value but breaks the field's own `maxLength`, `pattern`, `format` or other kept keyword now raises `PreflightError` before any call; preflight and final validation share one validator.
 - **`x-jevson.order: source` refuses (§3.5, R7)** with `source_selection_dropped`: nothing in v0 is in source order, so the key was accepted and never read.
 

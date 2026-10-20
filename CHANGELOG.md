@@ -60,6 +60,11 @@ pending the owner's decision (PLAN §6).
 
 **Fixed before release** (ASTERION-44, the post-merge review of the v0 pull requests)
 
+- Every response's model is recorded (R15): `CostEvent.model` names the model each decision
+  response (cache hits included) and each LLM response reported. `LLMResponse` gains an optional
+  `model` (default `None`, so existing adapters keep working); `ReplayLLM` stores it, and older
+  recordings still load, with no model. `Result.versions["llm_model"]` lists the LLM's model ids,
+  first-seen, joined by `,`, and is absent when no LLM response named one.
 - A `known=` value that breaks its field's own constraints (`maxLength`, `minLength`, `pattern`,
   `format`, …, through a `$ref` too) raises `PreflightError` before any call; it used to be sent
   as known and fail only in final validation. Pydantic field validators still run only in final

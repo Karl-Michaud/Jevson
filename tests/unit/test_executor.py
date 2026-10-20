@@ -284,9 +284,9 @@ def test_transport_retries_and_cache_hits_are_counted_apart() -> None:
     assert sink.events == [
         CostEvent("decision", "f1", transport_retry=True, succeeded=False, estimated_input_tokens=estimate),
         CostEvent("decision", "f2", transport_retry=True, succeeded=False, estimated_input_tokens=estimate),
-        CostEvent("decision", "ok", 40, estimated_input_tokens=estimate),
-        CostEvent("decision", "old", cache_hit=True, estimated_input_tokens=estimate),
-    ]
+        CostEvent("decision", "ok", 40, estimated_input_tokens=estimate, model="m1"),
+        CostEvent("decision", "old", cache_hit=True, estimated_input_tokens=estimate, model="m2"),
+    ]  # a failed attempt names no model; each response names its own (R15)
 
 
 # --- state, budget and R13 ------------------------------------------------------------------

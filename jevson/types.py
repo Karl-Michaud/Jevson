@@ -3,6 +3,10 @@
 Every type is a frozen dataclass or a string enum. Probabilities that Jevson stores are integer
 hundredths (DESIGN §2.1); the protocol payloads in the last section carry the raw floats a backend
 returned, because the sum check runs on raw values before rounding.
+
+Length (~430 lines, over the ~400 convention): this is the public type model that `__init__.py`
+re-exports, one small frozen dataclass or enum each with its docstring; splitting it would only move
+re-exports around. Split by payload family (protocol payloads, result entries) if it grows again.
 """
 
 from __future__ import annotations
@@ -403,6 +407,8 @@ class LLMResponse:
     raw: str
     input_tokens: int
     output_tokens: int
+    model: str | None = None
+    """The model id the LLM reported, recorded per R15 (`CostEvent.model`, `Result.versions["llm_model"]`)."""
 
 
 @dataclass(frozen=True)
@@ -418,3 +424,6 @@ class CostEvent:
     succeeded: bool = True
     estimated_input_tokens: int | None = None
     """For a decision request, preflight's estimate of its input, beside the billed `input_tokens`."""
+    model: str | None = None
+    """The model string the response named (R15): the API's for a decision, the LLM's for `llm`;
+    None for a failed attempt or an LLM that reports none."""

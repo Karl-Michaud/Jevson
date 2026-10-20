@@ -22,6 +22,8 @@ def generative_nodes(
 ) -> tuple[StepNode | DecisionNode, ...]:
     """The step and its adjudication nodes, step first; ids use `id_pointer` (a union branch's
     qualified pointer, `unions.py`) when given."""
+    # Length (~47 lines, over the ~40 convention): the step, its criteria and its rubric are built in
+    # declared order against one step id, and each node depends on that step.
     named = id_pointer or pointer
     step_id = role_id(named, "generate")
     after = frozenset({step_id})

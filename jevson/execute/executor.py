@@ -35,7 +35,7 @@ An extraction step (class D, deferred) runs through an injected runner per `Step
 also sits under `drafts` in the state of the nodes that depend on it; no compiled v0 graph has one
 (the façade passes no runner), and the key is renamed when class D returns (PLAN §9.2).
 
-Length (~510 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
+Length (~520 lines, over the ~400 convention): the redraft loop drives `_decide` and `_Run` directly,
 and moving it out would make both public for one caller; request grouping and bisection (`_decide`,
 `_ask_group`, `_ask`) stay here because they update `_Run`'s tally and outcomes, and moving them to
 their own module would share `_Run` across modules; union gating lives in `branches.py`, leaving only
@@ -138,6 +138,8 @@ class _Run:
         self.outcomes: dict[str, Outcome] = {}
         self.decisions: dict[str, Decision] = {}
         self.models: list[str] = []
+        self.llm_models: list[str] = []
+        """The model ids the LLM reported, in first-seen order."""
         self.targets: dict[str, str] = {}
         self.sizes: dict[str, int] = {}
         """Each question's declared size in estimated tokens, by question name."""
@@ -172,6 +174,8 @@ class _Run:
             "redraft_budget": str(config.redraft_budget),
             "union_fanout": str(config.union_fanout).lower(),
         }
+        if self.llm_models:
+            versions["llm_model"] = ",".join(self.llm_models)
         outcomes, holes, overflow = fold(self.nodes.values(), self.outcomes, self.decisions)
         return assemble(
             self.schema,
@@ -217,6 +221,8 @@ async def execute(
 
     `declared_size` budgets each node at its declared maximum (DESIGN §8.2); the drafts of
     generative fields are added to it here, at their `max_draft_chars`."""
+    # Length (~46 lines, over the ~40 convention): the run in order (preflight, steps, levels, the redraft
+    # loop, assembly); each stage is already its own helper, and this keeps their order in one place.
     run = _Run(schema, config, cost_sink)
     run.source = source
     run.targets = {node_id: node.key for node_id, node in graph.nodes.items()}
@@ -320,7 +326,9 @@ async def _draft(run: _Run, llm: LLM, step: StepNode, drafting: Drafting, reject
     draft = read(response, drafting.max_draft_chars)
     run.tally.llm_input_tokens += draft.input_tokens
     run.tally.llm_output_tokens += draft.output_tokens
-    run.emit(CostEvent("llm", input_tokens=draft.input_tokens, output_tokens=draft.output_tokens))
+    if draft.model is not None and draft.model not in run.llm_models:
+        run.llm_models.append(draft.model)
+    run.emit(CostEvent("llm", input_tokens=draft.input_tokens, output_tokens=draft.output_tokens, model=draft.model))
     run.drafting.offer(step, drafting.max_draft_chars, draft)
 
 
@@ -487,7 +495,8 @@ def _count_response(run: _Run, response: BackendResponse, estimate: int) -> None
         run.models.append(response.model)
     if response.cache_hit:
         run.tally.cache_hits += 1
-        run.emit(CostEvent("decision", response.request_id, cache_hit=True, estimated_input_tokens=estimate))
+        hit = CostEvent("decision", response.request_id, cache_hit=True, estimated_input_tokens=estimate)
+        run.emit(replace(hit, model=response.model))
         return
     for rid in response.retried_request_ids:
         run.emit(CostEvent("decision", rid, transport_retry=True, succeeded=False, estimated_input_tokens=estimate))
@@ -497,7 +506,8 @@ def _count_response(run: _Run, response: BackendResponse, estimate: int) -> None
     tally.input_tokens += response.input_tokens
     tally.estimated += estimate
     tally.request_ids += [*response.retried_request_ids, response.request_id]
-    run.emit(CostEvent("decision", response.request_id, response.input_tokens, estimated_input_tokens=estimate))
+    billed = CostEvent("decision", response.request_id, response.input_tokens, estimated_input_tokens=estimate)
+    run.emit(replace(billed, model=response.model))
 
 
 def _count_failure(run: _Run, cost: Cost, estimate: int) -> None:

@@ -58,6 +58,8 @@ def assemble(
     array_holes: tuple[Unresolved, ...] = (),
     rejections: tuple[Rejection, ...] = (),
 ) -> Result:
+    # Length (~58 lines, over the ~40 convention): a third is the signature and the Result it fills
+    # field by field; placing values and listing outcomes share `by_pointer` and one pass.
     by_pointer: dict[str, Outcome] = {}
     for outcome in outcomes:
         if outcome.pointer in by_pointer:
