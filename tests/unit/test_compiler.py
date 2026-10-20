@@ -424,6 +424,14 @@ def test_a_null_in_a_multi_label_items_enum_says_exactly_what_to_do() -> None:
     ]
 
 
+@pytest.mark.parametrize("pattern", ["(", "[a-", 5])
+def test_a_pattern_that_is_not_a_regular_expression_is_refused_at_compile_time(pattern: object) -> None:
+    """Before any spend: final validation and known= preflight would otherwise raise an untyped error."""
+    generated = {"type": "string", "pattern": pattern, "x-jevson": {"generate": {"criteria": ["is short"]}}}
+    assert messages(obj(s=generated)) == [f"pattern {pattern!r} is not a valid regular expression"]
+    assert refusals(obj(s=generated)) == [("/s", RefusalCode.MALFORMED_SCHEMA)]
+
+
 def test_default_extractor_turns_unbounded_fields_into_source_selection_dropped() -> None:
     schema = obj(vendor={"type": "string"}, total={"type": "number"}, kind={"enum": ["a", "b"]})
     dropped = RefusalCode.SOURCE_SELECTION_DROPPED

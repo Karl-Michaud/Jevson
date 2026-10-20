@@ -157,6 +157,9 @@ class _Normaliser:
             nullable = nullable or stripped
         if schema is None:
             return SchemaNode(pointer, Kind.REFUSED, required=required)
+        if "pattern" in schema and not _is_regex(schema["pattern"]):  # final validation would raise after spend
+            message = f"pattern {schema['pattern']!r} is not a valid regular expression"
+            return self.refuse(pointer, RefusalCode.MALFORMED_SCHEMA, message, required)
         shaped = self.shape(schema, pointer, stack, depth)
         return SchemaNode(
             pointer,
@@ -378,3 +381,14 @@ class _Normaliser:
         if item.kind is Kind.OBJECT:
             return self.refuse(pointer, RefusalCode.ARRAY_OF_OBJECTS, "arrays of objects are not supported in v0")
         return SchemaNode(pointer, Kind.ARRAY, items=item)
+
+
+def _is_regex(pattern: object) -> bool:
+    """A `pattern` the validator can compile (jsonschema uses Python's `re`)."""
+    if not isinstance(pattern, str):
+        return False
+    try:
+        re.compile(pattern)
+    except re.error:
+        return False
+    return True
