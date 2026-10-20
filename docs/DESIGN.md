@@ -848,6 +848,8 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 - **Final validation checks `format` (§6.1).** The formats `jsonschema` checks without extras (`email`, `date`, `uuid`, `ipv4`/`ipv6`, `regex`) now reach `Result.violations`; the others still need `jsonschema[format]`.
 - **Transport retries are a backend argument (§3.5, §8.2).** `JevsonConfig.transport_retries` was never read and is removed; `DecisionsBackend(transport_retries=...)` sets them.
 - **Enums the model cannot tell apart refuse (§4.2):** `indistinguishable_options` for two values whose quoted options render alike.
+- **A `null` among a multi-label array's item values refuses (§4.2)** with `enum_value_type`; it was dropped silently.
+- **`Retry-After` (§6.1).** A malformed value (`nan`, `inf`, `1e309`, negative) is ignored and the backoff applies; a value over the 30 s cap is not retried early: the failure surfaces at once as `BackendError`, its attempt counted in `Cost`.
 - **Labels drop a leading article (§5.2),** template version 1.1.0 → 1.1.1: no question says "the the". The article is dropped only from a question or description; a property-name label (`a_rating`) keeps it.
 - **No `no_criteria_declared` value (§6.3, §8.1).** An ungated generative field is marked by `decided_by = llm` and its pointer in `Result.ungated`, which is what the code always emitted.
 - **`question` or `ordinal` beside a nested model's `$ref` refuses (§3.5)**, with `misplaced_declaration` or `ordinal_levels`, instead of being dropped silently (R14).

@@ -95,6 +95,9 @@ pending the owner's decision (PLAN §6).
 - `x-jevson.order: source` refuses with `source_selection_dropped` instead of being accepted and
   never read: source order applies only to arrays of spans, and v0's multi-label enum arrays are
   in declared enum order. Remove the key. (`order: semantic` still refuses with `semantic_order`.)
+- An interrupt (Ctrl-C) that lands before a synchronous `resolve()`'s call has started on the
+  library loop returns at once and builds no coroutine; before, the call was built eagerly and
+  then cancelled.
 - A synchronous `resolve()` whose coroutine factory, or the task made from it, raises on the
   library loop now re-raises that error at once instead of blocking forever.
 
