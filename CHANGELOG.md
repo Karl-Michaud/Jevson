@@ -90,12 +90,13 @@ pending the owner's decision (PLAN §6).
 - A synchronous `resolve()` whose coroutine factory, or the task made from it, raises on the
   library loop now re-raises that error at once instead of blocking forever.
 
-**Known limits, accepted for this release** (owner sign-off, 2026-10-19)
+**Accepted deviations** (owner decisions, 2026-10-19, ASTERION-46)
 
-- Adjudication can be steered by a draft that falsely claims to contain what a criterion checks:
-  5 of 80 injected cases were admitted, above the bar of 3 (EVIDENCE Q16). The mitigation is
-  planned for v1.
-- The default `redraft_budget` of 1 rests on model labels, not human ones (EVIDENCE Q17).
+- The default `redraft_budget` of 1 rests on model labels, accepted in place of human labels
+  (EVIDENCE Q17); they were never validated against human labels. The redraft bar is still not
+  met (the decision model over-rejects), tracked in ASTERION-58.
+- Phase 0's probe 8 partial-only set has 17 of 50 cases; it is accepted and the corpus is not
+  extended.
 
 **Not included** (refused with a named reason, never half-supported): source selection
 (`x-jevson.source`, and the unbounded fields a `default_extractor` would select → `source_selection_dropped`), pairwise entity resolution,
