@@ -18,11 +18,9 @@ from hypothesis import HealthCheck, event, given, settings
 from hypothesis import strategies as st
 
 from jevson import FakeBackend, Jevson, JevsonConfig, LLMResponse, Message
-from jevson.compile.compiler import compile_schema
 from jevson.errors import PreflightError
-from jevson.execute import budget
-from jevson.execute.state import LevelState
-from jevson.types import Answer, Decision, DecisionNode, Question, StepNode
+from jevson.types import Answer, Decision, DecisionNode, Question
+from tests.property.test_budget_properties import tight
 from tests.unit.recording_backend import Recorder, check_isolation, decision_nodes, draft_reads, key
 
 SETTINGS = settings(
@@ -97,17 +95,6 @@ def over(cap: int | None) -> Recorder:
     return Recorder(first_or_fail, lambda state, questions: cap is not None and len(questions) > cap)
 
 
-def tight_limit(schema: dict[str, Any], fanout: bool, source: str, slack: int) -> int:
-    """`max_input_tokens` at which the largest question, its draft included, just fits beside the source."""
-    graph = compile_schema(schema, union_fanout=fanout)
-    steps = {n.id: n for n in graph.nodes.values() if isinstance(n, StepNode) and n.drafting is not None}
-    nodes = [n for n in graph.nodes.values() if isinstance(n, DecisionNode)]
-    sized = budget.with_drafts(
-        budget.declared_tokens, {n.id: steps[d] for n in nodes for d in n.dependencies if d in steps}
-    )
-    return budget.estimate_tokens(LevelState(source).serialise()) + max(sized(n) for n in nodes) + slack
-
-
 @SETTINGS
 @given(
     schema=schemas(),
@@ -121,7 +108,7 @@ def test_a_request_carrying_drafts_holds_only_the_adjudication_questions_of_thos
     *, schema: dict[str, Any], cap: int | None, per_request: int, fanout: bool, redrafts: int, slack: int | None
 ) -> None:
     backend = over(cap)
-    limit = {} if slack is None else {"max_input_tokens": tight_limit(schema, fanout, "src", slack)}
+    limit = {} if slack is None else {"max_input_tokens": tight(schema, fanout, "src", slack)}
     config = JevsonConfig(max_questions_per_request=per_request, union_fanout=fanout, **limit)
     try:
         jevson = Jevson(backend, llm=EchoLLM(), config=config)
