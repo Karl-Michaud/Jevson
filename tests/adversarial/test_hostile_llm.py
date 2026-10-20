@@ -27,6 +27,7 @@ from tests.adversarial.hostile_backend import backend
 from tests.adversarial.hostile_llm import HOSTILE, INJECTED_DRAFTS, ScriptedLLM, tool
 from tests.adversarial.test_central_property import check, hostile, sources
 from tests.property.test_compiler_properties import supported
+from tests.unit.recording_backend import check_isolation, draft_reads, key
 
 VALID = ["Refunds take 5 days.", "A refund of $40 was issued.", ""]
 
@@ -105,7 +106,8 @@ def test_injected_drafts_stay_opaque_values_beside_a_clean_draft_and_verdicts_fo
         state = json.loads(fake.calls[0].state)
         assert state["drafts"] == {"/injected#generate": text, "/clean#generate": "Nothing about money."}, name
         assert len(fake.calls[0].questions) == 2
-        assert all("drafts./" in q.instructions for q in fake.calls[0].questions)
+        reads = draft_reads(schema)
+        assert all(reads[key(q)] is not None for q in fake.calls[0].questions), name  # per the compiled graph
         assert result.unresolved == (
             Unresolved("/clean", UnresolvedReason.REDRAFT_EXHAUSTED, detail="0 redraft(s)"),
             Unresolved("/injected", UnresolvedReason.REDRAFT_EXHAUSTED, detail="0 redraft(s)"),
@@ -122,7 +124,9 @@ def test_injected_drafts_never_reach_a_bounded_field_of_the_same_level() -> None
         llm = ScriptedLLM([text, "Nothing about money."])
         fake = FakeBackend(default=FakeBackend.predicate(0.1))
         result = asyncio.run(Jevson(fake, llm=llm).aresolve(schema, "Refund: $40.", redraft_budget=0))
-        bounded = [c for c in fake.calls if not all("drafts./" in q.instructions for q in c.questions)]
+        reads = draft_reads(schema)
+        check_isolation([(c.state, c.questions) for c in fake.calls], reads)
+        bounded = [c for c in fake.calls if any(reads[key(q)] is None for q in c.questions)]
         assert [json.loads(c.state) for c in bounded] == [{"source": "Refund: $40."}], name
         assert [len(c.questions) for c in bounded] == [1], name
         assert result.value["refunded"] is False, name  # the backend's answer, whatever the drafts say
