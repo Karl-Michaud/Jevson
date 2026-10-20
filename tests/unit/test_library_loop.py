@@ -170,16 +170,35 @@ def test_the_per_key_limiter_holds_its_rate_across_calls_threads_and_loops() -> 
 # --- caller loops, through the facade (PLAN Phase 3, lifecycle on caller loops) --------------
 
 
-def test_twenty_sequential_asyncio_run_aresolve_calls_leave_no_live_client() -> None:
+def tracked(monkeypatch: pytest.MonkeyPatch, b: DecisionsBackend) -> list[httpx.AsyncClient]:
+    """Every client `b` makes, so a test checks each one was really closed, not only the counter."""
+    made: list[httpx.AsyncClient] = []
+    original = b._new_client  # pyright: ignore[reportPrivateUsage]
+
+    def recording() -> httpx.AsyncClient:
+        made.append(original())
+        return made[-1]
+
+    monkeypatch.setattr(b, "_new_client", recording)
+    return made
+
+
+def test_twenty_sequential_asyncio_run_aresolve_calls_leave_no_live_client(monkeypatch: pytest.MonkeyPatch) -> None:
     b = backend()
+    made = tracked(monkeypatch, b)
     jevson = Jevson(b)
-    for _ in range(20):
+    for n in range(1, 21):
         assert ok(asyncio.run(jevson.aresolve(SCHEMA, SOURCE)))  # a fresh, then dead, loop each time
+        assert len(made) == n  # one request per call, each on its own client
+        assert all(c.is_closed for c in made)
         assert clients(b) == 0
 
 
-def test_two_aresolve_calls_under_gather_on_one_loop_succeed_and_leave_no_client() -> None:
+def test_two_aresolve_calls_under_gather_on_one_loop_succeed_and_leave_no_client(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     b = backend()
+    made = tracked(monkeypatch, b)
     jevson = Jevson(b)
 
     async def both() -> list[Result]:
@@ -188,6 +207,8 @@ def test_two_aresolve_calls_under_gather_on_one_loop_succeed_and_leave_no_client
     results = asyncio.run(both())
     assert len(results) == 2
     assert all(ok(r) for r in results)
+    assert len(made) == 2
+    assert all(c.is_closed for c in made)
     assert clients(b) == 0
 
 
@@ -301,6 +322,34 @@ def test_an_interrupt_that_lands_just_after_the_call_is_scheduled_still_cancels_
     assert pending_on_library_loop() == set()
 
 
+class RecordingEvent(threading.Event):
+    """An `unwound` event that records each wait `run()` makes on it: (timeout, whether it was set)."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.waits: list[tuple[float | None, bool]] = []
+
+    def wait(self, timeout: float | None = None) -> bool:
+        result = super().wait(timeout)
+        self.waits.append((timeout, result))
+        return result
+
+
+def unwind_waits(monkeypatch: pytest.MonkeyPatch) -> list[RecordingEvent]:
+    """Each call's `unwound` event, so a test asserts whether and how long `run()` waited structurally,
+    with no wall-clock bound (Agents/CLAUDE.md §7.1)."""
+    events: list[RecordingEvent] = []
+
+    class Recorded(library._Call[Any]):  # pyright: ignore[reportPrivateUsage]
+        def __init__(self, *args: Any) -> None:
+            super().__init__(*args)
+            self.unwound = RecordingEvent()
+            events.append(self.unwound)
+
+    monkeypatch.setattr(library, "_Call", Recorded)
+    return events
+
+
 def test_an_interrupt_does_not_wait_past_the_grace_period_for_a_call_that_ignores_cancellation(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -320,14 +369,13 @@ def test_an_interrupt_does_not_wait_past_the_grace_period_for_a_call_that_ignore
         assert started.wait(5)  # the interrupt lands while the coroutine is running, not before it starts
         raise KeyboardInterrupt
 
+    events = unwind_waits(monkeypatch)
     monkeypatch.setattr("concurrent.futures.Future.result", interrupt_wait)
-    began = time.monotonic()
     with pytest.raises(KeyboardInterrupt):
         library.run(stubborn)
-    waited = time.monotonic() - began
     monkeypatch.undo()
     assert cancelled.wait(5)  # the cancellation reached the running coroutine, which ignored it
-    assert waited < 2
+    assert [e.waits for e in events] == [[(0.05, False)]]  # one wait, for the grace period, timed out
     release.set()
     deadline = time.monotonic() + 5
     while pending_on_library_loop() and time.monotonic() < deadline:
@@ -361,23 +409,22 @@ def test_an_interrupt_before_the_call_starts_returns_at_once_and_builds_no_corou
     def interrupt_wait(self: Any, timeout: float | None = None) -> None:
         raise KeyboardInterrupt
 
+    events = unwind_waits(monkeypatch)
     monkeypatch.setattr("concurrent.futures.Future.result", interrupt_wait)
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        began = time.monotonic()
         with pytest.raises(KeyboardInterrupt):
             library.run(make)
-        waited = time.monotonic() - began
         monkeypatch.undo()
         release.set()
         assert pending_on_library_loop() == set()
         gc.collect()
-    assert waited < 0.5  # not the 1 s grace: a call that never started has nothing to unwind
+    assert [e.waits for e in events] == [[]]  # no grace wait: a call that never started has nothing to unwind
     assert made == []  # the coroutine is built on the loop only once the call starts
     assert not [w for w in caught if "never awaited" in str(w.message)]
 
 
-def run_in_thread(make: Callable[[], Any]) -> tuple[list[BaseException], float]:
+def run_in_thread(make: Callable[[], Any]) -> list[BaseException]:
     """Call `library.run(make)` on a worker thread; a call whose future is never resolved would block
     forever, so the worker is a daemon and the caller's join is bounded."""
     raised: list[BaseException] = []
@@ -389,11 +436,10 @@ def run_in_thread(make: Callable[[], Any]) -> tuple[list[BaseException], float]:
             raised.append(error)
 
     worker = threading.Thread(target=call, daemon=True)
-    began = time.monotonic()
     worker.start()
     worker.join(5)
     assert not worker.is_alive(), "run() never returned: the call's future was never resolved"
-    return raised, time.monotonic() - began
+    return raised
 
 
 def test_a_factory_that_raises_on_the_loop_reraises_at_once(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -402,12 +448,13 @@ def test_a_factory_that_raises_on_the_loop_reraises_at_once(monkeypatch: pytest.
     def make() -> Any:
         raise ValueError("factory failed")
 
+    events = unwind_waits(monkeypatch)
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        raised, waited = run_in_thread(make)
+        raised = run_in_thread(make)
         assert pending_on_library_loop() == set()
     assert [type(e) for e in raised] == [ValueError]
-    assert waited < 1  # not the 3 s grace: nothing of the call is running
+    assert [e.waits for e in events] == [[]]  # no grace wait: nothing of the call is running
     assert not caught
 
 
@@ -423,15 +470,16 @@ def test_a_task_that_cannot_be_created_closes_its_coroutine_and_reraises_at_once
     def refuse(coroutine: Any) -> Any:
         raise RuntimeError("no task")
 
+    events = unwind_waits(monkeypatch)
     monkeypatch.setattr(loop, "create_task", refuse)
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
-        raised, waited = run_in_thread(body)
+        raised = run_in_thread(body)
         monkeypatch.undo()
         assert pending_on_library_loop() == set()
         gc.collect()
     assert [type(e) for e in raised] == [RuntimeError]
-    assert waited < 1
+    assert [e.waits for e in events] == [[]]  # no grace wait
     assert not [w for w in caught if "never awaited" in str(w.message)]
 
 

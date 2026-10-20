@@ -148,20 +148,39 @@ def test_the_library_never_reads_a_dotenv_file(monkeypatch: pytest.MonkeyPatch, 
 # --- lifecycle (DESIGN §8) ------------------------------------------------------------------
 
 
-def test_each_call_outside_async_with_uses_and_closes_its_own_client() -> None:
+def tracked(monkeypatch: pytest.MonkeyPatch, b: DecisionsBackend) -> list[httpx.AsyncClient]:
+    """Every client `b` makes, so a test checks each one was really closed, not only the counter."""
+    made: list[httpx.AsyncClient] = []
+    original = b._new_client  # pyright: ignore[reportPrivateUsage]
+
+    def recording() -> httpx.AsyncClient:
+        made.append(original())
+        return made[-1]
+
+    monkeypatch.setattr(b, "_new_client", recording)
+    return made
+
+
+def test_each_call_outside_async_with_uses_and_closes_its_own_client(monkeypatch: pytest.MonkeyPatch) -> None:
     b = backend(Recorder())
-    for _ in range(20):
+    made = tracked(monkeypatch, b)
+    for n in range(1, 21):
         ask(b)  # a fresh asyncio.run, so a fresh event loop, each time
+        assert len(made) == n
+        assert all(c.is_closed for c in made)
         assert b._live_clients == 0  # pyright: ignore[reportPrivateUsage]
 
 
-def test_concurrent_calls_on_one_loop_succeed_and_leave_no_client() -> None:
+def test_concurrent_calls_on_one_loop_succeed_and_leave_no_client(monkeypatch: pytest.MonkeyPatch) -> None:
     b = backend(Recorder())
+    made = tracked(monkeypatch, b)
 
     async def both() -> list[Any]:
         return await asyncio.gather(b.ask("a", QUESTIONS, MODEL), b.ask("b", QUESTIONS, MODEL))
 
     assert len(asyncio.run(both())) == 2
+    assert len(made) == 2
+    assert all(c.is_closed for c in made)
     assert b._live_clients == 0  # pyright: ignore[reportPrivateUsage]
 
 
