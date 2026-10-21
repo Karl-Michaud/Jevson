@@ -122,6 +122,22 @@ def test_config_rejects_out_of_range_settings(overrides: dict[str, float], messa
         JevsonConfig(**overrides)  # type: ignore[arg-type]
 
 
+def test_a_tie_margin_of_zero_is_accepted() -> None:
+    assert JevsonConfig(tie_margin_hundredths=0).tie_margin_hundredths == 0
+
+
+@pytest.mark.parametrize(
+    ("overrides", "message"),
+    [
+        ({"tie_margin_hundredths": 100}, "tie_margin_hundredths must be in [0, 100)"),
+        ({"step_timeout_s": 0.0}, "step_timeout_s must be positive"),
+    ],
+)
+def test_config_range_errors_carry_their_exact_text(overrides: dict[str, float], message: str) -> None:
+    with pytest.raises(ValueError, match=f"^{re.escape(message)}$"):
+        JevsonConfig(**overrides)  # type: ignore[arg-type]
+
+
 # --- the opt-in adjudication options (DESIGN §3.5, §5.2, §6.3; ASTERION-48) ---------------------------
 
 SCHEMA = {

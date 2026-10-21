@@ -36,6 +36,7 @@ from jevson import (
     dry_run,
 )
 from jevson.adjudicate.criteria import PASS_RULES, judge
+from jevson.adjudicate.dryrun import DryRun
 from jevson.adjudicate.rubrics import rubric_passes
 from jevson.checks import Check, CheckRule
 from jevson.compile.draft_screen import SCREEN_REJECTION
@@ -748,3 +749,28 @@ def test_a_field_without_a_rubric_has_no_minimum_and_a_rubric_node_is_a_schema_r
     rubric = compile_schema(schema({"rubric": RUBRIC})).nodes["/summary#rubric"]
     assert isinstance(rubric, DecisionNode)
     assert rubric.option_source is OptionSource.SCHEMA_RUBRIC
+
+
+# --- review round 1 (T48-6): pins the survivors PR-A's mutmut run had left in dry_run and _rubric --------
+
+
+def test_the_dry_run_defaults_to_an_empty_source() -> None:
+    run = asyncio.run(dry_run(schema(), "/summary", "d"))
+    assert run.state == LevelState("", {"/summary#generate": "d"}).serialise()
+
+
+def test_a_dry_run_of_an_ungated_field_returns_its_state_and_asks_nothing() -> None:
+    run = asyncio.run(dry_run(schema({}), "/summary", "d", "s"))
+    assert run == DryRun(LevelState("s", {"/summary#generate": "d"}).serialise(), (), ())
+
+
+def test_a_dry_run_of_an_unknown_pointer_names_it() -> None:
+    with pytest.raises(UsageError, match=r"^'/nope' is not a generative field of this schema$"):
+        asyncio.run(dry_run(schema(), "/nope", "x"))
+
+
+def test_a_rubric_without_a_declared_minimum_passes_from_its_lowest_level() -> None:
+    node = rubric_node()
+    drafting = Drafting("p", "summary", checks=(Check(node.id, "r", CheckRule.RUBRIC),))
+    answer = ScoreAnswer("q0", 0.0, {"c0": 1.0, "c1": 0.0, "c2": 0.0})
+    assert judge(drafting, {node.id: node}, {node.id: answer}, 10)[1] == ()
