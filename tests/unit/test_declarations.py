@@ -188,3 +188,12 @@ def test_an_order_refusal_never_recommends_declaring_an_order(value: str) -> Non
     parse_declaration({"order": value}, "/f", refusals)
     assert refusals.reasons
     assert all("declare order" not in r.message for r in refusals.reasons)
+
+
+@pytest.mark.parametrize("value", ["alphabetical", None])
+def test_an_unknown_order_refusal_says_to_remove_the_key_not_to_pick_a_value_that_also_refuses(value: object) -> None:
+    refusals = Refusals()
+    parse_declaration({"order": value}, "/f", refusals)
+    assert [r.message for r in refusals.reasons] == [
+        "x-jevson.order has no value v0 accepts ('source' and 'semantic' both refuse); remove the key"
+    ]

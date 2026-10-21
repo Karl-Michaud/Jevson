@@ -96,7 +96,7 @@ def parse_declaration(raw: object, pointer: str, refusals: Refusals) -> FieldDec
     elif order == "source":
         bad(SOURCE_ORDER_DROPPED_MESSAGE, RefusalCode.SOURCE_SELECTION_DROPPED)
     elif "order" in items:
-        bad("x-jevson.order must be 'source' or 'semantic'")
+        bad("x-jevson.order has no value v0 accepts ('source' and 'semantic' both refuse); remove the key")
 
     declares_source = "source" in items
     if declares_source:
