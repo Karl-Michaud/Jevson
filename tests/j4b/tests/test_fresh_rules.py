@@ -15,7 +15,7 @@ from hypothesis import strategies as st
 
 from tests.j4b.fresh import rules as R
 from tests.j4b.fresh.clustering import deff_paired, deff_single, icc_anova
-from tests.j4b.labelling.intervals import newcombe_paired, wilson
+from tests.j4b.labelling.intervals import Interval, newcombe_paired, wilson
 
 DETERMINISTIC = settings(derandomize=True, database=None, max_examples=200, deadline=None)
 
@@ -277,3 +277,95 @@ def test_r_frr_is_a_deff_adjusted_wilson_at_z_one() -> None:
     interval, deff = R.r_frr(clusters)
     assert interval == wilson(3 / deff, 9 / deff, R.Z_ONE)
     assert math.isfinite(deff)
+
+
+# --- review round 1 (T48-2): DEFF > 1, the pass bits, the point sign, A's numerator and every `<=` boundary ----
+
+
+def clustered(full: int, single: int, k: int = 128, m: int = 6) -> list[list[int]]:
+    """`full` clusters failing all m drafts, `single` failing one draft, the rest none."""
+    return [[1] * m if c < full else ([1] + [0] * (m - 1) if c < full + single else [0] * m) for c in range(k)]
+
+
+def test_frr_t_divides_both_counts_by_a_deff_above_1_and_fails_above_0_25() -> None:
+    clusters = clustered(24, 16)
+    interval, deff, passed = R.bar_frr_t(clusters)
+    assert deff == pytest.approx(5.372839506172839, rel=1e-12)
+    assert interval.high == pytest.approx(wilson(160 / deff, 768 / deff, R.Z_58T).high, rel=1e-12)
+    assert interval.high == pytest.approx(0.3044708932168011, rel=1e-9)
+    assert passed is False
+
+
+def test_r_frr_divides_both_counts_by_a_deff_above_1() -> None:
+    clusters = clustered(12, 0)
+    interval, deff = R.r_frr(clusters)
+    assert deff == pytest.approx(6.0)
+    assert interval.high == pytest.approx(wilson(72 / 6.0, 768 / 6.0, R.Z_ONE).high, rel=1e-12)
+    assert interval.high == pytest.approx(0.15672997257307852, rel=1e-9)
+
+
+def frr_fi_matrices(better: int, both: int, k: int = 32, m: int = 6) -> tuple[list[list[int]], list[list[int]]]:
+    """F1 fixes `better` clusters F0 rejects whole; `both` clusters are rejected whole under both forms."""
+    x = [[0] * m for _ in range(k)]
+    b = [[0] * m for _ in range(k)]
+    for c in range(better):
+        b[c] = [1] * m
+    for c in range(k - both, k):
+        x[c] = [1] * m
+        b[c] = [1] * m
+    return x, b
+
+
+@pytest.mark.parametrize(
+    ("better", "both", "upper", "passed"),
+    [(6, 4, -0.0150, True), (6, 0, 0.0051, False), (7, 0, -0.0187, True)],
+)
+def test_frr_fi_passes_only_below_zero_with_both_rejected_divided_by_deff(
+    better: int, both: int, upper: float, passed: bool
+) -> None:
+    got, ok = R.bar_frr_fi(*frr_fi_matrices(better, both))
+    assert got == pytest.approx(upper, abs=1e-4)
+    assert ok is passed
+
+
+def test_the_point_condition_is_the_net_difference_not_the_discordant_total() -> None:
+    """(o1 - o2) / n = 0 passes the point; (o1 + o2) / n = 62 / 3000 > 0.02 would not."""
+    assert R.ni_condition(0, 31, 31, 2938, deff=1.0, ni_z=R.NI_MULTIPLIER * R.Z_48) is True
+
+
+def test_rb_a_counts_only_redrafts_both_admitted_and_true() -> None:
+    rows = [R.RbRow(False, False, True, False)] * 10 + [R.RbRow(True, True)] * 90
+    points = R.rb_points(rows)
+    assert points.a == 0
+    assert points.passed is False
+
+
+def test_the_iid_bound_is_reported_at_the_bars_ni_z() -> None:
+    x, b = matrices(100, 3, worse=2)
+    ni_z = R.NI_MULTIPLIER * R.Z_48
+    reading = R.ni_paired(x, b, R.Z_48, ni_z=ni_z, cell=False)
+    assert reading.upper_iid == newcombe_paired(*reading.counts, z=ni_z).high
+    assert reading.upper_iid != newcombe_paired(*reading.counts).high
+
+
+def at(high: float) -> Interval:
+    return Interval(0.0, 0.0, high)
+
+
+def test_each_pre_registered_bound_passes_at_equality(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The design's `<=` (NI 0.05, the net cell 0.05, bar I 0.05, FRR-T 0.25): a bound exactly at its threshold
+    passes. Float counts cannot land on it, so the interval is injected."""
+    monkeypatch.setattr(R, "newcombe_paired", lambda *a, **k: at(R.NI_MARGIN))
+    assert R.ni_condition(0, 0, 0, 100, deff=1.0, ni_z=1.0) is True
+    x, b = matrices(10, 2)
+    assert R.ni_paired(x, b, 1.0, ni_z=1.0, cell=True).passed is True
+    monkeypatch.setattr(R, "wilson", lambda *a, **k: at(R.NI_MARGIN))
+    assert R.bar_i(0)[1] is True
+    monkeypatch.setattr(R, "wilson", lambda *a, **k: at(R.FRR_TARGET))
+    assert R.bar_frr_t(clustered(0, 1))[2] is True
+
+
+def test_frr_fi_fails_at_an_upper_of_exactly_zero(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Design §4.1: FRR-Fi passes only when the upper bound is below 0 (strict)."""
+    monkeypatch.setattr(R, "newcombe_paired", lambda *a, **k: at(0.0))
+    assert R.bar_frr_fi(*frr_fi_matrices(7, 0))[1] is False
