@@ -327,11 +327,29 @@ def test_bool_enum_and_ordinal_map_to_predicate_choice_and_score_over_opaque_ids
         ({"minimum": 0, "exclusiveMinimum": 1, "maximum": 4, "exclusiveMaximum": 4}, [2, 3]),
         ({"minimum": 0, "maximum": 40, "multipleOf": 10}, [0, 10, 20, 30, 40]),
         ({"minimum": 1, "maximum": 3, "multipleOf": 0.1}, [1, 2, 3]),
+        ({"minimum": 1, "maximum": 3, "multipleOf": 1e-30}, [1, 2, 3]),  # beyond a 28-digit decimal context
+        ({"minimum": 1, "maximum": 9, "multipleOf": 0.3}, [3, 6, 9]),
     ],
 )
 def test_ordinal_levels_honour_every_bound_keyword(keywords: dict[str, object], levels: list[int]) -> None:
     field = {"type": "integer", "x-jevson": {"ordinal": True}, **keywords}
     assert compile_schema(obj(r=field)).nodes["/r#score"].values == tuple(levels)
+
+
+@pytest.mark.parametrize(
+    ("keywords", "found"),
+    [
+        ({"minimum": 1, "maximum": 3, "multipleOf": 1e-320}, "0 levels"),  # 1 / 1e-320 overflows: no multiples
+        ({"minimum": 14, "maximum": 21, "multipleOf": 0.7}, "1 levels"),  # 21 / 0.7 is 30.000000000000004
+    ],
+)
+def test_an_ordinal_keeps_only_the_levels_final_validation_accepts(keywords: dict[str, object], found: str) -> None:
+    field = {"type": "integer", "x-jevson": {"ordinal": True}, **keywords}
+    with pytest.raises(CompileError) as caught:
+        compile_schema(obj(r=field))
+    [reason] = caught.value.reasons
+    assert (reason.pointer, reason.reason) == ("/r", RefusalCode.ORDINAL_LEVELS)
+    assert reason.message == f"an ordinal needs 2-10 levels; found {found}"
 
 
 def test_defaulted_leaves_are_class_a_unless_a_key_asks_for_a_decision() -> None:

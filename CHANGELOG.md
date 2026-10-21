@@ -115,6 +115,11 @@ pending the owner's decision (PLAN §6).
   `maxLength: "5"`, `multipleOf: 0`, `minimum: "a"`, `minLength: -1`, `format: 5`. Before, final
   validation raised an untyped `re` error, `TypeError` or `ZeroDivisionError` after the calls had
   been paid for, and a `known=` value raised the `TypeError` from preflight.
+- An ordinal's levels are the integers that final validation's own `multipleOf` check accepts.
+  A small `multipleOf` (`1e-30`) made `compile_schema()` raise an untyped
+  `decimal.InvalidOperation`; it now compiles to every integer in range. A level final validation
+  rejects is no longer offered: `multipleOf: 0.7` over 14–21 offered 21 (21 / 0.7 is not a whole
+  number in floating point) and now refuses with `ordinal_levels`, and so does `1e-320`.
 
 **Accepted deviations** (owner decisions, 2026-10-19, ASTERION-46)
 

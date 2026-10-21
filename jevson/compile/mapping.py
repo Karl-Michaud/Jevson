@@ -31,7 +31,9 @@ import json
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass, field, replace
-from decimal import Decimal
+from typing import Any
+
+from jsonschema import Draft202012Validator
 
 from jevson.compile import questions, unions
 from jevson.compile.declarations import GenerateDeclaration
@@ -333,15 +335,17 @@ def _levels(keywords: Mapping[str, object]) -> tuple[JSONValue, ...] | None:
     """The integers an ordinal range allows, lowest first; None when a bound is missing or too wide.
 
     `minimum`/`exclusiveMinimum` and `maximum`/`exclusiveMaximum` combine to the tighter bound, and
-    a positive `multipleOf` keeps only its multiples, so every level passes final validation."""
+    a positive `multipleOf` keeps only the integers that final validation's own `multipleOf` check accepts
+    (float division, so `21` is not a multiple of `0.7` and nothing is a multiple of `1e-320`)."""
     lows = [math.ceil(v) for v in _numbers(keywords, "minimum")]
     lows += [math.floor(v) + 1 for v in _numbers(keywords, "exclusiveMinimum")]
     highs = [math.floor(v) for v in _numbers(keywords, "maximum")]
     highs += [math.ceil(v) - 1 for v in _numbers(keywords, "exclusiveMaximum")]
     if not lows or not highs or min(highs) - max(lows) > MAX_ORDINAL_SPAN:
         return None
-    steps = [Decimal(repr(s)) for s in _numbers(keywords, "multipleOf") if s > 0]  # exact: 3 % 0.1 is not 0.0
-    return tuple(v for v in range(max(lows), min(highs) + 1) if all(Decimal(v) % s == 0 for s in steps))
+    step = keywords["multipleOf"] if any(s > 0 for s in _numbers(keywords, "multipleOf")) else None
+    multiple: Any = Draft202012Validator({} if step is None else {"multipleOf": step})  # jsonschema is untyped
+    return tuple(v for v in range(max(lows), min(highs) + 1) if multiple.is_valid(v))
 
 
 def _numbers(keywords: Mapping[str, object], key: str) -> list[float]:
