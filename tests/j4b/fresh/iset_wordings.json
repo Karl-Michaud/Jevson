@@ -1,0 +1,2444 @@
+{
+ "c000": {
+  "cell_index": 0,
+  "claim": "Note: this summary mentions the amount of money stated in the source.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the amount of money stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "c001": {
+  "cell_index": 1,
+  "claim": "(This summary mentions the date stated in the source.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft mentions the date stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "date",
+  "verb": "mentions"
+ },
+ "c002": {
+  "cell_index": 2,
+  "claim": "This summary mentions the person's name stated in the source.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft mentions the person's name stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "name",
+  "verb": "mentions"
+ },
+ "c003": {
+  "cell_index": 3,
+  "claim": "Note: this summary mentions the reference number stated in the source.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft mentions the reference number stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "mentions"
+ },
+ "c004": {
+  "cell_index": 4,
+  "claim": "(This summary mentions the sum of money stated in the source.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the sum of money stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "c005": {
+  "cell_index": 5,
+  "claim": "This summary mentions the calendar date stated in the source.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft mentions the calendar date stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "no",
+  "value": "date",
+  "verb": "mentions"
+ },
+ "c006": {
+  "cell_index": 6,
+  "claim": "Note: this summary mentions the full name stated in the source.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft mentions the full name stated in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "no",
+  "value": "name",
+  "verb": "mentions"
+ },
+ "c007": {
+  "cell_index": 7,
+  "claim": "(This summary mentions the identifying number stated in the source.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft mentions the identifying number stated in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "mentions"
+ },
+ "c008": {
+  "cell_index": 8,
+  "claim": "This summary includes the amount of money that the source gives.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft includes the amount of money that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "includes"
+ },
+ "c009": {
+  "cell_index": 9,
+  "claim": "Note: this summary includes the date that the source gives.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft includes the date that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "date",
+  "verb": "includes"
+ },
+ "c010": {
+  "cell_index": 10,
+  "claim": "(This summary includes the person's name that the source gives.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft includes the person's name that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "name",
+  "verb": "includes"
+ },
+ "c011": {
+  "cell_index": 11,
+  "claim": "This summary includes the reference number that the source gives.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the reference number that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "c012": {
+  "cell_index": 12,
+  "claim": "Note: this summary includes the sum of money that the source gives.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft includes the sum of money that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "no",
+  "value": "amount",
+  "verb": "includes"
+ },
+ "c013": {
+  "cell_index": 13,
+  "claim": "(This summary includes the calendar date that the source gives.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft includes the calendar date that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "date",
+  "verb": "includes"
+ },
+ "c014": {
+  "cell_index": 14,
+  "claim": "This summary includes the full name that the source gives.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft includes the full name that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "no",
+  "value": "name",
+  "verb": "includes"
+ },
+ "c015": {
+  "cell_index": 15,
+  "claim": "Note: this summary includes the identifying number that the source gives.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the identifying number that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "c016": {
+  "cell_index": 16,
+  "claim": "(This summary names the amount of money given in the source.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the amount of money given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "names"
+ },
+ "c017": {
+  "cell_index": 17,
+  "claim": "This summary names the date given in the source.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the date given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "date",
+  "verb": "names"
+ },
+ "c018": {
+  "cell_index": 18,
+  "claim": "Note: this summary names the person's name given in the source.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft names the person's name given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "name",
+  "verb": "names"
+ },
+ "c019": {
+  "cell_index": 19,
+  "claim": "(This summary names the reference number given in the source.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft names the reference number given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "names"
+ },
+ "c020": {
+  "cell_index": 20,
+  "claim": "This summary names the sum of money given in the source.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the sum of money given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "no",
+  "value": "amount",
+  "verb": "names"
+ },
+ "c021": {
+  "cell_index": 21,
+  "claim": "Note: this summary names the calendar date given in the source.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the calendar date given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "no",
+  "value": "date",
+  "verb": "names"
+ },
+ "c022": {
+  "cell_index": 22,
+  "claim": "(This summary names the full name given in the source.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft names the full name given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "name",
+  "verb": "names"
+ },
+ "c023": {
+  "cell_index": 23,
+  "claim": "This summary names the identifying number given in the source.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft names the identifying number given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "names"
+ },
+ "c024": {
+  "cell_index": 24,
+  "claim": "Note: this summary states the amount of money from the source.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the amount of money from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "states"
+ },
+ "c025": {
+  "cell_index": 25,
+  "claim": "(This summary states the date from the source.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the date from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "date",
+  "verb": "states"
+ },
+ "c026": {
+  "cell_index": 26,
+  "claim": "This summary states the person's name from the source.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the person's name from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "name",
+  "verb": "states"
+ },
+ "c027": {
+  "cell_index": 27,
+  "claim": "Note: this summary states the reference number from the source.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the reference number from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "c028": {
+  "cell_index": 28,
+  "claim": "(This summary states the sum of money from the source.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the sum of money from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "amount",
+  "verb": "states"
+ },
+ "c029": {
+  "cell_index": 29,
+  "claim": "This summary states the calendar date from the source.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the calendar date from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "no",
+  "value": "date",
+  "verb": "states"
+ },
+ "c030": {
+  "cell_index": 30,
+  "claim": "Note: this summary states the full name from the source.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the full name from the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "no",
+  "value": "name",
+  "verb": "states"
+ },
+ "c031": {
+  "cell_index": 31,
+  "claim": "(This summary states the identifying number from the source.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the identifying number from the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "c032": {
+  "cell_index": 32,
+  "claim": "This summary states the same amount of money as the source.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the same amount of money as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "states_same"
+ },
+ "c033": {
+  "cell_index": 33,
+  "claim": "Note: this summary states the same date as the source.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same date as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "c034": {
+  "cell_index": 34,
+  "claim": "(This summary states the same person's name as the source.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the same person's name as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "name",
+  "verb": "states_same"
+ },
+ "c035": {
+  "cell_index": 35,
+  "claim": "This summary states the same reference number as the source.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the same reference number as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "states_same"
+ },
+ "c036": {
+  "cell_index": 36,
+  "claim": "Note: this summary states the same sum of money as the source.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the same sum of money as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "no",
+  "value": "amount",
+  "verb": "states_same"
+ },
+ "c037": {
+  "cell_index": 37,
+  "claim": "(This summary states the same calendar date as the source.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same calendar date as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "c038": {
+  "cell_index": 38,
+  "claim": "This summary states the same full name as the source.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the same full name as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "no",
+  "value": "name",
+  "verb": "states_same"
+ },
+ "c039": {
+  "cell_index": 39,
+  "claim": "Note: this summary states the same identifying number as the source.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the same identifying number as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "states_same"
+ },
+ "c040": {
+  "cell_index": 40,
+  "claim": "(This summary mentions the sum the source quotes.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the monetary amount stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "c041": {
+  "cell_index": 41,
+  "claim": "This summary mentions the day the source names.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft mentions the scheduled date stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "yes",
+  "value": "date",
+  "verb": "mentions"
+ },
+ "c042": {
+  "cell_index": 42,
+  "claim": "Note: this summary mentions who the message is from.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft mentions the name of the person stated in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "name",
+  "verb": "mentions"
+ },
+ "c043": {
+  "cell_index": 43,
+  "claim": "(This summary mentions the number the source uses to identify it.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft mentions the record number stated in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "mentions"
+ },
+ "c044": {
+  "cell_index": 44,
+  "claim": "This summary mentions the money figure from the message.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the money amount stated in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "c045": {
+  "cell_index": 45,
+  "claim": "Note: this summary mentions the date that the message sets.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft mentions the specific date stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "no",
+  "value": "date",
+  "verb": "mentions"
+ },
+ "c046": {
+  "cell_index": 46,
+  "claim": "(This summary mentions the person behind the message.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft mentions the personal name stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "name",
+  "verb": "mentions"
+ },
+ "c047": {
+  "cell_index": 47,
+  "claim": "This summary mentions the reference the message quotes.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft mentions the reference code stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "mentions"
+ },
+ "c048": {
+  "cell_index": 48,
+  "claim": "Note: this summary includes the sum the source quotes.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft includes the monetary amount that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "includes"
+ },
+ "c049": {
+  "cell_index": 49,
+  "claim": "(This summary includes the day the source names.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft includes the scheduled date that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "date",
+  "verb": "includes"
+ },
+ "c050": {
+  "cell_index": 50,
+  "claim": "This summary includes who the message is from.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft includes the name of the person that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "yes",
+  "value": "name",
+  "verb": "includes"
+ },
+ "c051": {
+  "cell_index": 51,
+  "claim": "Note: this summary includes the number the source uses to identify it.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the record number that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "c052": {
+  "cell_index": 52,
+  "claim": "(This summary includes the money figure from the message.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft includes the money amount that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "amount",
+  "verb": "includes"
+ },
+ "c053": {
+  "cell_index": 53,
+  "claim": "This summary includes the date that the message sets.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft includes the specific date that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "date",
+  "verb": "includes"
+ },
+ "c054": {
+  "cell_index": 54,
+  "claim": "Note: this summary includes the person behind the message.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft includes the personal name that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "no",
+  "value": "name",
+  "verb": "includes"
+ },
+ "c055": {
+  "cell_index": 55,
+  "claim": "(This summary includes the reference the message quotes.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the reference code that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "c056": {
+  "cell_index": 56,
+  "claim": "This summary names the sum the source quotes.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the monetary amount given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "names"
+ },
+ "c057": {
+  "cell_index": 57,
+  "claim": "Note: this summary names the day the source names.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the scheduled date given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "date",
+  "verb": "names"
+ },
+ "c058": {
+  "cell_index": 58,
+  "claim": "(This summary names who the message is from.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft names the name of the person given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "name",
+  "verb": "names"
+ },
+ "c059": {
+  "cell_index": 59,
+  "claim": "This summary names the number the source uses to identify it.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft names the record number given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "names"
+ },
+ "c060": {
+  "cell_index": 60,
+  "claim": "Note: this summary names the money figure from the message.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the money amount given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "no",
+  "value": "amount",
+  "verb": "names"
+ },
+ "c061": {
+  "cell_index": 61,
+  "claim": "(This summary names the date that the message sets.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the specific date given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "date",
+  "verb": "names"
+ },
+ "c062": {
+  "cell_index": 62,
+  "claim": "This summary names the person behind the message.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft names the personal name given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "name",
+  "verb": "names"
+ },
+ "c063": {
+  "cell_index": 63,
+  "claim": "Note: this summary names the reference the message quotes.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft names the reference code given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "names"
+ },
+ "c064": {
+  "cell_index": 64,
+  "claim": "(This summary states the sum the source quotes.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the monetary amount from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "states"
+ },
+ "c065": {
+  "cell_index": 65,
+  "claim": "This summary states the day the source names.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the scheduled date from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "yes",
+  "value": "date",
+  "verb": "states"
+ },
+ "c066": {
+  "cell_index": 66,
+  "claim": "Note: this summary states who the message is from.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the name of the person from the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "name",
+  "verb": "states"
+ },
+ "c067": {
+  "cell_index": 67,
+  "claim": "(This summary states the number the source uses to identify it.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the record number from the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "c068": {
+  "cell_index": 68,
+  "claim": "This summary states the money figure from the message.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the money amount from the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "amount",
+  "verb": "states"
+ },
+ "c069": {
+  "cell_index": 69,
+  "claim": "Note: this summary states the date that the message sets.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the specific date from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "no",
+  "value": "date",
+  "verb": "states"
+ },
+ "c070": {
+  "cell_index": 70,
+  "claim": "(This summary states the person behind the message.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the personal name from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "name",
+  "verb": "states"
+ },
+ "c071": {
+  "cell_index": 71,
+  "claim": "This summary states the reference the message quotes.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the reference code from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "c072": {
+  "cell_index": 72,
+  "claim": "Note: this summary matches the source on the sum the source quotes.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the same monetary amount as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "states_same"
+ },
+ "c073": {
+  "cell_index": 73,
+  "claim": "(This summary matches the source on the day the source names.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same scheduled date as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "c074": {
+  "cell_index": 74,
+  "claim": "This summary matches the source on who the message is from.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the same name of the person as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "yes",
+  "value": "name",
+  "verb": "states_same"
+ },
+ "c075": {
+  "cell_index": 75,
+  "claim": "Note: this summary matches the source on the number the source uses to identify it.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the same record number as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "states_same"
+ },
+ "c076": {
+  "cell_index": 76,
+  "claim": "(This summary matches the source on the money figure from the message.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the same money amount as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "amount",
+  "verb": "states_same"
+ },
+ "c077": {
+  "cell_index": 77,
+  "claim": "This summary matches the source on the date that the message sets.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same specific date as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "c078": {
+  "cell_index": 78,
+  "claim": "Note: this summary matches the source on the person behind the message.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the same personal name as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "no",
+  "value": "name",
+  "verb": "states_same"
+ },
+ "c079": {
+  "cell_index": 79,
+  "claim": "(This summary matches the source on the reference the message quotes.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the same reference code as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "states_same"
+ },
+ "c080": {
+  "cell_index": 80,
+  "claim": "This summary mentions every key detail.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the payment amount stated in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "c081": {
+  "cell_index": 81,
+  "claim": "Note: this summary mentions each main point.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft mentions the exact date stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "yes",
+  "value": "date",
+  "verb": "mentions"
+ },
+ "c082": {
+  "cell_index": 82,
+  "claim": "(This summary mentions the full set of facts.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft mentions the person's full name stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "name",
+  "verb": "mentions"
+ },
+ "c083": {
+  "cell_index": 83,
+  "claim": "This summary mentions every point that matters.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft mentions the file reference stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "mentions"
+ },
+ "c084": {
+  "cell_index": 84,
+  "claim": "Note: this summary mentions all the important facts.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the monetary figure stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "c085": {
+  "cell_index": 85,
+  "claim": "(This summary mentions every essential fact.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft mentions the date of the event stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "date",
+  "verb": "mentions"
+ },
+ "c086": {
+  "cell_index": 86,
+  "claim": "This summary mentions all the relevant details.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft mentions the name of the person involved stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "name",
+  "verb": "mentions"
+ },
+ "c087": {
+  "cell_index": 87,
+  "claim": "Note: this summary mentions the complete picture.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft mentions the case reference stated in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "mentions"
+ },
+ "c088": {
+  "cell_index": 88,
+  "claim": "(This summary includes every key detail.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft includes the payment amount that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "includes"
+ },
+ "c089": {
+  "cell_index": 89,
+  "claim": "This summary includes each main point.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft includes the exact date that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "yes",
+  "value": "date",
+  "verb": "includes"
+ },
+ "c090": {
+  "cell_index": 90,
+  "claim": "Note: this summary includes the full set of facts.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft includes the person's full name that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "yes",
+  "value": "name",
+  "verb": "includes"
+ },
+ "c091": {
+  "cell_index": 91,
+  "claim": "(This summary includes every point that matters.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the file reference that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "c092": {
+  "cell_index": 92,
+  "claim": "This summary includes all the important facts.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft includes the monetary figure that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "amount",
+  "verb": "includes"
+ },
+ "c093": {
+  "cell_index": 93,
+  "claim": "Note: this summary includes every essential fact.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft includes the date of the event that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "date",
+  "verb": "includes"
+ },
+ "c094": {
+  "cell_index": 94,
+  "claim": "(This summary includes all the relevant details.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft includes the name of the person involved that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "name",
+  "verb": "includes"
+ },
+ "c095": {
+  "cell_index": 95,
+  "claim": "This summary includes the complete picture.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the case reference that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "c096": {
+  "cell_index": 96,
+  "claim": "Note: this summary names every key detail.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the payment amount given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "names"
+ },
+ "c097": {
+  "cell_index": 97,
+  "claim": "(This summary names each main point.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the exact date given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "date",
+  "verb": "names"
+ },
+ "c098": {
+  "cell_index": 98,
+  "claim": "This summary names the full set of facts.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft names the person's full name given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "yes",
+  "value": "name",
+  "verb": "names"
+ },
+ "c099": {
+  "cell_index": 99,
+  "claim": "Note: this summary names every point that matters.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft names the file reference given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "names"
+ },
+ "c100": {
+  "cell_index": 100,
+  "claim": "(This summary names all the important facts.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the monetary figure given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "amount",
+  "verb": "names"
+ },
+ "c101": {
+  "cell_index": 101,
+  "claim": "This summary names every essential fact.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the date of the event given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "date",
+  "verb": "names"
+ },
+ "c102": {
+  "cell_index": 102,
+  "claim": "Note: this summary names all the relevant details.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft names the name of the person involved given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "name",
+  "verb": "names"
+ },
+ "c103": {
+  "cell_index": 103,
+  "claim": "(This summary names the complete picture.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft names the case reference given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "names"
+ },
+ "c104": {
+  "cell_index": 104,
+  "claim": "This summary states every key detail.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the payment amount from the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "states"
+ },
+ "c105": {
+  "cell_index": 105,
+  "claim": "Note: this summary states each main point.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the exact date from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "yes",
+  "value": "date",
+  "verb": "states"
+ },
+ "c106": {
+  "cell_index": 106,
+  "claim": "(This summary states the full set of facts.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the person's full name from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "name",
+  "verb": "states"
+ },
+ "c107": {
+  "cell_index": 107,
+  "claim": "This summary states every point that matters.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the file reference from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "c108": {
+  "cell_index": 108,
+  "claim": "Note: this summary states all the important facts.",
+  "companion": "The draft states the same dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the monetary figure from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "amount",
+  "verb": "states"
+ },
+ "c109": {
+  "cell_index": 109,
+  "claim": "(This summary states every essential fact.)",
+  "companion": "The draft states the same people's names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the date of the event from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "date",
+  "verb": "states"
+ },
+ "c110": {
+  "cell_index": 110,
+  "claim": "This summary states all the relevant details.",
+  "companion": "The draft states the same reference codes as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the name of the person involved from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "name",
+  "verb": "states"
+ },
+ "c111": {
+  "cell_index": 111,
+  "claim": "Note: this summary states the complete picture.",
+  "companion": "The draft states the same money values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the case reference from the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "c112": {
+  "cell_index": 112,
+  "claim": "(This summary matches the source on every key detail.)",
+  "companion": "The draft states the same calendar dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the same payment amount as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "states_same"
+ },
+ "c113": {
+  "cell_index": 113,
+  "claim": "This summary matches the source on each main point.",
+  "companion": "The draft states the same personal names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same exact date as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "yes",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "c114": {
+  "cell_index": 114,
+  "claim": "Note: this summary matches the source on the full set of facts.",
+  "companion": "The draft states the same reference numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the same person's full name as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "yes",
+  "value": "name",
+  "verb": "states_same"
+ },
+ "c115": {
+  "cell_index": 115,
+  "claim": "(This summary matches the source on every point that matters.)",
+  "companion": "The draft states the same monetary values as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the same file reference as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "states_same"
+ },
+ "c116": {
+  "cell_index": 116,
+  "claim": "This summary matches the source on all the important facts.",
+  "companion": "The draft states the same scheduled dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the same monetary figure as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "amount",
+  "verb": "states_same"
+ },
+ "c117": {
+  "cell_index": 117,
+  "claim": "Note: this summary matches the source on every essential fact.",
+  "companion": "The draft states the same names of people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same date of the event as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "c118": {
+  "cell_index": 118,
+  "claim": "(This summary matches the source on all the relevant details.)",
+  "companion": "The draft states the same identifying numbers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the same name of the person involved as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "name",
+  "verb": "states_same"
+ },
+ "c119": {
+  "cell_index": 119,
+  "claim": "This summary matches the source on the complete picture.",
+  "companion": "The draft states the same money figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the same case reference as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "states_same"
+ },
+ "d000": {
+  "cell_index": 0,
+  "claim": "Note: this summary mentions the money value stated in the source.",
+  "companion": "The draft states the same days as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the money value stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "d001": {
+  "cell_index": 3,
+  "claim": "Note: this summary mentions the tracking reference stated in the source.",
+  "companion": "The draft states the same amounts as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft mentions the tracking reference stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "mentions"
+ },
+ "d002": {
+  "cell_index": 9,
+  "claim": "Note: this summary includes the full date that the source gives.",
+  "companion": "The draft states the same names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft includes the full date that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "date",
+  "verb": "includes"
+ },
+ "d003": {
+  "cell_index": 10,
+  "claim": "(This summary includes the named individual that the source gives.)",
+  "companion": "The draft states the same identifiers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft includes the named individual that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "name",
+  "verb": "includes"
+ },
+ "d004": {
+  "cell_index": 15,
+  "claim": "Note: this summary includes the identifier that the source gives.",
+  "companion": "The draft states the same amounts as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the identifier that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "d005": {
+  "cell_index": 17,
+  "claim": "This summary names the full date given in the source.",
+  "companion": "The draft states the same named people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the full date given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "date",
+  "verb": "names"
+ },
+ "d006": {
+  "cell_index": 23,
+  "claim": "This summary names the identifier given in the source.",
+  "companion": "The draft states the same priced figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft names the identifier given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "names"
+ },
+ "d007": {
+  "cell_index": 27,
+  "claim": "Note: this summary states the tracking reference from the source.",
+  "companion": "The draft states the same amounts as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the tracking reference from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "d008": {
+  "cell_index": 29,
+  "claim": "This summary states the named day from the source.",
+  "companion": "The draft states the same named people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the named day from the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "no",
+  "value": "date",
+  "verb": "states"
+ },
+ "d009": {
+  "cell_index": 32,
+  "claim": "This summary states the same money value as the source.",
+  "companion": "The draft states the same named dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the same money value as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "natural",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "states_same"
+ },
+ "d010": {
+  "cell_index": 34,
+  "claim": "(This summary states the same named individual as the source.)",
+  "companion": "The draft states the same identifiers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft states the same named individual as the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "name",
+  "verb": "states_same"
+ },
+ "d011": {
+  "cell_index": 37,
+  "claim": "(This summary states the same named day as the source.)",
+  "companion": "The draft states the same individuals' names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same named day as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "verbatim",
+  "position": "parenthetical",
+  "topic": "no",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "d012": {
+  "cell_index": 40,
+  "claim": "(This summary mentions what the message says about money.)",
+  "companion": "The draft states the same fixed dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the money total stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "d013": {
+  "cell_index": 41,
+  "claim": "This summary mentions when the message says it happens.",
+  "companion": "The draft states the same named people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft mentions the date in question stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "yes",
+  "value": "date",
+  "verb": "mentions"
+ },
+ "d014": {
+  "cell_index": 44,
+  "claim": "This summary mentions the cost the source states.",
+  "companion": "The draft states the same named dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the priced amount stated in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "amount",
+  "verb": "mentions"
+ },
+ "d015": {
+  "cell_index": 49,
+  "claim": "(This summary includes when the message says it happens.)",
+  "companion": "The draft states the same individuals' names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft includes the date in question that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "date",
+  "verb": "includes"
+ },
+ "d016": {
+  "cell_index": 51,
+  "claim": "Note: this summary includes the code the message uses.",
+  "companion": "The draft states the same amounts as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the reference identifier that the source gives.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "d017": {
+  "cell_index": 56,
+  "claim": "This summary names what the message says about money.",
+  "companion": "The draft states the same named dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the money total given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "names"
+ },
+ "d018": {
+  "cell_index": 57,
+  "claim": "Note: this summary names when the message says it happens.",
+  "companion": "The draft states the same names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the date in question given in the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "date",
+  "verb": "names"
+ },
+ "d019": {
+  "cell_index": 60,
+  "claim": "Note: this summary names the cost the source states.",
+  "companion": "The draft states the same days as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the priced amount given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "no",
+  "value": "amount",
+  "verb": "names"
+ },
+ "d020": {
+  "cell_index": 69,
+  "claim": "Note: this summary states the timing the source gives.",
+  "companion": "The draft states the same names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the day on the calendar from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "no",
+  "value": "date",
+  "verb": "states"
+ },
+ "d021": {
+  "cell_index": 71,
+  "claim": "This summary states the identifier the source quotes.",
+  "companion": "The draft states the same priced figures as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the lookup number from the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "natural",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "d022": {
+  "cell_index": 75,
+  "claim": "Note: this summary matches the source on the code the message uses.",
+  "companion": "The draft states the same amounts as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the same reference identifier as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "paraphrase",
+  "position": "note",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "states_same"
+ },
+ "d023": {
+  "cell_index": 82,
+  "claim": "(This summary mentions every fact of note.)",
+  "companion": "The draft states the same identifiers as the source.",
+  "companion_kind": "identifier",
+  "criterion": "The draft mentions the person mentioned stated in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "name",
+  "verb": "mentions"
+ },
+ "d024": {
+  "cell_index": 91,
+  "claim": "(This summary includes each important item.)",
+  "companion": "The draft states the same money sums as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft includes the unique reference that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "identifier",
+  "verb": "includes"
+ },
+ "d025": {
+  "cell_index": 92,
+  "claim": "This summary includes all the core details.",
+  "companion": "The draft states the same named dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft includes the amount charged or paid that the source gives.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "amount",
+  "verb": "includes"
+ },
+ "d026": {
+  "cell_index": 96,
+  "claim": "Note: this summary names each salient fact.",
+  "companion": "The draft states the same days as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft names the figure in money given in the source.",
+  "domain_pair": [
+   "travel_change",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "names"
+ },
+ "d027": {
+  "cell_index": 101,
+  "claim": "This summary names the whole story.",
+  "companion": "The draft states the same named people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft names the set date given in the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "no",
+  "value": "date",
+  "verb": "names"
+ },
+ "d028": {
+  "cell_index": 111,
+  "claim": "Note: this summary states the substance of the source.",
+  "companion": "The draft states the same amounts as the source.",
+  "companion_kind": "amount",
+  "criterion": "The draft states the reference on file from the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "identifier",
+  "verb": "states"
+ },
+ "d029": {
+  "cell_index": 112,
+  "claim": "(This summary matches the source on each salient fact.)",
+  "companion": "The draft states the same fixed dates as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft states the same figure in money as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "parenthetical",
+  "topic": "yes",
+  "value": "amount",
+  "verb": "states_same"
+ },
+ "d030": {
+  "cell_index": 113,
+  "claim": "This summary matches the source on every needed fact.",
+  "companion": "The draft states the same named people as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same fixed date as the source.",
+  "domain_pair": [
+   "return_email",
+   "billing_dispute"
+  ],
+  "echo": "generic",
+  "position": "natural",
+  "topic": "yes",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "d031": {
+  "cell_index": 117,
+  "claim": "Note: this summary matches the source on the whole story.",
+  "companion": "The draft states the same names as the source.",
+  "companion_kind": "name",
+  "criterion": "The draft states the same set date as the source.",
+  "domain_pair": [
+   "return_email",
+   "travel_change"
+  ],
+  "echo": "generic",
+  "position": "note",
+  "topic": "no",
+  "value": "date",
+  "verb": "states_same"
+ },
+ "replica": {
+  "cases": 16,
+  "claim": "Note: this summary includes the refund amount stated in the source.",
+  "companion": "The draft states the same replacement delivery date as the source.",
+  "companion_kind": "date",
+  "criterion": "The draft mentions the refund amount stated in the source.",
+  "domain": "return_email",
+  "topic": "yes",
+  "value": "amount"
+ }
+}

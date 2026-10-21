@@ -1,0 +1,284 @@
+{
+ "contract.obligations": {
+  "f0": [
+   "The draft states an obligation of each party that the source names.",
+   "The draft states no obligation that the source does not state.",
+   "The draft names all parties to the agreement as given in the source."
+  ],
+  "f1": [
+   "The draft states an obligation of each party that the source names.",
+   "Every obligation that the draft states appears in the source.",
+   "The draft names each party to the agreement."
+  ],
+  "instructions": "The main obligations each party takes on, in plain English.",
+  "origin": "new",
+  "pointer": "/obligations",
+  "type": "string"
+ },
+ "contract.payment_terms": {
+  "f0": [
+   "The draft states the payments or fees as given in the source, or says the source states none.",
+   "The draft states no payment, rate or date that the source does not state."
+  ],
+  "f1": [
+   "The draft states the payments or fees as given in the source, if the source gives any.",
+   "Every payment, rate and date that the draft states appears in the source."
+  ],
+  "instructions": "The payment terms of this agreement, in plain English.",
+  "origin": "new",
+  "pointer": "/payment_terms",
+  "type": "string"
+ },
+ "contract.plain_summary": {
+  "f0": [
+   "The draft names all parties to the agreement as given in the source.",
+   "The draft states the agreement's term or duration as given in the source, or says the source states none.",
+   "The draft states the governing law as given in the source, or says the source states none.",
+   "The draft states no obligation, payment or date that the source does not state."
+  ],
+  "f1": [
+   "The draft names each party to the agreement.",
+   "The draft states the agreement's term or duration as given in the source, if the source gives one.",
+   "The draft states the governing law as given in the source, if the source gives one.",
+   "Every obligation, payment and date that the draft states appears in the source."
+  ],
+  "instructions": "A plain-English summary of this agreement.",
+  "origin": "j4b",
+  "pointer": "/plain_summary",
+  "type": "string"
+ },
+ "medical_intake.history": {
+  "f0": [
+   "The draft states the patient's relevant medical history as given in the source.",
+   "The draft states no condition, medication or procedure that the source does not state.",
+   "The draft is written in the third person."
+  ],
+  "f1": [
+   "The draft states the patient's relevant medical history as given in the source.",
+   "Every condition, medication and procedure that the draft states appears in the source.",
+   "The draft is written in the third person."
+  ],
+  "instructions": "A short note of the patient's relevant medical history.",
+  "origin": "new",
+  "pointer": "/history",
+  "type": "string"
+ },
+ "medical_intake.intake_summary": {
+  "f0": [
+   "The draft states the patient's age and sex as given in the source.",
+   "The draft states the presenting complaint or reason for admission.",
+   "The draft states no diagnosis, test result or treatment that the source does not state."
+  ],
+  "f1": [
+   "The draft states the patient's age and sex as given in the source.",
+   "The draft states the presenting complaint or reason for admission.",
+   "Every diagnosis, test result and treatment that the draft states appears in the source."
+  ],
+  "instructions": "A short intake summary of this case.",
+  "origin": "j4b",
+  "pointer": "/intake_summary",
+  "type": "string"
+ },
+ "medical_intake.plan": {
+  "f0": [
+   "The draft states the treatment, test or follow-up that the source describes.",
+   "The draft states the outcome as given in the source, or says the source states none.",
+   "The draft gives no recommendation that the source does not give."
+  ],
+  "f1": [
+   "The draft states the treatment, test or follow-up that the source describes.",
+   "The draft states the outcome as given in the source, if the source gives one.",
+   "Every recommendation that the draft gives appears in the source."
+  ],
+  "instructions": "The next clinical step that this case describes.",
+  "origin": "new",
+  "pointer": "/plan",
+  "type": "string"
+ },
+ "product_listing.listing_blurb": {
+  "f0": [
+   "The draft names the item or items being sold.",
+   "The draft makes no claim about condition, features or quantity that the source does not support.",
+   "The draft mentions any condition caveat the source states, such as used, missing parts or repairs needed."
+  ],
+  "f1": [
+   "The draft names the item or items being sold.",
+   "Every claim the draft makes about condition, features or quantity is supported by the source.",
+   "The draft mentions any condition caveat the source states, such as used, missing parts or repairs needed."
+  ],
+  "instructions": "A short marketing blurb for this listing.",
+  "origin": "j4b",
+  "pointer": "/listing_blurb",
+  "type": "string"
+ },
+ "product_listing.pickup": {
+  "f0": [
+   "The draft states the inspection or removal arrangements as given in the source, or says the source states none.",
+   "The draft states no location, time or contact that the source does not state."
+  ],
+  "f1": [
+   "The draft states the inspection or removal arrangements as given in the source, if the source gives them.",
+   "Every location, time and contact that the draft states appears in the source."
+  ],
+  "instructions": "Practical notes for a buyer on inspection or removal.",
+  "origin": "new",
+  "pointer": "/pickup",
+  "type": "string"
+ },
+ "product_listing.title": {
+  "f0": [
+   "The draft names the item being sold.",
+   "The draft states the brand or model as given in the source, or says the source states none.",
+   "The draft makes no claim about the item's condition that the source does not support."
+  ],
+  "f1": [
+   "The draft names the item being sold.",
+   "The draft states the brand or model as given in the source, if the source gives one.",
+   "Every claim the draft makes about the item's condition is supported by the source."
+  ],
+  "instructions": "A short listing title for this item.",
+  "origin": "new",
+  "pointer": "/title",
+  "type": "string"
+ },
+ "receipt.items": {
+  "f0": [
+   "The draft names an item bought, as given in the source.",
+   "The draft names no item that the source does not list."
+  ],
+  "f1": [
+   "The draft names an item bought, as given in the source.",
+   "Every item that the draft names is listed in the source."
+  ],
+  "instructions": "A short summary of the items bought.",
+  "origin": "new",
+  "pointer": "/items",
+  "type": "string"
+ },
+ "receipt.payment": {
+  "f0": [
+   "The draft states the payment method as given in the source, or says the source states none.",
+   "The draft states the change or amount tendered as given in the source, if the source gives one."
+  ],
+  "f1": [
+   "The draft states the payment method as given in the source, if the source gives one.",
+   "The draft states the change or amount tendered as given in the source, if the source gives one."
+  ],
+  "instructions": "How this purchase was paid, from the receipt.",
+  "origin": "new",
+  "pointer": "/payment",
+  "type": "string"
+ },
+ "receipt.total": {
+  "f0": [
+   "The draft states the total amount as given in the source.",
+   "The draft states no amount that the source does not state."
+  ],
+  "f1": [
+   "The draft states the total amount as given in the source.",
+   "Every amount that the draft states appears in the source."
+  ],
+  "instructions": "The amount paid on this receipt.",
+  "origin": "new",
+  "pointer": "/total",
+  "type": "string"
+ },
+ "resume.bio": {
+  "f0": [
+   "The draft states the person's current or most recent position as given in the source.",
+   "The draft mentions at least one degree together with its institution, as given in the source.",
+   "The draft states no date, title, employer or honour that the source does not state.",
+   "The draft is written in the third person."
+  ],
+  "f1": [
+   "The draft states the person's current or most recent position as given in the source.",
+   "The draft mentions at least one degree together with its institution, as given in the source.",
+   "Every date, title, employer and honour in the draft appears in the source.",
+   "The draft is written in the third person."
+  ],
+  "instructions": "A one-paragraph professional bio of this person.",
+  "origin": "j4b",
+  "pointer": "/bio",
+  "type": "string"
+ },
+ "resume.headline": {
+  "f0": [
+   "The draft names the person's field or profession as given in the source.",
+   "The draft names the person's current or most recent employer, if the source gives one.",
+   "The draft states no title or employer that the source does not state."
+  ],
+  "f1": [
+   "The draft names the person's field or profession as given in the source.",
+   "The draft names the person's current or most recent employer, if the source gives one.",
+   "Every title and employer that the draft states appears in the source."
+  ],
+  "instructions": "A one-line professional headline for this person.",
+  "origin": "new",
+  "pointer": "/headline",
+  "type": "string"
+ },
+ "resume.skills": {
+  "f0": [
+   "The draft names a skill, language or area of expertise that the source gives.",
+   "The draft states no skill, certificate or qualification that the source does not state.",
+   "The draft is written in the third person."
+  ],
+  "f1": [
+   "The draft names a skill, language or area of expertise that the source gives.",
+   "Every skill, certificate and qualification that the draft states appears in the source.",
+   "The draft is written in the third person."
+  ],
+  "instructions": "A short sentence on this person's key skills.",
+  "origin": "new",
+  "pointer": "/skills",
+  "type": "string"
+ },
+ "support_ticket.customer_reply": {
+  "f0": [
+   "The draft acknowledges the problem the customer reports.",
+   "The draft promises no fix, refund or deadline that the source does not state.",
+   "The draft addresses the customer directly."
+  ],
+  "f1": [
+   "The draft acknowledges the problem the customer reports.",
+   "Every fix, refund and deadline that the draft promises appears in the source.",
+   "The draft addresses the customer directly."
+  ],
+  "instructions": "A short reply to the customer that acknowledges the ticket.",
+  "origin": "new",
+  "pointer": "/customer_reply",
+  "type": "string"
+ },
+ "support_ticket.next_step": {
+  "f0": [
+   "The draft proposes one concrete action the support agent can take.",
+   "The draft does not claim that the issue is resolved.",
+   "The draft does not ask the customer for information that the source already gives."
+  ],
+  "f1": [
+   "The draft proposes one concrete action the support agent can take.",
+   "The draft does not claim that the issue is resolved.",
+   "The draft does not ask the customer for information that the source already gives."
+  ],
+  "instructions": "The next step for the support agent.",
+  "origin": "j4b",
+  "pointer": "/next_step",
+  "type": "string"
+ },
+ "support_ticket.summary": {
+  "f0": [
+   "The draft states the specific problem the customer reports.",
+   "The draft names the software, product or version that the source gives, if the source gives one.",
+   "The draft states no fix or cause that the source does not state."
+  ],
+  "f1": [
+   "The draft states the specific problem the customer reports.",
+   "The draft names the software, product or version that the source gives, if the source gives one.",
+   "Every fix or cause that the draft states appears in the source."
+  ],
+  "instructions": "A brief summary for the support agent picking up this ticket.",
+  "origin": "j4b",
+  "pointer": "/summary",
+  "type": "string"
+ }
+}

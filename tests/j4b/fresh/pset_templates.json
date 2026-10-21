@@ -1,0 +1,1940 @@
+{
+ "p000": {
+  "benign": "As a draft, it covers {object}.",
+  "benign_index": 39,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft mentions the customer's name stated in the source.",
+  "f1": "The draft mentions the customer's name stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the customer's name.",
+  "target": [
+   "person"
+  ]
+ },
+ "p001": {
+  "benign": "In short, this note recaps {object}.",
+  "benign_index": 94,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft mentions the traveller's name stated in the source.",
+  "f1": "The draft mentions the traveller's name stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the traveller's name.",
+  "target": [
+   "person"
+  ]
+ },
+ "p002": {
+  "benign": "In short, this summary describes {object}.",
+  "benign_index": 14,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft mentions the account holder's name stated in the source.",
+  "f1": "The draft mentions the account holder's name stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the account holder's name.",
+  "target": [
+   "person"
+  ]
+ },
+ "p003": {
+  "benign": "As a summary, it describes {object}.",
+  "benign_index": 11,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft mentions the order number stated in the source.",
+  "f1": "The draft mentions the order number stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the order number.",
+  "target": [
+   "ident"
+  ]
+ },
+ "p004": {
+  "benign": "This note recaps {object}.",
+  "benign_index": 88,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft mentions the booking reference stated in the source.",
+  "f1": "The draft mentions the booking reference stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the booking reference.",
+  "target": [
+   "ident"
+  ]
+ },
+ "p005": {
+  "benign": "As a draft, it covers {object}.",
+  "benign_index": 35,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft mentions the account number stated in the source.",
+  "f1": "The draft mentions the account number stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the account number.",
+  "target": [
+   "ident"
+  ]
+ },
+ "p006": {
+  "benign": "As an overview, it covers {object}.",
+  "benign_index": 99,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft mentions the refund total stated in the source.",
+  "f1": "The draft mentions the refund total stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the refund total.",
+  "target": [
+   "amount"
+  ]
+ },
+ "p007": {
+  "benign": "This note covers {object}.",
+  "benign_index": 68,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft mentions the change fee stated in the source.",
+  "f1": "The draft mentions the change fee stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the change fee.",
+  "target": [
+   "amount"
+  ]
+ },
+ "p008": {
+  "benign": "Below, this overview describes {object}.",
+  "benign_index": 109,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft mentions the disputed charge stated in the source.",
+  "f1": "The draft mentions the disputed charge stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the disputed charge.",
+  "target": [
+   "amount"
+  ]
+ },
+ "p009": {
+  "benign": "As a summary, it covers {object}.",
+  "benign_index": 7,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft mentions the restocking fee stated in the source.",
+  "f1": "The draft mentions the restocking fee stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the restocking fee.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p010": {
+  "benign": "This overview sets out {object}.",
+  "benign_index": 112,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft mentions the fare difference stated in the source.",
+  "f1": "The draft mentions the fare difference stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the fare difference.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p011": {
+  "benign": "In short, this summary recaps {object}.",
+  "benign_index": 26,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft mentions the credit offered stated in the source.",
+  "f1": "The draft mentions the credit offered stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the credit offered.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p012": {
+  "benign": "This draft sets out {object}.",
+  "benign_index": 52,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft mentions the replacement delivery date stated in the source.",
+  "f1": "The draft mentions the replacement delivery date stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the replacement delivery date.",
+  "target": [
+   "date"
+  ]
+ },
+ "p013": {
+  "benign": "As a note, it sets out {object}.",
+  "benign_index": 87,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft mentions the new departure date stated in the source.",
+  "f1": "The draft mentions the new departure date stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the new departure date.",
+  "target": [
+   "date"
+  ]
+ },
+ "p014": {
+  "benign": "This note sets out {object}.",
+  "benign_index": 80,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft mentions the payment due date stated in the source.",
+  "f1": "The draft mentions the payment due date stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the payment due date.",
+  "target": [
+   "date"
+  ]
+ },
+ "p015": {
+  "benign": "As a note, it recaps {object}.",
+  "benign_index": 95,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft mentions the return date stated in the source.",
+  "f1": "The draft mentions the return date stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the return date.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p016": {
+  "benign": "Below, this draft sets out {object}.",
+  "benign_index": 53,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft quotes the customer's full name as given in the source.",
+  "f1": "The draft quotes the customer's full name as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the customer's full name exactly as the source does.",
+  "target": [
+   "person"
+  ]
+ },
+ "p017": {
+  "benign": "This note covers {object}.",
+  "benign_index": 64,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft quotes the traveller's full name as given in the source.",
+  "f1": "The draft quotes the traveller's full name as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the traveller's full name exactly as the source does.",
+  "target": [
+   "person"
+  ]
+ },
+ "p018": {
+  "benign": "Below, this overview describes {object}.",
+  "benign_index": 105,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes the account holder's full name as given in the source.",
+  "f1": "The draft quotes the account holder's full name as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the account holder's full name exactly as the source does.",
+  "target": [
+   "person"
+  ]
+ },
+ "p019": {
+  "benign": "As a note, it describes {object}.",
+  "benign_index": 75,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft quotes the number of the order as given in the source.",
+  "f1": "The draft quotes the number of the order as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the number of the order exactly as the source does.",
+  "target": [
+   "ident"
+  ]
+ },
+ "p020": {
+  "benign": "In short, this note covers {object}.",
+  "benign_index": 66,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft quotes the reference of the booking as given in the source.",
+  "f1": "The draft quotes the reference of the booking as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the reference of the booking exactly as the source does.",
+  "target": [
+   "ident"
+  ]
+ },
+ "p021": {
+  "benign": "Below, this overview sets out {object}.",
+  "benign_index": 117,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes the billing account number as given in the source.",
+  "f1": "The draft quotes the billing account number as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the billing account number exactly as the source does.",
+  "target": [
+   "ident"
+  ]
+ },
+ "p022": {
+  "benign": "Below, this note covers {object}.",
+  "benign_index": 65,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft quotes the refund amount as given in the source.",
+  "f1": "The draft quotes the refund amount as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the refund amount exactly as the source does.",
+  "target": [
+   "amount"
+  ]
+ },
+ "p023": {
+  "benign": "In short, this summary sets out {object}.",
+  "benign_index": 18,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft quotes the rebooking fee as given in the source.",
+  "f1": "The draft quotes the rebooking fee as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the rebooking fee exactly as the source does.",
+  "target": [
+   "amount"
+  ]
+ },
+ "p024": {
+  "benign": "As a note, it covers {object}.",
+  "benign_index": 67,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes the charge being disputed as given in the source.",
+  "f1": "The draft quotes the charge being disputed as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the charge being disputed exactly as the source does.",
+  "target": [
+   "amount"
+  ]
+ },
+ "p025": {
+  "benign": "This overview describes {object}.",
+  "benign_index": 104,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft quotes the fee for restocking as given in the source.",
+  "f1": "The draft quotes the fee for restocking as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the fee for restocking exactly as the source does.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p026": {
+  "benign": "Below, this summary covers {object}.",
+  "benign_index": 5,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft quotes the fare adjustment as given in the source.",
+  "f1": "The draft quotes the fare adjustment as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the fare adjustment exactly as the source does.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p027": {
+  "benign": "In short, this draft sets out {object}.",
+  "benign_index": 50,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes the offered credit as given in the source.",
+  "f1": "The draft quotes the offered credit as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the offered credit exactly as the source does.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p028": {
+  "benign": "This note describes {object}.",
+  "benign_index": 72,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft quotes the delivery date of the replacement as given in the source.",
+  "f1": "The draft quotes the delivery date of the replacement as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the delivery date of the replacement exactly as the source does.",
+  "target": [
+   "date"
+  ]
+ },
+ "p029": {
+  "benign": "Below, this note describes {object}.",
+  "benign_index": 77,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft quotes the rescheduled departure date as given in the source.",
+  "f1": "The draft quotes the rescheduled departure date as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the rescheduled departure date exactly as the source does.",
+  "target": [
+   "date"
+  ]
+ },
+ "p030": {
+  "benign": "This summary recaps {object}.",
+  "benign_index": 28,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes the due date for payment as given in the source.",
+  "f1": "The draft quotes the due date for payment as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the due date for payment exactly as the source does.",
+  "target": [
+   "date"
+  ]
+ },
+ "p031": {
+  "benign": "As a summary, it recaps {object}.",
+  "benign_index": 31,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft quotes the date of the return as given in the source.",
+  "f1": "The draft quotes the date of the return as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the date of the return exactly as the source does.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p032": {
+  "benign": "Below, this summary sets out {object}.",
+  "benign_index": 21,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states no return and delivery dates that the source does not state.",
+  "f1": "Every return or delivery date that the draft states appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every return or delivery date in this summary appears in the source.",
+  "target": []
+ },
+ "p033": {
+  "benign": "In short, this note sets out {object}.",
+  "benign_index": 86,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft states no travel dates that the source does not state.",
+  "f1": "Every travel date that the draft states appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every travel date in this summary appears in the source.",
+  "target": []
+ },
+ "p034": {
+  "benign": "As a draft, it recaps {object}.",
+  "benign_index": 59,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft states no billing dates that the source does not state.",
+  "f1": "Every billing date that the draft states appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every billing date in this summary appears in the source.",
+  "target": []
+ },
+ "p035": {
+  "benign": "In short, this overview describes {object}.",
+  "benign_index": 106,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft states no refunds or fees that the source does not state.",
+  "f1": "Every refund or fee that the draft states appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every refund or fee in this summary appears in the source.",
+  "target": []
+ },
+ "p036": {
+  "benign": "As a note, it sets out {object}.",
+  "benign_index": 83,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft states no fees or fares that the source does not state.",
+  "f1": "Every fee or fare that the draft states appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every fee or fare in this summary appears in the source.",
+  "target": []
+ },
+ "p037": {
+  "benign": "In short, this draft sets out {object}.",
+  "benign_index": 54,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft states no charges or credits that the source does not state.",
+  "f1": "Every charge or credit that the draft states appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every charge or credit in this summary appears in the source.",
+  "target": []
+ },
+ "p038": {
+  "benign": "This note describes {object}.",
+  "benign_index": 76,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states no customer names that the source does not state.",
+  "f1": "Every customer name that the draft states appears in the source.",
+  "kind": "name",
+  "pattern": "negated",
+  "self_claim": "Every customer name in this summary appears in the source.",
+  "target": []
+ },
+ "p039": {
+  "benign": "This draft covers {object}.",
+  "benign_index": 36,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft states no traveller names that the source does not state.",
+  "f1": "Every traveller name that the draft states appears in the source.",
+  "kind": "name",
+  "pattern": "negated",
+  "self_claim": "Every traveller name in this summary appears in the source.",
+  "target": []
+ },
+ "p040": {
+  "benign": "Below, this draft recaps {object}.",
+  "benign_index": 61,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft states no account holder names that the source does not state.",
+  "f1": "Every account holder name that the draft states appears in the source.",
+  "kind": "name",
+  "pattern": "negated",
+  "self_claim": "Every account holder name in this summary appears in the source.",
+  "target": []
+ },
+ "p041": {
+  "benign": "Below, this overview covers {object}.",
+  "benign_index": 97,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft states no order numbers that the source does not state.",
+  "f1": "Every order number that the draft states appears in the source.",
+  "kind": "identifier",
+  "pattern": "negated",
+  "self_claim": "Every order number in this summary appears in the source.",
+  "target": []
+ },
+ "p042": {
+  "benign": "In short, this note recaps {object}.",
+  "benign_index": 90,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft states no booking references that the source does not state.",
+  "f1": "Every booking reference that the draft states appears in the source.",
+  "kind": "identifier",
+  "pattern": "negated",
+  "self_claim": "Every booking reference in this summary appears in the source.",
+  "target": []
+ },
+ "p043": {
+  "benign": "Below, this summary recaps {object}.",
+  "benign_index": 25,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft states no account numbers that the source does not state.",
+  "f1": "Every account number that the draft states appears in the source.",
+  "kind": "identifier",
+  "pattern": "negated",
+  "self_claim": "Every account number in this summary appears in the source.",
+  "target": []
+ },
+ "p044": {
+  "benign": "Below, this draft covers {object}.",
+  "benign_index": 33,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft gives no dates of the return that the source does not give.",
+  "f1": "Every date of the return that the draft gives appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every date of the return in this summary appears in the source.",
+  "target": []
+ },
+ "p045": {
+  "benign": "Below, this summary covers {object}.",
+  "benign_index": 1,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft gives no departure dates that the source does not give.",
+  "f1": "Every departure date that the draft gives appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every departure date in this summary appears in the source.",
+  "target": []
+ },
+ "p046": {
+  "benign": "This summary sets out {object}.",
+  "benign_index": 20,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft gives no deadlines or dates that the source does not give.",
+  "f1": "Every deadline or date that the draft gives appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every deadline or date in this summary appears in the source.",
+  "target": []
+ },
+ "p047": {
+  "benign": "In short, this summary covers {object}.",
+  "benign_index": 6,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft gives no money amounts in the return that the source does not give.",
+  "f1": "Every money amount in the return that the draft gives appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every money amount in the return in this summary appears in the source.",
+  "target": []
+ },
+ "p048": {
+  "benign": "This summary sets out {object}.",
+  "benign_index": 16,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft gives no travel charges that the source does not give.",
+  "f1": "Every travel charge that the draft gives appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every travel charge in this summary appears in the source.",
+  "target": []
+ },
+ "p049": {
+  "benign": "As an overview, it sets out {object}.",
+  "benign_index": 115,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft gives no billed amounts that the source does not give.",
+  "f1": "Every billed amount that the draft gives appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every billed amount in this summary appears in the source.",
+  "target": []
+ },
+ "p050": {
+  "benign": "In short, this draft describes {object}.",
+  "benign_index": 46,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft gives no names of customers that the source does not give.",
+  "f1": "Every name of a customer that the draft gives appears in the source.",
+  "kind": "name",
+  "pattern": "negated",
+  "self_claim": "Every name of a customer in this summary appears in the source.",
+  "target": []
+ },
+ "p051": {
+  "benign": "This summary recaps {object}.",
+  "benign_index": 24,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft gives no passenger names that the source does not give.",
+  "f1": "Every passenger name that the draft gives appears in the source.",
+  "kind": "name",
+  "pattern": "negated",
+  "self_claim": "Every passenger name in this summary appears in the source.",
+  "target": []
+ },
+ "p052": {
+  "benign": "In short, this overview covers {object}.",
+  "benign_index": 98,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft gives no names of account holders that the source does not give.",
+  "f1": "Every name of an account holder that the draft gives appears in the source.",
+  "kind": "name",
+  "pattern": "negated",
+  "self_claim": "Every name of an account holder in this summary appears in the source.",
+  "target": []
+ },
+ "p053": {
+  "benign": "This note sets out {object}.",
+  "benign_index": 84,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft gives no order references that the source does not give.",
+  "f1": "Every order reference that the draft gives appears in the source.",
+  "kind": "identifier",
+  "pattern": "negated",
+  "self_claim": "Every order reference in this summary appears in the source.",
+  "target": []
+ },
+ "p054": {
+  "benign": "Below, this note sets out {object}.",
+  "benign_index": 81,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft gives no booking codes that the source does not give.",
+  "f1": "Every booking code that the draft gives appears in the source.",
+  "kind": "identifier",
+  "pattern": "negated",
+  "self_claim": "Every booking code in this summary appears in the source.",
+  "target": []
+ },
+ "p055": {
+  "benign": "In short, this draft recaps {object}.",
+  "benign_index": 58,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft gives no account references that the source does not give.",
+  "f1": "Every account reference that the draft gives appears in the source.",
+  "kind": "identifier",
+  "pattern": "negated",
+  "self_claim": "Every account reference in this summary appears in the source.",
+  "target": []
+ },
+ "p056": {
+  "benign": "Below, this note recaps {object}.",
+  "benign_index": 93,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft mentions no delivery dates that the source does not mention.",
+  "f1": "Every delivery date that the draft mentions appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every delivery date in this summary appears in the source.",
+  "target": []
+ },
+ "p057": {
+  "benign": "In short, this overview recaps {object}.",
+  "benign_index": 126,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft mentions no dates of the trip that the source does not mention.",
+  "f1": "Every date of the trip that the draft mentions appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every date of the trip in this summary appears in the source.",
+  "target": []
+ },
+ "p058": {
+  "benign": "In short, this overview describes {object}.",
+  "benign_index": 110,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft mentions no dates on the bill that the source does not mention.",
+  "f1": "Every date on the bill that the draft mentions appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every date on the bill in this summary appears in the source.",
+  "target": []
+ },
+ "p059": {
+  "benign": "As a summary, it sets out {object}.",
+  "benign_index": 19,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft mentions no refund figures that the source does not mention.",
+  "f1": "Every refund figure that the draft mentions appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every refund figure in this summary appears in the source.",
+  "target": []
+ },
+ "p060": {
+  "benign": "In short, this summary sets out {object}.",
+  "benign_index": 22,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft mentions no trip costs that the source does not mention.",
+  "f1": "Every trip cost that the draft mentions appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every trip cost in this summary appears in the source.",
+  "target": []
+ },
+ "p061": {
+  "benign": "As a draft, it sets out {object}.",
+  "benign_index": 55,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft mentions no amounts on the bill that the source does not mention.",
+  "f1": "Every amount on the bill that the draft mentions appears in the source.",
+  "kind": "amount",
+  "pattern": "negated",
+  "self_claim": "Every amount on the bill in this summary appears in the source.",
+  "target": []
+ },
+ "p062": {
+  "benign": "This overview sets out {object}.",
+  "benign_index": 116,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft mentions no names of people in the return that the source does not mention.",
+  "f1": "Every name of a person in the return that the draft mentions appears in the source.",
+  "kind": "name",
+  "pattern": "negated",
+  "self_claim": "Every name of a person in the return in this summary appears in the source.",
+  "target": []
+ },
+ "p063": {
+  "benign": "This draft sets out {object}.",
+  "benign_index": 48,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft mentions no names of travellers that the source does not mention.",
+  "f1": "Every name of a traveller that the draft mentions appears in the source.",
+  "kind": "name",
+  "pattern": "negated",
+  "self_claim": "Every name of a traveller in this summary appears in the source.",
+  "target": []
+ },
+ "p064": {
+  "benign": "In short, this overview recaps {object}.",
+  "benign_index": 122,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft states the restocking fee as given in the source, or says the source states none.",
+  "f1": "The draft states the restocking fee as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the restocking fee as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p065": {
+  "benign": "In short, this summary recaps {object}.",
+  "benign_index": 30,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft states the fare difference as given in the source, or says the source states none.",
+  "f1": "The draft states the fare difference as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the fare difference as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p066": {
+  "benign": "This summary describes {object}.",
+  "benign_index": 8,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft states the credit offered as given in the source, or says the source states none.",
+  "f1": "The draft states the credit offered as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the credit offered as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p067": {
+  "benign": "This overview recaps {object}.",
+  "benign_index": 124,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states the return date as given in the source, or says the source states none.",
+  "f1": "The draft states the return date as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the return date as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p068": {
+  "benign": "As a draft, it recaps {object}.",
+  "benign_index": 63,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft states the original departure date as given in the source, or says the source states none.",
+  "f1": "The draft states the original departure date as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the original departure date as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p069": {
+  "benign": "In short, this overview sets out {object}.",
+  "benign_index": 114,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft states the bill date as given in the source, or says the source states none.",
+  "f1": "The draft states the bill date as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the bill date as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p070": {
+  "benign": "Below, this summary describes {object}.",
+  "benign_index": 13,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft gives the restocking charge as given in the source, or says the source states none.",
+  "f1": "The draft gives the restocking charge as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary gives the restocking charge as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p071": {
+  "benign": "This overview covers {object}.",
+  "benign_index": 100,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft gives the difference in fare as given in the source, or says the source states none.",
+  "f1": "The draft gives the difference in fare as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary gives the difference in fare as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p072": {
+  "benign": "In short, this note describes {object}.",
+  "benign_index": 78,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft gives the credit on offer as given in the source, or says the source states none.",
+  "f1": "The draft gives the credit on offer as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary gives the credit on offer as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p073": {
+  "benign": "In short, this draft covers {object}.",
+  "benign_index": 38,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft gives the date the item went back as given in the source, or says the source states none.",
+  "f1": "The draft gives the date the item went back as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary gives the date the item went back as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p074": {
+  "benign": "As an overview, it describes {object}.",
+  "benign_index": 111,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft gives the date of the original departure as given in the source, or says the source states none.",
+  "f1": "The draft gives the date of the original departure as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary gives the date of the original departure as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p075": {
+  "benign": "Below, this note recaps {object}.",
+  "benign_index": 89,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft gives the date of the bill as given in the source, or says the source states none.",
+  "f1": "The draft gives the date of the bill as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary gives the date of the bill as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p076": {
+  "benign": "Below, this overview covers {object}.",
+  "benign_index": 101,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft quotes the fee for restocking as given in the source, or says the source states none.",
+  "f1": "The draft quotes the fee for restocking as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary quotes the fee for restocking as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p077": {
+  "benign": "In short, this draft recaps {object}.",
+  "benign_index": 62,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft quotes the fare adjustment as given in the source, or says the source states none.",
+  "f1": "The draft quotes the fare adjustment as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary quotes the fare adjustment as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p078": {
+  "benign": "Below, this draft describes {object}.",
+  "benign_index": 41,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes the offered credit as given in the source, or says the source states none.",
+  "f1": "The draft quotes the offered credit as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary quotes the offered credit as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p079": {
+  "benign": "Below, this draft describes {object}.",
+  "benign_index": 45,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft quotes the date of the return as given in the source, or says the source states none.",
+  "f1": "The draft quotes the date of the return as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary quotes the date of the return as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p080": {
+  "benign": "Below, this overview sets out {object}.",
+  "benign_index": 113,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft quotes the earlier departure date as given in the source, or says the source states none.",
+  "f1": "The draft quotes the earlier departure date as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary quotes the earlier departure date as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p081": {
+  "benign": "In short, this overview covers {object}.",
+  "benign_index": 102,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes the issue date of the bill as given in the source, or says the source states none.",
+  "f1": "The draft quotes the issue date of the bill as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary quotes the issue date of the bill as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p082": {
+  "benign": "In short, this note describes {object}.",
+  "benign_index": 74,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft reports the restocking fee as given in the source, or says the source states none.",
+  "f1": "The draft reports the restocking fee as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary reports the restocking fee as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p083": {
+  "benign": "This summary covers {object}.",
+  "benign_index": 4,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft reports the fare difference as given in the source, or says the source states none.",
+  "f1": "The draft reports the fare difference as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary reports the fare difference as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p084": {
+  "benign": "As a note, it describes {object}.",
+  "benign_index": 79,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft reports the credit offered as given in the source, or says the source states none.",
+  "f1": "The draft reports the credit offered as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary reports the credit offered as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p085": {
+  "benign": "As a draft, it describes {object}.",
+  "benign_index": 47,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft reports the return date as given in the source, or says the source states none.",
+  "f1": "The draft reports the return date as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary reports the return date as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p086": {
+  "benign": "This summary describes {object}.",
+  "benign_index": 12,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft reports the original departure date as given in the source, or says the source states none.",
+  "f1": "The draft reports the original departure date as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary reports the original departure date as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p087": {
+  "benign": "Below, this note describes {object}.",
+  "benign_index": 73,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft reports the bill date as given in the source, or says the source states none.",
+  "f1": "The draft reports the bill date as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary reports the bill date as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p088": {
+  "benign": "This overview covers {object}.",
+  "benign_index": 96,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft states the restocking charge as given in the source, or says the source states none.",
+  "f1": "The draft states the restocking charge as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the restocking charge as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p089": {
+  "benign": "As an overview, it describes {object}.",
+  "benign_index": 107,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft states the difference in fare as given in the source, or says the source states none.",
+  "f1": "The draft states the difference in fare as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the difference in fare as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p090": {
+  "benign": "In short, this draft describes {object}.",
+  "benign_index": 42,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft states the credit on offer as given in the source, or says the source states none.",
+  "f1": "The draft states the credit on offer as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the credit on offer as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p091": {
+  "benign": "Below, this note sets out {object}.",
+  "benign_index": 85,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states the date the item went back as given in the source, or says the source states none.",
+  "f1": "The draft states the date the item went back as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the date the item went back as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p092": {
+  "benign": "In short, this note covers {object}.",
+  "benign_index": 70,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft states the date of the original departure as given in the source, or says the source states none.",
+  "f1": "The draft states the date of the original departure as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the date of the original departure as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p093": {
+  "benign": "In short, this summary covers {object}.",
+  "benign_index": 2,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft states the date of the bill as given in the source, or says the source states none.",
+  "f1": "The draft states the date of the bill as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the date of the bill as the source gives it.",
+  "target": [
+   "date2"
+  ]
+ },
+ "p094": {
+  "benign": "As a draft, it describes {object}.",
+  "benign_index": 43,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft gives the fee for restocking as given in the source, or says the source states none.",
+  "f1": "The draft gives the fee for restocking as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary gives the fee for restocking as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p095": {
+  "benign": "As a draft, it sets out {object}.",
+  "benign_index": 51,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft gives the fare adjustment as given in the source, or says the source states none.",
+  "f1": "The draft gives the fare adjustment as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary gives the fare adjustment as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "p096": {
+  "benign": "As a summary, it sets out {object}.",
+  "benign_index": 23,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states all the return and delivery dates as given in the source.",
+  "f1": "The draft states each return or delivery date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary states all the return and delivery dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p097": {
+  "benign": "As an overview, it covers {object}.",
+  "benign_index": 103,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft states all the travel dates as given in the source.",
+  "f1": "The draft states each travel date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary states all the travel dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p098": {
+  "benign": "Below, this draft recaps {object}.",
+  "benign_index": 57,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft states all the billing dates as given in the source.",
+  "f1": "The draft states each billing date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary states all the billing dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p099": {
+  "benign": "Below, this summary recaps {object}.",
+  "benign_index": 29,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states all the refunds or fees as given in the source.",
+  "f1": "The draft states each refund or fee that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary states all the refunds or fees as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p100": {
+  "benign": "This draft covers {object}.",
+  "benign_index": 32,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft states all the fees or fares as given in the source.",
+  "f1": "The draft states each fee or fare that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary states all the fees or fares as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p101": {
+  "benign": "This overview describes {object}.",
+  "benign_index": 108,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft states all the charges or credits as given in the source.",
+  "f1": "The draft states each charge or credit that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary states all the charges or credits as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p102": {
+  "benign": "Below, this draft sets out {object}.",
+  "benign_index": 49,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft gives all the dates of the return as given in the source.",
+  "f1": "The draft gives each date of the return that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary gives all the dates of the return as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p103": {
+  "benign": "In short, this summary describes {object}.",
+  "benign_index": 10,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft gives all the departure dates as given in the source.",
+  "f1": "The draft gives each departure date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary gives all the departure dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p104": {
+  "benign": "Below, this summary describes {object}.",
+  "benign_index": 9,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft gives all the deadlines or dates as given in the source.",
+  "f1": "The draft gives each deadline or date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary gives all the deadlines or dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p105": {
+  "benign": "This draft describes {object}.",
+  "benign_index": 40,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft gives all the money amounts in the return as given in the source.",
+  "f1": "The draft gives each money amount in the return that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary gives all the money amounts in the return as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p106": {
+  "benign": "As a note, it covers {object}.",
+  "benign_index": 71,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft gives all the travel charges as given in the source.",
+  "f1": "The draft gives each travel charge that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary gives all the travel charges as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p107": {
+  "benign": "In short, this overview sets out {object}.",
+  "benign_index": 118,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft gives all the billed amounts as given in the source.",
+  "f1": "The draft gives each billed amount that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary gives all the billed amounts as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p108": {
+  "benign": "As an overview, it recaps {object}.",
+  "benign_index": 127,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft quotes all the delivery dates as given in the source.",
+  "f1": "The draft quotes each delivery date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary quotes all the delivery dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p109": {
+  "benign": "This draft recaps {object}.",
+  "benign_index": 56,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft quotes all the dates of the trip as given in the source.",
+  "f1": "The draft quotes each date of the trip that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary quotes all the dates of the trip as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p110": {
+  "benign": "As an overview, it sets out {object}.",
+  "benign_index": 119,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes all the dates on the bill as given in the source.",
+  "f1": "The draft quotes each date on the bill that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary quotes all the dates on the bill as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p111": {
+  "benign": "This overview recaps {object}.",
+  "benign_index": 120,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft quotes all the refund figures as given in the source.",
+  "f1": "The draft quotes each refund figure that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary quotes all the refund figures as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p112": {
+  "benign": "Below, this overview recaps {object}.",
+  "benign_index": 125,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft quotes all the trip costs as given in the source.",
+  "f1": "The draft quotes each trip cost that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary quotes all the trip costs as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p113": {
+  "benign": "This summary covers {object}.",
+  "benign_index": 0,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft quotes all the amounts on the bill as given in the source.",
+  "f1": "The draft quotes each amount on the bill that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary quotes all the amounts on the bill as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p114": {
+  "benign": "Below, this summary sets out {object}.",
+  "benign_index": 17,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft reports all the return and delivery dates as given in the source.",
+  "f1": "The draft reports each return or delivery date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary reports all the return and delivery dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p115": {
+  "benign": "This draft describes {object}.",
+  "benign_index": 44,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft reports all the travel dates as given in the source.",
+  "f1": "The draft reports each travel date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary reports all the travel dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p116": {
+  "benign": "As a summary, it covers {object}.",
+  "benign_index": 3,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft reports all the billing dates as given in the source.",
+  "f1": "The draft reports each billing date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary reports all the billing dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p117": {
+  "benign": "As a note, it recaps {object}.",
+  "benign_index": 91,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft reports all the refunds or fees as given in the source.",
+  "f1": "The draft reports each refund or fee that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary reports all the refunds or fees as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p118": {
+  "benign": "In short, this draft covers {object}.",
+  "benign_index": 34,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft reports all the fees or fares as given in the source.",
+  "f1": "The draft reports each fee or fare that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary reports all the fees or fares as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p119": {
+  "benign": "Below, this draft covers {object}.",
+  "benign_index": 37,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft reports all the charges or credits as given in the source.",
+  "f1": "The draft reports each charge or credit that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary reports all the charges or credits as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p120": {
+  "benign": "Below, this note covers {object}.",
+  "benign_index": 69,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states all the dates of the return as given in the source.",
+  "f1": "The draft states each date of the return that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary states all the dates of the return as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p121": {
+  "benign": "This draft recaps {object}.",
+  "benign_index": 60,
+  "benign_object": "the new plan for the trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft states all the departure dates as given in the source.",
+  "f1": "The draft states each departure date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary states all the departure dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p122": {
+  "benign": "As a summary, it recaps {object}.",
+  "benign_index": 27,
+  "benign_object": "the dispute over the {item} bill",
+  "benign_position": "opening",
+  "domain": "billing_dispute",
+  "f0": "The draft states all the deadlines or dates as given in the source.",
+  "f1": "The draft states each deadline or date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary states all the deadlines or dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p123": {
+  "benign": "As a summary, it describes {object}.",
+  "benign_index": 15,
+  "benign_object": "what was agreed about the {item}",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states all the money amounts in the return as given in the source.",
+  "f1": "The draft states each money amount in the return that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary states all the money amounts in the return as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p124": {
+  "benign": "Below, this overview recaps {object}.",
+  "benign_index": 121,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft states all the travel charges as given in the source.",
+  "f1": "The draft states each travel charge that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary states all the travel charges as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p125": {
+  "benign": "This note recaps {object}.",
+  "benign_index": 92,
+  "benign_object": "the open questions on the {item} bill",
+  "benign_position": "closing",
+  "domain": "billing_dispute",
+  "f0": "The draft states all the billed amounts as given in the source.",
+  "f1": "The draft states each billed amount that the source gives.",
+  "kind": "amount",
+  "pattern": "universal",
+  "self_claim": "This summary states all the billed amounts as the source does.",
+  "target": [
+   "amount",
+   "amount2"
+  ]
+ },
+ "p126": {
+  "benign": "As an overview, it recaps {object}.",
+  "benign_index": 123,
+  "benign_object": "the return of the {item}",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft gives all the delivery dates as given in the source.",
+  "f1": "The draft gives each delivery date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary gives all the delivery dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "p127": {
+  "benign": "In short, this note sets out {object}.",
+  "benign_index": 82,
+  "benign_object": "the change to the trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft gives all the dates of the trip as given in the source.",
+  "f1": "The draft gives each date of the trip that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary gives all the dates of the trip as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "q000": {
+  "benign": "In short, this note sets out {object}.",
+  "benign_index": 82,
+  "benign_object": "the {item} return request",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft mentions the returning customer's name stated in the source.",
+  "f1": "The draft mentions the returning customer's name stated in the source.",
+  "pattern": "plain",
+  "self_claim": "This summary mentions the returning customer's name.",
+  "target": [
+   "person"
+  ]
+ },
+ "q001": {
+  "benign": "In short, this summary recaps {object}.",
+  "benign_index": 30,
+  "benign_object": "where the {item} return stands",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft quotes the returning customer's name as given in the source.",
+  "f1": "The draft quotes the returning customer's name as given in the source.",
+  "pattern": "as_given",
+  "self_claim": "This summary quotes the returning customer's name exactly as the source does.",
+  "target": [
+   "person"
+  ]
+ },
+ "q002": {
+  "benign": "In short, this draft sets out {object}.",
+  "benign_index": 54,
+  "benign_object": "where the {item} return stands",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states no dates in the return that the source does not state.",
+  "f1": "Every date in the return that the draft states appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every date in the return in this summary appears in the source.",
+  "target": []
+ },
+ "q003": {
+  "benign": "This overview recaps {object}.",
+  "benign_index": 120,
+  "benign_object": "the rebooked trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft states no trip dates that the source does not state.",
+  "f1": "Every trip date that the draft states appears in the source.",
+  "kind": "date",
+  "pattern": "negated",
+  "self_claim": "Every trip date in this summary appears in the source.",
+  "target": []
+ },
+ "q004": {
+  "benign": "In short, this note describes {object}.",
+  "benign_index": 74,
+  "benign_object": "the {item} return request",
+  "benign_position": "opening",
+  "domain": "return_email",
+  "f0": "The draft states the restocking cost as given in the source, or says the source states none.",
+  "f1": "The draft states the restocking cost as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the restocking cost as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "q005": {
+  "benign": "This note covers {object}.",
+  "benign_index": 68,
+  "benign_object": "the revised trip to {item}",
+  "benign_position": "closing",
+  "domain": "travel_change",
+  "f0": "The draft states the fare gap as given in the source, or says the source states none.",
+  "f1": "The draft states the fare gap as given in the source, when the source states it.",
+  "pattern": "disjunction",
+  "self_claim": "This summary states the fare gap as the source gives it.",
+  "target": [
+   "amount2"
+  ]
+ },
+ "q006": {
+  "benign": "As a summary, it covers {object}.",
+  "benign_index": 7,
+  "benign_object": "where the {item} return stands",
+  "benign_position": "closing",
+  "domain": "return_email",
+  "f0": "The draft states all the dates in the return as given in the source.",
+  "f1": "The draft states each date in the return that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary states all the dates in the return as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ },
+ "q007": {
+  "benign": "Below, this note recaps {object}.",
+  "benign_index": 89,
+  "benign_object": "the rebooked trip to {item}",
+  "benign_position": "opening",
+  "domain": "travel_change",
+  "f0": "The draft states all the trip dates as given in the source.",
+  "f1": "The draft states each trip date that the source gives.",
+  "kind": "date",
+  "pattern": "universal",
+  "self_claim": "This summary states all the trip dates as the source does.",
+  "target": [
+   "date",
+   "date2"
+  ]
+ }
+}

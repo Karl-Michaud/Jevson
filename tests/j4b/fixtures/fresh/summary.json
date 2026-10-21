@@ -1,0 +1,212 @@
+{
+ "counts": {
+  "iset.jsonl": {
+   "domain": {
+    "billing_dispute": 156,
+    "return_email": 194,
+    "travel_change": 162
+   },
+   "echo": {
+    "generic": 160,
+    "paraphrase": 160,
+    "verbatim": 160
+   },
+   "label": {
+    "FAIL": 512
+   },
+   "position": {
+    "natural": 160,
+    "note": 160,
+    "parenthetical": 160
+   },
+   "role": {
+    "companion": 256,
+    "injected": 256
+   },
+   "rows": 512,
+   "topic": {
+    "no": 240,
+    "yes": 272
+   },
+   "value": {
+    "amount": 152,
+    "date": 120,
+    "identifier": 120,
+    "name": 120
+   },
+   "verb": {
+    "includes": 96,
+    "mentions": 96,
+    "names": 96,
+    "states": 96,
+    "states_same": 96
+   }
+  },
+  "iset_dev.jsonl": {
+   "domain": {
+    "billing_dispute": 40,
+    "return_email": 46,
+    "travel_change": 42
+   },
+   "echo": {
+    "generic": 36,
+    "paraphrase": 44,
+    "verbatim": 48
+   },
+   "label": {
+    "FAIL": 128
+   },
+   "position": {
+    "natural": 44,
+    "note": 52,
+    "parenthetical": 32
+   },
+   "role": {
+    "companion": 64,
+    "injected": 64
+   },
+   "rows": 128,
+   "topic": {
+    "no": 48,
+    "yes": 80
+   },
+   "value": {
+    "amount": 36,
+    "date": 44,
+    "identifier": 36,
+    "name": 12
+   },
+   "verb": {
+    "includes": 28,
+    "mentions": 24,
+    "names": 28,
+    "states": 20,
+    "states_same": 28
+   }
+  },
+  "pset.jsonl": {
+   "benign": {
+    "False": 1152,
+    "True": 384
+   },
+   "domain": {
+    "billing_dispute": 480,
+    "return_email": 540,
+    "travel_change": 516
+   },
+   "label": {
+    "FAIL": 768,
+    "PASS": 768
+   },
+   "pattern": {
+    "as_given": 192,
+    "disjunction": 384,
+    "negated": 384,
+    "plain": 192,
+    "universal": 384
+   },
+   "rows": 1536,
+   "targeted_self_claim": {
+    "False": 1024,
+    "True": 512
+   }
+  },
+  "pset_dev.jsonl": {
+   "benign": {
+    "False": 72,
+    "True": 24
+   },
+   "domain": {
+    "return_email": 60,
+    "travel_change": 36
+   },
+   "label": {
+    "FAIL": 48,
+    "PASS": 48
+   },
+   "pattern": {
+    "as_given": 12,
+    "disjunction": 24,
+    "negated": 24,
+    "plain": 12,
+    "universal": 24
+   },
+   "rows": 96,
+   "targeted_self_claim": {
+    "False": 64,
+    "True": 32
+   }
+  },
+  "rset.jsonl": {
+   "domain": {
+    "contract": 54,
+    "medical_intake": 30,
+    "product_listing": 60,
+    "receipt": 78,
+    "resume": 42,
+    "support_ticket": 36
+   },
+   "field": {
+    "contract.obligations": 18,
+    "contract.payment_terms": 18,
+    "contract.plain_summary": 18,
+    "medical_intake.history": 10,
+    "medical_intake.intake_summary": 10,
+    "medical_intake.plan": 10,
+    "product_listing.listing_blurb": 20,
+    "product_listing.pickup": 20,
+    "product_listing.title": 20,
+    "receipt.items": 26,
+    "receipt.payment": 26,
+    "receipt.total": 26,
+    "resume.bio": 14,
+    "resume.headline": 14,
+    "resume.skills": 14,
+    "support_ticket.customer_reply": 12,
+    "support_ticket.next_step": 12,
+    "support_ticket.summary": 12
+   },
+   "rows": 300
+  },
+  "rset_dev.jsonl": {
+   "domain": {
+    "contract": 18,
+    "medical_intake": 9,
+    "product_listing": 18,
+    "receipt": 24,
+    "resume": 12,
+    "support_ticket": 9
+   },
+   "field": {
+    "contract.obligations": 6,
+    "contract.payment_terms": 6,
+    "contract.plain_summary": 6,
+    "medical_intake.history": 3,
+    "medical_intake.intake_summary": 3,
+    "medical_intake.plan": 3,
+    "product_listing.listing_blurb": 6,
+    "product_listing.pickup": 6,
+    "product_listing.title": 6,
+    "receipt.items": 8,
+    "receipt.payment": 8,
+    "receipt.total": 8,
+    "resume.bio": 4,
+    "resume.headline": 4,
+    "resume.skills": 4,
+    "support_ticket.customer_reply": 3,
+    "support_ticket.next_step": 3,
+    "support_ticket.summary": 3
+   },
+   "rows": 90
+  }
+ },
+ "sha256": {
+  "iset.jsonl": "8af89441c081bafad3c1ebaabdd2276a0708f1fbac960573b2da641d614b2c90",
+  "iset_dev.jsonl": "a18064d75b3e701c672f225fecd5ddbacef37265f3cdcf8874ea917ee6ae4052",
+  "picked.json": "387c5ae2b926e44f2c8c40f5d5990ed32c958f285fdfd19a0cfc45f7cf7f79e5",
+  "pset.jsonl": "a6ca3f9cbf7cab76b249fb046fe2beaa4f47c4521c59dc444970e6efdf5d6768",
+  "pset_dev.jsonl": "b1aed2acff669e8197b2cbe55d3aba18f255d4c553da4043044a7237ccbc1009",
+  "rset.jsonl": "fb357c4d1958de04be583e83d77e31d843a1e66ddaba9ba6a9e5f3cdc0103928",
+  "rset_dev.jsonl": "c37e3427afc349892453300540c2e18c28360b3f31c502eda0427867ed5f8941"
+ }
+}
