@@ -29,7 +29,7 @@ from typing import Any
 import httpx
 
 from tests.j4b.build_injection_fixture import FIXTURE as P7_FIXTURE
-from tests.j4b.fresh import arms, bounds, costs, gates, phases, requeue, workload
+from tests.j4b.fresh import admission, arms, bounds, costs, gates, phases, requeue, workload
 from tests.j4b.fresh.attempts import Attempts, Refused, RunLock
 from tests.j4b.fresh.constants import NANO
 from tests.j4b.fresh.packing import Unit
@@ -100,16 +100,17 @@ async def run_attempt_phase(
         check_models(ledger, n)
 
     keys = await phases.drafting_phase(c, ledger, w, bound=drafting.__getitem__, sleep=env.sleep, after_batch=guard)
-    return await phases.configuration_phase(
+    judged = await phases.configuration_phase(
         c, ledger, w, keys, bound=units.__getitem__, sleep=env.sleep, after_batch=guard
     )
+    return admission.records(judged)
 
 
 async def replay(ledger: SpendLedger, w: Workload, directory: Path, sleep: Sleep) -> dict[Unit, Any]:
     """The phase from its records only; any miss raises `ReplayMiss` (design §6.2, R15)."""
     c = phases.replay_clients(directory)
     keys = await phases.drafting_phase(c, ledger, w, bound=lambda _: 0, sleep=sleep)
-    return await phases.configuration_phase(c, ledger, w, keys, bound=lambda _: 0, sleep=sleep)
+    return admission.records(await phases.configuration_phase(c, ledger, w, keys, bound=lambda _: 0, sleep=sleep))
 
 
 def guard_reason(error: Exception, ledger: SpendLedger) -> str | None:
@@ -219,7 +220,7 @@ def outcomes_of(w: Workload, directory: Path, *, partial: bool) -> dict[Unit, An
     kept: dict[Unit, Any] = {}
     for unit in (u for us in w.units.values() for u in us):
         try:
-            kept[unit] = asyncio.run(phases.run_unit(c, w, keys, unit))
+            kept[unit] = admission.record(asyncio.run(phases.run_unit(c, w, keys, unit)))
         except Exception:  # a unit that does not replay is simply not recorded
             continue
     return kept

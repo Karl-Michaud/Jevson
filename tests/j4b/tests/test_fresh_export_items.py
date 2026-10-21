@@ -11,7 +11,7 @@ from typing import Any
 
 import pytest
 
-from tests.j4b.fresh import export_items, runner, scoring, workload
+from tests.j4b.fresh import export_items, grading, runner, scoring, workload
 from tests.j4b.fresh.constants import CHUNK_CHARS
 from tests.j4b.labelling.records import ITEM_KEYS, Label
 from tests.j4b.tests import fake_api
@@ -139,12 +139,12 @@ def test_h28_rset_truth_is_the_f0_items_label_for_every_configuration_and_f1_nev
         forms = {u.get("form") for u in by_item[item["id"]]["uses"]}
         verdict = forms != {"F1"}  # every F1-only item says False, every item with an F0 use says True
         labels[item["id"]] = Label(item["id"], {c["id"]: verdict for c in item["criteria"]}, "")
-    truth = export_items.truths(key, labels)
+    truth = grading.truths(key, labels)
     assert truth
     assert all(v for (_, _, _, form), v in truth.items() if form == "F0")
     w = e.load("confirm")
     outcomes = runner.outcomes_of(w, e.root / "attempt-1" / "confirm", partial=False)
-    rset = export_items.rset_truths(w, outcomes, truth)
+    rset = grading.rset_truths(outcomes, truth)
     firsts = [r for per_config in rset.values() for r in per_config.values()]
     assert firsts
     assert all(r.first_true for r in firsts)
@@ -158,13 +158,13 @@ def test_h28_rset_truth_is_the_f0_items_label_for_every_configuration_and_f1_nev
 def test_h36_96_diagnostic_items_stratified_and_reproducible(exported: Any) -> None:
     _, _, key = exported
     rows = workload.read_rows("pset.jsonl")
-    ids = export_items.diagnostic_ids(rows)
+    ids = grading.diagnostic_ids(rows)
     by_id = {r["draft_id"]: r for r in rows}
     assert len(ids) == 96 == len(set(ids))
     counts = Counter((by_id[i]["pattern"], by_id[i]["label"]) for i in ids)
     patterns = list(dict.fromkeys(r["pattern"] for r in rows))
     assert [counts[(p, "PASS")] for p in patterns] == [6, 6, 12, 12, 12] == [counts[(p, "FAIL")] for p in patterns]
-    assert export_items.diagnostic_ids(rows) == ids
+    assert grading.diagnostic_ids(rows) == ids
     rng, redrawn = random.Random(4858), []  # the pinned draw, re-run independently
     for pattern, k in zip(patterns, (6, 6, 12, 12, 12), strict=True):
         for verdict in ("PASS", "FAIL"):
@@ -186,7 +186,7 @@ def planted_draw(rows: list[dict[str, Any]], seed: int, split: tuple[int, int]) 
 
 def test_h36_a_draw_with_another_seed_or_split_differs() -> None:
     rows = workload.read_rows("pset.jsonl")
-    ids = export_items.diagnostic_ids(rows)
+    ids = grading.diagnostic_ids(rows)
     assert planted_draw(rows, 4859, (48, 48)) != ids
     assert planted_draw(rows, 4858, (50, 46)) != ids
-    assert export_items.allocation() == [6, 6, 12, 12, 12]
+    assert grading.allocation() == [6, 6, 12, 12, 12]

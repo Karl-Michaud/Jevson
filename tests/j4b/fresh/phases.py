@@ -6,7 +6,8 @@ drafting through `SingleFlightLLM(ReplayLLM(OpenAIChatLLM(max_completion_tokens=
 over one `MeteredTransport` and recording under the phase directory. **Drafting phase.** Every R-set first draft
 is drawn once, built exactly as the executor builds it (`messages(step.drafting, doc.text, None)`, `TOOL_SCHEMA`),
 in batches of 10 documents, each batch checked against the cap first. **Configuration phase.** Units in the pinned
-batches; each unit re-queued under `requeue.run_unit`.
+batches; each unit re-queued under `requeue.run_unit`, and returned as judged (`admission.Judged`): what a unit's
+outcome is (a flip, an admission, an R-set draft) is `admission.record`'s, frozen, never this module's.
 
 **The first-draft gate.** A drafting request whose `replay_key` is one of the drafting phase's recorded keys is
 served from that recording with `replay_only=True`, so a missing first draft raises `replay_miss` and never
@@ -168,27 +169,8 @@ async def drafting_phase(
 # --- the configuration phase ----------------------------------------------------------------------------
 
 
-def rset_record(result: Result, draftings: Sequence[Drafting], pointers: Sequence[str]) -> dict[str, Any]:
-    """Each field's first draft and redraft, and whether each was admitted; a malformed draft's text is null and
-    counted (design §6.3: every truncation is counted per configuration)."""
-    bad = {malformed(d.max_draft_chars) for d in draftings}
-    out: dict[str, Any] = {}
-    for pointer in pointers:
-        rejected = [r for r in result.rejections if r.pointer == pointer]
-        value = result.value.get(pointer.removeprefix("/"))
-        texts = [None if r.criteria and r.criteria[0] in bad else r.draft for r in rejected]
-        out[pointer] = {
-            "first_admitted": not rejected and value is not None,
-            "redraft_admitted": bool(rejected) and value is not None,
-            "first": value if not rejected else texts[0],
-            "redraft": value if rejected and value is not None else (texts[1] if len(texts) > 1 else None),
-            "malformed": sum(t is None for t in texts),
-        }
-    return out
-
-
-async def run_unit(c: Clients, w: Workload, first_keys: frozenset[str], unit: Unit) -> dict[str, Any]:
-    """One (case, configuration) pair; its outcome as recorded."""
+async def run_unit(c: Clients, w: Workload, first_keys: frozenset[str], unit: Unit) -> admission.Judged:
+    """One (case, configuration) pair, judged; `admission.record` (frozen) turns it into the recorded outcome."""
     config = arms.LIBRARY_ARMS[unit.arm]
     if unit.set_name == "rset":
         doc = w.documents[unit.key]
@@ -197,25 +179,20 @@ async def run_unit(c: Clients, w: Workload, first_keys: frozenset[str], unit: Un
         recorded = ReplayLLM(None, c.llm_dir, llm_id=MODEL, replay_only=True)
         gate = FirstDraftGate(c.drafting, recorded, first_keys, steps, llm_id=MODEL)
         result = await judging.judge_document(c.backend, gate, doc.text, fields=fields, config=config, form=unit.form)
-        return {"fields": rset_record(result, steps, [str(f["pointer"]) for f in fields])}
+        return admission.Judged("rset", result, None, steps, [str(f["pointer"]) for f in fields])
     case = w.cases[unit.set_name][unit.key]
     if unit.set_name == "pset":
         case = judging.pset_case(case, unit.form)
-    result = await judging.judge_case(c.backend, case, config, unit.set_name)
-    if unit.set_name == "iset":
-        return {"flipped": admission.case_flipped(result)}
-    if unit.set_name == "p7":
-        return {"verdicts": admission.criterion_verdicts(result, case)}
-    return {"admitted": admission.admitted(result, admission.INJECTED)}
+    return admission.Judged(unit.set_name, await judging.judge_case(c.backend, case, config, unit.set_name), case)
 
 
 async def configuration_phase(
     c: Clients, ledger: SpendLedger, w: Workload, first_keys: frozenset[str],
     *, bound: Callable[[Unit], int], sleep: Sleep, after_batch: Callable[[], None] = lambda: None,
-) -> dict[Unit, dict[str, Any]]:  # fmt: skip
+) -> dict[Unit, admission.Judged]:  # fmt: skip
     """Every unit, one batch of at most 10 in flight, each batch checked against the cap first; `after_batch`
     runs the guards (the model-string check) between batches."""
-    outcomes: dict[Unit, dict[str, Any]] = {}
+    outcomes: dict[Unit, admission.Judged] = {}
     batches = packing.configuration_batches(w.units)
     for index, batch in enumerate(batches):
         if not gates.batch_fits(ledger, [bound(u) for u in batch]):

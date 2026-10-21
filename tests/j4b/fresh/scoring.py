@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from tests.j4b import injection
-from tests.j4b.fresh import bar_inputs, export_items, report, rules, runner
+from tests.j4b.fresh import bar_inputs, export_items, grading, report, rules, runner
 from tests.j4b.fresh.attempts import Attempts, Refused, RunLock, read_record, tree_hash, write_record
 from tests.j4b.fresh.packing import Unit
 from tests.j4b.fresh.workload import Workload
@@ -118,13 +118,13 @@ def decide(w: Workload, confirm: Path, p7_cases: list[dict[str, Any]]) -> dict[s
     raw = runner.outcomes_of(w, confirm, partial=False)
     items, key = read_jsonl(confirm / "export" / "items.jsonl"), read_jsonl(confirm / "export" / "key.jsonl")
     labels = export_items.read_labels(confirm / "labels", items)
-    rset = export_items.rset_truths(w, raw, export_items.truths(key, labels))
+    rset = grading.rset_truths(raw, grading.truths(key, labels))
     inputs = bar_inputs.BarInputs(w.rows, outcomes(w, raw, rset))
     readings = bar_inputs.DataReadings(inputs, p7_cases)
     adopted, outcome_48 = rules.adopt_48(readings)
     shipped, outcome_58, kept = rules.decide_58(readings, adopted)
     fields = {str(r["draft_id"]): str(r["field"]) for r in w.rows["rset.jsonl"]}
-    extras = {**export_items.secondaries(key, labels), "truncations": truncations(raw)}
+    extras = {**grading.secondaries(key, labels), "truncations": truncations(raw)}
     return {
         "asterion_48": {"adopted": adopted, "outcome": outcome_48},
         "asterion_58": {"shipped": list(shipped) if shipped else None, "outcome": outcome_58, "strata_kept": kept},

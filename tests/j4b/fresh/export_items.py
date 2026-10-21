@@ -1,17 +1,15 @@
 """The grader's blind items and the held-back key, and the labels' way back (design §3 "Hand-off"; plan §4.1
-`export_items.py`; STATS48-R4-4).
+`export_items.py`; STATS48-R4-4). Serialisation only: which drafts are graded under which form, the diagnostic
+draw and the truth join are `grading.py`'s, frozen (STATS48B-R1-2).
 
-- **Items.** Every R-set first draft is graded against its field's `F0` criteria (truth) and `F1` criteria (the
-  sanity count; it never sets truth), and every redraft against `F0`. A malformed draft is never an item. Items are
-  deduplicated by (source, criterion texts, draft), so one truth applies to every configuration that produced the
-  draft. The 96 diagnostic P-set items (`diagnostic_ids`, always drawn from the committed confirm P-set) are added
-  with their `F0` criterion. The stream goes
-  through `prepare_items.split`: random 48-bit ids and a shuffle, exactly `ITEM_KEYS` per item.
+- **Items.** Every `grading.uses` entry, deduplicated by (source, criterion texts, draft), so one truth applies to
+  every configuration that produced the draft. The stream goes through `prepare_items.split`: random 48-bit ids
+  and a shuffle, exactly `ITEM_KEYS` per item.
 - **Key.** `key.jsonl` holds `prepare_items.split`'s rows and, per instance, every (configuration, draft id, role,
   form, admitted) that shares it; it stays in the run directory.
 - **Chunks** of at most 72,000 characters of item JSON, newlines included, never splitting an item.
 - **Labels** come back as `labels-NNN.jsonl`; every item is labelled exactly once with every criterion id
-  (`records.label`), and `rset_truths` joins them to the key.
+  (`records.label`), and `grading.rset_truths` joins them to the key.
 """
 
 from __future__ import annotations
@@ -24,25 +22,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from tests.j4b.fresh import rules, workload
-from tests.j4b.fresh.bar_inputs import RFirst
-from tests.j4b.fresh.constants import CHUNK_CHARS, DIAGNOSTIC_SEED
+from tests.j4b.fresh import grading
+from tests.j4b.fresh.constants import CHUNK_CHARS
 from tests.j4b.fresh.packing import Unit
 from tests.j4b.fresh.workload import Workload
 from tests.j4b.labelling import prepare_items
 from tests.j4b.labelling.records import ITEM_KEYS, Label, label, read_jsonl
 
-PATTERN_SPLIT = (16, 16, 32, 32, 32)
-DIAGNOSTIC_PER_LABEL = 48
-"""48 PASS and 48 FAIL, allocated over the five patterns in proportion to the 16/16/32/32/32 pair split."""
-
 
 class ExportDefect(Exception):
     """An item over the chunk bound, or labels that do not cover the items exactly."""
-
-
-def draft_id(doc_id: str, pointer: str) -> str:
-    return f"{doc_id}/{pointer.removeprefix('/')}"
 
 
 @dataclass
@@ -63,47 +52,11 @@ class Stream:
         return instance
 
 
-def allocation() -> list[int]:
-    return [DIAGNOSTIC_PER_LABEL * k // sum(PATTERN_SPLIT) for k in PATTERN_SPLIT]
-
-
-def diagnostic_ids(pset_rows: Sequence[Mapping[str, Any]]) -> list[str]:
-    """The 96 diagnostic drafts: `random.Random(4858)`; per pattern, in order of first appearance, PASS then
-    FAIL, `allocation()` drafts each, drawn from that pattern's sorted draft ids."""
-    rng, patterns = random.Random(DIAGNOSTIC_SEED), list(dict.fromkeys(str(r["pattern"]) for r in pset_rows))
-    if len(patterns) != len(PATTERN_SPLIT):
-        raise ExportDefect(f"expected {len(PATTERN_SPLIT)} P-set patterns, found {len(patterns)}")
-    chosen: list[str] = []
-    for pattern, k in zip(patterns, allocation(), strict=True):
-        for verdict in ("PASS", "FAIL"):
-            pool = sorted(str(r["draft_id"]) for r in pset_rows if r["pattern"] == pattern and r["label"] == verdict)
-            chosen += rng.sample(pool, k)
-    return chosen
-
-
-def build_stream(w: Workload, outcomes: Mapping[Unit, Mapping[str, Any]]) -> Stream:
-    """Every R-set draft's items and the diagnostic items, deduplicated."""
+def build_stream(w: Workload, records: Mapping[Unit, Mapping[str, Any]]) -> Stream:
+    """Every graded use (`grading.uses`), deduplicated."""
     s = Stream()
-    for unit, record in sorted(outcomes.items(), key=lambda kv: (kv[0].key, kv[0].arm, kv[0].form)):
-        if unit.set_name != "rset":
-            continue
-        doc = w.documents[unit.key]
-        for spec in w.fields[doc.domain]:
-            pointer, got = str(spec["pointer"]), record["fields"][str(spec["pointer"])]
-            did, config = draft_id(doc.doc_id, pointer), f"{unit.arm}{unit.form}"
-            use = {"set": "rset", "config": config, "draft_id": did}
-            first = {**use, "role": "first", "admitted": got["first_admitted"]}
-            if got["first"] is not None:
-                s.add(doc.text, pointer, spec["f0"], got["first"], {**first, "form": "F0"})
-                s.add(doc.text, pointer, spec["f1"], got["first"], {**first, "form": "F1"})
-            if got["redraft"] is not None:
-                redraft = {**use, "role": "redraft", "admitted": got["redraft_admitted"], "form": "F0"}
-                s.add(doc.text, pointer, spec["f0"], got["redraft"], redraft)
-    by_id = {str(r["draft_id"]): r for r in workload.read_rows(workload.ROW_FILE["confirm"]["pset"])}
-    for did in diagnostic_ids(list(by_id.values())):
-        row = by_id[did]
-        use = {"set": "diagnostic", "draft_id": did, "code_verdict": row["label"] == "PASS", "form": "F0"}
-        s.add(row["source"], "/summary", [row["criterion_f0"]], row["draft"], use)
+    for u in grading.uses(w, records):
+        s.add(u.source, u.field, u.criteria, u.draft, u.use)
     return s
 
 
@@ -164,52 +117,3 @@ def read_labels(labels_dir: Path, items: Sequence[Mapping[str, Any]]) -> dict[st
         if set(found[item_id].criteria) != ids:
             raise ExportDefect(f"item {item_id}: labelled criteria differ from the item's")
     return found
-
-
-def truths(key: Sequence[Mapping[str, Any]], labels: Mapping[str, Label]) -> dict[tuple[str, str, str, str], bool]:
-    """(config, draft id, role, form) -> the grader's truth, for every R-set use of a labelled item."""
-    out: dict[tuple[str, str, str, str], bool] = {}
-    for row in key:
-        if row["item_id"] is None:
-            continue
-        for use in row["uses"]:
-            if use["set"] == "rset":
-                out[(use["config"], use["draft_id"], use["role"], use["form"])] = labels[row["item_id"]].satisfies
-    return out
-
-
-def rset_truths(
-    w: Workload, outcomes: Mapping[Unit, Mapping[str, Any]], truth: Mapping[tuple[str, str, str, str], bool]
-) -> dict[rules.Config, dict[str, RFirst]]:
-    """`Outcomes.rset`: per configuration and draft, admissions with F0 truth (a malformed draft is never true)."""
-    out: dict[rules.Config, dict[str, RFirst]] = {}
-    for unit, record in outcomes.items():
-        if unit.set_name != "rset":
-            continue
-        for pointer, got in record["fields"].items():
-            did, config = draft_id(unit.key, pointer), f"{unit.arm}{unit.form}"
-            out.setdefault((unit.arm, unit.form), {})[did] = RFirst(
-                got["first_admitted"], got["redraft_admitted"],
-                truth.get((config, did, "first", "F0"), False), truth.get((config, did, "redraft", "F0"), False),
-            )  # fmt: skip
-    return out
-
-
-def secondaries(key: Sequence[Mapping[str, Any]], labels: Mapping[str, Label]) -> dict[str, Any]:
-    """The grader's agreement with the code checker on the diagnostic items, and the F0/F1 disagreement of R-set
-    first drafts in each direction, with the F1-but-not-F0 drafts listed (design §3; never re-labelled)."""
-    agree = total = 0
-    forms: dict[tuple[str, str], dict[str, bool]] = {}
-    for row in key:
-        if row["item_id"] is None:
-            continue
-        satisfied = labels[row["item_id"]].satisfies
-        for use in row["uses"]:
-            if use["set"] == "diagnostic":
-                total, agree = total + 1, agree + (satisfied == use["code_verdict"])
-            elif use["role"] == "first":
-                forms.setdefault((use["config"], use["draft_id"]), {})[use["form"]] = satisfied
-    f1_only = sorted({d for (_, d), v in forms.items() if v.get("F1") and v.get("F0") is False})
-    f0_only = sorted({d for (_, d), v in forms.items() if v.get("F0") and v.get("F1") is False})
-    disagreement = {"f1_not_f0": len(f1_only), "f0_not_f1": len(f0_only), "f1_not_f0_drafts": f1_only}
-    return {"diagnostic_agreement": {"agree": agree, "of": total}, "f0_f1_disagreement": disagreement}

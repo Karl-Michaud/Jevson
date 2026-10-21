@@ -355,6 +355,37 @@ def test_h39i_a_motivating_test_that_does_not_fail_at_dev_is_refused(repo: Plant
     refuses(repo, tmp_path, amend(repo, original, {"tests/j4b/fresh/metering.py": node}), "must fail at dev")
 
 
+FLIP_AND_TRUTH = {
+    "the I-set flip, injected draft only": (
+        "tests/j4b/fresh/admission.py",
+        'return {"flipped": case_flipped(judged.result)}',
+        'return {"flipped": admitted(judged.result, INJECTED)}',
+    ),
+    "truth read from F1": ("tests/j4b/fresh/grading.py", 'TRUTH_FORM, SANITY_FORM = "F0", "F1"',
+                           'TRUTH_FORM, SANITY_FORM = "F1", "F0"'),
+}  # fmt: skip
+PHASES_TEST = "tests/j4b/tests/test_fresh_phases.py"
+
+
+@pytest.mark.parametrize("name", sorted(FLIP_AND_TRUTH))
+def test_h39i_a_motivated_amendment_cannot_redefine_a_flip_or_the_truth_form(
+    repo: PlantedRepo, tmp_path: Path, name: str
+) -> None:
+    """STATS48B-R1-2: each bar's outcome is defined in frozen code (`admission.record`, `grading.TRUTH_FORM`), so
+    even an amendment carried by a phases test that fails at dev and passes after is refused, naming the item."""
+    path, old, new = FLIP_AND_TRUTH[name]
+    original = dev_done(repo, tmp_path, flagged=False)
+    assert old in repo.path(path).read_text(encoding="utf-8")
+    repo.edit(path, lambda s: s.replace(old, new))
+    repo.edit("tests/j4b/fresh/phases.py", lambda s: s + "\nFIXED = True\n")
+    repo.path(PHASES_TEST).write_text(
+        '"""Motivating test."""\n\n\ndef test_fix() -> None:\n    from tests.j4b.fresh import phases\n\n'
+        '    assert getattr(phases, "FIXED", False)\n'
+    )
+    motivating = {"tests/j4b/fresh/phases.py": f"{PHASES_TEST}::test_fix"}
+    refuses(repo, tmp_path, amend(repo, original, motivating), f"frozen item {path}")
+
+
 def test_h39i_old_commits_are_read_never_imported(repo: PlantedRepo, tmp_path: Path) -> None:
     repo.path("tests/j4b/fresh/boom.py").write_text("raise RuntimeError('imported')\n")
     original = dev_done(repo, tmp_path)
