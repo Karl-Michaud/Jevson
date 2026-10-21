@@ -11,16 +11,19 @@ import hashlib
 import itertools
 import json
 import random
+import shutil
 from collections import Counter
 from collections.abc import Callable, Mapping, Sequence
+from pathlib import Path
 from typing import Any
 
 import pytest
 
 from tests.j4b import redraft
 from tests.j4b.fresh import build_fresh_sets as builder
+from tests.j4b.fresh import workload
 from tests.j4b.fresh.pins import canonical_file
-from tests.j4b.fresh.sources import SEED, load_rset_documents
+from tests.j4b.fresh.sources import SEED, FixtureDefect, load_rset_documents
 from tests.j4b.tests import fresh_data
 
 Records = dict[str, dict[str, Any]]
@@ -306,3 +309,19 @@ def test_h13_every_balance_count_matches_the_plan() -> None:
     assert set(by["domain_pair"].values()) <= {13, 14}
     assert set(by["verb"].values()) == {8}
     assert list(itertools.islice(sorted(cell_index(r) for r in cells), 3)) == [0, 1, 2]
+
+
+def test_h13_a_phase_refuses_an_r_set_document_that_differs_from_its_rows_hash(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """FEAS48-C1-2: the loader re-hashes each R-set document against its rows' `doc_sha256` before any spend."""
+    corpus = tmp_path / "corpus"
+    shutil.copytree(redraft.CORPUS, corpus)
+    monkeypatch.setattr(redraft, "CORPUS", corpus)
+    assert workload.load("dev").phase == "dev"
+    doc_id = workload.read_rows("rset_dev.jsonl")[0]["doc_id"]
+    manifest = [json.loads(line) for line in (corpus / "manifest.jsonl").read_text().splitlines() if line.strip()]
+    path = corpus / next(r["path"] for r in manifest if r["doc_id"] == doc_id)
+    path.write_text(path.read_text(encoding="utf-8") + " ", encoding="utf-8")
+    with pytest.raises(FixtureDefect, match=f"^{doc_id}: the document's SHA-256 differs from rset_dev.jsonl"):
+        workload.load("dev")

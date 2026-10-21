@@ -3,12 +3,14 @@
 `dev` runs the I-dev, P-dev and R-dev sets; `confirm` runs the I-set, the unchanged [P7] cases, the P-set and the
 R-set. The I-set and [P7] run under the four library arms; the P-set and R-set under all eight configurations.
 R-set documents are the phase's `picked.json` ids, read through `sources.load_rset_documents` (never
-`redraft.documents()`, which drops the receipts; FEAS48-R10-1); each domain's three fields come from
+`redraft.documents()`, which drops the receipts; FEAS48-R10-1), and each is re-hashed against every R-set row's
+`doc_sha256` before any spend (`FixtureDefect` on a mismatch; FEAS48-C1-2); each domain's three fields come from
 `rset_fields.json`.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
@@ -18,6 +20,7 @@ from tests.j4b import injection, redraft
 from tests.j4b.fresh import arms, costs, judging, sources
 from tests.j4b.fresh import build_fresh_sets as builder
 from tests.j4b.fresh.packing import Unit
+from tests.j4b.fresh.sources import FixtureDefect
 
 ROW_FILE = {"dev": {"iset": "iset_dev.jsonl", "pset": "pset_dev.jsonl", "rset": "rset_dev.jsonl"},
             "confirm": {"iset": "iset.jsonl", "pset": "pset.jsonl", "rset": "rset.jsonl"}}  # fmt: skip
@@ -58,6 +61,14 @@ def rset_fields() -> dict[str, list[dict[str, Any]]]:
     return by_domain
 
 
+def check_documents(documents: Mapping[str, redraft.Document], rows: Sequence[Mapping[str, Any]], name: str) -> None:
+    """Each R-set row's `doc_sha256` equals the SHA-256 of its document's UTF-8 text, or `FixtureDefect`."""
+    for row in rows:
+        digest = hashlib.sha256(documents[row["doc_id"]].text.encode("utf-8")).hexdigest()
+        if digest != row["doc_sha256"]:
+            raise FixtureDefect(f"{row['doc_id']}: the document's SHA-256 differs from {name}'s doc_sha256")
+
+
 def load(phase: str) -> Workload:
     files = ROW_FILE[phase]
     rows = {name: read_rows(name) for name in files.values()}
@@ -69,6 +80,7 @@ def load(phase: str) -> Workload:
     if phase == "confirm":
         cases["p7"] = {str(c["case_id"]): c for c in injection.load_fixture()}
     documents = {d.doc_id: d for d in sources.load_rset_documents(picked[phase])}
+    check_documents(documents, rows[files["rset"]], files["rset"])
     units: dict[str, list[Unit]] = {
         name: [Unit(name, key, arm, FORM_FREE) for key in cases[name] for arm in arms.LIBRARY_ARMS]
         for name in ("iset", "p7")
