@@ -172,3 +172,87 @@ def test_h15b_every_configuration_outlasts_the_drafting_ladder() -> None:
     ladder = (retries + 1) * timeout + sum(2**i for i in range(retries))
     assert ladder == 615
     assert all(c.step_timeout_s >= ladder for c in arms.LIBRARY_ARMS.values())
+
+
+# --- review round 2 (T48-9): the key's every part, the inner-call count, drain and a cancelled inner call -----
+
+
+class FailingLLM(GatedLLM):
+    async def complete(self, messages: Sequence[Message], tool_schema: Mapping[str, JSONValue] | None) -> LLMResponse:
+        self.calls += 1
+        await self.release.wait()
+        raise LLMError("transport", "inner call failed")
+
+
+UNKEYED: Mapping[str, JSONValue] = {"type": "object", "x": float("nan")}
+"""A tool schema `replay_key` cannot canonicalize, so the call has no key and is never shared."""
+
+
+def test_calls_differing_only_in_tool_schema_or_model_are_not_shared() -> None:
+    async def scenario() -> tuple[int, int]:
+        inner, gated = GatedLLM(), GatedBackend()
+        llm, backend = SingleFlightLLM(inner, "m"), SingleFlightBackend(gated)
+        a = asyncio.ensure_future(llm.complete(MESSAGES, TOOL))
+        b = asyncio.ensure_future(llm.complete(MESSAGES, None))
+        c = asyncio.ensure_future(backend.ask("s", QUESTIONS, "gpt-6-luna"))
+        d = asyncio.ensure_future(backend.ask("s", QUESTIONS, "gpt-6-luna-2"))
+        await both(a, b, inner.release)
+        await both(c, d, gated.release)
+        return inner.calls, gated.calls
+
+    assert asyncio.run(scenario()) == (2, 2)
+
+
+def test_inner_calls_counts_every_inner_call_keyed_or_not() -> None:
+    async def scenario() -> list[tuple[int, int]]:
+        inner = GatedLLM()
+        llm = SingleFlightLLM(inner, "m")
+        seen = [(llm.flights.inner_calls, inner.calls)]
+        a, b = (asyncio.ensure_future(llm.complete(MESSAGES, TOOL)) for _ in range(2))
+        await both(a, b, inner.release)
+        seen.append((llm.flights.inner_calls, inner.calls))
+        await llm.complete(MESSAGES, TOOL)  # the key has finished, so this is a new inner call
+        seen.append((llm.flights.inner_calls, inner.calls))
+        assert replay_key("m", MESSAGES, UNKEYED) is None
+        await llm.complete(MESSAGES, UNKEYED)
+        await llm.complete(MESSAGES, UNKEYED)
+        seen.append((llm.flights.inner_calls, inner.calls))
+        return seen
+
+    assert asyncio.run(scenario()) == [(0, 0), (1, 1), (2, 2), (4, 4)]
+
+
+def test_drain_swallows_a_failed_inner_call_nobody_awaits_any_more() -> None:
+    async def scenario() -> None:
+        inner = FailingLLM()
+        llm = SingleFlightLLM(inner, "m")
+        with pytest.raises(TimeoutError):
+            await asyncio.wait_for(llm.complete(MESSAGES, TOOL), 0.01)
+        inner.release.set()
+        await llm.drain()
+        assert llm.flights.live == {}
+
+    asyncio.run(scenario())
+
+
+def test_a_cancelled_inner_call_is_not_read_for_its_exception() -> None:
+    """A cancelled drain cancels the inner task; its done-callback must not ask a cancelled task for its exception
+    (that raises `CancelledError` inside the callback, which the loop reports)."""
+    reported: list[dict[str, object]] = []
+
+    async def scenario() -> None:
+        asyncio.get_running_loop().set_exception_handler(lambda _loop, context: reported.append(context))
+        inner = GatedLLM()
+        llm = SingleFlightLLM(inner, "m")
+        with pytest.raises(TimeoutError):
+            await asyncio.wait_for(llm.complete(MESSAGES, TOOL), 0.01)
+        drain = asyncio.ensure_future(llm.drain())
+        await asyncio.sleep(0)
+        drain.cancel()
+        with pytest.raises(asyncio.CancelledError):
+            await drain
+        await asyncio.sleep(0)
+        assert llm.flights.live == {}
+
+    asyncio.run(scenario())
+    assert reported == []

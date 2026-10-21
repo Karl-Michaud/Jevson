@@ -103,3 +103,37 @@ def test_h12_require_passes_the_build_and_raises_on_a_planted_leak_naming_it() -
     strings["iset#c005.criterion"] = "The draft mentions the refund amount stated in the source."
     with pytest.raises(FixtureDefect, match=re.escape("leakage: ['iset#c005.criterion'] (1 items)")):
         leakage.require(fresh_data.copy_rows(), strings)
+
+
+# --- review round 2 (T48-9): containment both ways, rows after the replica, the R-dev set and `used` --------
+
+
+def test_a_string_inside_a_p7_text_is_flagged_as_well_as_one_containing_it() -> None:
+    _, texts = leakage.p7_strings()
+    text = sorted(texts)[0]
+    assert leakage._contains(text[:20], text)
+    assert leakage._contains(text, f"{text} More.")
+    strings = fresh_data.strings()
+    strings["iset#c005.criterion"] = text[:-1]
+    assert flags(fresh_data.copy_rows(), strings) == {"iset#c005.criterion"}
+
+
+def test_a_row_after_the_replica_is_still_checked() -> None:
+    rows = fresh_data.copy_rows()
+    replica = next(r for r in rows["iset.jsonl"] if r["cell"] == "replica")
+    ordinary = rows["iset.jsonl"][0]
+    ordinary["source"] = p7.build()[0]["source"]
+    assert flags({"iset.jsonl": [replica, ordinary]}, {}) == {f"iset.jsonl#{ordinary['draft_id']}"}
+
+
+def test_an_r_dev_document_of_run_1_is_flagged_and_used_is_the_one_passed() -> None:
+    rows = fresh_data.copy_rows()
+    dev = rows["rset_dev.jsonl"][0]
+    dev["doc_id"] = sorted(USED)[0]
+    assert flags(rows, fresh_data.strings()) == {f"rset_dev.jsonl#{dev['draft_id']}"}
+    assert leakage.flag_items(rows, fresh_data.strings(), frozenset()) == set()
+    other = rows["rset.jsonl"][0]
+    assert other["doc_id"] not in USED
+    assert leakage.flag_items({"rset.jsonl": [other]}, {}, frozenset({other["doc_id"]})) == {
+        f"rset.jsonl#{other['draft_id']}"
+    }

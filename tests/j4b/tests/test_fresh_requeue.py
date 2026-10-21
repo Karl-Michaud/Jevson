@@ -73,3 +73,41 @@ def test_a_replay_miss_is_never_requeued(tmp_path: Path) -> None:
 
     with pytest.raises(ReplayMiss):
         asyncio.run(run_unit("u", unit, SpendLedger(tmp_path), Sleeps()))
+
+
+# --- review round 2 (T48-9): a 200's Retry-After and each stop's message ------------------------------------
+
+
+def test_a_successful_settles_retry_after_is_not_waited_on(tmp_path: Path) -> None:
+    ledger = SpendLedger(tmp_path)
+    ok = ledger.reserve(1, endpoint="decisions", run_attempt=1)
+    ledger.settle(ok, 1, status=200, retry_after=500.0, model=None)
+    assert wait_s(ledger, 0) == UNIT_REQUEUE_WAIT_S
+
+
+def raising(error: Exception):
+    async def unit() -> str:
+        raise error
+
+    return unit
+
+
+def test_each_stop_names_its_unit_and_cause(tmp_path: Path) -> None:
+    ledger = SpendLedger(tmp_path)
+    ledger.stopped = True
+    cap = LLMError("llm_exception", "SpendCapReached", Result({}, False))
+    with pytest.raises(CapStop) as stopped:
+        asyncio.run(run_unit("u1", raising(cap), ledger, Sleeps()))
+    assert str(stopped.value) == "u1: the spend cap"
+    ledger.violation = "usage 9/9 > bound 1/1"
+    with pytest.raises(CapStop) as stopped:
+        asyncio.run(run_unit("u2", raising(cap), ledger, Sleeps()))
+    assert str(stopped.value) == "u2: usage 9/9 > bound 1/1"
+    miss = LLMError("replay_miss", "no recorded response", Result({}, False))
+    with pytest.raises(ReplayMiss) as missed:
+        asyncio.run(run_unit("u3", raising(miss), SpendLedger(tmp_path / "m"), Sleeps()))
+    assert str(missed.value) == f"u3: {miss}"
+    down = BackendError("rate_limited", "429", Result({}, False))
+    with pytest.raises(RequeuesExhausted) as exhausted:
+        asyncio.run(run_unit("u4", raising(down), SpendLedger(tmp_path / "e"), Sleeps()))
+    assert str(exhausted.value) == f"u4: failed after 2 re-queues ({down})"

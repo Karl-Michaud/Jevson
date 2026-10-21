@@ -9,7 +9,7 @@ import httpx
 import pytest
 
 from tests.j4b.fresh.constants import CAP, NANO
-from tests.j4b.fresh.spend import SpendCapReached, SpendLedger
+from tests.j4b.fresh.spend import Settled, SpendCapReached, SpendLedger
 
 
 def test_reserve_and_settle_are_written_and_fsynced_in_order(tmp_path: Path) -> None:
@@ -49,3 +49,28 @@ def test_after_a_crash_an_open_reservation_is_charged_at_its_full_bound(tmp_path
     reopened = SpendLedger(tmp_path)
     assert reopened.billed == 3 * NANO + NANO // 2
     assert reopened.open == {}
+
+
+# --- review round 2 (T48-9): the file's name and format, the refusal's text, every settled field ------------
+
+
+def test_the_ledger_is_spend_jsonl_one_sorted_json_object_per_line(tmp_path: Path) -> None:
+    root = tmp_path / "run" / "attempt-1"
+    ledger = SpendLedger(root)
+    a = ledger.reserve(5 * NANO, endpoint="chat", run_attempt=1)
+    ledger.settle(a, 2 * NANO, status=429, retry_after=3.0, model="m")
+    assert [p.name for p in root.iterdir()] == ["spend.jsonl"]
+    lines = (root / "spend.jsonl").read_text(encoding="utf-8").splitlines()
+    assert lines == [json.dumps(r, sort_keys=True) for r in ledger.records]
+    assert lines[0] == (
+        f'{{"attempt_id": "{a}", "bound": {5 * NANO}, "endpoint": "chat", "run_attempt": 1, "seq": 0, '
+        '"type": "reserve"}'
+    )
+    assert list(ledger.settles()) == [Settled(1, a, "chat", 2 * NANO, 429, 3.0, "m", 1)]
+
+
+def test_a_refused_reservation_states_its_bound_and_the_cap(tmp_path: Path) -> None:
+    ledger = SpendLedger(tmp_path)
+    ledger.reserve(CAP - NANO // 100, endpoint="chat", run_attempt=1)
+    with pytest.raises(SpendCapReached, match=r"^an attempt bounded at \$0\.0123 would pass the \$15\.00 cap$"):
+        ledger.reserve(123 * NANO // 10_000, endpoint="chat", run_attempt=1)

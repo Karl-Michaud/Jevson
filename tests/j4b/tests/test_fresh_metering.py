@@ -37,7 +37,7 @@ def test_the_bound_of_a_fixed_body_is_its_bytes_plus_64_and_the_output_cap() -> 
     raw = BODY.encode()
     assert request_bound(raw, "chat") == (len(raw) + 64) * PRICE["chat_in"] + 2048 * PRICE["chat_out"]
     assert request_bound(raw, "decisions") == (len(raw) + 64) * PRICE["decision_in"]
-    with pytest.raises(ValueError, match="max_completion_tokens"):
+    with pytest.raises(ValueError, match=r"^a metered drafting call must carry max_completion_tokens$"):
         request_bound(b"{}", "chat")
 
 
@@ -130,7 +130,7 @@ def test_a_decision_bound_adds_160_per_question_and_8_per_option_to_its_bytes_pl
     assert metering.input_bound(raw, "decisions") == len(raw) + 64 + 160 * 3 + 8 * 9
     assert request_bound(raw, "decisions") == (len(raw) + 64 + 160 * 3 + 8 * 9) * PRICE["decision_in"]
     assert metering.input_bound(b"{}", "decisions") == 2 + 64
-    with pytest.raises(ValueError, match="not a JSON object"):
+    with pytest.raises(ValueError, match=r"^a metered request body is not a JSON object$"):
         metering.input_bound(b"[]", "decisions")
 
 
