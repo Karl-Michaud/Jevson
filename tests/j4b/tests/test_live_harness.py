@@ -199,9 +199,9 @@ def test_chat_adapter_body_and_parse() -> None:
         return {"model": "m", "usage": {"prompt_tokens": 5, "completion_tokens": 2}, "choices": [{"message": message}]}
 
     call = {"tool_calls": [{"function": {"arguments": '{"value": "v"}'}}]}
-    assert llm.parse(payload(call)) == LLMResponse({"value": "v"}, '{"value": "v"}', 5, 2)
+    assert llm.parse(payload(call)) == LLMResponse({"value": "v"}, '{"value": "v"}', 5, 2, model="m")
     bad = {"tool_calls": [{"function": {"arguments": "{not json"}}]}
     assert llm.parse(payload(bad)).arguments is None
     assert llm.parse(payload({"tool_calls": [{"function": {"arguments": "[1]"}}]})).arguments is None
-    assert llm.parse(payload({"content": "prose"})) == LLMResponse(None, "prose", 5, 2)
+    assert llm.parse(payload({"content": "prose"})) == LLMResponse(None, "prose", 5, 2, model="m")
     assert llm.returned_models == {"m"}
