@@ -303,6 +303,24 @@ def rating(low: int, high: int) -> dict[str, Any]:
     return {"type": "integer", "minimum": low, "maximum": high, "x-jevson": {"ordinal": True}}
 
 
+@pytest.mark.parametrize(("first", "value"), [(FLAG, True), (rating(1, 5), 3)])
+def test_a_known_discriminator_refuses_a_predicate_or_score_value_only_the_unselected_branch_declares(
+    first: dict[str, Any], value: Any
+) -> None:
+    # First decides /t/v by a predicate or a score; kind "b" selects Second, whose enum does not admit the value.
+    # The predicate and score nodes must judge only a declaration of their own kind.
+    schema = two_shapes(first, PICKED)
+    backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"])
+    declared = (
+        r"^known= value for '/t/v' is not one of the field's declared values"
+        r" in any union branch the known= values leave open$"
+    )
+    with pytest.raises(PreflightError, match=declared):
+        asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/t/kind": "b", "/t/v": value}))
+    assert backend.calls == []
+    assert llm.calls == []
+
+
 @pytest.mark.parametrize(
     ("field", "value"), [(FLAG, True), (FLAG, False), (PICKED, "d"), (rating(1, 5), 1), (rating(1, 5), 5)]
 )
