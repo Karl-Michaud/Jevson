@@ -13,7 +13,7 @@ from typing import Any, Literal
 import pytest
 from pydantic import BaseModel, Field
 
-from jevson import CompileError, FakeBackend, RefusalCode, Result, compile_schema
+from jevson import CompileError, FakeBackend, Jevson, RefusalCode, Result, compile_schema
 from jevson.assemble.assembler import Committed, Outcome, assemble
 from jevson.graph import DecisionGraph
 from jevson.probabilities import interpret
@@ -29,6 +29,7 @@ from jevson.types import (
     Question,
     Unresolved,
 )
+from tests.adversarial.hostile_llm import ScriptedLLM
 
 FIXTURES = Path(__file__).resolve().parents[1] / "fixtures" / "schemas"
 SOURCE = "Order 17: urgent. Ship to a lit lane in France for a pro customer."
@@ -430,6 +431,37 @@ def test_a_pattern_that_is_not_a_regular_expression_is_refused_at_compile_time(p
     generated = {"type": "string", "pattern": pattern, "x-jevson": {"generate": {"criteria": ["is short"]}}}
     assert messages(obj(s=generated)) == [f"pattern {pattern!r} is not a valid regular expression"]
     assert refusals(obj(s=generated)) == [("/s", RefusalCode.MALFORMED_SCHEMA)]
+
+
+TEXT = {"type": "string", "x-jevson": {"generate": {"criteria": ["is short"]}}}
+ORDINAL = {"type": "integer", "minimum": 1, "maximum": 5, "x-jevson": {"ordinal": True}}
+
+
+@pytest.mark.parametrize(
+    ("field", "known", "message"),
+    [
+        ({**TEXT, "maxLength": "5"}, None, "maxLength '5' is not of type 'integer'"),
+        ({**TEXT, "maxLength": "5"}, "abc", "maxLength '5' is not of type 'integer'"),
+        ({**TEXT, "minLength": -1}, None, "minLength -1 is less than the minimum of 0"),
+        ({**TEXT, "format": 5}, None, "format 5 is not of type 'string'"),
+        ({**ORDINAL, "multipleOf": 0}, None, "multipleOf 0 is less than or equal to the minimum of 0"),
+        ({**ORDINAL, "multipleOf": 0.0}, None, "multipleOf 0.0 is less than or equal to the minimum of 0"),
+        ({"enum": ["aaaa", "b"], "maxLength": "x"}, None, "maxLength 'x' is not of type 'integer'"),
+        ({"enum": [1, 2], "minimum": "a"}, None, "minimum 'a' is not of type 'number'"),
+        ({**TEXT, "pattern": "("}, None, "pattern '(' is not a valid regular expression"),
+        ({**TEXT, "pattern": 5}, None, "pattern 5 is not a valid regular expression"),
+    ],
+)
+def test_a_malformed_kept_keyword_is_refused_before_any_call(field: dict[str, Any], known: Any, message: str) -> None:
+    """Final validation (and known= preflight) would otherwise raise an untyped TypeError or ZeroDivisionError."""
+    schema = obj(f=field)
+    assert messages(schema) == [message]
+    assert refusals(schema) == [("/f", RefusalCode.MALFORMED_SCHEMA)]
+    backend, llm = FakeBackend(), ScriptedLLM(["okay"])
+    with pytest.raises(CompileError):
+        asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "src", known=None if known is None else {"/f": known}))
+    assert backend.calls == []
+    assert llm.calls == []
 
 
 def test_default_extractor_turns_unbounded_fields_into_source_selection_dropped() -> None:

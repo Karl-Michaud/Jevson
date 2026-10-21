@@ -106,9 +106,11 @@ pending the owner's decision (PLAN §6).
 - An interrupt (Ctrl-C) that lands after a synchronous `resolve()` has scheduled its call but
   before it waits on the result cancels the call; before, the request kept running, and spending,
   on the library loop.
-- A string `pattern` that is not a regular expression (or a non-string `pattern`) refuses at
-  compile time with `malformed_schema`; before, final validation raised an untyped `re` error
-  after the calls had been paid for.
+- A kept keyword that breaks the draft 2020-12 metaschema refuses at compile time with
+  `malformed_schema`: a `pattern` that is not a regular expression (or not a string),
+  `maxLength: "5"`, `multipleOf: 0`, `minimum: "a"`, `minLength: -1`, `format: 5`. Before, final
+  validation raised an untyped `re` error, `TypeError` or `ZeroDivisionError` after the calls had
+  been paid for, and a `known=` value raised the `TypeError` from preflight.
 
 **Accepted deviations** (owner decisions, 2026-10-19, ASTERION-46)
 
