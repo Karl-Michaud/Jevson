@@ -18,8 +18,8 @@ from pathlib import Path
 from typing import Any
 
 from tests.j4b.fresh import leakage, truth
+from tests.j4b.fresh.canonical import canonical_file, canonical_row
 from tests.j4b.fresh.iset_rows import Sources, iset_rows
-from tests.j4b.fresh.pins import canonical_file, canonical_row
 from tests.j4b.fresh.pset_rows import pset_rows
 from tests.j4b.fresh.sources import FixtureDefect, load_rset_documents
 
