@@ -50,7 +50,9 @@ jobs:
 
   test:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    # The ASTERION-48 H-tests run a full fake attempt over the committed fixtures (H17, about 94 s of a 282 s suite
+    # on Python 3.11 locally, 2026-10-21); 30 minutes leaves a runner 2-3x slower room for uv sync and coverage.
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
