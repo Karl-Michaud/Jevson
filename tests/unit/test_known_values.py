@@ -383,3 +383,59 @@ def test_a_known_value_for_a_field_only_a_ruled_out_branch_declares_raises_typed
     )
     assert backend.calls == []
     assert llm.calls == []
+
+
+SHADE = {"anyOf": [{"enum": ["red", "blue"]}, {"type": "boolean", "description": "it is coloured"}]}
+SWITCH = {"anyOf": [{"const": "on"}, {"const": "off"}]}
+NEST = {"anyOf": [{"anyOf": [{"enum": ["a", "b"]}, {"type": "boolean", "description": "it nests"}]}, {"const": "none"}]}
+NOTED = {"type": "object", "title": "Noted", "description": "a noted ticket", "properties": {
+    "kind": {"const": "noted"}, "note": {"enum": ["p", "q"]}}, "required": ["kind", "note"]}  # fmt: skip
+MIXED = {"anyOf": [NOTED, {"enum": ["a", "b"]}]}
+
+
+def only(name: str, field: dict[str, Any]) -> dict[str, Any]:
+    return {"type": "object", "properties": {name: field}, "required": [name]}
+
+
+@pytest.mark.parametrize(
+    ("name", "field", "value"),
+    [
+        ("shade", SHADE, "red"),
+        ("shade", SHADE, True),
+        ("switch", SWITCH, "on"),
+        ("nest", NEST, "a"),
+        ("nest", NEST, False),
+        ("nest", NEST, "none"),
+        ("mixed", MIXED, "a"),
+    ],
+)
+def test_a_declared_known_value_at_a_scalar_or_constant_union_pointer_commits_without_a_call(
+    name: str, field: dict[str, Any], value: Any
+) -> None:
+    result, backend, _ = resolve(only(name, field), {f"/{name}": value})
+    assert result.value == {name: value}
+    assert result.decided_by[f"/{name}"] is DecidedBy.CALLER
+    assert result.satisfies_schema
+    assert backend.calls == []
+
+
+@pytest.mark.parametrize(
+    ("name", "field", "value"),
+    [("shade", SHADE, "green"), ("shade", SHADE, 1), ("switch", SWITCH, "mid"), ("nest", NEST, 3),
+     ("mixed", MIXED, "noted"), ("mixed", MIXED, {"kind": "noted", "note": "p"})],
+)  # fmt: skip
+def test_an_undeclared_known_value_at_a_scalar_or_constant_union_pointer_raises_before_any_call(
+    name: str, field: dict[str, Any], value: Any
+) -> None:
+    backend, llm = FakeBackend(default=passes), ScriptedLLM(["ok"])
+    with pytest.raises(PreflightError, match=f"'/{name}'"):
+        asyncio.run(Jevson(backend, llm=llm).aresolve(only(name, field), "Refund: $40.", known={f"/{name}": value}))
+    assert backend.calls == []
+
+
+def test_a_known_scalar_value_and_a_known_constant_that_select_two_branches_raise_before_any_call() -> None:
+    backend, llm = FakeBackend(default=passes), ScriptedLLM(["ok"])
+    for known in ({"/mixed": "a", "/mixed/kind": "noted"}, {"/mixed/kind": "noted", "/mixed": "a"}):
+        with pytest.raises(PreflightError, match="select two branches"):
+            asyncio.run(Jevson(backend, llm=llm).aresolve(only("mixed", MIXED), "Refund: $40.", known=known))
+    assert backend.calls == []

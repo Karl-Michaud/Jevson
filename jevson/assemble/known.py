@@ -9,9 +9,12 @@ admits only values of its own kind and declared options, so a node compiled from
 vouches for a value against another branch's declaration. Union branches can declare the same pointer
 differently; a branch that a known discriminator rules out (a known value for one of its constants that
 differs from it) is not consulted, and among the rest a value is refused only if every declaration at its
-pointer refuses it. The selected branch's own schema decides in final validation (DESIGN §8: a known value
-inside a branch is used only if that branch is selected). For a Pydantic model only the emitted JSON
-Schema is checked; field validators run in final validation (`satisfies_schema`).
+pointer refuses it. A scalar or constant branch declares its union's own pointer, so a known value there is
+one of some branch's declared values or a constant branch's constant (`execute/branches.py` then selects
+that constant's branch, or closes every branch for a scalar branch's value). The selected branch's own
+schema decides in final validation (DESIGN §8: a known value inside a branch is used only if that branch
+is selected). For a Pydantic model only the emitted JSON Schema is checked; field validators run in final
+validation (`satisfies_schema`).
 """
 
 from __future__ import annotations
@@ -58,7 +61,9 @@ def declarations(node: SchemaNode, known: Mapping[str, JSONValue]) -> dict[str, 
     found: dict[str, list[SchemaNode]] = {}
     for _, child in node.properties:
         found.setdefault(child.pointer, []).append(child)
-    branches = (b for b in node.branches if not _ruled_out(b, known))
+    branches = [b for b in node.branches if not _ruled_out(b, known)]
+    for branch in branches:  # a scalar or constant branch declares its union's own pointer
+        found.setdefault(branch.pointer, []).append(branch)
     for child in (*(c for _, c in node.properties), *branches):  # a branch sits at its union's pointer
         for pointer, nodes in declarations(child, known).items():
             found.setdefault(pointer, []).extend(nodes)
@@ -103,8 +108,8 @@ def _allowed(node: DecisionNode | StepNode, field: SchemaNode, value: JSONValue)
         return field.items is not None and _labels(field.items.values, value)
     if node.kind is DecisionKind.PREDICATE:
         return field.kind is Kind.BOOLEAN and isinstance(value, bool)
-    if node.kind is DecisionKind.CHOICE:
-        return field.kind is Kind.ENUM and any(_same(value, v) for v in field.values)
+    if node.kind is DecisionKind.CHOICE:  # a constant is a union branch here, its one value its constant
+        return field.kind in (Kind.ENUM, Kind.CONSTANT) and any(_same(value, v) for v in field.values)
     return field.kind is Kind.INTEGER and any(_same(value, v) for v in node.values)  # a score's levels; the
     # field's own `minimum`/`maximum` are kept keywords, so another branch's range is checked in `_check`
 
