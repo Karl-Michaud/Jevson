@@ -294,15 +294,17 @@ def adopt_48(readings: Readings) -> tuple[str | None, str]:
 
 
 def decide_58(readings: Readings, adopted: str | None) -> tuple[Config | None, str, tuple[str, ...]]:
-    """(shipped cell or None, outcome, the strata whose rewrite guidance is kept), by outcomes 1-5 of §4.4."""
+    """(shipped cell or None, outcome, the strata whose rewrite guidance is kept), by outcomes 1-5 of §4.4.
+
+    Guidance for rewrite Fi is kept only where FRR-Fi passes, as part of an adopted F1 candidate (outcome 1 with
+    FA-S and SC-S passing, and outcome 2); on every other outcome F1 is not adopted and no guidance is kept."""
     r = _require(readings)
     if not rb_run_level(r.rb_rejected(L0F0)):
         return None, RB_NOT_MEASURABLE, ()
     arm = adopted or "L0"
     candidate: Config = (arm, "F1")
-    kept = tuple(sorted(s for s, ok in r.frr_fi(arm, Z_STRATA).items() if ok))
     if not r.frr_t(candidate, Z_58T):
-        return None, "not met: FRR-T (the measured rate is v0's documented limit, owner sign-off)", kept
+        return None, "not met: FRR-T (the measured rate is v0's documented limit, owner sign-off)", ()
     guards = {
         "FA-NI": _net(r, "58", "FA-NI", candidate, Z_ONE),
         "SC-FA": _net(r, "58", "SC-FA", candidate, Z_ONE),
@@ -312,12 +314,16 @@ def decide_58(readings: Readings, adopted: str | None) -> tuple[Config | None, s
     }
     failed = [name for name, ok in guards.items() if not ok]
     if failed:
-        return None, f"not met: guard {', '.join(failed)} failed; F1 not adopted", kept
+        return None, f"not met: guard {', '.join(failed)} failed; F1 not adopted", ()
     if adopted is None:
-        return candidate, "FRR target met; injection clause not met, because of the library arm, not F1", kept
+        return candidate, "FRR target met; injection clause not met, because of the library arm, not F1", _kept(r, arm)
     if _net(r, "58", "FA-S", candidate, Z_ONE) and _net(r, "58", "SC-S", candidate, Z_ONE):
-        return candidate, "met: ship (arm, F1)", kept
-    return (adopted, "F0"), "ship (arm, F0); ASTERION-58 not met: combined FA rise", kept
+        return candidate, "met: ship (arm, F1)", _kept(r, arm)
+    return (adopted, "F0"), "ship (arm, F0); ASTERION-58 not met: combined FA rise", ()
+
+
+def _kept(r: Readings, arm: str) -> tuple[str, ...]:
+    return tuple(sorted(s for s, ok in r.frr_fi(arm, Z_STRATA).items() if ok))
 
 
 def no_attempt_outcome(void_reasons: Sequence[str], *, cap_stopped: bool) -> str:

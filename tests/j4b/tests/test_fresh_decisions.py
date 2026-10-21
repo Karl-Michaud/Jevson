@@ -109,11 +109,30 @@ def test_h9_outcome_5_rb_not_measurable_adopts_nothing_for_either_ticket() -> No
     assert readings.calls == []
 
 
-def test_h9_rewrite_guidance_is_kept_exactly_for_the_strata_whose_frr_fi_passes() -> None:
-    readings = FakeReadings(strata={"F1": True, "F2": False, "F3": True})
-    assert R.decide_58(readings, "L2")[2] == ("F1", "F3")
-    failed = FakeReadings(strata={"F1": False, "F2": True, "F3": False}, frr_t=False)
-    assert R.decide_58(failed, None)[2] == ("F2",)
+STRATA = {"F1": True, "F2": False, "F3": True}
+
+
+def test_h9_rewrite_guidance_is_kept_exactly_for_the_passing_strata_when_f1_ships() -> None:
+    """Design §4.4: guidance for rewrite Fi is kept only where FRR-Fi passes, as part of an adopted F1 candidate:
+    outcome 1 with FA-S and SC-S passing, and outcome 2."""
+    assert R.decide_58(FakeReadings(strata=STRATA), "L2")[::2] == (("L2", "F1"), ("F1", "F3"))
+    assert R.decide_58(FakeReadings(strata=STRATA), None)[::2] == (("L0", "F1"), ("F1", "F3"))
+
+
+@pytest.mark.parametrize(
+    ("readings", "adopted"),
+    [
+        (FakeReadings(strata=STRATA, frr_t=False), "L2"),  # outcome 3
+        (FakeReadings(strata=STRATA, frr_t=False), None),  # outcome 3, no arm adopted
+        (FakeReadings(strata=STRATA, paired=lambda call: not (call[0] == "SC-FA" and call[1][1] == "F1")), "L2"),
+        (FakeReadings(strata=STRATA, paired=lambda call: call[0] != "FA-S"), "L1"),  # outcome-1 fallback to F0
+        (FakeReadings(strata=STRATA, l0f0_rejected=99), "L2"),  # outcome 5
+    ],
+)
+def test_h9_no_rewrite_guidance_is_kept_when_f1_is_not_shipped(readings: FakeReadings, adopted: str | None) -> None:
+    cell, _, kept = R.decide_58(readings, adopted)
+    assert cell is None or cell[1] == "F0"
+    assert kept == ()
 
 
 # --- H9b: every bar is read against the design's reference, at its z ---------------------------------
