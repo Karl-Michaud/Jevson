@@ -33,8 +33,10 @@ def pin_check(root: Path) -> runner.PinCheck:
     """`pins.check` against the appendix in force; it refuses on a dirty or mismatched tree (plan §2)."""
 
     def check(command: str, attempt: int) -> Mapping[str, Any]:
-        appendix = (REPO / pins.APPENDIX).read_text(encoding="utf-8")
-        return pins.check(REPO, root, appendix, command=command, attempt=attempt).record()
+        path = REPO / pins.APPENDIX
+        if not path.exists():
+            raise pins.PinMismatch(f"no pre-registration appendix at {pins.APPENDIX}")
+        return pins.check(REPO, root, path.read_text(encoding="utf-8"), command=command, attempt=attempt).record()
 
     return check
 
