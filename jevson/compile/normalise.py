@@ -63,7 +63,9 @@ _NO_SCHEMA = object()
 _METASCHEMA: Any = Draft202012Validator(
     Draft202012Validator.META_SCHEMA, format_checker=Draft202012Validator.FORMAT_CHECKER
 )
-"""Checks a node's KEPT keywords, so no malformed keyword reaches final validation."""
+"""Checks a node's KEPT keywords, so no malformed keyword reaches final validation.
+
+A validator of schemas, separate from `assemble/validation.py` (the one validator of instance values)."""
 FLAT_ALL_OF_KEYS = frozenset({"type", "properties", "required", "title", "description"})
 
 

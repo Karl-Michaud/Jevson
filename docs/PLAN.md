@@ -98,7 +98,7 @@ jevson/
 
   assemble/
     assembler.py        resolved graph -> JSON object; absent / unresolved handling
-    validation.py       the one jsonschema validator; final validation and known= preflight share it (DESIGN §6.1)
+    validation.py       the one validator of instance values; final validation and known= preflight share it (DESIGN §6.1); compile's metaschema check of kept keywords (normalise.py) is separate
     known.py            preflight check of known= values against declared values and field constraints (DESIGN §8)
     entities.py         post-v0: pairwise resolution (internal rule + cross variant, floor 0.05) [Z4]
     ordering.py         deferred with class D: source order of span arrays (R7)

@@ -294,7 +294,7 @@ Source: an invoice naming two companies, two addresses, and a subtotal, tax, and
 | `Decimal` (`anyOf [number, string with pattern]`) | a decimal value, emitted in `.value` as the **string** form, because `jsonschema` rejects valid cents under `multipleOf: 0.01` as floats (11,426 of 100,001 values) and Pydantic's unanchored pattern accepts too many digits **[L18]** |
 | flat `allOf` of object schemas (raw JSON Schema; Pydantic ≥ 2.10 emits none **[L18]**) | merged; anything else refused |
 | `anyOf` / `oneOf` with ≥ 2 non-null branches, a type list with ≥ 2 non-null types, `oneOf` + `discriminator` (Pydantic discriminated unions) | a union: a discriminator `choice`, then the selected branch (§3.2); a root-level union refuses (`root_union`) |
-| `exclusiveMinimum`/`exclusiveMaximum`, `multipleOf`, `format` | kept for final validation only |
+| `exclusiveMinimum`/`exclusiveMaximum`, `multipleOf`, `format` | kept on the node for final validation and `known=` preflight; each kept keyword is checked against the draft 2020-12 metaschema at compile time (`pattern` as a regex), else refused `malformed_schema` (R14) |
 | recursive or dynamic `$ref`, `dict[str, X]` (`additionalProperties` schema), tuples (`prefixItems`), `Any`, `bytes`, arrays of objects | refused with a named reason (tracked in `PLAN.md` §9) |
 
 **Field declarations.** Per-field configuration lives in one keyword, **`x-jevson`**. Pydantic users write `Field(json_schema_extra={"x-jevson": {...}})`, so the emitted JSON Schema is identical to what a raw-schema user writes; Pydantic places it on the property, beside any `$ref` **[L18]**. Keys:

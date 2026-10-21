@@ -1,9 +1,11 @@
-"""The one JSON Schema validator Jevson uses, so preflight and final validation agree (DESIGN §6.1).
+"""The one validator of instance values, so preflight and final validation agree (DESIGN §6.1).
 
 `format` is checked: always for the formats `jsonschema` checks itself (e.g. `email`), and for the
 rest only when the caller installs jsonschema's format extras [L10]. Both the final validation of
 `.value` (`assembler.py`) and the preflight check of `known=` values (`known.py`) build their
-validator here, so they can never disagree on keywords or formats.
+validator here, so they can never disagree on keywords or formats. Compile's check of a schema's
+kept keywords against the draft 2020-12 metaschema (`compile/normalise.py`) is a separate validator
+of schemas, not of values.
 """
 
 from __future__ import annotations
