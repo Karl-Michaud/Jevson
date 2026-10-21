@@ -191,6 +191,28 @@ def test_h19e_no_attempt_starts_beside_or_below_a_live_later_one(tmp_path: Path)
     a.check_start(3, "dev")
 
 
+def test_h19e_confirm_needs_a_complete_dev_phase(tmp_path: Path) -> None:
+    a = Attempts(tmp_path / "fresh")
+    with pytest.raises(Refused, match="attempt 1 has no complete dev phase"):
+        a.check_start(1, "confirm")
+    write_record(a.phase_dir(1, "dev") / "start.json", {"planted": True})
+    write_record(a.phase_dir(1, "dev") / "complete.json", {"planted": True})
+    a.check_start(1, "confirm")
+
+
+def test_h37_a_void_takes_only_the_closed_list_and_never_follows_the_analysis(tmp_path: Path) -> None:
+    a = Attempts(tmp_path / "fresh")
+    write_record(a.phase_dir(1, "dev") / "start.json", {"planted": True})
+    with pytest.raises(Refused, match=re.escape("is not one of design §6.4's void reasons")):
+        a.write_void(1, "interrupted", {})
+    with pytest.raises(Refused, match="only a harness defect is voided by hand"):
+        a.hand_void(1, "interrupted", note=None, test=None)
+    a.begin_analysis(None, {"planted": True})
+    with pytest.raises(Refused, match="the analysis has started: no attempt is voided"):
+        a.write_void(1, "cap_stop", {})
+    assert a.void(1) is None
+
+
 def test_h19e_score_refuses_a_void_an_incomplete_and_a_second_complete_attempt(tmp_path: Path) -> None:
     e, _ = make_env(tmp_path)
     exported_and_labelled(e, 1)

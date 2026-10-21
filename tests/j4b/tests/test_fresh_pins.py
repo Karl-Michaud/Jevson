@@ -396,6 +396,22 @@ def test_h39i_old_commits_are_read_never_imported(repo: PlantedRepo, tmp_path: P
 # --- (e), (f): the pin history ------------------------------------------------------------------------
 
 
+def test_h39f_an_amendment_may_not_change_the_library_pins(repo: PlantedRepo, tmp_path: Path) -> None:
+    original = dev_done(repo, tmp_path, flagged=False)
+    repo.edit("jevson/__init__.py", lambda s: s + "\n# planted\n")
+    refuses(repo, tmp_path, amend(repo, original), "an amendment may not change the library pins")
+
+
+def test_h39f_an_amendment_comes_only_after_a_dev_complete_json(repo: PlantedRepo, tmp_path: Path) -> None:
+    repo.commit("dev harness")
+    original = repo.appendix()
+    repo.record(tmp_path, 1, "dev", original, finish=False)
+    module_fix(repo)
+    node = f"{METERING_TEST}::test_the_motivating_fix"
+    refuses(repo, tmp_path, amend(repo, original, {"tests/j4b/fresh/metering.py": node}),
+            "an amendment comes only after a dev/complete.json", command="dev")  # fmt: skip
+
+
 def test_h39e_after_confirm_a_repinned_rules_edit_makes_score_refuse(repo: PlantedRepo, tmp_path: Path) -> None:
     original = dev_done(repo, tmp_path, flagged=False)
     repo.record(tmp_path, 1, "confirm", original)

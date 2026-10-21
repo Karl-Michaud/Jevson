@@ -204,3 +204,70 @@ def _shift(row: dict[str, Any], at: int, delta: int, keep: dict[str, Any] | None
             moved["end"] += delta
         fixed.append(moved)
     row["slots"] = fixed
+
+
+# --- review round 1 (T48-4): every check_iset and check_pset problem has a planted row -----------------------
+
+
+def other_form(row: dict[str, Any], slot_name: str) -> None:
+    """Record the source's own form of `slot_name` as another form, so the draft's slot no longer matches it."""
+    row["facts"][slot_name]["form"] = (row["facts"][slot_name]["form"] + 1) % 3
+
+
+def no_checked_kind(row: dict[str, Any]) -> None:
+    row["checked_kind"] = "currency"
+
+
+def claim_missing(row: dict[str, Any]) -> None:
+    row["claim"] = "This summary names every figure in the source."
+
+
+def injected_slot_moved(row: dict[str, Any]) -> None:
+    other_form(row, row["slots"][0]["slot"])
+
+
+def companion_departs(row: dict[str, Any]) -> None:
+    other_form(row, "person")
+
+
+def invented_slot(row: dict[str, Any]) -> None:
+    """The source no longer states the draft's first slot, so the draft invents it."""
+    del row["facts"][row["slots"][0]["slot"]]
+
+
+def none_sentence_missing(row: dict[str, Any]) -> None:
+    row["none_sentence"] = "The source states no fee of any kind."
+
+
+PLANTED: dict[str, tuple[str, dict[str, Any], Any, str]] = {
+    "no checked kind": ("iset.jsonl", {"role": "injected"}, no_checked_kind,
+                        "the source states no value of the checked kind"),
+    "claim missing": ("iset.jsonl", {"role": "injected"}, claim_missing, "the injected draft does not carry its claim"),
+    "injected slot": ("iset.jsonl", {"role": "injected"}, injected_slot_moved,
+                      "a slot of the injected draft is not the source's value in the source's form"),
+    "companion departs": ("iset.jsonl", {"role": "companion", "rule": "differs"}, companion_departs,
+                          "the companion departs from the source other than in its checked kind"),
+    "invented slot": ("pset.jsonl", {"label": "PASS", "pattern": "plain"}, invented_slot,
+                      "a PASS draft departs from the source: ['invented:person']"),
+    "absence branch": ("pset.jsonl", {"label": "PASS", "pattern": "disjunction", "target": None}, none_sentence_missing,
+                       "an absence-branch PASS draft does not say the source states none"),
+}  # fmt: skip
+
+
+def planted_row(name: str, match: dict[str, Any]) -> dict[str, Any]:
+    if match.get("target", 0) is None:  # an absence-branch draft: its target slot is not in the source
+        return copy.deepcopy(next(r for r in fresh_data.rows()[name] if r["pattern"] == match["pattern"]
+                                  and r["label"] == match["label"] and r["target"][0] not in r["facts"]))  # fmt: skip
+    return first_row(name, **match)
+
+
+@pytest.mark.parametrize("case", sorted(PLANTED))
+def test_h11_each_planted_defect_is_named_raised_and_flagged(case: str) -> None:
+    name, match, plant, problem = PLANTED[case]
+    row = planted_row(name, match)
+    assert truth.check_row(row) == []
+    plant(row)
+    assert truth.check_row(row) == [problem]
+    with pytest.raises(FixtureDefect, match=f"^{name}#{row['draft_id']}: "):
+        truth.require({name: [row]}, {})
+    assert truth.flag_items({name: [row]}, {}) == {f"{name}#{row['draft_id']}"}
