@@ -158,3 +158,22 @@ def test_h37_every_void_attempt_is_reported_partially_and_the_decision_does_not_
         e, Attempts(e.root).phase_dir(2, "confirm")))  # fmt: skip
     analysis = json.loads((e.root / "analysis.json").read_text())
     assert json.dumps(decided, sort_keys=True, default=str) == json.dumps(analysis, sort_keys=True, default=str)
+
+
+def test_h37_a_void_report_counts_the_attempts_rejected_l0_f0_first_drafts(tmp_path: Path) -> None:
+    """STATS48B-R1-4: single-look item 12(b) and plan D15 report the void attempt's (L0, F0) rejected count, which
+    needs no grader truth (the admissions are in its replayed records)."""
+    load = fake_api.loader()
+    e, _ = fake_api.env(tmp_path / "fresh", load=load)
+    e.p7_fixture = fake_api.p7_subset(e.root, load("confirm"))
+    assert runner.run_phase(e, "dev", 1) == 0
+    assert runner.run_phase(e, "confirm", 1) == 0
+    confirm = e.root / "attempt-1" / "confirm"
+    (confirm / "complete.json").unlink()
+    assert runner.void(e, 1, "harness_defect", note=None, test=None) == 0
+    replayed = runner.outcomes_of(load("confirm"), confirm, partial=True)
+    rejected = sum(not f["first_admitted"] for u, r in replayed.items() if u.set_name == "rset"
+                   and u.config == ("L0", "F0") for f in r["fields"].values())  # fmt: skip
+    assert rejected > 0
+    (report,) = scoring.void_reports(e, Attempts(e.root))
+    assert report["report"]["l0f0_rejected"] == rejected

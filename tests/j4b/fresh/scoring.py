@@ -133,7 +133,9 @@ def decide(w: Workload, confirm: Path, p7_cases: list[dict[str, Any]]) -> dict[s
 
 
 def void_reports(env: runner.Env, a: Attempts) -> list[dict[str, Any]]:
-    """Item 12(b): every void attempt, complete or not, over its code-truth bars only; never decides anything."""
+    """Item 12(b): every void attempt, complete or not, over its code-truth bars only; never decides anything. Its
+    R-set admissions are joined with no truth (every draft untrue), which the report reads only for the (L0, F0)
+    rejected count (plan D15): a void report has no R-set bars."""
     out: list[dict[str, Any]] = []
     for m in a.numbers():
         void = a.void(m)
@@ -142,7 +144,7 @@ def void_reports(env: runner.Env, a: Attempts) -> list[dict[str, Any]]:
             continue
         w = env.load("confirm")
         raw = runner.outcomes_of(w, confirm, partial=True)
-        inputs = bar_inputs.build(w.rows, outcomes(w, raw, {}), partial=True)
+        inputs = bar_inputs.build(w.rows, outcomes(w, raw, grading.rset_truths(raw, {})), partial=True)
         cases = [c for c in injection.load_fixture(env.p7_fixture)
                  if all(c["case_id"] in v for v in inputs.outcomes.p7.values())]  # fmt: skip
         out.append({"attempt": m, "voided": void["voided"], "reason": void["reason"], "label": "voided, non-deciding",
