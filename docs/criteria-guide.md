@@ -1,7 +1,8 @@
 # Writing adjudication criteria
 
 A generative field is drafted by your LLM and admitted only if the decision model judges the draft
-against the criteria you declare (DESIGN §6.3). Adjudication checks your criteria and nothing else, so
+against the criteria you declare (DESIGN §6.3). Adjudication checks your criteria (and, when
+`JevsonConfig.draft_screen` is on, the draft screen, DESIGN §6.3) and nothing else, so, the screen aside,
 the criteria are the whole of the gate.
 
 ```python
@@ -48,7 +49,7 @@ summary: str = Field(json_schema_extra={"x-jevson": {"generate": {
   invalidly **fails**. A rubric whose top levels tie across the minimum fails.
 - A failed draft is rejected (`Result.rejections` names the failing checks, which are the criteria,
   the rubric, or the draft screen's text when `draft_screen` is on, and the draft) and redrafted once
-  by default (`redraft_budget`), with the failing criteria passed back to your LLM. An identical
+  by default (`redraft_budget`), with the failing checks passed back to your LLM. An identical
   redraft is not judged again, and still spends the budget. When the budget is spent, the field is
   `Unresolved(redraft_exhausted)`.
 - A draft that is not one string of at most `max_draft_chars` characters fails before adjudication.

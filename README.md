@@ -106,7 +106,7 @@ Each item cites the evidence register, [docs/EVIDENCE.md](docs/EVIDENCE.md).
 - **Probabilities are reported, not calibrated.** The API makes no calibration claim. On span selection, Phase 0r measured an ECE of 0.12 **[Q7]**.
 - **No abstention.** Schema-derived choices have no "none of these". A bounded field the source does not support still gets one of its options, or `Unresolved(tie)` or `Unresolved(refused)`. `Result.absent` is always empty in v0.
 - **The model cannot be pinned.** `gpt-6-luna` is an alias with no snapshot **[D3]**. Jevson records the returned `model` string on every result (`Result.model`, `Result.versions`). Identical requests returned identical answers in every Phase 0r test **[Q10]**, but there is no seed control, so that can change. Exact replay comes only from recorded responses.
-- Adjudication checks only the criteria you declare. The decision model is not a fact-checker.
+- Adjudication checks only the criteria you declare (and, when `JevsonConfig.draft_screen` is on, the draft screen, DESIGN §6.3). The decision model is not a fact-checker.
 
 ## What did not ship, and why
 
