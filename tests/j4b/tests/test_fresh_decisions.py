@@ -181,3 +181,68 @@ def test_a_void_attempts_partial_inputs_cannot_reach_a_decision() -> None:
         R.adopt_48(object())  # type: ignore[arg-type]
     with pytest.raises(TypeError, match="Readings"):
         R.decide_58(object(), None)  # type: ignore[arg-type]
+
+
+# --- T48-1: every read, with every argument, in order ------------------------------------------------------
+
+
+class RecordingReadings(R.Readings):
+    """Every bar passes; every read and its arguments are recorded in order."""
+
+    def __init__(self) -> None:
+        self.reads: list[tuple[object, ...]] = []
+
+    def paired(self, bar: str, config: R.Config, ref: R.Config, *, z: float, ni_z: float, cell: bool) -> bool:
+        self.reads.append(("paired", bar, config, ref, z, ni_z, cell))
+        return True
+
+    def frr_t(self, config: R.Config, z: float) -> bool:
+        self.reads.append(("frr_t", config, z))
+        return True
+
+    def frr_fi(self, arm: str, z: float) -> Mapping[str, bool]:
+        self.reads.append(("frr_fi", arm, z))
+        return {"F1": True, "F2": False, "F3": True}
+
+    def rb_points(self, config: R.Config) -> bool:
+        self.reads.append(("rb_points", config))
+        return True
+
+    def rb_rejected(self, config: R.Config) -> int:
+        self.reads.append(("rb_rejected", config))
+        return 150
+
+    def bar_i(self, arm: str) -> bool:
+        self.reads.append(("bar_i", arm))
+        return True
+
+    def pc(self) -> bool:
+        self.reads.append(("pc",))
+        return True
+
+    def fx(self, arm: str) -> bool:
+        self.reads.append(("fx", arm))
+        return True
+
+
+def test_adopt_and_decide_read_each_bar_with_its_exact_arguments() -> None:
+    z48, z1, m = R.Z_48, R.Z_ONE, R.NI_MULTIPLIER
+    f0, f1 = ("L2", "F0"), ("L2", "F1")
+    r = RecordingReadings()
+    assert R.adopt_48(r) == ("L2", "met: L2 adopted")
+    assert r.reads == [
+        ("rb_rejected", R.L0F0), ("pc",), ("bar_i", "L2"), ("fx", "L2"),
+        ("paired", "FRR-NI", f0, R.L0F0, z48, m * z48, True), ("paired", "FA-NI", f0, R.L0F0, z48, m * z48, True),
+        ("rb_points", f0),
+        ("paired", "C-NI", f0, R.L0F0, z48, z48, False), ("paired", "B-NI", f0, R.L0F0, z48, z48, False),
+    ]  # fmt: skip
+    r = RecordingReadings()
+    assert R.decide_58(r, "L2") == (f1, "met: ship (arm, F1)", ("F1", "F3"))
+    assert r.reads == [
+        ("rb_rejected", R.L0F0), ("frr_t", f1, R.Z_58T),
+        ("paired", "FA-NI", f1, f0, z1, m * z1, True), ("paired", "SC-FA", f1, f0, z1, m * z1, True),
+        ("rb_points", f1),
+        ("paired", "C-NI", f1, R.L0F0, z1, z1, False), ("paired", "B-NI", f1, R.L0F0, z1, z1, False),
+        ("paired", "FA-S", f1, R.L0F0, z1, m * z1, True), ("paired", "SC-S", f1, R.L0F0, z1, m * z1, True),
+        ("frr_fi", "L2", R.Z_STRATA),
+    ]  # fmt: skip

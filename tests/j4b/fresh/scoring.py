@@ -149,11 +149,16 @@ def decide(w: Workload, confirm: Path, p7_cases: list[dict[str, Any]]) -> dict[s
     labels = export_items.read_labels(confirm / "labels", items)
     rset = grading.rset_truths(raw, grading.truths(key, labels))
     inputs = bar_inputs.BarInputs(w.rows, outcomes(w, raw, rset))
+    extras = {**grading.secondaries(key, labels), "truncations": truncations(raw)}
+    return decision(inputs, p7_cases, extras)
+
+
+def decision(inputs: bar_inputs.BarInputs, p7_cases: list[dict[str, Any]], extras: Mapping[str, Any]) -> dict[str, Any]:
+    """`analysis.json`: both tickets' decisions from the complete attempt's bar inputs, and the full report."""
     readings = bar_inputs.DataReadings(inputs, p7_cases)
     adopted, outcome_48 = rules.adopt_48(readings)
     shipped, outcome_58, kept = rules.decide_58(readings, adopted)
-    fields = {str(r["draft_id"]): str(r["field"]) for r in w.rows["rset.jsonl"]}
-    extras = {**grading.secondaries(key, labels), "truncations": truncations(raw)}
+    fields = {str(r["draft_id"]): str(r["field"]) for r in inputs.rows["rset.jsonl"]}
     return {
         "asterion_48": {"adopted": adopted, "outcome": outcome_48},
         "asterion_58": {"shipped": list(shipped) if shipped else None, "outcome": outcome_58, "strata_kept": kept},

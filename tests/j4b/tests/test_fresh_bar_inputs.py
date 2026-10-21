@@ -11,7 +11,7 @@ from typing import Any
 import pytest
 
 from tests.j4b import injection
-from tests.j4b.fresh import arms, bar_inputs, report, rules
+from tests.j4b.fresh import arms, bar_inputs, report, rules, scoring
 from tests.j4b.fresh.bar_inputs import BarInputs, DataReadings, MissingDraft, PartialBarInputs
 from tests.j4b.tests import fake_attempt, fresh_data
 
@@ -109,6 +109,22 @@ def test_h34_data_readings_decide_from_the_matrices() -> None:
     with pytest.raises(ValueError, match=r"2\.4977"):
         readings.frr_t(L2F1, rules.Z_48)
     assert set(readings.frr_fi("L2", rules.Z_STRATA)) == {"F1", "F2", "F3"}
+
+
+def test_h34_a_decisive_attempt_is_decided_from_its_records_through_every_bar() -> None:
+    """T48-1: the scored path from bar inputs to both tickets' decisions, on data that clears the RB run level and
+    PC and reaches every bar (`fake_attempt.decisive`): L2 fails RB, L1 fails FRR-NI, L3 is adopted, and F1 ships
+    under L3 with the `negated` stratum's guidance kept."""
+    inputs = BarInputs(fresh_data.rows(), fake_attempt.decisive())
+    out = scoring.decision(inputs, injection.load_fixture(), {})
+    assert out["asterion_48"] == {"adopted": "L3", "outcome": "met: L3 adopted"}
+    assert out["asterion_58"] == {"shipped": ["L3", "F1"], "outcome": "met: ship (arm, F1)", "strata_kept": ("F1",)}
+    readings = DataReadings(inputs, injection.load_fixture())
+    assert readings.rb_rejected(rules.L0F0) == 120
+    assert readings.rb_points(("L2", "F0")) is False
+    assert readings.paired("FRR-NI", ("L1", "F0"), rules.L0F0, z=rules.Z_48, ni_z=1.2 * rules.Z_48, cell=True) is False
+    assert readings.frr_t(("L3", "F1"), rules.Z_58T) is True
+    assert readings.frr_t(("L1", "F0"), rules.Z_58T) is False  # 64 of 128 pairs reject every PASS draft
 
 
 # --- H35: the report's keys ------------------------------------------------------------------------------
