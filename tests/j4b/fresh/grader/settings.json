@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "deny": ["Bash", "WebFetch", "WebSearch", "Agent", "Task", "Skill", "NotebookEdit", "mcp__*"]
+  }
+}
