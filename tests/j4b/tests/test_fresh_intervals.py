@@ -68,3 +68,11 @@ def test_newcombe_paired_passes_z_to_both_wilson_intervals(counts: tuple[float, 
 def test_newcombe_paired_defaults_to_95_percent() -> None:
     assert newcombe_paired(3, 7, 2, 40) == newcombe_paired(3, 7, 2, 40, z=Z95)
     assert newcombe_paired(3, 7, 2, 40).high < newcombe_paired(3, 7, 2, 40, z=2.8727758).high
+
+
+def test_wilson_refuses_an_empty_sample_and_clamps_float_noise_at_k_equal_n() -> None:
+    """T48-5 (plan §8's base survivors in `wilson`): n = 0 is refused, never divided by; at k = n = 16 the raw
+    upper bound is 1 plus float noise, and the reported one is exactly 1."""
+    with pytest.raises(ValueError, match="n > 0"):
+        wilson(0, 0)
+    assert wilson(16, 16).high == 1.0

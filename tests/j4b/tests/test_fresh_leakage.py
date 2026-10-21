@@ -5,11 +5,14 @@ On the build `leakage.flag_items` is empty; on each planted leak it returns exac
 
 from __future__ import annotations
 
+import re
 from typing import Any
+
+import pytest
 
 from tests.j4b import build_injection_fixture as p7
 from tests.j4b.fresh import leakage
-from tests.j4b.fresh.sources import SEED
+from tests.j4b.fresh.sources import SEED, FixtureDefect
 from tests.j4b.tests import fresh_data
 
 USED = leakage.run1_used_ids()
@@ -91,3 +94,12 @@ def test_h12_an_r_set_document_of_run_1_is_flagged() -> None:
     row = rows["rset.jsonl"][0]
     row["doc_id"] = sorted(USED)[0]
     assert flags(rows, fresh_data.strings()) == {f"rset.jsonl#{row['draft_id']}"}
+
+
+def test_h12_require_passes_the_build_and_raises_on_a_planted_leak_naming_it() -> None:
+    """T48-5: `require` (the builder's gate) had no test of its own (mutmut: "no tests")."""
+    leakage.require(fresh_data.copy_rows(), fresh_data.strings())
+    strings = fresh_data.strings()
+    strings["iset#c005.criterion"] = "The draft mentions the refund amount stated in the source."
+    with pytest.raises(FixtureDefect, match=re.escape("leakage: ['iset#c005.criterion'] (1 items)")):
+        leakage.require(fresh_data.copy_rows(), strings)
