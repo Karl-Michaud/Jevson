@@ -1,21 +1,48 @@
-"""The configuration phase's first-draft gate (design §2.3 items 1-2; plan §4.1 `phases.py`, FEAS48-11).
+"""The two phases of an attempt and the configuration phase's first-draft gate (design §2.3, §6.2-§6.3;
+plan §4.1 `phases.py`, §7 "Phases"; FEAS48-11, FEAS48-R8-1).
 
-A drafting request whose `replay_key` is one of the drafting phase's recorded keys is served from that recording
-with `replay_only=True`, so a missing first draft raises `replay_miss` and never draws a new one. Any other request
-must be a redraft: three messages, the last being the executor's own redraft prompt (`redraft_prompt`) over a
-failing list that is a subset of the field's checks or exactly `[malformed(max_draft_chars)]`; anything else
-raises. The strings are the library's own, imported, never copied (plan §11 D18).
+**Clients.** Decisions go through `SingleFlightBackend(CachingBackend(DecisionsBackend(transport=metered)))` and
+drafting through `SingleFlightLLM(ReplayLLM(OpenAIChatLLM(max_completion_tokens=2048, transport=metered)))`, both
+over one `MeteredTransport` and recording under the phase directory. **Drafting phase.** Every R-set first draft
+is drawn once, built exactly as the executor builds it (`messages(step.drafting, doc.text, None)`, `TOOL_SCHEMA`),
+in batches of 10 documents, each batch checked against the cap first. **Configuration phase.** Units in the pinned
+batches; each unit re-queued under `requeue.run_unit`.
+
+**The first-draft gate.** A drafting request whose `replay_key` is one of the drafting phase's recorded keys is
+served from that recording with `replay_only=True`, so a missing first draft raises `replay_miss` and never
+draws a new one. Any other request must be a redraft: three messages, the last being the executor's own redraft
+prompt (`redraft_prompt`) over a failing list that is a subset of the field's checks or exactly
+`[malformed(max_draft_chars)]`; anything else raises. The strings are the library's own, imported, never
+copied (plan §11 D18).
 """
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Mapping, Sequence
+import asyncio
+from collections.abc import Awaitable, Callable, Iterable, Mapping, Sequence
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
 
+import httpx
+
+from jevson import CachingBackend, DecisionsBackend, LLMError, Result, compile_schema
 from jevson.compile.questions import redraft_prompt
-from jevson.execute.drafting import malformed
+from jevson.execute.drafting import TOOL_SCHEMA, malformed, messages
 from jevson.llm.replay import ReplayLLM, replay_key
 from jevson.protocols import LLM
-from jevson.types import Drafting, JSONValue, LLMResponse, Message
+from jevson.types import Drafting, JSONValue, LLMResponse, Message, StepNode
+from tests.integration.openai_chat import MODEL, OpenAIChatLLM
+from tests.j4b import redraft
+from tests.j4b.fresh import admission, arms, gates, judging, packing, requeue
+from tests.j4b.fresh.constants import MAX_COMPLETION_TOKENS
+from tests.j4b.fresh.inflight import SingleFlightBackend, SingleFlightLLM
+from tests.j4b.fresh.metering import MeteredTransport
+from tests.j4b.fresh.packing import Unit
+from tests.j4b.fresh.spend import SpendLedger
+from tests.j4b.fresh.workload import Workload
+
+Sleep = Callable[[float], Awaitable[object]]
 
 
 class GateViolation(Exception):
@@ -54,3 +81,159 @@ class FirstDraftGate:
         if len(messages) == 3 and messages[2].content in self.redrafts:
             return await self.inner.complete(messages, tool_schema)
         raise GateViolation("a drafting request that is neither a recorded first draft nor a redraft")
+
+
+# --- clients -------------------------------------------------------------------------------------------
+
+
+@dataclass
+class Clients:
+    backend: SingleFlightBackend
+    drafting: SingleFlightLLM
+    llm_dir: Path
+
+
+def clients(
+    phase_dir: Path, ledger: SpendLedger, *, key: str, transport: httpx.AsyncBaseTransport, run_attempt: int,
+    sleep: Sleep,
+) -> Clients:  # fmt: skip
+    """The metered, recorded, single-flight clients of one phase."""
+    metered = MeteredTransport(transport, ledger, run_attempt=run_attempt)
+    decisions = DecisionsBackend(api_key=key, transport=metered, sleep=sleep)
+    cached = CachingBackend(decisions, phase_dir / "decisions")
+    chat = OpenAIChatLLM(key, max_completion_tokens=MAX_COMPLETION_TOKENS, transport=metered, sleep=sleep)
+    recorded = ReplayLLM(chat, phase_dir / "llm", llm_id=MODEL)
+    return Clients(SingleFlightBackend(cached), SingleFlightLLM(recorded, MODEL), phase_dir / "llm")
+
+
+def _no_network(request: httpx.Request) -> httpx.Response:
+    raise AssertionError(f"a replay sent a request to {request.url}")
+
+
+def replay_clients(phase_dir: Path) -> Clients:
+    """The clients of a replay: records only (`replay_only=True`), so a miss raises and nothing is ever sent."""
+    decisions = DecisionsBackend(api_key="replay-only", transport=httpx.MockTransport(_no_network))
+    cached = CachingBackend(decisions, phase_dir / "decisions", replay_only=True)
+    recorded = ReplayLLM(None, phase_dir / "llm", llm_id=MODEL, replay_only=True)
+    return Clients(SingleFlightBackend(cached), SingleFlightLLM(recorded, MODEL), phase_dir / "llm")
+
+
+def draftings(fields: Sequence[Mapping[str, Any]], config: tuple[str, str] = ("L0", "F0")) -> list[Drafting]:
+    """Each field's compiled drafting under `config` (its checks carry the configuration's screen)."""
+    options = arms.LIBRARY_ARMS[config[0]]
+    graph = compile_schema(judging.rset_schema(fields, config[1]), criterion_template=options.criterion_template,
+                           draft_screen=options.draft_screen)  # fmt: skip
+    return [n.drafting for n in graph.nodes.values() if isinstance(n, StepNode) and n.drafting is not None]
+
+
+# --- the drafting phase ---------------------------------------------------------------------------------
+
+
+def first_draft_requests(doc: redraft.Document, fields: Sequence[Mapping[str, Any]]) -> list[tuple[Message, ...]]:
+    return [messages(d, doc.text, None) for d in draftings(fields)]
+
+
+def first_keys(w: Workload) -> frozenset[str]:
+    """The `replay_key` of every first draft of the phase: what the drafting phase records."""
+    requests = (m for d in w.documents.values() for m in first_draft_requests(d, w.fields[d.domain]))
+    return frozenset(k for m in requests if (k := replay_key(MODEL, m, TOOL_SCHEMA)) is not None)
+
+
+async def drafting_phase(
+    c: Clients, ledger: SpendLedger, w: Workload,
+    *, bound: Callable[[str], int], sleep: Sleep, after_batch: Callable[[], None] = lambda: None,
+) -> frozenset[str]:  # fmt: skip
+    """Draw every first draft once, a batch of 10 documents at a time, each batch checked against the cap first;
+    return the recorded keys."""
+    batches = packing.drafting_batches(list(w.documents))
+    for index, batch in enumerate(batches):
+        requests = {d: first_draft_requests(w.documents[d], w.fields[w.documents[d].domain]) for d in batch}
+        if not gates.batch_fits(ledger, [bound(d) for d in batch]):
+            raise requeue.CapStop(f"drafting batch {index} of {len(batches)} does not fit under the cap")
+
+        async def draw(doc_id: str, requests: dict[str, list[tuple[Message, ...]]] = requests) -> None:
+            try:
+                await asyncio.gather(*(c.drafting.complete(m, TOOL_SCHEMA) for m in requests[doc_id]))
+            except LLMError:
+                raise
+            except Exception as failure:  # as the executor wraps a drafting failure (`executor.py` `_draft`)
+                raise LLMError("llm_exception", f"{doc_id}: {type(failure).__name__}", Result({}, False)) from failure
+
+        await asyncio.gather(*(requeue.run_unit(d, lambda d=d: draw(d), ledger, sleep) for d in batch))
+        after_batch()
+    await c.drafting.drain()
+    return first_keys(w)
+
+
+# --- the configuration phase ----------------------------------------------------------------------------
+
+
+def rset_record(result: Result, draftings: Sequence[Drafting], pointers: Sequence[str]) -> dict[str, Any]:
+    """Each field's first draft and redraft, and whether each was admitted; a malformed draft's text is null and
+    counted (design §6.3: every truncation is counted per configuration)."""
+    bad = {malformed(d.max_draft_chars) for d in draftings}
+    out: dict[str, Any] = {}
+    for pointer in pointers:
+        rejected = [r for r in result.rejections if r.pointer == pointer]
+        value = result.value.get(pointer.removeprefix("/"))
+        texts = [None if r.criteria and r.criteria[0] in bad else r.draft for r in rejected]
+        out[pointer] = {
+            "first_admitted": not rejected and value is not None,
+            "redraft_admitted": bool(rejected) and value is not None,
+            "first": value if not rejected else texts[0],
+            "redraft": value if rejected and value is not None else (texts[1] if len(texts) > 1 else None),
+            "malformed": sum(t is None for t in texts),
+        }
+    return out
+
+
+async def run_unit(c: Clients, w: Workload, first_keys: frozenset[str], unit: Unit) -> dict[str, Any]:
+    """One (case, configuration) pair; its outcome as recorded."""
+    config = arms.LIBRARY_ARMS[unit.arm]
+    if unit.set_name == "rset":
+        doc = w.documents[unit.key]
+        fields = w.fields[doc.domain]
+        steps = draftings(fields, unit.config)
+        recorded = ReplayLLM(None, c.llm_dir, llm_id=MODEL, replay_only=True)
+        gate = FirstDraftGate(c.drafting, recorded, first_keys, steps, llm_id=MODEL)
+        result = await judging.judge_document(c.backend, gate, doc.text, fields=fields, config=config, form=unit.form)
+        return {"fields": rset_record(result, steps, [str(f["pointer"]) for f in fields])}
+    case = w.cases[unit.set_name][unit.key]
+    if unit.set_name == "pset":
+        case = judging.pset_case(case, unit.form)
+    result = await judging.judge_case(c.backend, case, config, unit.set_name)
+    if unit.set_name == "iset":
+        return {"flipped": admission.case_flipped(result)}
+    if unit.set_name == "p7":
+        return {"verdicts": admission.criterion_verdicts(result, case)}
+    return {"admitted": admission.admitted(result, admission.INJECTED)}
+
+
+async def configuration_phase(
+    c: Clients, ledger: SpendLedger, w: Workload, first_keys: frozenset[str],
+    *, bound: Callable[[Unit], int], sleep: Sleep, after_batch: Callable[[], None] = lambda: None,
+) -> dict[Unit, dict[str, Any]]:  # fmt: skip
+    """Every unit, one batch of at most 10 in flight, each batch checked against the cap first; `after_batch`
+    runs the guards (the model-string check) between batches."""
+    outcomes: dict[Unit, dict[str, Any]] = {}
+    batches = packing.configuration_batches(w.units)
+    for index, batch in enumerate(batches):
+        if not gates.batch_fits(ledger, [bound(u) for u in batch]):
+            raise requeue.CapStop(f"configuration batch {index} of {len(batches)} does not fit under the cap")
+        done = await asyncio.gather(
+            *(requeue.run_unit(f"{u}", lambda u=u: run_unit(c, w, first_keys, u), ledger, sleep) for u in batch)
+        )
+        outcomes.update(zip(batch, done, strict=True))
+        after_batch()
+    await c.backend.drain()
+    await c.drafting.drain()
+    return outcomes
+
+
+def model_strings(ledger: SpendLedger, run_attempt: int) -> dict[str, set[str]]:
+    """Each endpoint's returned `model` strings in this attempt, from the settle records (plan §11 D6)."""
+    found: dict[str, set[str]] = {"decisions": set(), "chat": set()}
+    for s in ledger.settles():
+        if s.run_attempt == run_attempt and s.status == 200 and s.model is not None:
+            found[s.endpoint].add(s.model)
+    return found

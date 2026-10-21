@@ -1,5 +1,6 @@
-"""H40: the pinned paths cover everything the harness imports, and every `jevson` import is public, from the
-two replay modules, or on plan §11 D18's closed allowlist (STATS48-R7-1, STATS48-R8-1, ARCH48-R9-1)."""
+"""H40: the pinned paths cover everything the harness imports (i) and reads at run time (ii), and every `jevson`
+import is public, from the two replay modules, or on plan §11 D18's closed allowlist (iii) (STATS48-R7-1,
+STATS48-R8-1, FEAS48-R8-2, ARCH48-R9-1)."""
 
 from __future__ import annotations
 
@@ -7,7 +8,8 @@ import ast
 from pathlib import Path
 
 import jevson
-from tests.j4b.fresh import pins
+from tests.j4b.fresh import dryrun, pins, runner
+from tests.j4b.tests import fake_api, opens
 
 ROOT = Path(__file__).resolve().parents[3]
 ENTRY = sorted((ROOT / pins.FRESH).glob("*.py")) + [p for p in [ROOT / "tests/integration/run_fresh.py"] if p.exists()]
@@ -101,3 +103,34 @@ def test_h40iii_a_planted_internal_import_is_named(tmp_path: Path) -> None:
     )
     name = f"{pins.FRESH}/planted.py"
     assert violations(planted, name) == [f"{name}:3 jevson.execute.executor._Run", f"{name}:4 jevson.types"]
+
+
+def unpinned_reads(opened: list[Path], run_root: Path) -> list[str]:
+    """Files opened inside the repository, outside the run root, `jevson/` and `.venv/`, that no pin covers."""
+    out: list[str] = []
+    for path in opened:
+        if not path.is_relative_to(ROOT) or path.is_relative_to(run_root.resolve()) or path.is_dir():
+            continue
+        relative = path.relative_to(ROOT).as_posix()
+        if relative.split("/")[0] in ("jevson", ".venv") or "__pycache__" in relative:
+            continue
+        if not pinned(path):
+            out.append(relative)
+    return sorted(set(out))
+
+
+def test_h40ii_a_fake_attempt_and_the_dry_run_read_only_pinned_files(tmp_path: Path) -> None:
+    load = fake_api.loader()
+    e, _ = fake_api.env(tmp_path / "fresh", load=load)
+    with opens.recording() as seen:
+        assert runner.run_phase(e, "dev", 1) == 0
+        assert runner.run_phase(e, "confirm", 1) == 0
+        dryrun.figures(load=load)
+    reads = [p for p in seen if p.is_relative_to(ROOT) and not p.is_relative_to(e.root.resolve())]
+    assert any(p.relative_to(ROOT).as_posix().startswith("tests/phase0/datasets/corpus/") for p in reads)
+    assert unpinned_reads(seen, e.root) == []
+
+
+def test_h40ii_an_unpinned_read_is_named(tmp_path: Path) -> None:
+    planted = [ROOT / "README.md", ROOT / pins.FRESH / "rules.py", tmp_path / "fresh" / "x.json"]
+    assert unpinned_reads(planted, tmp_path / "fresh") == ["README.md"]

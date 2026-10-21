@@ -9,7 +9,7 @@ import pytest
 
 from jevson import BackendError, LLMError, Result
 from tests.j4b.fresh.constants import UNIT_REQUEUE_WAIT_S, UNIT_REQUEUES
-from tests.j4b.fresh.requeue import CapStop, RequeuesExhausted, run_unit, wait_s
+from tests.j4b.fresh.requeue import CapStop, ReplayMiss, RequeuesExhausted, run_unit, wait_s
 from tests.j4b.fresh.spend import SpendLedger
 
 
@@ -65,3 +65,11 @@ def test_a_cap_stop_is_never_requeued(tmp_path: Path) -> None:
 
     with pytest.raises(CapStop):
         asyncio.run(run_unit("u", unit, ledger, Sleeps()))
+
+
+def test_a_replay_miss_is_never_requeued(tmp_path: Path) -> None:
+    async def unit() -> str:
+        raise LLMError("replay_miss", "no recorded response", Result({}, False))
+
+    with pytest.raises(ReplayMiss):
+        asyncio.run(run_unit("u", unit, SpendLedger(tmp_path), Sleeps()))

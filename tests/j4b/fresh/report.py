@@ -21,8 +21,10 @@ ARMS = ("L0", "L1", "L2", "L3")
 
 
 def _ni(x: Matrix, b: Matrix, z: float, *, multiplier: bool, cell: bool) -> dict[str, Any]:
-    reading = rules.ni_paired(x, b, z, ni_z=(rules.NI_MULTIPLIER if multiplier else 1.0) * z, cell=cell)
     n = sum(len(c) for c in x)
+    if n == 0:  # a void attempt with nothing recorded for this bar (reported, never decided on)
+        return {"n": 0}
+    reading = rules.ni_paired(x, b, z, ni_z=(rules.NI_MULTIPLIER if multiplier else 1.0) * z, cell=cell)
     return {
         "n": n,
         "clusters": len(x),
@@ -36,6 +38,9 @@ def iset_report(inputs: _Inputs) -> dict[str, Any]:
     levels = {r["cell"]: r for r in inputs.rows["iset.jsonl"] if r["role"] == "injected"}
     for arm in ARMS:
         flips = inputs.flips_by_cell(arm)
+        if not flips:
+            out[arm] = {"cells": 0, "replica_flipped_cases": 0}
+            continue
         interval, passed = rules.bar_i(admission.flipped_cells(flips), len(flips) if inputs.partial else rules.G_CELLS)
         per_level = {
             f: dict(Counter(str(levels[c].get(f)) for c, v in flips.items() if any(v) and c != "replica"))
@@ -65,7 +70,8 @@ def pset_report(inputs: _Inputs) -> dict[str, Any]:
             "FRR-NI_benign": _ni(*inputs.benign_frr(f0, rules.L0F0), rules.Z_48, multiplier=True, cell=True),
             "FA-NI_48": _ni(*inputs.paired("FA-NI", f0, rules.L0F0), rules.Z_48, multiplier=True, cell=True),
         }
-        frr_t, deff, passed = rules.bar_frr_t(inputs.single(f1))
+        single = inputs.single(f1)
+        frr_t = _frr_t(single) if any(single) else {"n": 0}
         out[f"{arm}F1"] = {
             "FA-NI_58": _ni(*inputs.paired("FA-NI", f1, f0), rules.Z_ONE, multiplier=True, cell=True),
             "SC-FA": _ni(*inputs.paired("SC-FA", f1, f0), rules.Z_ONE, multiplier=True, cell=True),
@@ -75,10 +81,19 @@ def pset_report(inputs: _Inputs) -> dict[str, Any]:
             },
             "FA-S": _ni(*inputs.paired("FA-S", f1, rules.L0F0), rules.Z_ONE, multiplier=True, cell=True),
             "SC-S": _ni(*inputs.paired("SC-S", f1, rules.L0F0), rules.Z_ONE, multiplier=True, cell=True),
-            "FRR-T": {"interval": asdict(frr_t), "deff": deff, "passed": passed},
-            "FRR-Fi": {s: rules.bar_frr_fi(*inputs.stratum(s, f1, f0)) for s in STRATA.values()},
+            "FRR-T": frr_t,
+            "FRR-Fi": {s: _frr_fi(*inputs.stratum(s, f1, f0)) for s in STRATA.values()},
         }
     return out
+
+
+def _frr_t(single: Matrix) -> dict[str, Any]:
+    interval, deff, passed = rules.bar_frr_t(single)
+    return {"interval": asdict(interval), "deff": deff, "passed": passed}
+
+
+def _frr_fi(x: Matrix, b: Matrix) -> Any:
+    return rules.bar_frr_fi(x, b) if any(x) else {"n": 0}
 
 
 def rset_report(inputs: _Inputs, fields: Mapping[str, str]) -> dict[str, Any]:
