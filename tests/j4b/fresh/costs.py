@@ -5,11 +5,13 @@ FEAS48-R10-3).
   tokens (chars + drafts x 536 + 60) / 3 + 160 per question + 8 per option (2 per predicate), 3.5 criteria per
   R-set field, run 1's $0.00193 per drafting call, and cost3.py's first-draft rejection shares per configuration;
   only the inputs (case counts and source sizes) come from the built fixtures.
-- **Bounds** are `bounds.py`'s: each request's wire bytes + 64 tokens, and for drafting the 2,048-token output
-  cap; a draft not yet seen is reserved at `max_draft_chars` x `BYTES_PER_CHAR`: 7 on the decision side and 6 on
-  the chat side for the run (D10); the design's R_max uses 4.
-- **The margin check** compares each decision body with the harness formula ceil(bytes / 3) + 160 q + 8 o, never
-  with the library's `+dw` estimate, which exceeds bytes + 64 on every adjudication request.
+- **Bounds** are `bounds.py`'s: each request's wire bytes + 64 tokens, + 160 per question and 8 per option for a
+  decision request (D21), and for drafting the 2,048-token output cap; a draft not yet seen is reserved at
+  `max_draft_chars` x `BYTES_PER_CHAR`: 7 on the decision side and 6 on the chat side for the run (D10); the
+  design's R_max uses 4.
+- **The margin check** compares each decision request's metered bound, bytes + 64 + 160 q + 8 o (plan §11 D21), with
+  the harness formula ceil(bytes / 3) + 160 q + 8 o over the questions and options it was built with, never with the
+  library's `+dw` estimate.
 """
 
 from __future__ import annotations
@@ -18,9 +20,10 @@ import math
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 
-from tests.j4b.fresh.constants import CAP, CHAT_FORMAT_TOKENS, NANO, PRICE
+from tests.j4b.fresh.constants import CAP, DECISION_OPTION_TOKENS, DECISION_QUESTION_TOKENS, NANO, PRICE
 
-Q_TOKENS, O_TOKENS, CRITERIA_PER_FIELD, DRAFT_CHARS = 160, 8, 3.5, 536
+Q_TOKENS, O_TOKENS = DECISION_QUESTION_TOKENS, DECISION_OPTION_TOKENS
+CRITERIA_PER_FIELD, DRAFT_CHARS = 3.5, 536
 DCALL_USD = 0.00193
 P7_TOKENS_PER_ARM = 39_563
 SHARES = {
@@ -107,6 +110,7 @@ def harness_formula(body: int, questions: int, options: int) -> int:
     return math.ceil(body / 3) + Q_TOKENS * questions + O_TOKENS * options
 
 
-def margin(body: int, questions: int, options: int) -> int:
-    """bytes + 64 - the harness formula; the dry run raises before any spend if it is negative."""
-    return body + CHAT_FORMAT_TOKENS - harness_formula(body, questions, options)
+def margin(bound: int, body: int, questions: int, options: int) -> int:
+    """A request's metered input bound (`metering.input_bound`) - the harness formula over the questions and options
+    the request was built with; the dry run raises before any spend if it is negative."""
+    return bound - harness_formula(body, questions, options)

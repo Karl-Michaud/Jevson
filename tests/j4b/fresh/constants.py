@@ -11,6 +11,10 @@ PRICE = {"decision_in": 100, "chat_in": 750, "chat_out": 4500}
 """Nano-dollars per token: decisions $0.10/M input; drafting $0.75/M input and $4.50/M output (design §6.3)."""
 CHAT_FORMAT_TOKENS = 64
 """Tokens a request may bill beyond its body's bytes (design §6.3)."""
+DECISION_QUESTION_TOKENS, DECISION_OPTION_TOKENS = 160, 8
+"""Tokens a decision request may bill per question and per option beyond its bytes + 64 (plan §11 D21,
+FEAS48-C1-1): the API bills about 110-160 tokens per question that are not in the body (DESIGN §8.2), so the
+decision bound is bytes + 64 + 160 q + 8 o, at least the harness formula ceil(bytes / 3) + 160 q + 8 o."""
 MAX_COMPLETION_TOKENS = 2048
 """The drafting LLM's output cap (design §6.3)."""
 BATCH_UNITS = 10

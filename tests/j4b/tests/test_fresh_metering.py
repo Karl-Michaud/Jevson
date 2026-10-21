@@ -10,7 +10,8 @@ from pathlib import Path
 import httpx
 import pytest
 
-from tests.j4b.fresh.constants import CAP, NANO, PRICE
+from tests.j4b.fresh import metering
+from tests.j4b.fresh.constants import CAP, PRICE
 from tests.j4b.fresh.metering import MeteredTransport, UsageOverBound, request_bound
 from tests.j4b.fresh.spend import SpendCapReached, SpendLedger
 
@@ -107,5 +108,113 @@ def test_a_cancelled_attempt_is_settled_at_its_bound_and_releases_its_reservatio
     ledger = asyncio.run(scenario())
     assert ledger.open == {}
     assert ledger.billed == request_bound(BODY.encode(), "chat")
+    assert [(r["type"], r.get("status"), r.get("billed")) for r in ledger.records] == [
+        ("reserve", None, None),
+        ("settle", None, request_bound(BODY.encode(), "chat")),
+    ]
+
+
+# --- review round 1: the decision bound counts its questions (FEAS48-C1-1), every usage path (T48-3, FEAS48-C1-3) ---
+
+QUESTIONS = [
+    {"type": "predicate", "name": "q0", "instructions": "Is it?"},
+    {"type": "choice", "name": "q1", "instructions": "Which?", "choices": [{"value": v} for v in "abc"]},
+    {"type": "score", "name": "q2", "instructions": "How?", "levels": [{"label": v} for v in "wxyz"]},
+]
+DECISION_BODY = json.dumps({"model": "gpt-6-luna", "input": "s", "questions": QUESTIONS})
+
+
+def test_a_decision_bound_adds_160_per_question_and_8_per_option_to_its_bytes_plus_64() -> None:
+    raw = DECISION_BODY.encode()
+    assert metering.question_counts(raw) == (3, 2 + 3 + 4)
+    assert metering.input_bound(raw, "decisions") == len(raw) + 64 + 160 * 3 + 8 * 9
+    assert request_bound(raw, "decisions") == (len(raw) + 64 + 160 * 3 + 8 * 9) * PRICE["decision_in"]
+    assert metering.input_bound(b"{}", "decisions") == 2 + 64
+    with pytest.raises(ValueError, match="not a JSON object"):
+        metering.input_bound(b"[]", "decisions")
+
+
+def settle_of(tmp_path: Path, reply_: httpx.MockTransport, url: str = CHAT, body: str = BODY) -> SpendLedger:
+    ledger = SpendLedger(tmp_path)
+    post(MeteredTransport(reply_, ledger, run_attempt=1), url, body)
+    return ledger
+
+
+def test_a_200_decisions_reply_is_billed_at_its_input_tokens_exactly(tmp_path: Path) -> None:
+    ledger = settle_of(tmp_path, reply({"input_tokens": 900}), DECISIONS, DECISION_BODY)
+    assert ledger.billed == 900 * PRICE["decision_in"]
+    assert ledger.violation is None
+
+
+def test_usage_exactly_at_the_bound_is_billed_and_is_not_a_violation(tmp_path: Path) -> None:
+    chat_in = metering.input_bound(BODY.encode(), "chat")
+    ledger = settle_of(tmp_path / "c", reply({"prompt_tokens": chat_in, "completion_tokens": 2048}))
+    assert ledger.billed == chat_in * PRICE["chat_in"] + 2048 * PRICE["chat_out"]
+    assert (ledger.violation, ledger.stopped) == (None, False)
+    dec_in = metering.input_bound(DECISION_BODY.encode(), "decisions")
+    ledger = settle_of(tmp_path / "d", reply({"input_tokens": dec_in}), DECISIONS, DECISION_BODY)
+    assert ledger.billed == dec_in * PRICE["decision_in"]
+    assert (ledger.violation, ledger.stopped) == (None, False)
+
+
+@pytest.mark.parametrize(
+    ("usage", "url", "body"),
+    [
+        ({"prompt_tokens": 10, "completion_tokens": 2049}, CHAT, BODY),
+        ({"input_tokens": "in-bound+1"}, DECISIONS, DECISION_BODY),
+        ({"prompt_tokens": "in-bound+1", "completion_tokens": 0}, CHAT, BODY),
+    ],
+)
+def test_usage_one_token_over_either_bound_voids_and_still_settles(
+    tmp_path: Path, usage: dict[str, object], url: str, body: str
+) -> None:
+    over = metering.input_bound(body.encode(), metering.endpoint_of(httpx.Request("POST", url))) + 1
+    planted = {k: over if v == "in-bound+1" else v for k, v in usage.items()}
+    ledger = SpendLedger(tmp_path)
+    with pytest.raises(UsageOverBound):
+        post(MeteredTransport(httpx.MockTransport(lambda r: httpx.Response(200, json={"usage": planted})), ledger,
+                              run_attempt=1), url, body)  # fmt: skip
+    assert ledger.violation is not None
+    assert ledger.stopped
     assert [r["type"] for r in ledger.records] == ["reserve", "settle"]
-    assert NANO > 0
+    assert ledger.open == {}
+
+
+@pytest.mark.parametrize(
+    ("content", "url", "body"),
+    [
+        (b"not json", CHAT, BODY),
+        (b"[1, 2]", CHAT, BODY),
+        (b'{"usage": [10, 5]}', CHAT, BODY),
+        (b'{"usage": {"prompt_tokens": 10}}', CHAT, BODY),
+        (b'{"usage": {"completion_tokens": 5}}', CHAT, BODY),
+        (b'{"usage": {"prompt_tokens": -1, "completion_tokens": 5}}', CHAT, BODY),
+        (b'{"usage": {"prompt_tokens": true, "completion_tokens": 5}}', CHAT, BODY),
+        (b'{"usage": {"prompt_tokens": 1.5, "completion_tokens": 5}}', CHAT, BODY),
+        (b'{"usage": {}}', DECISIONS, DECISION_BODY),
+        (b'{"usage": {"total_tokens": 999}}', DECISIONS, DECISION_BODY),
+        (b'{"usage": {"input_tokens": false}}', DECISIONS, DECISION_BODY),
+    ],
+)
+def test_a_200_without_complete_usage_is_settled_at_its_full_bound(
+    tmp_path: Path, content: bytes, url: str, body: str
+) -> None:
+    ledger = settle_of(tmp_path, httpx.MockTransport(lambda r: httpx.Response(200, content=content)), url, body)
+    endpoint = metering.endpoint_of(httpx.Request("POST", url))
+    assert ledger.billed == request_bound(body.encode(), endpoint)
+    assert ledger.violation is None
+
+
+def test_usage_of_reads_each_endpoints_keys_and_the_model() -> None:
+    chat = b'{"model": "m", "usage": {"prompt_tokens": 3, "completion_tokens": 4, "total_tokens": 7}}'
+    assert metering.usage_of(chat, "chat") == ((3, 4), "m")
+    assert metering.usage_of(b'{"model": 5, "usage": {"input_tokens": 9}}', "decisions") == ((9, 0), None)
+    assert metering.usage_of(b'{"model": "m"}', "chat") == (None, "m")
+    assert metering.usage_of(b"[]", "chat") == (None, None)
+
+
+@pytest.mark.parametrize(
+    ("header", "seconds"), [(None, None), ("7", 7.0), ("0.5", 0.5), ("Wed, 21 Oct 2026 07:28:00 GMT", None)]
+)
+def test_retry_after_reads_seconds_and_an_http_date_as_none(header: str | None, seconds: float | None) -> None:
+    assert metering.retry_after_s(header) == seconds

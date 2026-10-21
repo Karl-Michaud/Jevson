@@ -29,7 +29,7 @@ CAP_SENTENCE = (
 
 
 class MarginViolation(Exception):
-    """A decision request whose bytes + 64 fall below the harness formula: the run would under-reserve it."""
+    """A decision request whose metered bound falls below the harness formula: the run would under-reserve it."""
 
 
 @dataclass
@@ -100,7 +100,7 @@ def figures(
 
 
 def check(fig: Mapping[str, Any]) -> None:
-    """Raise before any spend if a decision request's bytes + 64 fall below the harness formula (FEAS48-7)."""
+    """Raise before any spend if a decision request's metered bound falls below the harness formula (FEAS48-7)."""
     if fig["violations"]:
         shown = "\n  ".join(fig["violations"][:20])
         raise MarginViolation(f"{len(fig['violations'])} units have a request with a negative margin:\n  {shown}")

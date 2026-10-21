@@ -232,6 +232,23 @@ def test_h21_every_exact_request_meets_the_harness_formula_and_a_negative_margin
         dryrun.check({**fig, "violations": ["planted"]})
 
 
+def test_h21_the_real_workloads_dry_run_refuses_nothing() -> None:
+    """FEAS48-C1-1: the committed fixtures pass their own pre-spend check, so the dry run exits 0."""
+    fig = dryrun.figures()
+    assert fig["violations"] == []
+    dryrun.check(fig)
+    for f in fig["phases"]:
+        assert min(f.min_margin.values()) >= 0
+
+
+def test_h21_the_metered_counts_equal_the_recorded_questions_and_options() -> None:
+    w = LOAD("dev")
+    for name in ("iset", "pset", "rset"):
+        for unit in w.units[name][:3]:
+            for r in bounds.unit_requests(w, unit).decisions:
+                assert metering.question_counts(r.body) == (len(r.questions), r.options)
+
+
 def test_h21_the_librarys_dw_estimate_would_refuse_a_one_criterion_request() -> None:
     w = LOAD("confirm")
     unit = next(u for u in w.units["pset"] if u.config == ("L0", "F0"))
@@ -245,5 +262,6 @@ def test_h21_the_librarys_dw_estimate_would_refuse_a_one_criterion_request() -> 
     asyncio.run(jevson.aresolve(schema, case["source"], redraft_budget=0))
     estimate = next(e.estimated_input_tokens for e in sink.events if e.component == "decision")
     assert estimate is not None
-    assert len(request.body) + 64 < estimate
-    assert costs.margin(len(request.body), 1, 2) >= 0  # the harness formula admits it
+    bound = metering.input_bound(request.body, "decisions")
+    assert bound < estimate
+    assert costs.margin(bound, len(request.body), 1, 2) >= 0  # the harness formula admits it

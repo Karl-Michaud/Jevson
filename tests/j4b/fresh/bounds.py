@@ -147,6 +147,10 @@ def drafting_bound(w: Workload, doc_id: str) -> int:
 
 
 def margins(requests: Sequence[DecisionRequest]) -> list[int]:
-    """bytes + 64 - (ceil(bytes / 3) + 160 q + 8 o) for each request (FEAS48-7): the harness formula, never the
-    library's `+dw` estimate (FEAS48-R10-3)."""
-    return [costs.margin(len(r.body), len(r.questions), r.options) for r in requests]
+    """The metered input bound (bytes + 64 + 160 q + 8 o, D21) - (ceil(bytes / 3) + 160 q + 8 o) for each request
+    (FEAS48-7, FEAS48-C1-1), q and o counted as the request was built: the harness formula, never the library's
+    `+dw` estimate (FEAS48-R10-3)."""
+    return [
+        costs.margin(metering.input_bound(r.body, "decisions"), len(r.body), len(r.questions), r.options)
+        for r in requests
+    ]
