@@ -133,7 +133,7 @@ def test_each_refusal_says_what_is_wrong() -> None:
         resolve(INVOICE, [("/paid", True)])  # type: ignore[arg-type]
     with pytest.raises(PreflightError, match="'/nowhere', which is not a decided field"):
         resolve(INVOICE, {"/nowhere": 1})
-    with pytest.raises(PreflightError, match="'/paid' is not one of the field's declared values"):
+    with pytest.raises(PreflightError, match=r"^known= value for '/paid' is not one of the field's declared values$"):
         resolve(INVOICE, {"/paid": "yes"})
     with pytest.raises(PreflightError) as caught:
         resolve(summary(maxLength=3, pattern="^[a-z]+$"), {"/summary": "TOO LONG"})
@@ -284,7 +284,10 @@ def test_a_known_discriminator_checks_a_branch_field_against_its_selected_branch
 def test_a_known_discriminator_refuses_a_value_only_the_unselected_branch_declares() -> None:
     schema = two_shapes(LABELS, PICKED)
     backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"])
-    declared = "'/t/v' is not one of the field's declared values"
+    declared = (
+        r"^known= value for '/t/v' is not one of the field's declared values"
+        r" in any union branch the known= values leave open$"
+    )
     with pytest.raises(PreflightError, match=declared):  # "d" is an option of Second only; kind "a" selects First
         asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/t/kind": "a", "/t/v": "d"}))
     with pytest.raises(PreflightError, match=declared):  # labels only First admits; kind "b" selects Second
@@ -342,3 +345,23 @@ def test_a_known_value_is_judged_by_each_branch_declaration_of_its_own_kind(
     with pytest.raises(PreflightError, match="'/t/v'"):
         asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/t/v": value}))
     assert backend.calls == []
+
+
+def test_a_known_value_for_a_field_only_a_ruled_out_branch_declares_raises_typed_before_any_call() -> None:
+    # A compiled graph, not a hand-built one: kind "a" rules out B, the only branch declaring /t/y, so no
+    # declaration is left at /t/y although "c" is one of B's declared values.
+    def branch(title: str, kind: str, name: str, options: list[str]) -> dict[str, Any]:
+        properties = {"kind": {"const": kind}, name: {"enum": options}}
+        return {"type": "object", "title": title, "description": f"{title} ticket", "properties": properties}
+
+    union = {"anyOf": [branch("A", "a", "x", ["p", "q"]), branch("B", "b", "y", ["c", "d"])]}
+    schema = {"type": "object", "properties": {"t": union}, "required": ["t"]}
+    backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"])
+    with pytest.raises(PreflightError) as caught:
+        asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/t/kind": "a", "/t/y": "c"}))
+    assert str(caught.value) == (
+        "known= value for '/t/y' is not one of the field's declared values "
+        "in any union branch the known= values leave open"
+    )
+    assert backend.calls == []
+    assert llm.calls == []

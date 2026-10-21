@@ -38,6 +38,7 @@ def check_known(
     for node in graph.nodes.values():
         by_target.setdefault(node.target, []).append(node)
     fields = declarations(schema, known)
+    every = declarations(schema, {})  # compile declares every node's target, so `every[target]` exists
     constants = {c.pointer for c in graph.constants}  # checked by the executor (`execute/branches.py`)
     for pointer, value in known.items():
         nodes = by_target.get(pointer)
@@ -45,7 +46,9 @@ def check_known(
             continue
         if nodes is None:
             raise PreflightError(f"known= names {pointer!r}, which is not a decided field")
-        _check(pointer, value, nodes, fields.get(pointer, ()))  # () only for a hand-built graph: refused
+        # () when a known discriminator rules out every branch that declares the pointer: refused
+        open_ = fields.get(pointer, ())
+        _check(pointer, value, nodes, open_, narrowed=len(open_) < len(every[pointer]))
     return dict(known)
 
 
@@ -72,12 +75,19 @@ def _same(value: JSONValue, declared: JSONValue) -> bool:
 
 
 def _check(
-    pointer: str, value: JSONValue, nodes: Sequence[DecisionNode | StepNode], fields: Sequence[SchemaNode]
+    pointer: str,
+    value: JSONValue,
+    nodes: Sequence[DecisionNode | StepNode],
+    fields: Sequence[SchemaNode],
+    *,
+    narrowed: bool,
 ) -> None:
-    """Raise unless some declaration at `pointer` admits `value`: a declared value meeting its constraints."""
+    """Raise unless some declaration at `pointer` admits `value`: a declared value meeting its constraints.
+    `narrowed` says a known discriminator left out a branch declaring `pointer`, which the message names."""
     declared = [f for f in fields if any(_allowed(n, f, value) for n in nodes)]
     if not declared:
-        raise PreflightError(f"known= value for {pointer!r} is not one of the field's declared values")
+        where = " in any union branch the known= values leave open" if narrowed else ""
+        raise PreflightError(f"known= value for {pointer!r} is not one of the field's declared values{where}")
     broken = [sorted(str(e.message) for e in validator(dict(f.keywords)).iter_errors(value)) for f in declared]
     if all(broken):
         raise PreflightError(f"known= value for {pointer!r} fails its field schema: {'; '.join(broken[0])}")
