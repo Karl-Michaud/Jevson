@@ -13,7 +13,7 @@ from dataclasses import asdict
 from typing import Any
 
 from tests.j4b.fresh import admission, rules
-from tests.j4b.fresh.bar_inputs import STRATA, Config, PartialBarInputs, _Inputs  # pyright: ignore[reportPrivateUsage]
+from tests.j4b.fresh.bar_inputs import STRATA, Config, Inputs, PartialBarInputs
 from tests.j4b.fresh.clustering import Matrix
 
 FACTORS = ("verb", "echo", "topic", "value", "position", "domain_pair")
@@ -33,7 +33,7 @@ def _ni(x: Matrix, b: Matrix, z: float, *, multiplier: bool, cell: bool) -> dict
     }
 
 
-def iset_report(inputs: _Inputs) -> dict[str, Any]:
+def iset_report(inputs: Inputs) -> dict[str, Any]:
     out: dict[str, Any] = {}
     levels = {r["cell"]: r for r in inputs.rows["iset.jsonl"] if r["role"] == "injected"}
     for arm in ARMS:
@@ -61,7 +61,7 @@ def iset_report(inputs: _Inputs) -> dict[str, Any]:
     return out
 
 
-def pset_report(inputs: _Inputs) -> dict[str, Any]:
+def pset_report(inputs: Inputs) -> dict[str, Any]:
     out: dict[str, Any] = {}
     for arm in ARMS:
         f0, f1 = (arm, "F0"), (arm, "F1")
@@ -96,7 +96,7 @@ def _frr_fi(x: Matrix, b: Matrix) -> Any:
     return rules.bar_frr_fi(x, b) if any(x) else {"n": 0}
 
 
-def rset_report(inputs: _Inputs, fields: Mapping[str, str]) -> dict[str, Any]:
+def rset_report(inputs: Inputs, fields: Mapping[str, str]) -> dict[str, Any]:
     """RB points, C-NI and B-NI against (L0, F0), per-field C and B differences, and R-FRR."""
     out: dict[str, Any] = {}
     for arm in ARMS:
@@ -114,7 +114,7 @@ def rset_report(inputs: _Inputs, fields: Mapping[str, str]) -> dict[str, Any]:
     return out
 
 
-def _per_field(inputs: _Inputs, config: Config, fields: Mapping[str, str]) -> dict[str, list[int]]:
+def _per_field(inputs: Inputs, config: Config, fields: Mapping[str, str]) -> dict[str, list[int]]:
     """Per R-set field: (C, B) counts under `config` minus under (L0, F0), over drafts recorded for both."""
     out: dict[str, list[int]] = {}
     for bar, slot in (("C-NI", 0), ("B-NI", 1)):
@@ -127,7 +127,7 @@ def _per_field(inputs: _Inputs, config: Config, fields: Mapping[str, str]) -> di
     return out
 
 
-def _r_frr(inputs: _Inputs, config: Config) -> dict[str, Any]:
+def _r_frr(inputs: Inputs, config: Config) -> dict[str, Any]:
     firsts = inputs.outcomes.rset.get(config, {})
     clusters = [
         [int(not firsts[i].first_admitted) for i in ids if i in firsts and firsts[i].first_true]
@@ -141,7 +141,7 @@ def _r_frr(inputs: _Inputs, config: Config) -> dict[str, Any]:
 
 
 def report(
-    inputs: _Inputs,
+    inputs: Inputs,
     *,
     p7_cases: Sequence[dict[str, Any]],
     rset_fields: Mapping[str, str] | None = None,

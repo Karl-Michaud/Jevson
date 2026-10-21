@@ -47,7 +47,10 @@ class MissingDraft(KeyError):
     """A draft a bar compares is not recorded for one of its configurations."""
 
 
-class _Inputs:
+class Inputs:
+    """Every bar's input over built rows and recorded outcomes; `BarInputs` (complete) and `PartialBarInputs`
+    (void reports) fix `partial`, and `report.py` reads either through this type."""
+
     def __init__(self, rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes, *, partial: bool) -> None:
         self.rows, self.outcomes, self.partial = rows, outcomes, partial
         self.pairs: dict[str, list[Mapping[str, Any]]] = {}
@@ -167,21 +170,21 @@ class _Inputs:
         return flips
 
 
-class BarInputs(_Inputs):
+class BarInputs(Inputs):
     """Every bar's input of a complete attempt; a missing draft raises."""
 
     def __init__(self, rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes) -> None:
         super().__init__(rows, outcomes, partial=False)
 
 
-class PartialBarInputs(_Inputs):
+class PartialBarInputs(Inputs):
     """A void attempt's inputs: the drafts recorded on both sides only, for `rules.report` and never a decision."""
 
     def __init__(self, rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes) -> None:
         super().__init__(rows, outcomes, partial=True)
 
 
-def build(rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes, *, partial: bool = False) -> _Inputs:
+def build(rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes, *, partial: bool = False) -> Inputs:
     return PartialBarInputs(rows, outcomes) if partial else BarInputs(rows, outcomes)
 
 
