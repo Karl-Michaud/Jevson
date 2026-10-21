@@ -11,7 +11,8 @@ Known values for fields inside a branch are committed the same way, as `caller`.
 
 `known=` (DESIGN §8): a known value for a branch constant selects that branch without a decision,
 and must match exactly one branch's constant, even where another branch decides that field (choosing
-among the branches its value leaves open is not supported, so it raises before any call); a known value
+among the branches its value leaves open is not supported, so it raises before any call, also when the
+deciding branch nests its own union at that pointer); a known value
 for a field inside a branch is used only when that branch is selected. A known value at a union's
 own pointer that no constant matches is a scalar branch's value (preflight checked it): it closes
 every branch of every union at that pointer, so nothing below the union is asked.
@@ -79,7 +80,8 @@ class Branches:
         matching = [c for c in at if type(c.value) is type(value) and c.value == value]
         if len(matching) == 1:
             self._select(matching[0].branch)
-        elif matching or (at and pointer not in self.unions):
+        elif matching or any(not c.branch or c.branch[-1][0] not in self.unions.get(pointer, ()) for c in at):
+            # a constant whose own union sits elsewhere (an outer object union's tag) would replace the value
             found = "matches no" if not matching else "matches more than one"
             raise PreflightError(f"known= value for {pointer!r} {found} branch constant, so it selects no branch")
         else:  # a decided field (the façade has checked its value), or a scalar branch's value at a union

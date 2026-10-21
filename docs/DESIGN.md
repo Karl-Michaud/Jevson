@@ -884,7 +884,7 @@ Each is recorded in `PLAN.md` §7 against the phase that answers it, with its po
 
 **`known=` (§8).**
 - A known value for a branch constant selects that branch. It must match exactly one branch.
-- That holds where another branch decides the same field: a known tag that is a constant in one object branch and an enum in another must match a branch constant, or it raises `PreflightError` before any call. Choosing among the branches the value leaves open is not supported in v0.
+- That holds where another branch decides the same field: a known tag that is a constant in one object branch and an enum in another (or a union of its own, nested at the same field) must match a branch constant, or it raises `PreflightError` before any call. Choosing among the branches the value leaves open is not supported in v0.
 
 **`.unresolved`.**
 - `Unresolved` entries inside an unresolved subtree are now listed, so an unresolved union names its children `dependency_unresolved` (§6.1).

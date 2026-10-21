@@ -445,15 +445,26 @@ def test_a_known_scalar_value_and_a_known_constant_that_select_two_branches_rais
     assert backend.calls == []
 
 
+_INNER_KIND = {"anyOf": [{"const": "a"}, {"enum": ["b", "c"]}]}
+
+
 @pytest.mark.parametrize("pick", [0, 1])
-def test_a_known_tag_that_is_a_constant_in_one_branch_and_decided_in_another_is_never_overridden(pick: int) -> None:
-    # /u/kind is const 'a' in A and an enum in B: 'b' rules A out, so the discriminator must not pick A
-    # and replace the caller's 'b' with A's constant. Until the selection is supported it refuses, typed.
+@pytest.mark.parametrize(
+    ("kind_a", "kind_b"),
+    [({"const": "a"}, {"enum": ["b", "c"]}), ({"enum": ["b", "c"]}, {"const": "a"}), (_INNER_KIND, {"const": "d"})],
+)  # fmt: skip
+def test_a_known_tag_that_is_a_constant_in_one_branch_and_decided_in_another_is_never_overridden(
+    pick: int, kind_a: dict[str, Any], kind_b: dict[str, Any]
+) -> None:
+    # /u/kind is a constant in one branch and decided in the other: 'b' rules the constant's branch out,
+    # so the discriminator must not pick it and replace the caller's 'b' with its constant. That holds
+    # when the deciding branch nests its own union at /u/kind ('b' is in its inner enum, and the outer
+    # branch's constant 'd' must not replace it). Until the selection is supported it refuses, typed.
     def branch(title: str, kind: dict[str, Any], name: str) -> dict[str, Any]:
         properties = {"kind": kind, name: {"enum": ["x", "y"]}}
         return {"type": "object", "title": title, "properties": properties, "required": ["kind", name]}
 
-    union = {"anyOf": [branch("A", {"const": "a"}, "v"), branch("B", {"enum": ["b", "c"]}, "w")]}
+    union = {"anyOf": [branch("A", kind_a, "v"), branch("B", kind_b, "w")]}
     schema = {"type": "object", "properties": {"u": union}, "required": ["u"]}
 
     def answer(question: Question) -> Any:
