@@ -207,16 +207,11 @@ class Pet(BaseModel):
     pet: Cat | Dog = Field(discriminator="kind")
 
 
-@pytest.mark.parametrize(
-    ("kind", "note", "valid"),
-    [("cat", "x" * 40, True), ("cat", "ab", True), ("dog", "ab", True), ("dog", "x" * 40, False)],
-)
-def test_a_known_value_in_a_discriminated_union_is_checked_against_its_selected_branch(
-    kind: str, note: str, valid: bool
-) -> None:
+@pytest.mark.parametrize(("kind", "note"), [("cat", "x" * 40), ("cat", "ab"), ("dog", "ab")])
+def test_a_known_value_in_a_discriminated_union_is_checked_against_its_selected_branch(kind: str, note: str) -> None:
     result, backend, llm = resolve(Pet, {"/pet/kind": kind, "/pet/note": note})
     assert result.value == {"pet": {"kind": kind, "note": note}}
-    assert result.satisfies_schema is valid  # a value only another branch admits fails final validation
+    assert result.satisfies_schema is True  # a value only another branch admits raises: see the test below
     assert backend.calls == []
     assert llm.calls == []
 
@@ -224,3 +219,75 @@ def test_a_known_value_in_a_discriminated_union_is_checked_against_its_selected_
 def test_a_known_value_in_a_discriminated_union_that_no_branch_admits_raises_before_any_call() -> None:
     with pytest.raises(PreflightError, match="'/pet/note' fails its field schema"):
         resolve(Pet, {"/pet/kind": "cat", "/pet/note": "x" * 101})
+
+
+SHORT_NOTE = {"type": "string", "maxLength": 2, "x-jevson": UNION_GENERATE}
+PICKED = {"enum": ["c", "d"]}
+LABELS = {"type": "array", "items": {"enum": ["x", "y"]}, "default": []}
+
+
+def two_shapes(first: dict[str, Any], second: dict[str, Any]) -> dict[str, Any]:
+    """A union whose branches declare `/t/v` with different kinds (not only different constraints)."""
+
+    def branch(title: str, kind: str, v: dict[str, Any]) -> dict[str, Any]:
+        properties = {"kind": {"const": kind}, "v": v}
+        return {"type": "object", "title": title, "description": f"{title} ticket", "properties": properties}
+
+    branches = [branch("First", "a", first), branch("Second", "b", second)]
+    return {"type": "object", "properties": {"t": {"anyOf": branches}}, "required": ["t"]}
+
+
+@pytest.mark.parametrize(
+    ("first", "second", "value"),
+    [
+        (SHORT_NOTE, PICKED, "zzzzz"),  # too long for the string, not an option of the enum
+        (PICKED, SHORT_NOTE, "zzzzz"),
+        (SHORT_NOTE, PICKED, "x" * 60),
+        (LABELS, SHORT_NOTE, "zzzzz"),  # too long for the string, not an array
+        (SHORT_NOTE, LABELS, "zzzzz"),
+        (LABELS, SHORT_NOTE, ["q"]),  # not a declared label, not a string
+        (LABELS, PICKED, "x"),  # a label, but not inside an array, and not an option of the enum
+    ],
+)
+def test_a_known_value_no_branch_admits_raises_even_when_branches_declare_different_kinds(
+    first: dict[str, Any], second: dict[str, Any], value: Any
+) -> None:
+    backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"] * 4)
+    with pytest.raises(PreflightError, match="'/t/v'"):
+        asyncio.run(Jevson(backend, llm=llm).aresolve(two_shapes(first, second), "Refund: $40.", known={"/t/v": value}))
+    assert backend.calls == []
+    assert llm.calls == []
+
+
+@pytest.mark.parametrize(
+    ("first", "second", "value"),
+    [(SHORT_NOTE, PICKED, "ok"), (SHORT_NOTE, PICKED, "d"), (LABELS, SHORT_NOTE, ["y", "x"]), (LABELS, PICKED, "c")],
+)
+def test_a_known_value_one_branch_admits_passes_preflight_when_branches_declare_different_kinds(
+    first: dict[str, Any], second: dict[str, Any], value: Any
+) -> None:
+    result, _, llm = resolve_first_branch(two_shapes(first, second), {"/t/v": value})  # no PreflightError
+    assert result.value["t"]["v"] == value
+    assert llm.calls == []
+
+
+def test_a_known_discriminator_checks_a_branch_field_against_its_selected_branch_only() -> None:
+    backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"])
+    with pytest.raises(PreflightError, match="'/pet/note' fails its field schema"):  # only Cat admits 40 characters
+        asyncio.run(
+            Jevson(backend, llm=llm).aresolve(Pet, "Refund: $40.", known={"/pet/kind": "dog", "/pet/note": "x" * 40})
+        )
+    assert backend.calls == []
+    assert llm.calls == []
+
+
+def test_a_known_discriminator_refuses_a_value_only_the_unselected_branch_declares() -> None:
+    schema = two_shapes(LABELS, PICKED)
+    backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"])
+    declared = "'/t/v' is not one of the field's declared values"
+    with pytest.raises(PreflightError, match=declared):  # "d" is an option of Second only; kind "a" selects First
+        asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/t/kind": "a", "/t/v": "d"}))
+    with pytest.raises(PreflightError, match=declared):  # labels only First admits; kind "b" selects Second
+        asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/t/kind": "b", "/t/v": ["x"]}))
+    assert backend.calls == []
+    assert llm.calls == []

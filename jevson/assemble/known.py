@@ -4,13 +4,14 @@ A known value is accepted only if it names a decided field (or a constant the ex
 one of the field's declared values (an enum's options, a bool, distinct declared items for a
 multi-label array, a string for a generative field, or null for a nullable field), and meets the
 field's own JSON Schema constraints (`maxLength`, `pattern`, `format`, …, carried on the normalised
-node, through a `$ref` too). Anything else raises `PreflightError` before any call. Union branches can
-declare the same pointer differently, and preflight does not know which branch will be selected, so a
-value is refused only if every declaration at its pointer refuses it; the selected branch's own schema
-decides in final validation (DESIGN §8: a known value inside a branch is used only if that branch is
-selected). For a Pydantic
-model only the emitted JSON Schema is checked; field validators run in final validation
-(`satisfies_schema`).
+node, through a `$ref` too). Anything else raises `PreflightError` before any call. Each declaration
+admits only values of its own kind and declared options, so a node compiled from one union branch never
+vouches for a value against another branch's declaration. Union branches can declare the same pointer
+differently; a branch that a known discriminator rules out (a known value for one of its constants that
+differs from it) is not consulted, and among the rest a value is refused only if every declaration at its
+pointer refuses it. The selected branch's own schema decides in final validation (DESIGN §8: a known value
+inside a branch is used only if that branch is selected). For a Pydantic model only the emitted JSON
+Schema is checked; field validators run in final validation (`satisfies_schema`).
 """
 
 from __future__ import annotations
@@ -38,7 +39,7 @@ def check_known(
     by_target: dict[str, list[DecisionNode | StepNode]] = {}
     for node in graph.nodes.values():
         by_target.setdefault(node.target, []).append(node)
-    fields = declarations(schema)
+    fields = declarations(schema, known)
     constants = {c.pointer for c in graph.constants}  # checked by the executor (`execute/branches.py`)
     for pointer, value in known.items():
         nodes = by_target.get(pointer)
@@ -50,15 +51,26 @@ def check_known(
     return dict(known)
 
 
-def declarations(node: SchemaNode) -> dict[str, list[SchemaNode]]:
-    """Every property's normalised node by pointer, one per union branch that declares it."""
+def declarations(node: SchemaNode, known: Mapping[str, JSONValue]) -> dict[str, list[SchemaNode]]:
+    """Every property's normalised node by pointer, one per union branch that declares it, leaving out
+    every branch whose constant `known` gives a different value."""
     found: dict[str, list[SchemaNode]] = {}
     for _, child in node.properties:
         found.setdefault(child.pointer, []).append(child)
-    for child in (*(c for _, c in node.properties), *node.branches):  # a branch sits at its union's pointer
-        for pointer, nodes in declarations(child).items():
+    branches = (b for b in node.branches if not _ruled_out(b, known))
+    for child in (*(c for _, c in node.properties), *branches):  # a branch sits at its union's pointer
+        for pointer, nodes in declarations(child, known).items():
             found.setdefault(pointer, []).extend(nodes)
     return found
+
+
+def _ruled_out(branch: SchemaNode, known: Mapping[str, JSONValue]) -> bool:
+    constants = (c for _, c in branch.properties if c.kind is Kind.CONSTANT and c.pointer in known)
+    return any(not _same(known[c.pointer], c.values[0]) for c in constants)
+
+
+def _same(value: JSONValue, declared: JSONValue) -> bool:
+    return type(value) is type(declared) and value == declared
 
 
 def _check(
@@ -74,18 +86,24 @@ def _check(
 
 
 def _allowed(node: DecisionNode | StepNode, field: SchemaNode, value: JSONValue) -> bool:
+    """Whether `field` itself declares `value` and `node` decides a field of that kind."""
     if value is None:
         return field.nullable
     if isinstance(node, StepNode):
-        return isinstance(value, str)
+        return field.kind is Kind.STRING and isinstance(value, str)
     if node.member is not None:  # a multi-label enum array: distinct declared values
-        declared = field.items.values if field.items is not None else ()
-        items = cast("list[JSONValue]", value) if isinstance(value, list) else None
-        return (
-            items is not None
-            and len(set(map(repr, items))) == len(items)
-            and all(any(type(item) is type(v) and item == v for v in declared) for item in items)
-        )
+        return field.items is not None and _labels(field.items.values, value)
     if node.kind is DecisionKind.PREDICATE:
-        return isinstance(value, bool)
-    return any(type(value) is type(v) and value == v for v in node.values)
+        return field.kind is Kind.BOOLEAN and isinstance(value, bool)
+    declared = field.values if node.kind is DecisionKind.CHOICE else node.values  # a score's levels
+    kind = Kind.ENUM if node.kind is DecisionKind.CHOICE else Kind.INTEGER
+    return field.kind is kind and any(_same(value, v) for v in declared) and any(_same(value, v) for v in node.values)
+
+
+def _labels(declared: Sequence[JSONValue], value: JSONValue) -> bool:
+    items = cast("list[JSONValue]", value) if isinstance(value, list) else None
+    return (
+        items is not None
+        and len(set(map(repr, items))) == len(items)
+        and all(any(_same(item, v) for v in declared) for item in items)
+    )

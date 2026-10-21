@@ -69,7 +69,9 @@ pending the owner's decision (PLAN §6).
   `format`, …, through a `$ref` too) raises `PreflightError` before any call; it used to be sent
   as known and fail only in final validation. Pydantic field validators still run only in final
   validation. A field that union branches declare differently is refused only if every branch's
-  declaration refuses the value; the selected branch's own schema decides in final validation.
+  declaration refuses the value, each judged by its own kind and declared options, and a branch
+  that a known discriminator value rules out is not consulted; the selected branch's own schema
+  decides in final validation.
 - Final validation checks `format`: `Result.violations` names a value that fails `email`,
   `date`, `uuid`, `ipv4`/`ipv6` or `regex`, which `jsonschema` checks on its own; formats that
   need `jsonschema[format]` (`date-time`, `uri`, …) are still checked only with those extras.
