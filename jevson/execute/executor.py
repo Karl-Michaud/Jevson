@@ -175,7 +175,7 @@ class _Run:
             "union_fanout": str(config.union_fanout).lower(),
         }
         if self.llm_models:
-            versions["llm_model"] = ",".join(self.llm_models)
+            versions["llm_model"] = ",".join(self.llm_models)  # an id that contains "," reads as two
         outcomes, holes, overflow = fold(self.nodes.values(), self.outcomes, self.decisions)
         return assemble(
             self.schema,

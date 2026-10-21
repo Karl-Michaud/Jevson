@@ -91,7 +91,7 @@ def _store(path: Path, response: LLMResponse) -> None:
             "raw": response.raw,
             "input_tokens": response.input_tokens,
             "output_tokens": response.output_tokens,
-            "model": response.model,
+            "model": response.model if isinstance(response.model, str) else None,  # as _load reads it
         })  # fmt: skip
     except (TypeError, ValueError, AttributeError):
         return  # a response JSON cannot hold cannot be replayed; it passes through unrecorded

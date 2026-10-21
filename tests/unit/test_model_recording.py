@@ -127,6 +127,20 @@ def test_replay_llm_records_and_replays_the_model(tmp_path: Path) -> None:
     assert "llm_model" not in older.versions
 
 
+def test_replay_llm_records_a_response_whose_model_is_not_a_string_without_its_model(tmp_path: Path) -> None:
+    # A non-string model is untrusted (drafting and _load drop it); it must not cost the recording itself,
+    # or a later replay_only run misses.
+    inner = ScriptedLLM([drafted("Refund of $40.", object())])
+    first, _ = run(GENERATED, FakeBackend(default=passes), ReplayLLM(inner, tmp_path, llm_id="scripted"))
+    [path] = tmp_path.iterdir()
+    assert json.loads(path.read_text(encoding="utf-8"))["model"] is None
+    replayed, _ = run(GENERATED, FakeBackend(default=passes), ReplayLLM(None, tmp_path, llm_id="scripted",
+                                                                        replay_only=True))  # fmt: skip
+    assert replayed.value == first.value
+    assert "llm_model" not in first.versions
+    assert "llm_model" not in replayed.versions
+
+
 def test_the_versions_dict_is_pinned_at_the_defaults_and_follows_the_config() -> None:
     result, _ = run(BOUNDED, FakeBackend(default=passes))
     assert dict(result.versions) == {
