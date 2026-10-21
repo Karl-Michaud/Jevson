@@ -250,6 +250,15 @@ def pending_on_library_loop() -> set[asyncio.Task[Any]]:
 
 
 def test_ctrl_c_during_resolve_cancels_the_call_on_the_library_loop() -> None:
+    # A background job or nohup starts Python with SIGINT ignored; install Python's own handler for the test.
+    previous = signal.signal(signal.SIGINT, signal.default_int_handler)
+    try:
+        _ctrl_c_cancels()
+    finally:
+        signal.signal(signal.SIGINT, previous)
+
+
+def _ctrl_c_cancels() -> None:
     assert threading.current_thread() is threading.main_thread()  # SIGINT is delivered to the main thread
     entered, unwound = threading.Event(), threading.Event()
     hang = True
