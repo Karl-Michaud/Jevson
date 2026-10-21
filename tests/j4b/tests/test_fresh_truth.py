@@ -271,3 +271,135 @@ def test_h11_each_planted_defect_is_named_raised_and_flagged(case: str) -> None:
     with pytest.raises(FixtureDefect, match=f"^{name}#{row['draft_id']}: "):
         truth.require({name: [row]}, {})
     assert truth.flag_items({name: [row]}, {}) == {f"{name}#{row['draft_id']}"}
+
+
+# --- review round 2 (T48-9): each rule's other side, the dev sets and every problem's exact text -------------------
+
+
+def splice(row: dict[str, Any], at: int, remove: int, insert: str) -> None:
+    """Replace `remove` characters of the draft at `at` with `insert`; every slot starting at or after the cut moves."""
+    row["draft"] = row["draft"][:at] + insert + row["draft"][at + remove :]
+    delta = len(insert) - remove
+    row["slots"] = [{**s, "start": s["start"] + delta, "end": s["end"] + delta} if s["start"] >= at + remove else s
+                    for s in row["slots"]]  # fmt: skip
+
+
+def restate(row: dict[str, Any], slot_name: str, value: Value) -> None:
+    """Put `value` in slot `slot_name`, in the slot's own form, and move the slots after it."""
+    slot = next(s for s in row["slots"] if s["slot"] == slot_name)
+    rendering = RENDERINGS(value)[slot["form"]]
+    start, end = slot["start"], slot["end"]
+    splice(row, start, end - start, rendering)
+    row["slots"] = [{**s, "value": value_json(value), "end": start + len(rendering)} if s["slot"] == slot_name else s
+                    for s in row["slots"]]  # fmt: skip
+
+
+FAIL_TEXT = "a FAIL draft must carry exactly one {} violation: {}"
+
+
+def test_a_fail_draft_whose_one_on_target_violation_is_a_disallowed_kind_is_flagged() -> None:
+    """A plain FAIL draft's single `missing` violation, on its target, under a pattern that allows only `form` or
+    `wrong`: the kind alone must flag it."""
+    row = first_row("pset.jsonl", label="FAIL", pattern="plain", benign=False)
+    assert truth.check_row(row) == []
+    row["pattern"] = "as_given"
+    assert truth.check_row(row) == [FAIL_TEXT.format(("form", "wrong"), ["missing:person"])]
+
+
+def test_a_fail_draft_with_two_allowed_on_target_violations_is_flagged() -> None:
+    """A universal FAIL draft misses `date`; it now also misstates `date2`. Both violations are of allowed kinds and
+    on the target, so only the count flags it."""
+    row = first_row("pset.jsonl", label="FAIL", pattern="universal", kind="date")
+    assert truth.check_row(row) == []
+    assert truth._violations(row) == ["missing:date"]
+    restate(row, "date2", Day("2026-01-05"))
+    assert truth.check_row(row) == [FAIL_TEXT.format(("missing", "wrong"), ["wrong:date2", "missing:date"])]
+
+
+@pytest.mark.parametrize("text", ["", None])
+@pytest.mark.parametrize(("flag", "field", "match"), [("benign", "benign_text", {"label": "PASS", "benign": True}),
+                                                      ("targeted_self_claim", "self_claim_text",
+                                                       {"label": "FAIL", "targeted_self_claim": True})])  # fmt: skip
+def test_a_set_flag_with_empty_or_missing_text_is_flagged(
+    flag: str, field: str, match: dict[str, Any], text: str | None
+) -> None:
+    row = first_row("pset.jsonl", **match)
+    assert truth.check_row(row) == []
+    row[field] = text
+    assert truth.check_row(row) == [f"{flag} is set but its text is not in the draft"]
+
+
+def as_companion(rule: str) -> dict[str, Any]:
+    """An injected draft (no checked value, every other slot exact) read as a companion under `rule`."""
+    row = first_row("iset.jsonl", role="injected")
+    row.update(role="companion", rule=rule)
+    return row
+
+
+def test_the_companion_rule_needs_a_differing_value_only_under_differs() -> None:
+    assert truth.check_row(as_companion("absent")) == []
+    assert truth.check_row(as_companion("differs")) == [
+        "the companion departs from the source other than in its checked kind"
+    ]
+
+
+def test_the_dev_sets_are_checked() -> None:
+    iset_dev = copy.deepcopy(next(r for r in fresh_data.rows()["iset_dev.jsonl"] if r["role"] == "injected"))
+    pset_dev = copy.deepcopy(next(r for r in fresh_data.rows()["pset_dev.jsonl"] if r["label"] == "PASS"))
+    assert (iset_dev["set"], pset_dev["set"]) == ("iset_dev", "pset_dev")
+    claim_missing(iset_dev)
+    invented_slot(pset_dev)
+    assert truth.check_row(iset_dev) == ["the injected draft does not carry its claim"]
+    invented = pset_dev["slots"][0]["slot"]
+    assert truth.check_row(pset_dev) == [f"a PASS draft departs from the source: ['invented:{invented}']"]
+    assert truth.flag_items({"iset_dev.jsonl": [iset_dev], "pset_dev.jsonl": [pset_dev]}, {}) == {
+        f"iset_dev.jsonl#{iset_dev['draft_id']}",
+        f"pset_dev.jsonl#{pset_dev['draft_id']}",
+    }
+
+
+def test_adjacent_slots_are_not_overlapping() -> None:
+    """A slot that starts exactly where the previous one ends is allowed; one starting inside it is not."""
+    row = first_row("pset.jsonl", draft_id="p000-pass-0")
+    person, ident = row["slots"][0], row["slots"][1]
+    splice(row, person["end"], ident["start"] - person["end"], "")
+    assert row["slots"][1]["start"] == row["slots"][0]["end"]
+    assert truth.check_row(row) == []
+    row["slots"][1] = {**row["slots"][1], "start": row["slots"][1]["start"] - 1}
+    assert truth.check_row(row) == ["slot ident is not its declared rendering"]
+
+
+def test_a_guarded_word_glued_to_a_slot_is_caught_and_named() -> None:
+    row = first_row("pset.jsonl", draft_id="p000-pass-0")
+    amount = next(s for s in row["slots"] if s["slot"] == "amount")
+    splice(row, amount["end"], 0, "dollars")
+    assert truth.check_row(row) == ["guarded tokens outside the slots: ['dollars']"]
+
+
+def test_an_injected_draft_stating_its_checked_value_names_the_problem() -> None:
+    row = first_row("iset.jsonl", role="injected", value="date")
+    date = next(f for f in row["facts"].values() if f["kind"] == "date")
+    value = _value({k: v for k, v in date.items() if k != "form"})
+    rendering = RENDERINGS(value)[1]
+    start = len(row["draft"]) + 1
+    row["draft"] += f" {rendering}"
+    row["slots"].append({"slot": "date", "value": value_json(value), "form": 1, "start": start,
+                         "end": start + len(rendering)})  # fmt: skip
+    assert "the draft states a checked value of the source" in truth.check_row(row)
+
+
+def test_guard_returns_each_guarded_token() -> None:
+    assert truth.guard("Due Monday, $5 to anneli@x.") == ["$", "5", "@", "Monday", "anneli"]
+
+
+def test_a_rejected_occurrence_does_not_stop_the_search() -> None:
+    """The first occurrence fails a boundary rule; a later whole-token one is still found."""
+    assert truth.occurs("Order 68417 and order 8417.", "8417")
+    assert truth.occurs("Refund of $58,505.47, then 58 more.", "58")
+
+
+def test_check_string_blanks_only_lowercase_placeholders() -> None:
+    """`{first}` is a placeholder, not the ordinal; a guarded word glued to one is still caught."""
+    assert truth.check_string("Mention the {first} item.") == []
+    assert truth.check_string("Due Monday{when}.") == ["guarded tokens: ['Monday']"]
+    assert truth.check_string("Mention the {FIRST} item.") == ["guarded tokens: ['FIRST']"]

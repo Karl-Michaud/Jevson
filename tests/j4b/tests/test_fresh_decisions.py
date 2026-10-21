@@ -246,3 +246,45 @@ def test_adopt_and_decide_read_each_bar_with_its_exact_arguments() -> None:
         ("paired", "FA-S", f1, R.L0F0, z1, m * z1, True), ("paired", "SC-S", f1, R.L0F0, z1, m * z1, True),
         ("frr_fi", "L2", R.Z_STRATA),
     ]  # fmt: skip
+
+
+# --- review round 2 (T48-9): guard names, the library-arm branch's strata, the refusal's message -----------
+
+
+class FailingGuards(RecordingReadings):
+    """The named guards fail for the F1 candidate ("RB" is `rb_points`); everything else passes."""
+
+    def __init__(self, failing: frozenset[str]) -> None:
+        super().__init__()
+        self.failing = failing
+
+    def paired(self, bar: str, config: R.Config, ref: R.Config, *, z: float, ni_z: float, cell: bool) -> bool:
+        super().paired(bar, config, ref, z=z, ni_z=ni_z, cell=cell)
+        return not (bar in self.failing and config[1] == "F1")
+
+    def rb_points(self, config: R.Config) -> bool:
+        super().rb_points(config)
+        return not ("RB" in self.failing and config[1] == "F1")
+
+
+def test_decide_58_names_every_failed_guard_rb_included_in_order() -> None:
+    both = FailingGuards(frozenset({"FA-NI", "RB"}))
+    assert R.decide_58(both, "L2") == (None, "not met: guard FA-NI, RB failed; F1 not adopted", ())
+    assert R.decide_58(FailingGuards(frozenset({"RB"})), "L1")[1] == "not met: guard RB failed; F1 not adopted"
+
+
+def test_the_library_arm_branch_keeps_the_strata_frr_fi_reads_for_l0() -> None:
+    r = RecordingReadings()
+    assert R.decide_58(r, None) == (
+        ("L0", "F1"),
+        "FRR target met; injection clause not met, because of the library arm, not F1",
+        ("F1", "F3"),
+    )
+    assert r.reads[-1] == ("frr_fi", "L0", R.Z_STRATA)
+
+
+def test_the_refusal_names_the_type_it_was_given() -> None:
+    with pytest.raises(TypeError, match=r"^a decision reads a complete attempt's Readings, not object$"):
+        R.adopt_48(object())  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match=r"not dict$"):
+        R.decide_58({}, None)  # type: ignore[arg-type]

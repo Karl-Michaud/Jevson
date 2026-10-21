@@ -369,3 +369,65 @@ def test_frr_fi_fails_at_an_upper_of_exactly_zero(monkeypatch: pytest.MonkeyPatc
     """Design §4.1: FRR-Fi passes only when the upper bound is below 0 (strict)."""
     monkeypatch.setattr(R, "newcombe_paired", lambda *a, **k: at(0.0))
     assert R.bar_frr_fi(*frr_fi_matrices(7, 0))[1] is False
+
+
+# --- review round 2 (T48-9): the better-cluster boundary and every reported field -------------------------
+
+
+def test_net_cell_counts_a_cluster_better_at_minus_2_dc_equal_to_m_and_not_at_dc_minus_2() -> None:
+    """m = 6: the reference alone failing 3 drafts (-2 D_c = m) is better; failing 2 (-2 D_c = 4 < m) is not, and
+    with one worse cluster beside it the cell fails at k = 128, z = 2.394 (upper 0.0568, `S/exp/r48b-tests`)."""
+    x, b = matrices(128, 6, worse=1)
+    b[127] = [1, 1, 1, 0, 0, 0]
+    worse, better, upper = R.net_cell(x, b, R.Z_48)
+    assert (worse, better) == (1, 1)
+    assert upper == pytest.approx(0.04949024077492693, abs=1e-12)
+    b[127] = [1, 1, 0, 0, 0, 0]
+    worse, better, upper = R.net_cell(x, b, R.Z_48)
+    assert (worse, better) == (1, 0)
+    assert upper == pytest.approx(0.05678222934949577, abs=1e-12)
+    assert (upper <= R.NI_MARGIN) is False
+    assert R.bar_frr_ni(x, b).passed is False
+
+
+def ni_fixture() -> tuple[list[list[int]], list[list[int]]]:
+    """100 clusters of 3: two worse whole clusters, one better whole cluster and one draft the reference alone
+    fails, so o1 = 6, o2 = 4 and the paired DEFF is 3."""
+    x, b = matrices(100, 3, worse=2)
+    b[50] = [1, 1, 1]
+    b[60][0] = 1
+    return x, b
+
+
+@pytest.mark.parametrize("cell", [False, True])
+def test_ni_paired_reports_its_point_deff_and_cell_counts(cell: bool) -> None:
+    x, b = ni_fixture()
+    reading = R.ni_paired(x, b, R.Z_48, ni_z=R.NI_MULTIPLIER * R.Z_48, cell=cell)
+    assert reading.counts == (0, 6, 4, 290)
+    assert reading.point == Fraction(2, 300)
+    assert reading.deff == deff_paired(x, b) == pytest.approx(3.0)
+    assert reading.upper_adjusted == newcombe_paired(0, 2, 4 / 3, 290 / 3, z=R.NI_MULTIPLIER * R.Z_48).high
+    if cell:
+        assert (reading.worse, reading.better) == (2, 1)
+        assert reading.cell_upper == R.net_cell(x, b, R.Z_48)[2]
+    else:
+        assert (reading.worse, reading.better, reading.cell_upper) == (0, 0, None)
+
+
+def test_rb_points_reports_its_counts_and_reason() -> None:
+    assert R.rb_points(rows(n=300, rejected=0, a=0, b=0, c=0)) == R.RbPoints(0, 300, None, None, False,
+                                                                              "A not measurable")  # fmt: skip
+    passing = R.rb_points(rows(n=300, rejected=100, a=10, b=2, c=0))
+    assert (passing.rejected, passing.first_drafts, passing.reason) == (100, 300, "")
+    failing = R.rb_points(rows(n=250, rejected=100, a=9, b=0, c=0))
+    assert (failing.rejected, failing.first_drafts, failing.passed) == (100, 250, False)
+    assert failing.reason == "A or B - C outside the bar"
+
+
+def test_pc_and_r_frr_read_wilson_at_the_computed_z_one_not_the_default() -> None:
+    """`intervals.Z95` (1.959963984540054) is not `Z_ONE` (inv_cdf(0.975)); on these counts the two differ."""
+    assert wilson(8, 16, R.Z_ONE) != wilson(8, 16)
+    assert R.bar_pc(8)[0] == wilson(8, 16, R.Z_ONE)
+    interval, deff = R.r_frr(clustered(12, 0))
+    assert wilson(72 / deff, 768 / deff, R.Z_ONE) != wilson(72 / deff, 768 / deff)
+    assert interval == wilson(72 / deff, 768 / deff, R.Z_ONE)
