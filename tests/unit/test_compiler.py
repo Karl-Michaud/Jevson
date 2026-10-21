@@ -452,6 +452,7 @@ def test_a_pattern_that_is_not_a_regular_expression_is_refused_at_compile_time(p
 
 
 TEXT = {"type": "string", "x-jevson": {"generate": {"criteria": ["is short"]}}}
+NAN, INF = float("nan"), float("inf")  # json.loads accepts NaN and Infinity, and Pydantic can emit them
 ORDINAL = {"type": "integer", "minimum": 1, "maximum": 5, "x-jevson": {"ordinal": True}}
 
 
@@ -468,6 +469,12 @@ ORDINAL = {"type": "integer", "minimum": 1, "maximum": 5, "x-jevson": {"ordinal"
         ({"enum": [1, 2], "minimum": "a"}, None, "minimum 'a' is not of type 'number'"),
         ({**TEXT, "pattern": "("}, None, "pattern '(' is not a valid regular expression"),
         ({**TEXT, "pattern": 5}, None, "pattern 5 is not a valid regular expression"),
+        ({"enum": [1, 2, 3], "multipleOf": NAN}, None, "multipleOf must be a finite number, not nan"),
+        ({"enum": [1, 2, 3], "multipleOf": NAN}, 2, "multipleOf must be a finite number, not nan"),
+        ({**ORDINAL, "multipleOf": NAN}, 2, "multipleOf must be a finite number, not nan"),
+        ({**ORDINAL, "multipleOf": INF}, None, "multipleOf must be a finite number, not inf"),
+        ({**ORDINAL, "exclusiveMaximum": NAN}, None, "exclusiveMaximum must be a finite number, not nan"),
+        ({**ORDINAL, "minimum": -INF}, None, "minimum must be a finite number, not -inf"),
     ],
 )
 def test_a_malformed_kept_keyword_is_refused_before_any_call(field: dict[str, Any], known: Any, message: str) -> None:

@@ -112,9 +112,10 @@ pending the owner's decision (PLAN §6).
   on the library loop.
 - A kept keyword that breaks the draft 2020-12 metaschema refuses at compile time with
   `malformed_schema`: a `pattern` that is not a regular expression (or not a string),
-  `maxLength: "5"`, `multipleOf: 0`, `minimum: "a"`, `minLength: -1`, `format: 5`. Before, final
-  validation raised an untyped `re` error, `TypeError` or `ZeroDivisionError` after the calls had
-  been paid for, and a `known=` value raised the `TypeError` from preflight.
+  `maxLength: "5"`, `multipleOf: 0`, `minimum: "a"`, `minLength: -1`, `format: 5`, and a numeric
+  keyword that is not finite (`multipleOf: NaN`, `minimum: -Infinity`). Before, final
+  validation raised an untyped `re` error, `TypeError`, `ZeroDivisionError` or `ValueError` after
+  the calls had been paid for, and a `known=` value raised it from preflight.
 - An ordinal's levels are the integers that final validation's own `multipleOf` check accepts.
   A small `multipleOf` (`1e-30`) made `compile_schema()` raise an untyped
   `decimal.InvalidOperation`; it now compiles to every integer in range. A level final validation

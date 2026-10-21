@@ -15,6 +15,7 @@ returns a whole tree or raises.
 
 from __future__ import annotations
 
+import math
 import re
 from collections.abc import Mapping
 from dataclasses import dataclass, field
@@ -391,8 +392,12 @@ class _Normaliser:
 
 
 def _malformed(kept: Schema) -> str | None:
-    """Why a kept keyword breaks the draft 2020-12 metaschema (a `pattern` must be a `regex`), or None.
+    """Why a kept keyword breaks the draft 2020-12 metaschema (a `pattern` must be a `regex`) or is not a
+    finite number (`json.loads` accepts `NaN` and `Infinity`, which the metaschema lets through), or None.
     Final validation and known= preflight would otherwise raise an untyped error, after spend for the former."""
+    for keyword, value in sorted(kept.items()):
+        if isinstance(value, float) and not math.isfinite(value):
+            return f"{keyword} must be a finite number, not {value!r}"
     errors = sorted((str(e.path[0]), e.message) for e in _METASCHEMA.iter_errors(kept))
     if not errors:
         return None
