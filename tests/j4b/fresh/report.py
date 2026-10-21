@@ -27,6 +27,7 @@ def _ni(x: Matrix, b: Matrix, z: float, *, multiplier: bool, cell: bool) -> dict
     reading = rules.ni_paired(x, b, z, ni_z=(rules.NI_MULTIPLIER if multiplier else 1.0) * z, cell=cell)
     return {
         "n": n,
+        "z": z,
         "clusters": len(x),
         "cluster_sizes": dict(Counter(len(c) for c in x)),
         **{k: (str(v) if k == "point" else v) for k, v in asdict(reading).items()},
@@ -96,18 +97,24 @@ def _frr_fi(x: Matrix, b: Matrix) -> Any:
     return rules.bar_frr_fi(x, b) if any(x) else {"n": 0}
 
 
+DOCUMENT_Z = {"F0": rules.Z_48, "F1": rules.Z_ONE}
+"""C-NI and B-NI at the z of the ticket that reads them: (arm, F0) by ASTERION-48 at 2.394, the (arm, F1) candidate
+by ASTERION-58 at 1.96 (design §4.1, §4.4; `rules.adopt_48`, `rules.decide_58`)."""
+
+
 def rset_report(inputs: Inputs, fields: Mapping[str, str]) -> dict[str, Any]:
-    """RB points, C-NI and B-NI against (L0, F0), per-field C and B differences, and R-FRR."""
+    """RB points, C-NI and B-NI against (L0, F0) at their ticket's z, per-field C and B differences, and R-FRR."""
     out: dict[str, Any] = {}
     for arm in ARMS:
         for form in ("F0", "F1"):
             config: Config = (arm, form)
+            z = DOCUMENT_Z[form]
             points = rules.rb_points(inputs.rb_rows(config))
             per_field = _per_field(inputs, config, fields)
             out[f"{arm}{form}"] = {
                 "RB": {**asdict(points), "a": str(points.a), "b_minus_c": str(points.b_minus_c)},
-                "C-NI": _ni(*inputs.paired("C-NI", config, rules.L0F0), rules.Z_48, multiplier=False, cell=False),
-                "B-NI": _ni(*inputs.paired("B-NI", config, rules.L0F0), rules.Z_48, multiplier=False, cell=False),
+                "C-NI": _ni(*inputs.paired("C-NI", config, rules.L0F0), z, multiplier=False, cell=False),
+                "B-NI": _ni(*inputs.paired("B-NI", config, rules.L0F0), z, multiplier=False, cell=False),
                 "C_and_B_by_field": per_field,
                 "R-FRR": _r_frr(inputs, config),
             }

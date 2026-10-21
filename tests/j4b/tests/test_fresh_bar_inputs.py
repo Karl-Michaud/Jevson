@@ -138,6 +138,20 @@ def test_h35_the_report_holds_every_key_the_design_lists() -> None:
     json.dumps(out)
 
 
+@pytest.mark.parametrize(("form", "z"), [("F0", rules.Z_48), ("F1", rules.Z_ONE)])
+def test_h35_c_ni_and_b_ni_are_reported_at_the_z_their_ticket_reads(form: str, z: float) -> None:
+    """STATS48B-R1-6: (arm, F0) is read by ASTERION-48 at 2.394, (arm, F1) by ASTERION-58 at 1.96 (design §4.1)."""
+    data = inputs()
+    fields = {r["draft_id"]: r["field"] for r in fresh_data.rows()["rset.jsonl"]}
+    out = report.report(data, p7_cases=injection.load_fixture(), rset_fields=fields)
+    for arm in arms.LIBRARY_ARMS:
+        for bar, read in (("C-NI", rules.bar_c_ni), ("B-NI", rules.bar_b_ni)):
+            reported = out["rset"][f"{arm}{form}"][bar]
+            reading = read(*data.paired(bar, (arm, form), rules.L0F0), z)
+            assert reported["z"] == z
+            assert (reported["upper_adjusted"], reported["passed"]) == (reading.upper_adjusted, reading.passed)
+
+
 def test_h35_a_void_attempt_is_reported_on_its_code_truth_bars_only() -> None:
     partial = PartialBarInputs(fresh_data.rows(), fake_attempt.outcomes(drop=0.5))
     out = report.report(partial, p7_cases=injection.load_fixture(), rset_fields={})
