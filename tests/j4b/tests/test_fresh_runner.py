@@ -164,6 +164,33 @@ def test_h19e_a_later_attempt_needs_every_earlier_one_void(tmp_path: Path) -> No
     complete(e, 2)
 
 
+def plant_complete(a: Attempts, n: int) -> None:
+    for phase in ("dev", "confirm"):
+        write_record(a.phase_dir(n, phase) / "start.json", {"planted": True})
+        write_record(a.phase_dir(n, phase) / "complete.json", {"planted": True})
+
+
+def test_h19e_no_attempt_starts_beside_or_below_a_live_later_one(tmp_path: Path) -> None:
+    """STATS48B-R1-3: attempts run in order from 1, one at a time; a lower or skipped number never starts."""
+    e, _ = make_env(tmp_path)
+    a = Attempts(e.root)
+    for n in (0, -1, 2):
+        with pytest.raises(Refused, match="out of order"):
+            a.check_start(n, "dev")
+    plant_complete(a, 2)
+    for n in (0, 1):
+        for phase in ("dev", "confirm"):
+            with pytest.raises(Refused):
+                a.check_start(n, phase)
+    with pytest.raises(Refused, match="attempt 2 is not void"):
+        a.check_start(1, "dev")
+    a.write_void(2, "harness_defect", {"note": "planted"})
+    for n in (1, 2, 4):
+        with pytest.raises(Refused):
+            a.check_start(n, "dev")
+    a.check_start(3, "dev")
+
+
 def test_h19e_score_refuses_a_void_an_incomplete_and_a_second_complete_attempt(tmp_path: Path) -> None:
     e, _ = make_env(tmp_path)
     exported_and_labelled(e, 1)

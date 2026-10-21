@@ -141,16 +141,22 @@ class Attempts:
         return read_record(self.root / "analysis-started.json")
 
     def check_start(self, n: int, phase: str) -> None:
-        """Items 2, 6, 11 and D5: no analysis yet, no interrupted attempt, every earlier attempt void, the dev
-        phase complete before confirm, and the phase's own directory empty."""
+        """Items 2, 6, 11 and D5: no analysis yet, no interrupted attempt, every other attempt void, attempts in
+        order (the latest one, or the next after it; the first is 1), the dev phase complete before confirm, and
+        the phase's own directory empty. So no attempt starts while another is live, and a repeat (design §6.4,
+        only after a void) is always the next number: no outcome is seen before the choice of which to score."""
         if self.analysis_started() is not None:
             raise Refused("the analysis has started: no attempt runs again")
         if blocked := self.interrupted():
             raise Refused(f"attempt {blocked[0]} is incomplete with no void.json; void it first")
-        for m in self.numbers():
+        numbers = self.numbers()
+        for m in numbers:
             void = self.void(m)
-            if m < n and (void is None or void.get("reason") not in REASONS):
+            if m != n and (void is None or void.get("reason") not in REASONS):
                 raise Refused(f"attempt {m} is not void; attempt {n} cannot start")
+        latest = max(numbers, default=0)
+        if n < 1 or n not in (latest, latest + 1):
+            raise Refused(f"attempt {n} is out of order: attempts run from 1, and the next is {latest + 1}")
         if phase == "confirm" and not self.complete(n, "dev"):
             raise Refused(f"attempt {n} has no complete dev phase")
         directory = self.phase_dir(n, phase)
