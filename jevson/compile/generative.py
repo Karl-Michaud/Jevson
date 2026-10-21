@@ -9,6 +9,7 @@ no rubric is the step alone: its draft is admitted ungated (`decided_by = llm`, 
 
 from __future__ import annotations
 
+from jevson.checks import Check, CheckRule
 from jevson.compile import questions
 from jevson.compile.declarations import GenerateDeclaration
 from jevson.compile.nodes import option_id, role_id
@@ -27,7 +28,7 @@ def generative_nodes(
     named = id_pointer or pointer
     step_id = role_id(named, "generate")
     after = frozenset({step_id})
-    checks: list[tuple[str, str]] = []
+    checks: list[Check] = []
     nodes: list[DecisionNode] = []
     for index, criterion in enumerate(declared.criteria):
         node = DecisionNode(
@@ -39,7 +40,7 @@ def generative_nodes(
             dependencies=after,
         )
         nodes.append(node)
-        checks.append((node.id, criterion))
+        checks.append(Check(node.id, criterion, CheckRule.CRITERION))
     minimum = None
     if declared.rubric is not None:
         rubric = declared.rubric
@@ -56,7 +57,7 @@ def generative_nodes(
             dependencies=after,
         )
         nodes.append(node)
-        checks.append((node.id, f"{rubric.description} (at least {rubric.minimum!r})"))
+        checks.append(Check(node.id, f"{rubric.description} (at least {rubric.minimum!r})", CheckRule.RUBRIC))
         minimum = option_id(rubric.levels.index(rubric.minimum))
     drafting = Drafting(
         questions.generate_prompt(label, declared.instructions),

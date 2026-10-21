@@ -16,6 +16,8 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import Literal, TypeAlias
 
+from jevson.checks import Check
+
 JSONValue: TypeAlias = "bool | int | float | str | list[JSONValue] | dict[str, JSONValue] | None"
 
 MAX_OPTIONS = 255
@@ -168,13 +170,14 @@ class DecisionNode:
 @dataclass(frozen=True)
 class Drafting:
     """What a `generate` step needs (DESIGN §6.3): its rendered prompt, its label for a redraft, the
-    draft limit, and the text each of its adjudication nodes checks, by node id. `rubric_minimum` is
-    the id of the lowest passing rubric level, when the field declares a rubric."""
+    draft limit, and each of its adjudication nodes' checks (`jevson/checks.py`: node id, text and pass
+    rule), in declared order. `rubric_minimum` is the id of the lowest passing rubric level, when the
+    field declares a rubric."""
 
     prompt: str
     label: str
     max_draft_chars: int = 4000
-    checks: tuple[tuple[str, str], ...] = ()
+    checks: tuple[Check, ...] = ()
     rubric_minimum: str | None = None
 
 
@@ -265,7 +268,8 @@ class Overflow:
 
 @dataclass(frozen=True)
 class Rejection:
-    """A draft adjudication rejected, with the criteria it failed."""
+    """A draft adjudication rejected, with the checks it failed (criteria or rubric); the field keeps
+    its name, `criteria`."""
 
     pointer: str
     criteria: tuple[str, ...]

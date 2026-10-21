@@ -37,6 +37,7 @@ from jevson import (
 )
 from jevson.adjudicate.criteria import judge
 from jevson.adjudicate.rubrics import rubric_passes
+from jevson.checks import Check, CheckRule
 from jevson.execute import budget
 from jevson.execute.drafting import TOOL_SCHEMA, malformed, read
 from jevson.execute.state import LevelState
@@ -308,13 +309,13 @@ def test_a_criterion_passes_at_p_at_least_0_56(probability: float, passes: bool)
 
 def test_an_unanswered_check_counts_as_failed() -> None:
     node = DecisionNode("/s#criterion:0", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/s")
-    drafting = Drafting("p", "s", checks=((node.id, "c"),))
+    drafting = Drafting("p", "s", checks=(Check(node.id, "c", CheckRule.CRITERION),))
     assert judge(drafting, {node.id: node}, {node.id: None}, 10) == ({}, ("c",))
 
 
 def test_a_criterion_passes_at_0_56_whatever_the_tie_margin() -> None:
     node = DecisionNode("/s#criterion:0", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/s")
-    drafting = Drafting("p", "s", checks=((node.id, "c"),))
+    drafting = Drafting("p", "s", checks=(Check(node.id, "c", CheckRule.CRITERION),))
     for margin, probability, failing in [(0, 0.52, ("c",)), (0, 0.56, ()), (20, 0.58, ("c",))]:
         answers = {node.id: PredicateAnswer("q0", probability)}
         assert judge(drafting, {node.id: node}, answers, margin)[1] == failing

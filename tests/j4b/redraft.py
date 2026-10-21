@@ -236,7 +236,7 @@ async def collect(
 async def decoy(llm: LLM, doc: Document, inst: Instance, rng: random.Random) -> str | None:
     """A second draft through Jevson's redraft prompt, with one criterion chosen at random named as failing."""
     d = draftings(doc.domain)[inst.field]
-    criterion = rng.choice([text for _, text in d.checks])
+    criterion = rng.choice([c.text for c in d.checks])
     rejection = Rejection(inst.field, (criterion,), inst.first or "")
     text = read(await llm.complete(messages(d, doc.text, rejection), TOOL_SCHEMA), d.max_draft_chars).text
     return None if text == inst.first else text
