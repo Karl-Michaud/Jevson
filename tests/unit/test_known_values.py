@@ -391,6 +391,8 @@ NEST = {"anyOf": [{"anyOf": [{"enum": ["a", "b"]}, {"type": "boolean", "descript
 NOTED = {"type": "object", "title": "Noted", "description": "a noted ticket", "properties": {
     "kind": {"const": "noted"}, "note": {"enum": ["p", "q"]}}, "required": ["kind", "note"]}  # fmt: skip
 MIXED = {"anyOf": [NOTED, {"enum": ["a", "b"]}]}
+PICK = {"anyOf": [{"enum": ["a", "b"]}, {"const": "none"}]}
+"""A constant and a scalar branch at one pointer, with no nested union there."""
 
 
 def only(name: str, field: dict[str, Any]) -> dict[str, Any]:
@@ -407,6 +409,8 @@ def only(name: str, field: dict[str, Any]) -> dict[str, Any]:
         ("nest", NEST, False),
         ("nest", NEST, "none"),
         ("mixed", MIXED, "a"),
+        ("pick", PICK, "a"),
+        ("pick", PICK, "none"),
     ],
 )
 def test_a_declared_known_value_at_a_scalar_or_constant_union_pointer_commits_without_a_call(

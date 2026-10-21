@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import dataclasses
+import re
 
 import pytest
 
@@ -96,16 +97,16 @@ def test_config_defaults_match_design() -> None:
 
 
 @pytest.mark.parametrize(
-    "overrides",
+    ("overrides", "message"),
     [
-        {"tie_margin_hundredths": -1},
-        {"tie_margin_hundredths": 100},
-        {"step_timeout_s": 0.0},
-        {"redraft_budget": -1},
-        {"max_input_tokens": 0},
-        {"max_questions_per_request": 0},
+        ({"tie_margin_hundredths": -1}, "tie_margin_hundredths must be in [0, 100)"),
+        ({"tie_margin_hundredths": 100}, "tie_margin_hundredths must be in [0, 100)"),
+        ({"step_timeout_s": 0.0}, "step_timeout_s must be positive"),
+        ({"redraft_budget": -1}, "redraft_budget must be >= 0"),
+        ({"max_input_tokens": 0}, "max_input_tokens must be >= 1"),
+        ({"max_questions_per_request": 0}, "max_questions_per_request must be >= 1"),
     ],
 )
-def test_config_rejects_out_of_range_settings(overrides: dict[str, float]) -> None:
-    with pytest.raises(ValueError, match="must be"):
+def test_config_rejects_out_of_range_settings(overrides: dict[str, float], message: str) -> None:
+    with pytest.raises(ValueError, match=f"^{re.escape(message)}$"):
         JevsonConfig(**overrides)  # type: ignore[arg-type]
