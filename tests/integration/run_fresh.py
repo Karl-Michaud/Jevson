@@ -5,6 +5,7 @@
     uv run --frozen python -m tests.integration.run_fresh confirm --attempt N   # billed; once
     uv run --frozen python -m tests.integration.run_fresh export  --attempt N   # no network
     uv run --frozen python -m tests.integration.run_fresh score   --attempt N   # replay only, no network; once, ever
+    uv run --frozen python -m tests.integration.run_fresh inconclusive          # no complete attempt; once, ever
     uv run --frozen python -m tests.integration.run_fresh void    --attempt N --reason harness_defect [--note TEXT]
                                                          [--failing-test NODE --test-commit C]
 
@@ -46,6 +47,7 @@ def parser() -> argparse.ArgumentParser:
     ap.add_argument("--root", type=Path, default=DEFAULT_ROOT)
     sub = ap.add_subparsers(dest="command", required=True)
     sub.add_parser("dryrun")
+    sub.add_parser("inconclusive")
     for name in ("dev", "confirm", "export", "score", "void"):
         cmd = sub.add_parser(name)
         cmd.add_argument("--attempt", type=int, required=True)
@@ -90,6 +92,7 @@ COMMANDS: dict[str, Callable[[runner.Env, argparse.Namespace], int]] = {
     "export": lambda env, a: scoring.export(env, a.attempt),
     "score": lambda env, a: scoring.score(env, a.attempt),
     "void": void,
+    "inconclusive": lambda env, a: scoring.inconclusive(env),
 }
 
 

@@ -196,6 +196,16 @@ class Attempts:
             return
         self.write_void(n, reason, {"description": INTERRUPTED, "note": note})
 
+    def no_complete_attempt(self) -> list[str]:
+        """Each attempt's state for the inconclusive outcome (plan §11 D19), or `Refused` while an attempt can still
+        be scored (complete, not void) or must first be voided (interrupted)."""
+        numbers = self.numbers()
+        if live := [m for m in numbers if self.complete(m) and self.void(m) is None]:
+            raise Refused(f"attempt {live[0]} is complete and not void: score it")
+        if blocked := self.interrupted():
+            raise Refused(f"attempt {blocked[0]} is incomplete with no void.json; void it first")
+        return [f"attempt {m}: {v['reason']}" if (v := self.void(m)) else f"attempt {m}: not complete" for m in numbers]
+
     def score_target(self, n: int) -> None:
         """Item 7: attempt `n` is complete, not void, and the only complete attempt without a void."""
         if not self.complete(n) or self.void(n) is not None:
@@ -204,7 +214,7 @@ class Attempts:
         if others:
             raise Refused(f"attempt {others[0]} is also complete and not void")
 
-    def begin_analysis(self, n: int, record: Mapping[str, Any]) -> None:
+    def begin_analysis(self, n: int | None, record: Mapping[str, Any]) -> None:
         """Item 1: written and fsynced before anything is read; a second analysis refuses."""
         write_record(self.root / "analysis-started.json", {"started": now(), "attempt": n, **record}, exclusive=True)
 

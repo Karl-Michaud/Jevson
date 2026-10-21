@@ -4,6 +4,7 @@ negative margin with exit code 2."""
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 
@@ -69,3 +70,15 @@ def test_the_dry_run_prints_its_figures_and_refuses_on_a_negative_margin(
     out = capsys.readouterr()
     assert "planted figures" in out.out
     assert ("refused before any spend" in out.err) == bool(violations)
+
+
+def test_inconclusive_through_the_cli_writes_both_tickets_outcome(tmp_path: Path) -> None:
+    root = tmp_path / "fresh"
+    (root / "attempt-1" / "dev").mkdir(parents=True)
+    (root / "attempt-1" / "dev" / "start.json").write_text("{}")
+    assert run_fresh.main(["--root", str(root), "inconclusive"]) == 1  # interrupted: void it first
+    assert run_fresh.main(["--root", str(root), "void", "--attempt", "1", "--reason", "harness_defect"]) == 0
+    assert run_fresh.main(["--root", str(root), "inconclusive"]) == 0
+    analysis = json.loads((root / "analysis.json").read_text())
+    expected = "inconclusive (no complete attempt: attempt 1: harness_defect)"
+    assert (analysis["asterion_48"]["outcome"], analysis["asterion_58"]["outcome"]) == (expected, expected)

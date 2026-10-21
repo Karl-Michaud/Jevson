@@ -30,7 +30,7 @@ import httpx
 
 from tests.j4b.build_injection_fixture import FIXTURE as P7_FIXTURE
 from tests.j4b.fresh import admission, arms, bounds, costs, gates, phases, requeue, workload
-from tests.j4b.fresh.attempts import Attempts, Refused, RunLock
+from tests.j4b.fresh.attempts import Attempts, Refused, RunLock, now, write_record
 from tests.j4b.fresh.constants import NANO
 from tests.j4b.fresh.packing import Unit
 from tests.j4b.fresh.spend import SpendLedger
@@ -40,6 +40,9 @@ Sleep = Callable[[float], Awaitable[object]]
 PinCheck = Callable[[str, int], Mapping[str, Any]]
 """(command, attempt) -> the pins record (`pins.check(...).record()`), or raises `PinMismatch`."""
 DEFECTS = (requeue.RequeuesExhausted, phases.GateViolation)
+START_GATE_REFUSED = "start-gate-refused.json"
+"""Written at the run root when the start gate refuses an attempt: with no complete attempt, the outcome is then
+"inconclusive (spend cap)" (design §6.4; plan §11 D19)."""
 
 
 class ModelStringChange(Exception):
@@ -150,7 +153,10 @@ def churn(outcomes: Mapping[Unit, Any], rows: Sequence[Mapping[str, Any]]) -> di
 def _start(env: Env, a: Attempts, phase: str, n: int, ledger: SpendLedger) -> tuple[Mapping[str, Any], Path]:
     pins = env.pins(phase, n)
     a.check_start(n, phase)
-    if not gates.start_gate(ledger, remaining_estimate(env, phase)):
+    estimate = remaining_estimate(env, phase)
+    if not gates.start_gate(ledger, estimate):
+        refusal = {"refused": now(), "attempt": n, "phase": phase, "spend_nano": ledger.billed, "estimate": estimate}
+        write_record(env.root / START_GATE_REFUSED, refusal)
         raise Refused(f"start gate: spend ${ledger.billed / NANO:.2f} + this attempt's 60% estimate passes the cap")
     record = {"pins": dict(pins), "harness_commit": pins["harness_commit"], "configurations": configurations()}
     if phase == "confirm":

@@ -6,6 +6,7 @@ it prints only counts summed over every configuration. `score` first writes `ana
 of every label file, `items.jsonl` and `key.jsonl`, the confirm directory's tree hash, `harness_commit` and the
 pins), then replays `attempt-N/confirm/` only, joins the labels, runs `adopt_48` and `decide_58`, and writes
 `analysis.json` with `report(...)`. Afterwards every void attempt is reported, never decided on (item 12(b)).
+`inconclusive` is the single look when no attempt is complete and not void (design §6.4, plan §11 D19).
 """
 
 from __future__ import annotations
@@ -103,6 +104,34 @@ def score(env: runner.Env, n: int) -> int:
         env.out(json.dumps({k: decision[k] for k in ("asterion_48", "asterion_58")}, sort_keys=True))
         voided = void_reports(env, a)
         write_record(env.root / "void-reports.json", {"attempts": voided}, exclusive=True)
+        return 0
+
+
+def inconclusive(env: runner.Env) -> int:
+    """`inconclusive`: with no complete non-void attempt, write both tickets' pre-registered outcome (design §6.4;
+    plan §11 D19, H33): "inconclusive (spend cap)" when the last attempt was stopped at the cap or the start gate
+    refused the next one, otherwise "inconclusive (no complete attempt: <each attempt's void reason>)". It is the
+    single look: `analysis-started.json` first, then `analysis.json`, then the void reports; it runs once, ever."""
+    with RunLock(env.root):
+        a = Attempts(env.root)
+        if a.analysis_started() is not None:
+            raise Refused("the analysis has already run: the outcome is written once, ever")
+        states = a.no_complete_attempt()
+        refused = read_record(env.root / runner.START_GATE_REFUSED)
+        if not states and refused is None:
+            raise Refused("no attempt has run and the start gate has refused none: nothing to conclude")
+        last = a.void(a.numbers()[-1]) if states else None
+        cap_stopped = refused is not None or (last is not None and last["reason"] == "cap_stop")
+        outcome = rules.no_attempt_outcome(states, cap_stopped=cap_stopped)
+        a.begin_analysis(None, {"attempts": states, "cap_stopped": cap_stopped, "start_gate_refused": refused})
+        decision: dict[str, Any] = {
+            "asterion_48": {"adopted": None, "outcome": outcome},
+            "asterion_58": {"shipped": None, "outcome": outcome, "strata_kept": []},
+            "attempts": states,
+        }
+        write_record(env.root / "analysis.json", decision, exclusive=True)
+        env.out(json.dumps({k: decision[k] for k in ("asterion_48", "asterion_58")}, sort_keys=True))
+        write_record(env.root / "void-reports.json", {"attempts": void_reports(env, a)}, exclusive=True)
         return 0
 
 

@@ -291,3 +291,58 @@ def test_h30_two_units_sharing_a_key_both_wait_the_window(tmp_path: Path) -> Non
     assert len(asyncio.run(both())) == 2
     assert api.calls["decisions"] == 2  # one shared failing request (1 HTTP attempt at cd6b40a), then one success
     assert sleeps.waits == [60.0, 60.0]
+
+
+# --- H33: with no complete attempt, the `inconclusive` command writes the pre-registered outcome --------------
+
+
+def outcomes_written(root: Path) -> tuple[str, str]:
+    analysis = json.loads((root / "analysis.json").read_text())
+    assert analysis["asterion_48"]["adopted"] is None
+    assert analysis["asterion_58"]["shipped"] is None
+    assert analysis["asterion_58"]["strata_kept"] == []
+    return analysis["asterion_48"]["outcome"], analysis["asterion_58"]["outcome"]
+
+
+def test_h33_a_cap_stopped_last_attempt_is_inconclusive_spend_cap(tmp_path: Path) -> None:
+    e, _ = make_env(tmp_path, fake_api.FakeAPI(accept=0.0))
+    spent(e.root, CAP - runner.remaining_estimate(e, "dev"))
+    assert runner.run_phase(e, "dev", 1) == 2
+    assert void_reason(e.root) == "cap_stop"
+    assert scoring.inconclusive(e) == 0
+    assert outcomes_written(e.root) == ("inconclusive (spend cap)",) * 2
+    assert (e.root / "analysis-started.json").exists()
+    with pytest.raises(Refused, match="once"):
+        scoring.inconclusive(e)
+
+
+def test_h33_a_start_gate_refusal_is_inconclusive_spend_cap(tmp_path: Path) -> None:
+    e, _ = make_env(tmp_path)
+    spent(e.root, CAP - runner.remaining_estimate(e, "dev") + 1)
+    with pytest.raises(Refused, match="start gate"):
+        runner.run_phase(e, "dev", 1)
+    assert scoring.inconclusive(e) == 0
+    assert outcomes_written(e.root) == ("inconclusive (spend cap)",) * 2
+
+
+def test_h33_voids_below_the_cap_name_their_reasons(tmp_path: Path) -> None:
+    e, _ = make_env(tmp_path)
+    for n in (1, 2):
+        assert runner.run_phase(e, "dev", n) == 0
+        assert runner.void(e, n, "harness_defect", note=None, test=None) == 0
+    assert scoring.inconclusive(e) == 0
+    expected = "inconclusive (no complete attempt: attempt 1: harness_defect; attempt 2: harness_defect)"
+    assert outcomes_written(e.root) == (expected, expected)
+    reports = json.loads((e.root / "void-reports.json").read_text())["attempts"]
+    assert reports == []  # neither void attempt reached confirm
+
+
+def test_h33_the_command_refuses_while_an_attempt_can_still_be_scored_or_voided(tmp_path: Path) -> None:
+    e, _ = make_env(tmp_path)
+    with pytest.raises(Refused, match="no attempt"):
+        scoring.inconclusive(e)
+    assert runner.run_phase(e, "dev", 1) == 0
+    (e.root / "attempt-1" / "dev" / "complete.json").unlink()
+    with pytest.raises(Refused, match="void it first"):
+        scoring.inconclusive(e)
+    assert not (e.root / "analysis-started.json").exists()
