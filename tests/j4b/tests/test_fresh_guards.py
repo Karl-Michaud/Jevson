@@ -7,10 +7,10 @@ import asyncio
 import json
 import os
 import re
+import select
 import signal
 import subprocess
 import sys
-import time
 from pathlib import Path
 from typing import Any
 
@@ -28,6 +28,8 @@ from tests.j4b.fresh.spend import SpendLedger
 from tests.j4b.tests import fake_api
 
 ROOT = Path(__file__).resolve().parents[3]
+HANG_GUARD_S = 120
+"""Bounds a crash-test child that hangs before its first request; the test waits on the child's output."""
 
 
 def make_env(tmp_path: Path, api: fake_api.FakeAPI | None = None, **kw: Any) -> tuple[runner.Env, list[str]]:
@@ -123,7 +125,7 @@ root = Path(sys.argv[1])
 
 class Hang(httpx.AsyncBaseTransport):
     async def handle_async_request(self, request):
-        (root.parent / "ready").write_text("sent")
+        print("sent", flush=True)
         await asyncio.sleep(3600)
 
 e, _ = fake_api.env(root, transport=Hang())
@@ -134,13 +136,15 @@ runner.run_phase(e, "dev", 1)
 def test_h20_a_killed_attempt_keeps_its_reservation_and_is_voided_through_the_runner(tmp_path: Path) -> None:
     root = tmp_path / "fresh"
     env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
-    child = subprocess.Popen([sys.executable, "-c", CHILD, str(root)], cwd=ROOT, env=env)
+    child = subprocess.Popen([sys.executable, "-c", CHILD, str(root)], cwd=ROOT, env=env, stdout=subprocess.PIPE,
+                             text=True)  # fmt: skip
+    assert child.stdout is not None
     try:
-        deadline = time.monotonic() + 120
-        while not (tmp_path / "ready").exists():
-            assert child.poll() is None, "the child exited before sending a request"
-            assert time.monotonic() < deadline, "the child never sent a request"
-            time.sleep(0.05)
+        # Woken by the child's own line, never by a clock: select returns as soon as the child writes "sent" (or
+        # exits); HANG_GUARD_S only bounds a child that hangs before sending, so the suite cannot stall.
+        ready, _, _ = select.select([child.stdout], [], [], HANG_GUARD_S)
+        assert ready, "the child never sent a request"
+        assert "sent\n" in iter(child.stdout.readline, ""), "the child exited before sending a request"
     finally:
         os.kill(child.pid, signal.SIGKILL)
         child.wait()

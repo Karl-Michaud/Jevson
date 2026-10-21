@@ -92,7 +92,7 @@ class OpenAIChatLLM:
                     if (reply.status_code != 429 and reply.status_code < 500) or attempt == self._retries:
                         raise RuntimeError(f"chat completions HTTP {reply.status_code}: {reply.text[:300]}")
                 await self._sleep(2**attempt)
-        raise AssertionError("unreachable")  # pragma: no cover
+        raise AssertionError("unreachable")  # pragma: no cover - the loop returns or raises by its last attempt
 
     def _notify(self, stage: str, status: int | None) -> None:
         if self._on_attempt is not None:
