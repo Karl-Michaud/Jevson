@@ -75,7 +75,9 @@ pending the owner's decision (PLAN §6).
   that a known discriminator value rules out is not consulted; the selected branch's own schema
   decides in final validation. A scalar or constant branch declares its union's own pointer, so a
   declared known value there (`anyOf: [enum, boolean]`, `anyOf: [const, const]`, nested unions)
-  commits with no question; before, every value at such a pointer raised `PreflightError`.
+  commits with no question; before, every value at such a pointer raised `PreflightError`. A
+  known tag that is a constant in some object branches and decided in others must still match a
+  branch constant, or it raises `PreflightError` before any call, never a value the model replaced.
 - Final validation checks `format`: `Result.violations` names a value that fails `email`,
   `date`, `uuid`, `ipv4`/`ipv6` or `regex`, which `jsonschema` checks on its own; formats that
   need `jsonschema[format]` (`date-time`, `uri`, …) are still checked only with those extras.

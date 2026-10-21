@@ -10,10 +10,11 @@ start for those outside every union, on selection for a branch's (its Pydantic t
 Known values for fields inside a branch are committed the same way, as `caller`.
 
 `known=` (DESIGN §8): a known value for a branch constant selects that branch without a decision,
-and must match exactly one branch's constant; a known value for a field inside a branch is used
-only when that branch is selected. A known value at a union's own pointer that no constant matches is
-a scalar branch's value (preflight checked it): it closes every branch of every union at that pointer,
-so nothing below the union is asked.
+and must match exactly one branch's constant, even where another branch decides that field (choosing
+among the branches its value leaves open is not supported, so it raises before any call); a known value
+for a field inside a branch is used only when that branch is selected. A known value at a union's
+own pointer that no constant matches is a scalar branch's value (preflight checked it): it closes
+every branch of every union at that pointer, so nothing below the union is asked.
 """
 
 from __future__ import annotations
@@ -47,8 +48,6 @@ class Branches:
         """The discriminators of every union at a pointer (nested unions share it), by that pointer."""
         for discriminator in sorted(discriminators):
             self.unions.setdefault(graph.nodes[discriminator].target, []).append(discriminator)
-        self.scalar = {n.target for n in graph.nodes.values() if n.branch and n.id not in discriminators}
-        """Pointers a decided branch commits at: a scalar branch, or a field inside an object branch."""
         self.deferred = {p: v for p, v in known.items() if p in self.inside}
         """Known values for fields that exist only inside branches, committed if their branch runs."""
         for pointer, value in known.items():
@@ -80,7 +79,7 @@ class Branches:
         matching = [c for c in at if type(c.value) is type(value) and c.value == value]
         if len(matching) == 1:
             self._select(matching[0].branch)
-        elif matching or (at and pointer not in self.scalar):
+        elif matching or (at and pointer not in self.unions):
             found = "matches no" if not matching else "matches more than one"
             raise PreflightError(f"known= value for {pointer!r} {found} branch constant, so it selects no branch")
         else:  # a decided field (the façade has checked its value), or a scalar branch's value at a union

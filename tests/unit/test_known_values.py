@@ -443,3 +443,25 @@ def test_a_known_scalar_value_and_a_known_constant_that_select_two_branches_rais
         with pytest.raises(PreflightError, match="select two branches"):
             asyncio.run(Jevson(backend, llm=llm).aresolve(only("mixed", MIXED), "Refund: $40.", known=known))
     assert backend.calls == []
+
+
+@pytest.mark.parametrize("pick", [0, 1])
+def test_a_known_tag_that_is_a_constant_in_one_branch_and_decided_in_another_is_never_overridden(pick: int) -> None:
+    # /u/kind is const 'a' in A and an enum in B: 'b' rules A out, so the discriminator must not pick A
+    # and replace the caller's 'b' with A's constant. Until the selection is supported it refuses, typed.
+    def branch(title: str, kind: dict[str, Any], name: str) -> dict[str, Any]:
+        properties = {"kind": kind, name: {"enum": ["x", "y"]}}
+        return {"type": "object", "title": title, "properties": properties, "required": ["kind", name]}
+
+    union = {"anyOf": [branch("A", {"const": "a"}, "v"), branch("B", {"enum": ["b", "c"]}, "w")]}
+    schema = {"type": "object", "properties": {"u": union}, "required": ["u"]}
+
+    def answer(question: Question) -> Any:
+        if question.kind is DecisionKind.CHOICE:
+            return FakeBackend.select(question.options[min(pick, len(question.options) - 1)].id)(question)
+        return passes(question)
+
+    backend, llm = FakeBackend(default=answer), ScriptedLLM(["ok"])
+    with pytest.raises(PreflightError, match="'/u/kind' matches no branch constant"):
+        asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/u/kind": "b"}))
+    assert backend.calls == []
