@@ -291,3 +291,54 @@ def test_a_known_discriminator_refuses_a_value_only_the_unselected_branch_declar
         asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/t/kind": "b", "/t/v": ["x"]}))
     assert backend.calls == []
     assert llm.calls == []
+
+
+FLAG = {"type": "boolean", "description": "the refund is approved"}
+
+
+def rating(low: int, high: int) -> dict[str, Any]:
+    return {"type": "integer", "minimum": low, "maximum": high, "x-jevson": {"ordinal": True}}
+
+
+@pytest.mark.parametrize(
+    ("field", "value"), [(FLAG, True), (FLAG, False), (PICKED, "d"), (rating(1, 5), 1), (rating(1, 5), 5)]
+)
+def test_a_declared_known_value_of_each_decided_kind_skips_its_question(field: dict[str, Any], value: Any) -> None:
+    schema = {"type": "object", "properties": {"v": field}, "required": ["v"]}
+    result, backend, _ = resolve(schema, {"/v": value})
+    assert result.value == {"v": value}
+    assert result.satisfies_schema is True
+    assert backend.calls == []
+
+
+@pytest.mark.parametrize(("field", "value"), [(FLAG, 1), (FLAG, "true"), (rating(1, 5), 6), (rating(1, 5), True)])
+def test_an_undeclared_known_value_of_a_decided_kind_raises_before_any_call(field: dict[str, Any], value: Any) -> None:
+    schema = {"type": "object", "properties": {"v": field}, "required": ["v"]}
+    with pytest.raises(PreflightError, match="'/v' is not one of the field's declared values"):
+        resolve(schema, {"/v": value})
+
+
+@pytest.mark.parametrize(
+    ("first", "second", "value", "admitted"),
+    [
+        (FLAG, PICKED, True, True),
+        (PICKED, FLAG, "c", True),
+        (FLAG, PICKED, "zz", False),
+        (PICKED, FLAG, 1, False),
+        (rating(1, 3), rating(1, 5), 5, True),  # the any-branch rule: the selected branch decides later
+        (rating(1, 3), FLAG, 4, False),
+        (rating(1, 3), PICKED, "c", True),
+    ],
+)
+def test_a_known_value_is_judged_by_each_branch_declaration_of_its_own_kind(
+    first: dict[str, Any], second: dict[str, Any], value: Any, admitted: bool
+) -> None:
+    schema = two_shapes(first, second)
+    if admitted:
+        result, _, _ = resolve_first_branch(schema, {"/t/v": value})
+        assert result.value["t"]["v"] == value
+        return
+    backend, llm = FakeBackend(default=first_branch), ScriptedLLM(["ok"])
+    with pytest.raises(PreflightError, match="'/t/v'"):
+        asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "Refund: $40.", known={"/t/v": value}))
+    assert backend.calls == []

@@ -25,8 +25,6 @@ from jevson.errors import PreflightError
 from jevson.graph import DecisionGraph
 from jevson.types import DecisionKind, DecisionNode, JSONValue, StepNode
 
-_OPTIONAL = SchemaNode("", Kind.REFUSED, required=False)
-
 
 def check_known(
     graph: DecisionGraph, schema: SchemaNode, known: Mapping[str, JSONValue] | None
@@ -47,7 +45,7 @@ def check_known(
             continue
         if nodes is None:
             raise PreflightError(f"known= names {pointer!r}, which is not a decided field")
-        _check(pointer, value, nodes, fields.get(pointer, [_OPTIONAL]))
+        _check(pointer, value, nodes, fields.get(pointer, ()))  # () only for a hand-built graph: refused
     return dict(known)
 
 
@@ -95,9 +93,10 @@ def _allowed(node: DecisionNode | StepNode, field: SchemaNode, value: JSONValue)
         return field.items is not None and _labels(field.items.values, value)
     if node.kind is DecisionKind.PREDICATE:
         return field.kind is Kind.BOOLEAN and isinstance(value, bool)
-    declared = field.values if node.kind is DecisionKind.CHOICE else node.values  # a score's levels
-    kind = Kind.ENUM if node.kind is DecisionKind.CHOICE else Kind.INTEGER
-    return field.kind is kind and any(_same(value, v) for v in declared) and any(_same(value, v) for v in node.values)
+    if node.kind is DecisionKind.CHOICE:
+        return field.kind is Kind.ENUM and any(_same(value, v) for v in field.values)
+    return field.kind is Kind.INTEGER and any(_same(value, v) for v in node.values)  # a score's levels; the
+    # field's own `minimum`/`maximum` are kept keywords, so another branch's range is checked in `_check`
 
 
 def _labels(declared: Sequence[JSONValue], value: JSONValue) -> bool:
