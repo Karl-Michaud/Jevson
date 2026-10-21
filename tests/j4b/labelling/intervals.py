@@ -6,6 +6,10 @@
   used with `scaled` when one rate is a sampled rate times an exactly known share.
 - `newcombe_paired`: Newcombe's interval for p1 - p2 from paired binary outcomes (Newcombe 1998, Statistics in
   Medicine 17:2635, method 10), with the phi correction and no continuity correction.
+
+`wilson` and `newcombe_paired` take any `z` (both Wilson intervals of the paired one use it) and float counts, so
+the ASTERION-48/-58 bars can read effective counts (each count divided by a design effect) at a one-sided
+Bonferroni level (`tests/j4b/fresh/rules.py`). The defaults are unchanged.
 """
 
 from __future__ import annotations
@@ -23,8 +27,8 @@ class Interval:
     high: float
 
 
-def wilson(k: int, n: int, z: float = Z95) -> Interval:
-    if n <= 0 or not 0 <= k <= n:
+def wilson(k: float, n: float, z: float = Z95) -> Interval:
+    if not (n > 0 and 0 <= k <= n):
         raise ValueError(f"need 0 <= k <= n and n > 0, got k={k}, n={n}")
     p = k / n
     z2 = z * z
@@ -51,10 +55,11 @@ def newcombe_hybrid(a: Interval, b: Interval) -> Interval:
     return Interval(d, low, high)
 
 
-def newcombe_paired(both: int, only_1: int, only_2: int, neither: int) -> Interval:
-    """p1 - p2 where outcome 1 is yes in `both + only_1` pairs and outcome 2 in `both + only_2`."""
+def newcombe_paired(both: float, only_1: float, only_2: float, neither: float, *, z: float = Z95) -> Interval:
+    """p1 - p2 where outcome 1 is yes in `both + only_1` pairs and outcome 2 in `both + only_2`; both Wilson
+    intervals are taken at `z`."""
     n = both + only_1 + only_2 + neither
-    a, b = wilson(both + only_1, n), wilson(both + only_2, n)
+    a, b = wilson(both + only_1, n, z), wilson(both + only_2, n, z)
     d = a.estimate - b.estimate
     denom = (both + only_1) * (only_2 + neither) * (both + only_2) * (only_1 + neither)
     phi = 0.0 if denom == 0 else (both * neither - only_1 * only_2) / math.sqrt(denom)
