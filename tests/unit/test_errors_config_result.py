@@ -134,9 +134,11 @@ SCHEMA = {
 def test_adjudication_options() -> None:
     config = JevsonConfig(draft_screen=True, criterion_template="1.2.0")
     assert (config.draft_screen, config.criterion_template) == (True, "1.2.0")
-    with pytest.raises(ValueError, match="criterion_template must be"):
+    with pytest.raises(ValueError, match=r"^criterion_template must be one of 1\.1\.0, 1\.2\.0$"):
         JevsonConfig(criterion_template="9.9.9")  # type: ignore[arg-type]
-    with pytest.raises(UsageError, match="criterion_template") as raised:
+    with pytest.raises(
+        UsageError, match=r"^criterion_template must be one of 1\.1\.0, 1\.2\.0, not '9\.9\.9'$"
+    ) as raised:
         compile_schema(SCHEMA, criterion_template="9.9.9")
     assert isinstance(raised.value, JevsonError)
 

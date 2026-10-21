@@ -35,7 +35,7 @@ from jevson import (
     compile_schema,
     dry_run,
 )
-from jevson.adjudicate.criteria import judge
+from jevson.adjudicate.criteria import PASS_RULES, judge
 from jevson.adjudicate.rubrics import rubric_passes
 from jevson.checks import Check, CheckRule
 from jevson.compile.draft_screen import SCREEN_REJECTION
@@ -697,3 +697,54 @@ def test_screen_skips_ungated_field() -> None:
     assert result.ungated == ("/note",)
     assert result.decided_by == {"/note": DecidedBy.LLM}
     assert backend.calls == []
+
+
+@pytest.mark.parametrize("rule", list(CheckRule))
+def test_each_rules_passing_answer_passes_its_own_check(rule: CheckRule) -> None:
+    """The offline dry run answers each check with its rule's `passing`; that answer must pass the check,
+    even when the rubric's minimum is its top level."""
+    levels = tuple(Option(f"c{i}", f'"{name}"') for i, name in enumerate(["poor", "ok", "good"]))
+    kind = DecisionKind.SCORE if rule is CheckRule.RUBRIC else DecisionKind.PREDICATE
+    source = OptionSource.SCHEMA_RUBRIC if rule is CheckRule.RUBRIC else OptionSource.PREDICATE
+    node = DecisionNode("/s#check", kind, "q", source, "/s", levels if rule is CheckRule.RUBRIC else ())
+    question = Question("q7", kind, "q", node.options)
+    answer = PASS_RULES[rule].passing(question)
+    assert getattr(answer, "name", None) == "q7"
+    drafting = Drafting("p", "s", checks=(Check(node.id, "c", rule),), rubric_minimum="c2")
+    assert PASS_RULES[rule].passes(node, answer, drafting, 10)[1]
+    expected = {
+        CheckRule.CRITERION: PredicateAnswer("q7", 1.0),
+        CheckRule.SCREEN: PredicateAnswer("q7", 0.0),
+        CheckRule.RUBRIC: ScoreAnswer("q7", 2.0, {"c0": 0.0, "c1": 0.0, "c2": 1.0}),
+    }
+    assert answer == expected[rule]
+
+
+def test_an_unanswered_check_does_not_stop_the_checks_after_it() -> None:
+    first = DecisionNode("/s#criterion:0", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/s")
+    second = DecisionNode("/s#criterion:1", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/s")
+    checks = (Check(first.id, "a", CheckRule.CRITERION), Check(second.id, "b", CheckRule.CRITERION))
+    nodes = {first.id: first, second.id: second}
+    answers = {first.id: None, second.id: PredicateAnswer("q1", 0.1)}
+    decisions, failing = judge(Drafting("p", "s", checks=checks), nodes, answers, 10)
+    assert (list(decisions), failing) == ([second.id], ("a", "b"))
+
+
+def test_dry_run_asks_its_field_only_with_the_configured_model() -> None:
+    two = schema({"criteria": CRITERIA}, other={"type": "string", "x-jevson": {"generate": {"criteria": ["is short"]}}})
+    backend = passing()
+    run = asyncio.run(dry_run(two, "/summary", "d", backend=backend, config=JevsonConfig(model="m-test")))
+    assert len(run.questions) == 2
+    [call] = backend.calls
+    assert call.model == "m-test"
+    assert [q.instructions for q in call.questions] == list(run.questions)
+
+
+def test_a_field_without_a_rubric_has_no_minimum_and_a_rubric_node_is_a_schema_rubric() -> None:
+    plain = compile_schema(schema()).nodes["/summary#generate"]
+    assert isinstance(plain, StepNode)
+    assert plain.drafting is not None
+    assert plain.drafting.rubric_minimum is None
+    rubric = compile_schema(schema({"rubric": RUBRIC})).nodes["/summary#rubric"]
+    assert isinstance(rubric, DecisionNode)
+    assert rubric.option_source is OptionSource.SCHEMA_RUBRIC
