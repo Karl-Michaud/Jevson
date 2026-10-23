@@ -8,6 +8,7 @@ configuration, and nothing is archived from the surrounding repository.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -16,7 +17,7 @@ from pathlib import Path
 import pytest
 
 from tests.integration import run_fresh
-from tests.j4b.fresh import runner, scoring
+from tests.j4b.fresh import attempts, runner, scoring
 from tests.j4b.fresh.attempts import INTERRUPTED, Attempts, Refused, write_record
 from tests.j4b.tests import fake_api
 
@@ -98,6 +99,7 @@ def test_h37_the_void_runs_the_later_test_on_the_archived_harness_with_its_overl
     assert record["test_commit"] == later
     assert record["node"] == FAILING
     assert set(record["overlaid_blobs"]) == {"tests/h37/__init__.py", "tests/h37/test_defect.py"}
+    assert record["overlaid_blobs"] == {p: git(root, "rev-parse", f"{later}:{p}") for p in record["overlaid_blobs"]}
     assert len(record["output_sha256"]) == 64
 
 
@@ -177,3 +179,169 @@ def test_h37_a_void_report_counts_the_attempts_rejected_l0_f0_first_drafts(tmp_p
     assert rejected > 0
     (report,) = scoring.void_reports(e, Attempts(e.root))
     assert report["report"]["l0f0_rejected"] == rejected
+
+
+# --- review round 2 (T48-5): the attempts survivors of the round-2 mutmut run ------------------------------
+
+
+def test_now_is_utc() -> None:
+    assert attempts.now().endswith("+00:00")
+
+
+def test_tree_hash_reads_every_file(tmp_path: Path) -> None:
+    empty = attempts.tree_hash(tmp_path)
+    (tmp_path / "a").mkdir()
+    (tmp_path / "a" / "f.txt").write_bytes(b"x")
+    line = f"a/f.txt\0{hashlib.sha256(b'x').hexdigest()}\n".encode()
+    assert attempts.tree_hash(tmp_path) == hashlib.sha256(line).hexdigest() != empty
+
+
+def test_write_record_layout_mode_and_exclusive_refusal(tmp_path: Path) -> None:
+    path = tmp_path / "r.json"
+    old = os.umask(0o022)
+    try:
+        write_record(path, {"b": 1, "a": [2]})
+    finally:
+        os.umask(old)
+    assert path.read_text(encoding="utf-8") == '{\n "a": [\n  2\n ],\n "b": 1\n}\n'
+    assert path.stat().st_mode & 0o777 == 0o644
+    write_record(path, {"c": 3})  # not exclusive by default: replaced
+    assert json.loads(path.read_text()) == {"c": 3}
+    with pytest.raises(Refused, match=r"^r\.json already exists$"):
+        write_record(path, {}, exclusive=True)
+
+
+def test_run_lock_file_content_stale_and_release(tmp_path: Path) -> None:
+    lock = attempts.RunLock(tmp_path / "a" / "b")
+    assert lock.stale is None
+    lock.acquire()
+    assert [p.name for p in (tmp_path / "a" / "b").iterdir()] == ["run.lock"]
+    held = attempts.read_record(lock.path)
+    assert held is not None
+    assert (set(held), held["pid"]) == ({"pid", "started"}, os.getpid())
+    lock.release()
+    lock.release()  # a missing lock releases quietly
+    write_record(lock.path, {})  # a lock with no pid is stale
+    lock.acquire()
+    replaced = attempts.read_record(lock.path)
+    assert replaced is not None
+    assert (lock.stale, set(replaced), replaced["pid"], replaced["replaced_stale"]) == (
+        0, {"pid", "started", "replaced_stale"}, os.getpid(), 0)  # fmt: skip
+    with pytest.raises(Refused, match=f"^run.lock is held by live pid {os.getpid()}$"):
+        attempts.RunLock(tmp_path / "a" / "b").acquire()
+    assert attempts.alive(os.getpid())
+
+
+def test_a_stale_lock_replaced_while_another_run_takes_it_refuses(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    lock = attempts.RunLock(tmp_path)
+    write_record(lock.path, {"pid": 0})
+    real = Path.unlink
+
+    def raced(self: Path, missing_ok: bool = False) -> None:
+        real(self, missing_ok=missing_ok)
+        if self == lock.path:
+            write_record(self, {"pid": 1})  # another run took the lock between unlink and write
+
+    monkeypatch.setattr(Path, "unlink", raced)
+    with pytest.raises(Refused, match=r"^run\.lock already exists$"):
+        lock.acquire()
+
+
+def test_attempt_records_hold_their_keys_and_are_written_once(tmp_path: Path) -> None:
+    a = Attempts(tmp_path)
+    a.start(1, "dev", {"x": 1})
+    start = attempts.read_record(tmp_path / "attempt-1" / "dev" / "start.json")
+    assert start is not None
+    assert (set(start), start["attempt"], start["phase"]) == ({"started", "attempt", "phase", "x"}, 1, "dev")
+    tree = attempts.tree_hash(tmp_path / "attempt-1" / "dev")
+    a.finish(1, "dev", {"y": 2})
+    done = attempts.read_record(tmp_path / "attempt-1" / "dev" / "complete.json")
+    assert done is not None
+    assert (set(done), done["tree_sha256"]) == ({"completed", "tree_sha256", "y"}, tree)
+    with pytest.raises(Refused, match=r"^complete\.json already exists$"):
+        a.finish(1, "dev", {})
+    tree = attempts.tree_hash(tmp_path / "attempt-1")
+    a.write_void(1, "cap_stop", {"z": 3})
+    assert sorted(p.name for p in (tmp_path / "attempt-1").iterdir()) == ["dev", "void.json"]
+    void = a.void(1)
+    assert void is not None
+    assert (set(void), void["tree_sha256"]) == ({"voided", "reason", "tree_sha256", "z"}, tree)
+    with pytest.raises(Refused, match=r"^void\.json already exists$"):
+        a.write_void(1, "cap_stop", {})
+    a.begin_analysis(None, {"w": 4})
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["analysis-started.json", "attempt-1"]
+    started = a.analysis_started()
+    assert started is not None
+    assert set(started) == {"started", "attempt", "w"}
+    with pytest.raises(Refused, match=r"^analysis-started\.json already exists$"):
+        a.begin_analysis(None, {})
+    with pytest.raises(Refused, match=r"^the analysis has started: no attempt is voided$"):
+        a.write_void(2, "cap_stop", {})
+    with pytest.raises(Refused, match=r"^the analysis has started: no attempt runs again$"):
+        a.check_start(2, "dev")
+
+
+def test_attempt_reads_name_their_own_files(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """The names `void`, `complete` (confirm by default, dev before confirm) and `analysis_started` read, checked
+    on the name itself so a case-insensitive file system cannot hide a misspelling."""
+    seen: list[str] = []
+    real_exists = Path.exists
+
+    def exists(self: Path) -> bool:
+        seen.append(self.relative_to(tmp_path).as_posix() if self.is_relative_to(tmp_path) else self.name)
+        return real_exists(self)
+
+    monkeypatch.setattr(Path, "exists", exists)
+    a = Attempts(tmp_path)
+    a.void(1), a.complete(1), a.analysis_started()
+    assert seen == ["attempt-1/void.json", "attempt-1/confirm/complete.json", "analysis-started.json"]
+    seen.clear()
+    with pytest.raises(Refused, match=r"^attempt 1 has no complete dev phase$"):
+        a.check_start(1, "confirm")
+    assert "attempt-1/dev/complete.json" in seen
+
+
+def test_out_of_order_and_hand_void_messages(tmp_path: Path) -> None:
+    a = Attempts(tmp_path)
+    with pytest.raises(Refused, match=r"^attempt 3 is out of order: attempts run from 1, and the next is 1$"):
+        a.check_start(3, "dev")
+    with pytest.raises(Refused, match=r"^only a harness defect is voided by hand; the runner writes every guard void$"):
+        a.hand_void(1, "cap_stop", note=None, test=None)
+    a.start(1, "dev", {})
+    a.finish(1, "dev", {})
+    a.start(1, "confirm", {})
+    a.finish(1, "confirm", {})
+    with pytest.raises(Refused, match=r"^a complete attempt's harness defect needs --failing-test and --test-commit$"):
+        a.hand_void(1, "harness_defect", note="n", test=None)
+    a.hand_void(1, "harness_defect", note="n", test=lambda: {"node": "x"})
+    void = a.void(1)
+    assert void is not None
+    assert (void["note"], void["failing_test"]) == ("n", {"node": "x"})
+
+
+def complete_attempt(a: Attempts, n: int) -> None:
+    for phase in ("dev", "confirm"):
+        write_record(a.phase_dir(n, phase) / "start.json", {})
+        write_record(a.phase_dir(n, phase) / "complete.json", {})
+
+
+def test_no_complete_attempt_and_score_target_read_each_attempts_own_void(tmp_path: Path) -> None:
+    a = Attempts(tmp_path)
+    complete_attempt(a, 1)
+    a.write_void(1, "cap_stop", {})
+    a.attempt_dir(2).mkdir()
+    assert a.no_complete_attempt() == ["attempt 1: cap_stop", "attempt 2: not complete"]
+    complete_attempt(a, 3)
+    a.score_target(3)
+    with pytest.raises(Refused, match=r"^attempt 3 is complete and not void: score it$"):
+        a.no_complete_attempt()
+
+
+def test_a_pid_owned_by_another_user_is_alive(monkeypatch: pytest.MonkeyPatch) -> None:
+    def kill(pid: int, signal: int) -> None:
+        raise PermissionError
+
+    monkeypatch.setattr(attempts.os, "kill", kill)
+    assert attempts.alive(4242)
