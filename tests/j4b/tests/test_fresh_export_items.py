@@ -13,7 +13,9 @@ from typing import Any
 import pytest
 
 from tests.j4b.fresh import export_items, grading, runner, scoring, workload
+from tests.j4b.fresh.bar_inputs import RFirst
 from tests.j4b.fresh.constants import CHUNK_CHARS
+from tests.j4b.fresh.packing import Unit
 from tests.j4b.labelling.records import ITEM_KEYS, Label
 from tests.j4b.tests import fake_api
 
@@ -275,3 +277,66 @@ def test_label_import_names_each_defect(tmp_path: Path) -> None:
         write_labels(tmp_path / name, labels)
         with pytest.raises(export_items.ExportDefect, match=f"^{re.escape(message)}$"):
             export_items.read_labels(tmp_path / name, items)
+
+
+# --- review round 2 (T48-5): the grading survivors of the round-2 mutmut run --------------------------------
+
+
+def test_every_use_names_its_role_and_the_diagnostic_field(exported: Any) -> None:
+    _, items, key = exported
+    roles = {u["role"] for k in key for u in k["uses"] if u["set"] == "rset"}
+    assert roles == {"first", "redraft"}
+    by_item = {k["item_id"]: k for k in key}
+    diagnostic = [i for i in items if any(u["set"] == "diagnostic" for u in by_item[i["id"]]["uses"])]
+    assert diagnostic
+    assert {i["field"] for i in diagnostic} == {"/summary"}
+
+
+def test_the_diagnostic_draw_names_a_wrong_pattern_count() -> None:
+    rows = [{"pattern": p, "label": "PASS", "draft_id": p} for p in "abcd"]
+    with pytest.raises(grading.DiagnosticDefect, match=r"^expected 5 P-set patterns, found 4$"):
+        grading.diagnostic_ids(rows)
+
+
+def keyrow(item_id: str | None, *uses: dict[str, Any]) -> dict[str, Any]:
+    return {"item_id": item_id, "uses": list(uses)}
+
+
+def rset_use(config: str, did: str, role: str, form: str) -> dict[str, Any]:
+    return {"set": "rset", "config": config, "draft_id": did, "role": role, "form": form}
+
+
+def test_truths_skip_an_unlabelled_row_and_read_every_row_after_it() -> None:
+    key = [keyrow(None, rset_use("L0F0", "d/a", "first", "F0")), keyrow("i1", rset_use("L0F0", "d/b", "first", "F0"))]
+    assert grading.truths(key, {"i1": Label("i1", {"c0": True}, "")}) == {("L0F0", "d/b", "first", "F0"): True}
+
+
+def test_rset_truths_read_f0_truth_of_each_role_and_default_to_false() -> None:
+    got = {"first_admitted": False, "redraft_admitted": True}
+    records = {Unit("rset", "d", "L0", "F0"): {"fields": {"/a": got, "/b": got}}}
+    truth = {("L0F0", "d/a", "redraft", "F0"): True, ("L0F0", "d/a", "first", "F1"): True}
+    assert grading.rset_truths(records, truth) == {
+        ("L0", "F0"): {"d/a": RFirst(False, True, False, True), "d/b": RFirst(False, True, False, False)}
+    }
+    first_true = grading.rset_truths(records, {("L0F0", "d/b", "first", "F0"): True})
+    assert first_true[("L0", "F0")]["d/b"] == RFirst(False, True, True, False)
+
+
+def test_secondaries_count_agreement_and_each_disagreement_direction() -> None:
+    def diag(verdict: bool) -> dict[str, Any]:
+        return {"set": "diagnostic", "draft_id": "p", "code_verdict": verdict, "form": "F0"}
+
+    key = [
+        keyrow(None, diag(True)),
+        keyrow(
+            "t", diag(True), diag(True), rset_use("L1F0", "d/a", "first", "F1"), rset_use("L1F0", "d/b", "first", "F0")
+        ),
+        keyrow("f", diag(True), rset_use("L1F0", "d/a", "first", "F0"), rset_use("L1F0", "d/b", "first", "F1")),
+        keyrow("f", rset_use("L1F0", "d/c", "first", "F0"), rset_use("L1F0", "d/d", "first", "F1")),  # one form each
+        keyrow("x", rset_use("L1F0", "d/a", "redraft", "F1")),
+    ]
+    labels = {"t": Label("t", {"c0": True}, ""), "f": Label("f", {"c0": False}, ""), "x": Label("x", {"c0": True}, "")}
+    assert grading.secondaries(key, labels) == {
+        "diagnostic_agreement": {"agree": 2, "of": 3},
+        "f0_f1_disagreement": {"f1_not_f0": 1, "f0_not_f1": 1, "f1_not_f0_drafts": ["d/a"]},
+    }
