@@ -15,12 +15,15 @@ returns a whole tree or raises.
 
 from __future__ import annotations
 
+import math
 import re
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
 from importlib import metadata
-from typing import Literal, TypeAlias
+from typing import Any, Literal, TypeAlias
+
+from jsonschema import Draft202012Validator
 
 from jevson.compile.declarations import KEYWORD, FieldDeclaration, parse_declaration
 from jevson.compile.refusal import Refusals, child_pointer
@@ -58,6 +61,12 @@ _BRANCHES = "\x00branches"
 """Where a `_UNION` schema keeps its resolved branches; no schema can spell the key's first character."""
 _NO_SCHEMA = object()
 """A Pydantic model whose schema could not be read; distinct from a literal `None` schema."""
+_METASCHEMA: Any = Draft202012Validator(
+    Draft202012Validator.META_SCHEMA, format_checker=Draft202012Validator.FORMAT_CHECKER
+)
+"""Checks a node's KEPT keywords, so no malformed keyword reaches final validation.
+
+A validator of schemas, separate from `assemble/validation.py` (the one validator of instance values)."""
 FLAT_ALL_OF_KEYS = frozenset({"type", "properties", "required", "title", "description"})
 
 
@@ -157,6 +166,8 @@ class _Normaliser:
             nullable = nullable or stripped
         if schema is None:
             return SchemaNode(pointer, Kind.REFUSED, required=required)
+        if (malformed := _malformed({k: v for k, v in schema.items() if k in KEPT})) is not None:
+            return self.refuse(pointer, RefusalCode.MALFORMED_SCHEMA, malformed, required)
         shaped = self.shape(schema, pointer, stack, depth)
         return SchemaNode(
             pointer,
@@ -378,3 +389,19 @@ class _Normaliser:
         if item.kind is Kind.OBJECT:
             return self.refuse(pointer, RefusalCode.ARRAY_OF_OBJECTS, "arrays of objects are not supported in v0")
         return SchemaNode(pointer, Kind.ARRAY, items=item)
+
+
+def _malformed(kept: Schema) -> str | None:
+    """Why a kept keyword breaks the draft 2020-12 metaschema (a `pattern` must be a `regex`) or is not a
+    finite number (`json.loads` accepts `NaN` and `Infinity`, which the metaschema lets through), or None.
+    Final validation and known= preflight would otherwise raise an untyped error, after spend for the former."""
+    for keyword, value in sorted(kept.items()):
+        if isinstance(value, float) and not math.isfinite(value):
+            return f"{keyword} must be a finite number, not {value!r}"
+    errors = sorted((str(e.path[0]), e.message) for e in _METASCHEMA.iter_errors(kept))
+    if not errors:
+        return None
+    keyword, message = errors[0]
+    if keyword == "pattern":
+        return f"pattern {kept['pattern']!r} is not a valid regular expression"
+    return f"{keyword} {message}"

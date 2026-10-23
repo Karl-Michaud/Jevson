@@ -18,10 +18,12 @@ from jevson import (
     CompileError,
     CostEvent,
     DecidedBy,
+    DecisionsBackend,
     FakeBackend,
     Jevson,
     JevsonConfig,
     LLMError,
+    MissingCredentials,
     PreflightError,
     RefusalCode,
     Rejection,
@@ -199,6 +201,21 @@ def test_all_criteria_for_a_field_are_adjudicated_in_one_batched_call() -> None:
     assert result.ungated == ()
     assert result.provenance == {}
     assert llm.calls[0][1] == TOOL_SCHEMA
+
+
+@pytest.mark.parametrize(("limit", "sizes", "splits"), [(200, [3], 0), (3, [3], 0), (2, [2, 1], 1)])
+def test_a_fields_criteria_split_across_requests_only_under_design_8_2(
+    limit: int, sizes: list[int], splits: int
+) -> None:
+    """PLAN Phase 4, amended 2026-10-19: one request unless the level is split under DESIGN §8.2."""
+    backend = passing()
+    criteria = [*CRITERIA, "is polite"]
+    config = JevsonConfig(max_questions_per_request=limit)
+    result = resolve(backend, ScriptedLLM(["Refund of $40."]), schema({"criteria": criteria}), config=config)
+    assert [len(call.questions) for call in backend.calls] == sizes
+    assert result.cost.level_splits == splits
+    assert result.value == {"summary": "Refund of $40."}
+    assert result.decided_by == {"/summary": DecidedBy.LLM_DECISION}
 
 
 def test_rejection_names_the_specific_failing_criteria() -> None:
@@ -535,7 +552,10 @@ def test_replay_llm_validates_its_arguments_and_survives_odd_requests(tmp_path: 
     assert raised.value.code == "replay_corrupt"
 
 
-def test_the_dry_run_runs_criteria_against_the_fake_backend_with_no_key() -> None:
+def test_the_dry_run_runs_criteria_against_the_fake_backend_with_no_key(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    with pytest.raises(MissingCredentials):
+        DecisionsBackend()  # there really is no key to find
     declared = schema({"criteria": CRITERIA, "rubric": RUBRIC})
     run = asyncio.run(dry_run(declared, "/summary", "A refund of $40.", "Refund: $40."))
     assert run.failing == ()

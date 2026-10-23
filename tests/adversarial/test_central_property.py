@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import math
 from typing import Any
 
 import httpx
@@ -93,9 +94,18 @@ def hostile(data: st.DataObject) -> Any:
     return handle
 
 
+async def checked_sleep(seconds: float) -> None:
+    """The backend's only waits: finite, non-negative and within the 30 s cap, whatever the server sends."""
+    assert math.isfinite(seconds), f"a hostile wait: {seconds!r}"
+    assert 0 <= seconds <= 30, f"a hostile wait: {seconds!r}"
+
+
 def check(schema: dict[str, Any], outcome: Result | Exception) -> None:
     if isinstance(outcome, CompileError | PreflightError | UsageError):
         return
+    # The built-in backend raises only its own typed codes: `backend_exception` is the executor's wrapper
+    # for a caller backend that raised something else, so from DecisionsBackend it is a bug.
+    assert getattr(outcome, "code", None) != "backend_exception", f"an untyped failure escaped: {outcome!r}"
     if isinstance(outcome, SchemaViolation | BackendError | LLMError | ExtractorError):
         assert isinstance(outcome.result, Result)
         assert outcome.cost is outcome.result.cost
@@ -121,7 +131,8 @@ def test_the_central_property_holds_over_generated_schemas_and_hostile_backends(
 ) -> None:
     schema, _ = case
     config = JevsonConfig(max_questions_per_request=per_request, raise_on_unresolved_required=raising)
-    jevson = Jevson(backend(hostile(data), transport_retries=data.draw(st.integers(0, 2))), config=config)
+    retries = data.draw(st.integers(0, 2))
+    jevson = Jevson(backend(hostile(data), transport_retries=retries, sleep=checked_sleep), config=config)
     outcome: Result | Exception
     try:
         outcome = asyncio.run(jevson.aresolve(schema, source))

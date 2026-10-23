@@ -8,6 +8,7 @@ limiter bucket is not shared with any other test.
 from __future__ import annotations
 
 import asyncio
+import gc
 import json
 import os
 import signal
@@ -15,6 +16,7 @@ import threading
 import time
 import traceback
 import uuid
+import warnings
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any
@@ -165,6 +167,76 @@ def test_the_per_key_limiter_holds_its_rate_across_calls_threads_and_loops() -> 
     assert sorted(waits.waits) == [float(k) for k in range(1, 8)]  # 8 requests; the first does not wait
 
 
+# --- caller loops, through the facade (PLAN Phase 3, lifecycle on caller loops) --------------
+
+
+def tracked(monkeypatch: pytest.MonkeyPatch, b: DecisionsBackend) -> list[httpx.AsyncClient]:
+    """Every client `b` makes, so a test checks each one was really closed, not only the counter."""
+    made: list[httpx.AsyncClient] = []
+    original = b._new_client  # pyright: ignore[reportPrivateUsage]
+
+    def recording() -> httpx.AsyncClient:
+        made.append(original())
+        return made[-1]
+
+    monkeypatch.setattr(b, "_new_client", recording)
+    return made
+
+
+def test_twenty_sequential_asyncio_run_aresolve_calls_leave_no_live_client(monkeypatch: pytest.MonkeyPatch) -> None:
+    b = backend()
+    made = tracked(monkeypatch, b)
+    jevson = Jevson(b)
+    for n in range(1, 21):
+        assert ok(asyncio.run(jevson.aresolve(SCHEMA, SOURCE)))  # a fresh, then dead, loop each time
+        assert len(made) == n  # one request per call, each on its own client
+        assert all(c.is_closed for c in made)
+        assert clients(b) == 0
+
+
+def test_two_aresolve_calls_under_gather_on_one_loop_succeed_and_leave_no_client(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    b = backend()
+    made = tracked(monkeypatch, b)
+    jevson = Jevson(b)
+
+    async def both() -> list[Result]:
+        return await asyncio.gather(jevson.aresolve(SCHEMA, SOURCE), jevson.aresolve(SCHEMA, SOURCE))
+
+    results = asyncio.run(both())
+    assert len(results) == 2
+    assert all(ok(r) for r in results)
+    assert len(made) == 2
+    assert all(c.is_closed for c in made)
+    assert clients(b) == 0
+
+
+def test_inside_async_with_jevson_the_calls_share_one_client_closed_on_exit(monkeypatch: pytest.MonkeyPatch) -> None:
+    b = backend()
+    made: list[httpx.AsyncClient] = []
+    original = b._new_client  # pyright: ignore[reportPrivateUsage]
+
+    def counting() -> httpx.AsyncClient:
+        made.append(original())
+        return made[-1]
+
+    monkeypatch.setattr(b, "_new_client", counting)
+
+    async def session() -> None:
+        async with Jevson(b) as jevson:
+            assert ok(await jevson.aresolve(SCHEMA, SOURCE))
+            results = await asyncio.gather(jevson.aresolve(SCHEMA, SOURCE), jevson.aresolve(SCHEMA, SOURCE))
+            assert all(ok(r) for r in results)
+            assert len(made) == 1
+            assert not made[0].is_closed
+
+    asyncio.run(session())
+    assert len(made) == 1
+    assert made[0].is_closed
+    assert clients(b) == 0
+
+
 # --- interrupting a blocked resolve() ---------------------------------------------------------
 
 
@@ -178,6 +250,15 @@ def pending_on_library_loop() -> set[asyncio.Task[Any]]:
 
 
 def test_ctrl_c_during_resolve_cancels_the_call_on_the_library_loop() -> None:
+    # A background job or nohup starts Python with SIGINT ignored; install Python's own handler for the test.
+    previous = signal.signal(signal.SIGINT, signal.default_int_handler)
+    try:
+        _ctrl_c_cancels()
+    finally:
+        signal.signal(signal.SIGINT, previous)
+
+
+def _ctrl_c_cancels() -> None:
     assert threading.current_thread() is threading.main_thread()  # SIGINT is delivered to the main thread
     entered, unwound = threading.Event(), threading.Event()
     hang = True
@@ -211,33 +292,230 @@ def test_ctrl_c_during_resolve_cancels_the_call_on_the_library_loop() -> None:
     assert clients(b) == 0
 
 
+def test_an_interrupt_that_lands_just_after_the_call_is_scheduled_still_cancels_it(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The interrupt lands after `run()` has scheduled `start` (and the request is in flight) but before
+    the caller blocks on the result: the call must still be cancelled, not left spending."""
+    entered, unwound, release = threading.Event(), threading.Event(), threading.Event()
+
+    async def handler(request: httpx.Request) -> httpx.Response:
+        entered.set()
+        try:
+            while not release.is_set():
+                await asyncio.sleep(0.01)
+        finally:
+            unwound.set()
+        return answer(request)  # pragma: no cover - reached only if the call was never cancelled
+
+    loop = library._library.get()  # pyright: ignore[reportPrivateUsage]
+    schedule = loop.call_soon_threadsafe
+
+    def interrupted_after_start(callback: Any, *args: Any) -> Any:
+        handle = schedule(callback, *args)
+        if getattr(callback, "__name__", "") == "start":
+            assert entered.wait(5)  # the request is in flight
+            raise KeyboardInterrupt  # Ctrl-C lands here, before the caller waits on the result
+        return handle
+
+    monkeypatch.setattr(loop, "call_soon_threadsafe", interrupted_after_start)
+    with pytest.raises(KeyboardInterrupt):
+        Jevson(backend(handler)).resolve(SCHEMA, SOURCE)  # type: ignore[arg-type]
+    monkeypatch.undo()
+    leaked = not unwound.is_set()
+    release.set()  # lets a leaked request finish, so a failure here does not leak into later tests
+    deadline = time.monotonic() + 5
+    while pending_on_library_loop() and time.monotonic() < deadline:
+        time.sleep(0.01)
+    assert not leaked, "the interrupted call was never cancelled"
+    assert pending_on_library_loop() == set()
+
+
+class RecordingEvent(threading.Event):
+    """An `unwound` event that records each wait `run()` makes on it: (timeout, whether it was set)."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.waits: list[tuple[float | None, bool]] = []
+
+    def wait(self, timeout: float | None = None) -> bool:
+        result = super().wait(timeout)
+        self.waits.append((timeout, result))
+        return result
+
+
+def unwind_waits(monkeypatch: pytest.MonkeyPatch) -> list[RecordingEvent]:
+    """Each call's `unwound` event, so a test asserts whether and how long `run()` waited structurally,
+    with no wall-clock bound (Agents/CLAUDE.md §7.1)."""
+    events: list[RecordingEvent] = []
+
+    class Recorded(library._Call[Any]):  # pyright: ignore[reportPrivateUsage]
+        def __init__(self, *args: Any) -> None:
+            super().__init__(*args)
+            self.unwound = RecordingEvent()
+            events.append(self.unwound)
+
+    monkeypatch.setattr(library, "_Call", Recorded)
+    return events
+
+
 def test_an_interrupt_does_not_wait_past_the_grace_period_for_a_call_that_ignores_cancellation(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setattr(library, "CANCEL_GRACE_S", 0.05)
-    release = threading.Event()
+    started, cancelled, release = threading.Event(), threading.Event(), threading.Event()
 
     async def stubborn() -> None:
+        started.set()
         while not release.is_set():
             try:
                 await asyncio.sleep(0.01)
             except asyncio.CancelledError:
+                cancelled.set()
                 continue  # swallows the cancellation and keeps going
 
     def interrupt_wait(self: Any, timeout: float | None = None) -> None:
+        assert started.wait(5)  # the interrupt lands while the coroutine is running, not before it starts
         raise KeyboardInterrupt
 
+    events = unwind_waits(monkeypatch)
     monkeypatch.setattr("concurrent.futures.Future.result", interrupt_wait)
-    started = time.monotonic()
     with pytest.raises(KeyboardInterrupt):
         library.run(stubborn)
-    assert time.monotonic() - started < 2
     monkeypatch.undo()
+    assert cancelled.wait(5)  # the cancellation reached the running coroutine, which ignored it
+    assert [e.waits for e in events] == [[(0.05, False)]]  # one wait, for the grace period, timed out
     release.set()
     deadline = time.monotonic() + 5
     while pending_on_library_loop() and time.monotonic() < deadline:
         time.sleep(0.01)
     assert pending_on_library_loop() == set()
+
+
+def test_an_interrupt_before_the_call_starts_returns_at_once_and_builds_no_coroutine(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(library, "CANCEL_GRACE_S", 1.0)
+    made: list[int] = []
+
+    async def body() -> None:
+        made.append(1)  # pragma: no cover - the call is interrupted before it starts
+
+    def make() -> Any:
+        made.append(0)
+        return body()
+
+    loop_busy, release = threading.Event(), threading.Event()
+
+    def block() -> None:  # holds the library loop, so the call cannot start before the interrupt
+        loop_busy.set()
+        release.wait(5)
+
+    loop = library._library.get()  # pyright: ignore[reportPrivateUsage]
+    loop.call_soon_threadsafe(block)
+    assert loop_busy.wait(5)
+
+    def interrupt_wait(self: Any, timeout: float | None = None) -> None:
+        raise KeyboardInterrupt
+
+    events = unwind_waits(monkeypatch)
+    monkeypatch.setattr("concurrent.futures.Future.result", interrupt_wait)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        with pytest.raises(KeyboardInterrupt):
+            library.run(make)
+        monkeypatch.undo()
+        release.set()
+        assert pending_on_library_loop() == set()
+        gc.collect()
+    assert [e.waits for e in events] == [[]]  # no grace wait: a call that never started has nothing to unwind
+    assert made == []  # the coroutine is built on the loop only once the call starts
+    assert not [w for w in caught if "never awaited" in str(w.message)]
+
+
+def run_in_thread(make: Callable[[], Any]) -> list[BaseException]:
+    """Call `library.run(make)` on a worker thread; a call whose future is never resolved would block
+    forever, so the worker is a daemon and the caller's join is bounded."""
+    raised: list[BaseException] = []
+
+    def call() -> None:
+        try:
+            library.run(make)
+        except BaseException as error:
+            raised.append(error)
+
+    worker = threading.Thread(target=call, daemon=True)
+    worker.start()
+    worker.join(5)
+    assert not worker.is_alive(), "run() never returned: the call's future was never resolved"
+    return raised
+
+
+def test_a_factory_that_raises_on_the_loop_reraises_at_once(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(library, "CANCEL_GRACE_S", 3.0)
+
+    def make() -> Any:
+        raise ValueError("factory failed")
+
+    events = unwind_waits(monkeypatch)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        raised = run_in_thread(make)
+        assert pending_on_library_loop() == set()
+    assert [type(e) for e in raised] == [ValueError]
+    assert [e.waits for e in events] == [[]]  # no grace wait: nothing of the call is running
+    assert not caught
+
+
+def test_a_task_that_cannot_be_created_closes_its_coroutine_and_reraises_at_once(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(library, "CANCEL_GRACE_S", 3.0)
+    loop = library._library.get()  # pyright: ignore[reportPrivateUsage]
+
+    async def body() -> None:  # pragma: no cover - its task is never created, so it never runs
+        pass
+
+    def refuse(coroutine: Any) -> Any:
+        raise RuntimeError("no task")
+
+    events = unwind_waits(monkeypatch)
+    monkeypatch.setattr(loop, "create_task", refuse)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        raised = run_in_thread(body)
+        monkeypatch.undo()
+        assert pending_on_library_loop() == set()
+        gc.collect()
+    assert [type(e) for e in raised] == [RuntimeError]
+    assert [e.waits for e in events] == [[]]  # no grace wait
+    assert not [w for w in caught if "never awaited" in str(w.message)]
+
+
+def test_an_interrupt_that_races_a_failing_start_cancels_nothing() -> None:
+    """The caller's interrupt lands while `start` is building the call (its future RUNNING), and the
+    factory then raises: the scheduled cancellation finds no task and must do nothing."""
+    loop = asyncio.new_event_loop()
+    errors: list[dict[str, Any]] = []
+    loop.set_exception_handler(lambda _loop, context: errors.append(context))
+
+    def make() -> Any:
+        assert call.cancel()  # still running: a cancellation is scheduled on the loop
+        raise ValueError("factory failed")
+
+    call = library._Call(make, loop)  # pyright: ignore[reportPrivateUsage]
+
+    async def drive() -> None:
+        call.start()
+        await asyncio.sleep(0)  # the scheduled cancellation runs before this resumes
+
+    try:
+        loop.run_until_complete(drive())
+    finally:
+        loop.close()
+    assert errors == []
+    assert isinstance(call.future.exception(0), ValueError)
+    assert call.unwound.is_set()
 
 
 # --- context managers and closing -----------------------------------------------------------

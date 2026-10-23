@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import dataclasses
+import re
 
 import pytest
 
@@ -85,27 +86,27 @@ def test_config_defaults_match_design() -> None:
     config = JevsonConfig()
     assert config.tie_margin_hundredths == 10
     assert config.redraft_budget == 1
-    assert config.transport_retries == 2
     assert config.step_timeout_s == 120.0
     assert (config.max_input_tokens, config.max_questions_per_request) == (900_000, 200)
     assert config.default_extractor is None
     assert config.raise_on_unresolved_required is False
     assert not hasattr(config, "retry_budget")
     assert not hasattr(config, "source_screen")
+    # Transport retries belong to the backend: DecisionsBackend(transport_retries=...) (DESIGN §6.1).
+    assert not hasattr(config, "transport_retries")
 
 
 @pytest.mark.parametrize(
-    "overrides",
+    ("overrides", "message"),
     [
-        {"tie_margin_hundredths": -1},
-        {"tie_margin_hundredths": 100},
-        {"step_timeout_s": 0.0},
-        {"redraft_budget": -1},
-        {"transport_retries": -1},
-        {"max_input_tokens": 0},
-        {"max_questions_per_request": 0},
+        ({"tie_margin_hundredths": -1}, "tie_margin_hundredths must be in [0, 100)"),
+        ({"tie_margin_hundredths": 100}, "tie_margin_hundredths must be in [0, 100)"),
+        ({"step_timeout_s": 0.0}, "step_timeout_s must be positive"),
+        ({"redraft_budget": -1}, "redraft_budget must be >= 0"),
+        ({"max_input_tokens": 0}, "max_input_tokens must be >= 1"),
+        ({"max_questions_per_request": 0}, "max_questions_per_request must be >= 1"),
     ],
 )
-def test_config_rejects_out_of_range_settings(overrides: dict[str, float]) -> None:
-    with pytest.raises(ValueError, match="must be"):
+def test_config_rejects_out_of_range_settings(overrides: dict[str, float], message: str) -> None:
+    with pytest.raises(ValueError, match=f"^{re.escape(message)}$"):
         JevsonConfig(**overrides)  # type: ignore[arg-type]

@@ -33,6 +33,8 @@ class Draft:
     """What a rejection records: the draft, or the start of whatever came back instead."""
     input_tokens: int = 0
     output_tokens: int = 0
+    model: str | None = None
+    """The model id the LLM reported, if it is a non-empty string."""
 
 
 def messages(drafting: Drafting, source: str, rejection: Rejection | None) -> tuple[Message, ...]:
@@ -51,6 +53,8 @@ def read(response: object, limit: int) -> Draft:
     if not isinstance(response, LLMResponse):
         return Draft(None, "")
     tokens = (_count(response.input_tokens), _count(response.output_tokens))
+    reported = cast("object", response.model)
+    model = reported if isinstance(reported, str) and reported else None
     received = cast("object", response.raw)  # a caller's LLM may break its own type hints
     raw = received if isinstance(received, str) else ""
     arguments = cast("object", response.arguments)
@@ -59,9 +63,9 @@ def read(response: object, limit: int) -> Draft:
         fields = cast("Mapping[str, object]", arguments)
         value = fields["value"] if set(fields) == {"value"} else None
     if isinstance(value, str) and len(value) <= limit:
-        return Draft(value, value, *tokens)
+        return Draft(value, value, *tokens, model)
     shown = value if isinstance(value, str) else raw
-    return Draft(None, shown[:limit], *tokens)
+    return Draft(None, shown[:limit], *tokens, model)
 
 
 def malformed(limit: int) -> str:

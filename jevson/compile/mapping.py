@@ -27,10 +27,13 @@ graph is qualified by its ancestor property names (`questions.scopes`).
 
 from __future__ import annotations
 
+import json
 import math
 from collections.abc import Mapping
 from dataclasses import dataclass, field, replace
-from decimal import Decimal
+from typing import Any
+
+from jsonschema import Draft202012Validator
 
 from jevson.compile import questions, unions
 from jevson.compile.declarations import GenerateDeclaration
@@ -165,6 +168,7 @@ class _Mapper:
         for name, child in node.properties:
             generated = child.declaration is not None and child.declaration.declares_generate
             if child.kind is Kind.OBJECT and not generated:
+                self.misplaced_on_object(child)
                 self.object(child, (*ancestors, name))
             elif child.kind is Kind.UNION and not generated:
                 self.union(name, child, ancestors)
@@ -173,6 +177,20 @@ class _Mapper:
                     self.constants.append(Constant(child.pointer, child.values[0], self.at.gates))
             elif child.kind is not Kind.REFUSED:
                 self.field(name, child, ancestors)
+
+    def misplaced_on_object(self, node: SchemaNode) -> None:
+        """`question` and `ordinal` decide one field; an object is compiled from its properties, so
+        either key beside a nested model's `$ref` is refused rather than dropped (R14)."""
+        declaration = node.declaration
+        if declaration is not None and declaration.ordinal:
+            self.refuse(node, RefusalCode.ORDINAL_LEVELS, "ordinal: true needs an integer range, not an object")
+        if declaration is not None and declaration.question is not None:
+            self.refuse(
+                node,
+                RefusalCode.MISPLACED_DECLARATION,
+                "x-jevson.question decides one field; an object is compiled from its properties, so declare "
+                "the question on the property it asks about",
+            )
 
     def union(self, name: str, node: SchemaNode, ancestors: tuple[str, ...]) -> None:
         texts = unions.branch_texts(node.branches)
@@ -254,10 +272,21 @@ class _Mapper:
     def enum(self, node: SchemaNode, labelled: questions.Labelled) -> None:
         """A choice over an enum, or a multi-label enum array's membership predicates (DESIGN §4.2)."""
         values = node.items.values if node.items is not None else node.values
+        if node.items is not None and node.items.nullable:  # R14: never strip the null silently
+            return self.refuse(
+                node,
+                RefusalCode.ENUM_VALUE_TYPE,
+                "a multi-label array's item enum cannot include null: membership is asked per declared value; "
+                "drop the null, or make the whole array optional instead",
+            )
         if not all(isinstance(v, str | int) and not isinstance(v, bool) for v in values):
             return self.refuse(node, RefusalCode.ENUM_VALUE_TYPE, "enum values must be strings or integers")
-        if len(values) > MAX_OPTIONS:
-            return self.refuse(node, RefusalCode.ENUM_SIZE, f"{len(values)} values; an enum takes 2-255")
+        if len(values) > MAX_OPTIONS:  # at least 2: normalise.py makes one value a constant
+            return self.refuse(
+                node, RefusalCode.ENUM_SIZE, f"{len(values)} values; an enum takes at most {MAX_OPTIONS}"
+            )
+        if clash := _indistinguishable(values):
+            return self.refuse(node, RefusalCode.INDISTINGUISHABLE_OPTIONS, clash)
         if node.items is None:
             self.pending.append(_Pending(node, DecisionKind.CHOICE, labelled, values, self.at))
             return None
@@ -290,19 +319,33 @@ class _Mapper:
             )
 
 
+def _indistinguishable(values: tuple[JSONValue, ...]) -> str | None:
+    """The first two values whose options render alike ("a" twice, or "1" and 1): the model sees one
+    option text for both, so whichever it chose, code could not tell which value was meant."""
+    seen: dict[str, JSONValue] = {}
+    for value in values:
+        rendered = questions.option_description(value)
+        if rendered in seen:
+            return f"values {json.dumps(seen[rendered])} and {json.dumps(value)} render as the same option {rendered}"
+        seen[rendered] = value
+    return None
+
+
 def _levels(keywords: Mapping[str, object]) -> tuple[JSONValue, ...] | None:
     """The integers an ordinal range allows, lowest first; None when a bound is missing or too wide.
 
     `minimum`/`exclusiveMinimum` and `maximum`/`exclusiveMaximum` combine to the tighter bound, and
-    a positive `multipleOf` keeps only its multiples, so every level passes final validation."""
+    a positive `multipleOf` keeps only the integers that final validation's own `multipleOf` check accepts
+    (float division, so `21` is not a multiple of `0.7` and nothing is a multiple of `1e-320`)."""
     lows = [math.ceil(v) for v in _numbers(keywords, "minimum")]
     lows += [math.floor(v) + 1 for v in _numbers(keywords, "exclusiveMinimum")]
     highs = [math.floor(v) for v in _numbers(keywords, "maximum")]
     highs += [math.ceil(v) - 1 for v in _numbers(keywords, "exclusiveMaximum")]
     if not lows or not highs or min(highs) - max(lows) > MAX_ORDINAL_SPAN:
         return None
-    steps = [Decimal(repr(s)) for s in _numbers(keywords, "multipleOf") if s > 0]  # exact: 3 % 0.1 is not 0.0
-    return tuple(v for v in range(max(lows), min(highs) + 1) if all(Decimal(v) % s == 0 for s in steps))
+    step = keywords["multipleOf"] if any(s > 0 for s in _numbers(keywords, "multipleOf")) else None
+    multiple: Any = Draft202012Validator({} if step is None else {"multipleOf": step})  # jsonschema is untyped
+    return tuple(v for v in range(max(lows), min(highs) + 1) if multiple.is_valid(v))
 
 
 def _numbers(keywords: Mapping[str, object], key: str) -> list[float]:

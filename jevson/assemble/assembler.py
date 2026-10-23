@@ -16,9 +16,9 @@ from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from typing import Any, TypeAlias
 
-from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError
 
+from jevson.assemble.validation import validator
 from jevson.result import Result
 from jevson.types import (
     Cost,
@@ -58,6 +58,8 @@ def assemble(
     array_holes: tuple[Unresolved, ...] = (),
     rejections: tuple[Rejection, ...] = (),
 ) -> Result:
+    # Length (~58 lines, over the ~40 convention): a third is the signature and the Result it fills
+    # field by field; placing values and listing outcomes share `by_pointer` and one pass.
     by_pointer: dict[str, Outcome] = {}
     for outcome in outcomes:
         if outcome.pointer in by_pointer:
@@ -107,8 +109,8 @@ def assemble(
 
 
 def _validate(schema: Mapping[str, Any], value: dict[str, JSONValue]) -> list[Violation]:
-    validator: Any = Draft202012Validator(schema)  # jsonschema's overloads are partially untyped
-    errors: list[ValidationError] = list(validator.iter_errors(value))
+    # `format` is checked as `validation.py` says (DESIGN §6.1).
+    errors: list[ValidationError] = list(validator(schema).iter_errors(value))
     violations = [
         Violation("".join(f"/{_escape(str(t))}" for t in e.absolute_path), str(e.validator), e.message) for e in errors
     ]

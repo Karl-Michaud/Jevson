@@ -5,8 +5,8 @@
 default backend: constructing a `DecisionsBackend` is an explicit choice to spend money.
 
 - `CompileError`, `PreflightError` and `UsageError` are raised before anything is spent; `known=`
-  values are checked against their field's declared values before the first call, then recorded as
-  `decided_by: caller`.
+  values are checked against their field's declared values and JSON Schema constraints before the
+  first call (`assemble/known.py`), then recorded as `decided_by: caller`.
 - For a Pydantic model, `.value` must also pass `model_validate`, else `satisfies_schema` is False
   and each error is a `Violation` with keyword `model_validate` [L18].
 - With `raise_on_unresolved_required`, an unresolved required field raises `SchemaViolation`
@@ -26,16 +26,16 @@ from dataclasses import replace
 from types import TracebackType
 from typing import Any, cast
 
+from jevson.assemble.known import check_known
 from jevson.compile.compiler import compile_schema
 from jevson.compile.normalise import Kind, SchemaNode, normalise_schema
 from jevson.config import JevsonConfig
 from jevson.errors import PreflightError, SchemaViolation, UsageError
 from jevson.execute import loop
 from jevson.execute.executor import execute
-from jevson.graph import DecisionGraph
 from jevson.protocols import LLM, Backend, CostSink, Extractor
 from jevson.result import Result
-from jevson.types import DecisionKind, DecisionNode, JSONValue, StepNode, Violation
+from jevson.types import JSONValue, Violation
 
 
 class Jevson:
@@ -134,8 +134,9 @@ class Jevson:
         graph = compile_schema(
             schema, frozenset(self._extractors), config.default_extractor, union_fanout=config.union_fanout
         )
-        fields = _fields(normalise_schema(schema))
-        checked = _check_known(graph, fields, known)
+        normalised = normalise_schema(schema)
+        fields = _fields(normalised)
+        checked = check_known(graph, normalised, known)
         result = await execute(
             graph, _json_schema(schema), source,
             backend=self._backend, config=config, known=checked, cost_sink=self._cost_sink, llm=self._llm,
@@ -159,47 +160,6 @@ def _fields(node: SchemaNode) -> dict[str, SchemaNode]:
     for branch in node.branches:  # a union's branches sit at its pointer; only one is selected
         found |= _fields(replace(branch, required=node.required))
     return found
-
-
-def _check_known(
-    graph: DecisionGraph, fields: Mapping[str, SchemaNode], known: Mapping[str, JSONValue] | None
-) -> dict[str, JSONValue]:
-    if known is None:
-        return {}
-    if not isinstance(known, Mapping):  # pyright: ignore[reportUnnecessaryIsInstance]
-        raise PreflightError("known= must map JSON pointers to values")
-    by_target: dict[str, DecisionNode | StepNode] = {}
-    for node in graph.nodes.values():
-        if isinstance(node, StepNode) or node.target not in by_target:
-            by_target[node.target] = node  # a generative field is known by its step
-    constants = {c.pointer for c in graph.constants}  # checked by the executor (`execute/branches.py`)
-    for pointer, value in known.items():
-        node = by_target.get(pointer)
-        if node is None and pointer in constants:
-            continue
-        if node is None:
-            raise PreflightError(f"known= names {pointer!r}, which is not a decided field")
-        if not _allowed(node, fields.get(pointer, _OPTIONAL), value):
-            raise PreflightError(f"known= value for {pointer!r} is not one of the field's declared values")
-    return dict(known)
-
-
-def _allowed(node: DecisionNode | StepNode, field: SchemaNode, value: JSONValue) -> bool:
-    if value is None:
-        return field.nullable
-    if isinstance(node, StepNode):
-        return isinstance(value, str)
-    if node.member is not None:  # a multi-label enum array: distinct declared values
-        declared = field.items.values if field.items is not None else ()
-        items = cast("list[JSONValue]", value) if isinstance(value, list) else None
-        return (
-            items is not None
-            and len(set(map(repr, items))) == len(items)
-            and all(any(type(item) is type(v) and item == v for v in declared) for item in items)
-        )
-    if node.kind is DecisionKind.PREDICATE:
-        return isinstance(value, bool)
-    return any(type(value) is type(v) and value == v for v in node.values)
 
 
 def _json_schema(schema: object) -> Mapping[str, Any]:

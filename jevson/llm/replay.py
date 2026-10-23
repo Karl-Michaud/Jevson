@@ -2,10 +2,12 @@
 
 The same scheme as `CachingBackend`: the key is the SHA-256 of the RFC 8785 canonical JSON of the
 caller's LLM id, the messages and the tool schema, so recordings from two different LLMs never
-collide. Responses are stored whole (arguments, raw text, token counts) and returned verbatim on a
-hit, so a replayed run's `Result`, `Cost` included, is identical to the recorded one. A request that
-cannot be canonicalised is passed through and not recorded. With `replay_only=True` a miss raises
-`LLMError(replay_miss)`. Files are written only under the caller's directory, atomically.
+collide. Responses are stored whole (arguments, raw text, token counts, the reported model) and
+returned verbatim on a hit, so a replayed run's `Result`, `Cost` included, is identical to the
+recorded one. A request that cannot be canonicalised is passed through and not recorded. With
+`replay_only=True` a miss raises `LLMError(replay_miss)`. Files are written only under the caller's
+directory, atomically. The stored `model` is optional on load, so a recording made before it was
+stored still replays (with no model); the format and the key are unchanged.
 """
 
 from __future__ import annotations
@@ -89,6 +91,7 @@ def _store(path: Path, response: LLMResponse) -> None:
             "raw": response.raw,
             "input_tokens": response.input_tokens,
             "output_tokens": response.output_tokens,
+            "model": response.model if isinstance(response.model, str) else None,  # as _load reads it
         })  # fmt: skip
     except (TypeError, ValueError, AttributeError):
         return  # a response JSON cannot hold cannot be replayed; it passes through unrecorded
@@ -106,6 +109,11 @@ def _store(path: Path, response: LLMResponse) -> None:
 def _load(path: Path) -> LLMResponse:
     try:
         record = cast("dict[str, Any]", json.loads(path.read_text(encoding="utf-8")))
-        return LLMResponse(record["arguments"], record["raw"], record["input_tokens"], record["output_tokens"])
+        # "model" is optional: recordings made before it was stored replay with no model (same format).
+        model = record.get("model")
+        return LLMResponse(
+            record["arguments"], record["raw"], record["input_tokens"], record["output_tokens"],
+            model if isinstance(model, str) else None,
+        )  # fmt: skip
     except (ValueError, KeyError, TypeError) as error:
         raise LLMError("replay_corrupt", f"{path.name}: {type(error).__name__}", Result({}, False)) from None

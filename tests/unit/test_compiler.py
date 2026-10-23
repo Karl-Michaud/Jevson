@@ -13,7 +13,7 @@ from typing import Any, Literal
 import pytest
 from pydantic import BaseModel, Field
 
-from jevson import CompileError, FakeBackend, RefusalCode, Result, compile_schema
+from jevson import CompileError, FakeBackend, Jevson, RefusalCode, Result, compile_schema
 from jevson.assemble.assembler import Committed, Outcome, assemble
 from jevson.graph import DecisionGraph
 from jevson.probabilities import interpret
@@ -29,6 +29,7 @@ from jevson.types import (
     Question,
     Unresolved,
 )
+from tests.adversarial.hostile_llm import ScriptedLLM
 
 FIXTURES = Path(__file__).resolve().parents[1] / "fixtures" / "schemas"
 SOURCE = "Order 17: urgent. Ship to a lit lane in France for a pro customer."
@@ -69,7 +70,7 @@ class Order(BaseModel):
 class Idiomatic(BaseModel):
     """PLAN Phase 2: nested submodel, Enum, single-member Enum, Optional[Literal], Literal, defaulted leaves."""
 
-    address: Address = Field(json_schema_extra={"x-jevson": {"question": "Which address?"}})
+    address: Address = Field(description="where the order goes")  # a sibling keyword beside the $ref
     shipping: Address | None = None
     tier: Tier
     only: Only
@@ -163,6 +164,7 @@ def test_a_pydantic_model_and_its_emitted_json_schema_compile_to_identical_graph
     from_schema = compile_schema(model.model_json_schema(mode="validation")).nodes
     assert from_model == from_schema
     assert list(from_model) == list(from_schema)
+    assert compile_schema(model).constants == compile_schema(model.model_json_schema(mode="validation")).constants
 
 
 def test_idiomatic_pydantic_compiles_and_its_class_a_fields_emit_no_node() -> None:
@@ -175,6 +177,59 @@ def test_idiomatic_pydantic_compiles_and_its_class_a_fields_emit_no_node() -> No
         "/shipping/country#choice",
         "/tier#choice",
     ]  # only, marker (constants), size, currency, plan (undeclared defaulted leaves) are class A
+
+
+def test_a_flat_all_of_a_defaulted_decimal_and_bound_keywords_emit_no_node_of_their_own() -> None:
+    """Class A at compile level, not only in the normaliser: the merged allOf decides only its enum."""
+    schema = {
+        "type": "object",
+        "required": ["x", "c", "r"],
+        "properties": {
+            "x": {
+                "allOf": [
+                    {"type": "object", "properties": {"a": {"enum": ["1", "2"]}}, "required": ["a"]},
+                    {"type": "object", "properties": {"b": {"const": 5}}, "required": ["b"]},
+                ]
+            },
+            "c": {"const": "k"},
+            "r": {"type": "integer", "x-jevson": {"ordinal": True}, "exclusiveMinimum": 0, "maximum": 3},
+            "f": {"type": "string", "format": "date", "default": "2020-01-01"},
+            "money": {
+                "anyOf": [{"type": "number"}, {"type": "string", "pattern": "^-?\\d+(\\.\\d+)?$"}],
+                "default": "1",
+            },
+        },
+    }
+    graph = compile_schema(schema)
+    assert list(graph.nodes) == ["/x/a#choice", "/r#score"]
+    assert [(c.pointer, c.value) for c in graph.constants] == [("/x/b", 5), ("/c", "k")]
+
+
+class Kinded(BaseModel):
+    kind: Literal["a", "b"]
+
+
+@pytest.mark.parametrize(
+    ("declaration", "reason"),
+    [
+        ({"source": {"extractor": "llm"}}, "source_selection_dropped"),
+        ({"generate": {"criteria": ["is short"]}}, "generate_field_type"),
+        ({"question": "Which one?"}, "misplaced_declaration"),
+        ({"ordinal": True}, "ordinal_levels"),
+        ({"bogus": 1}, "unknown_declaration_key"),
+        ({"order": "semantic"}, "semantic_order"),
+        ({"order": "source"}, "source_selection_dropped"),
+    ],
+)
+def test_x_jevson_beside_a_nested_models_ref_is_applied_or_refused_never_dropped(
+    declaration: dict[str, Any], reason: str
+) -> None:
+    class Holder(BaseModel):
+        a: Kinded = Field(json_schema_extra={"x-jevson": declaration})
+
+    assert "$ref" in Holder.model_json_schema(mode="validation")["properties"]["a"]
+    assert refusals(Holder) == [("/a", reason)]
+    assert refusals(Holder.model_json_schema(mode="validation")) == [("/a", reason)]
 
 
 def test_an_optional_submodel_whose_leaves_declare_sources_refuses_only_with_source_selection_dropped() -> None:
@@ -272,6 +327,8 @@ def test_bool_enum_and_ordinal_map_to_predicate_choice_and_score_over_opaque_ids
         ({"minimum": 0, "exclusiveMinimum": 1, "maximum": 4, "exclusiveMaximum": 4}, [2, 3]),
         ({"minimum": 0, "maximum": 40, "multipleOf": 10}, [0, 10, 20, 30, 40]),
         ({"minimum": 1, "maximum": 3, "multipleOf": 0.1}, [1, 2, 3]),
+        ({"minimum": 1, "maximum": 3, "multipleOf": 1e-30}, [1, 2, 3]),  # beyond a 28-digit decimal context
+        ({"minimum": 1, "maximum": 9, "multipleOf": 0.3}, [3, 6, 9]),
     ],
 )
 def test_ordinal_levels_honour_every_bound_keyword(keywords: dict[str, object], levels: list[int]) -> None:
@@ -279,11 +336,26 @@ def test_ordinal_levels_honour_every_bound_keyword(keywords: dict[str, object], 
     assert compile_schema(obj(r=field)).nodes["/r#score"].values == tuple(levels)
 
 
+@pytest.mark.parametrize(
+    ("keywords", "found"),
+    [
+        ({"minimum": 1, "maximum": 3, "multipleOf": 1e-320}, "0 levels"),  # 1 / 1e-320 overflows: no multiples
+        ({"minimum": 14, "maximum": 21, "multipleOf": 0.7}, "1 levels"),  # 21 / 0.7 is 30.000000000000004
+    ],
+)
+def test_an_ordinal_keeps_only_the_levels_final_validation_accepts(keywords: dict[str, object], found: str) -> None:
+    field = {"type": "integer", "x-jevson": {"ordinal": True}, **keywords}
+    with pytest.raises(CompileError) as caught:
+        compile_schema(obj(r=field))
+    [reason] = caught.value.reasons
+    assert (reason.pointer, reason.reason) == ("/r", RefusalCode.ORDINAL_LEVELS)
+    assert reason.message == f"an ordinal needs 2-10 levels; found {found}"
+
+
 def test_defaulted_leaves_are_class_a_unless_a_key_asks_for_a_decision() -> None:
     schema = obj(
         flag={"type": "boolean", "default": False},
         asked={"type": "boolean", "default": False, "x-jevson": {"question": "it ships today"}},
-        ordered={"type": "boolean", "default": False, "x-jevson": {"order": "source"}},
         rating={"type": "integer", "minimum": 1, "maximum": 2, "default": 1, "x-jevson": {"ordinal": True}},
         note={"type": "string", "default": ""},
         notes={"type": "array", "items": {"type": "string"}, "default": []},
@@ -301,6 +373,9 @@ UNBOUNDED, ORDINAL = RefusalCode.UNBOUNDED_FIELD, RefusalCode.ORDINAL_LEVELS
         ({"enum": [f"v{i}" for i in range(256)]}, RefusalCode.ENUM_SIZE),
         ({"enum": [1.5, 2.5]}, RefusalCode.ENUM_VALUE_TYPE),
         ({"enum": [True, "x"]}, RefusalCode.ENUM_VALUE_TYPE),
+        ({"enum": ["a", "a"]}, RefusalCode.INDISTINGUISHABLE_OPTIONS),
+        ({"enum": ["1", 1]}, RefusalCode.INDISTINGUISHABLE_OPTIONS),
+        ({"enum": ["a", "b", "a", None]}, RefusalCode.INDISTINGUISHABLE_OPTIONS),
         ({"type": "integer", "minimum": 0, "maximum": 10, "x-jevson": {"ordinal": True}}, RefusalCode.ORDINAL_LEVELS),
         ({"type": "integer", "minimum": 3, "maximum": 3, "x-jevson": {"ordinal": True}}, RefusalCode.ORDINAL_LEVELS),
         ({"type": "integer", "minimum": 0, "x-jevson": {"ordinal": True}}, RefusalCode.ORDINAL_LEVELS),
@@ -318,6 +393,100 @@ UNBOUNDED, ORDINAL = RefusalCode.UNBOUNDED_FIELD, RefusalCode.ORDINAL_LEVELS
 )
 def test_each_unmappable_field_refuses_with_one_named_reason(field: dict[str, object], code: RefusalCode) -> None:
     assert refusals(obj(f=field)) == [("/f", code)]
+
+
+def test_indistinguishable_enum_options_are_named_and_the_size_message_states_the_real_bound() -> None:
+    with pytest.raises(CompileError) as caught:
+        compile_schema(obj(f={"enum": ["1", 1, "b"]}))
+    assert [r.message for r in caught.value.reasons] == ['values "1" and 1 render as the same option "1"']
+    with pytest.raises(CompileError) as caught:
+        compile_schema(obj(f={"enum": [f"v{i}" for i in range(256)]}))
+    assert [r.message for r in caught.value.reasons] == ["256 values; an enum takes at most 255"]
+
+
+def test_an_enum_of_exactly_255_values_compiles_as_a_choice_or_a_multi_label_array() -> None:
+    values = [f"v{i}" for i in range(255)]
+    graph = compile_schema(obj(f={"enum": values}, tags={"type": "array", "items": {"enum": values}}))
+    assert len(graph.nodes["/f#choice"].options) == 255
+    assert len([n for n in graph.nodes.values() if n.target == "/tags"]) == 255  # one membership each
+
+
+def messages(schema: object) -> list[str]:
+    with pytest.raises(CompileError) as caught:
+        compile_schema(schema)
+    return [r.message for r in caught.value.reasons]
+
+
+@pytest.mark.parametrize(
+    ("declaration", "message"),
+    [
+        ({"ordinal": True}, "ordinal: true needs an integer range, not an object"),
+        (
+            {"question": "Which one?"},
+            "x-jevson.question decides one field; an object is compiled from its properties, so declare "
+            "the question on the property it asks about",
+        ),
+        ({"order": "semantic"}, "x-jevson.order: semantic is out of v0 (R7); remove the key"),
+    ],
+)
+def test_each_new_refusal_beside_a_ref_says_exactly_what_to_do(declaration: dict[str, Any], message: str) -> None:
+    class Holder(BaseModel):
+        a: Kinded = Field(json_schema_extra={"x-jevson": declaration})
+
+    assert messages(Holder) == [message]
+
+
+def test_a_null_in_a_multi_label_items_enum_says_exactly_what_to_do() -> None:
+    assert messages(obj(tags={"type": "array", "items": {"enum": ["a", "b", None]}})) == [
+        "a multi-label array's item enum cannot include null: membership is asked per declared value; "
+        "drop the null, or make the whole array optional instead"
+    ]
+
+
+@pytest.mark.parametrize("pattern", ["(", "[a-", 5])
+def test_a_pattern_that_is_not_a_regular_expression_is_refused_at_compile_time(pattern: object) -> None:
+    """Before any spend: final validation and known= preflight would otherwise raise an untyped error."""
+    generated = {"type": "string", "pattern": pattern, "x-jevson": {"generate": {"criteria": ["is short"]}}}
+    assert messages(obj(s=generated)) == [f"pattern {pattern!r} is not a valid regular expression"]
+    assert refusals(obj(s=generated)) == [("/s", RefusalCode.MALFORMED_SCHEMA)]
+
+
+TEXT = {"type": "string", "x-jevson": {"generate": {"criteria": ["is short"]}}}
+NAN, INF = float("nan"), float("inf")  # json.loads accepts NaN and Infinity, and Pydantic can emit them
+ORDINAL = {"type": "integer", "minimum": 1, "maximum": 5, "x-jevson": {"ordinal": True}}
+
+
+@pytest.mark.parametrize(
+    ("field", "known", "message"),
+    [
+        ({**TEXT, "maxLength": "5"}, None, "maxLength '5' is not of type 'integer'"),
+        ({**TEXT, "maxLength": "5"}, "abc", "maxLength '5' is not of type 'integer'"),
+        ({**TEXT, "minLength": -1}, None, "minLength -1 is less than the minimum of 0"),
+        ({**TEXT, "format": 5}, None, "format 5 is not of type 'string'"),
+        ({**ORDINAL, "multipleOf": 0}, None, "multipleOf 0 is less than or equal to the minimum of 0"),
+        ({**ORDINAL, "multipleOf": 0.0}, None, "multipleOf 0.0 is less than or equal to the minimum of 0"),
+        ({"enum": ["aaaa", "b"], "maxLength": "x"}, None, "maxLength 'x' is not of type 'integer'"),
+        ({"enum": [1, 2], "minimum": "a"}, None, "minimum 'a' is not of type 'number'"),
+        ({**TEXT, "pattern": "("}, None, "pattern '(' is not a valid regular expression"),
+        ({**TEXT, "pattern": 5}, None, "pattern 5 is not a valid regular expression"),
+        ({"enum": [1, 2, 3], "multipleOf": NAN}, None, "multipleOf must be a finite number, not nan"),
+        ({"enum": [1, 2, 3], "multipleOf": NAN}, 2, "multipleOf must be a finite number, not nan"),
+        ({**ORDINAL, "multipleOf": NAN}, 2, "multipleOf must be a finite number, not nan"),
+        ({**ORDINAL, "multipleOf": INF}, None, "multipleOf must be a finite number, not inf"),
+        ({**ORDINAL, "exclusiveMaximum": NAN}, None, "exclusiveMaximum must be a finite number, not nan"),
+        ({**ORDINAL, "minimum": -INF}, None, "minimum must be a finite number, not -inf"),
+    ],
+)
+def test_a_malformed_kept_keyword_is_refused_before_any_call(field: dict[str, Any], known: Any, message: str) -> None:
+    """Final validation (and known= preflight) would otherwise raise an untyped TypeError or ZeroDivisionError."""
+    schema = obj(f=field)
+    assert messages(schema) == [message]
+    assert refusals(schema) == [("/f", RefusalCode.MALFORMED_SCHEMA)]
+    backend, llm = FakeBackend(), ScriptedLLM(["okay"])
+    with pytest.raises(CompileError):
+        asyncio.run(Jevson(backend, llm=llm).aresolve(schema, "src", known=None if known is None else {"/f": known}))
+    assert backend.calls == []
+    assert llm.calls == []
 
 
 def test_default_extractor_turns_unbounded_fields_into_source_selection_dropped() -> None:

@@ -10,8 +10,12 @@ start for those outside every union, on selection for a branch's (its Pydantic t
 Known values for fields inside a branch are committed the same way, as `caller`.
 
 `known=` (DESIGN §8): a known value for a branch constant selects that branch without a decision,
-and must match exactly one branch's constant; a known value for a field inside a branch is used
-only when that branch is selected.
+and must match exactly one branch's constant, even where another branch decides that field (choosing
+among the branches its value leaves open is not supported, so it raises before any call, also when the
+deciding branch nests its own union at that pointer); a known value
+for a field inside a branch is used only when that branch is selected. A known value at a union's
+own pointer that no constant matches is a scalar branch's value (preflight checked it): it closes
+every branch of every union at that pointer, so nothing below the union is asked.
 """
 
 from __future__ import annotations
@@ -25,6 +29,8 @@ from jevson.graph import DecisionGraph
 from jevson.types import DecidedBy, Gates, JSONValue
 
 Gate = Literal["open", "closed", "unresolved", "pending"]
+_NO_BRANCH = ""
+"""What a discriminator 'selected' when a known scalar value replaced its union: no option has this id."""
 
 
 class Branches:
@@ -37,6 +43,12 @@ class Branches:
         for node in graph.nodes.values():
             if node.branch and node.target not in outside:
                 self.inside.setdefault(node.target, []).append(node.branch)
+        gated = [*(n.branch for n in graph.nodes.values()), *(c.branch for c in self.constants)]
+        discriminators = {d for gates in gated for d, _ in gates}
+        self.unions: dict[str, list[str]] = {}
+        """The discriminators of every union at a pointer (nested unions share it), by that pointer."""
+        for discriminator in sorted(discriminators):
+            self.unions.setdefault(graph.nodes[discriminator].target, []).append(discriminator)
         self.deferred = {p: v for p, v in known.items() if p in self.inside}
         """Known values for fields that exist only inside branches, committed if their branch runs."""
         for pointer, value in known.items():
@@ -65,12 +77,17 @@ class Branches:
 
     def _force(self, pointer: str, value: JSONValue) -> None:
         at = [c for c in self.constants if c.pointer == pointer]
-        if not at:
-            return  # a decided field; the façade has checked its value
         matching = [c for c in at if type(c.value) is type(value) and c.value == value]
-        if len(matching) != 1:
+        if len(matching) == 1:
+            self._select(matching[0].branch)
+        elif matching or any(not c.branch or c.branch[-1][0] not in self.unions.get(pointer, ()) for c in at):
+            # a constant whose own union sits elsewhere (an outer object union's tag) would replace the value
             found = "matches no" if not matching else "matches more than one"
             raise PreflightError(f"known= value for {pointer!r} {found} branch constant, so it selects no branch")
-        for discriminator, option in matching[0].branch:
+        else:  # a decided field (the façade has checked its value), or a scalar branch's value at a union
+            self._select(tuple((d, _NO_BRANCH) for d in self.unions.get(pointer, ())))
+
+    def _select(self, gates: Gates) -> None:
+        for discriminator, option in gates:
             if self.selected.setdefault(discriminator, option) != option:
                 raise PreflightError(f"known= values select two branches of {discriminator}")

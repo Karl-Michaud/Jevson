@@ -284,9 +284,9 @@ def test_transport_retries_and_cache_hits_are_counted_apart() -> None:
     assert sink.events == [
         CostEvent("decision", "f1", transport_retry=True, succeeded=False, estimated_input_tokens=estimate),
         CostEvent("decision", "f2", transport_retry=True, succeeded=False, estimated_input_tokens=estimate),
-        CostEvent("decision", "ok", 40, estimated_input_tokens=estimate),
-        CostEvent("decision", "old", cache_hit=True, estimated_input_tokens=estimate),
-    ]
+        CostEvent("decision", "ok", 40, estimated_input_tokens=estimate, model="m1"),
+        CostEvent("decision", "old", cache_hit=True, estimated_input_tokens=estimate, model="m2"),
+    ]  # a failed attempt names no model; each response names its own (R15)
 
 
 # --- state, budget and R13 ------------------------------------------------------------------
@@ -336,6 +336,20 @@ def test_each_node_is_budgeted_at_its_declared_size() -> None:
     with pytest.raises(PreflightError, match="/big"):
         run(graph, untouched, config=JevsonConfig(max_input_tokens=room), declared_size=huge)
     assert untouched.calls == []
+
+
+def test_an_oversized_node_in_a_later_level_raises_before_the_first_call() -> None:
+    """Preflight sizes every level, not only the first: no spend on level 0 when level 1 cannot fit."""
+    graph = DecisionGraph([flag("a"), flag("big", frozenset({"/a#predicate"}))])
+    small = budget.declared_tokens(flag("a"))
+
+    def huge(node: DecisionNode) -> int:
+        return 10**6 if node.target == "/big" else small
+
+    backend = FakeBackend(default=FakeBackend.predicate(0.9))
+    with pytest.raises(PreflightError, match="/big"):
+        run(graph, backend, config=JevsonConfig(max_input_tokens=10_000), declared_size=huge)
+    assert backend.calls == []
 
 
 POSITIONAL = re.compile(r"\[\d+\]")

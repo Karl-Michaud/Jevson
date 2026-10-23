@@ -21,8 +21,8 @@ classifiers = [
     "Typing :: Typed",
 ]
 # PLAN Phase 8's list, amended: rfc8785 builds the replay keys (PLAN §6 "Replay"). No extras: no LLM
-# adapter and no extractor ship in v0. `format` keywords stay unchecked unless the caller installs
-# jsonschema's format extras (`jsonschema[format]`) [L10].
+# adapter and no extractor ship in v0. `format` keywords that need jsonschema's format extras
+# (`jsonschema[format]`, e.g. date-time, uri) stay unchecked unless the caller installs them [L10].
 dependencies = [
     "httpx>=0.28.1",
     "jsonschema>=4.23",

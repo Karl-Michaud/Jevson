@@ -2,15 +2,18 @@
 
 Never a third outcome and never a partial graph: a returned graph means nothing anywhere in the
 schema was refused, and its nodes are exactly the decidable leaves. Two generators: the normaliser's
-adversarial one, and one over the supported subset where the expected nodes are known.
+adversarial one, and one over the supported subset where the expected nodes are known. A third
+mixes refusing leaves into that subset and checks the `CompileError` names exactly them.
 """
 
 from __future__ import annotations
 
+import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from jevson import CompileError, compile_schema
+from jevson import CompileError, RefusalCode, compile_schema
+from jevson.assemble.validation import validator
 from jevson.compile.normalise import normalise
 from jevson.compile.refusal import Refusals
 from jevson.graph import DecisionGraph
@@ -79,3 +82,68 @@ def test_the_supported_subset_always_compiles_to_exactly_its_decidable_leaves(
     assert [node.id for node in nodes] == expected
     asked = [(node.question, node.options) for node in nodes]
     assert len(set(asked)) == len(asked), "qualified labels keep every question distinct"
+
+
+refusing = st.sampled_from(
+    [
+        ({"type": "boolean", "description": "it holds"}, None),
+        ({"enum": ["a", "b"]}, None),
+        ({"const": 1}, None),
+        ({"type": "string"}, "unbounded_field"),
+        ({"enum": list(range(300))}, "enum_size"),
+        ({"type": "object"}, "dict_field"),
+        ({}, "any_field"),
+        ({"type": "string", "x-jevson": {"source": {}}}, "source_selection_dropped"),
+    ]
+)
+
+
+@st.composite
+def mixed(draw: st.DrawFn, depth: int = 0, prefix: str = "") -> tuple[dict[str, object], list[tuple[str, str]]]:
+    """A supported-subset object with refusing leaves mixed in, and the (pointer, reason) of each."""
+    properties: dict[str, object] = {}
+    bad: list[tuple[str, str]] = []
+    for name in draw(st.lists(st.sampled_from("abcd"), min_size=1, max_size=4, unique=True)):
+        if depth < 2 and draw(st.booleans()):
+            child, below = draw(mixed(depth + 1, f"{prefix}/{name}"))
+            properties[name] = child
+            bad += below
+        else:
+            field, code = draw(refusing)
+            if field.get("type") == "boolean":  # one statement per pointer keeps questions distinct
+                field = {**field, "description": f"the {prefix}/{name} flag holds"}
+            properties[name] = field
+            bad += [(f"{prefix}/{name}", code)] if code else []
+    return {"type": "object", "properties": properties, "required": list(properties)}, bad
+
+
+@DETERMINISTIC
+@given(mixed())
+def test_refusal_names_exactly_the_refusing_leaves_and_never_returns_a_partial_graph(
+    case: tuple[dict[str, object], list[tuple[str, str]]],
+) -> None:
+    schema, bad = case
+    if not bad:
+        compile_schema(schema)
+        return
+    with pytest.raises(CompileError) as caught:
+        compile_schema(schema)
+    assert sorted((r.pointer, str(r.reason)) for r in caught.value.reasons) == sorted(bad)
+
+
+STEPS = [1e-320, 1e-30, 0.1, 0.3, 0.7, 1, 2, 2.5, 7, 1e300]
+
+
+@DETERMINISTIC
+@given(st.integers(-30, 30), st.integers(0, 40), st.sampled_from(STEPS))
+def test_an_ordinal_compiles_to_exactly_the_levels_final_validation_accepts(low: int, span: int, step: float) -> None:
+    # Tiny and huge `multipleOf` included: 1e-30 broke a 28-digit decimal context, 1e-320 overflows in jsonschema.
+    keywords = {"type": "integer", "minimum": low, "maximum": low + span, "multipleOf": step}
+    accepted = tuple(v for v in range(low, low + span + 1) if validator(keywords).is_valid(v))
+    schema = {"type": "object", "properties": {"r": {**keywords, "x-jevson": {"ordinal": True}}}, "required": ["r"]}
+    if not 2 <= len(accepted) <= 10:
+        with pytest.raises(CompileError) as caught:
+            compile_schema(schema)
+        assert [r.reason for r in caught.value.reasons] == [RefusalCode.ORDINAL_LEVELS]
+        return
+    assert compile_schema(schema).nodes["/r#score"].values == accepted

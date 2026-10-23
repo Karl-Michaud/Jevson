@@ -60,6 +60,10 @@ RETRYABLE: dict[str, tuple[Handler, str]] = {
     "500": (lambda request: respond(SERVER, 500), "server_error"),
     "502 with an HTML body": (lambda request: respond(b"<html>Bad Gateway</html>", 502), "server_error"),
     "503": (lambda request: respond(SERVER, 503, {"retry-after": "1.5"}), "server_error"),
+    # A malformed Retry-After is ignored and the backoff applies (DESIGN §6.1).
+    "429 with Retry-After nan": (lambda request: respond(RATE, 429, {"retry-after": "nan"}), "rate_limited"),
+    "429 with Retry-After -1": (lambda request: respond(RATE, 429, {"retry-after": "-1"}), "rate_limited"),
+    "429 with Retry-After 1e309": (lambda request: respond(RATE, 429, {"retry-after": "1e309"}), "rate_limited"),
 }
 
 # Surfaced at once, never retried: (handler, code)
@@ -72,6 +76,8 @@ FINAL: dict[str, tuple[Handler, str]] = {
     "403": (lambda request: respond(BAD_KEY, 403), "permission"),
     "404": (lambda request: respond({"error": "not found"}, 404), "http_404"),
     "429 insufficient_quota": (lambda request: respond(QUOTA, 429), "quota"),
+    # The server asks for longer than the 30 s cap: surfaced, never retried early (DESIGN §6.1).
+    "429 with Retry-After beyond the cap": (lambda request: respond(RATE, 429, {"retry-after": "900"}), "rate_limited"),
     "undecodable content-encoding": (
         lambda request: httpx.Response(200, content=b"\x00garbage", headers={"content-encoding": "gzip"}),
         "unparseable_response",

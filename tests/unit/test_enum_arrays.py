@@ -165,6 +165,13 @@ def test_an_array_declaring_order_semantic_refuses() -> None:
     assert refusals(Semantic) == [("/topics", RefusalCode.SEMANTIC_ORDER)]
 
 
+def test_an_array_declaring_order_source_refuses_because_its_order_is_the_declared_enum_order() -> None:
+    class Source(BaseModel):
+        topics: list[Literal["a", "b"]] = Field(json_schema_extra={"x-jevson": {"order": "source"}})
+
+    assert refusals(Source) == [("/topics", RefusalCode.SOURCE_SELECTION_DROPPED)]
+
+
 def test_an_array_of_unbounded_items_refuses_with_source_selection_dropped_if_it_declares_a_source() -> None:
     class Unbounded(BaseModel):
         names: list[str]
@@ -261,8 +268,32 @@ def test_known_array_replaces_its_membership_questions() -> None:
 def test_oversized_enum_arrays_and_non_scalar_values_refuse() -> None:
     many = {"type": "array", "items": {"enum": [f"v{i}" for i in range(256)]}}
     mixed = {"type": "array", "items": {"enum": ["a", 1.5]}}
-    schema = {"type": "object", "properties": {"many": many, "mixed": mixed}, "required": ["many", "mixed"]}
-    assert refusals(schema) == [("/many", RefusalCode.ENUM_SIZE), ("/mixed", RefusalCode.ENUM_VALUE_TYPE)]
+    twice = {"type": "array", "items": {"enum": ["a", "b", "a"]}}
+    properties = {"many": many, "mixed": mixed, "twice": twice}
+    schema = {"type": "object", "properties": properties, "required": list(properties)}
+    assert refusals(schema) == [
+        ("/many", RefusalCode.ENUM_SIZE),
+        ("/mixed", RefusalCode.ENUM_VALUE_TYPE),
+        ("/twice", RefusalCode.INDISTINGUISHABLE_OPTIONS),
+    ]
+
+
+class NullableTopics(BaseModel):
+    topics: list[Literal["refund", "account"] | None] = Field(description="the topics the ticket raises")
+
+
+@pytest.mark.parametrize(
+    "items",
+    [
+        {"enum": ["refund", "account", None]},
+        {"anyOf": [{"enum": ["refund", "account"]}, {"type": "null"}]},
+    ],
+)
+def test_a_null_in_a_multi_label_items_enum_refuses_loudly(items: dict[str, object]) -> None:
+    # R14: a membership predicate cannot ask whether "null" is one of the values; never strip it silently.
+    schema = {"type": "object", "properties": {"topics": {"type": "array", "items": items}}, "required": ["topics"]}
+    assert refusals(schema) == [("/topics", RefusalCode.ENUM_VALUE_TYPE)]
+    assert refusals(NullableTopics) == [("/topics", RefusalCode.ENUM_VALUE_TYPE)]
 
 
 class Email(BaseModel):
@@ -338,7 +369,7 @@ def test_two_enum_arrays_with_one_label_are_scoped_by_their_ancestors() -> None:
 
 
 def test_the_membership_template_is_recorded_under_the_current_version() -> None:
-    assert QUESTION_TEMPLATE_VERSION == "1.1.0"
+    assert QUESTION_TEMPLATE_VERSION == "1.1.1"
     assert member_question(3, "levels") == 'According to the source, is "3" one of the levels?'
 
 

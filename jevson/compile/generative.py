@@ -4,7 +4,7 @@ A generative field compiles to the step `<pointer>#generate`, one criterion `pre
 `<pointer>#criterion:<i>` per declared criterion, and, when a rubric is declared, one `score`
 `<pointer>#rubric` over its levels; every adjudication node depends on the step, so it lands in the
 step's level and reads the draft at `drafts.<step id>` (DESIGN §5.2). A field with no criteria and
-no rubric is the step alone: its draft is admitted ungated (`no_criteria_declared`).
+no rubric is the step alone: its draft is admitted ungated (`decided_by = llm`, listed in `Result.ungated`).
 """
 
 from __future__ import annotations
@@ -22,6 +22,8 @@ def generative_nodes(
 ) -> tuple[StepNode | DecisionNode, ...]:
     """The step and its adjudication nodes, step first; ids use `id_pointer` (a union branch's
     qualified pointer, `unions.py`) when given."""
+    # Length (~47 lines, over the ~40 convention): the step, its criteria and its rubric are built in
+    # declared order against one step id, and each node depends on that step.
     named = id_pointer or pointer
     step_id = role_id(named, "generate")
     after = frozenset({step_id})

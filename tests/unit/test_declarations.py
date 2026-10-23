@@ -17,17 +17,20 @@ def parse(raw: object) -> tuple[FieldDeclaration | None, list[str]]:
 
 
 def test_a_full_valid_declaration_parses() -> None:
-    declaration, codes = parse({"question": "Is it paid?", "ordinal": True, "order": "source"})
+    declaration, codes = parse({"question": "Is it paid?", "ordinal": True})
     assert codes == []
-    assert declaration == FieldDeclaration(question="Is it paid?", ordinal=True, order="source")
+    assert declaration == FieldDeclaration(question="Is it paid?", ordinal=True)
     assert declaration.decides
 
 
-def test_order_alone_does_not_ask_for_a_decision() -> None:
+def test_order_source_refuses_because_nothing_in_v0_is_in_source_order() -> None:
+    # Source order is R7's rule for arrays of spans, which Phase 0r dropped with source selection;
+    # v0's enum arrays are in declared enum order, so the key would be accepted and never read.
     declaration, codes = parse({"order": "source"})
-    assert codes == []
+    assert codes == [RefusalCode.SOURCE_SELECTION_DROPPED]
     assert declaration is not None
     assert not declaration.decides
+    assert not hasattr(declaration, "order")
 
 
 @pytest.mark.parametrize(
@@ -40,6 +43,7 @@ def test_order_alone_does_not_ask_for_a_decision() -> None:
         ({"ordinal": "yes"}, RefusalCode.MALFORMED_DECLARATION),
         ({"order": "semantic"}, RefusalCode.SEMANTIC_ORDER),
         ({"order": "alphabetical"}, RefusalCode.MALFORMED_DECLARATION),
+        ({"order": None}, RefusalCode.MALFORMED_DECLARATION),
     ],
 )
 def test_bad_declarations_refuse_with_a_named_reason(raw: object, code: RefusalCode) -> None:
@@ -176,3 +180,20 @@ def test_refusal_codes_are_distinct_strings() -> None:
     assert len(values) == len(set(values))
     assert RefusalCode.NOT_YET_SUPPORTED != RefusalCode.SOURCE_SELECTION_DROPPED
     assert RefusalCode.TUPLE_FIELD == "tuple_field"
+
+
+@pytest.mark.parametrize("value", ["semantic", "source"])
+def test_an_order_refusal_never_recommends_declaring_an_order(value: str) -> None:
+    refusals = Refusals()
+    parse_declaration({"order": value}, "/f", refusals)
+    assert refusals.reasons
+    assert all("declare order" not in r.message for r in refusals.reasons)
+
+
+@pytest.mark.parametrize("value", ["alphabetical", None])
+def test_an_unknown_order_refusal_says_to_remove_the_key_not_to_pick_a_value_that_also_refuses(value: object) -> None:
+    refusals = Refusals()
+    parse_declaration({"order": value}, "/f", refusals)
+    assert [r.message for r in refusals.reasons] == [
+        "x-jevson.order has no value v0 accepts ('source' and 'semantic' both refuse); remove the key"
+    ]
