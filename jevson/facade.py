@@ -132,7 +132,11 @@ class Jevson:
             raise PreflightError("aresolve takes exactly one source, as a str")
         config = self._config if redraft_budget is None else replace(self._config, redraft_budget=redraft_budget)
         graph = compile_schema(
-            schema, frozenset(self._extractors), config.default_extractor, union_fanout=config.union_fanout
+            schema,
+            frozenset(self._extractors),
+            config.default_extractor,
+            union_fanout=config.union_fanout,
+            criterion_template=config.criterion_template,
         )
         normalised = normalise_schema(schema)
         fields = _fields(normalised)

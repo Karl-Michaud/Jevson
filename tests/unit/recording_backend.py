@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Callable, Mapping, Sequence
+from typing import Any
 
 from jevson.compile.compiler import compile_schema
 from jevson.errors import BackendError
@@ -46,18 +47,20 @@ class Recorder:
         return BackendResponse(answers, 10, f"r{len(self.calls)}", "recorder")
 
 
-def decision_nodes(schema: object, *, union_fanout: bool = True) -> dict[Key, DecisionNode]:
-    """Every decision node of `schema`'s graph, by the text and options of its question."""
-    graph = compile_schema(schema, union_fanout=union_fanout)
+def decision_nodes(schema: object, **options: Any) -> dict[Key, DecisionNode]:
+    """Every decision node of `schema`'s graph, by the text and options of its question; `options` are
+    `compile_schema`'s keywords (`union_fanout`, `criterion_template`)."""
+    graph = compile_schema(schema, **options)
     return {(n.question, n.options): n for n in graph.nodes.values() if isinstance(n, DecisionNode)}
 
 
-def draft_reads(schema: object, *, union_fanout: bool = True) -> dict[Key, str | None]:
-    """Each question of `schema`'s graph -> the drafting step it adjudicates, or None if it is bounded."""
-    graph = compile_schema(schema, union_fanout=union_fanout)
+def draft_reads(schema: object, **options: Any) -> dict[Key, str | None]:
+    """Each question of `schema`'s graph -> the drafting step it adjudicates, or None if it is bounded;
+    `options` are `compile_schema`'s keywords, as for `decision_nodes`."""
+    graph = compile_schema(schema, **options)
     drafted = {n.id for n in graph.nodes.values() if isinstance(n, StepNode) and n.drafting is not None}
     reads: dict[Key, str | None] = {}
-    for k, node in decision_nodes(schema, union_fanout=union_fanout).items():
+    for k, node in decision_nodes(schema, **options).items():
         read = sorted(node.dependencies & drafted)
         reads[k] = read[0] if read else None
     return reads

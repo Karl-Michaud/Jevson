@@ -311,7 +311,11 @@ def test_a_failed_adjudication_request_keeps_the_billed_bounded_answers_in_the_p
     assert list(partial.decisions) == ["/mood#choice@0"]
 
 
-READS = draft_reads(MOOD) | draft_reads(Review) | draft_reads(wide(5, 3))
+OPTIONS: list[dict[str, Any]] = [{"criterion_template": "1.2.0"}]
+"""The opt-in adjudication options of ASTERION-48 (DESIGN §5.2, §6.3), as `JevsonConfig` and
+`compile_schema` keywords."""
+SCHEMAS: list[object] = [MOOD, Review, wide(5, 3)]
+READS = {k: v for schema in SCHEMAS for options in [{}, *OPTIONS] for k, v in draft_reads(schema, **options).items()}
 
 
 # --- replay -----------------------------------------------------------------------------------------
@@ -325,3 +329,17 @@ def test_replay_reads_the_separated_requests_back_exactly(tmp_path: Path) -> Non
     assert second.value["mood"] == "angry"
     assert (second.cost.cache_hits, second.cost.decision_requests) == (2, 0)
     assert len(list(tmp_path.glob("*.json"))) == 2
+
+
+# --- the opt-in adjudication options (ASTERION-48) ---------------------------------------------------
+
+
+@pytest.mark.parametrize("options", OPTIONS, ids=["template 1.2.0"])
+@pytest.mark.parametrize("fanout", [True, False], ids=["fan-out", "level-by-level"])
+def test_the_isolation_invariant_holds_under_the_adjudication_options(options: dict[str, Any], fanout: bool) -> None:
+    backend = recorder()
+    result = run(Review, backend, drafts=["First.", "Second."], union_fanout=fanout, **options)
+    check_isolation(backend.calls)
+    assert result.complete
+    asked = [q for _, questions in backend.calls for q in questions]
+    assert sum(adjudicates(q) for q in asked) == 4

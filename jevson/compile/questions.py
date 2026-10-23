@@ -30,12 +30,18 @@ because it changes no existing question: it is docs/taxonomy.md §1.2's array me
 with the candidate reference (`candidates.{cid}`) replaced by the declared value, quoted as an enum
 option is, and the bool template's "According to the source" lead. Each value's question names its
 value, so the predicates of one array never share a question.
+
+An opt-in adjudication template is added under 1.1.1, the current version, for the same reason
+(ASTERION-48, DESIGN §5.2): criterion template 1.2.0, selected through `CRITERION_TEMPLATES` by
+`JevsonConfig.criterion_template` (recorded as `versions["criterion_template"]`). `"1.1.0"` and
+`"1.2.0"` name versions of the criterion template alone. Changing the text of any shipped template,
+this one included, bumps `QUESTION_TEMPLATE_VERSION`.
 """
 
 from __future__ import annotations
 
 from collections import Counter
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
 from jevson.compile.normalise import SchemaNode
@@ -51,9 +57,16 @@ ORDINAL_INSTRUCTIONS = "Which level best describes the {label}?"
 UNION_INSTRUCTIONS = "Which of these does the source describe as the {label}?"
 MEMBER_INSTRUCTIONS = 'According to the source, is "{value}" one of the {label}?'
 CRITERION_INSTRUCTIONS = "Does `drafts.{node}` meet this criterion: {criterion}?"
+CRITERION_INSTRUCTIONS_1_2_0 = (
+    "Judging only from the facts that `drafts.{node}` states about the source, does it meet this criterion: "
+    "{criterion}?"
+)
 RUBRIC_INSTRUCTIONS = "Which level best describes `drafts.{node}` against this rubric: {rubric}?"
 GENERATE_PROMPT = "Write the {label} for the source below. {instructions}Return only the value."
 REDRAFT_PROMPT = "That draft does not meet these criteria: {criteria}. Write the {label} again. Return only the value."
+
+CRITERION_TEMPLATES: Mapping[str, str] = {"1.1.0": CRITERION_INSTRUCTIONS, "1.2.0": CRITERION_INSTRUCTIONS_1_2_0}
+"""The criterion template of each `criterion_template` version (opt-in, DESIGN §5.2)."""
 
 _ARTICLES = ("the ", "a ", "an ")
 _CONJUNCTIONS = ("whether ", "if ")
@@ -141,8 +154,9 @@ def member_question(value: JSONValue, label: str) -> str:
     return MEMBER_INSTRUCTIONS.format(value=value, label=label)
 
 
-def criterion_question(node: str, criterion: str) -> str:
-    return CRITERION_INSTRUCTIONS.format(node=node, criterion=_trim(criterion))
+def criterion_question(node: str, criterion: str, template: str) -> str:
+    """A criterion's question in criterion template version `template` (a key of `CRITERION_TEMPLATES`)."""
+    return CRITERION_TEMPLATES[template].format(node=node, criterion=_trim(criterion))
 
 
 def rubric_question(node: str, rubric: str) -> str:

@@ -567,3 +567,16 @@ def test_the_dry_run_runs_criteria_against_the_fake_backend_with_no_key(monkeypa
     assert asyncio.run(dry_run(schema({}), "/summary", "x")).questions == ()
     with pytest.raises(UsageError):
         asyncio.run(dry_run(declared, "/nope", "x"))
+
+
+# --- criterion template 1.2.0 (DESIGN §5.2; ASTERION-48) ---------------------------------------------
+
+
+def test_dry_run_with_options() -> None:
+    declared = schema({"criteria": CRITERIA, "rubric": RUBRIC})
+    newer = asyncio.run(dry_run(declared, "/summary", "x", config=JevsonConfig(criterion_template="1.2.0")))
+    assert newer.questions[0] == (
+        "Judging only from the facts that `drafts./summary#generate` states about the source, does it meet this "
+        "criterion: mentions the refund amount stated in the source?"
+    )
+    assert newer.failing == ()

@@ -173,10 +173,31 @@ POSITIONAL = re.compile(r"\[\d+\]")
         questions.option_description("X"),
         questions.union_question("X"),
         questions.member_question("X", "Y"),
-        questions.criterion_question("/x#generate", "X"),
+        questions.criterion_question("/x#generate", "X", "1.1.0"),
+        questions.criterion_question("/x#generate", "X", "1.2.0"),
         questions.rubric_question("/x#generate", "X"),
     ],
 )
 def test_templates_add_no_negation_and_no_positional_reference(rendered: str) -> None:
     assert not NEGATION.search(rendered)
     assert not POSITIONAL.search(rendered)
+
+
+# --- the opt-in adjudication templates (DESIGN §5.2, §6.3; ASTERION-48) ----------------------------
+
+
+def test_criterion_template_1_2_0_golden() -> None:
+    assert questions.criterion_question("/s#generate", "The draft mentions X.", "1.2.0") == (
+        "Judging only from the facts that `drafts./s#generate` states about the source, "
+        "does it meet this criterion: The draft mentions X?"
+    )
+    assert (
+        questions.criterion_question("/s#generate", "The draft mentions X.", "1.1.0")
+        == "Does `drafts./s#generate` meet this criterion: The draft mentions X?"
+    )
+    assert questions.CRITERION_TEMPLATES["1.1.0"] is questions.CRITERION_INSTRUCTIONS
+
+
+def test_the_opt_in_adjudication_templates_are_recorded_in_taxonomy_md() -> None:
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    assert questions.CRITERION_INSTRUCTIONS_1_2_0 in doc

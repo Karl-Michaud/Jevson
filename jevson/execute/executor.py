@@ -173,6 +173,7 @@ class _Run:
             "default_extractor": config.default_extractor or "none",
             "redraft_budget": str(config.redraft_budget),
             "union_fanout": str(config.union_fanout).lower(),
+            "criterion_template": config.criterion_template,
         }
         if self.llm_models:
             versions["llm_model"] = ",".join(self.llm_models)  # an id that contains "," reads as two
