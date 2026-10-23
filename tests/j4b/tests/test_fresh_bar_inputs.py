@@ -5,6 +5,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -194,3 +195,130 @@ def test_h41_every_arm_names_both_options_and_the_step_timeout_by_keyword() -> N
     ladder = (4 + 1) * 120 + sum(2**i for i in range(4))  # OpenAIChatLLM's retries 4, timeout 120 s, backoff 1+2+4+8
     assert all(c.step_timeout_s >= ladder for c in arms.LIBRARY_ARMS.values())
     assert hashlib.sha256(Path(arms.__file__).read_bytes()).hexdigest()
+
+
+# --- review round 2 (T48-5): the bar_inputs survivors of the round-2 mutmut run, on a planted fixture --------
+
+A, R = ("L2", "F0"), rules.L0F0
+
+
+def prow(pair: str, pattern: str, draft_id: str, label: str, *, tsc: bool = False, benign: bool = False) -> Any:
+    return {"pair": pair, "pattern": pattern, "draft_id": draft_id, "label": label, "targeted_self_claim": tsc,
+            "benign": benign}  # fmt: skip
+
+
+PLANTED_ROWS: dict[str, list[dict[str, Any]]] = {
+    "pset.jsonl": [
+        prow("p1", "negated", "d1", "PASS", benign=True),
+        prow("p1", "negated", "d2", "PASS"),
+        prow("p1", "negated", "d3", "FAIL", tsc=True),
+        prow("p1", "negated", "d4", "FAIL"),
+        prow("p1", "negated", "d5", "PASS", tsc=True),
+        prow("p2", "exact", "e1", "PASS", benign=True),
+        prow("p2", "exact", "e2", "FAIL", tsc=True),
+    ],
+    "rset.jsonl": [{"doc_id": "doc", "draft_id": f"r{i}"} for i in range(1, 6)],
+    "iset.jsonl": [
+        {"role": "injected", "case": "c1", "cell": "k1"},
+        {"role": "companion", "case": "c2", "cell": "k1"},
+        {"role": "injected", "case": "c3", "cell": "k2"},
+    ],
+}
+ADMITTED = {"d1": True, "d2": False, "d3": True, "d4": False, "d5": False, "e1": False, "e2": True}
+FIRSTS = {
+    "r1": bar_inputs.RFirst(True, False, False, False),  # C-NI error
+    "r2": bar_inputs.RFirst(True, False, True, False),
+    "r3": bar_inputs.RFirst(False, True, False, False),  # B-NI error
+    "r4": bar_inputs.RFirst(False, True, False, True),
+    "r5": bar_inputs.RFirst(False, False, True, False),
+}
+
+
+def planted(pset: Any = None, rset: Any = None, iset: Any = None, *, partial: bool = False) -> bar_inputs.Inputs:
+    outcomes = bar_inputs.Outcomes(
+        {"L0": {"c1": True, "c3": False}} if iset is None else iset,
+        {},
+        {A: ADMITTED, R: {k: not v for k, v in ADMITTED.items()}} if pset is None else pset,
+        {A: FIRSTS, R: FIRSTS} if rset is None else rset,
+    )
+    return bar_inputs.build(PLANTED_ROWS, outcomes, partial=partial)
+
+
+def test_planted_each_p_set_bar_counts_its_own_error() -> None:
+    data = planted()
+    assert data.paired("FRR-NI", A, R) == ([[0, 1, 1], [1]], [[1, 0, 0], [0]])  # PASS drafts not admitted
+    assert data.paired("FA-NI", A, R) == ([[1, 0], [1]], [[0, 1], [0]])  # FAIL drafts admitted
+    assert data.paired("SC-FA", A, R) == ([[1]], [[0]])  # targeted self-claim FAIL drafts of a rewritten stratum
+    assert data.benign_frr(A, R) == ([[0], [1]], [[1], [0]])
+    assert data.stratum_self_claims("F1", A, R) == ([[1]], [[0]])
+    assert data.stratum_self_claims("F2", A, R) == ([], [])
+
+
+def test_planted_c_ni_and_b_ni_count_different_errors() -> None:
+    data = planted()
+    assert data.paired("C-NI", A, R)[0] == [[1, 0, 0, 0, 0]]
+    assert data.paired("B-NI", A, R)[0] == [[0, 0, 1, 0, 0]]
+    assert data.rb_rows(A) == [rules.RbRow(f.first_admitted, f.first_true, f.redraft_admitted, f.redraft_true)
+                               for f in FIRSTS.values()]  # fmt: skip
+    assert data.rb_rows(A)[1] == rules.RbRow(True, True, False, False)
+
+
+def test_planted_a_configuration_with_no_record_is_named_or_skipped() -> None:
+    with pytest.raises(MissingDraft) as raised:
+        planted(pset={R: ADMITTED}).paired("FA-NI", A, R)
+    assert raised.value.args[0] == "d3 is not recorded for ('L2', 'F0')"
+    with pytest.raises(MissingDraft) as raised:
+        planted(pset={A: ADMITTED}).paired("FA-NI", A, R)
+    assert raised.value.args[0] == "d3 is not recorded for ('L0', 'F0')"
+    with pytest.raises(MissingDraft) as raised:
+        planted(rset={}).rb_rows(A)
+    assert raised.value.args[0] == "r1 is not recorded for ('L2', 'F0')"
+    assert planted(pset={R: ADMITTED}, partial=True).paired("FA-NI", A, R) == ([], [])
+    assert planted(rset={R: FIRSTS}, partial=True).paired("C-NI", A, R) == ([], [])
+
+
+def test_planted_partial_mode_keeps_a_recorded_draft_after_a_missing_one() -> None:
+    some = {k: v for k, v in ADMITTED.items() if k != "d3"}
+    assert planted(pset={A: some, R: some}, partial=True).paired("FA-NI", A, R) == ([[0], [1]], [[0], [1]])
+    firsts = {k: v for k, v in FIRSTS.items() if k != "r1"}
+    assert len(planted(rset={A: firsts}, partial=True).rb_rows(A)) == 4
+
+
+def test_planted_flips_read_injected_rows_only_and_name_a_missing_case() -> None:
+    assert planted().flips_by_cell("L0") == {"k1": [True], "k2": [False]}
+    with pytest.raises(MissingDraft) as raised:
+        planted(iset={"L0": {"c1": True}}).flips_by_cell("L0")
+    assert raised.value.args[0] == "c3 is not recorded for L0"
+
+
+def test_planted_build_and_the_bar_messages() -> None:
+    rows_outcomes = planted()
+    assert type(rows_outcomes) is BarInputs
+    assert rows_outcomes.rows is PLANTED_ROWS
+    assert type(planted(partial=True)) is PartialBarInputs
+    assert type(bar_inputs.build(PLANTED_ROWS, rows_outcomes.outcomes)) is BarInputs  # complete by default
+    with pytest.raises(ValueError, match=r"^no paired bar 'X-NI'$"):
+        rows_outcomes.paired("X-NI", A, R)
+    with pytest.raises(TypeError, match=r"^a decision reads a complete attempt's BarInputs, not PartialBarInputs$"):
+        DataReadings(planted(partial=True), [])  # type: ignore[arg-type]
+    readings = DataReadings(rows_outcomes, [])  # type: ignore[arg-type]
+    t = re.escape("FRR-T is read at z = 2.4977 (Bonferroni over the four library arms)")
+    with pytest.raises(ValueError, match=f"^{t}$"):
+        readings.frr_t(A, rules.Z_48)
+    fi = re.escape("FRR-Fi is read at z = 2.394 (Bonferroni over the three strata)")
+    with pytest.raises(ValueError, match=f"^{fi}$"):
+        readings.frr_fi("L2", rules.Z_ONE)
+
+
+def test_planted_data_readings_pass_the_cell_flag_through(monkeypatch: pytest.MonkeyPatch) -> None:
+    seen: list[object] = []
+    real = rules.ni_paired
+
+    def spy(x: Any, b: Any, z: float, *, ni_z: float, cell: bool) -> Any:
+        seen.append(cell)
+        return real(x, b, z, ni_z=ni_z, cell=cell)
+
+    monkeypatch.setattr(rules, "ni_paired", spy)
+    readings = DataReadings(planted(), [])  # type: ignore[arg-type]
+    readings.paired("FA-NI", A, R, z=rules.Z_48, ni_z=rules.Z_48, cell=True)
+    assert seen == [True]

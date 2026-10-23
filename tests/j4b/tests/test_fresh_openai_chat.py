@@ -4,6 +4,7 @@ FEAS48-R5-1, FEAS48-R5-3, FEAS48-R8-4; plan §11 D17). Every request goes to an 
 from __future__ import annotations
 
 import asyncio
+import dataclasses
 import json
 from collections.abc import Callable
 from pathlib import Path
@@ -16,7 +17,8 @@ from jevson import BackendError, DecisionsBackend, FakeBackend, Jevson, JevsonCo
 from jevson.compile.questions import redraft_prompt
 from jevson.execute.drafting import malformed
 from jevson.llm.replay import replay_key
-from jevson.types import Message
+from jevson.types import LLMResponse, Message
+from tests.integration import openai_chat
 from tests.integration.openai_chat import OpenAIChatLLM
 from tests.j4b.fresh.constants import NANO, PRICE
 from tests.j4b.fresh.metering import MeteredTransport, request_bound
@@ -258,3 +260,82 @@ def test_h18_11_a_lone_surrogate_is_a_malformed_draft_whose_redraft_is_keyable_a
     redraft = [Message(m["role"], m["content"]) for m in sent[1]["messages"]]
     assert replay_key("m", redraft, TOOL) is not None
     assert redraft[-1].content == redraft_prompt("summary", [malformed(4000)])
+
+
+# --- review round 2 (T48-5): the openai_chat survivors of the round-2 mutmut run ---------------------------
+
+
+def test_each_post_carries_the_bearer_key_and_the_120_second_timeout() -> None:
+    seen: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request)
+        return httpx.Response(200, json=completion())
+
+    asyncio.run(OpenAIChatLLM("sk-x", transport=httpx.MockTransport(handler)).complete(MESSAGES, TOOL))
+    [request] = seen
+    assert request.headers["Authorization"] == "Bearer sk-x"
+    assert request.extensions["timeout"] == {"connect": 120, "read": 120, "write": 120, "pool": 120}
+
+
+def test_on_attempt_is_told_before_and_after_each_post_with_its_status() -> None:
+    calls: list[tuple[str, int | None]] = []
+    replies = iter(
+        [httpx.ConnectError("down"), httpx.Response(500, text="busy"), httpx.Response(200, json=completion())]
+    )
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        reply = next(replies)
+        if isinstance(reply, Exception):
+            raise reply
+        return reply
+
+    client = OpenAIChatLLM(
+        "k", transport=httpx.MockTransport(handler), sleep=Sleeps(), on_attempt=lambda s, c: calls.append((s, c))
+    )
+    asyncio.run(client.complete(MESSAGES, TOOL))
+    assert calls == [
+        ("before", None),
+        ("after", None),
+        ("before", None),
+        ("after", 500),
+        ("before", None),
+        ("after", 200),
+    ]
+
+
+@pytest.mark.parametrize("status", [404, 430])
+def test_a_non_retryable_status_raises_at_once_with_the_first_300_characters(status: int) -> None:
+    sent: list[int] = []
+    sleeps = Sleeps()
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        sent.append(1)
+        return httpx.Response(status, text="e" * 400)
+
+    client = OpenAIChatLLM("k", transport=httpx.MockTransport(handler), sleep=sleeps)
+    with pytest.raises(RuntimeError) as raised:
+        asyncio.run(client.complete(MESSAGES, TOOL))
+    assert str(raised.value) == f"chat completions HTTP {status}: {'e' * 300}"
+    assert (len(sent), sleeps.waits) == (1, [])
+
+
+def test_parse_reads_missing_usage_and_content_as_zero_and_empty() -> None:
+    parsed = OpenAIChatLLM("k").parse({"model": "m", "choices": [{"message": {"content": None}}]})
+    assert parsed == LLMResponse(None, "", 0, 0, model="m")
+
+
+def test_parse_fills_model_when_llm_response_has_the_field(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Pins `parse()`'s field check independently of the base's `LLMResponse`, with a stand-in type."""
+
+    @dataclasses.dataclass(frozen=True)
+    class WithModel:
+        arguments: Any
+        raw: str
+        input_tokens: int
+        output_tokens: int
+        model: str | None = None
+
+    monkeypatch.setattr(openai_chat, "LLMResponse", WithModel)
+    parsed = OpenAIChatLLM("k").parse(completion(model="gpt-x"))
+    assert parsed == WithModel({"value": "A refund of $40."}, '{"value": "A refund of $40."}', 20, 8, "gpt-x")
