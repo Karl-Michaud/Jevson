@@ -2,7 +2,7 @@
 
 > **Status:** Planning document, Revision 11.6, 2026-10-20 (Phases 1–4 exit criteria checked against the built code, ASTERION-44; Revision 11, 2026-10-14, the fallback scope). **v0 as built, not released:** Phases 1–4, 6 and 7 and the Phase 8 package are merged on `staging` (ASTERION-24 to ASTERION-39) and their exit criteria are ticked with their proofs, except: the **injection regression** (Phase 4, **not met**, tracked in ASTERION-48, which fixes it inside v0; owner decision, 2026-10-19); the **redraft bar** (Phase 4, **not met**, tracked in ASTERION-58: the decision model over-rejects; only its labeller is an owner-signed-off deviation, model labels in place of human labels, 2026-10-19, ASTERION-46 decision 2, never validated against human labels); and the package name (Phase 8, PLAN §6). Phase 0's probe 8 partial-only set (17 of 50) is accepted as an owner-signed-off deviation (2026-10-19, ASTERION-46 decision 1). The backend is the **OpenAI Decisions API** (`gpt-6-luna`), which replaced Jev on 2026-10-14 (PLAN §6); Phase 0 ran on `jev-1.13.0` and **Phase 0r** re-ran its probes on the Decisions API and confirmed **drop source selection** **[Q1–Q9]**, so v0 is **the fallback product** (DESIGN §10.1). Phase 5 is abandoned and kept as the record; everything class D (source selection) is a tracked deferral (PLAN §9). Not yet released: the two Phase 4 bars above are not met, CI on GitHub is pending (ASTERION-42), and the release is ASTERION-45.
 >
-> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 11.6. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** and **Z** tag was measured on `jev-1.13.0`.
+> **Scope:** How Jevson gets built, in phases, with deliverables and testable exit criteria. The architecture it implements is [`DESIGN.md`](DESIGN.md) Revision 11.7. **References are written `DESIGN §n` or `PLAN §n`**; a bare `§` never appears. Evidence tags such as **[P3]** or **[D1]** resolve in [`docs/EVIDENCE.md`](EVIDENCE.md); every **P** and **Z** tag was measured on `jev-1.13.0`.
 >
 > **Rule numbers** (R1–R16) refer to `DESIGN §7`.
 
@@ -59,6 +59,7 @@ jevson/
   facade.py             Jevson: resolve / aresolve; wires compiler, executor, assembler
   probabilities.py      integer hundredths, sum tolerance, tie margin (DESIGN §2.1, DESIGN §6.2)
   config.py             JevsonConfig: tie margin, caps, budgets (entity-resolution settings arrive post-v0, PLAN §9.1)
+  checks.py             Check and CheckRule: what an adjudication node tests, by which pass rule
   unicode/              deferred with class D (PLAN §9), not in v0:
     graphemes.py        UAX #29 boundaries from a vendored, generated table (DESIGN §5.9)
     tables/             generated table + the Unicode version it came from
@@ -72,7 +73,8 @@ jevson/
     nodes.py            node ids from target instance pointers + role suffix
     refusal.py          loud refusal with every offending pointer (R14)
     unions.py           anyOf/oneOf with >= 2 non-null branches -> discrimination node
-    generative.py       x-jevson.generate -> generate step + criterion nodes
+    generative.py       x-jevson.generate -> generate step + criterion nodes, optional rubric, opt-in #screen predicate
+    draft_screen.py     opt-in draft self-claim screen: compile half (DESIGN §6.3)
 
   extract/              deferred with class D (PLAN §9), not in v0:
     spans.py            Span construction; substring + grapheme-boundary verification
@@ -106,9 +108,10 @@ jevson/
     parse.py            deferred with class D: class F on a selected span: money, number, date
 
   adjudicate/
-    criteria.py         declared criteria -> predicate batch
+    criteria.py         declared criteria -> predicate batch, and PassRule/PASS_RULES, the pass rule of each check rule
     rubrics.py          rubric -> score, value = most probable level
     dryrun.py           criteria dry-run tool
+    draft_screen.py     opt-in draft self-claim screen: pass rule, fails at p >= 0.45 (DESIGN §6.3)
 
   screen.py             deferred with class D: opt-in source screen (DESIGN §5.8)
   result.py             Result (DESIGN §8.1)

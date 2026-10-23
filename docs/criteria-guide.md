@@ -46,7 +46,8 @@ summary: str = Field(json_schema_extra={"x-jevson": {"generate": {
   question does, so the draft is never input to a bounded field.
 - A criterion passes at p ≥ 0.56. A criterion inside the tie margin (0.45–0.55), refused, or answered
   invalidly **fails**. A rubric whose top levels tie across the minimum fails.
-- A failed draft is rejected (`Result.rejections` names the criteria and the draft) and redrafted once
+- A failed draft is rejected (`Result.rejections` names the failing checks, which are the criteria,
+  the rubric, or the draft screen's text when `draft_screen` is on, and the draft) and redrafted once
   by default (`redraft_budget`), with the failing criteria passed back to your LLM. An identical
   redraft is not judged again, and still spends the budget. When the budget is spent, the field is
   `Unresolved(redraft_exhausted)`.

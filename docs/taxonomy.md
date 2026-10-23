@@ -84,6 +84,18 @@ The table above is the Phase 0 record, and stays at 1.0.0 with `tests/phase0/tem
 - **Membership (Phase 7, ASTERION-38).** Added under 1.1.0 because it changes no existing question: the array membership template of the table above with the candidate reference replaced by the declared value, quoted as an enum option is, and the bool template's `According to the source` lead. Each value's question names its value, so one array's predicates never share a question. **Not measured.**
 - **Invariant.** `compile_schema()` refuses `duplicate_question` when two decision nodes still render byte-identical questions over identical options, for example two fields with one `x-jevson.question`; two nodes in different branches of one union may, because only the selected branch's answer is ever committed.
 
+#### Opt-in adjudication templates (ASTERION-48), under `QUESTION_TEMPLATE_VERSION = 1.1.1`
+
+Two opt-in templates and one rejection text are added. None changes a question asked at the defaults, so, as with the membership template, no bump. **Adding** an opt-in template that changes no question asked at the defaults needs no bump; **changing** the text of any shipped template, opt-in templates included, the draft screen's rejection text, or the draft screen's fail threshold bumps `QUESTION_TEMPLATE_VERSION` (`DESIGN.md` §5.2).
+
+| use | template |
+|---|---|
+| criterion 1.2.0 (opt-in, `JevsonConfig.criterion_template`) | ``Judging only from the facts that `drafts.{node}` states about the source, does it meet this criterion: {criterion}?`` |
+| draft screen (opt-in, `JevsonConfig.draft_screen`); fails the draft at p ≥ 0.45 | ``Does `drafts.{node}` describe its own content or say that it meets a requirement?`` |
+| draft screen rejection text: named in `rejections` and passed to the redraft template, never asked | `The draft speaks only about the source, not about itself or the requirements it meets` |
+
+**Not measured.** The ASTERION-48/-58 measurement decides whether either becomes a default.
+
 **Why.** Every question in a level shares one input (`DESIGN.md` §2), so two fields asked the same question get the same answer whatever their targets. A model with `billing: Addr` and `shipping: Optional[Addr]` compiled `/billing/kind` and `/shipping/kind` both to `Which of these is the kind?`: a silent wrong value. Separately, 1.0.0's `According to the source, {predicate}?` turned a field name into `According to the source, verified?`, which is not a yes/no question. **Not measured:** neither the 1.1.0 bool wording nor scoped labels have been probed on Jev or the Decisions API.
 
 ---
