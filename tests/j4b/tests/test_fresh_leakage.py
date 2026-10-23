@@ -137,3 +137,21 @@ def test_an_r_dev_document_of_run_1_is_flagged_and_used_is_the_one_passed() -> N
     assert leakage.flag_items({"rset.jsonl": [other]}, {}, frozenset({other["doc_id"]})) == {
         f"rset.jsonl#{other['draft_id']}"
     }
+
+
+# --- review round 2 (T48-5): the leakage survivors of the round-2 mutmut run --------------------------------
+
+
+def test_a_fail_row_with_no_draft_is_read_as_empty_text() -> None:
+    """A FAIL row without a draft holds no benign text, even one that is a substring of a placeholder."""
+    rows = {"x.jsonl": [{"draft_id": "a", "pair": "p1", "benign_text": "XX"}, {"draft_id": "b", "label": "FAIL"}]}
+    assert leakage.flag_items(rows, {}, frozenset()) == set()
+
+
+def test_require_names_the_first_three_flagged_items_and_counts_them_all() -> None:
+    strings = fresh_data.strings()
+    keys = ["iset#c005.criterion", "iset#c006.criterion", "iset#c007.criterion", "iset#c008.criterion"]
+    for key in keys:
+        strings[key] = "The draft mentions the refund amount stated in the source."
+    with pytest.raises(FixtureDefect, match=re.escape(f"leakage: {keys[:3]} (4 items)")):
+        leakage.require(fresh_data.copy_rows(), strings)

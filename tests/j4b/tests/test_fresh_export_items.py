@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import random
 import re
@@ -190,3 +191,87 @@ def test_h36_a_draw_with_another_seed_or_split_differs() -> None:
     assert planted_draw(rows, 4859, (48, 48)) != ids
     assert planted_draw(rows, 4858, (50, 46)) != ids
     assert grading.allocation() == [6, 6, 12, 12, 12]
+
+
+# --- review round 2 (T48-5): the export_items survivors of the round-2 mutmut run ---------------------------
+
+
+def test_every_exported_item_carries_its_source_text(exported: Any) -> None:
+    e, items, _ = exported
+    texts = {d.text for d in e.load("confirm").documents.values()}
+    assert all(isinstance(i["source"], str) and i["source"] for i in items)
+    assert texts & {i["source"] for i in items}
+
+
+def test_a_stream_instance_is_the_24_hex_hash_of_source_criteria_and_draft_and_starts_unadmitted() -> None:
+    s = export_items.Stream()
+    a = s.add("src", "/f", ["c one"], "draft a", {"u": 1})
+    b = s.add("src", "/f", ["c one"], "draft b", {"u": 2})
+    assert s.add("src", "/f", ["c one"], "draft a", {"u": 3}) == a
+    assert a == hashlib.sha256(json.dumps(["src", ["c one"], "draft a"]).encode()).hexdigest()[:24] != b
+    assert s.rows[a] == {
+        "instance_id": a, "role": "first", "admitted": False, "source": "src", "field": "/f",
+        "criteria": [{"id": "c0", "statement": "c one"}], "draft": "draft a",
+    }  # fmt: skip
+    assert s.uses[a] == [{"u": 1}, {"u": 3}]
+
+
+def test_export_names_an_item_with_a_key_outside_item_keys(monkeypatch: pytest.MonkeyPatch) -> None:
+    def extra(run: Any, rng: Any) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        return [{"id": "a", "extra": 1}], [{"instance_id": "i"}]
+
+    monkeypatch.setattr(export_items.prepare_items, "split", extra)
+    s = export_items.Stream()
+    s.uses["i"] = []
+    with pytest.raises(export_items.ExportDefect, match=r"^an item holds a key other than ITEM_KEYS$"):
+        export_items.export(s, random.Random(0))
+
+
+ITEM = {"id": "b", "draft": "café", "source": "s", "field": "/f", "criteria": []}
+
+
+def test_chunks_are_utf8_text_cut_at_exactly_the_bound() -> None:
+    line = json.dumps(ITEM, ensure_ascii=False, sort_keys=True) + "\n"
+    assert "café" in line
+    assert export_items.chunks([ITEM], bound=len(line)) == [line]
+    assert export_items.chunks([ITEM, ITEM], bound=2 * len(line)) == [2 * line]
+    assert export_items.chunks([ITEM, ITEM], bound=2 * len(line) - 1) == [line, line]
+    assert export_items.chunks([]) == []
+
+
+def test_write_lays_out_sorted_utf8_items_key_and_numbered_chunks(tmp_path: Path) -> None:
+    key = [{"z": "é", "a": 1}]
+    paths = export_items.write(tmp_path / "x", [ITEM, ITEM], key)
+    line = json.dumps(ITEM, ensure_ascii=False, sort_keys=True) + "\n"
+    assert line.startswith('{"criteria": [], "draft": "café"')
+    assert sorted(p.name for p in (tmp_path / "x").iterdir()) == ["chunks", "items.jsonl", "key.jsonl"]
+    assert (tmp_path / "x" / "items.jsonl").read_text(encoding="utf-8") == 2 * line
+    assert (tmp_path / "x" / "key.jsonl").read_text(encoding="utf-8") == '{"a": 1, "z": "é"}\n'
+    assert paths == [tmp_path / "x" / "chunks" / "items-001.jsonl"]
+    assert [p.name for p in (tmp_path / "x" / "chunks").iterdir()] == ["items-001.jsonl"]
+    assert paths[0].read_text(encoding="utf-8") == 2 * line
+    with pytest.raises(FileExistsError):
+        export_items.write(tmp_path / "x", [ITEM], key)
+
+
+def test_write_numbers_chunks_from_001(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(export_items, "chunks", lambda items: ["one\n", "two\n"])
+    paths = export_items.write(tmp_path, [ITEM], [])
+    assert [p.name for p in paths] == ["items-001.jsonl", "items-002.jsonl"]
+
+
+def test_label_import_names_each_defect(tmp_path: Path) -> None:
+    items = [{"id": "a", "criteria": [{"id": "c0"}, {"id": "c1"}]}, {"id": "b", "criteria": [{"id": "c0"}]}]
+    good = [{"id": "a", "criteria": {"c0": True, "c1": False}}, {"id": "b", "criteria": {"c0": True}}]
+    for name, labels, message in (
+        ("missing", good[:1], "labels cover 1 items, not the 2 exported"),
+        ("duplicated", [*good, good[1]], "item b is labelled twice"),
+        (
+            "criterion",
+            [{"id": "a", "criteria": {"c0": True}}, good[1]],
+            "item a: labelled criteria differ from the item's",
+        ),
+    ):
+        write_labels(tmp_path / name, labels)
+        with pytest.raises(export_items.ExportDefect, match=f"^{re.escape(message)}$"):
+            export_items.read_labels(tmp_path / name, items)

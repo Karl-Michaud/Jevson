@@ -13,7 +13,8 @@ from hypothesis import strategies as st
 
 from jevson import FakeBackend, JevsonConfig, Result
 from jevson.compile.questions import SCREEN_INSTRUCTIONS
-from jevson.types import Answer, PredicateAnswer, Question
+from jevson.execute.drafting import malformed
+from jevson.types import Answer, Drafting, PredicateAnswer, Question, Rejection
 from tests.j4b import injection, live
 from tests.j4b.fresh import admission, arms, judging
 from tests.j4b.tests import fresh_data
@@ -137,3 +138,68 @@ def test_pset_cases_read_the_criterion_of_their_form(form: str) -> None:
     run(judging.pset_case(row, form), backend, arms.L0, "pset")
     [call] = backend.calls
     assert row["criterion_f0" if form == "F0" else "criterion_f1"].rstrip(".") in call.questions[0].instructions
+
+
+# --- review round 2 (T48-5): the admission survivors of the round-2 mutmut run ------------------------------
+
+SUMMARY = admission.INJECTED
+
+
+def test_an_unresolved_field_with_no_rejection_is_not_admitted() -> None:
+    """A refused field is absent from `value` and has no rejection: it is not admitted."""
+    assert not admission.admitted(Result(value={}, satisfies_schema=False), SUMMARY)
+
+
+def test_the_screen_fails_only_on_an_undeclared_check_of_its_own_field() -> None:
+    declared_only = Result(value={}, satisfies_schema=False, rejections=(Rejection(SUMMARY, ("c",), "d"),))
+    assert not admission.screen_failed(declared_only, SUMMARY, ["c"])
+    other_field = Result(value={}, satisfies_schema=False, rejections=(Rejection("/other", ("screen",), "d"),))
+    assert not admission.screen_failed(other_field, SUMMARY, ["c"])
+    assert admission.screen_failed(other_field, "/other", ["c"])
+
+
+def test_a_criterion_with_no_decision_is_not_passed() -> None:
+    case = {"drafts": {SUMMARY: {"criteria": [{"id": "k", "statement": "s"}]}}}
+    assert admission.criterion_verdicts(Result(value={}, satisfies_schema=False), case) == {SUMMARY: {"k": False}}
+
+
+def test_record_names_an_unknown_set() -> None:
+    with pytest.raises(ValueError, match=r"^no set 'qset'$"):
+        admission.record(admission.Judged("qset", Result(value={}, satisfies_schema=True)))
+
+
+def rset(value: dict[str, Any], *rejected: tuple[str, str]) -> dict[str, Any]:
+    result = Result(value=value, satisfies_schema=True, rejections=tuple(Rejection("/f", (c,), d) for c, d in rejected))
+    return admission.rset_record(result, [Drafting("p", "l", max_draft_chars=10)], ["/f"])["/f"]
+
+
+def test_rset_record_first_draft_admitted() -> None:
+    expected = {"first_admitted": True, "redraft_admitted": False, "first": "ok", "redraft": None, "malformed": 0}
+    assert rset({"f": "ok"}) == expected
+
+
+def test_rset_record_unresolved_with_no_rejection() -> None:
+    expected = {"first_admitted": False, "redraft_admitted": False, "first": None, "redraft": None, "malformed": 0}
+    assert rset({}) == expected
+
+
+def test_rset_record_redraft_admitted() -> None:
+    expected = {"first_admitted": False, "redraft_admitted": True, "first": "d1", "redraft": "ok", "malformed": 0}
+    assert rset({"f": "ok"}, ("c", "d1")) == expected
+
+
+def test_rset_record_one_rejection_and_no_admitted_redraft() -> None:
+    expected = {"first_admitted": False, "redraft_admitted": False, "first": "d1", "redraft": None, "malformed": 0}
+    assert rset({}, ("c", "d1")) == expected
+
+
+def test_rset_record_both_drafts_rejected() -> None:
+    expected = {"first_admitted": False, "redraft_admitted": False, "first": "d1", "redraft": "d2", "malformed": 0}
+    assert rset({}, ("c", "d1"), ("c", "d2")) == expected
+
+
+def test_rset_record_a_malformed_draft_is_null_and_counted_at_its_own_limit() -> None:
+    expected = {"first_admitted": False, "redraft_admitted": True, "first": None, "redraft": "ok", "malformed": 1}
+    assert rset({"f": "ok"}, (malformed(10), "x" * 11)) == expected
+    other_limit = {"first_admitted": False, "redraft_admitted": True, "first": "x", "redraft": "ok", "malformed": 0}
+    assert rset({"f": "ok"}, (malformed(11), "x")) == other_limit

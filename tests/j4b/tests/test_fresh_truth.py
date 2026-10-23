@@ -403,3 +403,13 @@ def test_check_string_blanks_only_lowercase_placeholders() -> None:
     assert truth.check_string("Mention the {first} item.") == []
     assert truth.check_string("Due Monday{when}.") == ["guarded tokens: ['Monday']"]
     assert truth.check_string("Mention the {FIRST} item.") == ["guarded tokens: ['FIRST']"]
+
+
+# --- review round 2 (T48-5): the truth survivor of the round-2 mutmut run ----------------------------------
+
+
+def test_a_slot_with_a_negative_start_is_flagged() -> None:
+    """A slot at start -2 whose slice still reads as its rendering is not a slot of the draft."""
+    value = value_json(Ident("RX", "12"))
+    row = {"draft": "ab12", "slots": [{"slot": "ident", "value": value, "form": 2, "start": -2, "end": 4}]}
+    assert truth._common(row) == ["slot ident is not its declared rendering"]
