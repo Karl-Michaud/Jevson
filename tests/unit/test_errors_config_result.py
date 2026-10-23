@@ -15,7 +15,7 @@ from jevson.checks import Check
 from jevson.compile import questions
 from jevson.compile.generative import GenerativeOptions
 from jevson.compile.questions import CRITERION_TEMPLATES
-from jevson.config import DEFAULT_CRITERION_TEMPLATE, CriterionTemplate, JevsonConfig
+from jevson.config import DEFAULT_CRITERION_TEMPLATE, DEFAULT_DRAFT_SCREEN, CriterionTemplate, JevsonConfig
 from jevson.errors import (
     BackendError,
     CompileError,
@@ -132,8 +132,8 @@ SCHEMA = {
 
 
 def test_adjudication_options() -> None:
-    config = JevsonConfig(criterion_template="1.2.0")
-    assert config.criterion_template == "1.2.0"
+    config = JevsonConfig(draft_screen=True, criterion_template="1.2.0")
+    assert (config.draft_screen, config.criterion_template) == (True, "1.2.0")
     with pytest.raises(ValueError, match="criterion_template must be"):
         JevsonConfig(criterion_template="9.9.9")  # type: ignore[arg-type]
     with pytest.raises(UsageError, match="criterion_template") as raised:
@@ -153,8 +153,10 @@ def test_option_defaults_have_one_source() -> None:
     signature = inspect.signature(compile_schema).parameters
     fields = {f.name: f.default for f in dataclasses.fields(JevsonConfig)}
     assert signature["criterion_template"].default == fields["criterion_template"] == DEFAULT_CRITERION_TEMPLATE
+    assert signature["draft_screen"].default == fields["draft_screen"] == DEFAULT_DRAFT_SCREEN
     assert inspect.signature(questions.criterion_question).parameters["template"].default is inspect.Parameter.empty
     assert {f.name: f.default for f in dataclasses.fields(GenerativeOptions)} == {
         "criterion_template": dataclasses.MISSING,
+        "draft_screen": dataclasses.MISSING,
     }
     assert {f.name: f.default for f in dataclasses.fields(Check)}["rule"] is dataclasses.MISSING

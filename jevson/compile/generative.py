@@ -3,8 +3,11 @@
 A generative field compiles to the step `<pointer>#generate`, one criterion `predicate`
 `<pointer>#criterion:<i>` per declared criterion, and, when a rubric is declared, one `score`
 `<pointer>#rubric` over its levels; every adjudication node depends on the step, so it lands in the
-step's level and reads the draft at `drafts.<step id>` (DESIGN §5.2). A field with no criteria and
-no rubric is the step alone: its draft is admitted ungated (`decided_by = llm`, listed in `Result.ungated`).
+step's level and reads the draft at `drafts.<step id>` (DESIGN §5.2). With the opt-in draft screen
+(`GenerativeOptions.draft_screen`), a field that declares a criterion or a rubric also gets the
+predicate `<pointer>#screen`, last (`compile/draft_screen.py`). A field with no criteria and no rubric
+is the step alone, screen or not: its draft is admitted ungated (`decided_by = llm`, listed in
+`Result.ungated`).
 """
 
 from __future__ import annotations
@@ -12,7 +15,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from jevson.checks import Check, CheckRule
-from jevson.compile import questions
+from jevson.compile import draft_screen, questions
 from jevson.compile.declarations import GenerateDeclaration
 from jevson.compile.nodes import option_id, role_id
 from jevson.types import DecisionKind, DecisionNode, Drafting, Option, OptionSource, StepKind, StepNode
@@ -22,10 +25,11 @@ DEFAULT_MAX_DRAFT_CHARS = 4000
 
 @dataclass(frozen=True)
 class GenerativeOptions:
-    """The opt-in adjudication options `compile_schema` passes down (DESIGN §5.2); no defaults here,
-    so `JevsonConfig`'s are the only ones."""
+    """The opt-in adjudication options `compile_schema` passes down (DESIGN §5.2, §6.3); no defaults
+    here, so `JevsonConfig`'s are the only ones."""
 
     criterion_template: str
+    draft_screen: bool
 
 
 def generative_nodes(
@@ -51,8 +55,8 @@ def generative_nodes(
 def _adjudication_nodes(
     step_id: str, pointer: str, named: str, declared: GenerateDeclaration, options: GenerativeOptions
 ) -> tuple[list[DecisionNode], tuple[Check, ...], str | None]:
-    """The field's criteria, then its rubric: the nodes, their checks in that order, and the rubric's
-    minimum level id, if any."""
+    """The field's criteria, then its rubric, then (opt-in, only after a declared check) the draft
+    screen: the nodes, their checks in that order, and the rubric's minimum level id, if any."""
     after = frozenset({step_id})
     checks: list[Check] = []
     nodes: list[DecisionNode] = []
@@ -74,4 +78,8 @@ def _adjudication_nodes(
                                   dependencies=after))  # fmt: skip
         checks.append(Check(node_id, f"{rubric.description} (at least {rubric.minimum!r})", CheckRule.RUBRIC))
         minimum = option_id(rubric.levels.index(rubric.minimum))
+    if options.draft_screen and checks:
+        screen, check = draft_screen.screen_node(step_id, pointer, named)
+        nodes.append(screen)
+        checks.append(check)
     return nodes, tuple(checks), minimum

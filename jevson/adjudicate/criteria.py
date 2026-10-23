@@ -6,8 +6,10 @@ and rubric are asked together, in one batched request over the keyed drafts layo
 adjudication questions only (DESIGN §5.2; split only by DESIGN §8.2).
 
 Each check is judged by its rule's `PassRule` from `PASS_RULES`, carried on the check itself
-(`jevson/checks.py`). A new rule is one registry entry, holding its pass test and the answer that
-passes it.
+(`jevson/checks.py`). The opt-in draft screen, asked in the same request, has the inverted rule: it
+**fails** the draft at p ≥ 0.45, on a tie, a refusal, an invalid answer or no answer
+(`adjudicate/draft_screen.py`). A new rule is one registry entry, holding its pass test and the
+answer that passes it.
 """
 
 from __future__ import annotations
@@ -15,6 +17,7 @@ from __future__ import annotations
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 
+from jevson.adjudicate import draft_screen
 from jevson.adjudicate.rubrics import rubric_passes
 from jevson.checks import CheckRule
 from jevson.probabilities import interpret
@@ -63,6 +66,7 @@ def _rubric_passing(question: Question) -> Answer:
 PASS_RULES: Mapping[CheckRule, PassRule] = {
     CheckRule.CRITERION: PassRule(_criterion, _criterion_passing),
     CheckRule.RUBRIC: PassRule(_rubric, _rubric_passing),
+    CheckRule.SCREEN: PassRule(draft_screen.screen_passes, draft_screen.screen_passing),
 }
 """Every check rule's pass test and passing answer; `judge` and `dry_run` read only this."""
 

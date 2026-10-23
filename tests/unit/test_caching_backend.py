@@ -189,7 +189,11 @@ def resolve_cached(directory: Path, config: JevsonConfig, *, replay_only: bool) 
     return asyncio.run(jevson.aresolve(SUMMARY, "Refund: $40.", redraft_budget=0))
 
 
-@pytest.mark.parametrize("config", [JevsonConfig(criterion_template="1.2.0")], ids=["M2 template 1.2.0"])
+@pytest.mark.parametrize(
+    "config",
+    [JevsonConfig(draft_screen=True), JevsonConfig(criterion_template="1.2.0")],
+    ids=["M1 screen", "M2 template 1.2.0"],
+)
 def test_options_change_request_keys(tmp_path: Path, config: JevsonConfig) -> None:
     resolve_cached(tmp_path, JevsonConfig(), replay_only=False)
     replayed = resolve_cached(tmp_path, JevsonConfig(), replay_only=True)

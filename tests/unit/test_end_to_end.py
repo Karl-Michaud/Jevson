@@ -231,5 +231,5 @@ def test_default_result_golden() -> None:
     golden = json.loads(GOLDEN.read_text(encoding="utf-8"))["result"]
     now = comparable(default_run(DEFAULT_SCHEMAS["generative_and_enum"])[0])
     added = {key: now["versions"].pop(key) for key in set(now["versions"]) - set(golden["versions"])}
-    assert added == {"criterion_template": "1.1.0"}
+    assert added == {"criterion_template": "1.1.0", "draft_screen": "false"}
     assert now == golden

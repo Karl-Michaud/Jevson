@@ -201,18 +201,22 @@ def shape(graph: DecisionGraph | str) -> object:
 @given(st.one_of(roots, generative()))
 def test_the_default_options_compile_the_graph_the_config_defaults_name(schema: object) -> None:
     config = JevsonConfig()
-    explicit = compiled(schema, criterion_template=config.criterion_template)
+    explicit = compiled(schema, criterion_template=config.criterion_template, draft_screen=config.draft_screen)
     assert shape(compiled(schema)) == shape(explicit)
 
 
 @DETERMINISTIC
-@given(generative(), st.sampled_from(["1.1.0", "1.2.0"]))
-def test_every_check_names_a_node_of_the_kind_its_rule_judges(schema: object, template: str) -> None:
-    graph = compile_schema(schema, criterion_template=template)
+@given(generative(), st.sampled_from(["1.1.0", "1.2.0"]), st.booleans())
+def test_every_check_names_a_node_of_the_kind_its_rule_judges(schema: object, template: str, screen: bool) -> None:
+    graph = compile_schema(schema, criterion_template=template, draft_screen=screen)
     kinds = {CheckRule.RUBRIC: DecisionKind.SCORE, CheckRule.CRITERION: DecisionKind.PREDICATE}
+    kinds[CheckRule.SCREEN] = DecisionKind.PREDICATE
     for step in graph.nodes.values():
         if not isinstance(step, StepNode) or step.drafting is None:
             continue
+        rules = [check.rule for check in step.drafting.checks]
+        declared = [rule for rule in rules if rule is not CheckRule.SCREEN]
+        assert rules == declared + ([CheckRule.SCREEN] if screen and declared else [])
         for check in step.drafting.checks:
             node = graph.nodes[check.node_id]
             assert isinstance(node, DecisionNode)

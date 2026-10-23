@@ -49,7 +49,7 @@ class Recorder:
 
 def decision_nodes(schema: object, **options: Any) -> dict[Key, DecisionNode]:
     """Every decision node of `schema`'s graph, by the text and options of its question; `options` are
-    `compile_schema`'s keywords (`union_fanout`, `criterion_template`)."""
+    `compile_schema`'s keywords (`union_fanout`, `criterion_template`, `draft_screen`)."""
     graph = compile_schema(schema, **options)
     return {(n.question, n.options): n for n in graph.nodes.values() if isinstance(n, DecisionNode)}
 

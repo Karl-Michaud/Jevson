@@ -1,7 +1,7 @@
 """What an adjudication node tests, and by which pass rule (DESIGN §6.3).
 
 A generative field's `Drafting.checks` lists one `Check` per adjudication node, in declared order:
-its criteria, then its rubric. The rule travels with the check, so
+its criteria, then its rubric, then (opt-in) the draft screen. The rule travels with the check, so
 `adjudicate/criteria.py` judges each one by its rule's `PassRule` and never by the node's kind.
 """
 
@@ -13,10 +13,11 @@ from enum import StrEnum
 
 class CheckRule(StrEnum):
     """How a check's answer is judged: a criterion passes at p ≥ 0.56, a rubric at its declared
-    minimum level."""
+    minimum level, and the inverted-polarity draft screen fails the draft at p ≥ 0.45."""
 
     CRITERION = "criterion"
     RUBRIC = "rubric"
+    SCREEN = "screen"
 
 
 @dataclass(frozen=True)

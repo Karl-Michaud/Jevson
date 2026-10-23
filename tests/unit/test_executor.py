@@ -392,8 +392,8 @@ def _lists(value: object) -> bool:
 def test_versions_record_options() -> None:
     graph = DecisionGraph([flag("a")])
     backend = FakeBackend(default=FakeBackend.predicate(0.9))
-    chosen = run(graph, backend, config=JevsonConfig(criterion_template="1.2.0")).versions
-    assert chosen["criterion_template"] == "1.2.0"
+    chosen = run(graph, backend, config=JevsonConfig(criterion_template="1.2.0", draft_screen=True)).versions
+    assert (chosen["criterion_template"], chosen["draft_screen"]) == ("1.2.0", "true")
     default = run(graph, backend).versions
-    assert default["criterion_template"] == "1.1.0"
+    assert (default["criterion_template"], default["draft_screen"]) == ("1.1.0", "false")
     assert default["question_templates"] == templates.QUESTION_TEMPLATE_VERSION

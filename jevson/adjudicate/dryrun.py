@@ -2,9 +2,10 @@
 
 `dry_run(schema, pointer, draft, source)` compiles the schema under `config`'s options, places
 `draft` in the state the way a real run would (`drafts.<step id>`), and asks the field's criteria and
-rubric in one request. With no `backend` it uses a `FakeBackend` that gives each check its rule's
-passing answer (`PASS_RULES`), so it runs offline and spends nothing; pass a scripted `FakeBackend`
-to try verdicts, or a real backend to test criteria on live answers. See `docs/criteria-guide.md`.
+rubric, and the draft screen when `draft_screen` is on, in one request. With no `backend` it uses a
+`FakeBackend` that gives each check its rule's passing answer (`PASS_RULES`), so it runs offline and
+spends nothing; pass a scripted `FakeBackend` to try verdicts, or a real backend to test criteria on
+live answers. See `docs/criteria-guide.md`.
 """
 
 from __future__ import annotations
@@ -42,13 +43,14 @@ async def dry_run(
     backend: Backend | None = None,
     config: JevsonConfig | None = None,
 ) -> DryRun:
-    """Ask a generative field's criteria and rubric about `draft`; offline and free with no `backend`,
-    whose stand-in passes every check."""
+    """Ask a generative field's criteria and rubric, and the draft screen when `draft_screen` is on,
+    about `draft`; offline and free with no `backend`, whose stand-in passes every check."""
     config = config or JevsonConfig()
     graph = compile_schema(
         schema,
         union_fanout=config.union_fanout,
         criterion_template=config.criterion_template,
+        draft_screen=config.draft_screen,
     )
     steps = [n for n in graph.nodes.values() if isinstance(n, StepNode) and n.target == pointer]
     if not steps or steps[0].drafting is None:

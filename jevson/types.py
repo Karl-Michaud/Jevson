@@ -268,8 +268,8 @@ class Overflow:
 
 @dataclass(frozen=True)
 class Rejection:
-    """A draft adjudication rejected, with the checks it failed (criteria or rubric); the field keeps
-    its name, `criteria`."""
+    """A draft adjudication rejected, with the checks it failed (criteria, rubric, or the draft screen's
+    text); the field keeps its name, `criteria`."""
 
     pointer: str
     criteria: tuple[str, ...]

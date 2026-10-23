@@ -137,6 +137,7 @@ class Jevson:
             config.default_extractor,
             union_fanout=config.union_fanout,
             criterion_template=config.criterion_template,
+            draft_screen=config.draft_screen,
         )
         normalised = normalise_schema(schema)
         fields = _fields(normalised)

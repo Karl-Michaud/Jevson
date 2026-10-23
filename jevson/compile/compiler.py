@@ -14,7 +14,7 @@ from jevson.compile.normalise import normalise
 from jevson.compile.questions import CRITERION_TEMPLATES
 from jevson.compile.refusal import Refusals
 from jevson.compile.unions import exclusive
-from jevson.config import DEFAULT_CRITERION_TEMPLATE
+from jevson.config import DEFAULT_CRITERION_TEMPLATE, DEFAULT_DRAFT_SCREEN
 from jevson.errors import RefusalCode, UsageError
 from jevson.graph import DecisionGraph
 from jevson.types import DecisionNode
@@ -27,6 +27,7 @@ def compile_schema(
     *,
     union_fanout: bool = True,
     criterion_template: str = DEFAULT_CRITERION_TEMPLATE,
+    draft_screen: bool = DEFAULT_DRAFT_SCREEN,
 ) -> DecisionGraph:
     """Compile a JSON Schema 2020-12 dict or a Pydantic model class into its decision graph.
 
@@ -38,13 +39,15 @@ def compile_schema(
     its discriminator's level (`compile/unions.py`); False asks them one level later.
     `criterion_template` (as in `JevsonConfig`) is the criterion template version every criterion
     question is rendered in, a key of `questions.CRITERION_TEMPLATES`; any other value raises
-    `UsageError` before anything is compiled (DESIGN §5.2).
+    `UsageError` before anything is compiled. `draft_screen` (off by default, as in `JevsonConfig`) adds
+    the opt-in `<pointer>#screen` predicate to each generated field that declares a criterion or a
+    rubric (DESIGN §5.2, §6.3).
     """
     del extractors  # v0: no field is source-selected, so no extractor name is ever looked up
     if criterion_template not in CRITERION_TEMPLATES:
         known = ", ".join(sorted(CRITERION_TEMPLATES))
         raise UsageError(f"criterion_template must be one of {known}, not {criterion_template!r}")
-    options = GenerativeOptions(criterion_template)
+    options = GenerativeOptions(criterion_template, draft_screen)
     refusals = Refusals()
     tree = normalise(schema, refusals)
     mapped = map_tree(tree, refusals, default_extractor=default_extractor, options=options, fanout=union_fanout)
