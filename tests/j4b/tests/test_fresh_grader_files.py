@@ -80,6 +80,18 @@ def test_launch_refuses_inside_a_worktree_inside_project_asterion_and_without_it
     assert "worktree" in refused.stderr
 
 
+def test_launch_refuses_under_a_dot_claude_directory(tmp_path: Path) -> None:
+    """STATS48-B10-1 / RC1-1: the B9 canary's only label write was denied as a sensitive file because its grading
+    directory sat under ~/.claude/, so a grading directory there could never produce a label."""
+    directory, env = grading_dir(tmp_path)
+    nested = tmp_path / "home" / ".claude" / "projects" / "grading"
+    shutil.copytree(directory, nested)
+    refused = subprocess.run(["./launch.sh", "007"], cwd=nested, env=env, capture_output=True, text=True, check=False)
+    assert refused.returncode == 2
+    assert refused.stderr == f"refused: {nested.resolve()} is inside a .claude/ directory\n"
+    assert "stub ran" not in refused.stdout
+
+
 def test_the_canary_chunks_are_reproducible_and_the_full_one_is_packed_to_the_bound(tmp_path: Path) -> None:
     assert make_canary.main([str(tmp_path)]) == 0
     for name in ("items-001.jsonl", "items-002.jsonl"):

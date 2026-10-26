@@ -1,11 +1,14 @@
 #!/bin/sh
 # Grade one chunk: run `launch.sh NNN` from the grading directory (design §3 step 4; plan §6).
-# It refuses to run inside project-asterion/ or inside any git worktree, prints the exact command, then runs it.
+# It refuses to run inside project-asterion/, inside any .claude/ directory (Claude Code denies writes there as
+# sensitive files, so no label could be written: the B9 canary, STATS48-B10-1) or inside any git worktree, prints
+# the exact command, then runs it.
 set -eu
 nnn="${1:?usage: launch.sh NNN}"
 here="$(pwd -P)"
 case "$here/" in
   */project-asterion/*) echo "refused: $here is inside project-asterion/" >&2; exit 2 ;;
+  */.claude/*) echo "refused: $here is inside a .claude/ directory" >&2; exit 2 ;;
 esac
 if git -C "$here" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "refused: $here is inside a git worktree" >&2; exit 2
