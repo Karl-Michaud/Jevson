@@ -8,9 +8,10 @@ must equal, key for key, the body the pinned client builds for the messages it c
 reasoning effort, `max_completion_tokens`, the strict `submit` tool and `tool_choice`. A decision request must carry
 exactly `model`, `input` and `questions`, with the model every configuration names. Any other request, or one to
 another URL, is not sent: the ledger is stopped (so no unit is re-queued) and the attempt is a harness defect, which
-the runner leaves incomplete for `void --reason harness_defect`. Message, input and question content is not checked
-here; it is set by the frozen builders above the amendable wrappers (`inflight`, `requeue`, `MeteredTransport` and
-the client wiring are frozen items too).
+the runner leaves incomplete for `void --reason harness_defect`. What is sent is a new request built from the exact
+bytes checked, never the request object handed in, whose stream could differ from its cached body (RC4-1).
+Message, input and question content is not checked here; it is set by the frozen builders above the amendable
+wrappers (`inflight`, `requeue`, `MeteredTransport` and the client wiring are frozen items too).
 """
 
 from __future__ import annotations
@@ -31,6 +32,7 @@ from tests.j4b.fresh.spend import SpendLedger
 DECISIONS_URL = "https://api.openai.com/v1/decisions"
 DECISION_KEYS = frozenset({"model", "input", "questions"})
 MESSAGE_KEYS = frozenset({"role", "content"})
+LENGTH_HEADERS = frozenset({"content-length", "transfer-encoding"})
 OFF_PIN = "request off pin: "
 """The prefix of `SpendLedger.violation` when this transport refused a request."""
 
@@ -87,12 +89,22 @@ class PinnedWire(httpx.AsyncBaseTransport):
         self.inner, self.ledger = inner, ledger
 
     async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
-        found = problem(request, await request.aread())
+        checked = await request.aread()
+        found = problem(request, checked)
         if found is not None:
             self.ledger.violation = OFF_PIN + found
             self.ledger.stopped = True
             raise RequestOffPin(found)
-        return await self.inner.handle_async_request(request)
+        return await self.inner.handle_async_request(sent_as_checked(request, checked))
+
+
+def sent_as_checked(request: httpx.Request, checked: bytes) -> httpx.Request:
+    """A new request carrying exactly the bytes `problem` checked (RC4-1): `aread()` returns the cached body, while a
+    transport sends `request.stream`, which code outside this one could have swapped. The length headers are
+    recomputed from `checked`; the method, URL, other headers and extensions (the timeouts) are kept."""
+    headers = [(k, v) for k, v in request.headers.multi_items() if k.lower() not in LENGTH_HEADERS]
+    return httpx.Request(request.method, request.url, headers=headers, content=checked,
+                         extensions=request.extensions)  # fmt: skip
 
 
 def off_pin(ledger: SpendLedger) -> str | None:

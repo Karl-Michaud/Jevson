@@ -153,9 +153,13 @@ def dev_done(repo: PlantedRepo, run: Path, *, flagged: bool = True) -> str:
     return appendix
 
 
-def amend(repo: PlantedRepo, original: str, motivating: dict[str, str] | None = None) -> str:
+RECORD = "\n## Amendment record\n\nThe planted fix of design §2.6.\n"
+"""The one record an amendment appends (RC2-1 residual: an amendment without it is refused)."""
+
+
+def amend(repo: PlantedRepo, original: str, motivating: dict[str, str] | None = None, *, record: bool = True) -> str:
     repo.commit("amendment")
-    return repo.appendix(parent=pins.sha256(original), motivating=motivating)
+    return repo.appendix(parent=pins.sha256(original), motivating=motivating) + (RECORD if record else "")
 
 
 def test_h39_the_flagged_claim_fix_with_its_row_and_summary_is_accepted(repo: PlantedRepo, tmp_path: Path) -> None:
@@ -611,7 +615,7 @@ def test_an_appendix_without_motivating_refuses_a_module_fix(repo: PlantedRepo, 
     original = dev_done(repo, tmp_path, flagged=False)
     module_fix(repo)
     repo.commit("amendment")
-    appendix = repo.appendix(parent=pins.sha256(original)).replace(',\n "motivating": {}', "")
+    appendix = repo.appendix(parent=pins.sha256(original)).replace(',\n "motivating": {}', "") + RECORD
     assert '"motivating"' not in appendix
     refuses(repo, tmp_path, appendix, f"tests/j4b/fresh/metering.py needs a motivating test in {METERING_TEST}")
 
@@ -627,11 +631,12 @@ OPENAI_CHAT, CHAT_TEST, PHASES = (
     "tests/j4b/tests/test_fresh_openai_chat.py",
     ("tests/j4b/fresh/phases.py"),
 )
-RECORDS, METERING, INFLIGHT, REQUEUE = (
+RECORDS, METERING, INFLIGHT, REQUEUE, SPEND = (
     "tests/j4b/labelling/records.py",
     "tests/j4b/fresh/metering.py",
     "tests/j4b/fresh/inflight.py",
     "tests/j4b/fresh/requeue.py",
+    "tests/j4b/fresh/spend.py",
 )
 REQUEST_KNOBS = {
     "the drafting model id": (OPENAI_CHAT, 'MODEL = "gpt-5.4-mini-2026-03-17"', 'MODEL = "gpt-5.5-other-model"',
@@ -699,6 +704,32 @@ REQUEST_KNOBS = {
                                                        "task = next(iter(self.live.values()), None)", "_Flights"),
     "a unit's judged result replaced on its way back (RC3-1)": (REQUEUE, "return await unit()",
                                                                 "return _planted(await unit())", "run_unit"),
+    # B10 review round 4 (exp/b48b/rev-correct/r4/planted4.out cases G and H): accepted before.
+    "the returned model masked in a reply's usage (RC4-2)": (
+        METERING, 'usage, model = payload.get("usage"), payload.get("model")',
+        'usage, model = payload.get("usage"), "gpt-5.4-nano"', "usage_of"),
+    "the endpoint a request is metered and swapped under (RC4-1)": (
+        METERING, 'return "chat" if request.url.path.endswith("/chat/completions") else "decisions"',
+        'return _swap_stream(request) or "decisions"', "endpoint_of"),
+    "the per-question token bound (RC4-2)": (METERING, "DECISION_QUESTION_TOKENS * questions",
+                                             "DECISION_QUESTION_TOKENS * 0", "input_bound"),
+    "the options counted per question (RC4-2)": (METERING, "options += 2 if", "options += 0 if",
+                                                 "question_counts"),
+    "the drafting output cap read from the body (RC4-2)": (
+        METERING, 'cap = _payload(body).get("max_completion_tokens")',
+        'cap = _payload(body).get("max_completion_tokens", 10**9)', "output_cap"),
+    "the decision price of a bound (RC4-2)": (METERING, 'return input_bound(body, endpoint) * PRICE["decision_in"]',
+                                              "return 0", "request_bound"),
+    "a metered body that is not an object (RC4-2)": (
+        METERING, 'raise ValueError("a metered request body is not a JSON object")', "return {}", "_payload"),
+    "the model string the ledger records (RC4-2)": (SPEND, '"model": model,', '"model": None,', "SpendLedger"),
+    "the settle records the ledger reads back (RC4-2)": (SPEND, 'record["model"],', '"gpt-5.4-nano",',
+                                                         "SpendLedger"),
+    "the settle record type, through its decorator (RC4-2)": (
+        SPEND, "@dataclass(frozen=True)\nclass Settled:", "@dataclass(frozen=False)\nclass Settled:", "Settled"),
+    "a decorator added above a draft's truth (round 4)": (
+        RECORDS, "@dataclass(frozen=True)\nclass Label:", "@_planted\n@dataclass(frozen=True)\nclass Label:",
+        "Label"),
 }  # fmt: skip
 
 
@@ -740,7 +771,7 @@ def test_stats48_b10_7_an_amendment_that_rewrites_the_appendix_body_is_refused(
     original = dev_done(repo, tmp_path, flagged=False)
     module_fix(repo)
     node = f"{METERING_TEST}::test_the_motivating_fix"
-    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node})
+    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node}, record=False)
     rewritten = amended.replace("# Pre-registration (planted)", "# Pre-registration (planted): NI multiplier 1.0")
     refuses(repo, tmp_path, rewritten, "the amended appendix changes text outside its pins block")
     recorded = amended + "\n## Amendment record\n\nThe metering fix of design §2.6.\n"
@@ -764,7 +795,7 @@ def test_rc2_1_an_original_appendix_that_quotes_the_marker_inline_still_allows_t
     repo.record(tmp_path, 1, "dev", original)
     module_fix(repo)
     node = f"{METERING_TEST}::test_the_motivating_fix"
-    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node}) + QUOTED_RULE
+    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node}, record=False) + QUOTED_RULE
     recorded = amended + "\n## Amendment record\n\nThe metering fix of design §2.6.\n"
     assert pins.check(repo.root, tmp_path, recorded, command="confirm", attempt=1)
     refuses(repo, tmp_path, amended + "\nIt adds a `## Amendment record` inline.\n",
@@ -866,9 +897,10 @@ def test_stats48_b10_7_dev_under_an_uncommitted_appendix_or_a_second_record_is_r
     original = dev_done(repo, tmp_path, flagged=False)
     module_fix(repo)
     node = f"{METERING_TEST}::test_the_motivating_fix"
-    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node})
+    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node}, record=False)
     trailing = amended + "\nA sentence that is not an amendment record.\n"
     refuses(repo, tmp_path, trailing, "the amended appendix changes text outside its pins block")
+    amended += RECORD
     original_commit = pins.records(tmp_path)[0][1]["pins"]["harness_commit"]
     recorded = {"harness_commit": original_commit, "appendix_sha256": pins.sha256(original)}
     assert pins.appendix_problems(repo.root, recorded, amended) == []
@@ -881,3 +913,28 @@ def test_stats48_b10_7_dev_under_an_uncommitted_appendix_or_a_second_record_is_r
     assert pins.appendix_problems(repo.root, again, amended + "\n## Amendment record\n") == [
         "the amended appendix changes text outside its pins block"
     ]
+
+
+# --- RC2-1 residual (round 4): an amendment carries exactly one amendment record -----------------------------------
+
+
+def test_rc2_1_an_amendment_without_its_record_or_with_two_is_refused(repo: PlantedRepo, tmp_path: Path) -> None:
+    """exp/b48b/rev-correct/r4/norecord.out C9: an allowed module fix with no `## Amendment record` passed dev and
+    confirm. The record is now required, once, appended after the original body."""
+    original = dev_done(repo, tmp_path, flagged=False)
+    module_fix(repo)
+    node = f"{METERING_TEST}::test_the_motivating_fix"
+    bare = amend(repo, original, {"tests/j4b/fresh/metering.py": node}, record=False)
+    refuses(repo, tmp_path, bare, "the amended appendix appends no amendment record")
+    refuses(repo, tmp_path, bare + RECORD + RECORD, "the amended appendix appends more than one amendment record")
+    assert pins.check(repo.root, tmp_path, bare + RECORD, command="confirm", attempt=1)
+
+
+def test_python_items_freeze_a_named_class_with_its_decorators() -> None:
+    """Round 4: a named class's item covers its decorators, so a decorator added above `Label` (which could replace
+    `satisfies`) moves the item (exp/b48b/r4fix/decorator_probe-before.out: it did not)."""
+    source = b"@dataclass(frozen=True)\nclass Label:\n    x: int\n"
+    items = pins.python_items(RECORDS, source)
+    assert items[f"{RECORDS}::Label"]["value"] == pins.sha256("dataclass(frozen=True)\x00class Label:\n    x: int")
+    planted = pins.python_items(RECORDS, b"@_planted\n" + source)
+    assert planted[f"{RECORDS}::Label"] != items[f"{RECORDS}::Label"]

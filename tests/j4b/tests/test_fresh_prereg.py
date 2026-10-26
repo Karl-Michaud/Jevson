@@ -96,10 +96,22 @@ def test_stats48_b10_3_appendix_c_names_every_frozen_function_and_b_corrects_the
         listed = c.split(f"`{path}`: ", 1)[1].split(";", 1)[0].split(". ", 1)[0]
         assert [n.strip(" `") for n in listed.split(",")] == list(names), path
     assert "the transport it is handed is the amendable modules above" in b
-    assert "**Correction to the sentence above (STATS48-B10-3, rounds 2 and 3; RC3-1; STATS48-B10-9).**" in b
+    assert "**Correction to the sentence above (STATS48-B10-3, rounds 2 to 4; RC3-1; STATS48-B10-9; RC4-1; " in b
     for name in ("`OpenAIChatLLM.complete`", "`run_unit`", "`FirstDraftGate`", "`MeteredTransport`", "`Label`",
-                 "`PinnedWire`", "`SingleFlightLLM`"):  # fmt: skip
+                 "`PinnedWire`", "`SingleFlightLLM`", "`usage_of`", "`endpoint_of`", "`SpendLedger`"):  # fmt: skip
         assert name in b, name
+
+
+def test_rc4_appendices_b_and_c_freeze_the_metering_arithmetic_and_the_ledger(text: str) -> None:
+    """Round 4 (RC4-1, RC4-2): the returned-model and usage extraction, the bound arithmetic and the ledger are
+    frozen, the wire sends the bytes it checked, decorators are inside a named item, and an amendment must append
+    exactly one record. Appendix C no longer lists them among what stays amendable."""
+    b, c = section(text, "B"), section(text, "C")
+    assert "a new request built from the exact bytes it checked" in b
+    assert "the bound and usage arithmetic of `metering.py` outside `MeteredTransport`, `spend.py`" not in c
+    assert "What stays amendable: `retry_after_s` in `metering.py`, `gates.py`" in c
+    assert "over its decorators and its source" in c
+    assert "must append exactly one" in c
 
 
 def test_rc3_1_appendix_b_states_what_the_static_items_do_not_cover(text: str) -> None:

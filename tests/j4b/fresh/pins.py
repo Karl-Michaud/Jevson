@@ -71,7 +71,9 @@ FROZEN_FUNCTIONS = {
     f"{FRESH}/phases.py": ("_subsets", "redraft_prompts", "FirstDraftGate", "clients", "_no_network",
                            "replay_clients", "draftings", "first_draft_requests", "first_keys", "drafting_phase",
                            "run_unit", "configuration_phase", "model_strings"),
-    f"{FRESH}/metering.py": ("MeteredTransport",),
+    f"{FRESH}/metering.py": ("endpoint_of", "_payload", "question_counts", "input_bound", "output_cap",
+                             "request_bound", "usage_of", "MeteredTransport"),
+    f"{FRESH}/spend.py": ("Settled", "SpendLedger"),
     f"{FRESH}/inflight.py": ("_Flights", "SingleFlightLLM", "SingleFlightBackend"),
     f"{FRESH}/requeue.py": ("run_unit",),
     "tests/j4b/labelling/records.py": ("Label",),
@@ -83,9 +85,11 @@ judged and each R-set field drafted under, which first drafts are recorded and w
 units each phase runs and keeps, under the pinned batch rule; and D6's model-string collection. Round 3 (RC3-1,
 STATS48-B10-9): every link between those builders and the wire (the client wiring `clients` and `replay_clients`
 with the frozen `wire.PinnedWire` innermost, `MeteredTransport`, the single-flight wrappers, the re-queue loop that
-returns each unit's result) and a draft's truth (`Label.satisfies`, all criteria true). What stays amendable is the
-bound and usage arithmetic of `metering.py`, the ledger, the gates, the re-queue wait, the item export,
-`__repr__`, `_notify` and `key.py`."""
+returns each unit's result) and a draft's truth (`Label.satisfies`, all criteria true). Round 4 (RC4-1, RC4-2): the
+bound and usage arithmetic of `metering.py` (which sets the per-request bound, the usage-over-bound void and the
+returned `model` that D6's void reads) and the ledger (`Settled`, `SpendLedger`: the cap, the settle records and
+their read-back). A named function or class is one item over its decorators and its source. What stays amendable is
+`retry_after_s`, the gates, the re-queue wait, the item export, `__repr__`, `_notify` and `key.py`."""
 REQUEST_CLIENTS = frozenset({"OpenAIChatLLM", "DecisionsBackend"})
 """Every call of these in an amendable module is a frozen item `<path>::<enclosing>/<client>()#<n>`, so a call
 site cannot pass another model, effort or retry setting (STATS48-B10-3)."""
@@ -204,13 +208,13 @@ def python_items(path: str, source: bytes) -> dict[str, dict[str, str]]:
     while pending:
         prefix, node = pending.pop()
         if isinstance(node, ast.ClassDef) and prefix + node.name in FROZEN_FUNCTIONS.get(path, ()):
-            items[f"{path}::{prefix}{node.name}"] = _frozen(text, node)
+            items[f"{path}::{prefix}{node.name}"] = _frozen(text, *node.decorator_list, node)
         elif isinstance(node, ast.ClassDef):
             pending += [(f"{prefix}{node.name}.", n) for n in node.body]
         elif isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef):
             name = prefix + node.name
             if name in FROZEN_FUNCTIONS.get(path, ()):
-                items[f"{path}::{name}"] = _frozen(text, node)
+                items[f"{path}::{name}"] = _frozen(text, *node.decorator_list, node)
             elif node.args.defaults or any(node.args.kw_defaults):
                 items[f"{path}::{name} defaults"] = _frozen(text, *node.args.defaults, *node.args.kw_defaults)
             _calls(items, text, path, name, node)
@@ -376,8 +380,9 @@ def _body(text: str) -> str:
 
 def appendix_problems(repo: Path, original: Mapping[str, Any], amended_text: str) -> list[str]:
     """STATS48-B10-7: the appendix dev ran under is committed at dev's `harness_commit`, and the amendment equals
-    it outside the pins block, except for one `AMENDMENT_RECORD` section appended at its end. The record is a
-    heading line (`RECORD_HEADING`); the marker quoted inside a sentence is not one (RC2-1)."""
+    it outside the pins block, except for exactly one `AMENDMENT_RECORD` section appended at its end, which it must
+    carry (RC2-1, rounds 2 and 4). The record is a heading line (`RECORD_HEADING`); the marker quoted inside a
+    sentence is not one."""
     committed = overlay.show_many(repo, original["harness_commit"], [APPENDIX]).get(APPENDIX)
     if committed is None or sha256(committed) != original["appendix_sha256"]:
         return [f"the appendix dev ran under is not committed at its harness_commit: {APPENDIX}"]
@@ -385,6 +390,10 @@ def appendix_problems(repo: Path, original: Mapping[str, Any], amended_text: str
     extra = after.removeprefix(before) if after.startswith(before) else None
     if extra is None or (extra and RECORD_HEADING.match(extra.lstrip("\n")) is None) or RECORD_HEADING.search(before):
         return ["the amended appendix changes text outside its pins block"]
+    if not extra:
+        return ["the amended appendix appends no amendment record"]
+    if len(RECORD_HEADING.findall(extra)) > 1:
+        return ["the amended appendix appends more than one amendment record"]
     return []
 
 

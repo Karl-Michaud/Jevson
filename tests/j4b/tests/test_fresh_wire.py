@@ -135,3 +135,61 @@ def test_the_clients_send_pinned_requests_through(tmp_path: Path) -> None:
         asyncio.run(backend.ask("x", [Question("q", DecisionKind.PREDICATE, "The text is short.")], "gpt-other"))
     assert [e for e, _ in api.bodies] == ["chat"]
     assert api.bodies[0][1] == pinned_chat()
+
+
+class StreamSeen(httpx.AsyncBaseTransport):
+    """The network side: reads `request.stream`, the bytes a real transport sends, never the cached `aread()`."""
+
+    def __init__(self) -> None:
+        self.sent: list[tuple[bytes, str | None]] = []
+
+    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+        stream = request.stream
+        assert isinstance(stream, httpx.AsyncByteStream)
+        sent = b"".join([chunk async for chunk in stream])
+        self.sent.append((sent, request.headers.get("content-length")))
+        return httpx.Response(200, json=fake_api.completion("a draft"))
+
+
+class StreamSwapping(httpx.AsyncBaseTransport):
+    """An amended wrapper outside the wire (the RC4-1 probe): it reads the body, so `aread()` caches the pinned
+    bytes, then swaps `request.stream` and Content-Length for a rewritten body before passing the request on."""
+
+    def __init__(self, inner: httpx.AsyncBaseTransport) -> None:
+        self.inner = inner
+
+    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+        body = json.loads(await request.aread())
+        rewritten = json.dumps({**body, "reasoning_effort": "high"}).encode()
+        request.stream = httpx.ByteStream(rewritten)
+        request.headers["content-length"] = str(len(rewritten))
+        return await self.inner.handle_async_request(request)
+
+
+def test_rc4_1_the_wire_sends_the_bytes_it_checked_not_a_swapped_stream(tmp_path: Path) -> None:
+    """RC4-1 (exp/b48b/rev-correct/r4/runtime4.out): `PinnedWire` checked the cached `aread()` bytes but forwarded
+    the request object, whose swapped stream reached the network with `reasoning_effort` "high". It now sends a new
+    request built from the exact bytes it checked."""
+    network, ledger = StreamSeen(), SpendLedger(tmp_path)
+    request = httpx.Request("POST", CHAT_URL, json=pinned_chat(), extensions={"timeout": {"read": 7.0}})
+    asyncio.run(StreamSwapping(wire.PinnedWire(network, ledger)).handle_async_request(request))
+    [(sent, length)] = network.sent
+    assert json.loads(sent) == pinned_chat()
+    assert length == str(len(sent))
+    assert wire.off_pin(ledger) is None
+
+
+def test_rc4_1_the_forwarded_request_keeps_method_url_headers_and_extensions(tmp_path: Path) -> None:
+    forwarded: list[httpx.Request] = []
+
+    async def keep(request: httpx.Request) -> httpx.Response:
+        forwarded.append(request)
+        return httpx.Response(200, json=fake_api.completion("a draft"))
+
+    original = httpx.Request("POST", CHAT_URL, json=pinned_chat(), headers={"authorization": "Bearer dummy-wire"},
+                             extensions={"timeout": {"read": 7.0}})  # fmt: skip
+    asyncio.run(wire.PinnedWire(httpx.MockTransport(keep), SpendLedger(tmp_path)).handle_async_request(original))
+    [sent] = forwarded
+    assert (sent.method, sent.url, sent.headers["authorization"]) == ("POST", original.url, "Bearer dummy-wire")
+    assert sent.extensions == original.extensions
+    assert sent.read() == original.read()
