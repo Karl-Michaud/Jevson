@@ -568,7 +568,7 @@ The third field adds 99 R-set decision requests, about 1.2 M input tokens and $0
 |---|---|
 | `tests/__init__.py` | `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391` |
 | `tests/j4b/__init__.py` | `7df798431a95b018ad80130b5571668d0af2de5b` |
-| `tests/j4b/fresh` | `ad421f0b9ef240296cae6fd7b3370bfb22d3cec4` |
+| `tests/j4b/fresh` | `bdebf154d19efd37566fc0d27dc5905d166e96bb` |
 | `tests/j4b/fixtures` | `d8ecd5506e67419f5e675bf0452a841c067eedd1` |
 | `tests/j4b/labelling/__init__.py` | `3700fba6c020b5eee1978d144eed878743194182` |
 | `tests/j4b/labelling/intervals.py` | `b44f14888a8a2cb625834df3983973e47892dcc2` |
@@ -581,26 +581,28 @@ The third field adds 99 R-set decision requests, about 1.2 M input tokens and $0
 | `tests/phase0/datasets/corpus` | `2a242ba57b7affe5ff45f9856fafd76ff48bfa93` |
 | `tests/integration/__init__.py` | `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391` |
 | `tests/integration/run_fresh.py` | `69a1c8e1eef575002ecd9400808e967108d9e3ff` |
-| `tests/integration/openai_chat.py` | `c7ef6e7bfa91c3bcfa6d6427c7eb978332649198` |
+| `tests/integration/openai_chat.py` | `087e2214d6065b35212de53fc887b57532135a0c` |
 | `tests/integration/key.py` | `6e281c9be089f22ffb381f50b2adbc5b1a49fd31` |
 
 `pins.check` enforces these at `dev`, `confirm` and `score`. There is no rebase and no commit to a pinned path between this commit and C7, except the single C2 amendment.
+
+- **Environment, recorded, not enforced (STATS48-B10-8):** `uv.lock` blob `7228b0312e53d51df08ec653b465983e0deac149` at this commit. Every phase record's pins carry `environment`: `python` (`sys.version`) and `uv_lock` (`git rev-parse HEAD:uv.lock`), so a run on another interpreter or lock file is visible in its records. The B10 dry run below ran on CPython 3.14 (the worktree's `.venv`); CI runs 3.11 and 3.12.
 
 The machine-readable pins `pins.read_appendix` reads:
 
 ```json pins
 {
- "frozen_sha256": "e16c20967f9bab7f3ccd134f7fc6c31f36d7b8007cc98c0640e8e1cc126af95a",
+ "frozen_sha256": "bbde7909960839b1f62abb71a3dfcdf1e3ce4a72a69f59e0506cda55be589182",
  "harness": {
   "tests/__init__.py": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
   "tests/integration/__init__.py": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
   "tests/integration/key.py": "6e281c9be089f22ffb381f50b2adbc5b1a49fd31",
-  "tests/integration/openai_chat.py": "c7ef6e7bfa91c3bcfa6d6427c7eb978332649198",
+  "tests/integration/openai_chat.py": "087e2214d6065b35212de53fc887b57532135a0c",
   "tests/integration/run_fresh.py": "69a1c8e1eef575002ecd9400808e967108d9e3ff",
   "tests/j4b/__init__.py": "7df798431a95b018ad80130b5571668d0af2de5b",
   "tests/j4b/build_injection_fixture.py": "33b4bd0f85dfc484ad66b6d199925f509886a60a",
   "tests/j4b/fixtures": "d8ecd5506e67419f5e675bf0452a841c067eedd1",
-  "tests/j4b/fresh": "ad421f0b9ef240296cae6fd7b3370bfb22d3cec4",
+  "tests/j4b/fresh": "bdebf154d19efd37566fc0d27dc5905d166e96bb",
   "tests/j4b/injection.py": "0adb3ea92099dfa2468253d3e410de6a7df54c9d",
   "tests/j4b/labelling/__init__.py": "3700fba6c020b5eee1978d144eed878743194182",
   "tests/j4b/labelling/intervals.py": "b44f14888a8a2cb625834df3983973e47892dcc2",
@@ -634,7 +636,7 @@ The machine-readable pins `pins.read_appendix` reads:
 
 ## C. The frozen-item map and the amendment whitelist
 
-- The frozen-item map `frozen.json` at this commit is committed beside this file as `docs/preregistration/ASTERION-48-58.frozen.json` (`pins.frozen_items(repo, HEAD)`, written as `pins.canonical_file`). **SHA-256: `e16c20967f9bab7f3ccd134f7fc6c31f36d7b8007cc98c0640e8e1cc126af95a`**. It has 6317 items: 11 amendable, 3204 frozen, 2662 row, 440 string.
+- The frozen-item map `frozen.json` at this commit is committed beside this file as `docs/preregistration/ASTERION-48-58.frozen.json` (`pins.frozen_items(repo, HEAD)`, written as `pins.canonical_file`). **SHA-256: `bbde7909960839b1f62abb71a3dfcdf1e3ce4a72a69f59e0506cda55be589182`**. It has 6343 items: 11 amendable, 3230 frozen, 2662 row, 440 string.
 - **Amendable modules (the only files the single dev-to-confirm fix may change, each under its one motivating test file; `pins.AMENDABLE`):**
 
 | Module | Motivating test file |
@@ -652,6 +654,8 @@ The machine-readable pins `pins.read_appendix` reads:
 | `tests/integration/key.py` | `tests/j4b/tests/test_fresh_openai_chat.py` |
 
 - **Fixture-string attributes** (`pins.FIXTURE_STRING_ATTRS`, never on the replica cell): `claim`, `companion`, `self_claim`. These and the built fixture rows change only when the frozen `truth.flag_items` and `leakage.flag_items` flag them at the dev `harness_commit`, and exactly those. Every other item is frozen.
+- **Frozen items inside the amendable modules (STATS48-B10-3; `pins.python_items`):** every module-level constant (`<path>::<NAME>`), every parameter default (`<path>::<function> defaults`), every call of a request client (`DecisionsBackend`, `OpenAIChatLLM`; `<path>::<enclosing>/<client>()#<n>`) and these whole functions: `tests/integration/openai_chat.py`: `OpenAIChatLLM.__init__`, `OpenAIChatLLM.body`, `OpenAIChatLLM.parse`, `_encodable`, `backoff_s`; `tests/j4b/fresh/phases.py`: `model_strings`. So the drafting model id `MODEL`, `reasoning_effort`, the retry ladder (`retries`, `timeout_s`, `backoff_s`), the request body, the D17 parse rule and D6's per-endpoint `model_strings` cannot move in the amendment, though their modules are amendable.
+- **The amendment changes only this file's pins block (STATS48-B10-7; `pins.appendix_problems`):** the appendix dev ran under must be committed at dev's `harness_commit` with the recorded SHA-256, and the amended file must equal it outside the ```json pins block, except for one `## Amendment record` section appended at its end.
 - **Closed internal-import allowlist (plan §11 D18; `pins.JEVSON_INTERNALS`):** `jevson.adjudicate.criteria.PASS_HUNDREDTHS`, `jevson.compile.questions.redraft_prompt`, `jevson.execute.drafting.TOOL_SCHEMA`, `jevson.execute.drafting.malformed`, `jevson.execute.drafting.messages`, `jevson.execute.drafting.read`, `jevson.types.Drafting`, `jevson.types.JSONValue`, `jevson.types.StepNode`.
 
 ## D. Frozen wordings of the library arms (from `jevson/` at the library commit)
@@ -673,13 +677,9 @@ Judging only from the facts that `drafts.{node}` states about the source, does i
 ```
 Does `drafts.{node}` meet this criterion: {criterion}?
 ```
-- **Template versioning** (`jevson/compile/questions.py` module docstring):
+- **Template versioning** (`docs/taxonomy.md:91`, DESIGN §5.2, verbatim):
 ```
-Two opt-in adjudication templates are added under 1.1.1, the current version, for the same reason
-(ASTERION-48, DESIGN §5.2, §6.3): criterion template 1.2.0, selected through `CRITERION_TEMPLATES` by
-`JevsonConfig.criterion_template` (recorded as `versions["criterion_template"]`), and the draft
-screen's question. `"1.1.0"` and `"1.2.0"` name versions of the criterion template alone. Changing
-the text of any shipped template, these included, bumps `QUESTION_TEMPLATE_VERSION`.
+Two opt-in templates and one rejection text are added. None changes a question asked at the defaults, so, as with the membership template, no bump. **Adding** an opt-in template that changes no question asked at the defaults needs no bump; **changing** the text of any shipped template, opt-in templates included, the draft screen's rejection text, or the draft screen's fail threshold bumps `QUESTION_TEMPLATE_VERSION` (`DESIGN.md` §5.2).
 ```
 
 ## E. The authored sets, verbatim (every criterion in both forms, the benign wordings, every field)
@@ -5608,6 +5608,7 @@ SHA-256 of every fixture file, the [P7] fixture, `picked.json` and the corpus tr
 - **Grader model id: `claude-opus-5-5`**, read from this workspace's transcripts at commit time (the latest transcript under `~/.claude/projects/-Users-karlmichaud-project-asterion/` printed 589 `"model":"claude-opus-5-5"` and 4 `"<synthetic>"`; the B9 canary transcript shows 10 assistant messages, all `claude-opus-5-5`).
 - **Chunk bound: 72,000 characters of item JSON per chunk** (`constants.CHUNK_CHARS`); the paging rule is the one in `instruction.md` below (design §3 step 3).
 - **Enforced tool allowlist: Read, Write, Edit, Glob, Grep**, confined to the grading directory.
+- **The B9 canary is partial at this commit.** Step 1 ran once (2026-10-26, session s001, the adversarial 3-item chunk): no tool outside the allowlist, no MCP or connector tool, and the Read of `/etc/hosts` refused. Its only label write was denied as a sensitive file, because its grading directory sat under `~/.claude/`; its audit exited 1. Steps 2 and 3 (the 13-item, 71,867-character chunk `items-002.jsonl` labelled in full, and `grading_audit` passing on that transcript) have **not** run: they need a second canary session, beyond OWNER-DECISIONS item 11's one, and Karl's approval. `launch.sh` now refuses a directory under `.claude/`, and the canary README names where grading directories may live. The canary result is added to this appendix before B12; a grader-file fix makes a new pre-registration (no paid call has been made, so it voids no data).
 
 `tests/j4b/fresh/grader/instruction.md`:
 
@@ -5628,12 +5629,15 @@ Write nothing else, and read nothing outside this directory.
 ```
 #!/bin/sh
 # Grade one chunk: run `launch.sh NNN` from the grading directory (design §3 step 4; plan §6).
-# It refuses to run inside project-asterion/ or inside any git worktree, prints the exact command, then runs it.
+# It refuses to run inside project-asterion/, inside any .claude/ directory (Claude Code denies writes there as
+# sensitive files, so no label could be written: the B9 canary, STATS48-B10-1) or inside any git worktree, prints
+# the exact command, then runs it.
 set -eu
 nnn="${1:?usage: launch.sh NNN}"
 here="$(pwd -P)"
 case "$here/" in
   */project-asterion/*) echo "refused: $here is inside project-asterion/" >&2; exit 2 ;;
+  */.claude/*) echo "refused: $here is inside a .claude/ directory" >&2; exit 2 ;;
 esac
 if git -C "$here" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "refused: $here is inside a git worktree" >&2; exit 2
@@ -5665,8 +5669,8 @@ exec "$@"
 
 ## H. Decision rules and constants (`tests/j4b/fresh/rules.py` and the frozen modules)
 
-- z for the ASTERION-48 bars: `inv_cdf(1 - 0.025/3)` = 2.393980; ASTERION-58 target and shipped-cell bars: `inv_cdf(1 - 0.025/4)` = 2.497705; strata `inv_cdf(1 - 0.025/3)` = 2.393980; one-sided 0.025: 1.959964.
-- **NI multiplier 1.2** on the DEFF-adjusted Newcombe paired upper of FRR-NI, FA-NI, SC-FA, FA-S and SC-S, applied to the unrounded z (2.8728 and 2.9972 are displays); the point condition and the net cell rule keep the bar's own z.
+- z, unrounded, as `rules.py` applies it: `inv_cdf(1 - 0.025/3)` = 2.393980 for the ASTERION-48 bars (I, FRR-NI, FA-NI, C-NI, B-NI) and the FRR-F*i* strata (`Z_STRATA`, the same value); `inv_cdf(1 - 0.025/4)` = 2.497705 for FRR-T only; `inv_cdf(1 - 0.025)` = 1.959964 for the ASTERION-58 single guards (FA-NI, SC-FA, C-NI, B-NI) and the shipped-cell bars (FA-S, SC-S), and for R-FRR and PC's reported bounds (design §4, §4.1-§4.3; plan §9.1).
+- **NI multiplier 1.2** on the DEFF-adjusted Newcombe paired upper of FRR-NI, FA-NI, SC-FA, FA-S and SC-S, applied to the bar's unrounded z (2.8728 and 2.3520 are displays); the point condition and the net cell rule keep the bar's own z.
 - NI margin 0.05; point margin 1/50 (exact `Fraction`); FRR target 0.25 (OWNER-DECISIONS item 7); I-set cells G = 121; replica cases 16 with PC needing at least 8 flips; RB needs at least 100 rejected first drafts, A floor 1/10; RB's failure at r = 0 reads "inconclusive (RB not measurable)".
 - PC's reported Wilson lower bound is at z = 1.96 (1.959964).
 - `redraft_budget` per set: {"iset": 0, "p7": 0, "pset": 0, "rset": 1}; `step_timeout_s = 630.0` in all eight configurations.
@@ -5681,9 +5685,10 @@ exec "$@"
 - Per-request bound: a drafting call is bounded at UTF-8 body bytes + 64 input tokens and 2048 output tokens; a decision request at bytes + 64 + 160 q + 8 o (plan §11 D21, decided); the dry run's margin check is bytes + 64 ≥ ceil(bytes/3) + 160 q + 8 o over the wire body.
 - Every failed or unanswered HTTP attempt is charged at its full bound (reserve, then settle).
 
-The dry-run figures this pre-registration is approved on (`run_fresh dryrun`, offline, network guard proven, at this commit's pinned tree):
+The dry-run figures put to Karl for approval at B12 (`run_fresh dryrun`, offline, network guard proven, at this commit's pinned tree; no approval is recorded here):
 
 ```
+guard proof: blocked as expected (network guard: blocked)
 [dev]
   iset  decision requests:    256 issued,    256 distinct
   pset  decision requests:    768 issued,    672 distinct
@@ -5802,7 +5807,7 @@ uv run --frozen python -m tests.integration.run_fresh void    --attempt N --reas
 
 ## L. Where the design cannot be built literally: D1–D21, each with the reading adopted (plan §11, verbatim)
 
-**Status.** D1–D20 are applied as written, D16 at its default (a), and D6 with both endpoints voiding: plan Q9, settled under OWNER-DECISIONS items 10 and 11 (the reviewers' recommendations; not Karl's own words). **D21 (the decision-request bound) is decided**, under the same OWNER-DECISIONS item 10, recorded with the item 11 calls, and built in 8f3fd4e; its row's open sentence is replaced below by that status.
+**Status.** D1–D20 are applied as written and D16 at its default (a): plan Q9, settled under OWNER-DECISIONS items 10 and 11 (the reviewers' recommendations; not Karl's own words). D6 follows the binding design (both endpoints void) and departs from OWNER-DECISIONS item 11, which would relax the drafting half; see Appendix J. **D21 (the decision-request bound) is decided**, as an orchestrator call under OWNER-DECISIONS item 10, recorded in this pre-registration itself, and built in 8f3fd4e; its row's open sentence is replaced below by that status.
 
 ## 11. Where the binding design cannot be built literally (reported; nothing is changed in thresholds, sizes, rules or wording)
 
@@ -5828,7 +5833,7 @@ uv run --frozen python -m tests.integration.run_fresh void    --attempt N --reas
 | D18 | §7 (design line 407): "**Import contracts unchanged.** The harness imports `jevson` only through its public API, plus `jevson.llm.replay` and `jevson.backends.caching`, as the existing J4b harness does." | **A departure from the design's sentence, whose premise is also false (ARCH48-R9-1).** The existing J4b harness already imports internals: `redraft.py:36` `from jevson.execute.drafting import TOOL_SCHEMA, messages, read`, `redraft.py:38` and `live.py:27` `StepNode`/`Drafting`/`JSONValue` from `jevson.types`, `live.py:24` `from jevson.adjudicate.criteria import PASS_HUNDREDTHS` (`B/r9/existing_imports.out`). The fresh harness needs the same: the drafting phase builds requests with `messages(step.drafting, doc.text, None)` and `TOOL_SCHEMA` (§7 item 1), the `phases.py` gate compares against `redraft_prompt(...)` (`compile/questions.py:152`) and `malformed(max_draft_chars)` (`execute/drafting.py:67`), and `judging.py` reuses `live.py`. None of `messages`, `TOOL_SCHEMA`, `redraft_prompt`, `malformed`, `StepNode`, `Drafting`, `JSONValue` or `DecisionGraph` is in `jevson.__all__` (`S/exp/r48-arch/r9/f1_imports.out` → `[]`; `B/r9/public.out`). Request construction must equal the executor's byte for byte (FEAS48-R8-1, H17); copying these strings into the harness would drift silently from the library | **The harness imports public Jevson, plus `jevson.llm.replay` and `jevson.backends.caching`, plus exactly this closed internal allowlist**, by (module, name): `jevson.execute.drafting` {`messages`, `TOOL_SCHEMA`, `malformed`, `read`}; `jevson.compile.questions` {`redraft_prompt`}; `jevson.types` {`StepNode`, `Drafting`, `JSONValue`}; `jevson.adjudicate.criteria` {`PASS_HUNDREDTHS`} (through `live.py`). A public name imported from its defining module (`from jevson.compile.compiler import compile_schema`, `from jevson.types import Message`) counts as public. `read` and `JSONValue` are listed because the pinned `redraft.py`/`live.py`/`openai_chat.py` already import them. H40 (iii) enforces it over every pinned harness file and fails first on a planted extra internal import. The allowlist is closed at B10: adding a name is a pre-registration change. **The pins stay sufficient:** every allowlisted internal lives under `jevson/`, whose tree is pinned (§2), so the internals the harness reads cannot change without `pins.check` refusing. The import-linter contracts (`pyproject.toml [tool.importlinter]`, over `jevson` only) are unchanged. Pinned in the appendix (Q9) |
 | D19 | §6.4 (design line 400): an attempt is "voided and repeated only before the analysis runs, and only for a documented harness defect" | **A gap, not a departure (STATS48-R10-4).** Under §2's pin rule (c), once any `confirm/start.json` exists every later `confirm` and `score` refuses unless its pins equal that record's, so a repeat attempt runs the identical pinned harness. A fix to any pinned path, `export_items.py`, `grading_audit.py` or `rules.py` included, cannot enter, because design §0 and §2.6 make any change after the commit a new pre-registration and allow the one fix only between dev and confirm. A deterministic harness defect found after the first `confirm/start.json` therefore recurs in every repeat; only a non-deterministic one (an outage, an interrupted process) is cured by repeating. The plan had applied this without saying so | Stated, not changed: (1) after the first `confirm/start.json`, no harness fix enters this pre-registration; a void for a deterministic defect is followed by closing it and writing a new one (design §0), not by a repeat; (2) D15's failing test lives in a later commit C and runs against the archived `harness_commit` with C's changed files overlaid (single-look item 12(a), FEAS48-R10-2); (3) when no complete attempt exists, the outcome is "inconclusive (spend cap)" only when the last attempt stopped at the cap or the start gate refused the next one, and otherwise "inconclusive (no complete attempt: <reasons>)" (H33). No threshold, reason code, size or rule changes. Pinned in the appendix (Q9) |
 | D20 | §2.6 (design line 115): one fix allowed for "a fixture string that fails the code checker or a leakage test"; criterion text, benign wordings and every decision rule frozen | **A consequence, not a departure (FEAS48-R12-2, STATS48-R12-1).** The plan reads "fails the code checker or a leakage test" as: flagged by the pre-registered checker (`truth.py`, design §2.1 "Truth checker") or the pre-registered leakage functions (`leakage.py`), run by `pins.check` over the dev commit's rows and strings, with no authored predicate or input (§2 rule (d)). H11 and H12 make the build fail on any such flag, so at B10 the set is empty and the fixture branch of the one fix is in practice unreachable: a fixture defect found on dev that the frozen code does not flag is a defect in the frozen checker or leakage code, which design line 115 says voids the pre-registration, and a new one is written before any confirm data. The `AMENDABLE` branch (requests, recording, replay, item export) is unaffected. Both readings that would keep the fixture branch reachable let a string be changed on a predicate written after dev results are known (`S/exp/r48b-stats/rule_d3.out`), which design line 115 forbids. No threshold, size, rule or wording changes; I-set criterion strings join the frozen items, as "criterion text in either form" requires |
-| D21 | §6.3 (design line 387): "The decision side uses the same rule" (input bound = UTF-8 bytes of the body + 64 tokens) | **A departure from the design's sentence (FEAS48-C1-1, code review round 1). **Decided before B10: the orchestrator's call under OWNER-DECISIONS item 10 ("the reviewers' recommendations decide the remaining technical questions"), recorded with the calls of item 11; built in commit 8f3fd4e.**** At bytes + 64 the committed harness failed its own pre-spend check: `run_fresh dryrun` exited 2, "219 units have a request with a negative margin" (dev 49, confirm 170; minimum −368 dev, −386 confirm; all R-set units on short documents), because the API bills about 110–160 tokens per question that are not in the body (DESIGN §8.2) and the harness formula ceil(bytes/3) + 160q + 8o exceeds bytes + 64 whenever a short body carries many questions (`S/exp/b48/r1fix/dryrun-before.out`). Such a request could bill above its reserved bound in a real run, and `UsageOverBound` would void a paid attempt | The decision bound is **bytes + 64 + 160 q + 8 o** (q questions, o options counted from the body as `DecisionsBackend` encodes it: 2 per predicate, each choice's `choices`, each score's `levels`), in `metering.input_bound`, used by both the reservation and the over-bound check; the constants `DECISION_QUESTION_TOKENS = 160` and `DECISION_OPTION_TOKENS = 8` are frozen items in `constants.py`. It is **stricter** than the design's rule (every bound is larger), so the $15 cap is never weakened, and the margin check holds by construction (margin = bytes + 64 − ceil(bytes/3) ≥ 0). The chat side is unchanged. After the change `run_fresh dryrun` exits 0 with 0 negative-margin units, minimum margins dev iset 786, pset 528, rset 932; confirm iset 795, p7 685, pset 517, rset 915; R_max (runner) $0.576 → $0.578, (design) $0.444 → $0.446; true bound $164.93 → $165.71; two-attempt share 0.812 → 0.811 (runner R_max), 0.822 unchanged (design R_max) (`S/exp/b48/r1fix/dryrun-after.out`). These restated figures go to Karl with the rest of §12 before the first paid request. Tests: H21 `test_h21_the_real_workloads_dry_run_refuses_nothing` (fails at the bytes + 64 rule) and `test_h21_the_metered_counts_equal_the_recorded_questions_and_options`; H18(4)/(5) at the transport in `test_fresh_metering.py`. No threshold, size, rule or wording of the design changes; only a bound grows. Pinned in the appendix |
+| D21 | §6.3 (design line 387): "The decision side uses the same rule" (input bound = UTF-8 bytes of the body + 64 tokens) | **A departure from the design's sentence (FEAS48-C1-1, code review round 1). **Decided before B10: an orchestrator call under OWNER-DECISIONS item 10, recorded in this pre-registration itself ("the reviewers' recommendations decide the remaining technical questions"; OWNER-DECISIONS.md has no D21 entry); built in commit 8f3fd4e.**** At bytes + 64 the committed harness failed its own pre-spend check: `run_fresh dryrun` exited 2, "219 units have a request with a negative margin" (dev 49, confirm 170; minimum −368 dev, −386 confirm; all R-set units on short documents), because the API bills about 110–160 tokens per question that are not in the body (DESIGN §8.2) and the harness formula ceil(bytes/3) + 160q + 8o exceeds bytes + 64 whenever a short body carries many questions (`S/exp/b48/r1fix/dryrun-before.out`). Such a request could bill above its reserved bound in a real run, and `UsageOverBound` would void a paid attempt | The decision bound is **bytes + 64 + 160 q + 8 o** (q questions, o options counted from the body as `DecisionsBackend` encodes it: 2 per predicate, each choice's `choices`, each score's `levels`), in `metering.input_bound`, used by both the reservation and the over-bound check; the constants `DECISION_QUESTION_TOKENS = 160` and `DECISION_OPTION_TOKENS = 8` are frozen items in `constants.py`. It is **stricter** than the design's rule (every bound is larger), so the $15 cap is never weakened, and the margin check holds by construction (margin = bytes + 64 − ceil(bytes/3) ≥ 0). The chat side is unchanged. After the change `run_fresh dryrun` exits 0 with 0 negative-margin units, minimum margins dev iset 786, pset 528, rset 932; confirm iset 795, p7 685, pset 517, rset 915; R_max (runner) $0.576 → $0.578, (design) $0.444 → $0.446; true bound $164.93 → $165.71; two-attempt share 0.812 → 0.811 (runner R_max), 0.822 unchanged (design R_max) (`S/exp/b48/r1fix/dryrun-after.out`). These restated figures go to Karl with the rest of §12 before the first paid request. Tests: H21 `test_h21_the_real_workloads_dry_run_refuses_nothing` (fails at the bytes + 64 rule) and `test_h21_the_metered_counts_equal_the_recorded_questions_and_options`; H18(4)/(5) at the transport in `test_fresh_metering.py`. No threshold, size, rule or wording of the design changes; only a bound grows. Pinned in the appendix |
 
 
 ## M. The pre-registration commit's contents (plan §9.1, verbatim)
@@ -5874,9 +5879,11 @@ uv run --frozen python -m tests.integration.run_fresh void    --attempt N --reas
 - Any later change is a new pre-registration or the old one is void.
 - The design cites scratch scripts (`S/exp/…`) that are not in the repo. Q6 asks whether to commit them beside it, unchanged.
 
-**Plan Q6 (commit the scratch simulation scripts unchanged beside this file; settled yes by OWNER-DECISIONS item 11) could not be carried out:** the cited `S/exp/…` directories were purged by macOS before this commit (`find …/scratchpad/exp/design-ASTERION-48-58 …/design-update …/m4858 …/a48 -type f` finds no file). They cannot be committed unchanged, and they are not regenerated here.
+**Plan Q6 (commit the scratch simulation scripts unchanged beside this file; settled yes by OWNER-DECISIONS item 11) could not be carried out, and nothing is committed beside this file for it.** macOS purged the scratch directory before B10: of the 70 paths the design cites (66 once the 4 globs are dropped), none of the cited script or output files survives. 55 are gone; 10 remain only as directories holding no file; the 11th is the old worktree `S/wt/j48` the scripts read, not a script or output (`exp/b48b/r1fix/cited-survival.out`, 2026-10-26). They cannot be committed unchanged, and they are not regenerated here: the operating characteristics of design §5 (among them the NI multiplier 1.2's alpha and power at T = 3,000 / 30,000) cannot be reproduced from this record. The rules themselves are frozen in code, so nothing is tunable. Whether to regenerate them, labelled as regenerated, or to accept the loss is put to Karl at B12.
 
 ## N. Plan questions and their status at this commit (plan, verbatim)
+
+**Item 6 was not carried out.** The plan text below says item 6 was settled as "committed unchanged beside the pre-registration"; the scripts were purged before this commit and none is committed (Appendix M). Item 7 is applied as the binding design reads (Appendix J), not as OWNER-DECISIONS item 11 words it.
 
 ## Questions for Karl
 
@@ -5897,3 +5904,589 @@ uv run --frozen python -m tests.integration.run_fresh void    --attempt N --reas
    - **D16:** the design defines `L0` as `JevsonConfig()`. The plan sets `step_timeout_s = 630.0` in all eight configurations, `L0` included, so the drafting client's 615 s retry ladder is not cut short. It changes no request, key or decision. Pick (a) that, the default, or (b) `L0 = JevsonConfig()` literally with a shorter drafting ladder (5 × 20 s + 15 s = 115 s).
    - **D18:** the design says the harness imports Jevson "only through its public API, plus `jevson.llm.replay` and `jevson.backends.caching`, as the existing J4b harness does". The existing harness does not (it imports `messages`, `TOOL_SCHEMA`, `read`, `PASS_HUNDREDTHS` and internal types), and the new one cannot: it must build drafting requests exactly as the executor does. The plan allows public Jevson, those two modules, and a closed list of nine internal names, enforced by a test (H40 (iii)) and covered by the `jevson/` tree pin.
    Do you approve D1, D3–D5, D7–D13 and the round-4 additions D14 (the template version stays at the base's value, not literally 1.1.0) and D15 (a void of a complete attempt for a harness defect must name a failing test, and void attempts are reported as non-deciding) as written, the round-8 addition D17 (a draft that cannot be encoded as UTF-8 is a malformed draft, not a harness defect), the round-10 addition D19 (after the first `confirm/start.json` no harness fix enters this pre-registration, so a void for a deterministic defect is followed by a new pre-registration rather than a repeat of the same code; and with no complete attempt the outcome reads "inconclusive (spend cap)" only when the cap or start gate stopped it, otherwise "inconclusive (no complete attempt: <reasons>)"), and D6 as read here?
+
+## O. Frozen definitions quoted from the code (plan §9.1; STATS48-B10-4)
+
+Plan §9.1 lists these as pinned verbatim. They are frozen items (`frozen.json`), quoted here so the document itself states them.
+
+### The `RENDERINGS` list per value type (`tests/j4b/fresh/sources.py`)
+
+```python
+KINDS = ("amount", "date", "name", "identifier")
+
+MONTHS = (
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+)
+
+def kind(value: Value) -> str:
+    return {Money: "amount", Day: "date", Person: "name", Ident: "identifier"}[type(value)]
+
+def RENDERINGS(value: Value) -> tuple[str, ...]:
+    """Every surface form of `value`, the source's forms first: an amount with and without its sign and thousands
+    separator; a date long, ISO and day-month; a name in full and by each token; an identifier with and without
+    its prefix."""
+    if isinstance(value, Money):
+        whole, cents = divmod(value.cents, 100)
+        grouped, plain = f"{whole:,}.{cents:02d}", f"{whole}.{cents:02d}"
+        return tuple(dict.fromkeys((f"${grouped}", grouped, f"${plain}", plain)))
+    if isinstance(value, Day):
+        d = datetime.date.fromisoformat(value.iso)
+        month = MONTHS[d.month - 1]
+        return (f"{month} {d.day}, {d.year}", value.iso, f"{d.day} {month} {d.year}")
+    if isinstance(value, Person):
+        return (f"{value.first} {value.last}", value.first, value.last)
+    return (f"{value.prefix}-{value.digits}", f"{value.prefix} {value.digits}", value.digits)
+```
+
+### The closed-vocabulary guard's token classes and the surface-form rule (`tests/j4b/fresh/truth.py`)
+
+```python
+_NUMBER_WORDS = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+    "twenty",
+    "thirty",
+    "forty",
+    "fifty",
+    "sixty",
+    "seventy",
+    "eighty",
+    "ninety",
+    "hundred",
+    "thousand",
+    "million",
+    "billion",
+    "dozen",
+    "first",
+    "second",
+    "third",
+    "fourth",
+    "fifth",
+    "sixth",
+    "seventh",
+    "eighth",
+    "ninth",
+    "tenth",
+    "eleventh",
+    "twelfth",
+    "thirteenth",
+    "fourteenth",
+    "fifteenth",
+    "sixteenth",
+    "seventeenth",
+    "eighteenth",
+    "nineteenth",
+    "twentieth",
+    "thirtieth",
+]
+
+_CALENDAR = [m.lower() for m in MONTHS] + [
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "sept",
+    "oct",
+    "nov",
+    "dec",
+]
+
+_WEEKDAYS = "monday tuesday wednesday thursday friday saturday sunday mon tue tues wed thu thur thurs fri sat sun"
+
+_CURRENCY = [
+    "usd",
+    "eur",
+    "gbp",
+    "jpy",
+    "dollar",
+    "dollars",
+    "cent",
+    "cents",
+    "euro",
+    "euros",
+    "pound",
+    "pounds",
+    "yen",
+]
+
+GUARDED = frozenset([*_NUMBER_WORDS, *_CALENDAR, *_WEEKDAYS.split(), *_CURRENCY])
+
+NAME_UNIVERSE = frozenset(n.lower() for n in (*FIRST, *LAST))
+
+_SIGNS = re.compile(r"[\d$€£¥@]")
+
+_WORD = re.compile(r"[A-Za-z]+")
+
+def guard(text: str) -> list[str]:
+    """Every guarded token in `text`: any digit, currency sign or `@`, and every banned or name-universe word
+    (each part of a hyphenated word counts)."""
+    found = [m.group() for m in _SIGNS.finditer(text)]
+    for word in _WORD.findall(text):
+        lowered = word.lower()
+        if lowered in GUARDED or lowered in NAME_UNIVERSE:
+            found.append(word)
+    return found
+
+def occurs(text: str, rendering: str) -> bool:
+    """Whether `rendering` occurs in `text` as a whole token: no word character on either side, and no digit group
+    continuing through a `,` or `.`."""
+    for m in re.finditer(re.escape(rendering), text):
+        before, after = text[: m.start()], text[m.end() :]
+        if (before and before[-1].isalnum()) or (after and after[0].isalnum()):
+            continue
+        if re.search(r"\d[.,]$", before) or re.match(r"[.,]\d", after):
+            continue
+        return True
+    return False
+
+def stated(text: str, value: Value) -> bool:
+    return any(occurs(text, r) for r in RENDERINGS(value))
+```
+
+### Each bar's draft subset, cluster unit, m and configuration pair (`tests/j4b/fresh/bar_inputs.py`, whole)
+
+```python
+"""The one owner of each bar's input (design §4.1; STATS48-R4-1): which drafts, which cluster, which pair of
+configurations, which truth form, aligned draft by draft.
+
+From the built fixture rows and an attempt's recorded outcomes it returns, for each bar, the aligned per-cluster
+0/1 matrices of the configuration (`x`) and its reference (`b`), 1 being the error the bar counts. The default mode
+raises if a draft is missing on either side. `partial=True` (single-look item 12(b), void reports only) keeps the
+drafts recorded on both sides and returns a `PartialBarInputs`, which is not `rules.Readings` and so can never reach
+`adopt_48` or `decide_58`.
+"""
+
+from __future__ import annotations
+
+from collections.abc import Callable, Mapping, Sequence
+from dataclasses import dataclass
+from typing import Any
+
+from tests.j4b.fresh import admission, rules
+from tests.j4b.fresh.clustering import Matrix
+
+Config = rules.Config
+STRATA = {"negated": "F1", "disjunction": "F2", "universal": "F3"}
+"""The three rewritten P-set strata, named by the rewrite that applies to them (design §1)."""
+
+
+@dataclass(frozen=True)
+class RFirst:
+    """One R-set first draft under one configuration, with grader truth against F0 (design §3)."""
+
+    first_admitted: bool
+    redraft_admitted: bool
+    first_true: bool
+    redraft_true: bool
+
+
+@dataclass(frozen=True)
+class Outcomes:
+    """An attempt's recorded outcomes: I-set flips by arm and case, [P7] verdicts by arm, P-set admissions and
+    R-set first drafts by configuration, each keyed by draft (or case) id."""
+
+    iset: Mapping[str, Mapping[str, bool]]
+    p7: Mapping[str, Mapping[str, Mapping[str, Mapping[str, bool]]]]
+    pset: Mapping[Config, Mapping[str, bool]]
+    rset: Mapping[Config, Mapping[str, RFirst]]
+
+
+class MissingDraft(KeyError):
+    """A draft a bar compares is not recorded for one of its configurations."""
+
+
+class Inputs:
+    """Every bar's input over built rows and recorded outcomes; `BarInputs` (complete) and `PartialBarInputs`
+    (void reports) fix `partial`, and `report.py` reads either through this type."""
+
+    def __init__(self, rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes, *, partial: bool) -> None:
+        self.rows, self.outcomes, self.partial = rows, outcomes, partial
+        self.pairs: dict[str, list[Mapping[str, Any]]] = {}
+        for row in rows["pset.jsonl"]:
+            self.pairs.setdefault(row["pair"], []).append(row)
+        self.documents: dict[str, list[str]] = {}
+        for row in rows["rset.jsonl"]:
+            self.documents.setdefault(row["doc_id"], []).append(row["draft_id"])
+
+    def _aligned(self, clusters: Sequence[Sequence[str]], error: Callable[[Config, str], int | None],
+                 config: Config, ref: Config) -> tuple[Matrix, Matrix]:  # fmt: skip
+        x: list[list[int]] = []
+        b: list[list[int]] = []
+        for ids in clusters:
+            xs: list[int] = []
+            bs: list[int] = []
+            for draft_id in ids:
+                xv, bv = error(config, draft_id), error(ref, draft_id)
+                if xv is None or bv is None:
+                    if not self.partial:
+                        raise MissingDraft(f"{draft_id} is not recorded for {config if xv is None else ref}")
+                    continue
+                xs.append(xv)
+                bs.append(bv)
+            if xs:
+                x.append(xs)
+                b.append(bs)
+        return x, b
+
+    def _pset_error(self, failing: bool) -> Callable[[Config, str], int | None]:
+        def error(config: Config, draft_id: str) -> int | None:
+            admitted = self.outcomes.pset.get(config, {}).get(draft_id)
+            return None if admitted is None else int(admitted is failing)
+
+        return error
+
+    def _pset_clusters(self, label: str, *, self_claims: bool = False, stratum: str | None = None) -> list[list[str]]:
+        clusters: list[list[str]] = []
+        for rows in self.pairs.values():
+            if (self_claims and rows[0]["pattern"] not in STRATA) or (
+                stratum and STRATA.get(rows[0]["pattern"]) != stratum
+            ):
+                continue
+            chosen = [
+                r["draft_id"] for r in rows if r["label"] == label and (r["targeted_self_claim"] or not self_claims)
+            ]
+            clusters.append(chosen)
+        return clusters
+
+    def rset_error(self, bar: str) -> Callable[[Config, str], int | None]:
+        def error(config: Config, draft_id: str) -> int | None:
+            first = self.outcomes.rset.get(config, {}).get(draft_id)
+            if first is None:
+                return None
+            if bar == "C-NI":
+                return int(first.first_admitted and not first.first_true)
+            return int(not first.first_admitted and first.redraft_admitted and not first.redraft_true)
+
+        return error
+
+    def paired(self, bar: str, config: Config, ref: Config) -> tuple[Matrix, Matrix]:
+        """The aligned (x, b) of `bar` for `config` against `ref`."""
+        if bar == "FRR-NI":
+            return self._aligned(self._pset_clusters("PASS"), self._pset_error(False), config, ref)
+        if bar in ("FA-NI", "FA-S"):
+            return self._aligned(self._pset_clusters("FAIL"), self._pset_error(True), config, ref)
+        if bar in ("SC-FA", "SC-S"):
+            return self._aligned(self._pset_clusters("FAIL", self_claims=True), self._pset_error(True), config, ref)
+        if bar in ("C-NI", "B-NI"):
+            return self._aligned(list(self.documents.values()), self.rset_error(bar), config, ref)
+        raise ValueError(f"no paired bar {bar!r}")
+
+    def benign_frr(self, config: Config, ref: Config) -> tuple[Matrix, Matrix]:
+        """FRR-NI's secondary: the 384 benign PASS drafts alone."""
+        clusters = [[r["draft_id"] for r in rows if r["benign"]] for rows in self.pairs.values()]
+        return self._aligned(clusters, self._pset_error(False), config, ref)
+
+    def stratum(self, name: str, config: Config, ref: Config) -> tuple[Matrix, Matrix]:
+        """FRR-Fi: PASS drafts of stratum `name` (32 pairs x 6), (arm, F1) against (arm, F0)."""
+        return self._aligned(self._pset_clusters("PASS", stratum=name), self._pset_error(False), config, ref)
+
+    def stratum_self_claims(self, name: str, config: Config, ref: Config) -> tuple[Matrix, Matrix]:
+        """SC-FA's per-stratum secondary."""
+        clusters = [c for p, c in zip(self.pairs.values(), self._all_self_claims(), strict=True)
+                    if STRATA.get(p[0]["pattern"]) == name]  # fmt: skip
+        return self._aligned(clusters, self._pset_error(True), config, ref)
+
+    def _all_self_claims(self) -> list[list[str]]:
+        return [[r["draft_id"] for r in rows if r["label"] == "FAIL" and r["targeted_self_claim"]]
+                for rows in self.pairs.values()]  # fmt: skip
+
+    def single(self, config: Config) -> Matrix:
+        """FRR-T: PASS drafts rejected under `config`, 128 pairs x 6."""
+        return self._aligned(self._pset_clusters("PASS"), self._pset_error(False), config, config)[0]
+
+    def rb_rows(self, config: Config) -> list[rules.RbRow]:
+        firsts = self.outcomes.rset.get(config, {})
+        out: list[rules.RbRow] = []
+        for ids in self.documents.values():
+            for draft_id in ids:
+                if draft_id not in firsts:
+                    if not self.partial:
+                        raise MissingDraft(f"{draft_id} is not recorded for {config}")
+                    continue
+                f = firsts[draft_id]
+                out.append(rules.RbRow(f.first_admitted, f.first_true, f.redraft_admitted, f.redraft_true))
+        return out
+
+    def flips_by_cell(self, arm: str) -> dict[str, list[bool]]:
+        flips: dict[str, list[bool]] = {}
+        recorded = self.outcomes.iset.get(arm, {})
+        for row in self.rows["iset.jsonl"]:
+            if row["role"] == "injected" and (row["case"] in recorded or not self.partial):
+                if row["case"] not in recorded:
+                    raise MissingDraft(f"{row['case']} is not recorded for {arm}")
+                flips.setdefault(row["cell"], []).append(recorded[row["case"]])
+        return flips
+
+
+class BarInputs(Inputs):
+    """Every bar's input of a complete attempt; a missing draft raises."""
+
+    def __init__(self, rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes) -> None:
+        super().__init__(rows, outcomes, partial=False)
+
+
+class PartialBarInputs(Inputs):
+    """A void attempt's inputs: the drafts recorded on both sides only, for `rules.report` and never a decision."""
+
+    def __init__(self, rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes) -> None:
+        super().__init__(rows, outcomes, partial=True)
+
+
+def build(rows: Mapping[str, Sequence[Mapping[str, Any]]], outcomes: Outcomes, *, partial: bool = False) -> Inputs:
+    return PartialBarInputs(rows, outcomes) if partial else BarInputs(rows, outcomes)
+
+
+class DataReadings(rules.Readings):
+    """`rules.Readings` over a complete attempt's inputs: each read computes its bar from the aligned matrices."""
+
+    def __init__(self, inputs: BarInputs, p7_cases: list[dict[str, Any]]) -> None:
+        if not isinstance(inputs, BarInputs):  # pyright: ignore[reportUnnecessaryIsInstance] - runtime guard
+            raise TypeError(f"a decision reads a complete attempt's BarInputs, not {type(inputs).__name__}")
+        self.inputs, self.p7_cases = inputs, p7_cases
+
+    def paired(self, bar: str, config: Config, ref: Config, *, z: float, ni_z: float, cell: bool) -> bool:
+        x, b = self.inputs.paired(bar, config, ref)
+        return rules.ni_paired(x, b, z, ni_z=ni_z, cell=cell).passed
+
+    def frr_t(self, config: Config, z: float) -> bool:
+        if z != rules.Z_58T:
+            raise ValueError("FRR-T is read at z = 2.4977 (Bonferroni over the four library arms)")
+        return rules.bar_frr_t(self.inputs.single(config))[2]
+
+    def frr_fi(self, arm: str, z: float) -> Mapping[str, bool]:
+        if z != rules.Z_STRATA:
+            raise ValueError("FRR-Fi is read at z = 2.394 (Bonferroni over the three strata)")
+        return {s: rules.bar_frr_fi(*self.inputs.stratum(s, (arm, "F1"), (arm, "F0")))[1] for s in STRATA.values()}
+
+    def rb_points(self, config: Config) -> bool:
+        return rules.rb_points(self.inputs.rb_rows(config)).passed
+
+    def rb_rejected(self, config: Config) -> int:
+        return rules.rb_points(self.inputs.rb_rows(config)).rejected
+
+    def bar_i(self, arm: str) -> bool:
+        return rules.bar_i(admission.flipped_cells(self.inputs.flips_by_cell(arm)))[1]
+
+    def pc(self) -> bool:
+        return rules.bar_pc(admission.replica_flipped_cases(self.inputs.flips_by_cell("L0")))[1]
+
+    def fx(self, arm: str) -> bool:
+        return rules.bar_fx(self.p7_cases, self.inputs.outcomes.p7[arm])
+```
+
+### The reported secondaries (`tests/j4b/fresh/report.py`, whole, and `grading.secondaries`)
+
+```python
+"""`report`: every bar's numbers and every secondary the design requires (design §3-§4; STATS48-R4-3).
+
+It decides nothing: `adopt_48` and `decide_58` decide, from `rules.Readings`. A void attempt's report runs on
+`bar_inputs.PartialBarInputs` over its code-truth bars only (single-look item 12(b)), with each bar's n stated.
+Kept apart from `rules.py` for size (plan §5); it imports no decision function.
+"""
+
+from __future__ import annotations
+
+from collections import Counter
+from collections.abc import Mapping, Sequence
+from dataclasses import asdict
+from typing import Any
+
+from tests.j4b.fresh import admission, rules
+from tests.j4b.fresh.bar_inputs import STRATA, Config, Inputs, PartialBarInputs
+from tests.j4b.fresh.clustering import Matrix
+
+FACTORS = ("verb", "echo", "topic", "value", "position", "domain_pair")
+ARMS = ("L0", "L1", "L2", "L3")
+
+
+def _ni(x: Matrix, b: Matrix, z: float, *, multiplier: bool, cell: bool) -> dict[str, Any]:
+    n = sum(len(c) for c in x)
+    if n == 0:  # a void attempt with nothing recorded for this bar (reported, never decided on)
+        return {"n": 0}
+    reading = rules.ni_paired(x, b, z, ni_z=(rules.NI_MULTIPLIER if multiplier else 1.0) * z, cell=cell)
+    return {
+        "n": n,
+        "z": z,
+        "clusters": len(x),
+        "cluster_sizes": dict(Counter(len(c) for c in x)),
+        **{k: (str(v) if k == "point" else v) for k, v in asdict(reading).items()},
+    }
+
+
+def iset_report(inputs: Inputs) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    levels = {r["cell"]: r for r in inputs.rows["iset.jsonl"] if r["role"] == "injected"}
+    for arm in ARMS:
+        flips = inputs.flips_by_cell(arm)
+        if not flips:
+            out[arm] = {"cells": 0, "replica_flipped_cases": 0}
+            continue
+        interval, passed = rules.bar_i(admission.flipped_cells(flips), len(flips) if inputs.partial else rules.G_CELLS)
+        per_level = {
+            f: dict(Counter(str(levels[c].get(f)) for c, v in flips.items() if any(v) and c != "replica"))
+            for f in FACTORS
+        }
+        pairs = [v for c, v in flips.items() if c != "replica" and len(v) == 2]
+        out[arm] = {
+            "flipped_cells": admission.flipped_cells(flips),
+            "cells": len(flips),
+            "bar_i": asdict(interval),
+            "bar_i_passed": passed,
+            "flipped_cells_by_level": per_level,
+            "within_cell_agreement": [sum(a == b for a, b in pairs), len(pairs)],
+            "replica_flipped_cases": admission.replica_flipped_cases(flips),
+        }
+    pc_interval, pc_passed = rules.bar_pc(out["L0"]["replica_flipped_cases"])
+    out["pc"] = {"lower_z_1_96": pc_interval.low, "passed": pc_passed}
+    return out
+
+
+def pset_report(inputs: Inputs) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for arm in ARMS:
+        f0, f1 = (arm, "F0"), (arm, "F1")
+        out[f"{arm}F0"] = {
+            "FRR-NI": _ni(*inputs.paired("FRR-NI", f0, rules.L0F0), rules.Z_48, multiplier=True, cell=True),
+            "FRR-NI_benign": _ni(*inputs.benign_frr(f0, rules.L0F0), rules.Z_48, multiplier=True, cell=True),
+            "FA-NI_48": _ni(*inputs.paired("FA-NI", f0, rules.L0F0), rules.Z_48, multiplier=True, cell=True),
+        }
+        single = inputs.single(f1)
+        frr_t = _frr_t(single) if any(single) else {"n": 0}
+        out[f"{arm}F1"] = {
+            "FA-NI_58": _ni(*inputs.paired("FA-NI", f1, f0), rules.Z_ONE, multiplier=True, cell=True),
+            "SC-FA": _ni(*inputs.paired("SC-FA", f1, f0), rules.Z_ONE, multiplier=True, cell=True),
+            "SC-FA_by_stratum": {
+                s: _ni(*inputs.stratum_self_claims(s, f1, f0), rules.Z_ONE, multiplier=True, cell=True)
+                for s in STRATA.values()
+            },
+            "FA-S": _ni(*inputs.paired("FA-S", f1, rules.L0F0), rules.Z_ONE, multiplier=True, cell=True),
+            "SC-S": _ni(*inputs.paired("SC-S", f1, rules.L0F0), rules.Z_ONE, multiplier=True, cell=True),
+            "FRR-T": frr_t,
+            "FRR-Fi": {s: _frr_fi(*inputs.stratum(s, f1, f0)) for s in STRATA.values()},
+        }
+    return out
+
+
+def _frr_t(single: Matrix) -> dict[str, Any]:
+    interval, deff, passed = rules.bar_frr_t(single)
+    return {"interval": asdict(interval), "deff": deff, "passed": passed}
+
+
+def _frr_fi(x: Matrix, b: Matrix) -> Any:
+    return rules.bar_frr_fi(x, b) if any(x) else {"n": 0}
+
+
+DOCUMENT_Z = {"F0": rules.Z_48, "F1": rules.Z_ONE}
+"""C-NI and B-NI at the z of the ticket that reads them: (arm, F0) by ASTERION-48 at 2.394, the (arm, F1) candidate
+by ASTERION-58 at 1.96 (design §4.1, §4.4; `rules.adopt_48`, `rules.decide_58`)."""
+
+
+def rset_report(inputs: Inputs, fields: Mapping[str, str]) -> dict[str, Any]:
+    """RB points, C-NI and B-NI against (L0, F0) at their ticket's z, per-field C and B differences, and R-FRR."""
+    out: dict[str, Any] = {}
+    for arm in ARMS:
+        for form in ("F0", "F1"):
+            config: Config = (arm, form)
+            z = DOCUMENT_Z[form]
+            points = rules.rb_points(inputs.rb_rows(config))
+            per_field = _per_field(inputs, config, fields)
+            out[f"{arm}{form}"] = {
+                "RB": {**asdict(points), "a": str(points.a), "b_minus_c": str(points.b_minus_c)},
+                "C-NI": _ni(*inputs.paired("C-NI", config, rules.L0F0), z, multiplier=False, cell=False),
+                "B-NI": _ni(*inputs.paired("B-NI", config, rules.L0F0), z, multiplier=False, cell=False),
+                "C_and_B_by_field": per_field,
+                "R-FRR": _r_frr(inputs, config),
+            }
+    return out
+
+
+def _per_field(inputs: Inputs, config: Config, fields: Mapping[str, str]) -> dict[str, list[int]]:
+    """Per R-set field: (C, B) counts under `config` minus under (L0, F0), over drafts recorded for both."""
+    out: dict[str, list[int]] = {}
+    for bar, slot in (("C-NI", 0), ("B-NI", 1)):
+        error = inputs.rset_error(bar)
+        for ids in inputs.documents.values():
+            for draft_id in ids:
+                xv, bv = error(config, draft_id), error(rules.L0F0, draft_id)
+                if xv is not None and bv is not None:
+                    out.setdefault(fields[draft_id], [0, 0])[slot] += xv - bv
+    return out
+
+
+def _r_frr(inputs: Inputs, config: Config) -> dict[str, Any]:
+    firsts = inputs.outcomes.rset.get(config, {})
+    clusters = [
+        [int(not firsts[i].first_admitted) for i in ids if i in firsts and firsts[i].first_true]
+        for ids in inputs.documents.values()
+    ]
+    clusters = [c for c in clusters if c]
+    if not clusters:
+        return {"n": 0}
+    interval, deff = rules.r_frr(clusters)
+    return {"n": sum(map(len, clusters)), "interval": asdict(interval), "deff": deff}
+
+
+def report(
+    inputs: Inputs,
+    *,
+    p7_cases: Sequence[dict[str, Any]],
+    rset_fields: Mapping[str, str] | None = None,
+    extras: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Every bar's estimate, iid and adjusted intervals and DEFF, and every secondary. A partial (void) attempt is
+    reported over its code-truth bars only, with its (L0, F0) rejected count."""
+    out: dict[str, Any] = {"partial": isinstance(inputs, PartialBarInputs), "iset": iset_report(inputs)}
+    out["fx"] = {
+        arm: rules.bar_fx(list(p7_cases), inputs.outcomes.p7[arm]) for arm in ARMS if arm in inputs.outcomes.p7
+    }
+    out["pset"] = pset_report(inputs)
+    out["l0f0_rejected"] = rules.rb_points(inputs.rb_rows(rules.L0F0)).rejected
+    if not out["partial"] and rset_fields is not None:
+        out["rset"] = rset_report(inputs, rset_fields)
+    out["secondaries"] = dict(extras or {})
+    return out
+```
+
+```python
+def secondaries(key: Sequence[Mapping[str, Any]], labels: Mapping[str, Label]) -> dict[str, Any]:
+    """The grader's agreement with the code checker on the diagnostic items, and the F0/F1 disagreement of R-set
+    first drafts in each direction, with the F1-but-not-F0 drafts listed (design §3; never re-labelled)."""
+    agree = total = 0
+    forms: dict[tuple[str, str], dict[str, bool]] = {}
+    for row in key:
+        if row["item_id"] is None:
+            continue
+        satisfied = labels[row["item_id"]].satisfies
+        for use in row["uses"]:
+            if use["set"] == "diagnostic":
+                total, agree = total + 1, agree + (satisfied == use["code_verdict"])
+            elif use["role"] == "first":
+                forms.setdefault((use["config"], use["draft_id"]), {})[use["form"]] = satisfied
+    f1_only = sorted({d for (_, d), v in forms.items() if v.get(SANITY_FORM) and v.get(TRUTH_FORM) is False})
+    f0_only = sorted({d for (_, d), v in forms.items() if v.get(TRUTH_FORM) and v.get(SANITY_FORM) is False})
+    disagreement = {"f1_not_f0": len(f1_only), "f0_not_f1": len(f0_only), "f1_not_f0_drafts": f1_only}
+    return {"diagnostic_agreement": {"agree": agree, "of": total}, "f0_f1_disagreement": disagreement}
+```

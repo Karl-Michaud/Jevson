@@ -23523,9 +23523,45 @@
   "kind": "amendable",
   "value": "6e281c9be089f22ffb381f50b2adbc5b1a49fd31"
  },
+ "tests/integration/key.py::ROOT": {
+  "kind": "frozen",
+  "value": "60b742fb76197405ff2d3d8769514d5f61c9b9392fa4994eb5fee0a67ceecfb7"
+ },
  "tests/integration/openai_chat.py": {
   "kind": "amendable",
-  "value": "c7ef6e7bfa91c3bcfa6d6427c7eb978332649198"
+  "value": "087e2214d6065b35212de53fc887b57532135a0c"
+ },
+ "tests/integration/openai_chat.py::MODEL": {
+  "kind": "frozen",
+  "value": "00065fda5eb58aa01d31326b703b1e19911b7870fded2e46a0f48ed1414cd889"
+ },
+ "tests/integration/openai_chat.py::OpenAIChatLLM.__init__": {
+  "kind": "frozen",
+  "value": "679c0c8976f3129c630f1f3f885199f8b2b84949f1620c99c53e945c0c25d791"
+ },
+ "tests/integration/openai_chat.py::OpenAIChatLLM.body": {
+  "kind": "frozen",
+  "value": "e65048b5c3823268c1a46d134706aecabeb8a9410886f75c2e16b29ee7858a8e"
+ },
+ "tests/integration/openai_chat.py::OpenAIChatLLM.parse": {
+  "kind": "frozen",
+  "value": "a6758970f2f06658833cf4653211b574c4f4273ee890c2051882589036dfd490"
+ },
+ "tests/integration/openai_chat.py::TOOL": {
+  "kind": "frozen",
+  "value": "6a42d67a696c5316bb2996fc3c7a27cd5ad52b958c922b027e86115516bcb05b"
+ },
+ "tests/integration/openai_chat.py::URL": {
+  "kind": "frozen",
+  "value": "8ebcc39bd7bb87a3cb1a0fc9eacb82921b7217aa031720f31580538ecbf51444"
+ },
+ "tests/integration/openai_chat.py::_encodable": {
+  "kind": "frozen",
+  "value": "9fd31faca3cdec4b3b62cbd3b1e15cd8e6fbc6eef216710f900df507f160d90e"
+ },
+ "tests/integration/openai_chat.py::backoff_s": {
+  "kind": "frozen",
+  "value": "ff92245c0d788288026af47d8704671bea4daf47e23f4ef09449e7daaac318f8"
  },
  "tests/integration/run_fresh.py": {
   "kind": "frozen",
@@ -23603,6 +23639,10 @@
   "kind": "amendable",
   "value": "7498a5957f08777a500187404dbcf78fab3faf21"
  },
+ "tests/j4b/fresh/export_items.py::chunks defaults": {
+  "kind": "frozen",
+  "value": "9e073f9f686c68b5889b95a043a617351db6a25dabd41109510f51659004b80e"
+ },
  "tests/j4b/fresh/gates.py": {
   "kind": "amendable",
   "value": "0ee9a4c9c1631793e1316cec23cc4f0f0c1f4b8e"
@@ -23613,7 +23653,7 @@
  },
  "tests/j4b/fresh/grader/canary/README.md": {
   "kind": "frozen",
-  "value": "d83d74ef1ceb6c7f30cf22cf1a6bce20d0a93a13"
+  "value": "2eed837f887028cccfef18192c8ce10caffb43ef"
  },
  "tests/j4b/fresh/grader/canary/__init__.py": {
   "kind": "frozen",
@@ -23621,7 +23661,7 @@
  },
  "tests/j4b/fresh/grader/canary/canary-instruction.md": {
   "kind": "frozen",
-  "value": "3706d9221477922bf8a33a2c79d7db96741a322e"
+  "value": "6c7ef35918db4b2164882b89462cdcca979ca280"
  },
  "tests/j4b/fresh/grader/canary/items-001.jsonl": {
   "kind": "frozen",
@@ -23645,7 +23685,7 @@
  },
  "tests/j4b/fresh/grader/launch.sh": {
   "kind": "frozen",
-  "value": "2f8bfd411f6c54614bcd177e30b59f3dfd0497cf"
+  "value": "feb2e169e57861f4334f66ab0b5d663c0ce94111"
  },
  "tests/j4b/fresh/grader/settings.json": {
   "kind": "frozen",
@@ -23662,6 +23702,10 @@
  "tests/j4b/fresh/inflight.py": {
   "kind": "amendable",
   "value": "aa6e590fdf4ef876c509e10380a396cf81f27f22"
+ },
+ "tests/j4b/fresh/inflight.py::T": {
+  "kind": "frozen",
+  "value": "2a2c71573f617bc4014886371b28622e839c30531359dc2cc039eb1ba8c733ba"
  },
  "tests/j4b/fresh/iset_rows.py": {
   "kind": "frozen",
@@ -23691,13 +23735,45 @@
   "kind": "amendable",
   "value": "4f79af4959594dff40b677bd6e19f6c3f8e09a5e"
  },
+ "tests/j4b/fresh/phases.py::Sleep": {
+  "kind": "frozen",
+  "value": "17920da03443747dd1953f5d3672837e681492755db9ddff71335df3aeadbf53"
+ },
+ "tests/j4b/fresh/phases.py::clients/DecisionsBackend()#0": {
+  "kind": "frozen",
+  "value": "12765211e6d6636ace070f039a7c85d1d136acf46b09ec197d0e7261d2ac1795"
+ },
+ "tests/j4b/fresh/phases.py::clients/OpenAIChatLLM()#0": {
+  "kind": "frozen",
+  "value": "d6907da6692fb0de2ea7cb0aa5e1723fdf191e6d59767ad329593b84ca256ad8"
+ },
+ "tests/j4b/fresh/phases.py::configuration_phase defaults": {
+  "kind": "frozen",
+  "value": "e3b83ffddcdc05cd4cbcaf8d177c28632911ae54eb3e2afd1503c1aff553ff0a"
+ },
+ "tests/j4b/fresh/phases.py::drafting_phase defaults": {
+  "kind": "frozen",
+  "value": "e3b83ffddcdc05cd4cbcaf8d177c28632911ae54eb3e2afd1503c1aff553ff0a"
+ },
+ "tests/j4b/fresh/phases.py::draftings defaults": {
+  "kind": "frozen",
+  "value": "28f933dc3c05cd153ff38f0e40bcf33dd6f50bb72e0e7c0eb261b142e4895eff"
+ },
+ "tests/j4b/fresh/phases.py::model_strings": {
+  "kind": "frozen",
+  "value": "e7d4a793dbda3df71091e7f56ee3d2b1fd954a4d250b1cb5d939d57bfabdad50"
+ },
+ "tests/j4b/fresh/phases.py::replay_clients/DecisionsBackend()#0": {
+  "kind": "frozen",
+  "value": "4d40965eef09d041cb4051e291959549738d1da528e9fcdf92ce2e51eafe336b"
+ },
  "tests/j4b/fresh/picked.json": {
   "kind": "frozen",
   "value": "1418889fb44a53448fe37f4b7c7edc8a1c486a9b"
  },
  "tests/j4b/fresh/pins.py": {
   "kind": "frozen",
-  "value": "d5fa1e48ccbab495b278d8d90fbf3f57fddb43ef"
+  "value": "7e6f0973270bb655ab08ef1319a630d5d54fb73b"
  },
  "tests/j4b/fresh/pset_rows.py": {
   "kind": "frozen",
@@ -23710,6 +23786,14 @@
  "tests/j4b/fresh/requeue.py": {
   "kind": "amendable",
   "value": "9d60ca1e73d6bb674b97703e263b4dc57be1f677"
+ },
+ "tests/j4b/fresh/requeue.py::Sleep": {
+  "kind": "frozen",
+  "value": "17920da03443747dd1953f5d3672837e681492755db9ddff71335df3aeadbf53"
+ },
+ "tests/j4b/fresh/requeue.py::T": {
+  "kind": "frozen",
+  "value": "2a2c71573f617bc4014886371b28622e839c30531359dc2cc039eb1ba8c733ba"
  },
  "tests/j4b/fresh/rules.py": {
   "kind": "frozen",
@@ -23730,6 +23814,14 @@
  "tests/j4b/fresh/spend.py": {
   "kind": "amendable",
   "value": "e2bdbe94bf76697fff82f65cea45db6dd2d67428"
+ },
+ "tests/j4b/fresh/spend.py::SpendLedger.__init__ defaults": {
+  "kind": "frozen",
+  "value": "1cde3ee1788cd93b8fa4bc0381a94799b128e4c1812bb52f48455a9690828c89"
+ },
+ "tests/j4b/fresh/spend.py::SpendLedger.settles defaults": {
+  "kind": "frozen",
+  "value": "3665a31e7cefc7e4d62b864a2de16f8ac2d46f669e7695b79bdeb398cebfcfae"
  },
  "tests/j4b/fresh/truth.py": {
   "kind": "frozen",
@@ -23755,9 +23847,21 @@
   "kind": "amendable",
   "value": "8d9c0b9957882106a11963ad12a858da48bbb95c"
  },
+ "tests/j4b/labelling/prepare_items.py::main defaults": {
+  "kind": "frozen",
+  "value": "8f2cda988d9ca73053c7f508ff6d429ab1df0a26a6352507088f780e596b398c"
+ },
  "tests/j4b/labelling/records.py": {
   "kind": "amendable",
   "value": "a19c1e9e5f5690863a94575dbebe4009d17248d4"
+ },
+ "tests/j4b/labelling/records.py::ITEM_KEYS": {
+  "kind": "frozen",
+  "value": "7c18a4752ac0454db044269a1ad79508e2f3ec4559f667aa7f7e53817b05cf3d"
+ },
+ "tests/j4b/labelling/records.py::ROLES": {
+  "kind": "frozen",
+  "value": "3c484fa6128ee636f12a3d9964941c7243798b117aa03934cae0c35e6d8eb16c"
  },
  "tests/j4b/live.py": {
   "kind": "frozen",
