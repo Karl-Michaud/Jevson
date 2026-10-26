@@ -26,7 +26,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-from tests.j4b.fresh import leakage, overlay, truth
+from tests.j4b.fresh import bindings, leakage, overlay, truth
 from tests.j4b.fresh.build_fresh_sets import STRING_SETS, WORDING, summarise
 from tests.j4b.fresh.canonical import canonical_file, canonical_row
 
@@ -195,7 +195,8 @@ def _calls(items: dict[str, dict[str, str]], text: str, path: str, enclosing: st
 
 def python_items(path: str, source: bytes) -> dict[str, dict[str, str]]:
     """The frozen items inside an amendable module (STATS48-B10-3): module-level constants, parameter defaults,
-    request-client calls and the `FROZEN_FUNCTIONS`, each keyed `<path>::<name>`."""
+    request-client calls and the `FROZEN_FUNCTIONS`, each keyed `<path>::<name>`. A frozen name bound a second time,
+    or an attribute of one assigned, is refused (RC5-1)."""
     text = source.decode("utf-8")
     tree = ast.parse(text)
     items: dict[str, dict[str, str]] = {}
@@ -220,6 +221,10 @@ def python_items(path: str, source: bytes) -> dict[str, dict[str, str]]:
             _calls(items, text, path, name, node)
         else:
             _calls(items, text, path, f"{prefix}<body>", node)
+    names = [key.removeprefix(f"{path}::") for key in items]
+    constants = [name for name in names if "/" not in name and " " not in name]
+    if (name := bindings.rebinding(tree, {*constants, *FROZEN_FUNCTIONS.get(path, ())})) is not None:
+        raise PinMismatch(f"a frozen name is bound again: {path}::{name}")
     return items
 
 

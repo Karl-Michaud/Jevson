@@ -938,3 +938,77 @@ def test_python_items_freeze_a_named_class_with_its_decorators() -> None:
     assert items[f"{RECORDS}::Label"]["value"] == pins.sha256("dataclass(frozen=True)\x00class Label:\n    x: int")
     planted = pins.python_items(RECORDS, b"@_planted\n" + source)
     assert planted[f"{RECORDS}::Label"] != items[f"{RECORDS}::Label"]
+
+
+# --- RC5-1 (round 5): a frozen name is bound once, by its own definition ------------------------------------------
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+REBOUND = "a frozen name is bound again: "
+REBINDS = {
+    "usage_of rebound by a wrapper": (METERING, "usage_of = (lambda f: f)(usage_of)\n", "usage_of"),
+    "usage_of redefined below": (METERING, "def usage_of(content, endpoint):\n    return None, None\n", "usage_of"),
+    "usage_of rebound by import-as": (METERING, "from os import getcwd as usage_of\n", "usage_of"),
+    "usage_of rebound by plain import": (METERING, "import usage_of\n", "usage_of"),
+    "usage_of rebound inside an if": (METERING, "if True:\n    usage_of = None\n", "usage_of"),
+    "usage_of rebound by a for target": (METERING, "for usage_of in ():\n    pass\n", "usage_of"),
+    "usage_of rebound by a walrus": (METERING, "(usage_of := None)\n", "usage_of"),
+    "usage_of deleted": (METERING, "del usage_of\n", "usage_of"),
+    "usage_of declared global in a function": (METERING, "def _g():\n    global usage_of\n", "usage_of"),
+    "usage_of's attribute assigned": (METERING, "usage_of.__code__ = (lambda c, e: (None, None)).__code__\n",
+                                      "usage_of"),
+    "clients rebound by a wrapper": (PHASES, "clients = (lambda f: f)(clients)\n", "clients"),
+    "Label rebound by a wrapper": (RECORDS, "Label = (lambda c: c)(Label)\n", "Label"),
+    "Label rebound by import-as": (RECORDS, "from dataclasses import dataclass as Label\n", "Label"),
+    "a method rebound from module scope": (OPENAI_CHAT, "OpenAIChatLLM.complete = OpenAIChatLLM.parse\n",
+                                           "OpenAIChatLLM"),
+    "a module constant augmented": (OPENAI_CHAT, 'MODEL += "-other"\n', "MODEL"),
+    "a star import": (METERING, "from os import *\n", "*"),
+    "usage_of bound by a match capture": (METERING, "match 0:\n    case usage_of:\n        pass\n", "usage_of"),
+    "usage_of bound by except-as": (METERING, "try:\n    pass\nexcept Exception as usage_of:\n    pass\n",
+                                    "usage_of"),
+    "usage_of declared global in a class body": (METERING, "class _C:\n    global usage_of\n", "usage_of"),
+    "usage_of bound by with-as": (METERING, "with open('x') as usage_of:\n    pass\n", "usage_of"),
+}  # fmt: skip
+
+
+@pytest.mark.parametrize("name", sorted(REBINDS))
+def test_rc5_1_a_frozen_name_bound_again_at_module_scope_is_refused(name: str) -> None:
+    """exp/b48b/rev-correct/r5/collision5.out: `usage_of = wrap(usage_of)`, a second `def usage_of`, `clients = ...`
+    and `Label = ...` left the frozen-item map unchanged, because the binding's item and the definition's item
+    shared a key and the definition's overwrote it. Each static rebinding is now refused, naming the item."""
+    path, suffix, item = REBINDS[name]
+    source = (REPO_ROOT / path).read_bytes()
+    pins.python_items(path, source)
+    with pytest.raises(pins.PinMismatch, match=f"^{re.escape(f'{REBOUND}{path}::{item}')}$"):
+        pins.python_items(path, source + b"\n" + suffix.encode("utf-8"))
+
+
+def test_rc5_1_a_class_body_rebinding_a_frozen_method_is_refused() -> None:
+    source = b"class OpenAIChatLLM:\n    def complete(self):\n        pass\n    complete = staticmethod(complete)\n"
+    item = f"{REBOUND}{OPENAI_CHAT}::OpenAIChatLLM.complete"
+    with pytest.raises(pins.PinMismatch, match=f"^{re.escape(item)}$"):
+        pins.python_items(OPENAI_CHAT, source)
+
+
+def test_rc5_1_local_and_fresh_names_stay_allowed() -> None:
+    """A function's own locals and a fresh module-level name are not rebindings (the fresh name adds a key)."""
+    source = (
+        b"def usage_of(c, e):\n    return c, e\n\ndef other():\n    usage_of = 1\n    return usage_of\n\n"
+        b"X = [usage_of for usage_of in ()]\n"
+        b"Y = lambda usage_of=0: usage_of\n"
+        b"Z: int\n"
+        b"(lambda: X)().attr = 1\n"
+    )
+    assert sorted(pins.python_items(METERING, source)) == [f"{METERING}::{n}" for n in ("X", "Y", "usage_of")]
+
+
+def test_rc5_1_the_n3_rebind_amendment_is_refused_end_to_end(repo: PlantedRepo, tmp_path: Path) -> None:
+    """exp/b48b/rev-correct/r5/rebind5.out N3: masking the returned model string through a module-level rebinding
+    of `usage_of`, with a motivating test and one record, passed dev and confirm."""
+    original = dev_done(repo, tmp_path, flagged=False)
+    masked = "\n\nusage_of = (lambda f: lambda c, e: (f(c, e)[0], 'gpt-6-luna'))(usage_of)\n"
+    repo.edit(METERING, lambda s: s + masked + FIXED)
+    repo.path(METERING_TEST).parent.mkdir(parents=True, exist_ok=True)
+    repo.path(METERING_TEST).write_text('"""Motivating test."""\n' + FIX_TEST)
+    appendix = amend(repo, original, {METERING: f"{METERING_TEST}::test_the_motivating_fix"})
+    refuses(repo, tmp_path, appendix, f"{REBOUND}{METERING}::usage_of")
