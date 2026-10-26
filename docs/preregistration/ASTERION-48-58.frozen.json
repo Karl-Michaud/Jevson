@@ -23607,6 +23607,10 @@
   "kind": "frozen",
   "value": "fb7ed9345213627407df68d0aa1496cc0ae3337a"
  },
+ "tests/j4b/fresh/bindings.py": {
+  "kind": "frozen",
+  "value": "dc2bed92b9a694a5210a4a0d6129fb3490e84247"
+ },
  "tests/j4b/fresh/bounds.py": {
   "kind": "frozen",
   "value": "b104b4a7a024ffb9d92b1f709ede392db4efd060"
@@ -23857,7 +23861,7 @@
  },
  "tests/j4b/fresh/pins.py": {
   "kind": "frozen",
-  "value": "2d3fc2d5aabdfa778f8011bfc7fb4a815340ce2f"
+  "value": "139ba14f62ba1de8d1cd4719e82440ba808104e3"
  },
  "tests/j4b/fresh/pset_rows.py": {
   "kind": "frozen",
