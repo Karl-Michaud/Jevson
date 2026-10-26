@@ -1,12 +1,14 @@
 """The allowlist audit of one grader session's transcript (design §3 step 6; plan §4.1 `grading_audit.py`).
 
 A chunk fails, and its labels are void, if its session's transcript shows: a tool outside {Read, Write, Edit, Glob,
-Grep}; a sidechain or subagent (`"isSidechain": true`, or a `<session>/subagents/agent-*.jsonl` file); a path
-outside the grading directory, or any `file://` URL; a compaction (`compact_boundary` or `"isCompactSummary": true`);
-Read results on the chunk file that, together, did not return every line 1..N (a PARTIAL page whose rest was never
-read counts as unread; Grep and Glob do not count); fewer Write or Edit calls on the label file than the chunk has
-items; more than one model id, or one other than the pinned id. A path naming `key.jsonl` or the harness run
-directory is reported as `key exposure`, which voids all grading of the attempt.
+Grep}; an assistant content block other than text, thinking or `tool_use` (a `server_tool_use` call of the deferred
+`advisor` server tool the B9 request carried, RC1-3); a sidechain or subagent (`"isSidechain": true`, or a
+`<session>/subagents/agent-*.jsonl` file); a path outside the grading directory, or any `file://` URL; a compaction
+(`compact_boundary` or `"isCompactSummary": true`); Read results on the chunk file that, together, did not return
+every line 1..N (a PARTIAL page whose rest was never read counts as unread; Grep and Glob do not count); fewer Write
+or Edit calls on the label file than the chunk has items; more than one model id, or one other than the pinned id. A
+path naming `key.jsonl` or the harness run directory is reported as `key exposure`, which voids all grading of the
+attempt.
 
 Usage: python -m tests.j4b.fresh.grading_audit TRANSCRIPT GRADING_DIR NNN ITEMS MODEL
 """
@@ -21,6 +23,8 @@ from pathlib import Path
 from typing import Any, cast
 
 ALLOWED = frozenset({"Read", "Write", "Edit", "Glob", "Grep"})
+BLOCKS = frozenset({"text", "thinking", "redacted_thinking", "tool_use"})
+"""The only assistant content blocks a grader session may show; any other (`server_tool_use`, ...) fails (RC1-3)."""
 PATH_KEYS = ("file_path", "path", "notebook_path")
 LINE = re.compile(r"^\s*(\d+)\t", re.MULTILINE)
 KEY_EXPOSURE = ("key.jsonl", "recordings/fresh")
@@ -41,6 +45,12 @@ def tool_uses(recs: Sequence[Mapping[str, Any]]) -> Iterator[dict[str, Any]]:
     for record in recs:
         if record.get("type") == "assistant":
             yield from (c for c in _content(record) if c.get("type") == "tool_use")
+
+
+def block_failures(recs: Sequence[Mapping[str, Any]]) -> list[str]:
+    blocks = (c for r in recs if r.get("type") == "assistant" for c in _content(r))
+    return [f"an assistant block of type {c.get('type')} ({c.get('name')}) is not allowed"
+            for c in blocks if c.get("type") not in BLOCKS]  # fmt: skip
 
 
 def tool_results(recs: Sequence[Mapping[str, Any]]) -> dict[str, str]:
@@ -107,6 +117,7 @@ def audit(transcript: Path, grading_dir: Path, nnn: str, items: int, model: str)
     failures: list[str] = []
     uses = list(tool_uses(recs))
     failures += [f"tool {u.get('name')} is not allowed" for u in uses if u.get("name") not in ALLOWED]
+    failures += block_failures(recs)
     failures += [f for u in uses for f in path_failures(u, grading_dir)]
     if any(r.get("isSidechain") is True for r in recs):
         failures.append("a sidechain record")

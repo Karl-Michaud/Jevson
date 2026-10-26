@@ -1,6 +1,6 @@
-"""The committed pre-registration says what the frozen code does (B10 review round 1: STATS48-B10-2, -4, -5, -6,
-RC1-2, RC1-4, ARCH48-B10-1, ARCH48-B10-6). The document is binding, so a statement in it that contradicts the code,
-or a claim about its own commit that is not true, is a defect of the pre-registration."""
+"""The committed pre-registration says what the frozen code does (B10 review rounds 1 and 2: STATS48-B10-2 ... -6,
+RC1-2, RC1-3, RC1-4, ARCH48-B10-1, ARCH48-B10-6, ARCH48-R2-2). The document is binding, so a statement in it that
+contradicts the code, or a claim about its own commit that is not true, is a defect of the pre-registration."""
 
 from __future__ import annotations
 
@@ -83,3 +83,32 @@ def test_arch48_b10_1_appendix_g_says_the_canary_is_partial(text: str) -> None:
     g = section(text, "G")
     assert "**The B9 canary is partial at this commit.**" in g
     assert "a grader-file fix makes a new pre-registration" in g
+
+
+def test_stats48_b10_3_appendix_c_names_every_frozen_function_and_b_corrects_the_transport_sentence(
+    text: str,
+) -> None:
+    """Round 2: `complete` and phases' arm, form, drafting and unit code are frozen; Appendix C names each one, and
+    Appendix B's verbatim plan sentence ("the transport it is handed is the amendable modules above") is corrected
+    beside it, since the amendable modules now supply only the client and recording wiring."""
+    c, b = section(text, "C"), section(text, "B")
+    for path, names in pins.FROZEN_FUNCTIONS.items():
+        listed = c.split(f"`{path}`: ", 1)[1].split(";", 1)[0].split(". ", 1)[0]
+        assert [n.strip(" `") for n in listed.split(",")] == list(names), path
+    assert "the transport it is handed is the amendable modules above" in b
+    assert "**Correction to the sentence above (STATS48-B10-3, round 2).**" in b
+    for name in ("`OpenAIChatLLM.complete`", "`run_unit`", "`FirstDraftGate`"):
+        assert name in b, name
+
+
+def test_rc1_3_appendix_g_names_the_advisor_server_tool_and_the_audit_refuses_it(text: str) -> None:
+    g = section(text, "G")
+    assert "`advisor`" in g
+    assert "`server_tool_use`" in g
+    assert "`grading_audit` fails a chunk on any assistant block other than text, thinking or `tool_use`" in g
+
+
+def test_arch48_r2_2_appendix_g_states_the_canary_cause_as_a_hypothesis(text: str) -> None:
+    g = section(text, "G")
+    assert "denied as a sensitive file, because its grading directory sat under" not in g
+    assert "a hypothesis until step 2 passes outside `.claude/`" in g

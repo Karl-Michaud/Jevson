@@ -1,8 +1,8 @@
 #!/bin/sh
 # Grade one chunk: run `launch.sh NNN` from the grading directory (design §3 step 4; plan §6).
-# It refuses to run inside project-asterion/, inside any .claude/ directory (Claude Code denies writes there as
-# sensitive files, so no label could be written: the B9 canary, STATS48-B10-1) or inside any git worktree, prints
-# the exact command, then runs it.
+# It refuses to run inside project-asterion/, inside any .claude/ directory (the B9 canary's label write was denied
+# as a sensitive file there; the cause is a hypothesis until a canary passes elsewhere, STATS48-B10-1) or inside any
+# git worktree, prints the exact command, then runs it.
 set -eu
 nnn="${1:?usage: launch.sh NNN}"
 here="$(pwd -P)"

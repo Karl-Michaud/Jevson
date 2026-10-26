@@ -6,6 +6,7 @@ Each case starts from the planted harness on a branch of its own and names the i
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import sys
 from collections.abc import Callable
@@ -647,6 +648,29 @@ REQUEST_KNOBS = {
     "the per-endpoint model strings (D6)": (PHASES, "s.status == 200 and s.model is not None",
                                             "s.status in (200, 203) and s.model is not None",
                                             "model_strings"),
+    # STATS48-B10-3 round 2 (exp/b48b/rev-stats/r2/probe.out, probe2.out): both were accepted before.
+    "a request rewrite after body() (round-2 probe 1)": (
+        OPENAI_CHAT, "body = self.body(messages, tool_schema)",
+        'body = self.body(messages, tool_schema)\n        body["reasoning_effort"] = "high"', "OpenAIChatLLM.complete"),
+    "every unit judged under L0 (round-2 probe 2)": (PHASES, "config = arms.LIBRARY_ARMS[unit.arm]",
+                                                    'config = arms.LIBRARY_ARMS["L0"]', "run_unit"),
+    "every field drafted under L0's screen and template": (PHASES, "options = arms.LIBRARY_ARMS[config[0]]",
+                                                           'options = arms.LIBRARY_ARMS["L0"]', "draftings"),
+    "first drafts built under another configuration": (PHASES, "for d in draftings(fields)]",
+                                                       'for d in draftings(fields, ("L1", "F0"))]',
+                                                       "first_draft_requests"),
+    "the recorded first-draft keys": (PHASES, "replay_key(MODEL, m, TOOL_SCHEMA)", "replay_key(MODEL, m, None)",
+                                      "first_keys"),
+    "the first-draft gate": (PHASES, "if len(messages) == 3 and", "if len(messages) >= 3 and", "FirstDraftGate"),
+    "the redraft prompts the gate passes": (PHASES, "malformed(drafting.max_draft_chars)", "malformed(0)",
+                                            "redraft_prompts"),
+    "the failing-check subsets": (PHASES, "for mask in range(1, 2 ** len(items))",
+                                  "for mask in range(0, 2 ** len(items))", "_subsets"),
+    "which drafting units run": (PHASES, "requests = {d: first_draft_requests(",
+                                 "requests = {d: [] if d.endswith('7') else first_draft_requests(", "drafting_phase"),
+    "which configuration units are kept": (PHASES, "outcomes.update(zip(batch, done, strict=True))",
+                                           "outcomes.update(zip(batch[1:], done[1:], strict=True))",
+                                           "configuration_phase"),
 }  # fmt: skip
 
 
@@ -695,6 +719,48 @@ def test_stats48_b10_7_an_amendment_that_rewrites_the_appendix_body_is_refused(
     assert pins.check(repo.root, tmp_path, recorded, command="confirm", attempt=1)
 
 
+QUOTED_RULE = "\nIt may add one `## Amendment record` section appended at its end.\n"
+"""Appendix C of the committed pre-registration quotes the marker inline, as this sentence does (RC2-1)."""
+
+
+def test_rc2_1_an_original_appendix_that_quotes_the_marker_inline_still_allows_the_amendment(
+    repo: PlantedRepo, tmp_path: Path
+) -> None:
+    """The marker is a heading line, not a substring: the committed appendix quotes it inside a sentence, which made
+    every amendment, a correct one included, fail (exp/b48b/rev-correct/r2/planted.out case 7)."""
+    repo.commit("dev harness")
+    original = repo.appendix() + QUOTED_RULE
+    repo.path(pins.APPENDIX).parent.mkdir(parents=True, exist_ok=True)
+    repo.path(pins.APPENDIX).write_text(original, encoding="utf-8")
+    repo.commit("pre-registration")
+    repo.record(tmp_path, 1, "dev", original)
+    module_fix(repo)
+    node = f"{METERING_TEST}::test_the_motivating_fix"
+    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node}) + QUOTED_RULE
+    recorded = amended + "\n## Amendment record\n\nThe metering fix of design §2.6.\n"
+    assert pins.check(repo.root, tmp_path, recorded, command="confirm", attempt=1)
+    refuses(repo, tmp_path, amended + "\nIt adds a `## Amendment record` inline.\n",
+            "the amended appendix changes text outside its pins block")  # fmt: skip
+
+
+def test_rc2_1_the_committed_appendix_accepts_one_appended_amendment_record() -> None:
+    """On the real committed pre-registration: an amendment that changes only its pins block and appends one record
+    passes `appendix_problems`; a second record heading inside the original would not."""
+    commit = overlay.git(ROOT, "log", "-1", "--format=%H", "--", pins.APPENDIX).strip()
+    committed = overlay.show(ROOT, commit, pins.APPENDIX).decode("utf-8")
+    original = {"harness_commit": commit, "appendix_sha256": pins.sha256(committed)}
+    block = pins.read_appendix(committed)
+    repinned = pins.PINS_BLOCK.sub(
+        lambda _: "```json pins\n" + json.dumps({**block, "parent": pins.sha256(committed)}, indent=1) + "\n```",
+        committed,
+    )
+    assert repinned != committed
+    assert pins.appendix_problems(ROOT, original, repinned + "\n## Amendment record\n\nA fix.\n") == []
+    assert pins.appendix_problems(ROOT, original, repinned + "\nA sentence.\n") == [
+        "the amended appendix changes text outside its pins block"
+    ]
+
+
 def test_stats48_b10_7_the_original_appendix_must_be_committed_at_the_dev_commit(
     repo: PlantedRepo, tmp_path: Path
 ) -> None:
@@ -737,6 +803,19 @@ def test_python_items_key_each_kind_of_frozen_item() -> None:
     changed = pins.python_items("tests/j4b/fresh/phases.py", source.replace(b"model='m'", b"model='n'"))
     assert [k for k in items if items[k] != changed[k]] == ["tests/j4b/fresh/phases.py::f/OpenAIChatLLM()#0"]
     assert pins.python_items("x.py", b"def model_strings(): pass\n") == {}
+
+
+def test_python_items_freeze_a_named_class_whole() -> None:
+    """A class named in `FROZEN_FUNCTIONS` (the first-draft gate) is one item over its whole source, so a change to
+    any of its methods moves that item (STATS48-B10-3 round 2)."""
+    source = b"class FirstDraftGate:\n    def m(self, a=0):\n        return a == 3\n\nclass Other:\n    pass\n"
+    items = pins.python_items(PHASES, source)
+    assert sorted(items) == [f"{PHASES}::FirstDraftGate"]
+    assert items[f"{PHASES}::FirstDraftGate"]["value"] == pins.sha256(
+        "class FirstDraftGate:\n    def m(self, a=0):\n        return a == 3"
+    )
+    changed = pins.python_items(PHASES, source.replace(b"a == 3", b"a >= 3"))
+    assert changed[f"{PHASES}::FirstDraftGate"] != items[f"{PHASES}::FirstDraftGate"]
 
 
 def test_python_items_hash_the_source_text_so_every_interpreter_agrees() -> None:

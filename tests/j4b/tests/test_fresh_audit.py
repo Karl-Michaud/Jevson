@@ -127,3 +127,28 @@ def test_h27_the_cli_exits_1_on_a_failure(tmp_path: Path) -> None:
     assert (
         grading_audit.main([str(tmp_path / "session.jsonl"), str(tmp_path / "grading"), "001", str(ITEMS), MODEL]) == 1
     )
+
+
+def _block(t: Transcript, block: dict[str, Any]) -> None:
+    t.records.append({"type": "assistant", "message": {"model": MODEL, "content": [block]}})
+
+
+def test_rc1_3_a_server_tool_call_or_an_unknown_block_fails(tmp_path: Path) -> None:
+    """The B9 request carried a deferred `advisor` server tool; a call to it is a `server_tool_use` block, which the
+    `tool_use` filter never saw (RC1-3). Any assistant block other than text, thinking or tool_use fails."""
+    advisor: dict[str, Any] = {"type": "server_tool_use", "id": "s1", "name": "advisor", "input": {}}
+    assert failures(tmp_path, lambda t: _block(t, advisor)) == [
+        "an assistant block of type server_tool_use (advisor) is not allowed"
+    ]
+    assert failures(tmp_path, lambda t: _block(t, {"type": "mcp_tool_use", "name": "x"})) == [
+        "an assistant block of type mcp_tool_use (x) is not allowed"
+    ]
+
+
+def test_rc1_3_text_and_thinking_blocks_pass(tmp_path: Path) -> None:
+    def plant(t: Transcript) -> None:
+        for block in ({"type": "text", "text": "done"}, {"type": "thinking", "thinking": "..."},
+                      {"type": "redacted_thinking", "data": "..."}):  # fmt: skip
+            _block(t, block)
+
+    assert failures(tmp_path, plant) == []

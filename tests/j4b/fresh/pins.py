@@ -7,11 +7,11 @@ pins: at most one amendment, parented on the original appendix, first seen after
 any `confirm/start.json`, and (d) changing only what design §2.6 lets one fix change. The frozen-item map has one
 item per tracked file under each pinned path, except: the `AMENDABLE` modules; the three authored JSON files, one
 item per attribute of every record (only `FIXTURE_STRING_ATTRS` outside the replica cell are fixture strings); the
-six row files, one item per row; and `summary.json`, which must equal its summariser's output. Inside each
-amendable module, its module-level constants, parameter defaults, request-client calls and `FROZEN_FUNCTIONS` are
-frozen items of their own (STATS48-B10-3). An amendment may change the appendix only in its pins block, plus an
-appended amendment record, and dev's appendix must be committed at dev's `harness_commit` (STATS48-B10-7). Old
-commits are read with `git show` and `ast.parse`, never imported.
+six row files, one item per row; and `summary.json`, which must equal its summariser's output. Inside each amendable
+module, its module-level constants, parameter defaults, request-client calls and `FROZEN_FUNCTIONS` (whole functions
+and classes) are frozen items of their own (STATS48-B10-3). An amendment may change the appendix only in its pins
+block, plus an appended amendment record, and dev's appendix must be committed at dev's `harness_commit`
+(STATS48-B10-7). Old commits are read with `git show` and `ast.parse`, never imported.
 """
 
 from __future__ import annotations
@@ -66,12 +66,17 @@ AMENDABLE = {
 """The request, recording, replay and item-export modules, each with the one test module that may motivate a fix
 to it (design §2.6); every other pinned file is frozen."""
 FROZEN_FUNCTIONS = {
-    "tests/integration/openai_chat.py": ("OpenAIChatLLM.__init__", "OpenAIChatLLM.body", "OpenAIChatLLM.parse",
-                                         "_encodable", "backoff_s"),
-    f"{FRESH}/phases.py": ("model_strings",),
+    "tests/integration/openai_chat.py": ("OpenAIChatLLM.__init__", "OpenAIChatLLM.body", "OpenAIChatLLM.complete",
+                                         "OpenAIChatLLM.parse", "_encodable", "backoff_s"),
+    f"{FRESH}/phases.py": ("_subsets", "redraft_prompts", "FirstDraftGate", "draftings", "first_draft_requests",
+                           "first_keys", "drafting_phase", "run_unit", "configuration_phase", "model_strings"),
 }  # fmt: skip
-"""Functions of amendable modules that set outcomes, each a frozen item `<path>::<qualname>` (STATS48-B10-3): the
-drafting client's settings, request body, retry ladder and D17 parse rule, and D6's model-string collection."""
+"""Functions and classes of amendable modules that set outcomes, each one frozen item `<path>::<qualname>` over its
+whole source (STATS48-B10-3, rounds 1 and 2): the drafting client's settings, request body, the request it sends
+(`complete`), retry ladder and D17 parse rule; which library arm, criterion form, screen and template each unit is
+judged and each R-set field drafted under, which first drafts are recorded and which redrafts the gate passes; which
+units each phase runs and keeps, under the pinned batch rule; and D6's model-string collection. What stays amendable
+is the client and recording wiring (`clients`, `replay_clients`), `__repr__` and `_notify`, and `key.py`."""
 REQUEST_CLIENTS = frozenset({"OpenAIChatLLM", "DecisionsBackend"})
 """Every call of these in an amendable module is a frozen item `<path>::<enclosing>/<client>()#<n>`, so a call
 site cannot pass another model, effort or retry setting (STATS48-B10-3)."""
@@ -94,6 +99,8 @@ APPENDIX = "docs/preregistration/ASTERION-48-58.md"
 PINS_BLOCK = re.compile(r"```json pins\n(.*?)\n```", re.DOTALL)
 AMENDMENT_RECORD = "## Amendment record"
 """The one section an amendment may append to the appendix, after its last byte (STATS48-B10-7)."""
+RECORD_HEADING = re.compile(rf"^{re.escape(AMENDMENT_RECORD)}$", re.MULTILINE)
+"""The record as a heading line: the appendix quotes the marker inside a sentence, which is not a record (RC2-1)."""
 LOCK_FILE = "uv.lock"
 
 
@@ -187,7 +194,9 @@ def python_items(path: str, source: bytes) -> dict[str, dict[str, str]]:
     pending: list[tuple[str, ast.stmt]] = [("", n) for n in tree.body]
     while pending:
         prefix, node = pending.pop()
-        if isinstance(node, ast.ClassDef):
+        if isinstance(node, ast.ClassDef) and prefix + node.name in FROZEN_FUNCTIONS.get(path, ()):
+            items[f"{path}::{prefix}{node.name}"] = _frozen(text, node)
+        elif isinstance(node, ast.ClassDef):
             pending += [(f"{prefix}{node.name}.", n) for n in node.body]
         elif isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef):
             name = prefix + node.name
@@ -358,13 +367,14 @@ def _body(text: str) -> str:
 
 def appendix_problems(repo: Path, original: Mapping[str, Any], amended_text: str) -> list[str]:
     """STATS48-B10-7: the appendix dev ran under is committed at dev's `harness_commit`, and the amendment equals
-    it outside the pins block, except for one `AMENDMENT_RECORD` section appended at its end."""
+    it outside the pins block, except for one `AMENDMENT_RECORD` section appended at its end. The record is a
+    heading line (`RECORD_HEADING`); the marker quoted inside a sentence is not one (RC2-1)."""
     committed = overlay.show_many(repo, original["harness_commit"], [APPENDIX]).get(APPENDIX)
     if committed is None or sha256(committed) != original["appendix_sha256"]:
         return [f"the appendix dev ran under is not committed at its harness_commit: {APPENDIX}"]
     before, after = _body(committed.decode("utf-8")), _body(amended_text)
     extra = after.removeprefix(before) if after.startswith(before) else None
-    if extra is None or (extra and not extra.lstrip("\n").startswith(AMENDMENT_RECORD)) or AMENDMENT_RECORD in before:
+    if extra is None or (extra and RECORD_HEADING.match(extra.lstrip("\n")) is None) or RECORD_HEADING.search(before):
         return ["the amended appendix changes text outside its pins block"]
     return []
 

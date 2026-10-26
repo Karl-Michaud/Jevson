@@ -2,10 +2,11 @@
 
 **Where to run it.** Copy this directory's files, with `../instruction.md`, `../settings.json`, `../empty-mcp.json`
 and `../launch.sh`, into a new, empty directory outside every worktree, outside `project-asterion/`, outside any
-`.claude/` directory and outside `/tmp` (for example `~/asterion-grading/canary/`). Claude Code denies writes under
-`~/.claude/` as sensitive files, so the first canary session (2026-10-26) could not write its labels there
-(STATS48-B10-1); `launch.sh` refuses such a directory. `/tmp` is purged by macOS after a few idle days. The C4
-grading directories follow the same rule.
+`.claude/` directory and outside `/tmp` (for example `~/asterion-grading/canary/`). The first canary session
+(2026-10-26) had its only label write denied as a sensitive file while its directory sat under `~/.claude/`
+(STATS48-B10-1). That this location caused the denial is a hypothesis until step 2 passes elsewhere; `launch.sh`
+refuses such a directory. `/tmp` is purged by macOS after a few idle days; `launch.sh` does not check for it, so
+this rule is the operator's. The C4 grading directories follow the same rule.
 
 **Record the inputs at launch time (RC1-3).** Immediately before each `./launch.sh`, write `shasum -a 256` of every
 file in the directory, `instruction.md` included, so the record shows which instruction the session saw.
