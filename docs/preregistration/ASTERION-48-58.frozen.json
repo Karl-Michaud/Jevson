@@ -23525,7 +23525,7 @@
  },
  "tests/integration/key.py::ROOT": {
   "kind": "frozen",
-  "value": "60b742fb76197405ff2d3d8769514d5f61c9b9392fa4994eb5fee0a67ceecfb7"
+  "value": "c1dba36c4baf2d4f8c21e9f036bc7ab0c879cd369856f0db495f47b87d3ac9ca"
  },
  "tests/integration/openai_chat.py": {
   "kind": "amendable",
@@ -23533,35 +23533,35 @@
  },
  "tests/integration/openai_chat.py::MODEL": {
   "kind": "frozen",
-  "value": "00065fda5eb58aa01d31326b703b1e19911b7870fded2e46a0f48ed1414cd889"
+  "value": "1627553521b36261dc65608ffdb92407572e4b24cecc1c293aa10b2988ec6fe7"
  },
  "tests/integration/openai_chat.py::OpenAIChatLLM.__init__": {
   "kind": "frozen",
-  "value": "679c0c8976f3129c630f1f3f885199f8b2b84949f1620c99c53e945c0c25d791"
+  "value": "78179aba0ca46b9019c5319d156c3411f3e92a7e985860c504ff068345bd88ba"
  },
  "tests/integration/openai_chat.py::OpenAIChatLLM.body": {
   "kind": "frozen",
-  "value": "e65048b5c3823268c1a46d134706aecabeb8a9410886f75c2e16b29ee7858a8e"
+  "value": "45608f63c04fc6eb11312984ab34f3348c973ee0017c26aa0fffe2609d4ffeb7"
  },
  "tests/integration/openai_chat.py::OpenAIChatLLM.parse": {
   "kind": "frozen",
-  "value": "a6758970f2f06658833cf4653211b574c4f4273ee890c2051882589036dfd490"
+  "value": "7f994cb3ea5a1a92f046ca029e3ae33d4dad929379ba87b6214bb9f28d6e5e6e"
  },
  "tests/integration/openai_chat.py::TOOL": {
   "kind": "frozen",
-  "value": "6a42d67a696c5316bb2996fc3c7a27cd5ad52b958c922b027e86115516bcb05b"
+  "value": "f3807254fc403daa926332176cc395f8c9985a10340c46ea80d5e594e50489c0"
  },
  "tests/integration/openai_chat.py::URL": {
   "kind": "frozen",
-  "value": "8ebcc39bd7bb87a3cb1a0fc9eacb82921b7217aa031720f31580538ecbf51444"
+  "value": "5a842ae9ce4176aed7bc9711de0f0cd7a0df287832c4f6f2c75d2a5bdf15f287"
  },
  "tests/integration/openai_chat.py::_encodable": {
   "kind": "frozen",
-  "value": "9fd31faca3cdec4b3b62cbd3b1e15cd8e6fbc6eef216710f900df507f160d90e"
+  "value": "3e9103f136bb5d212683a1df960ff1eaaea5170a7ef586088a64be6db7eeebe4"
  },
  "tests/integration/openai_chat.py::backoff_s": {
   "kind": "frozen",
-  "value": "ff92245c0d788288026af47d8704671bea4daf47e23f4ef09449e7daaac318f8"
+  "value": "eecfee66b8f03d154907f63152d00556bac7e9b1a0d1de0821531ebe877570f8"
  },
  "tests/integration/run_fresh.py": {
   "kind": "frozen",
@@ -23641,7 +23641,7 @@
  },
  "tests/j4b/fresh/export_items.py::chunks defaults": {
   "kind": "frozen",
-  "value": "9e073f9f686c68b5889b95a043a617351db6a25dabd41109510f51659004b80e"
+  "value": "76381675ec7900b52d8f75be23e5016903a5436b9b661a0ad680c5755d5cd94a"
  },
  "tests/j4b/fresh/gates.py": {
   "kind": "amendable",
@@ -23705,7 +23705,7 @@
  },
  "tests/j4b/fresh/inflight.py::T": {
   "kind": "frozen",
-  "value": "2a2c71573f617bc4014886371b28622e839c30531359dc2cc039eb1ba8c733ba"
+  "value": "7bd1b229835ff1222e37af07cd7f5eaed53161c777164cd6394f135a8bba97d0"
  },
  "tests/j4b/fresh/iset_rows.py": {
   "kind": "frozen",
@@ -23737,35 +23737,35 @@
  },
  "tests/j4b/fresh/phases.py::Sleep": {
   "kind": "frozen",
-  "value": "17920da03443747dd1953f5d3672837e681492755db9ddff71335df3aeadbf53"
+  "value": "323019b8240b4f6e373aeb83db42bb3b3816aa6b007a06301928c4e9beb7265f"
  },
  "tests/j4b/fresh/phases.py::clients/DecisionsBackend()#0": {
   "kind": "frozen",
-  "value": "12765211e6d6636ace070f039a7c85d1d136acf46b09ec197d0e7261d2ac1795"
+  "value": "90228257d03a237d0a5158ca6c334ae0e5309fea2dc4e33236ff64d6dbad7689"
  },
  "tests/j4b/fresh/phases.py::clients/OpenAIChatLLM()#0": {
   "kind": "frozen",
-  "value": "d6907da6692fb0de2ea7cb0aa5e1723fdf191e6d59767ad329593b84ca256ad8"
+  "value": "dfd9227d49121515d77412f973bbebac5667949a2081e363bd0fc2e5618327da"
  },
  "tests/j4b/fresh/phases.py::configuration_phase defaults": {
   "kind": "frozen",
-  "value": "e3b83ffddcdc05cd4cbcaf8d177c28632911ae54eb3e2afd1503c1aff553ff0a"
+  "value": "81f217e4a0313f4cbcb5d75e3ada9c145f5bd2942df0f9ab3dd2b755e4da4e87"
  },
  "tests/j4b/fresh/phases.py::drafting_phase defaults": {
   "kind": "frozen",
-  "value": "e3b83ffddcdc05cd4cbcaf8d177c28632911ae54eb3e2afd1503c1aff553ff0a"
+  "value": "81f217e4a0313f4cbcb5d75e3ada9c145f5bd2942df0f9ab3dd2b755e4da4e87"
  },
  "tests/j4b/fresh/phases.py::draftings defaults": {
   "kind": "frozen",
-  "value": "28f933dc3c05cd153ff38f0e40bcf33dd6f50bb72e0e7c0eb261b142e4895eff"
+  "value": "14723f9e43e2e2d558ea5d7eb7bc73dda30a0eee725568ae6d0412424f1f2de9"
  },
  "tests/j4b/fresh/phases.py::model_strings": {
   "kind": "frozen",
-  "value": "e7d4a793dbda3df71091e7f56ee3d2b1fd954a4d250b1cb5d939d57bfabdad50"
+  "value": "2078eb3bcd6c17478fc3ea0776887ae2db6bfd40ac4adb1377c9e9141f7da1c4"
  },
  "tests/j4b/fresh/phases.py::replay_clients/DecisionsBackend()#0": {
   "kind": "frozen",
-  "value": "4d40965eef09d041cb4051e291959549738d1da528e9fcdf92ce2e51eafe336b"
+  "value": "1508c47150a9e482f02046b55b233e5d77e85c36897708cc8274ef74c82db3d5"
  },
  "tests/j4b/fresh/picked.json": {
   "kind": "frozen",
@@ -23773,7 +23773,7 @@
  },
  "tests/j4b/fresh/pins.py": {
   "kind": "frozen",
-  "value": "7e6f0973270bb655ab08ef1319a630d5d54fb73b"
+  "value": "e6c3a5555ac7f65ab911b01e44c1c0c2c41ce41f"
  },
  "tests/j4b/fresh/pset_rows.py": {
   "kind": "frozen",
@@ -23789,11 +23789,11 @@
  },
  "tests/j4b/fresh/requeue.py::Sleep": {
   "kind": "frozen",
-  "value": "17920da03443747dd1953f5d3672837e681492755db9ddff71335df3aeadbf53"
+  "value": "323019b8240b4f6e373aeb83db42bb3b3816aa6b007a06301928c4e9beb7265f"
  },
  "tests/j4b/fresh/requeue.py::T": {
   "kind": "frozen",
-  "value": "2a2c71573f617bc4014886371b28622e839c30531359dc2cc039eb1ba8c733ba"
+  "value": "7bd1b229835ff1222e37af07cd7f5eaed53161c777164cd6394f135a8bba97d0"
  },
  "tests/j4b/fresh/rules.py": {
   "kind": "frozen",
@@ -23817,11 +23817,11 @@
  },
  "tests/j4b/fresh/spend.py::SpendLedger.__init__ defaults": {
   "kind": "frozen",
-  "value": "1cde3ee1788cd93b8fa4bc0381a94799b128e4c1812bb52f48455a9690828c89"
+  "value": "117a6af19f075d3a7be33789a63e6d9aea20c2c8494777733b7be6b9fb2c8003"
  },
  "tests/j4b/fresh/spend.py::SpendLedger.settles defaults": {
   "kind": "frozen",
-  "value": "3665a31e7cefc7e4d62b864a2de16f8ac2d46f669e7695b79bdeb398cebfcfae"
+  "value": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
  },
  "tests/j4b/fresh/truth.py": {
   "kind": "frozen",
@@ -23849,7 +23849,7 @@
  },
  "tests/j4b/labelling/prepare_items.py::main defaults": {
   "kind": "frozen",
-  "value": "8f2cda988d9ca73053c7f508ff6d429ab1df0a26a6352507088f780e596b398c"
+  "value": "dc937b59892604f5a86ac96936cd7ff09e25f18ae6b758e8014a24c7fa039e91"
  },
  "tests/j4b/labelling/records.py": {
   "kind": "amendable",
@@ -23857,11 +23857,11 @@
  },
  "tests/j4b/labelling/records.py::ITEM_KEYS": {
   "kind": "frozen",
-  "value": "7c18a4752ac0454db044269a1ad79508e2f3ec4559f667aa7f7e53817b05cf3d"
+  "value": "c45f9bad0a81bdbabc4b1c523eeb8a5e54b1254b2ed1e1c3c2508058403d5518"
  },
  "tests/j4b/labelling/records.py::ROLES": {
   "kind": "frozen",
-  "value": "3c484fa6128ee636f12a3d9964941c7243798b117aa03934cae0c35e6d8eb16c"
+  "value": "2437738bcc0d687a317c83b80100f9675d11ae7c953cd87bade256a79c7c7f0b"
  },
  "tests/j4b/live.py": {
   "kind": "frozen",

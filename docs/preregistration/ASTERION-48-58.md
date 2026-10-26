@@ -568,7 +568,7 @@ The third field adds 99 R-set decision requests, about 1.2 M input tokens and $0
 |---|---|
 | `tests/__init__.py` | `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391` |
 | `tests/j4b/__init__.py` | `7df798431a95b018ad80130b5571668d0af2de5b` |
-| `tests/j4b/fresh` | `bdebf154d19efd37566fc0d27dc5905d166e96bb` |
+| `tests/j4b/fresh` | `bb660abe2a462eb6142a509dbfccb8e5ecf2de78` |
 | `tests/j4b/fixtures` | `d8ecd5506e67419f5e675bf0452a841c067eedd1` |
 | `tests/j4b/labelling/__init__.py` | `3700fba6c020b5eee1978d144eed878743194182` |
 | `tests/j4b/labelling/intervals.py` | `b44f14888a8a2cb625834df3983973e47892dcc2` |
@@ -592,7 +592,7 @@ The machine-readable pins `pins.read_appendix` reads:
 
 ```json pins
 {
- "frozen_sha256": "bbde7909960839b1f62abb71a3dfcdf1e3ce4a72a69f59e0506cda55be589182",
+ "frozen_sha256": "2ed466dc37f4e598d86bed2c4a1d0d71b9f78bc585896b8a8f368148086db8c2",
  "harness": {
   "tests/__init__.py": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
   "tests/integration/__init__.py": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
@@ -602,7 +602,7 @@ The machine-readable pins `pins.read_appendix` reads:
   "tests/j4b/__init__.py": "7df798431a95b018ad80130b5571668d0af2de5b",
   "tests/j4b/build_injection_fixture.py": "33b4bd0f85dfc484ad66b6d199925f509886a60a",
   "tests/j4b/fixtures": "d8ecd5506e67419f5e675bf0452a841c067eedd1",
-  "tests/j4b/fresh": "bdebf154d19efd37566fc0d27dc5905d166e96bb",
+  "tests/j4b/fresh": "bb660abe2a462eb6142a509dbfccb8e5ecf2de78",
   "tests/j4b/injection.py": "0adb3ea92099dfa2468253d3e410de6a7df54c9d",
   "tests/j4b/labelling/__init__.py": "3700fba6c020b5eee1978d144eed878743194182",
   "tests/j4b/labelling/intervals.py": "b44f14888a8a2cb625834df3983973e47892dcc2",
@@ -636,7 +636,7 @@ The machine-readable pins `pins.read_appendix` reads:
 
 ## C. The frozen-item map and the amendment whitelist
 
-- The frozen-item map `frozen.json` at this commit is committed beside this file as `docs/preregistration/ASTERION-48-58.frozen.json` (`pins.frozen_items(repo, HEAD)`, written as `pins.canonical_file`). **SHA-256: `bbde7909960839b1f62abb71a3dfcdf1e3ce4a72a69f59e0506cda55be589182`**. It has 6343 items: 11 amendable, 3230 frozen, 2662 row, 440 string.
+- The frozen-item map `frozen.json` at this commit is committed beside this file as `docs/preregistration/ASTERION-48-58.frozen.json` (`pins.frozen_items(repo, HEAD)`, written as `pins.canonical_file`). **SHA-256: `2ed466dc37f4e598d86bed2c4a1d0d71b9f78bc585896b8a8f368148086db8c2`**. It has 6343 items: 11 amendable, 3230 frozen, 2662 row, 440 string.
 - **Amendable modules (the only files the single dev-to-confirm fix may change, each under its one motivating test file; `pins.AMENDABLE`):**
 
 | Module | Motivating test file |
