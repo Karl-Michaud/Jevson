@@ -23543,6 +23543,10 @@
   "kind": "frozen",
   "value": "45608f63c04fc6eb11312984ab34f3348c973ee0017c26aa0fffe2609d4ffeb7"
  },
+ "tests/integration/openai_chat.py::OpenAIChatLLM.complete": {
+  "kind": "frozen",
+  "value": "9d91d44f7c627b68a6f813fb674ecd89e7bd0a348c91623a84efbb59c197cb3e"
+ },
  "tests/integration/openai_chat.py::OpenAIChatLLM.parse": {
   "kind": "frozen",
   "value": "7f994cb3ea5a1a92f046ca029e3ae33d4dad929379ba87b6214bb9f28d6e5e6e"
@@ -23653,7 +23657,7 @@
  },
  "tests/j4b/fresh/grader/canary/README.md": {
   "kind": "frozen",
-  "value": "2eed837f887028cccfef18192c8ce10caffb43ef"
+  "value": "425ff1c8d6ef38f801535ccfaeabd54b30cc3bc6"
  },
  "tests/j4b/fresh/grader/canary/__init__.py": {
   "kind": "frozen",
@@ -23685,7 +23689,7 @@
  },
  "tests/j4b/fresh/grader/launch.sh": {
   "kind": "frozen",
-  "value": "feb2e169e57861f4334f66ab0b5d663c0ce94111"
+  "value": "894641f979d820aaad2bae515d5fcbcf3d990313"
  },
  "tests/j4b/fresh/grader/settings.json": {
   "kind": "frozen",
@@ -23697,7 +23701,7 @@
  },
  "tests/j4b/fresh/grading_audit.py": {
   "kind": "frozen",
-  "value": "8a23f6545b4d773e192f89f1747f686d33c062aa"
+  "value": "cad427aedd7f46ff2b7c4c6f02a6e4ec5318318c"
  },
  "tests/j4b/fresh/inflight.py": {
   "kind": "amendable",
@@ -23735,9 +23739,17 @@
   "kind": "amendable",
   "value": "4f79af4959594dff40b677bd6e19f6c3f8e09a5e"
  },
+ "tests/j4b/fresh/phases.py::FirstDraftGate": {
+  "kind": "frozen",
+  "value": "a73e33a18271101e374cde852b6e820dccac1907a99e1046867efbf7ccd8af61"
+ },
  "tests/j4b/fresh/phases.py::Sleep": {
   "kind": "frozen",
   "value": "323019b8240b4f6e373aeb83db42bb3b3816aa6b007a06301928c4e9beb7265f"
+ },
+ "tests/j4b/fresh/phases.py::_subsets": {
+  "kind": "frozen",
+  "value": "e84bc11d79d044bebb885069e75e464a7151d7f1c636a8fb8111f11d96c65c1e"
  },
  "tests/j4b/fresh/phases.py::clients/DecisionsBackend()#0": {
   "kind": "frozen",
@@ -23747,25 +23759,41 @@
   "kind": "frozen",
   "value": "dfd9227d49121515d77412f973bbebac5667949a2081e363bd0fc2e5618327da"
  },
- "tests/j4b/fresh/phases.py::configuration_phase defaults": {
+ "tests/j4b/fresh/phases.py::configuration_phase": {
   "kind": "frozen",
-  "value": "81f217e4a0313f4cbcb5d75e3ada9c145f5bd2942df0f9ab3dd2b755e4da4e87"
+  "value": "00ddd95814037da16f92e1542f59a6755f645a835d1ee24af2521e3155b97dd1"
  },
- "tests/j4b/fresh/phases.py::drafting_phase defaults": {
+ "tests/j4b/fresh/phases.py::drafting_phase": {
   "kind": "frozen",
-  "value": "81f217e4a0313f4cbcb5d75e3ada9c145f5bd2942df0f9ab3dd2b755e4da4e87"
+  "value": "2294ad081d8568f8aedf5b8389b709030b3ee4ec147763aa148e2c637fd34644"
  },
- "tests/j4b/fresh/phases.py::draftings defaults": {
+ "tests/j4b/fresh/phases.py::draftings": {
   "kind": "frozen",
-  "value": "14723f9e43e2e2d558ea5d7eb7bc73dda30a0eee725568ae6d0412424f1f2de9"
+  "value": "23b50a41f7b07f4a94caed851fd33d079616fc3fcee420eac4a0c9add576b274"
+ },
+ "tests/j4b/fresh/phases.py::first_draft_requests": {
+  "kind": "frozen",
+  "value": "184484c1e3060f4b2c58d2de2443d7f030d4d8b380d1948265923b5fa026ae54"
+ },
+ "tests/j4b/fresh/phases.py::first_keys": {
+  "kind": "frozen",
+  "value": "5cefebd898a2fba47164ee1a8a51766b1fc69b8c62ca96c3690124ec76044f0b"
  },
  "tests/j4b/fresh/phases.py::model_strings": {
   "kind": "frozen",
   "value": "2078eb3bcd6c17478fc3ea0776887ae2db6bfd40ac4adb1377c9e9141f7da1c4"
  },
+ "tests/j4b/fresh/phases.py::redraft_prompts": {
+  "kind": "frozen",
+  "value": "188eb2d83596854a82fc3058d157a3755e1c0d28809e84b5e01b9bae1a3a6017"
+ },
  "tests/j4b/fresh/phases.py::replay_clients/DecisionsBackend()#0": {
   "kind": "frozen",
   "value": "1508c47150a9e482f02046b55b233e5d77e85c36897708cc8274ef74c82db3d5"
+ },
+ "tests/j4b/fresh/phases.py::run_unit": {
+  "kind": "frozen",
+  "value": "247fa89401945c1f1d22f903098261b42001220a02ff6732dc9c1781bf5a3061"
  },
  "tests/j4b/fresh/picked.json": {
   "kind": "frozen",
@@ -23773,7 +23801,7 @@
  },
  "tests/j4b/fresh/pins.py": {
   "kind": "frozen",
-  "value": "e6c3a5555ac7f65ab911b01e44c1c0c2c41ce41f"
+  "value": "c2e7f566e00e858ecc10456e8919d9c4118bfb64"
  },
  "tests/j4b/fresh/pset_rows.py": {
   "kind": "frozen",
