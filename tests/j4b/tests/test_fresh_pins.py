@@ -739,6 +739,20 @@ def test_python_items_key_each_kind_of_frozen_item() -> None:
     assert pins.python_items("x.py", b"def model_strings(): pass\n") == {}
 
 
+def test_python_items_hash_the_source_text_so_every_interpreter_agrees() -> None:
+    """`ast.dump` changed in Python 3.13 (empty fields omitted), so a map built on 3.14 differed from one built on
+    3.11 or 3.12 (exp/b48b/r1fix/frozen-by-version-before.out); the items hash each node's exact source text."""
+    source = b"A = (1,  2)\ndef f(x=1, *, y=None):\n    OpenAIChatLLM(model='m')  # pinned\n"
+    items = pins.python_items("p.py", source)
+    assert items["p.py::A"]["value"] == pins.sha256("(1,  2)")
+    assert items["p.py::f defaults"]["value"] == pins.sha256("1\x00None")
+    assert items["p.py::f/OpenAIChatLLM()#0"]["value"] == pins.sha256("OpenAIChatLLM(model='m')")
+    named = pins.python_items("tests/j4b/fresh/phases.py", b"def model_strings():\n    return 1\n")
+    assert named["tests/j4b/fresh/phases.py::model_strings"]["value"] == pins.sha256(
+        "def model_strings():\n    return 1"
+    )
+
+
 def test_stats48_b10_7_dev_under_an_uncommitted_appendix_or_a_second_record_is_refused(
     repo: PlantedRepo, tmp_path: Path
 ) -> None:

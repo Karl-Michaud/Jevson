@@ -158,29 +158,32 @@ def _rows(name: str, data: bytes) -> dict[str, dict[str, str]]:
     return {f"{name}#{r['draft_id']}": {"kind": "row", "value": sha256(canonical_row(r))} for r in rows}
 
 
-def _frozen(node: ast.AST | list[ast.expr | None]) -> dict[str, str]:
-    dumped = ast.dump(node) if isinstance(node, ast.AST) else "|".join(ast.dump(n) if n else "" for n in node)
-    return {"kind": "frozen", "value": sha256(dumped)}
+def _frozen(text: str, *nodes: ast.AST | None) -> dict[str, str]:
+    """An item over the nodes' exact source text: `ast.dump` differs between Python versions (3.13 omits empty
+    fields), so a map built on one interpreter would not equal one built on another."""
+    segments = ("" if n is None else ast.get_source_segment(text, n) or "" for n in nodes)
+    return {"kind": "frozen", "value": sha256("\x00".join(segments))}
 
 
-def _calls(items: dict[str, dict[str, str]], path: str, enclosing: str, node: ast.AST) -> None:
+def _calls(items: dict[str, dict[str, str]], text: str, path: str, enclosing: str, node: ast.AST) -> None:
     for call in (n for n in ast.walk(node) if isinstance(n, ast.Call)):
         callee = call.func.id if isinstance(call.func, ast.Name) else getattr(call.func, "attr", "")
         if callee in REQUEST_CLIENTS:
             key = f"{path}::{enclosing}/{callee}()#"
-            items[f"{key}{sum(k.startswith(key) for k in items)}"] = _frozen(call)
+            items[f"{key}{sum(k.startswith(key) for k in items)}"] = _frozen(text, call)
 
 
 def python_items(path: str, source: bytes) -> dict[str, dict[str, str]]:
     """The frozen items inside an amendable module (STATS48-B10-3): module-level constants, parameter defaults,
     request-client calls and the `FROZEN_FUNCTIONS`, each keyed `<path>::<name>`."""
-    tree = ast.parse(source)
+    text = source.decode("utf-8")
+    tree = ast.parse(text)
     items: dict[str, dict[str, str]] = {}
     for node in tree.body:
         if isinstance(node, ast.Assign | ast.AnnAssign) and node.value is not None:
             for target in node.targets if isinstance(node, ast.Assign) else [node.target]:
                 if isinstance(target, ast.Name):
-                    items[f"{path}::{target.id}"] = _frozen(node.value)
+                    items[f"{path}::{target.id}"] = _frozen(text, node.value)
     pending: list[tuple[str, ast.stmt]] = [("", n) for n in tree.body]
     while pending:
         prefix, node = pending.pop()
@@ -189,12 +192,12 @@ def python_items(path: str, source: bytes) -> dict[str, dict[str, str]]:
         elif isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef):
             name = prefix + node.name
             if name in FROZEN_FUNCTIONS.get(path, ()):
-                items[f"{path}::{name}"] = _frozen(node)
+                items[f"{path}::{name}"] = _frozen(text, node)
             elif node.args.defaults or any(node.args.kw_defaults):
-                items[f"{path}::{name} defaults"] = _frozen([*node.args.defaults, *node.args.kw_defaults])
-            _calls(items, path, name, node)
+                items[f"{path}::{name} defaults"] = _frozen(text, *node.args.defaults, *node.args.kw_defaults)
+            _calls(items, text, path, name, node)
         else:
-            _calls(items, path, f"{prefix}<body>", node)
+            _calls(items, text, path, f"{prefix}<body>", node)
     return items
 
 
