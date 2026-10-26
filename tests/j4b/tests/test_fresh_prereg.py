@@ -107,7 +107,7 @@ def test_rc3_1_appendix_b_states_what_the_static_items_do_not_cover(text: str) -
     the wire check and what only the motivating-test rule and review guard."""
     b, c = section(text, "B"), section(text, "C")
     assert "**What these items do not cover.**" in b
-    for phrase in ("rebind a frozen name at run time", "message, input or question content", "the item export"):
+    for phrase in ("rebind a frozen name at run time", "message, input or question content", "The item export"):
         assert phrase in b, phrase
     assert "`clients` and `replay_clients` outside their request-client calls" not in c
     assert "Appendix B says what the static items do not cover" in c

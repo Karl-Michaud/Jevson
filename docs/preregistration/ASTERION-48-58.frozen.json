@@ -23707,9 +23707,21 @@
   "kind": "amendable",
   "value": "aa6e590fdf4ef876c509e10380a396cf81f27f22"
  },
+ "tests/j4b/fresh/inflight.py::SingleFlightBackend": {
+  "kind": "frozen",
+  "value": "fb70eb359d747258fb49901d00b3be2c25f22553b7d7335c07d40f671a8a92fd"
+ },
+ "tests/j4b/fresh/inflight.py::SingleFlightLLM": {
+  "kind": "frozen",
+  "value": "fa5a0e81ac0cd32bd64cc8fefa944328cee742df97bd06e586337b47be6f323b"
+ },
  "tests/j4b/fresh/inflight.py::T": {
   "kind": "frozen",
   "value": "7bd1b229835ff1222e37af07cd7f5eaed53161c777164cd6394f135a8bba97d0"
+ },
+ "tests/j4b/fresh/inflight.py::_Flights": {
+  "kind": "frozen",
+  "value": "c7a53e98006f0c4226059fa44d763a8ec829695226c32f1f6c45715dc616b086"
  },
  "tests/j4b/fresh/iset_rows.py": {
   "kind": "frozen",
@@ -23727,6 +23739,10 @@
   "kind": "amendable",
   "value": "298eaaec811514c83c0e1af224fb154947b5fe83"
  },
+ "tests/j4b/fresh/metering.py::MeteredTransport": {
+  "kind": "frozen",
+  "value": "719777fd603cecccea34ed79779eaad570729cd8a17dc3fe39f483ef0e168d25"
+ },
  "tests/j4b/fresh/overlay.py": {
   "kind": "frozen",
   "value": "1955e9044f83e1a681a0c8b372366ca835beceb7"
@@ -23737,7 +23753,7 @@
  },
  "tests/j4b/fresh/phases.py": {
   "kind": "amendable",
-  "value": "4f79af4959594dff40b677bd6e19f6c3f8e09a5e"
+  "value": "ae7628f266a0d1669dbd55f84f08ee8531035725"
  },
  "tests/j4b/fresh/phases.py::FirstDraftGate": {
   "kind": "frozen",
@@ -23747,9 +23763,17 @@
   "kind": "frozen",
   "value": "323019b8240b4f6e373aeb83db42bb3b3816aa6b007a06301928c4e9beb7265f"
  },
+ "tests/j4b/fresh/phases.py::_no_network": {
+  "kind": "frozen",
+  "value": "93bd3fdccf0d399dd6db707fd688c663645cbff76c6c86550dd5b65a3a63b67f"
+ },
  "tests/j4b/fresh/phases.py::_subsets": {
   "kind": "frozen",
   "value": "e84bc11d79d044bebb885069e75e464a7151d7f1c636a8fb8111f11d96c65c1e"
+ },
+ "tests/j4b/fresh/phases.py::clients": {
+  "kind": "frozen",
+  "value": "43ec4b838d84ed50e429cc325b6c14ff4859f979d3a2b179eace78024d23c869"
  },
  "tests/j4b/fresh/phases.py::clients/DecisionsBackend()#0": {
   "kind": "frozen",
@@ -23787,6 +23811,10 @@
   "kind": "frozen",
   "value": "188eb2d83596854a82fc3058d157a3755e1c0d28809e84b5e01b9bae1a3a6017"
  },
+ "tests/j4b/fresh/phases.py::replay_clients": {
+  "kind": "frozen",
+  "value": "5c2c691e7679e35741441670abb82e9c4b21122c930c1af4c1a5024e464be3fc"
+ },
  "tests/j4b/fresh/phases.py::replay_clients/DecisionsBackend()#0": {
   "kind": "frozen",
   "value": "1508c47150a9e482f02046b55b233e5d77e85c36897708cc8274ef74c82db3d5"
@@ -23801,7 +23829,7 @@
  },
  "tests/j4b/fresh/pins.py": {
   "kind": "frozen",
-  "value": "c2e7f566e00e858ecc10456e8919d9c4118bfb64"
+  "value": "819ccfb07cb836356dd91841993df3111eca96dc"
  },
  "tests/j4b/fresh/pset_rows.py": {
   "kind": "frozen",
@@ -23823,13 +23851,17 @@
   "kind": "frozen",
   "value": "7bd1b229835ff1222e37af07cd7f5eaed53161c777164cd6394f135a8bba97d0"
  },
+ "tests/j4b/fresh/requeue.py::run_unit": {
+  "kind": "frozen",
+  "value": "16ad4df8de594ddd2fe08707574649f01dc2ad7846c82c6eb9212c25b77fb07f"
+ },
  "tests/j4b/fresh/rules.py": {
   "kind": "frozen",
   "value": "7819fe234b1a2574fa68657d5ea96b1aca398aaa"
  },
  "tests/j4b/fresh/runner.py": {
   "kind": "frozen",
-  "value": "d33251733b617cfb74b7fc2175ae0b9f5744d3c7"
+  "value": "5ba312e98ae6e2ac1ba205153204eea9faf4e3c9"
  },
  "tests/j4b/fresh/scoring.py": {
   "kind": "frozen",
@@ -23854,6 +23886,10 @@
  "tests/j4b/fresh/truth.py": {
   "kind": "frozen",
   "value": "f40aa92c6500c19121b34e5323f2d2dfdda7a47e"
+ },
+ "tests/j4b/fresh/wire.py": {
+  "kind": "frozen",
+  "value": "672c068c1f05174d53ad8e50510f47ca9ef5c9b9"
  },
  "tests/j4b/fresh/workload.py": {
   "kind": "frozen",
@@ -23886,6 +23922,10 @@
  "tests/j4b/labelling/records.py::ITEM_KEYS": {
   "kind": "frozen",
   "value": "c45f9bad0a81bdbabc4b1c523eeb8a5e54b1254b2ed1e1c3c2508058403d5518"
+ },
+ "tests/j4b/labelling/records.py::Label": {
+  "kind": "frozen",
+  "value": "4ad73be77dd5d40be90a5f79057f80be86dc3e26d09e1ee611839f9704c5c194"
  },
  "tests/j4b/labelling/records.py::ROLES": {
   "kind": "frozen",
