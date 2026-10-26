@@ -23743,6 +23743,34 @@
   "kind": "frozen",
   "value": "719777fd603cecccea34ed79779eaad570729cd8a17dc3fe39f483ef0e168d25"
  },
+ "tests/j4b/fresh/metering.py::_payload": {
+  "kind": "frozen",
+  "value": "47429a6df2fc132fa21765b8da8d2129e7fde6181a7f6e92cb18d3ee1df8e167"
+ },
+ "tests/j4b/fresh/metering.py::endpoint_of": {
+  "kind": "frozen",
+  "value": "dd3f61f6c32034fb2f52063447bad2e9188e111da66ec417700d03b6c4d15646"
+ },
+ "tests/j4b/fresh/metering.py::input_bound": {
+  "kind": "frozen",
+  "value": "477fef0edca82b66b31eb5592347f4da94db6dd7afc7a1ec2dd052cf87365cbe"
+ },
+ "tests/j4b/fresh/metering.py::output_cap": {
+  "kind": "frozen",
+  "value": "35a107d98ce6f005844f7552457c35e25c72a4f8959bb9d7668eeb3f8ce1881e"
+ },
+ "tests/j4b/fresh/metering.py::question_counts": {
+  "kind": "frozen",
+  "value": "4c347a527d79e8184f2050f4ba1ebc64500dc37fbec6972a1adb8e56c207a37c"
+ },
+ "tests/j4b/fresh/metering.py::request_bound": {
+  "kind": "frozen",
+  "value": "213ac5805ad3dc996ae53595d115b2ae5f6ec657736cf6bfed808c69bdc8e8ca"
+ },
+ "tests/j4b/fresh/metering.py::usage_of": {
+  "kind": "frozen",
+  "value": "5efcab9b659d7c8de3aeab13ba7088a337bacc1e9bb99cf51ced4c97096c4588"
+ },
  "tests/j4b/fresh/overlay.py": {
   "kind": "frozen",
   "value": "1955e9044f83e1a681a0c8b372366ca835beceb7"
@@ -23829,7 +23857,7 @@
  },
  "tests/j4b/fresh/pins.py": {
   "kind": "frozen",
-  "value": "819ccfb07cb836356dd91841993df3111eca96dc"
+  "value": "2d3fc2d5aabdfa778f8011bfc7fb4a815340ce2f"
  },
  "tests/j4b/fresh/pset_rows.py": {
   "kind": "frozen",
@@ -23875,13 +23903,13 @@
   "kind": "amendable",
   "value": "e2bdbe94bf76697fff82f65cea45db6dd2d67428"
  },
- "tests/j4b/fresh/spend.py::SpendLedger.__init__ defaults": {
+ "tests/j4b/fresh/spend.py::Settled": {
   "kind": "frozen",
-  "value": "117a6af19f075d3a7be33789a63e6d9aea20c2c8494777733b7be6b9fb2c8003"
+  "value": "476d8076271bc1ea2365c38d88d5b79218d97e8d87b3ab5cdd33a639fde361b9"
  },
- "tests/j4b/fresh/spend.py::SpendLedger.settles defaults": {
+ "tests/j4b/fresh/spend.py::SpendLedger": {
   "kind": "frozen",
-  "value": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  "value": "f8cd6203977b164975f343e7814963af616158f30d75b6b3169253d0932caaab"
  },
  "tests/j4b/fresh/truth.py": {
   "kind": "frozen",
@@ -23889,7 +23917,7 @@
  },
  "tests/j4b/fresh/wire.py": {
   "kind": "frozen",
-  "value": "672c068c1f05174d53ad8e50510f47ca9ef5c9b9"
+  "value": "e446ab0724b1bbc8faa740757ac2ee72819188dd"
  },
  "tests/j4b/fresh/workload.py": {
   "kind": "frozen",
@@ -23925,7 +23953,7 @@
  },
  "tests/j4b/labelling/records.py::Label": {
   "kind": "frozen",
-  "value": "4ad73be77dd5d40be90a5f79057f80be86dc3e26d09e1ee611839f9704c5c194"
+  "value": "4e4c4558bfc41b30ae9ded2c27d00e3b10d0cd8daff0703da9ea8664b24d0b9e"
  },
  "tests/j4b/labelling/records.py::ROLES": {
   "kind": "frozen",
