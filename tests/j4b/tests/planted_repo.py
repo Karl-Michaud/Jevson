@@ -34,7 +34,7 @@ class PlantedRepo:
         repo = cls(root)
         root.mkdir(parents=True)
         ignore = shutil.ignore_patterns("__pycache__", "*.pyc")
-        for item in ("jevson", "pyproject.toml", "tests/j4b/tests/__init__.py", *pins.PINNED_PATHS):
+        for item in ("jevson", "pyproject.toml", "uv.lock", "tests/j4b/tests/__init__.py", *pins.PINNED_PATHS):
             source, target = SOURCE / item, root / item
             target.parent.mkdir(parents=True, exist_ok=True)
             if not source.exists():

@@ -7,17 +7,22 @@ pins: at most one amendment, parented on the original appendix, first seen after
 any `confirm/start.json`, and (d) changing only what design §2.6 lets one fix change. The frozen-item map has one
 item per tracked file under each pinned path, except: the `AMENDABLE` modules; the three authored JSON files, one
 item per attribute of every record (only `FIXTURE_STRING_ATTRS` outside the replica cell are fixture strings); the
-six row files, one item per row; and `summary.json`, which must equal its summariser's output. Old commits are read
-with `git show`, never imported.
+six row files, one item per row; and `summary.json`, which must equal its summariser's output. Inside each
+amendable module, its module-level constants, parameter defaults, request-client calls and `FROZEN_FUNCTIONS` are
+frozen items of their own (STATS48-B10-3). An amendment may change the appendix only in its pins block, plus an
+appended amendment record, and dev's appendix must be committed at dev's `harness_commit` (STATS48-B10-7). Old
+commits are read with `git show` and `ast.parse`, never imported.
 """
 
 from __future__ import annotations
 
+import ast
 import hashlib
 import json
 import re
+import sys
 from collections.abc import Mapping, Sequence
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -60,6 +65,16 @@ AMENDABLE = {
 }  # fmt: skip
 """The request, recording, replay and item-export modules, each with the one test module that may motivate a fix
 to it (design §2.6); every other pinned file is frozen."""
+FROZEN_FUNCTIONS = {
+    "tests/integration/openai_chat.py": ("OpenAIChatLLM.__init__", "OpenAIChatLLM.body", "OpenAIChatLLM.parse",
+                                         "_encodable", "backoff_s"),
+    f"{FRESH}/phases.py": ("model_strings",),
+}  # fmt: skip
+"""Functions of amendable modules that set outcomes, each a frozen item `<path>::<qualname>` (STATS48-B10-3): the
+drafting client's settings, request body, retry ladder and D17 parse rule, and D6's model-string collection."""
+REQUEST_CLIENTS = frozenset({"OpenAIChatLLM", "DecisionsBackend"})
+"""Every call of these in an amendable module is a frozen item `<path>::<enclosing>/<client>()#<n>`, so a call
+site cannot pass another model, effort or retry setting (STATS48-B10-3)."""
 JEVSON_INTERNALS = frozenset({
     ("jevson.execute.drafting", "messages"), ("jevson.execute.drafting", "TOOL_SCHEMA"),
     ("jevson.execute.drafting", "malformed"), ("jevson.execute.drafting", "read"),
@@ -77,6 +92,9 @@ ROW_FILES = ("iset.jsonl", "iset_dev.jsonl", "pset.jsonl", "pset_dev.jsonl", "rs
 SUMMARY, PICKED = f"{FIXTURES}/summary.json", f"{FRESH}/picked.json"
 APPENDIX = "docs/preregistration/ASTERION-48-58.md"
 PINS_BLOCK = re.compile(r"```json pins\n(.*?)\n```", re.DOTALL)
+AMENDMENT_RECORD = "## Amendment record"
+"""The one section an amendment may append to the appendix, after its last byte (STATS48-B10-7)."""
+LOCK_FILE = "uv.lock"
 
 
 class PinMismatch(Exception):
@@ -90,6 +108,8 @@ class Pins:
     harness: Mapping[str, str]
     appendix_sha256: str
     frozen_sha256: str
+    environment: Mapping[str, str | None] = field(default_factory=dict[str, "str | None"])
+    """The interpreter and the locked dependencies the phase ran on, recorded, not enforced (STATS48-B10-8)."""
 
     def record(self) -> dict[str, Any]:
         return asdict(self)
@@ -138,14 +158,55 @@ def _rows(name: str, data: bytes) -> dict[str, dict[str, str]]:
     return {f"{name}#{r['draft_id']}": {"kind": "row", "value": sha256(canonical_row(r))} for r in rows}
 
 
+def _frozen(node: ast.AST | list[ast.expr | None]) -> dict[str, str]:
+    dumped = ast.dump(node) if isinstance(node, ast.AST) else "|".join(ast.dump(n) if n else "" for n in node)
+    return {"kind": "frozen", "value": sha256(dumped)}
+
+
+def _calls(items: dict[str, dict[str, str]], path: str, enclosing: str, node: ast.AST) -> None:
+    for call in (n for n in ast.walk(node) if isinstance(n, ast.Call)):
+        callee = call.func.id if isinstance(call.func, ast.Name) else getattr(call.func, "attr", "")
+        if callee in REQUEST_CLIENTS:
+            key = f"{path}::{enclosing}/{callee}()#"
+            items[f"{key}{sum(k.startswith(key) for k in items)}"] = _frozen(call)
+
+
+def python_items(path: str, source: bytes) -> dict[str, dict[str, str]]:
+    """The frozen items inside an amendable module (STATS48-B10-3): module-level constants, parameter defaults,
+    request-client calls and the `FROZEN_FUNCTIONS`, each keyed `<path>::<name>`."""
+    tree = ast.parse(source)
+    items: dict[str, dict[str, str]] = {}
+    for node in tree.body:
+        if isinstance(node, ast.Assign | ast.AnnAssign) and node.value is not None:
+            for target in node.targets if isinstance(node, ast.Assign) else [node.target]:
+                if isinstance(target, ast.Name):
+                    items[f"{path}::{target.id}"] = _frozen(node.value)
+    pending: list[tuple[str, ast.stmt]] = [("", n) for n in tree.body]
+    while pending:
+        prefix, node = pending.pop()
+        if isinstance(node, ast.ClassDef):
+            pending += [(f"{prefix}{node.name}.", n) for n in node.body]
+        elif isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef):
+            name = prefix + node.name
+            if name in FROZEN_FUNCTIONS.get(path, ()):
+                items[f"{path}::{name}"] = _frozen(node)
+            elif node.args.defaults or any(node.args.kw_defaults):
+                items[f"{path}::{name} defaults"] = _frozen([*node.args.defaults, *node.args.kw_defaults])
+            _calls(items, path, name, node)
+        else:
+            _calls(items, path, f"{prefix}<body>", node)
+    return items
+
+
 def frozen_items(repo: Path, commit: str) -> dict[str, dict[str, str]]:
     """The frozen-item map at `commit` (plan §2 rule (d))."""
     items: dict[str, dict[str, str]] = {}
     rows = [f"{FIXTURES}/{n}" for n in ROW_FILES]
-    files = overlay.show_many(repo, commit, [*AUTHORED, *rows, SUMMARY, PICKED])
+    files = overlay.show_many(repo, commit, [*AUTHORED, *rows, SUMMARY, PICKED, *AMENDABLE])
     for name, blob in overlay.ls_tree(repo, commit, *PINNED_PATHS):
         if name in AMENDABLE:
             items[name] = {"kind": "amendable", "value": blob}
+            items |= python_items(name, files[name])
         elif name in AUTHORED:
             items |= _authored(AUTHORED[name], files[name].decode("utf-8"), name)
         elif name in rows:
@@ -230,7 +291,8 @@ def current_pins(repo: Path, appendix_text: str) -> tuple[Pins, dict[str, Any]]:
     frozen = sha256(canonical_file(frozen_items(repo, "HEAD")))
     head = overlay.git(repo, "rev-parse", "HEAD").strip()
     harness = {p: h for p, h in hashes.items() if p != LIBRARY and h is not None}
-    return Pins(head, str(hashes[LIBRARY]), harness, sha256(appendix_text), frozen), appendix
+    environment = {"python": sys.version, "uv_lock": overlay.rev_parse(repo, f"HEAD:{LOCK_FILE}")}
+    return Pins(head, str(hashes[LIBRARY]), harness, sha256(appendix_text), frozen, environment), appendix
 
 
 def records(root: Path) -> list[tuple[str, dict[str, Any]]]:
@@ -279,10 +341,29 @@ def check(repo: Path, root: Path, appendix_text: str, *, command: str, attempt: 
         raise PinMismatch(problems[0])
     pinned = [r for _, r in found if "pins" in r]
     if pinned and pins.appendix_sha256 != pinned[0]["pins"]["appendix_sha256"] and command != "score":
-        original_commit = pinned[0]["pins"]["harness_commit"]
-        if problems := amendment_problems(repo, original_commit, pins.harness_commit, appendix.get("motivating", {})):
+        original = pinned[0]["pins"]
+        problems = appendix_problems(repo, original, appendix_text) or amendment_problems(
+            repo, original["harness_commit"], pins.harness_commit, appendix.get("motivating", {}))  # fmt: skip
+        if problems:
             raise PinMismatch(problems[0])
     return pins
+
+
+def _body(text: str) -> str:
+    return PINS_BLOCK.sub("```json pins\n```", text)
+
+
+def appendix_problems(repo: Path, original: Mapping[str, Any], amended_text: str) -> list[str]:
+    """STATS48-B10-7: the appendix dev ran under is committed at dev's `harness_commit`, and the amendment equals
+    it outside the pins block, except for one `AMENDMENT_RECORD` section appended at its end."""
+    committed = overlay.show_many(repo, original["harness_commit"], [APPENDIX]).get(APPENDIX)
+    if committed is None or sha256(committed) != original["appendix_sha256"]:
+        return [f"the appendix dev ran under is not committed at its harness_commit: {APPENDIX}"]
+    before, after = _body(committed.decode("utf-8")), _body(amended_text)
+    extra = after.removeprefix(before) if after.startswith(before) else None
+    if extra is None or (extra and not extra.lstrip("\n").startswith(AMENDMENT_RECORD)) or AMENDMENT_RECORD in before:
+        return ["the amended appendix changes text outside its pins block"]
+    return []
 
 
 def assert_library_pin(repo: Path, appendix_text: str) -> None:

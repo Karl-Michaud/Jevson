@@ -91,7 +91,7 @@ class OpenAIChatLLM:
                         return self.parse(reply.json())
                     if (reply.status_code != 429 and reply.status_code < 500) or attempt == self._retries:
                         raise RuntimeError(f"chat completions HTTP {reply.status_code}: {reply.text[:300]}")
-                await self._sleep(2**attempt)
+                await self._sleep(backoff_s(attempt))
         raise AssertionError("unreachable")  # pragma: no cover - the loop returns or raises by its last attempt
 
     def _notify(self, stage: str, status: int | None) -> None:
@@ -119,6 +119,11 @@ class OpenAIChatLLM:
         if "model" in {f.name for f in dataclasses.fields(LLMResponse)}:
             return LLMResponse(arguments, raw, *tokens, model=payload.get("model"))  # type: ignore[call-arg]
         return LLMResponse(arguments, raw, *tokens)
+
+
+def backoff_s(attempt: int) -> int:
+    """The wait after a failed attempt: 1, 2, 4 and 8 s, so 5 x 120 s + 15 s = 615 s at most (plan §11 D16)."""
+    return 2**attempt
 
 
 def _encodable(arguments: Mapping[str, JSONValue]) -> bool:

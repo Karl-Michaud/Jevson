@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+import sys
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
@@ -16,6 +17,8 @@ import pytest
 from tests.j4b.fresh import build_fresh_sets, overlay, pins
 from tests.j4b.fresh.attempts import Attempts
 from tests.j4b.tests.planted_repo import PlantedRepo
+
+ROOT = Path(__file__).resolve().parents[3]
 
 FLAGGED = " It names the 2 dates."
 ISET = "tests/j4b/fresh/iset_wordings.json"
@@ -142,6 +145,9 @@ def dev_done(repo: PlantedRepo, run: Path, *, flagged: bool = True) -> str:
         plant_flagged_claim(repo)
     repo.commit("dev harness")
     appendix = repo.appendix()
+    repo.path(pins.APPENDIX).parent.mkdir(parents=True, exist_ok=True)
+    repo.path(pins.APPENDIX).write_text(appendix, encoding="utf-8")
+    repo.commit("pre-registration")
     repo.record(run, 1, "dev", appendix)
     return appendix
 
@@ -312,12 +318,14 @@ FIX_TEST = """
 def test_the_motivating_fix() -> None:
     from tests.j4b.fresh import metering
 
-    assert getattr(metering, "FIXED", False)
+    assert getattr(metering, "fixed", lambda: False)()
 """
+FIXED = "\n\ndef fixed() -> bool:\n    return True\n"
+"""A planted fix inside a function: a module-level constant of an amendable module is a frozen item (STATS48-B10-3)."""
 
 
 def module_fix(repo: PlantedRepo, test: bool = True) -> None:
-    repo.edit("tests/j4b/fresh/metering.py", lambda s: s + "\nFIXED = True\n")
+    repo.edit("tests/j4b/fresh/metering.py", lambda s: s + FIXED)
     if test:
         repo.path(METERING_TEST).parent.mkdir(parents=True, exist_ok=True)
         repo.path(METERING_TEST).write_text('"""Motivating test."""\n' + FIX_TEST)
@@ -383,10 +391,10 @@ def test_h39i_a_motivated_amendment_cannot_redefine_a_flip_or_the_truth_form(
     original = dev_done(repo, tmp_path, flagged=False)
     assert old in repo.path(path).read_text(encoding="utf-8")
     repo.edit(path, lambda s: s.replace(old, new))
-    repo.edit("tests/j4b/fresh/phases.py", lambda s: s + "\nFIXED = True\n")
+    repo.edit("tests/j4b/fresh/phases.py", lambda s: s + FIXED)
     repo.path(PHASES_TEST).write_text(
         '"""Motivating test."""\n\n\ndef test_fix() -> None:\n    from tests.j4b.fresh import phases\n\n'
-        '    assert getattr(phases, "FIXED", False)\n'
+        '    assert getattr(phases, "fixed", lambda: False)()\n'
     )
     motivating = {"tests/j4b/fresh/phases.py": f"{PHASES_TEST}::test_fix"}
     refuses(repo, tmp_path, amend(repo, original, motivating), f"frozen item {path}")
@@ -589,7 +597,7 @@ def test_a_fix_that_leaves_the_items_flagged_is_refused_naming_the_first(repo: P
 
 def test_a_module_fix_whose_test_still_fails_after_is_refused(repo: PlantedRepo, tmp_path: Path) -> None:
     original = dev_done(repo, tmp_path, flagged=False)
-    repo.edit("tests/j4b/fresh/metering.py", lambda s: s + "\nFIXED = True\n")
+    repo.edit("tests/j4b/fresh/metering.py", lambda s: s + FIXED)
     repo.path(METERING_TEST).write_text(
         '"""Motivating test."""\n\n\ndef test_the_motivating_fix() -> None:\n    raise AssertionError\n'
     )
@@ -609,3 +617,146 @@ def test_an_appendix_without_motivating_refuses_a_module_fix(repo: PlantedRepo, 
 
 def test_assert_library_pin_passes_on_the_pinned_tree(repo: PlantedRepo) -> None:
     pins.assert_library_pin(repo.root, repo.appendix())
+
+
+# --- STATS48-B10-3: the request-shaping knobs inside amendable modules are frozen items -----------------------
+
+OPENAI_CHAT, CHAT_TEST, PHASES = (
+    "tests/integration/openai_chat.py",
+    "tests/j4b/tests/test_fresh_openai_chat.py",
+    ("tests/j4b/fresh/phases.py"),
+)
+REQUEST_KNOBS = {
+    "the drafting model id": (OPENAI_CHAT, 'MODEL = "gpt-5.4-mini-2026-03-17"', 'MODEL = "gpt-5.5-other-model"',
+                              "MODEL"),
+    "the drafting reasoning effort": (OPENAI_CHAT, 'reasoning_effort: str = "none"', 'reasoning_effort: str = "high"',
+                                      "OpenAIChatLLM.__init__"),
+    "the drafting retries": (OPENAI_CHAT, "retries: int = 4", "retries: int = 6", "OpenAIChatLLM.__init__"),
+    "the drafting timeout": (OPENAI_CHAT, "timeout_s: float = 120", "timeout_s: float = 300", "OpenAIChatLLM.__init__"),
+    "the backoff ladder": (OPENAI_CHAT, "2**attempt", "3**attempt", "backoff_s"),
+    "the D17 cut-at-the-cap rule": (OPENAI_CHAT, 'choice.get("finish_reason") == "length"',
+                                    'choice.get("finish_reason") == "truncated"', "OpenAIChatLLM.parse"),
+    "the request body": (OPENAI_CHAT, '"reasoning_effort": self._effort,', '"reasoning_effort": "high",',
+                         "OpenAIChatLLM.body"),
+    "a call-site override of the drafting client": (
+        PHASES, "OpenAIChatLLM(key, max_completion_tokens", 'OpenAIChatLLM(key, reasoning_effort="high", '
+        "max_completion_tokens", "clients/OpenAIChatLLM()#0"),
+    "a call-site override of the decision client": (
+        PHASES, "DecisionsBackend(api_key=key,", 'DecisionsBackend(api_key=key, model="gpt-other",',
+        "clients/DecisionsBackend()#0"),
+    "the per-endpoint model strings (D6)": (PHASES, "s.status == 200 and s.model is not None",
+                                            "s.status in (200, 203) and s.model is not None",
+                                            "model_strings"),
+}  # fmt: skip
+
+
+@pytest.mark.parametrize("name", sorted(REQUEST_KNOBS))
+def test_stats48_b10_3_a_motivated_amendment_cannot_move_a_request_knob(
+    repo: PlantedRepo, tmp_path: Path, name: str
+) -> None:
+    """Even with a planted motivating test that fails at dev and passes after, the amendment is refused, naming the
+    frozen item: the model id, the effort, the retry ladder, the D17 parse rule, the request body, a call-site
+    override and D6's model-string collection are frozen, though their modules are amendable."""
+    path, old, new, item = REQUEST_KNOBS[name]
+    original = dev_done(repo, tmp_path, flagged=False)
+    assert repo.path(path).read_text(encoding="utf-8").count(old) == 1
+    repo.edit(path, lambda s: s.replace(old, new))
+    test_file = pins.AMENDABLE[path]
+    module = path.removesuffix(".py").replace("/", ".")
+    repo.path(test_file).write_text(
+        f'"""Motivating test."""\n\nimport inspect\n\nimport {module} as m\n\n\n'
+        f"def test_fix() -> None:\n    assert {new!r} in inspect.getsource(m)\n"
+    )
+    refuses(repo, tmp_path, amend(repo, original, {path: f"{test_file}::test_fix"}), f"frozen item {path}::{item}")
+
+
+def test_stats48_b10_3_every_named_frozen_function_and_call_exists_at_head() -> None:
+    items = pins.frozen_items(ROOT, "HEAD")
+    for path, names in pins.FROZEN_FUNCTIONS.items():
+        for name in names:
+            assert items[f"{path}::{name}"]["kind"] == "frozen", (path, name)
+    for _, _, _, item in REQUEST_KNOBS.values():
+        assert any(key.endswith(f"::{item}") for key in items), item
+
+
+# --- STATS48-B10-7: an amendment changes only the appendix's pins block (and may add an amendment record) -------
+
+
+def test_stats48_b10_7_an_amendment_that_rewrites_the_appendix_body_is_refused(
+    repo: PlantedRepo, tmp_path: Path
+) -> None:
+    original = dev_done(repo, tmp_path, flagged=False)
+    module_fix(repo)
+    node = f"{METERING_TEST}::test_the_motivating_fix"
+    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node})
+    rewritten = amended.replace("# Pre-registration (planted)", "# Pre-registration (planted): NI multiplier 1.0")
+    refuses(repo, tmp_path, rewritten, "the amended appendix changes text outside its pins block")
+    recorded = amended + "\n## Amendment record\n\nThe metering fix of design §2.6.\n"
+    assert pins.check(repo.root, tmp_path, recorded, command="confirm", attempt=1)
+
+
+def test_stats48_b10_7_the_original_appendix_must_be_committed_at_the_dev_commit(
+    repo: PlantedRepo, tmp_path: Path
+) -> None:
+    repo.commit("dev harness")
+    original = repo.appendix()
+    repo.record(tmp_path, 1, "dev", original)
+    module_fix(repo)
+    node = f"{METERING_TEST}::test_the_motivating_fix"
+    refuses(repo, tmp_path, amend(repo, original, {"tests/j4b/fresh/metering.py": node}),
+            f"the appendix dev ran under is not committed at its harness_commit: {pins.APPENDIX}")  # fmt: skip
+
+
+# --- STATS48-B10-8: each phase record names the interpreter and the locked dependencies it ran on -----------------
+
+
+def test_stats48_b10_8_every_phase_record_carries_the_interpreter_and_the_lock_file(
+    repo: PlantedRepo, tmp_path: Path
+) -> None:
+    p = repo.record(tmp_path, 1, "dev", repo.appendix(), finish=False)
+    environment = {"python": sys.version, "uv_lock": repo.git("rev-parse", "HEAD:uv.lock")}
+    assert p.record()["environment"] == environment
+    assert '"uv_lock": "' + environment["uv_lock"] in (tmp_path / "attempt-1" / "dev" / "start.json").read_text()
+
+
+def test_python_items_key_each_kind_of_frozen_item() -> None:
+    source = (
+        b"A = 1\nB: int = 2\nC: int\nD, E = 3, 4\nOpenAIChatLLM()\n"
+        b"def f(x=1, *, y=None, z): OpenAIChatLLM(model='m'); OpenAIChatLLM()\n"
+        b"def g(*, z, w=3): pass\ndef h(a, *, b): pass\n"
+        b"class K:\n    c = DecisionsBackend()\n    def m(self, a=0): DecisionsBackend(); other()\n"
+        b"def model_strings(): pass\n"
+    )
+    items = pins.python_items("tests/j4b/fresh/phases.py", source)
+    assert sorted(k.removeprefix("tests/j4b/fresh/phases.py::") for k in items) == [
+        "<body>/OpenAIChatLLM()#0", "A", "B", "K.<body>/DecisionsBackend()#0", "K.m defaults",
+        "K.m/DecisionsBackend()#0", "f defaults", "f/OpenAIChatLLM()#0", "f/OpenAIChatLLM()#1", "g defaults",
+        "model_strings",
+    ]  # fmt: skip
+    assert {i["kind"] for i in items.values()} == {"frozen"}
+    changed = pins.python_items("tests/j4b/fresh/phases.py", source.replace(b"model='m'", b"model='n'"))
+    assert [k for k in items if items[k] != changed[k]] == ["tests/j4b/fresh/phases.py::f/OpenAIChatLLM()#0"]
+    assert pins.python_items("x.py", b"def model_strings(): pass\n") == {}
+
+
+def test_stats48_b10_7_dev_under_an_uncommitted_appendix_or_a_second_record_is_refused(
+    repo: PlantedRepo, tmp_path: Path
+) -> None:
+    original = dev_done(repo, tmp_path, flagged=False)
+    module_fix(repo)
+    node = f"{METERING_TEST}::test_the_motivating_fix"
+    amended = amend(repo, original, {"tests/j4b/fresh/metering.py": node})
+    trailing = amended + "\nA sentence that is not an amendment record.\n"
+    refuses(repo, tmp_path, trailing, "the amended appendix changes text outside its pins block")
+    original_commit = pins.records(tmp_path)[0][1]["pins"]["harness_commit"]
+    recorded = {"harness_commit": original_commit, "appendix_sha256": pins.sha256(original)}
+    assert pins.appendix_problems(repo.root, recorded, amended) == []
+    assert pins.appendix_problems(repo.root, {**recorded, "appendix_sha256": "x"}, amended) == [
+        f"the appendix dev ran under is not committed at its harness_commit: {pins.APPENDIX}"
+    ]
+    repo.path(pins.APPENDIX).write_text(original + "\n## Amendment record\n", encoding="utf-8")
+    with_record = repo.commit("an original carrying a record")
+    again = {"harness_commit": with_record, "appendix_sha256": pins.sha256(original + "\n## Amendment record\n")}
+    assert pins.appendix_problems(repo.root, again, amended + "\n## Amendment record\n") == [
+        "the amended appendix changes text outside its pins block"
+    ]
