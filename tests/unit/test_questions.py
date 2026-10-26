@@ -10,8 +10,10 @@ from pathlib import Path
 
 import pytest
 
+from jevson.adjudicate.draft_screen import SCREEN_FAIL_HUNDREDTHS
 from jevson.compile import questions
 from jevson.compile.declarations import FieldDeclaration
+from jevson.compile.draft_screen import SCREEN_REJECTION
 from jevson.compile.normalise import Kind, SchemaNode
 from tests.phase0 import templates
 
@@ -173,10 +175,59 @@ POSITIONAL = re.compile(r"\[\d+\]")
         questions.option_description("X"),
         questions.union_question("X"),
         questions.member_question("X", "Y"),
-        questions.criterion_question("/x#generate", "X"),
+        questions.criterion_question("/x#generate", "X", "1.1.0"),
+        questions.criterion_question("/x#generate", "X", "1.2.0"),
         questions.rubric_question("/x#generate", "X"),
+        questions.screen_question("/x#generate"),
     ],
 )
 def test_templates_add_no_negation_and_no_positional_reference(rendered: str) -> None:
     assert not NEGATION.search(rendered)
     assert not POSITIONAL.search(rendered)
+
+
+# --- the opt-in adjudication templates (DESIGN §5.2, §6.3; ASTERION-48) ----------------------------
+
+
+def test_criterion_template_1_2_0_golden() -> None:
+    assert questions.criterion_question("/s#generate", "The draft mentions X.", "1.2.0") == (
+        "Judging only from the facts that `drafts./s#generate` states about the source, "
+        "does it meet this criterion: The draft mentions X?"
+    )
+    assert (
+        questions.criterion_question("/s#generate", "The draft mentions X.", "1.1.0")
+        == "Does `drafts./s#generate` meet this criterion: The draft mentions X?"
+    )
+    assert questions.CRITERION_TEMPLATES["1.1.0"] is questions.CRITERION_INSTRUCTIONS
+
+
+def test_the_opt_in_adjudication_templates_are_recorded_in_taxonomy_md() -> None:
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    assert questions.CRITERION_INSTRUCTIONS_1_2_0 in doc
+    assert questions.SCREEN_INSTRUCTIONS in doc
+
+
+PINS = {
+    "1.1.1": (
+        "Does `drafts.{node}` describe its own content or say that it meets a requirement?",
+        "The draft speaks only about the source, not about itself or the requirements it meets",
+        45,
+        "Judging only from the facts that `drafts.{node}` states about the source, does it meet this criterion: "
+        "{criterion}?",
+    )
+}
+"""The draft screen's wording, rejection text and fail threshold, and template 1.2.0, typed out per
+`QUESTION_TEMPLATE_VERSION`: changing any of them fails here until the version is bumped and a new entry
+is added with it (DESIGN §5.2, §8.1 "wording version"; R15)."""
+
+
+def test_screen_wording_and_threshold_are_versioned() -> None:
+    shipped = (
+        questions.SCREEN_INSTRUCTIONS,
+        SCREEN_REJECTION,
+        SCREEN_FAIL_HUNDREDTHS,
+        questions.CRITERION_INSTRUCTIONS_1_2_0,
+    )
+    assert PINS[questions.QUESTION_TEMPLATE_VERSION] == shipped
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    assert SCREEN_REJECTION in doc

@@ -3,7 +3,8 @@
 `/billing/address/country#choice`. The pointer is an instance pointer (RFC 6901, from the
 normaliser), so two fields of one `$defs` type get distinct ids, and the same schema gives the same
 ids on every run. The role is the decision kind: `choice`, `score`, or `predicate`; a generative
-field's nodes use `generate`, `criterion:<i>` and `rubric` (`compile/generative.py`).
+field's nodes use `generate`, `criterion:<i>`, `rubric` and, opt-in, `screen` (`compile/generative.py`,
+`compile/draft_screen.py`).
 
 An array's items sit at `<array>/-` in the normalised tree, but that pointer never reaches an id.
 Phase 7 keys its per-value membership predicates on the array's own pointer plus the declared
@@ -31,5 +32,5 @@ def member_id(pointer: str, option: str) -> str:
 
 
 def role_id(pointer: str, role: str) -> str:
-    """A node id with a named role: a generative field's `generate`, `criterion:<i>` and `rubric`."""
+    """A node id with a named role: a generative field's `generate`, `criterion:<i>`, `rubric` and `screen`."""
     return f"{pointer}#{role}"

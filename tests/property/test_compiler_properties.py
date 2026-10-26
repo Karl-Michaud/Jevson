@@ -12,11 +12,13 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from jevson import CompileError, RefusalCode, compile_schema
+from jevson import CompileError, JevsonConfig, RefusalCode, compile_schema
 from jevson.assemble.validation import validator
+from jevson.checks import CheckRule
 from jevson.compile.normalise import normalise
 from jevson.compile.refusal import Refusals
 from jevson.graph import DecisionGraph
+from jevson.types import DecisionKind, DecisionNode, StepNode
 from tests.property.test_normalise_properties import DETERMINISTIC, roots
 
 
@@ -147,3 +149,76 @@ def test_an_ordinal_compiles_to_exactly_the_levels_final_validation_accepts(low:
         assert [r.reason for r in caught.value.reasons] == [RefusalCode.ORDINAL_LEVELS]
         return
     assert compile_schema(schema).nodes["/r#score"].values == accepted
+
+
+# --- the opt-in adjudication options (DESIGN §5.2, §6.3; ASTERION-48) --------------------------------
+
+criteria_lists = st.lists(
+    st.sampled_from(["names the amount", "is one sentence", "is polite"]), max_size=3, unique=True
+)
+rubrics = st.sampled_from(
+    [None, {"description": "how faithful it is", "levels": ["poor", "ok", "good"], "minimum": "ok"}]
+)
+
+
+@st.composite
+def generative(draw: st.DrawFn, depth: int = 0) -> dict[str, object]:
+    """An object schema whose leaves mix decidable fields and generative fields with zero to three
+    criteria and an optional rubric, nested up to two levels."""
+    properties: dict[str, object] = {}
+    for name in draw(names):
+        if depth < 2 and draw(st.booleans()):
+            properties[name] = draw(generative(depth + 1))
+        elif draw(st.booleans()):
+            generate: dict[str, object] = {"criteria": draw(criteria_lists)}
+            rubric = draw(rubrics)
+            if rubric is not None:
+                generate["rubric"] = rubric
+            properties[name] = {"type": "string", "x-jevson": {"generate": generate}}
+        else:
+            field, _ = draw(decidable)
+            if field.get("type") == "boolean":
+                field = {**field, "description": f"the {name} flag holds"}
+            properties[name] = field
+    return {"type": "object", "properties": properties, "required": list(properties)}
+
+
+def compiled(schema: object, **options: object) -> DecisionGraph | str:
+    try:
+        return compile_schema(schema, **options)  # type: ignore[arg-type]
+    except CompileError as error:
+        return str(error)
+
+
+def shape(graph: DecisionGraph | str) -> object:
+    """A graph's ids, questions and dependencies, or the refusal it raised."""
+    if isinstance(graph, str):
+        return graph
+    return [(n.id, getattr(n, "question", None), sorted(n.dependencies)) for n in graph.nodes.values()]
+
+
+@DETERMINISTIC
+@given(st.one_of(roots, generative()))
+def test_the_default_options_compile_the_graph_the_config_defaults_name(schema: object) -> None:
+    config = JevsonConfig()
+    explicit = compiled(schema, criterion_template=config.criterion_template, draft_screen=config.draft_screen)
+    assert shape(compiled(schema)) == shape(explicit)
+
+
+@DETERMINISTIC
+@given(generative(), st.sampled_from(["1.1.0", "1.2.0"]), st.booleans())
+def test_every_check_names_a_node_of_the_kind_its_rule_judges(schema: object, template: str, screen: bool) -> None:
+    graph = compile_schema(schema, criterion_template=template, draft_screen=screen)
+    kinds = {CheckRule.RUBRIC: DecisionKind.SCORE, CheckRule.CRITERION: DecisionKind.PREDICATE}
+    kinds[CheckRule.SCREEN] = DecisionKind.PREDICATE
+    for step in graph.nodes.values():
+        if not isinstance(step, StepNode) or step.drafting is None:
+            continue
+        rules = [check.rule for check in step.drafting.checks]
+        declared = [rule for rule in rules if rule is not CheckRule.SCREEN]
+        assert rules == declared + ([CheckRule.SCREEN] if screen and declared else [])
+        for check in step.drafting.checks:
+            node = graph.nodes[check.node_id]
+            assert isinstance(node, DecisionNode)
+            assert node.kind is kinds[check.rule]
+            assert step.id in node.dependencies

@@ -384,3 +384,16 @@ def _lists(value: object) -> bool:
     if isinstance(value, dict):
         return any(_lists(child) for child in cast("dict[str, object]", value).values())
     return isinstance(value, list)
+
+
+# --- the opt-in adjudication options are recorded (DESIGN §8.1; ASTERION-48) ---------------------------
+
+
+def test_versions_record_options() -> None:
+    graph = DecisionGraph([flag("a")])
+    backend = FakeBackend(default=FakeBackend.predicate(0.9))
+    chosen = run(graph, backend, config=JevsonConfig(criterion_template="1.2.0", draft_screen=True)).versions
+    assert (chosen["criterion_template"], chosen["draft_screen"]) == ("1.2.0", "true")
+    default = run(graph, backend).versions
+    assert (default["criterion_template"], default["draft_screen"]) == ("1.1.0", "false")
+    assert default["question_templates"] == templates.QUESTION_TEMPLATE_VERSION

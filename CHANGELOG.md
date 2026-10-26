@@ -27,8 +27,30 @@ pending the owner's decision (PLAN §6).
   scripted) and `CachingBackend` (exact replay); `ReplayLLM` for exact LLM replay.
 - `InMemoryCostSink`, the default `CostSink`.
 - Examples in `examples/`, each runnable offline with no API key.
+- **Experimental, off by default, pending the ASTERION-48/-58 measurement** (DESIGN Revision 11.7):
+  two opt-in adjudication options against drafts that claim to meet a criterion they do not.
+  - `JevsonConfig.draft_screen` (default `False`): each generated field that declares a criterion
+    or a rubric gets one more adjudication question, `<pointer>#screen` ("Does `drafts.{node}`
+    describe its own content or say that it meets a requirement?"), in the same request. It fails
+    the draft at p ≥ 0.45, on a tie, a refusal or an invalid answer; a failed screen is named in
+    `Result.rejections` as "The draft speaks only about the source, not about itself or the
+    requirements it meets" and triggers a redraft. `Result.decisions` gains `…#screen@N` entries,
+    where `selected = true` means a self-claim was found.
+  - `JevsonConfig.criterion_template` (default `"1.1.0"`): `"1.2.0"` asks each criterion as
+    "Judging only from the facts that `drafts.{node}` states about the source, does it meet this
+    criterion: …?". `QUESTION_TEMPLATE_VERSION` is unchanged.
+  - `compile_schema()` takes the same two keywords; an unknown `criterion_template` raises
+    `UsageError`.
+  - `Result.versions` gains `criterion_template` and `draft_screen` (`"1.1.0"` and `"false"` at the
+    defaults). With both options at their defaults every request is byte-identical to before.
+  - Turning either option on changes the adjudication requests' cache keys, so recordings made
+    without it miss under `replay_only=True` (`BackendError(replay_miss)`): an R15 re-baseline.
 
 **Changed**
+
+- The `checks` of a `generate` step's `Drafting` (reachable through `compile_schema()`'s
+  `DecisionGraph`, not part of `jevson.__all__`) are `Check(node_id, text, rule)` values instead of
+  `(node_id, text)` pairs, so each carries the rule that judges it (ASTERION-48).
 
 - Repository tooling, not the package: the Plane workflow pointers (`.claude/plane-workflow.json`,
   `.github/workflows/branch-policy.yml`) now name the shared `plane-workflow` skill in

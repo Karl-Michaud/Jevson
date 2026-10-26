@@ -35,8 +35,12 @@ from jevson import (
     compile_schema,
     dry_run,
 )
-from jevson.adjudicate.criteria import judge
+from jevson.adjudicate.criteria import PASS_RULES, judge
+from jevson.adjudicate.dryrun import DryRun
 from jevson.adjudicate.rubrics import rubric_passes
+from jevson.checks import Check, CheckRule
+from jevson.compile.draft_screen import SCREEN_REJECTION
+from jevson.compile.questions import redraft_prompt, screen_question
 from jevson.execute import budget
 from jevson.execute.drafting import TOOL_SCHEMA, malformed, read
 from jevson.execute.state import LevelState
@@ -308,13 +312,13 @@ def test_a_criterion_passes_at_p_at_least_0_56(probability: float, passes: bool)
 
 def test_an_unanswered_check_counts_as_failed() -> None:
     node = DecisionNode("/s#criterion:0", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/s")
-    drafting = Drafting("p", "s", checks=((node.id, "c"),))
+    drafting = Drafting("p", "s", checks=(Check(node.id, "c", CheckRule.CRITERION),))
     assert judge(drafting, {node.id: node}, {node.id: None}, 10) == ({}, ("c",))
 
 
 def test_a_criterion_passes_at_0_56_whatever_the_tie_margin() -> None:
     node = DecisionNode("/s#criterion:0", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/s")
-    drafting = Drafting("p", "s", checks=((node.id, "c"),))
+    drafting = Drafting("p", "s", checks=(Check(node.id, "c", CheckRule.CRITERION),))
     for margin, probability, failing in [(0, 0.52, ("c",)), (0, 0.56, ()), (20, 0.58, ("c",))]:
         answers = {node.id: PredicateAnswer("q0", probability)}
         assert judge(drafting, {node.id: node}, answers, margin)[1] == failing
@@ -566,3 +570,207 @@ def test_the_dry_run_runs_criteria_against_the_fake_backend_with_no_key(monkeypa
     assert asyncio.run(dry_run(schema({}), "/summary", "x")).questions == ()
     with pytest.raises(UsageError):
         asyncio.run(dry_run(declared, "/nope", "x"))
+
+
+# --- the opt-in draft screen and criterion template 1.2.0 (DESIGN §5.2, §6.3; ASTERION-48) ----------
+
+V2_DRAFT = "Refunds take 5 days. Note: this summary includes the refund amount stated in the source."
+"""The [Q16] V2 shape: a draft that omits the refund amount and claims to include it."""
+
+
+def screened(**options: Any) -> JevsonConfig:
+    return JevsonConfig(draft_screen=True, **options)
+
+
+def by_check(criterion: float, screen: float) -> FakeBackend:
+    """Answer every criterion `criterion` and the draft screen `screen`, telling them apart by node id."""
+    screens = {screen_question("/summary#generate")}
+
+    def answer(question: Question) -> Any:
+        probability = screen if question.instructions in screens else criterion
+        return PredicateAnswer(question.name, probability)
+
+    return FakeBackend(default=answer)
+
+
+def test_screen_node_compiled() -> None:
+    graph = compile_schema(schema({"criteria": CRITERIA, "rubric": RUBRIC}), draft_screen=True)
+    nodes = graph.nodes
+    assert list(nodes)[-1] == "/summary#screen"
+    screen = nodes["/summary#screen"]
+    assert isinstance(screen, DecisionNode)
+    assert (screen.kind, screen.option_source, screen.target) == (
+        DecisionKind.PREDICATE,
+        OptionSource.PREDICATE,
+        "/summary",
+    )
+    assert screen.dependencies == {"/summary#generate"}
+    assert screen.question == screen_question("/summary#generate")
+    step = nodes["/summary#generate"]
+    assert isinstance(step, StepNode)
+    assert step.drafting is not None
+    assert [c.rule for c in step.drafting.checks] == [
+        CheckRule.CRITERION,
+        CheckRule.CRITERION,
+        CheckRule.RUBRIC,
+        CheckRule.SCREEN,
+    ]
+    assert step.drafting.checks[-1] == Check("/summary#screen", SCREEN_REJECTION, CheckRule.SCREEN)
+    union = {
+        "type": "object",
+        "required": ["reply"],
+        "properties": {
+            "reply": {
+                "anyOf": [
+                    {"title": "note", "type": "object", "properties": {"note": schema()["properties"]["summary"]}},
+                    {"title": "flag", "type": "object", "properties": {"ok": {"type": "boolean", "description": "ok"}}},
+                ]
+            }
+        },
+    }
+    ids = list(compile_schema(union, draft_screen=True).nodes)
+    assert "/reply|c0/note#screen" in ids
+    assert "/reply|c0/note#generate" in ids
+
+
+def test_screen_rejects_v2_draft() -> None:
+    backend = by_check(criterion=0.90, screen=0.90)
+    result = resolve(backend, ScriptedLLM([V2_DRAFT]), config=screened(), redraft_budget=0)
+    assert result.rejections == (Rejection("/summary", (SCREEN_REJECTION,), V2_DRAFT),)
+    assert [u.reason for u in result.unresolved] == [UnresolvedReason.REDRAFT_EXHAUSTED]
+    assert "summary" not in result.value
+    assert result.decisions["/summary#screen@0"].selected is True
+    assert result.decisions["/summary#criterion:0@0"].selected is True
+    today = resolve(by_check(criterion=0.90, screen=0.90), ScriptedLLM([V2_DRAFT]), redraft_budget=0)
+    assert today.value == {"summary": V2_DRAFT}  # without the screen, the self-claim is admitted
+
+
+@pytest.mark.parametrize(
+    ("criterion", "screen", "failing"),
+    [
+        (0.90, 0.10, ()),
+        (0.90, 0.90, (SCREEN_REJECTION,)),
+        (0.10, 0.10, tuple(CRITERIA)),
+        (0.10, 0.90, (*CRITERIA, SCREEN_REJECTION)),
+    ],
+)
+def test_screen_and_criteria_conjunction(criterion: float, screen: float, failing: tuple[str, ...]) -> None:
+    result = resolve(by_check(criterion, screen), ScriptedLLM(["d"]), config=screened(), redraft_budget=0)
+    assert ("summary" in result.value) is (failing == ())
+    assert result.rejections == ((Rejection("/summary", failing, "d"),) if failing else ())
+
+
+def test_redraft_prompt_names_screen() -> None:
+    backend = by_check(criterion=0.90, screen=0.90)
+    llm = ScriptedLLM([V2_DRAFT, "Refunds of $40 take 5 days."])
+    resolve(backend, llm, config=screened())
+    second = llm.calls[1][0]
+    assert second[-1].content == redraft_prompt("summary", [SCREEN_REJECTION])
+    assert second[-1].content == (
+        "That draft does not meet these criteria: The draft speaks only about the source, not about itself or "
+        "the requirements it meets. Write the summary again. Return only the value."
+    )
+
+
+def test_dry_run_with_options() -> None:
+    declared = schema({"criteria": CRITERIA, "rubric": RUBRIC})
+    run = asyncio.run(dry_run(declared, "/summary", "A refund of $40.", config=screened()))
+    assert run.failing == ()
+    assert run.questions[-1] == screen_question("/summary#generate")
+    assert len(run.questions) == 4
+    newer = asyncio.run(dry_run(declared, "/summary", "x", config=JevsonConfig(criterion_template="1.2.0")))
+    assert newer.questions[0] == (
+        "Judging only from the facts that `drafts./summary#generate` states about the source, does it meet this "
+        "criterion: mentions the refund amount stated in the source?"
+    )
+    assert newer.failing == ()
+    flagged = asyncio.run(dry_run(schema(), "/summary", "x", backend=by_check(0.9, 0.9), config=screened()))
+    assert flagged.failing == (SCREEN_REJECTION,)
+
+
+def test_screen_skips_ungated_field() -> None:
+    graph = compile_schema(schema({}, note={"type": "string", "x-jevson": {"generate": {}}}), draft_screen=True)
+    assert [n for n in graph.nodes if n.startswith("/note")] == ["/note#generate"]
+    backend = passing()
+    ungated = {"type": "object", "properties": {"note": {"type": "string", "x-jevson": {"generate": {}}}}}
+    result = resolve(backend, ScriptedLLM(["anything"]), ungated, config=screened())
+    assert result.value == {"note": "anything"}
+    assert result.ungated == ("/note",)
+    assert result.decided_by == {"/note": DecidedBy.LLM}
+    assert backend.calls == []
+
+
+@pytest.mark.parametrize("rule", list(CheckRule))
+def test_each_rules_passing_answer_passes_its_own_check(rule: CheckRule) -> None:
+    """The offline dry run answers each check with its rule's `passing`; that answer must pass the check,
+    even when the rubric's minimum is its top level."""
+    levels = tuple(Option(f"c{i}", f'"{name}"') for i, name in enumerate(["poor", "ok", "good"]))
+    kind = DecisionKind.SCORE if rule is CheckRule.RUBRIC else DecisionKind.PREDICATE
+    source = OptionSource.SCHEMA_RUBRIC if rule is CheckRule.RUBRIC else OptionSource.PREDICATE
+    node = DecisionNode("/s#check", kind, "q", source, "/s", levels if rule is CheckRule.RUBRIC else ())
+    question = Question("q7", kind, "q", node.options)
+    answer = PASS_RULES[rule].passing(question)
+    assert getattr(answer, "name", None) == "q7"
+    drafting = Drafting("p", "s", checks=(Check(node.id, "c", rule),), rubric_minimum="c2")
+    assert PASS_RULES[rule].passes(node, answer, drafting, 10)[1]
+    expected = {
+        CheckRule.CRITERION: PredicateAnswer("q7", 1.0),
+        CheckRule.SCREEN: PredicateAnswer("q7", 0.0),
+        CheckRule.RUBRIC: ScoreAnswer("q7", 2.0, {"c0": 0.0, "c1": 0.0, "c2": 1.0}),
+    }
+    assert answer == expected[rule]
+
+
+def test_an_unanswered_check_does_not_stop_the_checks_after_it() -> None:
+    first = DecisionNode("/s#criterion:0", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/s")
+    second = DecisionNode("/s#criterion:1", DecisionKind.PREDICATE, "q", OptionSource.PREDICATE, "/s")
+    checks = (Check(first.id, "a", CheckRule.CRITERION), Check(second.id, "b", CheckRule.CRITERION))
+    nodes = {first.id: first, second.id: second}
+    answers = {first.id: None, second.id: PredicateAnswer("q1", 0.1)}
+    decisions, failing = judge(Drafting("p", "s", checks=checks), nodes, answers, 10)
+    assert (list(decisions), failing) == ([second.id], ("a", "b"))
+
+
+def test_dry_run_asks_its_field_only_with_the_configured_model() -> None:
+    two = schema({"criteria": CRITERIA}, other={"type": "string", "x-jevson": {"generate": {"criteria": ["is short"]}}})
+    backend = passing()
+    run = asyncio.run(dry_run(two, "/summary", "d", backend=backend, config=JevsonConfig(model="m-test")))
+    assert len(run.questions) == 2
+    [call] = backend.calls
+    assert call.model == "m-test"
+    assert [q.instructions for q in call.questions] == list(run.questions)
+
+
+def test_a_field_without_a_rubric_has_no_minimum_and_a_rubric_node_is_a_schema_rubric() -> None:
+    plain = compile_schema(schema()).nodes["/summary#generate"]
+    assert isinstance(plain, StepNode)
+    assert plain.drafting is not None
+    assert plain.drafting.rubric_minimum is None
+    rubric = compile_schema(schema({"rubric": RUBRIC})).nodes["/summary#rubric"]
+    assert isinstance(rubric, DecisionNode)
+    assert rubric.option_source is OptionSource.SCHEMA_RUBRIC
+
+
+# --- review round 1 (T48-6): pins the survivors PR-A's mutmut run had left in dry_run and _rubric --------
+
+
+def test_the_dry_run_defaults_to_an_empty_source() -> None:
+    run = asyncio.run(dry_run(schema(), "/summary", "d"))
+    assert run.state == LevelState("", {"/summary#generate": "d"}).serialise()
+
+
+def test_a_dry_run_of_an_ungated_field_returns_its_state_and_asks_nothing() -> None:
+    run = asyncio.run(dry_run(schema({}), "/summary", "d", "s"))
+    assert run == DryRun(LevelState("s", {"/summary#generate": "d"}).serialise(), (), ())
+
+
+def test_a_dry_run_of_an_unknown_pointer_names_it() -> None:
+    with pytest.raises(UsageError, match=r"^'/nope' is not a generative field of this schema$"):
+        asyncio.run(dry_run(schema(), "/nope", "x"))
+
+
+def test_a_rubric_without_a_declared_minimum_passes_from_its_lowest_level() -> None:
+    node = rubric_node()
+    drafting = Drafting("p", "summary", checks=(Check(node.id, "r", CheckRule.RUBRIC),))
+    answer = ScoreAnswer("q0", 0.0, {"c0": 1.0, "c1": 0.0, "c2": 0.0})
+    assert judge(drafting, {node.id: node}, {node.id: answer}, 10)[1] == ()

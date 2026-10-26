@@ -1,11 +1,21 @@
 from __future__ import annotations
 
+import ast
 import dataclasses
+import inspect
 import re
+import typing
+from pathlib import Path
 
 import pytest
 
-from jevson.config import JevsonConfig
+from jevson import compile_schema
+from jevson import config as config_module
+from jevson.checks import Check
+from jevson.compile import questions
+from jevson.compile.generative import GenerativeOptions
+from jevson.compile.questions import CRITERION_TEMPLATES
+from jevson.config import DEFAULT_CRITERION_TEMPLATE, DEFAULT_DRAFT_SCREEN, CriterionTemplate, JevsonConfig
 from jevson.errors import (
     BackendError,
     CompileError,
@@ -110,3 +120,61 @@ def test_config_defaults_match_design() -> None:
 def test_config_rejects_out_of_range_settings(overrides: dict[str, float], message: str) -> None:
     with pytest.raises(ValueError, match=f"^{re.escape(message)}$"):
         JevsonConfig(**overrides)  # type: ignore[arg-type]
+
+
+def test_a_tie_margin_of_zero_is_accepted() -> None:
+    assert JevsonConfig(tie_margin_hundredths=0).tie_margin_hundredths == 0
+
+
+@pytest.mark.parametrize(
+    ("overrides", "message"),
+    [
+        ({"tie_margin_hundredths": 100}, "tie_margin_hundredths must be in [0, 100)"),
+        ({"step_timeout_s": 0.0}, "step_timeout_s must be positive"),
+    ],
+)
+def test_config_range_errors_carry_their_exact_text(overrides: dict[str, float], message: str) -> None:
+    with pytest.raises(ValueError, match=f"^{re.escape(message)}$"):
+        JevsonConfig(**overrides)  # type: ignore[arg-type]
+
+
+# --- the opt-in adjudication options (DESIGN §3.5, §5.2, §6.3; ASTERION-48) ---------------------------
+
+SCHEMA = {
+    "type": "object",
+    "properties": {"summary": {"type": "string", "x-jevson": {"generate": {"criteria": ["names the amount"]}}}},
+    "required": ["summary"],
+}
+
+
+def test_adjudication_options() -> None:
+    config = JevsonConfig(draft_screen=True, criterion_template="1.2.0")
+    assert (config.draft_screen, config.criterion_template) == (True, "1.2.0")
+    with pytest.raises(ValueError, match=r"^criterion_template must be one of 1\.1\.0, 1\.2\.0$"):
+        JevsonConfig(criterion_template="9.9.9")  # type: ignore[arg-type]
+    with pytest.raises(
+        UsageError, match=r"^criterion_template must be one of 1\.1\.0, 1\.2\.0, not '9\.9\.9'$"
+    ) as raised:
+        compile_schema(SCHEMA, criterion_template="9.9.9")
+    assert isinstance(raised.value, JevsonError)
+
+
+def test_criterion_template_lists_agree() -> None:
+    assert typing.get_args(CriterionTemplate) == tuple(CRITERION_TEMPLATES)
+    tree = ast.parse(Path(config_module.__file__ or "").read_text(encoding="utf-8"))
+    imported = [alias.name for node in ast.walk(tree) if isinstance(node, ast.Import) for alias in node.names]
+    imported += [node.module or "" for node in ast.walk(tree) if isinstance(node, ast.ImportFrom)]
+    assert not [name for name in imported if name == "jevson" or name.startswith("jevson.")]
+
+
+def test_option_defaults_have_one_source() -> None:
+    signature = inspect.signature(compile_schema).parameters
+    fields = {f.name: f.default for f in dataclasses.fields(JevsonConfig)}
+    assert signature["criterion_template"].default == fields["criterion_template"] == DEFAULT_CRITERION_TEMPLATE
+    assert signature["draft_screen"].default == fields["draft_screen"] == DEFAULT_DRAFT_SCREEN
+    assert inspect.signature(questions.criterion_question).parameters["template"].default is inspect.Parameter.empty
+    assert {f.name: f.default for f in dataclasses.fields(GenerativeOptions)} == {
+        "criterion_template": dataclasses.MISSING,
+        "draft_screen": dataclasses.MISSING,
+    }
+    assert {f.name: f.default for f in dataclasses.fields(Check)}["rule"] is dataclasses.MISSING

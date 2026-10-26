@@ -18,9 +18,12 @@ from jevson import (
     DecisionKind,
     FakeBackend,
     InvalidAnswer,
+    Jevson,
+    JevsonConfig,
     Option,
     PredicateAnswer,
     Question,
+    Result,
 )
 from jevson.backends.caching import cache_key
 from jevson.probabilities import interpret
@@ -36,6 +39,7 @@ from tests.adversarial.hostile_backend import (
     respond,
     with_answer,
 )
+from tests.adversarial.hostile_llm import ScriptedLLM
 
 
 def awkward(question: Question) -> Answer:
@@ -167,3 +171,33 @@ def test_the_key_never_reaches_a_cache_file(tmp_path: Path, answers: list[object
     assert SENTINEL_KEY not in repr(cache)
     for path in tmp_path.rglob("*"):
         assert SENTINEL_KEY not in path.read_text(encoding="utf-8")
+
+
+# --- the opt-in adjudication options are a re-baseline (R15; ASTERION-48) ------------------------------
+
+SUMMARY = {
+    "type": "object",
+    "required": ["summary"],
+    "properties": {"summary": {"type": "string", "x-jevson": {"generate": {"criteria": ["names the amount"]}}}},
+}
+
+
+def resolve_cached(directory: Path, config: JevsonConfig, *, replay_only: bool) -> Result:
+    inner = FakeBackend(default=FakeBackend.predicate(0.1))
+    backend = CachingBackend(inner, directory, replay_only=replay_only)
+    jevson = Jevson(backend, llm=ScriptedLLM(["Refund of $40."]), config=config)
+    return asyncio.run(jevson.aresolve(SUMMARY, "Refund: $40.", redraft_budget=0))
+
+
+@pytest.mark.parametrize(
+    "config",
+    [JevsonConfig(draft_screen=True), JevsonConfig(criterion_template="1.2.0")],
+    ids=["M1 screen", "M2 template 1.2.0"],
+)
+def test_options_change_request_keys(tmp_path: Path, config: JevsonConfig) -> None:
+    resolve_cached(tmp_path, JevsonConfig(), replay_only=False)
+    replayed = resolve_cached(tmp_path, JevsonConfig(), replay_only=True)
+    assert replayed.cost.cache_hits == 1  # the defaults replay from their own recording
+    with pytest.raises(BackendError) as raised:
+        resolve_cached(tmp_path, config, replay_only=True)
+    assert raised.value.code == "replay_miss"

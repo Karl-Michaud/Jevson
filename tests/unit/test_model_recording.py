@@ -153,10 +153,13 @@ def test_the_versions_dict_is_pinned_at_the_defaults_and_follows_the_config() ->
         "default_extractor": "none",
         "redraft_budget": "1",
         "union_fanout": "true",
+        "criterion_template": "1.1.0",
+        "draft_screen": "false",
     }
     config = JevsonConfig(
         model="luna-x", max_input_tokens=50000, max_questions_per_request=7, tie_margin_hundredths=5,
         default_extractor="llm", redraft_budget=2, union_fanout=False,
+        criterion_template="1.2.0", draft_screen=True,
     )  # fmt: skip
     llm = ScriptedLLM([drafted("Refund of $40.", "claude-x-1")])
     sink = InMemoryCostSink()
@@ -172,6 +175,8 @@ def test_the_versions_dict_is_pinned_at_the_defaults_and_follows_the_config() ->
         "default_extractor": "llm",
         "redraft_budget": "2",
         "union_fanout": "false",
+        "criterion_template": "1.2.0",
+        "draft_screen": "true",
         "llm_model": "claude-x-1",
     }
 

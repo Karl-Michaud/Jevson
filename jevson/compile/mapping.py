@@ -37,7 +37,7 @@ from jsonschema import Draft202012Validator
 
 from jevson.compile import questions, unions
 from jevson.compile.declarations import GenerateDeclaration
-from jevson.compile.generative import generative_nodes
+from jevson.compile.generative import GenerativeOptions, generative_nodes
 from jevson.compile.nodes import member_id, node_id, option_id
 from jevson.compile.normalise import Kind, SchemaNode
 from jevson.compile.refusal import Refusals
@@ -65,9 +65,17 @@ class Mapped:
     constants: tuple[Constant, ...] = ()
 
 
-def map_tree(root: SchemaNode, refusals: Refusals, *, default_extractor: str | None, fanout: bool = False) -> Mapped:
+def map_tree(
+    root: SchemaNode,
+    refusals: Refusals,
+    *,
+    default_extractor: str | None,
+    options: GenerativeOptions,
+    fanout: bool = False,
+) -> Mapped:
     """The class C decision nodes of a normalised tree in schema order, then the generative fields'
-    steps and adjudication nodes, and the constants code commits; problems go to `refusals`."""
+    steps and adjudication nodes (compiled under `options`), and the constants code commits; problems go
+    to `refusals`."""
     if root.kind is Kind.REFUSED:
         return Mapped()
     if root.kind is Kind.UNION:
@@ -81,7 +89,7 @@ def map_tree(root: SchemaNode, refusals: Refusals, *, default_extractor: str | N
     if root.kind is not Kind.OBJECT:
         refusals.add(root.pointer, RefusalCode.MALFORMED_SCHEMA, "the root must be an object schema")
         return Mapped()
-    mapper = _Mapper(refusals, default_extractor, fanout)
+    mapper = _Mapper(refusals, default_extractor, fanout, options)
     mapper.object(root, ())
     scopes = questions.scopes([p.labelled for p in mapper.pending])
     rendered: list[DecisionNode] = []
@@ -152,10 +160,13 @@ class _PendingMembers:
 
 
 class _Mapper:
-    def __init__(self, refusals: Refusals, default_extractor: str | None, fanout: bool) -> None:
+    def __init__(
+        self, refusals: Refusals, default_extractor: str | None, fanout: bool, options: GenerativeOptions
+    ) -> None:
         self.refusals = refusals
         self.default_extractor = default_extractor
         self.fanout = fanout
+        self.options = options
         self.pending: list[_Pending | _PendingMembers | unions.PendingUnion] = []
         self.generated: list[DecisionNode | StepNode] = []
         self.constants: list[Constant] = []
@@ -252,7 +263,8 @@ class _Mapper:
                 RefusalCode.GENERATE_FIELD_TYPE,
                 f"x-jevson.generate drafts one string; this field is {node.kind} (generative lists are class G)",
             )
-        nodes = generative_nodes(node.pointer, questions.label(name, node), declared, self.at.qualify(node.pointer))
+        label = questions.label(name, node)
+        nodes = generative_nodes(node.pointer, label, declared, self.options, self.at.qualify(node.pointer))
         self.generated += [replace(n, dependencies=n.dependencies | self.at.after, branch=self.at.gates) for n in nodes]
         return None
 
