@@ -96,9 +96,21 @@ def test_stats48_b10_3_appendix_c_names_every_frozen_function_and_b_corrects_the
         listed = c.split(f"`{path}`: ", 1)[1].split(";", 1)[0].split(". ", 1)[0]
         assert [n.strip(" `") for n in listed.split(",")] == list(names), path
     assert "the transport it is handed is the amendable modules above" in b
-    assert "**Correction to the sentence above (STATS48-B10-3, round 2).**" in b
-    for name in ("`OpenAIChatLLM.complete`", "`run_unit`", "`FirstDraftGate`"):
+    assert "**Correction to the sentence above (STATS48-B10-3, rounds 2 and 3; RC3-1; STATS48-B10-9).**" in b
+    for name in ("`OpenAIChatLLM.complete`", "`run_unit`", "`FirstDraftGate`", "`MeteredTransport`", "`Label`",
+                 "`PinnedWire`", "`SingleFlightLLM`"):  # fmt: skip
         assert name in b, name
+
+
+def test_rc3_1_appendix_b_states_what_the_static_items_do_not_cover(text: str) -> None:
+    """Round 3: the frozen text no longer claims that nothing between `complete()` and the wire can move; it names
+    the wire check and what only the motivating-test rule and review guard."""
+    b, c = section(text, "B"), section(text, "C")
+    assert "**What these items do not cover.**" in b
+    for phrase in ("rebind a frozen name at run time", "message, input or question content", "the item export"):
+        assert phrase in b, phrase
+    assert "`clients` and `replay_clients` outside their request-client calls" not in c
+    assert "Appendix B says what the static items do not cover" in c
 
 
 def test_rc1_3_appendix_g_names_the_advisor_server_tool_and_the_audit_refuses_it(text: str) -> None:

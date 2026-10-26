@@ -11,9 +11,10 @@
 5. `complete.json`, written last.
 
 A guard stop (cap, usage over bound, model-string change, replay miss) writes `void.json` with that reason at the
-stop. Exhausted re-queues and a first-draft gate violation are harness defects: the attempt is left incomplete,
-with the failing unit named, for `void --reason harness_defect`. `confirm` prints only spend, request and
-drafting-call counts summed over every configuration, and model strings; `dev` also prints the P-dev churn.
+stop. Exhausted re-queues, a first-draft gate violation and a request off the pin (`wire.PinnedWire`) are harness
+defects: the attempt is left incomplete, with the failing unit named, for `void --reason harness_defect`. `confirm`
+prints only spend, request and drafting-call counts summed over every configuration, and model strings; `dev` also
+prints the P-dev churn.
 """
 
 from __future__ import annotations
@@ -29,7 +30,7 @@ from typing import Any
 import httpx
 
 from tests.j4b.build_injection_fixture import FIXTURE as P7_FIXTURE
-from tests.j4b.fresh import admission, arms, bounds, costs, gates, phases, requeue, workload
+from tests.j4b.fresh import admission, arms, bounds, costs, gates, phases, requeue, wire, workload
 from tests.j4b.fresh.attempts import Attempts, Refused, RunLock, now, write_record
 from tests.j4b.fresh.constants import NANO
 from tests.j4b.fresh.packing import Unit
@@ -39,7 +40,7 @@ from tests.j4b.fresh.workload import Workload
 Sleep = Callable[[float], Awaitable[object]]
 PinCheck = Callable[[str, int], Mapping[str, Any]]
 """(command, attempt) -> the pins record (`pins.check(...).record()`), or raises `PinMismatch`."""
-DEFECTS = (requeue.RequeuesExhausted, phases.GateViolation)
+DEFECTS = (requeue.RequeuesExhausted, phases.GateViolation, wire.RequestOffPin)
 START_GATE_REFUSED = "start-gate-refused.json"
 """Written at the run root when the start gate refuses an attempt: with no complete attempt, the outcome is then
 "inconclusive (spend cap)" (design §6.4; plan §11 D19)."""
@@ -178,9 +179,10 @@ def run_phase(env: Env, phase: str, n: int) -> int:
             check_models(ledger, n)
             asyncio.run(replay(ledger, w, directory, env.sleep))
         except DEFECTS as defect:
-            env.out(f"harness defect, attempt {n} left incomplete: {defect}; void it with --reason harness_defect")
-            return 3
+            return _defect(env, n, defect)
         except (requeue.CapStop, requeue.ReplayMiss, ModelStringChange) as stop:
+            if (off := wire.off_pin(ledger)) is not None:  # a refused request, wrapped on its way up (RC3-1)
+                return _defect(env, n, off)
             reason = str(guard_reason(stop, ledger))
             a.write_void(n, reason, {"phase": phase, "detail": str(stop)})
             env.out(f"attempt {n} void: {reason} ({stop})")
@@ -192,6 +194,11 @@ def run_phase(env: Env, phase: str, n: int) -> int:
         if phase == "dev":
             env.out(f"P-dev template churn against (L0, F0): {churn(outcomes, w.rows['pset_dev.jsonl'])}")
         return 0
+
+
+def _defect(env: Env, n: int, defect: object) -> int:
+    env.out(f"harness defect, attempt {n} left incomplete: {defect}; void it with --reason harness_defect")
+    return 3
 
 
 def render_summary(phase: str, n: int, summary: Mapping[str, Any], ledger: SpendLedger) -> str:

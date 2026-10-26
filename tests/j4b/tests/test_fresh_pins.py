@@ -627,6 +627,12 @@ OPENAI_CHAT, CHAT_TEST, PHASES = (
     "tests/j4b/tests/test_fresh_openai_chat.py",
     ("tests/j4b/fresh/phases.py"),
 )
+RECORDS, METERING, INFLIGHT, REQUEUE = (
+    "tests/j4b/labelling/records.py",
+    "tests/j4b/fresh/metering.py",
+    "tests/j4b/fresh/inflight.py",
+    "tests/j4b/fresh/requeue.py",
+)
 REQUEST_KNOBS = {
     "the drafting model id": (OPENAI_CHAT, 'MODEL = "gpt-5.4-mini-2026-03-17"', 'MODEL = "gpt-5.5-other-model"',
                               "MODEL"),
@@ -641,10 +647,10 @@ REQUEST_KNOBS = {
                          "OpenAIChatLLM.body"),
     "a call-site override of the drafting client": (
         PHASES, "OpenAIChatLLM(key, max_completion_tokens", 'OpenAIChatLLM(key, reasoning_effort="high", '
-        "max_completion_tokens", "clients/OpenAIChatLLM()#0"),
+        "max_completion_tokens", "clients"),  # the whole of clients() is frozen since RC3-1
     "a call-site override of the decision client": (
         PHASES, "DecisionsBackend(api_key=key,", 'DecisionsBackend(api_key=key, model="gpt-other",',
-        "clients/DecisionsBackend()#0"),
+        "clients"),  # the whole of clients() is frozen since RC3-1
     "the per-endpoint model strings (D6)": (PHASES, "s.status == 200 and s.model is not None",
                                             "s.status in (200, 203) and s.model is not None",
                                             "model_strings"),
@@ -671,6 +677,28 @@ REQUEST_KNOBS = {
     "which configuration units are kept": (PHASES, "outcomes.update(zip(batch, done, strict=True))",
                                            "outcomes.update(zip(batch[1:], done[1:], strict=True))",
                                            "configuration_phase"),
+    # B10 review round 3 (exp/b48b/rev-stats/r3/probe.out, rev-correct/r3/planted3-D.out): accepted before.
+    "the truth of a draft (STATS48-B10-9)": (RECORDS, "return all(self.criteria.values())",
+                                             "return any(self.criteria.values())", "Label"),
+    "a transport wrapped inside clients() (RC3-1)": (PHASES, "MeteredTransport(PinnedWire(transport, ledger),",
+                                                     "MeteredTransport(PinnedWire(_planted(transport), ledger),",
+                                                     "clients"),
+    "replay records allowed to miss (RC3-1)": (PHASES, 'CachingBackend(decisions, phase_dir / "decisions", '
+                                               "replay_only=True)", 'CachingBackend(decisions, phase_dir / '
+                                               '"decisions", replay_only=False)', "replay_clients"),
+    "a request rewritten in the metered transport (RC3-1)": (
+        METERING, "response = await self.inner.handle_async_request(request)",
+        "response = await self.inner.handle_async_request(_planted(request))", "MeteredTransport"),
+    "redraft messages rewritten in the single-flight LLM (RC3-1)": (
+        INFLIGHT, "self.inner.complete(messages, tool_schema)", "self.inner.complete(messages[:2], tool_schema)",
+        "SingleFlightLLM"),
+    "questions rewritten in the single-flight backend (RC3-1)": (
+        INFLIGHT, "self.inner.ask(state, questions, model)", "self.inner.ask(state, questions[:1], model)",
+        "SingleFlightBackend"),
+    "one shared result served for every key (RC3-1)": (INFLIGHT, "task = self.live.get(key)",
+                                                       "task = next(iter(self.live.values()), None)", "_Flights"),
+    "a unit's judged result replaced on its way back (RC3-1)": (REQUEUE, "return await unit()",
+                                                                "return _planted(await unit())", "run_unit"),
 }  # fmt: skip
 
 

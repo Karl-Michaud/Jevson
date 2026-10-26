@@ -2,12 +2,12 @@
 plan §4.1 `phases.py`, §7 "Phases"; FEAS48-11, FEAS48-R8-1).
 
 **Clients.** Decisions go through `SingleFlightBackend(CachingBackend(DecisionsBackend(transport=metered)))` and
-drafting through `SingleFlightLLM(ReplayLLM(OpenAIChatLLM(max_completion_tokens=2048, transport=metered)))`, both
-over one `MeteredTransport` and recording under the phase directory. **Drafting phase.** Every R-set first draft
-is drawn once, built exactly as the executor builds it (`messages(step.drafting, doc.text, None)`, `TOOL_SCHEMA`),
-in batches of 10 documents, each batch checked against the cap first. **Configuration phase.** Units in the pinned
-batches; each unit re-queued under `requeue.run_unit`, and returned as judged (`admission.Judged`): what a unit's
-outcome is (a flip, an admission, an R-set draft) is `admission.record`'s, frozen, never this module's.
+drafting through `SingleFlightLLM(ReplayLLM(OpenAIChatLLM(max_completion_tokens=2048, transport=metered)))`, both over
+one `MeteredTransport(PinnedWire(transport))` and recording under the phase directory. **Drafting phase.** Every R-set
+first draft is drawn once, built exactly as the executor builds it (`messages(step.drafting, doc.text, None)`,
+`TOOL_SCHEMA`), in batches of 10 documents, each batch checked against the cap first. **Configuration phase.** Units in
+the pinned batches; each unit re-queued under `requeue.run_unit`, and returned as judged (`admission.Judged`): what a
+unit's outcome is (a flip, an admission, an R-set draft) is `admission.record`'s, frozen, never this module's.
 
 **The first-draft gate.** A drafting request whose `replay_key` is one of the drafting phase's recorded keys is
 served from that recording with `replay_only=True`, so a missing first draft raises `replay_miss` and never
@@ -41,6 +41,7 @@ from tests.j4b.fresh.inflight import SingleFlightBackend, SingleFlightLLM
 from tests.j4b.fresh.metering import MeteredTransport
 from tests.j4b.fresh.packing import Unit
 from tests.j4b.fresh.spend import SpendLedger
+from tests.j4b.fresh.wire import PinnedWire
 from tests.j4b.fresh.workload import Workload
 
 Sleep = Callable[[float], Awaitable[object]]
@@ -98,8 +99,9 @@ def clients(
     phase_dir: Path, ledger: SpendLedger, *, key: str, transport: httpx.AsyncBaseTransport, run_attempt: int,
     sleep: Sleep,
 ) -> Clients:  # fmt: skip
-    """The metered, recorded, single-flight clients of one phase."""
-    metered = MeteredTransport(transport, ledger, run_attempt=run_attempt)
+    """The metered, recorded, single-flight clients of one phase; `PinnedWire` is innermost, so no request off the
+    pinned parameters is sent (RC3-1)."""
+    metered = MeteredTransport(PinnedWire(transport, ledger), ledger, run_attempt=run_attempt)
     decisions = DecisionsBackend(api_key=key, transport=metered, sleep=sleep)
     cached = CachingBackend(decisions, phase_dir / "decisions")
     chat = OpenAIChatLLM(key, max_completion_tokens=MAX_COMPLETION_TOKENS, transport=metered, sleep=sleep)

@@ -68,15 +68,24 @@ to it (design §2.6); every other pinned file is frozen."""
 FROZEN_FUNCTIONS = {
     "tests/integration/openai_chat.py": ("OpenAIChatLLM.__init__", "OpenAIChatLLM.body", "OpenAIChatLLM.complete",
                                          "OpenAIChatLLM.parse", "_encodable", "backoff_s"),
-    f"{FRESH}/phases.py": ("_subsets", "redraft_prompts", "FirstDraftGate", "draftings", "first_draft_requests",
-                           "first_keys", "drafting_phase", "run_unit", "configuration_phase", "model_strings"),
+    f"{FRESH}/phases.py": ("_subsets", "redraft_prompts", "FirstDraftGate", "clients", "_no_network",
+                           "replay_clients", "draftings", "first_draft_requests", "first_keys", "drafting_phase",
+                           "run_unit", "configuration_phase", "model_strings"),
+    f"{FRESH}/metering.py": ("MeteredTransport",),
+    f"{FRESH}/inflight.py": ("_Flights", "SingleFlightLLM", "SingleFlightBackend"),
+    f"{FRESH}/requeue.py": ("run_unit",),
+    "tests/j4b/labelling/records.py": ("Label",),
 }  # fmt: skip
 """Functions and classes of amendable modules that set outcomes, each one frozen item `<path>::<qualname>` over its
-whole source (STATS48-B10-3, rounds 1 and 2): the drafting client's settings, request body, the request it sends
+whole source (STATS48-B10-3, rounds 1 to 3): the drafting client's settings, request body, the request it sends
 (`complete`), retry ladder and D17 parse rule; which library arm, criterion form, screen and template each unit is
 judged and each R-set field drafted under, which first drafts are recorded and which redrafts the gate passes; which
-units each phase runs and keeps, under the pinned batch rule; and D6's model-string collection. What stays amendable
-is the client and recording wiring (`clients`, `replay_clients`), `__repr__` and `_notify`, and `key.py`."""
+units each phase runs and keeps, under the pinned batch rule; and D6's model-string collection. Round 3 (RC3-1,
+STATS48-B10-9): every link between those builders and the wire (the client wiring `clients` and `replay_clients`
+with the frozen `wire.PinnedWire` innermost, `MeteredTransport`, the single-flight wrappers, the re-queue loop that
+returns each unit's result) and a draft's truth (`Label.satisfies`, all criteria true). What stays amendable is the
+bound and usage arithmetic of `metering.py`, the ledger, the gates, the re-queue wait, the item export,
+`__repr__`, `_notify` and `key.py`."""
 REQUEST_CLIENTS = frozenset({"OpenAIChatLLM", "DecisionsBackend"})
 """Every call of these in an amendable module is a frozen item `<path>::<enclosing>/<client>()#<n>`, so a call
 site cannot pass another model, effort or retry setting (STATS48-B10-3)."""

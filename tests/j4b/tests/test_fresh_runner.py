@@ -17,6 +17,7 @@ from tests.j4b.fresh import arms, runner, scoring
 from tests.j4b.fresh.attempts import INTERRUPTED, Attempts, Refused, write_record
 from tests.j4b.fresh.packing import Unit
 from tests.j4b.tests import fake_api, opens
+from tests.j4b.tests.test_fresh_wire import Rewriting
 
 
 def make_env(tmp_path: Path, **kw: Any) -> tuple[runner.Env, list[str]]:
@@ -253,6 +254,21 @@ def test_h19e_a_guard_stop_writes_its_own_void(tmp_path: Path) -> None:
     void = json.loads((e.root / "attempt-1" / "void.json").read_text())
     assert void["reason"] == "model_string_change"
     assert "void" in lines[-1]
+
+
+def test_rc3_1_an_off_pin_request_is_a_harness_defect_and_never_sent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """An amended wrapper that raises the drafting effort (the RC3-1 probe) stops the attempt as a harness defect,
+    left incomplete for `void --reason harness_defect`: no void is written and no off-pin body reaches the API."""
+    monkeypatch.setattr(runner.phases, "MeteredTransport", Rewriting)
+    api = fake_api.FakeAPI()
+    e, lines = make_env(tmp_path, api=api)
+    assert runner.run_phase(e, "dev", 1) == 3
+    assert not (e.root / "attempt-1" / "void.json").exists()
+    assert "harness defect" in lines[-1]
+    assert "request off pin" in lines[-1]
+    assert all(body["reasoning_effort"] == "none" for endpoint, body in api.bodies if endpoint == "chat")
 
 
 def test_h29_score_refuses_a_changed_p7_fixture(tmp_path: Path) -> None:
