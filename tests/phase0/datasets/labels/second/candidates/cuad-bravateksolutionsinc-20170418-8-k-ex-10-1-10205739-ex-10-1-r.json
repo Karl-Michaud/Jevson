@@ -1,0 +1,30 @@
+{
+  "doc_id": "cuad-bravateksolutionsinc-20170418-8-k-ex-10-1-10205739-ex-10-1-r",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Reseller i3 Integrative Creative Solutions, LLC and Company Bravatek Solutions, Inc. in distinct roles.",
+  "processing_note": "Referral Fees will be paid within thirty (30) days of the collection of receivables from the Registered Referral.",
+  "fields": {
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "7th day of April, 2017",
+      "superseded": false,
+      "rationale": "The preamble states the agreement is made and entered into on the 7th day of April, 2017; the April 17 signature dates and 4/18/2017 filing footers play other roles.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

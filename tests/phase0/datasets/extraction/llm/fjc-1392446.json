@@ -1,0 +1,42 @@
+{
+ "doc_id": "fjc-1392446",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Guilford, Andrew J.",
+   "George W. Bush",
+   "Dickran M. Tevrizian"
+  ],
+  "resume.law_institution": [
+   "University of California, Los Angeles, School of Law",
+   "University of California, Los Angeles"
+  ],
+  "resume.law_year": [
+   "1975",
+   "1972",
+   "2006"
+  ],
+  "resume.undergrad_institution": [
+   "University of California, Los Angeles",
+   "University of California, Los Angeles, School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1972",
+   "1975",
+   "1950"
+  ],
+  "resume.first_judgeship_start": [
+   "June 26, 2006",
+   "June 22, 2006",
+   "January 25, 2006",
+   "July 5, 2019",
+   "January 31, 2020"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Central District of California",
+   "U.S. District Court for the Central District of California"
+  ]
+ }
+}

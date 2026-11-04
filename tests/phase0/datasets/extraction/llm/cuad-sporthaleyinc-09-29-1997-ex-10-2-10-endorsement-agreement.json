@@ -1,0 +1,9 @@
+{"doc_id": "cuad-sporthaleyinc-09-29-1997-ex-10-2-10-endorsement-agreement", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["ENDORSEMENT AGREEMENT", "Endorsement Agreement"],
+"contract.agreement_date": [],
+"contract.effective_date": [],
+"contract.expiration_date": [],
+"contract.governing_law": ["State of Colorado", "Colorado"],
+"contract.renewal_term": [],
+"contract.notice_period": ["30 days", "30-day", "90 days", "90-day"]
+}}

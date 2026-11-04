@@ -1,0 +1,35 @@
+{
+ "doc_id": "cuad-riseeducationcaymanltd-04-17-2020-ex-4-23-service-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "SERVICE AGREEMENT",
+   "Service Agreement"
+  ],
+  "contract.agreement_date": [
+   "[Date]"
+  ],
+  "contract.effective_date": [
+   "the date set forth above in this Agreement",
+   "[Date]"
+  ],
+  "contract.expiration_date": [
+   "five (5) years"
+  ],
+  "contract.governing_law": [
+   "laws of China",
+   "China",
+   "Beijing Arbitration Commission"
+  ],
+  "contract.renewal_term": [
+   "another five (5) years",
+   "five (5) years"
+  ],
+  "contract.notice_period": [
+   "three (3) business days",
+   "fifteen (15) days"
+  ]
+ }
+}

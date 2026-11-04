@@ -1,0 +1,1 @@
+{"doc_id": "gsa-377971", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Office Furniture - Office 1103-Q", "Office furniture collection"], "product.inventory": ["(1)", "1605DD-6244-OFCH-6"], "product.price": []}}

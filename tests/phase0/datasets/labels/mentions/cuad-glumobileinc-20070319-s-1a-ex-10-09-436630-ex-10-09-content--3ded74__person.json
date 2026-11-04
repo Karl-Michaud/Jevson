@@ -1,0 +1,44 @@
+{
+  "passage_id": "cuad-glumobileinc-20070319-s-1a-ex-10-09-436630-ex-10-09-content--3ded74#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Scrat (animated Ice Age character, not a real person)",
+    "E2": "John Leguizamo (actor whose voicetones are licensed)",
+    "E3": "Paul Zuzelo, Senior Vice President, signatory for Glu Mobile",
+    "E4": "Jamie Samson, CAO, signatory for Fox Mobile Entertainment"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": true
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

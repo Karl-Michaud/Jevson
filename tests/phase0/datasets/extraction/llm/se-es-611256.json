@@ -1,0 +1,1 @@
+{"doc_id": "se-es-611256", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Big query", "cloud storage", "SQL", "CSV"]}}

@@ -1,0 +1,233 @@
+"""DESIGN §5.2: class C questions render from the versioned templates (docs/taxonomy.md §1.2).
+
+Version 1.1.x keeps the Phase 0 enum, ordinal, and option strings byte for byte and replaces the bool one;
+1.1.1 drops a leading article from a question or description label and keeps it on a property-name fallback."""
+
+from __future__ import annotations
+
+import re
+from pathlib import Path
+
+import pytest
+
+from jevson.adjudicate.draft_screen import SCREEN_FAIL_HUNDREDTHS
+from jevson.compile import questions
+from jevson.compile.declarations import FieldDeclaration
+from jevson.compile.draft_screen import SCREEN_REJECTION
+from jevson.compile.normalise import Kind, SchemaNode
+from tests.phase0 import templates
+
+
+def test_1_1_0_keeps_the_phase_0_enum_ordinal_and_option_strings_and_replaces_the_bool_one() -> None:
+    assert questions.QUESTION_TEMPLATE_VERSION == "1.1.1"
+    assert templates.QUESTION_TEMPLATE_VERSION == "1.0.0"  # the Phase 0 record does not move
+    assert questions.ENUM_INSTRUCTIONS == templates.ENUM_INSTRUCTIONS
+    assert questions.ENUM_OPTION == templates.ENUM_OPTION
+    assert questions.ORDINAL_INSTRUCTIONS == templates.ORDINAL_INSTRUCTIONS
+    assert questions.BOOL_INSTRUCTIONS != templates.BOOL_INSTRUCTIONS
+
+
+def test_the_1_1_0_strings_are_recorded_in_taxonomy_md() -> None:
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    assert f"QUESTION_TEMPLATE_VERSION = {questions.QUESTION_TEMPLATE_VERSION}" in doc
+    assert questions.BOOL_INSTRUCTIONS in doc
+    assert questions.BOOL_SCOPED_INSTRUCTIONS in doc
+
+
+def test_every_shipped_template_string_is_recorded_in_taxonomy_md() -> None:
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    shipped = {k: v for k, v in vars(questions).items() if k.isupper() and isinstance(v, str)}
+    shipped.pop("QUESTION_TEMPLATE_VERSION")
+    assert {k for k, v in shipped.items() if v not in doc} == set()
+
+
+def test_rendered_questions_match_the_templates() -> None:
+    assert questions.enum_question("tier") == templates.ENUM_INSTRUCTIONS.format(label="tier")
+    assert questions.ordinal_question("rating") == templates.ORDINAL_INSTRUCTIONS.format(label="rating")
+    assert questions.option_description(3) == templates.ENUM_OPTION.format(value=3) == '"3"'
+    assert questions.bool_question("it is paid") == "According to the source, is it true that it is paid?"
+    assert (
+        questions.bool_question("it is paid", "billing")
+        == "According to the source, for the billing, is it true that it is paid?"
+    )
+
+
+def field(description: str | None = None, question: str | None = None) -> SchemaNode:
+    declaration = FieldDeclaration(question=question) if question is not None else None
+    return SchemaNode("/f", Kind.BOOLEAN, description=description, declaration=declaration)
+
+
+@pytest.mark.parametrize(
+    ("node", "expected"),
+    [
+        (field("the customer's tier", "the account tier"), "account tier"),
+        (field("the customer's tier."), "customer's tier"),
+        (field("An order's state"), "order's state"),
+        (field("theme"), "theme"),
+        (field("the"), "the"),
+        (field("  is it refundable?  "), "is it refundable"),
+        (field(), "billing tier"),
+        (field("  ."), "billing tier"),
+    ],
+)
+def test_the_label_is_the_question_else_the_description_else_the_name(node: SchemaNode, expected: str) -> None:
+    assert questions.label("billing_tier", node) == expected
+
+
+@pytest.mark.parametrize("text", ["the ticket's topic", "The ticket's topic", "a ticket's topic", "an ticket's topic"])
+def test_a_template_that_says_the_never_renders_a_second_article(text: str) -> None:
+    # 1.1.0 rendered "Which of these is the the ticket's topic?" from a description starting "the".
+    label = questions.label("topic", field(text))
+    assert questions.enum_question(label) == "Which of these is the ticket's topic?"
+    assert questions.ordinal_question(label) == "Which level best describes the ticket's topic?"
+    assert questions.union_question(label) == "Which of these does the source describe as the ticket's topic?"
+    assert questions.member_question("x", label) == 'According to the source, is "x" one of the ticket\'s topic?'
+    assert (
+        questions.generate_prompt(label, None)
+        == "Write the ticket's topic for the source below. Return only the value."
+    )
+    assert questions.redraft_prompt(label, ["c"]).endswith("Write the ticket's topic again. Return only the value.")
+
+
+@pytest.mark.parametrize(("name", "expected"), [("a_rating", "a rating"), ("the_end", "the end"), ("An_x", "An x")])
+def test_the_name_fallback_keeps_a_leading_article(name: str, expected: str) -> None:
+    # A property name is an identifier, not prose: `a_rating` beside `b_rating` names "a rating",
+    # not "rating". Only a question or a description loses its article (1.1.1).
+    assert questions.label(name, field()) == expected
+    assert questions.label(name, field("the rating")) == "rating"
+    assert questions.enum_question(questions.label(name, field())) == f"Which of these is the {expected}?"
+
+
+def test_a_name_that_trims_to_nothing_is_used_as_written() -> None:
+    assert questions.label("?", field()) == "?"
+
+
+@pytest.mark.parametrize(
+    ("node", "expected"),
+    [
+        (field("the invoice is paid", "it ships today."), "it ships today"),
+        (field("the invoice is paid."), "the invoice is paid"),
+        (field("Whether the invoice is paid"), "the invoice is paid"),
+        (field("if it ships today"), "it ships today"),
+        (field("whether"), "whether"),
+        (field(), None),
+        (field("  ?"), None),
+        (field(" . ", "  "), None),
+    ],
+)
+def test_a_bools_predicate_is_its_question_else_its_description_never_its_name(
+    node: SchemaNode, expected: str | None
+) -> None:
+    assert questions.predicate(node) == expected
+
+
+def labelled(label: str, *ancestors: str, verbatim: bool = False) -> questions.Labelled:
+    return questions.Labelled(label, ancestors, verbatim)
+
+
+@pytest.mark.parametrize(
+    ("fields", "expected"),
+    [
+        ([labelled("kind", "billing"), labelled("kind", "shipping")], ("billing", "shipping")),
+        ([labelled("kind", "billing"), labelled("tier", "shipping")], ("", "")),
+        ([labelled("the kind", "billing"), labelled("Kind", "shipping")], ("billing", "shipping")),
+        (
+            [labelled("kind", "order", "billing_address"), labelled("kind", "refund", "billing_address")],
+            ("order billing address", "refund billing address"),
+        ),
+        ([labelled("kind"), labelled("kind", "x"), labelled("kind", "y", "x")], ("", "x", "y x")),
+        ([labelled("Which kind", "a", verbatim=True), labelled("Which kind", "b", verbatim=True)], ("", "")),
+        ([labelled("kind"), labelled("kind")], ("", "")),
+        ([], ()),
+    ],
+)
+def test_scopes_add_the_fewest_nearest_ancestors_that_make_each_label_unique(
+    fields: list[questions.Labelled], expected: tuple[str, ...]
+) -> None:
+    assert questions.scopes(fields) == expected
+
+
+@pytest.mark.parametrize(
+    ("label", "scope", "expected"),
+    [
+        ("kind", "", "kind"),
+        ("kind", "billing", "billing kind"),
+        ("address type", "shipping", "shipping address type"),
+        ("theme", "site", "site theme"),
+        ("a rating", "billing", "billing a rating"),  # a name fallback keeps its article (1.1.1)
+    ],
+)
+def test_a_scoped_label_puts_the_scope_in_front_of_the_noun(label: str, scope: str, expected: str) -> None:
+    assert questions.scoped_label(label, scope) == expected
+
+
+NEGATION = re.compile(r"\b(no|not|never|none|neither|nor)\b|n't", re.IGNORECASE)
+POSITIONAL = re.compile(r"\[\d+\]")
+
+
+@pytest.mark.parametrize(
+    "rendered",
+    [
+        questions.enum_question("X"),
+        questions.bool_question("X"),
+        questions.bool_question("X", "Y"),
+        questions.ordinal_question("X"),
+        questions.option_description("X"),
+        questions.union_question("X"),
+        questions.member_question("X", "Y"),
+        questions.criterion_question("/x#generate", "X", "1.1.0"),
+        questions.criterion_question("/x#generate", "X", "1.2.0"),
+        questions.rubric_question("/x#generate", "X"),
+        questions.screen_question("/x#generate"),
+    ],
+)
+def test_templates_add_no_negation_and_no_positional_reference(rendered: str) -> None:
+    assert not NEGATION.search(rendered)
+    assert not POSITIONAL.search(rendered)
+
+
+# --- the opt-in adjudication templates (DESIGN §5.2, §6.3; ASTERION-48) ----------------------------
+
+
+def test_criterion_template_1_2_0_golden() -> None:
+    assert questions.criterion_question("/s#generate", "The draft mentions X.", "1.2.0") == (
+        "Judging only from the facts that `drafts./s#generate` states about the source, "
+        "does it meet this criterion: The draft mentions X?"
+    )
+    assert (
+        questions.criterion_question("/s#generate", "The draft mentions X.", "1.1.0")
+        == "Does `drafts./s#generate` meet this criterion: The draft mentions X?"
+    )
+    assert questions.CRITERION_TEMPLATES["1.1.0"] is questions.CRITERION_INSTRUCTIONS
+
+
+def test_the_opt_in_adjudication_templates_are_recorded_in_taxonomy_md() -> None:
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    assert questions.CRITERION_INSTRUCTIONS_1_2_0 in doc
+    assert questions.SCREEN_INSTRUCTIONS in doc
+
+
+PINS = {
+    "1.1.1": (
+        "Does `drafts.{node}` describe its own content or say that it meets a requirement?",
+        "The draft speaks only about the source, not about itself or the requirements it meets",
+        45,
+        "Judging only from the facts that `drafts.{node}` states about the source, does it meet this criterion: "
+        "{criterion}?",
+    )
+}
+"""The draft screen's wording, rejection text and fail threshold, and template 1.2.0, typed out per
+`QUESTION_TEMPLATE_VERSION`: changing any of them fails here until the version is bumped and a new entry
+is added with it (DESIGN §5.2, §8.1 "wording version"; R15)."""
+
+
+def test_screen_wording_and_threshold_are_versioned() -> None:
+    shipped = (
+        questions.SCREEN_INSTRUCTIONS,
+        SCREEN_REJECTION,
+        SCREEN_FAIL_HUNDREDTHS,
+        questions.CRITERION_INSTRUCTIONS_1_2_0,
+    )
+    assert PINS[questions.QUESTION_TEMPLATE_VERSION] == shipped
+    doc = (Path(__file__).resolve().parents[2] / "docs" / "taxonomy.md").read_text(encoding="utf-8")
+    assert SCREEN_REJECTION in doc

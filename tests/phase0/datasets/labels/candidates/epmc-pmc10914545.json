@@ -1,0 +1,45 @@
+{
+ "doc_id": "epmc-pmc10914545",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "pyelonephritis",
+   "superseded": false,
+   "rationale": "The patient was diagnosed with pyelonephritis secondary to uterine prolapse-related obstruction.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "correct",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "cefmetazole",
+   "superseded": true,
+   "rationale": "Cefmetazole was the first antibiotic given for pyelonephritis, later changed to cefepime.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  }
+ }
+}

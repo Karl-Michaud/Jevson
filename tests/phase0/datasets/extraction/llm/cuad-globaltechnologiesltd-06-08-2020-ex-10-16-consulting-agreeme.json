@@ -1,0 +1,36 @@
+{
+ "doc_id": "cuad-globaltechnologiesltd-06-08-2020-ex-10-16-consulting-agreeme",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "CONSULTING AGREEMENT",
+   "Consulting Agreement"
+  ],
+  "contract.agreement_date": [
+   "2nd day of January 2020",
+   "January 2, 2020",
+   "November 30, 2019"
+  ],
+  "contract.effective_date": [
+   "January 2, 2020",
+   "2nd day of January 2020"
+  ],
+  "contract.expiration_date": [
+   "one (1) year",
+   "January 2, 2020"
+  ],
+  "contract.governing_law": [
+   "State of Florida",
+   "Florida"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "60 days",
+   "one (1) year",
+   "five (5) days",
+   "one (1) day"
+  ]
+ }
+}

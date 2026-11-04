@@ -1,0 +1,40 @@
+{
+ "passage_id": "gsa-377787#organization",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "entities": {
+  "E1": "Lenovo, manufacturer of the computer",
+  "E2": "Intel, processor/graphics maker",
+  "E3": "NVIDIA, graphics maker",
+  "E4": "property custodian - a contact person/role, not a specific organization",
+  "E5": "The selling federal agency (SBA per contact emails)"
+ },
+ "mentions": {
+  "c0": {
+   "entity": "E1",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c1": {
+   "entity": "E2",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c2": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c3": {
+   "entity": "E4",
+   "role_noun": true,
+   "ambiguous": true
+  },
+  "c4": {
+   "entity": "E5",
+   "role_noun": true,
+   "ambiguous": false
+  }
+ }
+}

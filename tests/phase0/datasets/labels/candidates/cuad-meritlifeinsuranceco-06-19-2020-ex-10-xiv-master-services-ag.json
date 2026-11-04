@@ -1,0 +1,126 @@
+{
+ "doc_id": "cuad-meritlifeinsuranceco-06-19-2020-ex-10-xiv-master-services-ag",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: Clear Capital (Company) and RadialSpark, LLC (Contractor).",
+ "processing_note": "Invoices shall also include receipts or other supporting detail concerning related expenses within the billing cycle.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "MASTER SERVICES AGREEMENT",
+   "superseded": false,
+   "rationale": "The agreement names itself 'MASTER SERVICES AGREEMENT'; the defined short form 'Agreement' is only part of it and later generic 'this Agreement' references are not the title.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "partial",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong",
+    "c22": "wrong",
+    "c23": "wrong",
+    "c24": "wrong",
+    "c25": "wrong",
+    "c26": "wrong",
+    "c27": "wrong",
+    "c28": "wrong",
+    "c29": "wrong",
+    "c30": "wrong",
+    "c31": "wrong",
+    "c32": "wrong",
+    "c33": "wrong",
+    "c34": "wrong",
+    "c35": "wrong",
+    "c36": "wrong",
+    "c37": "wrong",
+    "c38": "wrong",
+    "c39": "wrong",
+    "c40": "wrong"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "09/24/2018",
+   "superseded": false,
+   "rationale": "The agreement is 'dated as of 09/24/2018'.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "09/24/2018",
+   "superseded": false,
+   "rationale": "09/24/2018 is defined as the 'Effective Date'; the other occurrences are the defined-term label only.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The term continues until terminated under Paragraph 6; no expiration date.",
+   "options": {
+    "c0": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "Arizona",
+   "superseded": false,
+   "rationale": "Section 11: governed by 'the laws of the Arizona'.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Evergreen term until terminated; no renewal term.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No non-renewal notice; the 15-day periods are termination/cure notices and 30 days is for rate changes.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  }
+ }
+}

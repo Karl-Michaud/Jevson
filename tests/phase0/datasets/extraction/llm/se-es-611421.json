@@ -1,0 +1,1 @@
+{"doc_id": "se-es-611421", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["gmail", "outlook", "gmail a outlook", "emails", "<!--[if !mso]><!-->"]}}

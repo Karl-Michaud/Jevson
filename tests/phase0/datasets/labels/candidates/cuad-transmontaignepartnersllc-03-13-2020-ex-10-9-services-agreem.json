@@ -1,0 +1,74 @@
+{
+ "doc_id": "cuad-transmontaignepartnersllc-03-13-2020-ex-10-9-services-agreem",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Agreement between TransMontaigne Management Company, LLC (EmployeeCo) and TLP Management Services, LLC (Operating Company).",
+ "processing_note": "Delivery of an executed signature page of this Agreement by facsimile transmission or in portable document format (.pdf) shall be effective as delivery of a manually executed counterpart hereof.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "SERVICES AGREEMENT",
+   "superseded": false,
+   "rationale": "Titled and self-referenced as SERVICES AGREEMENT.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "partial_only",
+   "value": "August __, 2019",
+   "superseded": false,
+   "rationale": "The date is left with a blank day, giving only month and year.",
+   "options": {
+    "c0": "partial"
+   }
+  },
+  "contract.effective_date": {
+   "status": "partial_only",
+   "value": "August __, 2019",
+   "superseded": false,
+   "rationale": "The Effective Date is August __, 2019 with the day blank.",
+   "options": {
+    "c0": "partial"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement remains in effect until terminated; no expiry date.",
+   "options": {}
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Colorado",
+   "superseded": false,
+   "rationale": "Section 2.1 selects the laws of the State of Colorado; the second occurrence is the jurisdiction submission.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal provision.",
+   "options": {
+    "c0": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal; 5 days is a termination notice.",
+   "options": {
+    "c0": "wrong"
+   }
+  }
+ }
+}

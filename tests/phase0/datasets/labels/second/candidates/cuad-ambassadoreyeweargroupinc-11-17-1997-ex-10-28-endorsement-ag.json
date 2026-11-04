@@ -1,0 +1,36 @@
+{
+  "doc_id": "cuad-ambassadoreyeweargroupinc-11-17-1997-ex-10-28-endorsement-ag",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Kathy Ireland, Inc., The Sterling/Winters Co. and Diplomat Ambassador Eyewear Group are parties in different roles.",
+  "processing_note": "Royalties in excess of the minimum royalty shall be due on the 25th day of the month following the calendar month in which they are earned, and payment shall accompany the statements furnished pursuant to subparagraph (c), above.",
+  "fields": {
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "August 24, 1995",
+      "superseded": false,
+      "rationale": "The agreement is made and entered into as of August 24, 1995; the addendum restates that date for the agreement, while other dates are license-year, Deal Memo or addendum signing dates.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "correct",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong"
+      }
+    }
+  }
+}

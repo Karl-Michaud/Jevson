@@ -1,0 +1,34 @@
+{
+ "passage_id": "fjc-1390941#person",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "entities": {
+  "E1": "Matthew F. Kennelly, the judge profiled",
+  "E2": "William J. Clinton, nominating President",
+  "E3": "Paul E. Plunkett, predecessor judge",
+  "E4": "Prentice Marshall, judge he clerked for"
+ },
+ "mentions": {
+  "c0": {
+   "entity": "E1",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c1": {
+   "entity": "E2",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c2": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c3": {
+   "entity": "E4",
+   "role_noun": false,
+   "ambiguous": false
+  }
+ }
+}

@@ -1,0 +1,38 @@
+{
+ "probe": "check_sum_tolerance",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [],
+ "n": "every saved probabilities map, not de-duplicated",
+ "requests": 0,
+ "input_tokens": 0,
+ "cost_usd": 0,
+ "refusals": 0,
+ "http_statuses": {},
+ "measured": {
+  "12-60": {
+   "n": 10,
+   "max_dev_hundredths": 0,
+   "dev_gt_5": 0,
+   "hist_dev_hundredths": {
+    "0": 10
+   }
+  },
+  "2-11": {
+   "n": 2660,
+   "max_dev_hundredths": 0,
+   "dev_gt_5": 0,
+   "hist_dev_hundredths": {
+    "0": 2660
+   }
+  },
+  "61-255": {
+   "n": 10,
+   "max_dev_hundredths": 0,
+   "dev_gt_5": 0,
+   "hist_dev_hundredths": {
+    "0": 10
+   }
+  }
+ }
+}

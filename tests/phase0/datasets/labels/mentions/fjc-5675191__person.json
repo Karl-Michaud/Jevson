@@ -1,0 +1,45 @@
+{
+  "passage_id": "fjc-5675191#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Jonathan Allen Kobes, subject judge",
+    "E2": "Donald J. Trump, nominating president",
+    "E3": "Roger Leland Wollman, predecessor judge and judge Kobes clerked for",
+    "E4": "M. Michael Rounds, U.S. Senator",
+    "E5": "Michael R. Pence, Vice President"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

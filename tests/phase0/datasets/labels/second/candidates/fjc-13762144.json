@@ -1,0 +1,41 @@
+{
+  "doc_id": "fjc-13762144",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Biography of one judge, but it also names other people in distinct roles (nominating president, predecessor judge, etc.).",
+  "processing_note": null,
+  "fields": {
+    "resume.name": {
+      "status": "present",
+      "value": "Kuntz, Jeffrey Thomas",
+      "superseded": false,
+      "rationale": "The heading names the biography subject.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "resume.first_judgeship_start": {
+      "status": "present",
+      "value": "August 10, 2026",
+      "superseded": false,
+      "rationale": "Commission issued August 10, 2026; other dates are nomination and confirmation.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct"
+      }
+    },
+    "resume.latest_position": {
+      "status": "present",
+      "value": "Judge, U.S. District Court for the Southern District of Florida",
+      "superseded": false,
+      "rationale": "The only federal judicial service listed; the Florida appellate judgeship is a state position.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong"
+      }
+    }
+  }
+}

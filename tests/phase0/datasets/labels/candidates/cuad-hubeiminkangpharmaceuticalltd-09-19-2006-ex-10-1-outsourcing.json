@@ -1,0 +1,109 @@
+{
+  "doc_id": "cuad-hubeiminkangpharmaceuticalltd-09-19-2006-ex-10-1-outsourcing",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Agreement between DGT Corp. (Canada) and Dolphin Industries Limited (Hong Kong).",
+  "processing_note": "Any notice personally delivered or sent by telex or fax shall be deemed to have been given or received at the time of delivery, telexing or faxing.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "PHOTO RETOUCHING OUTSOURCING AGREEMENT",
+      "superseded": false,
+      "rationale": "Title at the top of the agreement.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "1st  day of JUNE , 2006",
+      "superseded": false,
+      "rationale": "The parties executed the Agreement on the 1st day of June 2006.",
+      "options": {
+        "c0": "correct",
+        "c1": "partial"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement is 'effective as of the Date of Commencement', which is never defined as a date; June 1, 2006 is the execution date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No term or expiration date is stated; the 90-day figures describe guaranteed work periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Nevada, USA",
+      "superseded": false,
+      "rationale": "Governed by the laws of the State of Nevada, USA; other occurrences are addresses, court jurisdiction or the arbitration statute.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal provision.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No non-renewal notice provision; the 10/30-day periods are cure periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong"
+      }
+    }
+  }
+}

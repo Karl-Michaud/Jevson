@@ -1,0 +1,147 @@
+Porque los {{ objetos.propriedad }} no se muestran en una lista desplegable mientras que sí se muestran en una lista con Flask?
+
+Tengo un archivo app.py y una carpeta pluginsXAI en la que hay un archivo para un plugin que deseo mostrar ElMagnificoPlugin.py.
+
+app.py
+/templates
+└── index.html
+/pluginsXAI
+└── ElMagnificoPlugin.py
+/kaasrc
+└── plugin_collection.py
+
+En el mismo archivo, para hacer pruebas, pongo dos doctypes: en el primer doctype consigo mostrar el plugin en {{ plugin.nom }}
+
+index.html
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Plugins</title>
+</head>
+<body>
+<h1>Plugins</h1>
+<ul>
+{% for plugin in pluginsXAI %}
+<li>pluginsXAI
+<a href="/plugin/{{ plugin.nom }}">{{ plugin.nom }}</a>
+</li>
+{% endfor %}
+</ul>
+<ul>
+{% for plugin in pluginsUCXAI %}
+<li>pluginsUCXAI
+<a href="/plugin/{{ plugin.nom }}">{{ plugin.nom }}</a>
+</li>
+{% endfor %}
+</ul>
+</body>
+</html>
+
+Pero no soy capaz mostrarlo en el secondo:
+
+index.html follow-up:
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+Les plugins
+<ul>
+{% for plugin in pluginsXAI %}
+<li>pluginsXAI
+<a href="/plugin/{{ plugin.nom }}">{{ plugin.nom }}</a>
+</li>
+{% endfor %}
+</ul>
+<div class="cas-d-usage">
+<h2>CAS D'USAGE</h2>
+<table class="table">
+<tbody>
+<tr>
+<td>Cas d'usage</td>
+<td>{{ cas_d_usage }}</td>
+</tr>
+<tr>
+<td>Modèle</td>
+<td>
+<select name="modele">
+{% for plugin in pluginsXAI %}
+<option value="{{ plugin.nom }}">{{ plugin.nom }}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</html>
+
+Entonces porque me muestra ElMagnificoPlugin (plugin.nom) en los vinculos en el primero y no lo muestra en el secondo, en el dropdown ?
+
+No me parece porque la plantilla está siendo renderizada antes de que la variable pluginsXAI esté poblada. Aunque la función render_template no esperara a que se completaran las operaciones asíncronas, por lo que la colección de plugins no está disponible cuando se renderiza la plantilla, he intentado utilizarla con el decorador @app.before_request y no ha funcionado.
+
+Aqui esta el app.py:
+
+from flask import Flask, render_template
+from kaasrc.plugin_collection import PluginCollection
+import os
+
+app = Flask(__name__)
+
+@app.route("/")
+def plugins():
+# Récolte des plugins
+pluginsXAI = PluginCollection(os.path.join(os.getcwd(), 'pluginsXAI'))
+pluginsUCXAI = PluginCollection(os.path.join(os.getcwd(), 'pluginsUCXAI'))
+
+# Génère la sortie HTML
+return render_template("index.html.html", pluginsXAI=pluginsXAI, pluginsUCXAI=pluginsUCXAI)
+
+if __name__ == "__main__":
+app.run(debug=True)
+
+Aqui esta ElMagnificoPlugin.py:
+
+class ElMagnificoPlugin(kaasrc.plugin_collection.Plugin):
+#---------------------------------------------------------------------------
+def __init__(self):
+super().__init__()
+self.nom = "ElMagnificoPlugin"
+self.description = "Permiter explanear cosas importantes sobre una machina"
+self.clef = "x"
+
+Y aqui kaasrc/plugin_collection.py que permite obtener los plugins en un directorio:
+
+class PluginCollection(object):
+"""Upon creation, this class will read the plugins package for modules
+that contain a class definition that is inheriting from the Plugin class
+"""
+
+#---------------------------------------------------------------------------
+def __init__(self, pluginsDirectory):
+"""Constructor that initiates the reading of all available plugins
+when an instance of the PluginCollection object is created
+"""
+self.plugins = []
+self.dicoPlugins = {}
+self.seen_paths = []
+self.pluginsDirectory = pluginsDirectory
+self.loadPlugins()
+self.index = 0 # Ajoutez un index pour suivre l'itération
+
+def __iter__(self):
+return self # Retourne l'objet lui-même pour l'itération
+
+def __next__(self):
+if self.index < len(self.plugins): # Si l'index est dans la plage des plugins
+result = self.plugins[self.index] # Obtenez le plugin à l'index actuel
+self.index += 1 # Incrémentez l'index
+return result # Retournez le plugin
+else:
+raise StopIteration # Si l'index est hors de portée, arrêtez l'itération

@@ -1,0 +1,27 @@
+{
+ "doc_id": "cuad-bellringbrandsinc-20190920-s-1-ex-10-12-11817081-ex-10-12-ma",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "AMENDMENT NO. 3 TO STREMICK'S HERITAGE FOODS, LLC and PREMIER NUTRITION CORPORATION MANUFACTURING AGREEMENT",
+   "Amendment No. 3",
+   "Third Amendment",
+   "Manufacturing Agreement"
+  ],
+  "contract.agreement_date": [
+   "July 1, 2017",
+   "July 3, 2019",
+   "9/20/2019"
+  ],
+  "contract.effective_date": [
+   "July 3, 2019",
+   "July 1, 2017"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [],
+  "contract.renewal_term": [],
+  "contract.notice_period": []
+ }
+}

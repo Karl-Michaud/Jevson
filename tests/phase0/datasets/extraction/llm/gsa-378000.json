@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378000", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Miscellaneous Shop Accessories", "Miscellaneous lot of toolboxes and shelving"], "product.inventory": ["3 ea.", "1 ea.", "2 ea.", "47651G-6258-0012"], "product.price": []}}

@@ -1,0 +1,146 @@
+{
+  "doc_id": "cuad-ivillageinc-03-17-1999-ex-10-16-sponsorship-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Sponsorship agreement between Ford Motor Media (division of J. Walter Thompson) and iVillage, Inc., with Ford Motor Company also involved.",
+  "processing_note": "Omitted portions have been filed separately with the Commission.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "SPONSORSHIP AGREEMENT",
+      "superseded": false,
+      "rationale": "The contract is titled and refers to itself as the Sponsorship Agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "December 18, 1998",
+      "superseded": false,
+      "rationale": "The agreement is entered into as of December 18, 1998; the other dates are term, deadline or individual signature dates.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "November 4, 1998",
+      "superseded": false,
+      "rationale": "The Initial Term begins with the Production Period commencing November 4, 1998, the date the contract's term takes effect.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The Initial Term ends 24 months after the tentative January 4, 1999 launch, but no expiration date is stated as a date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of New York",
+      "superseded": false,
+      "rationale": "Section 13.H applies the laws of the State of New York; other 'New York' occurrences are iVillage's address.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "correct"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Renewal is only offered on terms of a future Proposal; no renewal term length is stated (the 3-month extension is a make-good option, not a renewal).",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no automatic renewal or notice to prevent it; the July/August 2000 dates are proposal and acceptance deadlines.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong"
+      }
+    }
+  }
+}

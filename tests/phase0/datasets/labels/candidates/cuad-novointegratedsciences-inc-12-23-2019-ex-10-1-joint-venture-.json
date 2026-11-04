@@ -1,0 +1,119 @@
+{
+  "doc_id": "cuad-novointegratedsciences-inc-12-23-2019-ex-10-1-joint-venture-",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties (Novo Integrated Sciences Inc. and Harvest Gold Farms Inc.) plus the JV company, with several addresses.",
+  "processing_note": "The distribution will be based on NVOS audited review and will be made within three months of annual considerations.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "JOINT VENTURE AGREEMENT",
+      "superseded": false,
+      "rationale": "The agreement is titled and refers to itself as the Joint Venture Agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "December 19, 2019",
+      "superseded": false,
+      "rationale": "The agreement is dated as of December 19, 2019 and both parties signed on that date.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "December 19, 2019",
+      "superseded": false,
+      "rationale": "The Effective Date is defined as the date of the latest signature, and both signatures are dated December 19, 2019.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The initial term expires five years from the Effective Date; no expiration date is stated as a date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no governing law clause; the Arbitration Act reference governs arbitration procedure only.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "present",
+      "value": "five (5) year",
+      "superseded": false,
+      "rationale": "Section 8.2 refers to a subsequent renewal of a five (5) year term.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No notice period for preventing renewal is stated; renewal is by mutual understanding.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong"
+      }
+    }
+  }
+}

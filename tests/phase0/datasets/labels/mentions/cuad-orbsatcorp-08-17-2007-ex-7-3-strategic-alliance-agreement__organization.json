@@ -1,0 +1,42 @@
+{
+  "passage_id": "cuad-orbsatcorp-08-17-2007-ex-7-3-strategic-alliance-agreement#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "UTEK Corporation (UTK)",
+    "E2": "World Energy Solutions (AVDU)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

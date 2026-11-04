@@ -1,0 +1,46 @@
+{
+  "doc_id": "se-askubuntu-1498649",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "A single user describing their own Ubuntu system; no distinct parties, invoices or transactions.",
+  "processing_note": null,
+  "fields": {
+    "ticket.affected_service": {
+      "status": "present",
+      "value": "Ubuntu 22.04.3 LTS",
+      "superseded": false,
+      "rationale": "The boot delay affects the user's Ubuntu 22.04.3 LTS system; \"boot\", partitions, files and systemd are components or log text, not the affected product.",
+      "options": {
+        "c0": "wrong",
+        "c1": "partial",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong",
+        "c21": "wrong",
+        "c22": "wrong",
+        "c23": "wrong",
+        "c24": "wrong",
+        "c25": "wrong",
+        "c26": "wrong"
+      }
+    }
+  }
+}

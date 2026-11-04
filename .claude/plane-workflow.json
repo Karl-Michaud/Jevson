@@ -1,0 +1,69 @@
+{
+  "$comment": "Per-repo config for the shared `plane-workflow` skill (Agents/.claude/skills/plane-workflow, linked into the workspace by Agents/scripts/bootstrap.sh). IDs are Plane UUIDs in workspace project-asterion; resolve by name if one ever stops matching. Same Plane project for all four Project Asterion repos.",
+  "plane": {
+    "workspace_slug": "project-asterion",
+    "project_id": "1d97b9f6-6ae2-49e8-a54f-e26bb356d69d",
+    "identifier": "ASTERION",
+    "owner_member_id": "",
+    "states": {
+      "backlog": "87b90525-7199-499f-8cb9-606240c7f10d",
+      "todo": "d62248ed-10fd-4159-83ff-114b455b9658",
+      "in_progress": "6e8b8244-c7cd-4ec8-a220-2200a3d0488d",
+      "in_review": "b273c76a-73e5-4858-8a49-84abd8a64cfa",
+      "on_staging": "9b75f12f-6991-48e8-b267-78b8f21447a4",
+      "ready_for_prod": "786ad687-69d3-4993-b124-541ebd03d2fd",
+      "done": "eac5129f-d179-43c4-a6d3-4a73fe50b5df",
+      "cancelled": "0dd29bcf-2f3b-4dc5-8191-746e7acd7bca"
+    },
+    "labels": {
+      "engine": "94cf74c0-5d68-4d81-8884-bb0d8b7417c9",
+      "ci": "25f3bb5f-047e-43f2-9460-1c71344a8d3b",
+      "docs": "dd906152-3d15-45bf-8fde-996fe92e8530",
+      "release-blocker": "0325edce-3b6a-4553-ba53-731e0376e534"
+    },
+    "release_modules": {}
+  },
+  "github_integration": {
+    "$comment": "Off: tickets are moved by hand. Turn on only after Plane's GitHub PR state mapping is configured, together with REQUIRE_BRACKETED_TITLE in .github/workflows/branch-policy.yml.",
+    "pr_state_automation": false
+  },
+  "git": {
+    "remote": "origin",
+    "repo": "Project-Asterion/Jevson",
+    "staging_branch": "staging",
+    "production_branch": "main",
+    "work_branch_prefixes": [
+      "feature",
+      "fix",
+      "chore",
+      "hotfix"
+    ],
+    "staging_merge_method": "squash",
+    "production_merge_method": "merge"
+  },
+  "environments": {
+    "$comment": "Source-grounded extraction library. Staging is the integration branch; main is the released library.",
+    "staging": {
+      "branch": "staging",
+      "delivers_to": "",
+      "backend": ""
+    },
+    "production": {
+      "branch": "main",
+      "delivers_to": "",
+      "backend": ""
+    },
+    "shared_backend": false
+  },
+  "verify": {
+    "build": "",
+    "ui_check": "",
+    "backend_tests": ""
+  },
+  "release": {
+    "version_setting": "",
+    "build_setting": "",
+    "targets_that_must_match": [],
+    "tag_format": "v{VERSION}"
+  }
+}

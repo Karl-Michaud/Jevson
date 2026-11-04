@@ -1,0 +1,35 @@
+{
+  "doc_id": "fjc-1380466",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Biography of one judge, but it also names other people in distinct roles (nominating president, predecessor judge, etc.).",
+  "processing_note": null,
+  "fields": {
+    "resume.undergrad_institution": {
+      "status": "present",
+      "value": "Princeton University",
+      "superseded": false,
+      "rationale": "The bachelor's degree (B.S.E.) was awarded by Princeton University.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "resume.first_judgeship_start": {
+      "status": "present",
+      "value": "August 6, 1987",
+      "superseded": false,
+      "rationale": "Commission issued August 6, 1987 for the only federal judgeship.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "wrong",
+        "c6": "wrong"
+      }
+    }
+  }
+}

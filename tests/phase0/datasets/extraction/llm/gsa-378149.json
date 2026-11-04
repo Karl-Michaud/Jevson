@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378149", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["2006 Ford Hybrid Escape", "Hybrid Escape"], "product.inventory": [], "product.price": []}}

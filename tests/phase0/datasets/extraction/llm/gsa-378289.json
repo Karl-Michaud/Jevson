@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378289", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Lot of 10 Desktop Computers", "10 Desktop Computers", "HP ProDesk 600"], "product.inventory": ["10", "ten", "ten HP ProDesk 600 units", "nine", "one"], "product.price": []}}

@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, staging]
+
+permissions:
+  contents: read
+
+# Superseded PR runs are cancelled; runs on main and staging always finish.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash # bash -eo pipefail
+
+env:
+  # Use uv's managed CPython, as developers do, never the runner's system Python.
+  UV_PYTHON_PREFERENCE: only-managed
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      UV_PYTHON: "3.12"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.12.23"
+          enable-cache: true
+          cache-suffix: ${{ github.job }}
+      - run: uv sync --locked
+      # The Phase 0 harness under tests/phase0 and tests/probes predates these rules; the package and
+      # its tests are held to them.
+      - name: Ruff lint
+        run: uv run --frozen ruff check jevson tests/unit tests/property tests/architecture tests/adversarial tests/integration tests/j4b scripts examples
+      - name: Ruff format
+        run: uv run --frozen ruff format --check jevson tests/unit tests/property tests/architecture tests/adversarial tests/integration tests/j4b scripts examples
+      - name: Pyright (strict, jevson/)
+        run: uv run --frozen pyright
+      - name: Import contracts
+        run: uv run --frozen lint-imports
+
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+    env:
+      UV_PYTHON: ${{ matrix.python }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.12.23"
+          enable-cache: true
+          cache-suffix: ${{ github.job }}-${{ matrix.python }}
+      - run: uv sync --locked
+      # Every test path in pyproject's testpaths, the Phase 0 harness included; coverage over jevson/.
+      - name: Tests with branch coverage
+        run: uv run --frozen pytest --cov=jevson --cov-branch --cov-report=term-missing --cov-report=json:coverage.json
+      - name: Combined coverage at least 90% (pytest's --cov-fail-under, on the whole)
+        run: uv run --frozen coverage report --fail-under=90 > /dev/null
+      # pytest's --cov-fail-under checks a combined figure; lines and branches must each reach 90%.
+      - name: Line and branch coverage, each at least 90%
+        run: uv run --frozen python -I scripts/ci/coverage_gate.py coverage.json 90
+      - name: Coverage summary
+        if: always()
+        run: uv run --frozen coverage report --format=markdown >> "$GITHUB_STEP_SUMMARY"
+
+  package:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      UV_PYTHON: "3.12"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.12.23"
+          enable-cache: true
+          cache-suffix: ${{ github.job }}
+      - name: Build, and import the wheel in a clean environment
+        run: |
+          uv build
+          uv run --isolated --no-project --with dist/*.whl python -I -c "import jevson; print(len(jevson.__all__))"

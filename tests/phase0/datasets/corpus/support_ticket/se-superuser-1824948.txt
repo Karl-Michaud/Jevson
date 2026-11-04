@@ -1,0 +1,5 @@
+Laptop sometimes keeps running when I close the lid and has black screen until I force shut it down and power it up again
+
+I have a new MSI Katana GF66 12UCO running Windows 10 Home. When I close the lid, I have set that the laptop should hibernate (as opposed to sleep, because when attempting to sleep, the laptop never turns off — only its screen does — which is a separate issue, probably related to how Modern Standby is implemented; this issue does not occur on laptops using legacy S3 sleep). With a probability of about 10%, the laptop keeps running. In this state, if I open the lid, the screen does not turn back on, so the laptop is unusable. I can only shut it down by holding the power button, that is, force-shutting it down.
+
+I am interested in potential fixes for this problem, and whether it is already documented. Thank you.

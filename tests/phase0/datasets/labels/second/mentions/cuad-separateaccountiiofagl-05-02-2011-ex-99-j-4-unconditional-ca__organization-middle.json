@@ -1,0 +1,40 @@
+{
+  "passage_id": "cuad-separateaccountiiofagl-05-02-2011-ex-99-j-4-unconditional-ca#organization-middle",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "The Company: AIG-owned insurance company supported by the agreement",
+    "E2": "AIG (American International Group), parent providing capital support",
+    "E3": "S&P rating agency",
+    "E4": "Moody's rating agency",
+    "E5": "A.M. Best rating agency"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

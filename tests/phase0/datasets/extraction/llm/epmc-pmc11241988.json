@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc11241988", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["WCA", "unstable angina", "woven change of LAD", "hypertension", "dyslipidemia", "twisting channels"], "medical.treatment_drug": ["aspirin", "nitrate", "β-blocker", "statin"]}}

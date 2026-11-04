@@ -1,0 +1,19 @@
+Ubuntu: how to fix a deeply broken apt?
+
+I'm running Kubuntu 23.10 and I recently tried to install virtualbox 7.0 from the oracle website. After executing sudo dpkg -i /path/to/package.deb nothing happened. I waited some hours without any success. After aprooximately 3 hours I broke dpkg. I know that this is not recommended to be done but, what should I do else if dpkg is simply doing nothing including no error messages. Even the CPU is not busy.
+
+Since this event it seems totally corrupt. Nothing works. Trying to install anything such like sudo apt install --reinstall nano (just to check if it basically works) leads to a message that virtualbox-7.0 needs to be reconfigured but there is no archive for it, sadly.
+Orifinal text (Dutch):
+
+E: Pakket virtualbox-7.0 moet opnieuw geïnstalleerd worden, maar er kan geen archief voor gevonden worden.
+
+Even a virtualbox-7.0 (7.0.12-159484~Ubuntu~jammy) wordt verwijderd ...
+down't work. Again, there is no error message. It simply does nothing. Original text (Dutch):
+
+virtualbox-7.0 (7.0.12-159484~Ubuntu~jammy) wordt verwijderd ...
+
+Even after hours and hours of useless waiting nothing happens. No errors. No success. Pure silence.
+
+I'm a kind of desperate since I have a dpkg which doesn't even return errors to but, that simply doesn't to what it's told to do.
+
+How can I manually manipulate package on a config file level configuration in order to get a working system again? Maybe this is not recommended normally but, with that said I don't see any other solution.

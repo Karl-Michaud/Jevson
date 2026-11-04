@@ -1,0 +1,37 @@
+{
+ "doc_id": "cuad-orbsatcorp-08-17-2007-ex-7-3-strategic-alliance-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "STRATEGIC ALLIANCE AGREEMENT",
+   "Strategic Alliance Agreement",
+   "Exhibit 7.3"
+  ],
+  "contract.agreement_date": [
+   "9th day of September 2005",
+   "September 9, 2005"
+  ],
+  "contract.effective_date": [
+   "9th day of September 2005",
+   "September 9, 2005"
+  ],
+  "contract.expiration_date": [
+   "12 months"
+  ],
+  "contract.governing_law": [
+   "Florida",
+   "Delaware"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "30 days",
+   "30 days written notice",
+   "30-days",
+   "five (5) days",
+   "24 months",
+   "twenty four months (24)"
+  ]
+ }
+}

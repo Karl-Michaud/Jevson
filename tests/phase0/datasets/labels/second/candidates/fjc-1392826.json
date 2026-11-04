@@ -1,0 +1,29 @@
+{
+  "doc_id": "fjc-1392826",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Biography of one judge, but it names distinct other people in different roles (the nominating president and the judge whose seat was vacated).",
+  "processing_note": null,
+  "fields": {
+    "resume.name": {
+      "status": "present",
+      "value": "Barzilay, Judith Morgenstern",
+      "superseded": false,
+      "rationale": "The record heading gives the subject's full name.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "resume.law_institution": {
+      "status": "present",
+      "value": "Rutgers School of Law -- Newark",
+      "superseded": false,
+      "rationale": "Rutgers School of Law -- Newark awarded the J.D. in 1981.",
+      "options": {
+        "c0": "correct"
+      }
+    }
+  }
+}

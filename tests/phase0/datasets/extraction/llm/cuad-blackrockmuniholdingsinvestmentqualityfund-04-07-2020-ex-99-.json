@@ -1,0 +1,21 @@
+{
+ "doc_id": "cuad-blackrockmuniholdingsinvestmentqualityfund-04-07-2020-ex-99-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "JOINT FILING AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "April 7, 2020"
+  ],
+  "contract.effective_date": [
+   "April 7, 2020"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [],
+  "contract.renewal_term": [],
+  "contract.notice_period": []
+ }
+}

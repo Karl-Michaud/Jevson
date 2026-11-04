@@ -1,0 +1,44 @@
+{
+  "doc_id": "cuad-kiromicbiopharma-inc-05-11-2020-ex-10-23-consulting-agreemen",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties in different roles: Kiromic, Inc. (Company) and Gianluca Rotino (Consultant).",
+  "processing_note": null,
+  "fields": {
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement continues until terminated on notice; no initial term or expiry date is stated (July 20, 2018 is the letter date, July 1, 2018 the effective date).",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no renewal mechanism; the listed periods concern payment, work authorisation and compensation-change notice.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal exists, so no notice period to prevent renewal; the options are termination, payment or other periods.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    }
+  }
+}

@@ -1,4 +1,9 @@
-"""Claim (DESIGN §2 determinism; §5.4; PLAN Phase 3 'same input resolves to the same output'):
+"""Phase 0r: re-measures [P1] (decision flips near the 0.5 threshold; a 0.50 result in 2/30 identical calls) on
+the OpenAI Decisions API (`gpt-6-luna`) through jevclient's `decisions` backend, reading the cross-session files of
+the ported probe_determinism_borderline.py. If the screen finds no question in [0.44, 0.56], the 30 repeats are
+skipped and that is recorded. Summary: tests/probes/results/0r/probe_threshold_flip.json.
+
+Claim (DESIGN §2 determinism; §5.4; PLAN Phase 3 'same input resolves to the same output'):
 the DECISION (not just the probability) is stable across identical requests.
 Method: 40 ambiguous nouls over one ambiguous state in a screening request; the ones with
 p in [0.44, 0.56] are then re-asked in 30 byte-identical requests (all near-threshold questions
@@ -9,7 +14,7 @@ PROBES = _pl.Path(__file__).resolve().parents[1]
 _sys.path.insert(0, str(PROBES))
 (PROBES / "out").mkdir(exist_ok=True)
 import asyncio, json, statistics as st
-from jevclient import Jev, save, RAW
+from jevclient import Jev, save, save_summary, RAW
 STATE = ("Review posted by 'mk_22': The hotel was fine I guess. Room was smaller than the photos but clean. "
          "Breakfast ran out of eggs by 9. Staff were polite, not especially warm. Wifi worked most of the time. "
          "Would I stay again? Maybe, if the price is right. 3 stars.")
@@ -30,7 +35,7 @@ async def main():
     near = {k: Q[k] for k in Q if 0.44 <= a[k]["noul"] <= 0.56}
     print("screen near-threshold:", {k: a[k]["noul"] for k in near})
     runs = []
-    for _ in range(30): runs.append((await j.ask(STATE, near))["body"]["answers"])
+    for _ in range(30 if near else 0): runs.append((await j.ask(STATE, near))["body"]["answers"])
     rep = {}
     for k in near:
         v = [r[k]["noul"] for r in runs]
@@ -41,5 +46,8 @@ async def main():
     shifts = [abs(now[k]["mean"] - later[k]["mean"]) for k in now if k.startswith("n")]
     out = {"screen": {k: a[k]["noul"] for k in Q}, "near": rep, "questions_flipping": nf, "n_near": len(near),
            "cross_session_mean_shift_max": max(shifts), "cross_session_mean_shift_mean": round(st.mean(shifts), 4)}
-    await j.aclose(); save("p01c_threshold_flip", out); print(json.dumps({k: v for k, v in out.items() if k != "screen"}, indent=1)); print("requests", j.count)
-asyncio.run(main())
+    out["screen_exact_0.50"] = sum(v == .5 for v in out["screen"].values())
+    out["near_obs_exact_0.50"] = f"{sum(r['n_exact_0.5'] for r in rep.values())}/{sum(r['n'] for r in rep.values())}"
+    await j.aclose(); save("p01c_threshold_flip", out); save_summary("probe_threshold_flip", j, out, n={"screen": 40, "repeats": 30}); print(json.dumps({k: v for k, v in out.items() if k != "screen"}, indent=1)); print("requests", j.count)
+if __name__ == "__main__":
+    asyncio.run(main())

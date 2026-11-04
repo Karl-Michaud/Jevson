@@ -1,0 +1,25 @@
+{
+  "doc_id": "cuad-orbsatcorp-08-17-2007-ex-7-3-strategic-alliance-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two corporate parties (UTEK Corporation and World Energy Solutions) in different roles, each with its own address.",
+  "processing_note": "All notices that are required to be or may be sent pursuant to the provision of this Agreement shall be sent by certified mail, return receipt requested, or by overnight package delivery service to each of the parties at the addresses appearing herein, and shall count from the date of mailing or the validated air bill.",
+  "fields": {
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term is stated only as a duration (12 months) and no expiration date is written; the September 2005 dates are the agreement/signing dates.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    }
+  }
+}

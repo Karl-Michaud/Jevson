@@ -1,0 +1,121 @@
+{
+  "doc_id": "cuad-integrityfunds-20200121-485bpos-ex-99-e-undr-contr-11948727-",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Distribution agreement between Integrity Short Term Government Fund and Integrity Funds Distributor, LLC.",
+  "processing_note": "Such fees shall be payable in the manner and terms set forth in the Plan.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "DISTRIBUTION AND SERVICES AGREEMENT",
+      "superseded": false,
+      "rationale": "The document is headed DISTRIBUTION AND SERVICES AGREEMENT.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "January 18, 2020",
+      "superseded": false,
+      "rationale": "The agreement is dated January 18, 2020 in its heading and in the 'Dated:' line at execution; 1/21/2020 is the SEC filing date and January 18, 2022 is the end of the initial term.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "correct",
+        "c10": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No separate effective or commencement date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "present",
+      "value": "January 18, 2022",
+      "superseded": false,
+      "rationale": "Section 7.1: the Agreement shall continue until January 18, 2022, then renews annually.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "correct",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Kansas",
+      "superseded": false,
+      "rationale": "Section 8.3 applies the laws of the State of Kansas; Delaware and North Dakota appear as organisation state and office location.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "correct"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "present",
+      "value": "successive annual periods",
+      "superseded": false,
+      "rationale": "After the initial term the agreement continues automatically for successive annual periods; other durations are notice/cure periods or reporting frequencies.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "correct",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Continuance depends on annual board approval; the 60/90-day notices are for termination at any time, not a notice to prevent renewal.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    }
+  }
+}

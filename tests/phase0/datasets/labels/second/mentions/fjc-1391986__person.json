@@ -1,0 +1,40 @@
+{
+ "passage_id": "fjc-1391986#person",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "entities": {
+  "E1": "Henry Franklin Floyd, the judge profiled",
+  "E2": "George W. Bush, nominating President (district court)",
+  "E3": "Dennis W. Shedd, predecessor on district court",
+  "E4": "Barack Obama, nominating President (circuit court)",
+  "E5": "Karen J. Williams, predecessor on Fourth Circuit"
+ },
+ "mentions": {
+  "c0": {
+   "entity": "E1",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c1": {
+   "entity": "E2",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c2": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c3": {
+   "entity": "E4",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c4": {
+   "entity": "E5",
+   "role_noun": false,
+   "ambiguous": false
+  }
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "doc_id": "epmc-pmc10909951",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "Inflammatory linear verrucous epidermal nevus (ILVEN)",
+   "superseded": false,
+   "rationale": "Clinicopathologic presentation supported a diagnosis of ILVEN.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "correct",
+    "c7": "correct",
+    "c8": "correct",
+    "c9": "correct",
+    "c10": "correct",
+    "c11": "correct"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "intralesional triamcinolone acetonide (ILK)",
+   "superseded": false,
+   "rationale": "ILK was the treatment given after diagnosis and the sole effective therapy; earlier topical agents failed before diagnosis.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "correct",
+    "c8": "correct",
+    "c9": "correct",
+    "c10": "correct",
+    "c11": "correct",
+    "c12": "correct",
+    "c13": "correct",
+    "c14": "correct",
+    "c15": "correct",
+    "c16": "correct",
+    "c17": "correct",
+    "c18": "correct"
+   }
+  }
+ }
+}

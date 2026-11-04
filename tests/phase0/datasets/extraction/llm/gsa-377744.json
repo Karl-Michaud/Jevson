@@ -1,0 +1,17 @@
+{
+ "doc_id": "gsa-377744",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "JLG Aerial Lift",
+   "JLG 60GR aerial lift",
+   "60GR"
+  ],
+  "product.inventory": [
+   "This lot contains a JLG 60GR aerial lift"
+  ],
+  "product.price": []
+ }
+}

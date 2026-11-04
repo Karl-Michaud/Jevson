@@ -1,0 +1,42 @@
+{
+  "passage_id": "cuad-reedsinc-20191113-10-q-ex-10-4-11888303-ex-10-4-development-#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Reed's, Inc.",
+    "E2": "B C Marketing Concepts Inc., dba Full Sail Brewing Company ('Company')"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

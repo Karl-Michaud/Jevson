@@ -1,0 +1,48 @@
+{
+ "doc_id": "fjc-1377761",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Legg, Benson Everett",
+   "George H.W. Bush",
+   "Paul V. Niemeyer",
+   "Frank A. Kaufman"
+  ],
+  "resume.law_institution": [
+   "University of Virginia School of Law",
+   "Princeton University"
+  ],
+  "resume.law_year": [
+   "1973",
+   "1970",
+   "1974",
+   "1975",
+   "1991",
+   "2012",
+   "2013"
+  ],
+  "resume.undergrad_institution": [
+   "Princeton University",
+   "University of Virginia School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1970",
+   "1973",
+   "1947",
+   "1974"
+  ],
+  "resume.first_judgeship_start": [
+   "September 16, 1991",
+   "September 12, 1991",
+   "May 15, 1991",
+   "June 8, 2012",
+   "February 6, 2013"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the District of Maryland",
+   "U.S. District Court for the District of Maryland"
+  ]
+ }
+}

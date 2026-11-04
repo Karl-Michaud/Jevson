@@ -1,0 +1,266 @@
+{
+ "instances": 223,
+ "first_drafts": 225,
+ "rejected_first_drafts": 123,
+ "redrafts": 123,
+ "A_redraft_admitted_and_satisfies": {
+  "k": 52,
+  "n": 123,
+  "estimate": 0.42276422764227645,
+  "low": 0.3391022715813504,
+  "high": 0.5111044338866243
+ },
+ "B_redraft_admitted_while_violating": {
+  "k": 8,
+  "n": 123,
+  "estimate": 0.06504065040650407,
+  "low": 0.033322636380229045,
+  "high": 0.12310459967625977
+ },
+ "C_first_admitted_while_violating": {
+  "k_sampled": 28,
+  "n_sampled_admitted": 100,
+  "admitted_share": 0.4533333333333333,
+  "n": 225,
+  "estimate": 0.12693333333333334,
+  "low": 0.09129990629071082,
+  "high": 0.1699457301516426
+ },
+ "B_minus_C": {
+  "estimate": -0.06189268292682927,
+  "low": -0.11533516316331044,
+  "high": 0.0062334011203450945
+ },
+ "paired_satisfies_redraft_minus_first": {
+  "both": 63,
+  "only_redraft": 42,
+  "only_first": 2,
+  "neither": 16,
+  "estimate": 0.3252032520325203,
+  "low": 0.23358907368504522,
+  "high": 0.41024227592924417
+ },
+ "bar": {
+  "A_at_least": 0.1,
+  "B_minus_C_at_most": 0.02,
+  "redraft_budget_default": 1,
+  "counts_for_the_exit_criterion": true
+ },
+ "by_group": {
+  "contract": {
+   "instances": 60,
+   "first_drafts": 60,
+   "rejected_first_drafts": 60,
+   "redrafts": 60,
+   "A_redraft_admitted_and_satisfies": {
+    "k": 17,
+    "n": 60,
+    "estimate": 0.2833333333333333,
+    "low": 0.18506828428432714,
+    "high": 0.4076728516439118
+   },
+   "B_redraft_admitted_while_violating": {
+    "k": 3,
+    "n": 60,
+    "estimate": 0.05,
+    "low": 0.01714950216439568,
+    "high": 0.1370051647634852
+   },
+   "C_first_admitted_while_violating": {
+    "k_sampled": 0,
+    "n_sampled_admitted": 0,
+    "admitted_share": 0.0,
+    "n": 60,
+    "estimate": 0.0,
+    "low": 0.0,
+    "high": 0.0
+   },
+   "B_minus_C": {
+    "estimate": 0.05,
+    "low": 0.01714950216439568,
+    "high": 0.1370051647634852
+   },
+   "paired_satisfies_redraft_minus_first": {
+    "both": 26,
+    "only_redraft": 28,
+    "only_first": 0,
+    "neither": 6,
+    "estimate": 0.4666666666666667,
+    "low": 0.3300979538073425,
+    "high": 0.5807743121636448
+   }
+  },
+  "medical_intake": {
+   "instances": 29,
+   "first_drafts": 29,
+   "rejected_first_drafts": 9,
+   "redrafts": 9,
+   "A_redraft_admitted_and_satisfies": {
+    "k": 4,
+    "n": 9,
+    "estimate": 0.4444444444444444,
+    "low": 0.18877852109766452,
+    "high": 0.733348706504507
+   },
+   "B_redraft_admitted_while_violating": {
+    "k": 0,
+    "n": 9,
+    "estimate": 0.0,
+    "low": 0.0,
+    "high": 0.2991450484195441
+   },
+   "C_first_admitted_while_violating": {
+    "k_sampled": 3,
+    "n_sampled_admitted": 20,
+    "admitted_share": 0.6896551724137931,
+    "n": 29,
+    "estimate": 0.10344827586206896,
+    "low": 0.03611637648014938,
+    "high": 0.24856473430397033
+   },
+   "B_minus_C": {
+    "estimate": -0.10344827586206896,
+    "low": -0.2485647343039703,
+    "high": 0.20318072581309599
+   },
+   "paired_satisfies_redraft_minus_first": {
+    "both": 3,
+    "only_redraft": 1,
+    "only_first": 1,
+    "neither": 4,
+    "estimate": 0.0,
+    "low": -0.2599643525312351,
+    "high": 0.25996435253123507
+   }
+  },
+  "product_listing": {
+   "instances": 48,
+   "first_drafts": 48,
+   "rejected_first_drafts": 18,
+   "redrafts": 18,
+   "A_redraft_admitted_and_satisfies": {
+    "k": 11,
+    "n": 18,
+    "estimate": 0.6111111111111112,
+    "low": 0.3861904160223791,
+    "high": 0.7969475342783638
+   },
+   "B_redraft_admitted_while_violating": {
+    "k": 4,
+    "n": 18,
+    "estimate": 0.2222222222222222,
+    "low": 0.09000928108601694,
+    "high": 0.45214584316212625
+   },
+   "C_first_admitted_while_violating": {
+    "k_sampled": 14,
+    "n_sampled_admitted": 30,
+    "admitted_share": 0.625,
+    "n": 48,
+    "estimate": 0.2916666666666667,
+    "low": 0.18895243067312345,
+    "high": 0.3991106273757919
+   },
+   "B_minus_C": {
+    "estimate": -0.06944444444444448,
+    "low": -0.23981012906652358,
+    "high": 0.18237907658140007
+   },
+   "paired_satisfies_redraft_minus_first": {
+    "both": 4,
+    "only_redraft": 8,
+    "only_first": 1,
+    "neither": 5,
+    "estimate": 0.38888888888888884,
+    "low": 0.09344155443690833,
+    "high": 0.5969430924609457
+   }
+  },
+  "resume": {
+   "instances": 37,
+   "first_drafts": 38,
+   "rejected_first_drafts": 24,
+   "redrafts": 24,
+   "A_redraft_admitted_and_satisfies": {
+    "k": 12,
+    "n": 24,
+    "estimate": 0.5,
+    "low": 0.3142742581957335,
+    "high": 0.6857257418042665
+   },
+   "B_redraft_admitted_while_violating": {
+    "k": 0,
+    "n": 24,
+    "estimate": 0.0,
+    "low": 1.3877787807814457e-17,
+    "high": 0.13797620467498017
+   },
+   "C_first_admitted_while_violating": {
+    "k_sampled": 1,
+    "n_sampled_admitted": 13,
+    "admitted_share": 0.3684210526315789,
+    "n": 38,
+    "estimate": 0.02834008097165992,
+    "low": 0.005051207826205058,
+    "high": 0.12273560865668269
+   },
+   "B_minus_C": {
+    "estimate": -0.02834008097165992,
+    "low": -0.12273560865668269,
+    "high": 0.11158777425701537
+   },
+   "paired_satisfies_redraft_minus_first": {
+    "both": 23,
+    "only_redraft": 1,
+    "only_first": 0,
+    "neither": 0,
+    "estimate": 0.04166666666666663,
+    "low": -0.10050254946175163,
+    "high": 0.20241806478655944
+   }
+  },
+  "support_ticket": {
+   "instances": 49,
+   "first_drafts": 50,
+   "rejected_first_drafts": 12,
+   "redrafts": 12,
+   "A_redraft_admitted_and_satisfies": {
+    "k": 8,
+    "n": 12,
+    "estimate": 0.6666666666666666,
+    "low": 0.39062208887279953,
+    "high": 0.8618799089087867
+   },
+   "B_redraft_admitted_while_violating": {
+    "k": 1,
+    "n": 12,
+    "estimate": 0.08333333333333333,
+    "low": 0.014865094404917095,
+    "high": 0.35387991114111694
+   },
+   "C_first_admitted_while_violating": {
+    "k_sampled": 10,
+    "n_sampled_admitted": 37,
+    "admitted_share": 0.76,
+    "n": 50,
+    "estimate": 0.20540540540540542,
+    "low": 0.11702070748397311,
+    "high": 0.32663407926782845
+   },
+   "B_minus_C": {
+    "estimate": -0.12207207207207209,
+    "low": -0.2612995517892616,
+    "high": 0.16254575166735213
+   },
+   "paired_satisfies_redraft_minus_first": {
+    "both": 7,
+    "only_redraft": 4,
+    "only_first": 0,
+    "neither": 1,
+    "estimate": 0.33333333333333326,
+    "low": 0.05052555240841783,
+    "high": 0.5811267797401863
+   }
+  }
+ }
+}

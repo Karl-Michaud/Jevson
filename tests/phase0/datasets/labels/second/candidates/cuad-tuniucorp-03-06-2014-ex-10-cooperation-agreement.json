@@ -1,0 +1,42 @@
+{
+  "doc_id": "cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two companies in different roles (Nanjing Tuniu Technology as Party A and Beijing Tuniu Technology as Party B) with separate registered addresses.",
+  "processing_note": "Such Service Fee shall be paid to the bank account designated by Party B in writing.",
+  "fields": {
+    "contract.effective_date": {
+      "status": "present",
+      "value": "January 24, 2014",
+      "superseded": true,
+      "rationale": "The agreement takes effect when signed, and it is stated as entered into (executed) on January 24, 2014; it amends and restates the original agreement of September 17, 2008.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "People's Republic of China",
+      "superseded": false,
+      "rationale": "Article 9 applies the laws of the People's Republic of China; the other mentions concern incorporation or the waiver clause.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "correct",
+        "c6": "correct",
+        "c7": "correct",
+        "c8": "wrong",
+        "c9": "wrong"
+      }
+    }
+  }
+}

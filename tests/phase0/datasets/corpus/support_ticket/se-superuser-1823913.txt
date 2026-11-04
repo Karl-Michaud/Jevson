@@ -1,0 +1,14 @@
+Secondary screen becomes main screen when i select "PC SCREEN ONLY"
+
+I had 2 screens but recently i added a 3rd screen and this is when my problem started to appear .
+My current screen setup:
+
+Main screen : Connected with dvi cable to my video card .
+
+Second screen (used to be main screen before):Connected to video card with hdmi cable.
+
+Third screen : Connected to motherboard with vga cable .
+
+The problem arises when i try to switch to single screen with "PC SCREEN ONLY" because the secondary screen is the one that stays on and the main screen and third screen shut off .
+
+Any solutions to this problem ? Is it a cable problem or a settings one ? Or maybe some drivers need update ?

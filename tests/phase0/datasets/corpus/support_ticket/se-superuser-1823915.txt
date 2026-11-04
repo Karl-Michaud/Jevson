@@ -1,0 +1,13 @@
+How to keep two local hard drives in sync on Linux?
+
+I have an old hard drive and basically clone it to a new hard drive using Grsync or Timeshift. Because the older hard drive is likelier to fail, I'd like to use the newer one as my in-use hard drive and the older one just as my backup drive where all changes are synced.
+
+First asked about this at the Vorta GUI repo since ultimately I'd like to use only one GUI for all backup tasks. Because that tool doesn't (yet) have this functionality, I'd like to use another open source GUI. Further differences to related questions and to what some available tools I tried offer is described below:
+
+Syncthing: For strange reasons it's not really supporting backups to local destinations (syncing local hard drives or folders); my second hard drive is local
+
+Unison: I'd like the syncing to be always-on automated synchronization without any triggering needed
+
+Rsync GUIs: These seem to have the same problem as Unison (recommended here): I'd like to have a directory monitor daemon / File System Monitor that detects changes on the large HDD I use as they are made and then at some point (immediately or specified intervals) syncs them to the second hard drive automatically. With tools like Grsync ("Delete on destination" option enabled) or BackInTime (unmaintained) this can only be done manually. I'd like the files to be exactly the same so I could mount and use the fully-encrypted drive exactly as if it was the old one if the new one fails (for example file permissions and everything else should stay the same). It should be efficient and for example not scan the whole drive for changes anew every time.
+
+To me this seems like the most intuitive way desktop users could backup their full hard drives without versioning so I was surprised it's not very easily possible with most existing GUI tools. Even worse, other questions (related but not the same!) such as this seem to be only about command-line solutions for niche applications techies and even without a concrete rsync command one could use or information how to implement it. I use Debian with KDE.

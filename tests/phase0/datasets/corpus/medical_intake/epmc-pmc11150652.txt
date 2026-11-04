@@ -1,0 +1,29 @@
+Case description
+
+A 19-year-old female with a multi-year history of ocular migraines presented to the emergency department with ataxia and lower extremity paresthesia preceded by refractory holocranial migraine. The patient noted that the headaches differed from her previous migraines and had been increasing in severity and duration over the preceding 8 months, culminating in new-onset dizziness, gait instability, and numbness and tingling in her legs over the preceding weeks (Table 1). She was scheduled for neuroimaging because of the progression of symptoms. Magnetic resonance imaging (MRI) revealed an ill-defined mass within the right pons that extended into the right middle cerebellar peduncle and the right posterolateral medulla with a corresponding partial effacement of the fourth ventricle suggestive of DIPG (Figure 1). The supratentorial gray and white matter volumes were within the normal volumetric percentile ranges for her age (5), and subsequent MRI spectroscopy revealed a markedly elevated choline level with decreased NAA in the lesion when compared against the left pons and the middle cerebellar peduncle. In another hospital, the biopsy was initially deferred due to the location of the lesion in the brainstem and the presumptive diagnosis of DIPG, with a recommendation to proceed with standard radiotherapy. However, the patient was transferred to the Brigham and Women's Hospital/Dana-Farber Cancer Institute (DFCI) for further care, where the recommendation to perform a biopsy prior to radiotherapy was made to definitively ascertain the histopathologic and molecular genetic features to determine potential eligibility for ongoing clinical trials.
+
+Clinical timeline.
+
+New-onset migraine headaches
+
+Increased migraine severity and duration
+
+New-onset dizziness, gait instability, and sporadic lower extremity paresthesia
+
+Initial MRI demonstrating a poorly defined right pontine mass extending into the right middle cerebral peduncle and the right posterolateral medulla with the fourth ventricle effacement suggestive of DIPG
+
+Suboccipital craniotomy with open biopsy
+
+Initial immunohistochemistry negative for MIB-1, IDH1, R132H, and H3F3A K27
+
+Initiated on dexamethasone 4 mg TID, valproate 250 mg XR qd, acetaminophen and Fioricet PRN, and walker
+
+Dexamethasone decreased to 2 mg qd
+
+Initiated on gabapentin 600 mg BID
+
+Dexamethasone decreased to 1 mg qd
+
+MRI brain demonstrates a stable lesion
+
+MRI scans taken on initial admission: (A) coronal T2-weighted FLAIR, (B) axial T2-weighted FLAIR, (C) axial post-gadolinium contrast T1-weighted, and (D) magnetic resonance spectroscopy sequences demonstrating the non-enhancing, expansile right pontine lesion with an increased choline peak suggestive of infiltrating glioma.

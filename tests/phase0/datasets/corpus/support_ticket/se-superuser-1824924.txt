@@ -1,0 +1,42 @@
+routing traffic to remote webserver within VPN, via reverse proxy
+
+What I'm trying to achieve, is posted in below picture: the different PI's each host a webserver, and are connected with a dongle to the 4G network (in remote areas). Since they have shared IP's on those dongles, I want to bring them into my VPN so they can be accessed either publicly or through my home network.
+
+Idea for public access, is through different ports, e.g. mydns.com:81 for webserver 1 and mydns.com:82 for webserver 2.
+
+So, the Pi's are connected with 4G and are an OpenVPN client (10.0.8.10) connected to the OpenVPNServer on my NAS(192.168.15.4). This NAS is behind my router and switch.
+
+I'm trying to use Reverse Proxy on my NAS to redirect the (public) http traffic to the Webservers on the PI.
+
+My router is forwarding traffic from port 81 to the NAS.
+My NAS has the reverse proxy set up, where traffic from domain name MyDNS on port 81 has as destination 10.0.8.10 (IP of the PI running the webserver).
+
+Yet, it is not working, and think I'm missing something: I can not access mydns:81 from a public IP address.
+
+What I can do:
+
+I can go to the website 10.0.8.10:80 when I'm on the VPN with my laptop
+
+I can ping from the NAS (19.168.15.4) to the OpenVPN Client (10.0.8.10)
+
+the NAS is listening to port 85
+
+from this remote PI, I can ping to my entire LAN (thus ip 192.168.15.x)
+
+What should I do or add to make this work?
+
+Should I add a route from the Pi (webserver) to the NAS? (I don' t think so...)
+
+Should I add a hostname in my webserver config file?
+
+Setup:
+
+Raspberry PI's 5, running bookworm, OpenVPN Client working
+
+webserver on the PI's via Caddy
+
+NAS = QNAP NAS, running OpenVPN server
+
+L3 Switch managing different VLAN's
+
+setup VPN home network and public network

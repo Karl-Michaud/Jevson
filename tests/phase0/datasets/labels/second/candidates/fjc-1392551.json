@@ -1,0 +1,24 @@
+{
+ "doc_id": "fjc-1392551",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Names the subject judge, the nominating president, the predecessor, and a judge he clerked for.",
+ "processing_note": null,
+ "fields": {
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. District Court for the Central District of California",
+   "superseded": false,
+   "rationale": "Only federal judicial service listed is the Central District of California judgeship.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  }
+ }
+}

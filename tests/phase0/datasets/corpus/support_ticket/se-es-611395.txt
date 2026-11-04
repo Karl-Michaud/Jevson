@@ -1,0 +1,31 @@
+Como validar registro php y que no se repita
+
+Estoy intentando crear un sistema de registro de usuarios en php, y la idea es : Al insertar un correo no se repita, es decir que te obligue a que coloques un correo que aun no esta en la base de datos.
+
+Aquí esta lo que tengo:
+Es muy básico pero es para comenzar en esto, quisiera saber que colocar ya que he probando otras formas y simplemente me salta no lo consigo.
+
+<?php
+
+require 'conexion.php';
+
+if (isset($_POST['registro'])) {
+
+$usuario = $_POST['nombre_user'];
+$contrasena = $_POST['contrasena_user'];
+$correo = $_POST ['correo_user'];
+
+$sql = "INSERT INTO usuarios (id_user, nombre_user, contrasena_user, correo_user) VALUES (null, '$usuario','$contrasena', '$correo')";
+$resultado = mysqli_query($conexion,$sql);
+
+if($resultado){
+echo "<script> alert('bienvenid@ $usuario'); window.location='centro.html'</script>";
+} else {
+
+echo "<script> alert('bienvenid@ $usuario'); window.location='registro.html'</script>";
+
+echo "No se puede insertar la informacion" . "<br>";
+echo "Error: " . $sql . "<br>" . mysqli_error($conexion);
+}
+
+}

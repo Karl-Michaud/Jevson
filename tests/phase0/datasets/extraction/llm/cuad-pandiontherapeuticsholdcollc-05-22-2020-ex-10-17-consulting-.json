@@ -1,0 +1,36 @@
+{
+ "doc_id": "cuad-pandiontherapeuticsholdcollc-05-22-2020-ex-10-17-consulting-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "CONSULTING AGREEMENT",
+   "Consulting Agreement"
+  ],
+  "contract.agreement_date": [
+   "27t h day of March, 2017"
+  ],
+  "contract.effective_date": [
+   "27t h day of March, 2017",
+   "the Effective Date"
+  ],
+  "contract.expiration_date": [
+   "four-year anniversary of the Effective Date"
+  ],
+  "contract.governing_law": [
+   "Commonwealth of Massachusetts",
+   "Massachusetts"
+  ],
+  "contract.renewal_term": [
+   "successive one-year periods",
+   "one-year"
+  ],
+  "contract.notice_period": [
+   "90 days' notice",
+   "90 days",
+   "thirty (30) days' written notice",
+   "thirty (30) days"
+  ]
+ }
+}

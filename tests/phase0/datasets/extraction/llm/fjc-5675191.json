@@ -1,0 +1,47 @@
+{
+ "doc_id": "fjc-5675191",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Kobes, Jonathan Allen",
+   "Donald J. Trump",
+   "Roger Leland Wollman",
+   "Roger L. Wollman",
+   "Michael R. Pence",
+   "M. Michael Rounds"
+  ],
+  "resume.law_institution": [
+   "Harvard Law School",
+   "Dordt College"
+  ],
+  "resume.law_year": [
+   "2000",
+   "1996",
+   "2001",
+   "2002",
+   "2003",
+   "2005",
+   "2008"
+  ],
+  "resume.undergrad_institution": [
+   "Dordt College",
+   "Harvard Law School"
+  ],
+  "resume.undergrad_year": [
+   "1996",
+   "2000",
+   "1974"
+  ],
+  "resume.first_judgeship_start": [
+   "December 12, 2018",
+   "December 11, 2018",
+   "June 11, 2018"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. Court of Appeals for the Eighth Circuit",
+   "U.S. Court of Appeals for the Eighth Circuit"
+  ]
+ }
+}

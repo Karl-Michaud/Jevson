@@ -1,0 +1,22 @@
+{
+ "doc_id": "cuad-qbiomedinc-04-08-2020-ex-99-1-joint-filing-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "JOINT FILING AGREEMENT",
+   "Joint Filing Agreement"
+  ],
+  "contract.agreement_date": [
+   "4/8/2020"
+  ],
+  "contract.effective_date": [
+   "4/8/2020"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [],
+  "contract.renewal_term": [],
+  "contract.notice_period": []
+ }
+}

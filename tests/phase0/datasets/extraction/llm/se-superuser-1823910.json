@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1823910", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["Wifi card", "MediaTek MT7921", "MediaTek Wi-Fi 6 MT7921 Wireless LAN Card", "Windows 10", "AsusSetup", "mtkwl6ex.inf", "pnputil", "Asus TUF Gaming B650-PLUS WIFI", "Wifi", "drivers"]}}

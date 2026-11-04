@@ -1,0 +1,1 @@
+{"doc_id": "se-es-611198", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["ggplot2", "R", "gráfico de secciones en R con ggplot2", "coord_polar"]}}

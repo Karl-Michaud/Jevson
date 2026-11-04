@@ -1,0 +1,19 @@
+{
+ "doc_id": "gsa-378196",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "US Filter Depolox3 plus probes / ATI Residual Chlorine Meter & probe",
+   "US Filter Depolox3 plus probes",
+   "ATI Residual Chlorine Meter with probe",
+   "ATI Residual Chlorine Meter"
+  ],
+  "product.inventory": [
+   "(2)",
+   "2"
+  ],
+  "product.price": []
+ }
+}

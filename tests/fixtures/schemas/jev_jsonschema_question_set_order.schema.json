@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "verdict": {
+      "enum": [
+        "pass",
+        "fail"
+      ]
+    },
+    "stars": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "is_spam": {
+      "type": "boolean"
+    }
+  }
+}

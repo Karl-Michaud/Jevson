@@ -1,0 +1,79 @@
+Elminar un registro en laravel 10 y disparar un evento SweetAlert2
+
+Tengo un detalle al tratar de eliminar un registro en mis tablas, dentro del loop agregue un formulario solo para el botón de eliminar y la ruta que se genera con cada botón si genera el id correcto por cada fila pero al llegar al controlador siempre sale el id del primer registro de la tabla, por lo tanto siempre me elimina el registro que esta hasta arriba de la tabla sin importar a cual registro de clic.
+
+Este es el script swal
+
+<script>
+
+function confirmDelete() {
+Swal.fire({
+title: "¿Estas seguro?",
+text: "!No podrás revertir esta acción!",
+icon: "warning",
+showCancelButton: true,
+confirmButtonColor: "#b91c1c",
+cancelButtonColor: "#4338ca",
+cancelButtonText: "Cancelar",
+confirmButtonText: "Si, eliminar!",
+customClass: {
+title: 'text-black',
+confirmButton: 'btn-danger',
+cancelButton: 'btn-primary',
+}
+}).then((result) => {
+if (result.isConfirmed) {
+document.getElementById('delete-form').submit();
+}
+});
+}
+</script>
+
+Este es el loop
+
+@foreach ($requisitionTypes as $requisitionType)
+<tr
+class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
+<th scope="row"
+class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+{{ $requisitionType->name }}
+</th>
+<td class="px-6 py-4">
+
+<a href="{{ route('requisition-types.edit', $requisitionType) }}"
+class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Editar</a>
+
+<form action="{{ route('requisition-types.destroy', $requisitionType) }}" method="POST" class="py-2" id="delete-form">
+@csrf @method('DELETE')
+<button type="button" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150" onclick="confirmDelete()">
+Eliminar
+</button>
+@dump(route('requisition-types.destroy', $requisitionType))
+</form>
+</td>
+</tr>
+@endforeach
+
+En el controlador es desde donde disparo el swal mediante un session
+
+Esta es la parte del controllador que se encarga de eliminarlo
+
+public function destroy(RequisitionType $requisitionType)
+{
+
+$requisitionType->delete();
+
+session()->flash('swal', [
+'title' => '!Bien hecho!',
+'text' => 'Tipo de requisición eliminado correctamente',
+'icon' => 'success',
+'customClass' => [
+'title' => 'text-black',
+'confirmButton' => 'btn-primary',
+]
+]);
+
+return redirect()->route('requisition-types.index');
+}
+
+Supongo que tiene algo que ver con el código de javascript y como estoy enviando los datos como dato curioso si cambio el boton a tipo submit en ves de tipo button si elimina el registro que estoy eligiendo pero lo elimina automaticamente antes de que le de confirmar al boton de la ventana emergente de swal

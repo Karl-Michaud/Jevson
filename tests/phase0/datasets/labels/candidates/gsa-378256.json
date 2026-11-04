@@ -1,0 +1,45 @@
+{
+  "doc_id": "gsa-378256",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "VA property custodian Chris Sinner and a GSA contact for the Medical Statement of Intent, in different roles.",
+  "processing_note": "For questions contact the property custodian Chris Sinner at 308-258-3684 or by email christian.sinner@va.gov.",
+  "fields": {
+    "product.title": {
+      "status": "present",
+      "value": "2007 Dentsply Porcelain Furnace",
+      "superseded": false,
+      "rationale": "Heading line is the title and the overview restates it; without the year it is partial.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "partial"
+      }
+    },
+    "product.inventory": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No explicit unit count is stated; the listing describes a single item only implicitly.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "product.price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Auction listing states no asking or sale price.",
+      "options": {}
+    }
+  }
+}

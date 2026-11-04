@@ -1,0 +1,47 @@
+{
+ "doc_id": "cuad-adma-biomanufacturing-llc-amendment-3-to-manufacturing-agree",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Amendment #3 to the Manufacturing Agreement",
+   "Manufacturing Agreement",
+   "Amendment #3",
+   "Amendment #2 to the Manufacturing Agreement"
+  ],
+  "contract.agreement_date": [
+   "December 21, 2017",
+   "12-21-2017",
+   "22 Dec. 2017",
+   "September 30, 2011",
+   "August 1, 2016",
+   "January 20, 2009",
+   "September 15, 2015"
+  ],
+  "contract.effective_date": [
+   "December 21, 2017",
+   "September 30, 2011",
+   "August 1, 2016",
+   "January 20, 2009",
+   "September 15, 2015"
+  ],
+  "contract.expiration_date": [
+   "Q3 2019",
+   "Q4 2019",
+   "December 31,2017",
+   "December 1, 2018"
+  ],
+  "contract.governing_law": [
+   "Delaware",
+   "France",
+   "Florida"
+  ],
+  "contract.renewal_term": [
+   "60 days"
+  ],
+  "contract.notice_period": [
+   "60 days"
+  ]
+ }
+}

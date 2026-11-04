@@ -1,0 +1,101 @@
+{
+ "doc_id": "cuad-adamsgolfinc-03-21-2005-ex-10-17-endorsement-agreement",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties: golfer Tom Watson (Consultant) and Adams Golf, Ltd., with separate notice addresses.",
+ "processing_note": "Payment shall be made to ADAMS GOLF within one month following the end of the calendar year.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "ENDORSEMENT AGREEMENT",
+   "superseded": false,
+   "rationale": "The heading names the contract \"ENDORSEMENT AGREEMENT\".",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "January 13, 2005",
+   "superseded": false,
+   "rationale": "The agreement is \"entered into on January 13, 2005\", and both signatures are dated the same day.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "correct"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "1st day of September 2004",
+   "superseded": false,
+   "rationale": "The term commences the 1st day of September 2004, which Section 18 restates as September 1, 2004 for the entire term.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "partial",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The termination date of the term is redacted (\"[*****] day of [*****]\"), so no expiry date is stated.",
+   "options": {}
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Kansas",
+   "superseded": false,
+   "rationale": "Section 25 says the agreement is governed by the laws of the State of Kansas; the other Kansas mentions are the arbitration venue and an address.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement has no renewal provision; the listed periods are cure, payment and termination periods.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "There is no renewal, so there is no notice period to prevent renewal; the periods are termination and cure notices.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  }
+ }
+}

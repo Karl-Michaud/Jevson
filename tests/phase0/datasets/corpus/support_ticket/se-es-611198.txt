@@ -1,0 +1,11 @@
+gráfico de secciones en R con ggplot2
+
+Quiero generar un gráfico de secciones en R con ggplot2. Pero me gustaría que cada sección estuviese separada de las adyacentes. He utilizado el código que dejo abajo, añado también la imagen que se genera.
+
+porcentaje <- ggplot(df2, aes(x = "", y = porcentaje, fill = porcentaje)) + geom_col(colour = "white", linewidth = 1.5) + coord_polar(theta = "y") + labs (x = NULL, y = NULL) + geom_text(aes(label = paste(año, "\n", porcentaje, "%", sep = "")), position = position_stack(vjust = 0.5), fontface = "bold", colour = "#1f4d41") + theme(
+axis.ticks = element_blank(), axis.text = element_blank(), panel.background = element_rect(fill = 'transparent'), plot.background = element_rect(fill = 'transparent', color = NA), panel.grid.major = element_blank(),
+panel.grid.minor = element_blank(), legend.position = "none") + scale_fill_gradient(low = "#acfff2", high = "#56b99e")
+
+Como podéis ver en el código, lo que hago es añadir una línea blanca. Pero lo que quiero es que ese blanco sea una separación real transparente, para que se vea el fondo cuando lo añada a una presentación, por ejemplo.
+
+Gracias.

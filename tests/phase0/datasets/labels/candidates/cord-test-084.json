@@ -1,0 +1,171 @@
+{
+ "doc_id": "cord-test-084",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single restaurant receipt for one transaction; no other parties or transactions.",
+ "processing_note": null,
+ "fields": {
+  "receipt.total_price": {
+   "status": "present",
+   "value": "39.600",
+   "superseded": false,
+   "rationale": "Total line gives the final amount (Rp 39.600).",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "correct",
+    "c9": "correct",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  },
+  "receipt.subtotal_price": {
+   "status": "present",
+   "value": "36.000",
+   "superseded": false,
+   "rationale": "Subtotal line gives Rp 36.000.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  },
+  "receipt.tax_price": {
+   "status": "present",
+   "value": "3.600",
+   "superseded": false,
+   "rationale": "Tax (10.0%) line gives Rp 3.600.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "correct",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "receipt.service_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No service charge line is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  },
+  "receipt.discount_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No discount line is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  },
+  "receipt.cashprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "Payment is recorded as \"Other\", not as cash handed over.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  },
+  "receipt.changeprice": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No change line is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No total item count is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc10912831", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["well-differentiated SCC", "well-differentiated squamous cell carcinoma", "cholesteatoma", "SCC", "sinusitis", "cancer", "stage II (T2N0M0)"], "medical.treatment_drug": ["cisplatin", "5-fluorouracil"]}}

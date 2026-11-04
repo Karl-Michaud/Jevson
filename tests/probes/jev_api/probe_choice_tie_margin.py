@@ -1,4 +1,8 @@
-"""Round 3, probe 4. Choice tie band (DESIGN §4.2, §6.2, Revision 5).
+"""Phase 0r: re-measures [P20] (choice argmax flips across 10 identical calls; the +/-0.05 band and the 0.10 tie
+margin) on the OpenAI Decisions API (`gpt-6-luna`) through jevclient's `decisions` backend; `run` now also analyses
+and writes tests/probes/results/0r/probe_choice_tie_margin.json.
+
+Round 3, probe 4. Choice tie band (DESIGN §4.2, §6.2, Revision 5).
 
 Claim (DESIGN §4.2 / §6.2): for string/int enums mapped to `choice`, "top-two within 0.05 -> Unresolved(tie)", adopted
 "for the same reason" as the bool band, which P12 measured only on yes/no nouls (a +/-0.05 band removed every
@@ -22,7 +26,7 @@ _sys.path.insert(0, str(PROBES))
 (PROBES / "out").mkdir(exist_ok=True)
 import asyncio, json, random, sys
 from collections import Counter
-from jevclient import Jev, save, fmt_rate
+from jevclient import Jev, save, save_summary, fmt_rate
 
 R = random.Random(8080)
 Q = {
@@ -125,6 +129,8 @@ async def run():
         print("pass", p, "requests", j.count, flush=True)
     await j.aclose()
     save("r3_choice_tie", {"texts": texts, "passes": passes})
+    rep = analyse()
+    save_summary("probe_choice_tie_margin", j, {k: v for k, v in rep.items() if k not in ("flipping_questions",)}, n={"questions": 180, "repeats": 10})
 
 
 def analyse():
@@ -174,6 +180,7 @@ def analyse():
     rep["flips_surviving_band5"] = [f for f, r in zip(rep["flipping_questions"], [r for r in rows if len({o["argmax"] for o in r["obs"]}) > 1])
                                     if len({o["argmax"] for o in r["obs"] if o["m"] > 5}) > 1]
     save("r3_choice_tie_analysis", rep); print(json.dumps(rep, indent=1, default=str))
+    return rep
 
 
 if __name__ == "__main__":

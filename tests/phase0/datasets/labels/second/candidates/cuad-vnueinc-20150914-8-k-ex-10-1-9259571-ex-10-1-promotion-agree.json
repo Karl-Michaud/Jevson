@@ -1,0 +1,24 @@
+{
+  "doc_id": "cuad-vnueinc-20150914-8-k-ex-10-1-9259571-ex-10-1-promotion-agree",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "BookingEntertainment.com (Promoter) and VNUE, Inc.",
+  "processing_note": "Promoter shall deliver to VNUE an itemized accounting of expenses incurred on a weekly basis, and VNUE shall reimburse Promoter within Thirty (30) Days of receipt of such accounting.",
+  "fields": {
+    "contract.governing_law": {
+      "status": "present",
+      "value": "State of Nevada",
+      "superseded": false,
+      "rationale": "Section 13 applies the laws of the State of Nevada; other Nevada mentions are incorporation, jurisdiction and venue.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    }
+  }
+}

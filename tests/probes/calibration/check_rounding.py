@@ -1,4 +1,11 @@
-"""Claims (DESIGN §2.1 "values are rounded to two decimals"; §4.2/§6.2 "bool true iff p > 0.5; exactly 0.5 -> tie";
+"""Phase 0r: re-measures [L17] (two-decimal rounding; sums; exact-0.50 nouls) on the saved OpenAI Decisions API
+(`gpt-6-luna`) answers in tests/probes/out/0r/raw, written by the ported probes through jevclient's `decisions`
+backend (jevclient.RAW). Part A now also reports the precision of every returned probability (decimal places of
+the shortest repr) and the sum-deviation distribution by answer kind (choice, score); score answers are read from
+jevclient's translated `{str(level): p}` map. Parts B-D are offline arithmetic and unchanged; part B needs numpy
+and is skipped when numpy is absent. Summary: tests/probes/results/0r/check_rounding.json.
+
+Claims (DESIGN §2.1 "values are rounded to two decimals"; §4.2/§6.2 "bool true iff p > 0.5; exactly 0.5 -> tie";
 §5.6 "components of pairs with p(same) > 0.5", "p(same) <= conflict_floor", floor in {0.05,0.10,0.20,0.30};
 PLAN Phase 3 "a probability outside [0,1]" and "distributions that do not sum" are invalid backend answers,
 "top-two margin >= 0.10" fixture rule; DESIGN §8.4 cache: canonical hash of the request with sorted keys; response
@@ -27,9 +34,11 @@ import subprocess
 from decimal import Decimal
 from pathlib import Path
 
-import numpy as np
-
-RAW = Path(__file__).resolve().parents[1] / "out" / "raw"
+try:
+    import numpy as np
+except ImportError:  # part B only
+    np = None
+from jevclient import RAW, save_summary
 
 
 # ---------------------------------------------------------------- A. real responses
@@ -47,7 +56,7 @@ def walk(o, out):
 
 
 def part_a():
-    print("== A. round-1 raw Jev responses (jev-1.13.0), mined offline")
+    print(f"== A. saved raw responses in {RAW}, mined offline")
     out = {"dist": [], "noul": []}
     types = collections.Counter()
     for f in sorted(glob.glob(str(RAW / "*.json"))):
@@ -93,12 +102,33 @@ def part_a():
         print(f"  example {k}: {json.dumps(o)[:300]}")
     nv = out["noul"]
     c = collections.Counter(nv)
+    def dp(v):
+        r = repr(float(v))
+        return 0 if "e" in r else len(r.split(".")[1].rstrip("0")) if "." in r else 0
+    allv = nv + [v for o in dists for v in o["probabilities"].values()]
+    dec = collections.Counter(dp(v) for v in allv)
+    by_kind = {}
+    for o in dists:
+        kind = "choice" if "choice" in o else ("score" if "score" in o else "other")
+        dev = abs(round(sum(Decimal(str(v)) for v in o["probabilities"].values()) * 100) - 100)
+        by_kind.setdefault(kind, collections.Counter())[int(dev)] += 1
+    print("  decimal places of returned probabilities:", dict(sorted(dec.items())))
+    print("  |sum - 1| in hundredths by kind:", {k: dict(sorted(v.items())) for k, v in by_kind.items()})
+    SUMMARY.update({"distribution_answers_unique": len(dists), "noul_values": len(nv), "answer_kinds": dict(kinds),
+                    "option_counts": dict(sorted(ktot.items())), "value_types": dict(types),
+                    "decimal_places_histogram": dict(sorted(dec.items())), "max_decimal_places": max(dec) if dec else None,
+                    "sum_dev_hundredths_by_kind": {k: dict(sorted(v.items())) for k, v in by_kind.items()},
+                    "max_abs_sum_dev": round(maxdev, 2), "exact_top_ties": ties, "choice_not_argmax": mism,
+                    "noul_exact_0.50": f"{c.get(0.5, 0)}/{len(nv)}", "noul_at_0": c.get(0.0, 0) + c.get(0, 0), "noul_at_1": c.get(1.0, 0),
+                    "note": "unique answer objects (identical repeats collapse)"})
     print(f"  noul values exactly 0.5: {c.get(0.5, 0)}/{len(nv)}; at 0.0: {c.get(0.0, 0) + c.get(0, 0)}; at 1.0: {c.get(1.0, 0)}")
     return dists
 
 
 # ---------------------------------------------------------------- B. simulation
 def part_b():
+    if np is None:
+        print("\n== B. skipped (numpy not installed)"); return
     print("\n== B. simulated 2-dp rounding of Dirichlet distributions (200k per K)")
     rng = np.random.default_rng(1)
     print(f"{'K':>3s} {'alpha':>6s} {'P(sum!=1)':>10s} {'max|dev|':>9s} {'bound K*.005':>12s} {'P(top tie)':>11s} {'P(any 0.00)':>12s}")
@@ -189,8 +219,11 @@ def part_d():
           json.dumps('{"a":1}') != json.dumps({"a": 1}, sort_keys=True))
 
 
+SUMMARY: dict = {}
+
 if __name__ == "__main__":
     part_a()
+    save_summary("check_rounding", [], SUMMARY, n="every saved answer", raw_dir=str(RAW.relative_to(Path(__file__).resolve().parents[1])))
     part_b()
     part_c()
     part_d()

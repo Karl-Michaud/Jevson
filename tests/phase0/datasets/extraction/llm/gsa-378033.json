@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378033", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Dell Keyboards", "wired Dell keyboards"], "product.inventory": ["20", "20 wired Dell keyboards"], "product.price": []}}

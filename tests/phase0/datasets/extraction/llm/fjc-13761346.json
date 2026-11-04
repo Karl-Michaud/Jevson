@@ -1,0 +1,50 @@
+{
+ "doc_id": "fjc-13761346",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Almadani, Monica Ramirez",
+   "Joseph R. Biden",
+   "John Arnold Kronstadt",
+   "Warren J. Ferguson"
+  ],
+  "resume.law_institution": [
+   "Stanford Law School",
+   "Harvard University",
+   "University of California, Irvine School of Law"
+  ],
+  "resume.law_year": [
+   "2004",
+   "2001",
+   "2005",
+   "2009",
+   "2012",
+   "2015",
+   "2017",
+   "2019",
+   "2021",
+   "2023"
+  ],
+  "resume.undergrad_institution": [
+   "Harvard University",
+   "Stanford Law School"
+  ],
+  "resume.undergrad_year": [
+   "2001",
+   "2004",
+   "2005",
+   "1979"
+  ],
+  "resume.first_judgeship_start": [
+   "November 21, 2023",
+   "November 9, 2023",
+   "January 23, 2023"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Central District of California",
+   "U.S. District Court for the Central District of California"
+  ]
+ }
+}

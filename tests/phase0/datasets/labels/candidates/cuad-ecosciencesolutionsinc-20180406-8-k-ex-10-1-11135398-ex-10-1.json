@@ -1,0 +1,91 @@
+{
+ "doc_id": "cuad-ecosciencesolutionsinc-20180406-8-k-ex-10-1-11135398-ex-10-1",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two parties (Fruit of Life Productions LLC and Eco Science Solutions, Inc.) with two addresses.",
+ "processing_note": "All notices given under this Agreement shall be in writing, addressed to the parties at the addresses set forth below, and shall be deemed to have the duly given when delivered when sent by overnight courier, or certified mail (return receipt requested).",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "SPONSORSHIP AGREEMENT",
+   "superseded": false,
+   "rationale": "The document is titled Sponsorship Agreement.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "1st day of April, 2018",
+   "superseded": false,
+   "rationale": "The agreement is made this 1st day of April, 2018 and both parties signed on 4/01/2018; filing-source dates and term dates play other roles.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "correct",
+    "c7": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "1st day of April, 2018",
+   "superseded": false,
+   "rationale": "The preamble defines 1 April 2018 as the Effective Date and the term begins on April 1, 2018; signing dates are a different role.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "present",
+   "value": "April 30, 2018",
+   "superseded": false,
+   "rationale": "The term continues until April 30, 2018 at 11:59pm.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Florida",
+   "superseded": false,
+   "rationale": "The Governing Law clause applies the laws of the State of Florida.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal provision.",
+   "options": {}
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal and hence no non-renewal notice period.",
+   "options": {}
+  }
+ }
+}

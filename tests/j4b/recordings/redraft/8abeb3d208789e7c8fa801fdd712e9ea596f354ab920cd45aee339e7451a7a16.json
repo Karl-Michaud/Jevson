@@ -1,0 +1,1 @@
+{"version": 1, "arguments": {"value": "Calcula la \u00faltima fila con datos de la tabla y usa ese valor para construir el rango del VLOOKUP y el AutoFill din\u00e1micamente."}, "raw": "{\"value\":\"Calcula la \u00faltima fila con datos de la tabla y usa ese valor para construir el rango del VLOOKUP y el AutoFill din\u00e1micamente.\"}", "input_tokens": 684, "output_tokens": 44}

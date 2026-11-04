@@ -1,0 +1,23 @@
+{
+  "doc_id": "cuad-talcottresolutionlifeinsuranceco-separateaccounttwelve-04-30",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties in different roles (The Victory Portfolios trust and Hartford Life Insurance Company as Administrator), with separate notice addresses.",
+  "processing_note": "The Administrator will place separate orders to purchase or redeem shares of each Fund.",
+  "fields": {
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement has no fixed term or renewal; the 90 days is a notice for termination at will, and the other periods concern breach cure and notice delivery.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong"
+      }
+    }
+  }
+}

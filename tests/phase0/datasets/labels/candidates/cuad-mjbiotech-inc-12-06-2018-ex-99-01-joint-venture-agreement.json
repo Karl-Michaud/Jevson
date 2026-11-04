@@ -1,0 +1,94 @@
+{
+ "doc_id": "cuad-mjbiotech-inc-12-06-2018-ex-99-01-joint-venture-agreement",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Two joint venture participants: MJ Syndicated, Inc. and Simply Herbals (Nervanah Herbal Medicine Company).",
+ "processing_note": "Any notices or delivery required here will be deemed completed when hand-delivered, delivered by agent, or seven (7) days after being placed in the post, postage prepaid, to the parties at the addresses contained in this Agreement or as the parties may later designate in writing.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "JOINT VENTURE AGREEMENT",
+   "superseded": false,
+   "rationale": "Title and preamble name it 'JOINT VENTURE AGREEMENT'.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "27th day of November 2018",
+   "superseded": false,
+   "rationale": "Made and entered into (and signed) on the 27th day of November 2018, the 'Execution Date'; 'November 27, 2018' in the term clause is the JV start date.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "partial"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "November 27, 2018",
+   "superseded": false,
+   "rationale": "The fixed-term joint venture begins November 27, 2018; the preamble date is labelled the Execution Date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "present",
+   "value": "November 30th, 2019",
+   "superseded": false,
+   "rationale": "The fixed term ends November 30th, 2019.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "wrong",
+    "c5": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "The State of Florida",
+   "superseded": false,
+   "rationale": "The joint venture is formed in accordance with the laws of The State of Florida and governed by its legislation; the third occurrence is the court-jurisdiction clause.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal term; continuation after expiry becomes a joint venture at will.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No non-renewal notice; 30 business days is the withdrawal notice and seven days is postal deemed delivery.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  }
+ }
+}

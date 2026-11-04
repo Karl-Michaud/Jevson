@@ -1,0 +1,41 @@
+{
+ "doc_id": "cuad-drkoopcominc-04-21-1999-ex-10-28-sponsorship-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "SPONSORSHIP AGREEMENT",
+   "Sponsorship Agreement",
+   "EXHIBIT 10.28"
+  ],
+  "contract.agreement_date": [
+   "11th day of March, 1999",
+   "March, 1999"
+  ],
+  "contract.effective_date": [
+   "11th day of March, 1999",
+   "March, 1999",
+   "Launch Date"
+  ],
+  "contract.expiration_date": [
+   "August 31, 1999"
+  ],
+  "contract.governing_law": [
+   "State of Delaware",
+   "Delaware",
+   "New York"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "ten (10) days' written notice",
+   "thirty (30) days' written notice",
+   "ten (10) days",
+   "thirty (30) days",
+   "five (5) business days",
+   "five business days",
+   "ten day period",
+   "thirty-day period"
+  ]
+ }
+}

@@ -1,0 +1,40 @@
+{
+  "passage_id": "cuad-stwresourcesholdingcorp-08-06-2014-ex-10-1-cooperation-agree#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "STW Resources Holding Corp. (STW)",
+    "E2": "City of Fort Stockton, Texas (COFS)",
+    "E3": "Middle Pecos Groundwater Conservation District",
+    "E4": "TDLR (Texas Department of Licensing and Regulation)",
+    "E5": "TCEQ (Texas Commission on Environmental Quality)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E4",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E5",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

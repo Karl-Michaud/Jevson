@@ -1,0 +1,15 @@
+VBA Range se adapte a celdas con información
+
+tengo una duda con rangos en estas dos partes, el siguiente es un buscarv que toma como rango R2C3:R74C4 pero me gustaría saber si hay una forma para que se adapte a los datos de la tabla, porque hay tablas que llegan a la celda 100 y ese solo llega al 74, si hay alguna forma que se adapte a todos los datos de la tabla.
+
+ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-1]," & ThisWorkbook.Worksheets(idx - 1).Name & "!R2C3:R74C4,2,0)"
+
+Y el siguiente, es un un autofill, como el anterior, solo llega hasta el 74, para ver si hay alguna forma para que haga el autofill hasta la ultima casilla con información.
+
+Range("D2").Select
+Selection.AutoFill Destination:=Range("D2:D74")
+Range("D2:D74").Select
+Columns("D:D").ColumnWidth = 10.36
+Columns("D:D").EntireColumn.AutoFit
+
+Agradeciendo de antemano, muchas gracias

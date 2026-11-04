@@ -1,0 +1,65 @@
+{
+ "doc_id": "epmc-pmc10916208",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "depersonalization and derealization",
+   "superseded": false,
+   "rationale": "The condition reported is depersonalization and derealization secondary to a temporal-lobe metastasis; occurrences naming DES-II factor items or the metastasis play other roles.",
+   "options": {
+    "c0": "partial",
+    "c1": "correct",
+    "c2": "partial",
+    "c3": "wrong",
+    "c4": "partial",
+    "c5": "partial",
+    "c6": "correct",
+    "c7": "partial",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "partial",
+    "c12": "correct",
+    "c13": "partial",
+    "c14": "partial",
+    "c15": "partial",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "partial",
+    "c20": "correct",
+    "c21": "partial",
+    "c22": "wrong",
+    "c23": "partial",
+    "c24": "wrong",
+    "c25": "wrong",
+    "c26": "wrong",
+    "c27": "partial",
+    "c28": "correct",
+    "c29": "partial"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "present",
+   "value": "dexamethasone",
+   "superseded": false,
+   "rationale": "Dexamethasone was the treatment under which the depersonalization/derealization improved; methylphenidate was a later trial.",
+   "options": {
+    "c0": "correct",
+    "c1": "correct",
+    "c2": "correct",
+    "c3": "correct",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  }
+ }
+}

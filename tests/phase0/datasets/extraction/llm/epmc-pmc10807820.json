@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc10807820", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["GA", "complete absence of the gallbladder", "gallstones"], "medical.treatment_drug": []}}

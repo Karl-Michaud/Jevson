@@ -1,0 +1,48 @@
+{
+ "passage_id": "cuad-ticketscominc-06-22-1999-ex-10-22-sponsorship-agreement#organization",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "entities": {
+  "E1": "U.S. Securities and Exchange Commission",
+  "E2": "MP3.com, Inc.",
+  "E3": "Tickets.com, Inc."
+ },
+ "mentions": {
+  "c0": {
+   "entity": "E1",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c1": {
+   "entity": "E2",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c2": {
+   "entity": "E2",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c3": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c4": {
+   "entity": "E3",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c5": {
+   "entity": "E2",
+   "role_noun": false,
+   "ambiguous": false
+  },
+  "c6": {
+   "entity": "E1",
+   "role_noun": false,
+   "ambiguous": false
+  }
+ }
+}

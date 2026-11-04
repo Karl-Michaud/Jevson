@@ -1,0 +1,30 @@
+{
+  "doc_id": "cuad-integritymediainc-20010329-10-k405-ex-10-17-2373875-ex-10-17",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties: Integrity Incorporated and Time Life, Inc. (TL).",
+  "processing_note": "Accounting statements and, if applicable, royalty payments          for products sold will be rendered by each party quarterly within sixty          (60) days after the expiration of each calendar quarter.",
+  "fields": {
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Extension requires mutual written agreement 'for additional periods of time' with no stated length.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

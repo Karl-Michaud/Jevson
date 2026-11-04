@@ -1,0 +1,47 @@
+{
+  "passage_id": "cuad-transmontaignepartnersllc-03-13-2020-ex-10-9-services-agreem#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "TransMontaigne Management Company, LLC (EmployeeCo)",
+    "E2": "TLP Management Services, LLC (the Operating Company)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c5": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c6": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

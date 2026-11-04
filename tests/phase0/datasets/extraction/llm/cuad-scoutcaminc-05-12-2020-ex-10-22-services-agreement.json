@@ -1,0 +1,9 @@
+{"doc_id": "cuad-scoutcaminc-05-12-2020-ex-10-22-services-agreement", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["SERVICES AGREEMENT"],
+"contract.agreement_date": ["April 1, 2019"],
+"contract.effective_date": ["April 1, 2019", "the date hereof", "Effective Date"],
+"contract.expiration_date": ["12 months", "Minimum Period"],
+"contract.governing_law": ["State of New York", "New York"],
+"contract.renewal_term": ["12 months"],
+"contract.notice_period": ["five days", "30 days", "two (2) years"]
+}}

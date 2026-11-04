@@ -1,0 +1,24 @@
+How do I avoid having to manually source ~/.profile or ~/.bashrc to get "LD_LIBRARY_PATH" to work?
+
+I realized that I need to manually source ~/.bashrc file or to manually source .profile file to make the settings specified in .bashrc file effective. These are some additions to complete ~/.bashrc file:
+
+export LD_LIBRARY_PATH=/usr/local/lib
+export LD_LIBRARY_PATH=/usr/local/lib/wx
+export LD_LIBRARY_PATH=/usr/local/lib/wx/3.3.0
+
+export LD_LIBRARY_PATH=/home/raphy/wxWidgets
+
+Important to note that I'm having this issue of not-permanent settings of .bashrc only for the wxWidgets library, for which I added the last four lines.
+
+I commented the wx library path in .bashrc and added these lines in
+/etc/ld.so.conf.d/wx.conf and ran sudo ldconfig:
+
+raphy@raohy:/etc/ld.so.conf.d$ sudo ldconfig
+raphy@raohy:/etc/ld.so.conf.d$ cat wx.conf
+export LD_LIBRARY_PATH=/usr/local/lib
+export LD_LIBRARY_PATH=/usr/local/lib/wx
+export LD_LIBRARY_PATH=/usr/local/lib/wx/3.3.0
+
+But the problem persists.
+
+What do I have to do to avoid to manually do source ~/.profile or source ~/.bashrc?

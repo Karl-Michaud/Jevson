@@ -1,0 +1,9 @@
+{"doc_id": "cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["COOPERATION AGREEMENT", "Cooperation Agreement (2014 Amendment)", "Cooperation Agreement", "Original Cooperation Agreement"],
+"contract.agreement_date": ["January 24, 2014", "September 17, 2008"],
+"contract.effective_date": ["January 24, 2014", "the execution date hereof", "the date when the authorized representatives of the Parties sign hereon"],
+"contract.expiration_date": ["the expiration date of the operation term of Party B", "three consecutive years"],
+"contract.governing_law": ["laws of the People's Republic of China", "People's Republic of China"],
+"contract.renewal_term": [],
+"contract.notice_period": ["seven business days", "fifteen (15) days", "thirty (30) days"]
+}}

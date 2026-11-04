@@ -1,0 +1,1 @@
+{"doc_id": "se-askubuntu-1498671", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["apt", "dpkg", "virtualbox 7.0", "virtualbox-7.0", "Kubuntu 23.10", "apt install --reinstall nano", "nano"]}}

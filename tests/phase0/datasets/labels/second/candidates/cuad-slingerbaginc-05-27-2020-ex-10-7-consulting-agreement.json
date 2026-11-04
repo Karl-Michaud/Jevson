@@ -1,0 +1,20 @@
+{
+  "doc_id": "cuad-slingerbaginc-05-27-2020-ex-10-7-consulting-agreement",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties in different roles: Slinger Bag Inc. (Company) and Aitan Zacharin (Consultant).",
+  "processing_note": "All subsequent monthly payments of Base Consulting Fee shall be paid within the first five days of the following calendar month.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "CONSULTING AGREEMENT",
+      "superseded": false,
+      "rationale": "The document is headed CONSULTING AGREEMENT.",
+      "options": {
+        "c0": "correct"
+      }
+    }
+  }
+}

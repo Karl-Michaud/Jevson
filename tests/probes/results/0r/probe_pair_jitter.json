@@ -1,0 +1,299 @@
+{
+ "probe": "probe_pair_jitter",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": {
+  "docs": 6,
+  "obs_per_pair": 12,
+  "ab_pairs": 1824
+ },
+ "requests": 60,
+ "input_tokens": 408560,
+ "cost_usd": 0.040856,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 60
+ },
+ "measured": {
+  "docs": [
+   47,
+   46,
+   45,
+   44,
+   43,
+   42
+  ],
+  "pairs": 216,
+  "obs_per_pair": 12,
+  "range_max": 0.0,
+  "sd_max": 0.0,
+  "pairs_range_gt_0.10": 0,
+  "pairs_sd_gt_0.022": 0,
+  "pairs_with_decision_flip": 0,
+  "top": [
+   [
+    "doc_t5",
+    "Senator Adrian Nash",
+    "Nash",
+    [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Senator Adrian Nash",
+    "the senator",
+    [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Senator Adrian Nash",
+    "Adrian",
+    [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Senator Adrian Nash",
+    "Adriana Nash",
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Senator Adrian Nash",
+    "Judge Nash",
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Senator Adrian Nash",
+    "Adrian Nashe",
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Senator Adrian Nash",
+    "Mr. Nashe",
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Senator Adrian Nash",
+    "the businessman",
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Nash",
+    "the senator",
+    [
+     0.99,
+     0.99,
+     0.99,
+     0.99,
+     0.99,
+     0.99,
+     0.99,
+     0.99,
+     0.99,
+     0.99,
+     0.99,
+     0.99
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Nash",
+    "Adrian",
+    [
+     0.57,
+     0.57,
+     0.57,
+     0.57,
+     0.57,
+     0.57,
+     0.57,
+     0.57,
+     0.57,
+     0.57,
+     0.57,
+     0.57
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Nash",
+    "Adriana Nash",
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    0.0,
+    0.0
+   ],
+   [
+    "doc_t5",
+    "Nash",
+    "Judge Nash",
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    0.0,
+    0.0
+   ]
+  ],
+  "range_excluding_A_B(10 back-to-back repeats)": 0.0,
+  "runA_vs_runB_all_docs": {
+   "pairs": 1824,
+   "decision_flips": 0,
+   "max_abs_diff": 0.0,
+   "pairs_differing": 0,
+   "exact_0.50_obs": 0
+  }
+ }
+}

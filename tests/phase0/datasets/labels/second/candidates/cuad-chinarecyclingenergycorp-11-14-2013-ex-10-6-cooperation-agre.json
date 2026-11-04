@@ -1,0 +1,30 @@
+{
+  "doc_id": "cuad-chinarecyclingenergycorp-11-14-2013-ex-10-6-cooperation-agre",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Xi'an Zhonghong New Energy Technology Co., Ltd. (Party A) and Boxing County Chengli Gas Supply Co., Ltd. (Party B) in distinct roles.",
+  "processing_note": "Payment method: Wire or transfer.",
+  "fields": {
+    "contract.agreement_date": {
+      "status": "partial_only",
+      "value": "July 2013",
+      "superseded": false,
+      "rationale": "The cover page dates the agreement only as July 2013, without a day.",
+      "options": {
+        "c0": "partial"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement says it takes effect from 'the effective date' upon signing and sealing but never states that date; July 2013 is the cover date of the agreement.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong"
+      }
+    }
+  }
+}

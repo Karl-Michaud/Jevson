@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378244", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Digital Postal Scale", "Dymo/Endicia ES7500UBLK 75-lb digital postal scale with USB cable", "ES7500UBLK"], "product.inventory": [], "product.price": []}}

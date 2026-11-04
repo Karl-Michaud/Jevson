@@ -1,0 +1,1 @@
+{"doc_id": "epmc-pmc10912829", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"medical.diagnosis": ["Schwannoma", "borderline sero-mucinous ovarian tumor", "borderline sero-mucinous tumor", "endometriotic cyst", "peritoneal carcinomatosis"], "medical.treatment_drug": ["non-steroidal anti-inflammatory drugs"]}}

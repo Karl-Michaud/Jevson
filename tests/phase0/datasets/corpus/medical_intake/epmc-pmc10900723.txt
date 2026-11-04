@@ -1,0 +1,159 @@
+Case presentation
+
+We report the case of a 70-year-old Sri Lankan man with pulmonary, renal, and neurological involvement of IgG4-related disease. Clinical manifestations evolved over a 4-year period and included exertional shortness of breath and dysesthesia of extremities. The diagnosis was established with clinical, radiological, and pathological criteria laid down by The American College of Rheumatology/European League Against Rheumatism in 2019.
+
+Following diagnosis, the patient was started on oral steroids, with rapid improvement of his respiratory and neurological symptoms. He is currently under follow-up and will be monitored with clinical and radiological parameters, complement levels, and lung function tests.
+
+Case history
+
+The patient was a 70-year-old Sri Lankan man with a history of hypertension and stroke. He presented to us with an unpleasant burning sensation of the distal upper and lower extremities and scalp for a duration of 3 months. There was no muscle weakness nor symptoms of autonomic neuropathy.
+
+In his past history, he had been experiencing shortness of breath of subacute onset over the preceding 4 years and nonprogressive bilateral lower limb swelling for 6 months.
+
+Shortness of breath had initially been episodic and exertional, and the severity had remained stable over time. He had no cough, wheeze, or identifiable precipitants. There was no fever, loss of appetite, or loss of weight. However, the shortness of breath later progressed in severity over a few months, at the time of experiencing dysesthesia.
+
+His shortness of breath had previously been evaluated with repetitive contrast tomography, which had revealed reticulonodular pulmonary lesions with subsequent lymphadenopathy. A high erythrocyte sedimentation rate (ESR) had been detected during evaluation, and he had undergone exhaustive work-up for exclusion of tuberculosis. Details are given in Table 1.
+
+Lung-related inves﻿tigations
+
+High-resolution computed tomography (HRCT) of the chest
+
+(T0—time of first development of dyspnea)
+
+Reticular opacities in:
+
+-Posterior segment of right upper lobe
+
+-Superior segment of right lower lobe
+
+-Apicoposterior segment of left upper lobe
+
+Two irregular soft tissue nodules in superior segment of right lower lobe
+
+Suggestive of old healed granulomatous infection
+
+High-resolution computed tomography (HRCT) and contrast-enhanced computed tomography (CECT) of chest
+
+(T0 + 2 years)
+
+Multiple reticular nodular opacities in:
+
+-Posterior segment of right upper lobe
+
+-Superior segment of right lower lobe
+
+-Left superior lingular lobe
+
+Thickening of the horizontal fissure on the right side
+
+No lung masses or cavitatory lesions
+
+Pretracheal, right paratracheal, and bilateral hilar lymphadenopathy (largest: 2 cm at right hilum)
+
+Suggestive of a chronic granulomatous disease of lung
+
+? Sarcoidosis? Tuberculosis
+
+CECT chest and abdomen
+
+(T0 + 3 years)
+
+Extensive bilateral diffuse centrilobular tree in bud opacities predominantly in:
+
+-Right lower segment of upper lobe
+
+-Upper segment of right lower lobe
+
+Associated with fibrotic changes and horizontal fissure thickening
+
+Diffuse ill-defined hypodense lesions without arterial phase enhancement in bilateral kidneys
+
+-Left lesion is in the mid pole: 3 cm × 4 cm × 5 cm
+
+-Right lesion is in the lower pole: 3.5 cm × 3.5 cm × 4 cm
+
+Sputum for GeneXpert
+
+(cartridge based nucleic acid amplification test for diagnosis of tuberculosis)
+
+(T0, T0, + 2 years T0 + 3 years, T0 + 3 years)
+
+Negative
+
+(Four times over 4 years)
+
+Endobronchial ultrasound (EBUS)-guided lymph node biopsy and bronchial wash
+
+(T0 + 3 years)
+
+Lung function tests
+
+(T0 + 3 years)
+
+BAL Bronchoalveolar Lavage, CECT Contrast Enhanced Computed Tomography, EBUS Endobronchial Ultrasound, Gene Xpert Cartridge based nucleic acid implification test for diagnosis of tuberculosis, HRCT High Resolution Computed Tomography
+
+There was no contact history of tuberculosis or exposure to heavy metals or toxins. His history was not significant for symptoms suggestive of connective tissue disease or medium/small vessel vasculitis. He also did not have any risk factors for contracting viral hepatitis or human immunodeficiency virus (HIV).
+
+On examination, his body mass index was 23 kg/m2. He was pale and had bilateral pitting ankle edema. There was no lymphadenopathy and no dermatological manifestations of vasculitis. His pulse rate was 80 beats per minute, with regular rhythm, and blood pressure was 140/90 mmHg without a postural drop. Cardiac auscultation was normal. Respiratory and abdominal examinations too were normal. The neurological examination revealed a right-sided hemisensory loss as a residual deficit from the previous stroke, but despite dysesthesia, there was no objective evidence of peripheral neuropathy.
+
+His hematological and biochemical investigations during the current presentation are summarized in Table 2.
+
+Hematological and biochemical investigations
+
+Hb 8.7 (MCV 93.2, MCH 29.7) g/dL
+
+WBC 9.4 × 1000/μL
+
+Plt 398 × 1000/μL
+
+12–16 g/dL
+
+4–10 (× 1000/μL)
+
+150–450 (× 1000/μL)
+
+Oval and round macrocytes with normocytic normochromic cells
+
+Few hypersegmented neutrophils
+
+Platelets: normal in number and morphology
+
+Suggestive of vitamin B12/folate deficiency ± anemia of chronic disease
+
+(Levels were not done due to unavailability of reagents)
+
+125→112→120→96 mm/hour
+
+(T0) (T0 + 2 years ) (T0 + 3 years) (T0 + 3 years )
+
+Hb Haemoglobin, MCV Mean Cell Volume, MCH Mean Cell Haemoglobin, WBC White Cell Count, Plt Platelet count
+
+Previous labs were reviewed during the presentation, and it was found that the patient had persistently elevated ESR (> 100) over 4 years. Chest imaging had shown reticulonodular opacities in both lungs with subsequent development of paratracheal lymphadenopathy and fissure thickening. The high ESR, combined with the longstanding shortness of breath and the endemicity of tuberculosis in Sri Lanka, led to the consideration of tuberculosis as a differential diagnosis. Tuberculosis workup, including sputum for Gene Xpert, Mantoux, and paratracheal lymph node biopsy, were negative.
+
+This patient had also previously undergone a CECT of the abdomen, which revealed bilateral renal soft tissue hypodensities, one in each kidney, following which he had undergone a renal biopsy. Upon revisiting the imaging, the renal hypodensities were discrete, round parenchymal lesions, located in the cortex without arterial phase enhancement. The differential diagnoses for such imaging findings are metastasis, renal lymphoma, infarctions, tuberculosis, and sarcoidosis. However, there was no retroperitoneal or para-aortic lymphadenopathy to have supported the first two differentials.
+
+The renal biopsy revealed histological evidence of IgG4 disease with dense lymphoplasmocytic infiltration and storiform fibrosis resulting in tubulointerstitial nephritis (TIN). There were no granulomata noted in the histology to point toward tuberculosis and sarcoidosis. However, IgG4 staining had not been performed at this time.
+
+During the current presentation with dysesthesia, the patient underwent nerve conduction studies and was found to have mononeuritis multiplex. Since IgG4RD became extremely likely, the renal biopsy was revisited at this time, and IgG4 staining was performed on the sample. IgG4 staining was positive with immunostaining off more than 25 cells per high power field. The cutoff for IgG4 positive cells in the kidney is 10, thus establishing a definite histological diagnosis.
+
+Serum immunoglobulin levels were 1648 (569–1919) mg/dL. IgG4 subclasses could not be assessed due to resource constraints. C3 level was 77 (83–177) mg/dL and C4 was 9 (12–36) mg/dL.
+
+A timeline of symptom chronology with timing of investigations is shown in Fig. 1.
+
+Timeline of symptoms and investigations performed
+
+Figures 2 and 3 show the reticulonodular and fibrous changes seen in the lungs. Figure 4 shows the hypodense lesions in the kidneys. Figures 5 and 6 show the IgG4 immunostaining performed on the kidney biopsy.
+
+HRCT of lungs
+
+HRCT of lungs
+
+HRCT of lungs
+
+Renal biopsy with IgG4 staining
+
+Renal biopsy with IgG4 staining
+
+The patient was diagnosed with IgG4RD based on classification criteria outlined by The American College of Rheumatology/European League Against Rheumatism in 2019 [2]. He exceeded the diagnostic cutoff value of 20 by reaching a total of 30 points. Points were obtained for histological appearance with lymphoplasmocytic infiltration, storiform fibrosis and immunostaining with IgG4 (16 points), peribronchovascular and septal thickening (4 points), and low density areas in bilateral renal cortices (10 points).
+
+He was commenced on steroids (oral prednisolone 0.6 mg/kg/day) and showed improvement of dysesthesia and shortness of breath within the first 2 weeks. He is currently under follow-up. The criteria that will be used for assessment of progression will be clinical and radiological findings, pulmonary function tests, and complement levels.

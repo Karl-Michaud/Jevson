@@ -1,0 +1,83 @@
+{
+ "doc_id": "cuad-talcottresolutionlifeinsuranceco-separateaccounttwelve-04-30",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Agreement between The Victory Portfolios (Trust) and Hartford Life Insurance Co. (Administrator), with several addresses.",
+ "processing_note": "Payment shall be in federal funds transmitted by wire to the Fund's designated custodian.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "SERVICE AGREEMENT",
+   "superseded": false,
+   "rationale": "The heading names the contract SERVICE AGREEMENT.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "9/28/2004",
+   "superseded": false,
+   "rationale": "The agreement is entered into as of 9/28/2004; the signature line gives only month and year in the marked span.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "9/28/2004",
+   "superseded": false,
+   "rationale": "No separate effective date; the agreement is made as of 9/28/2004, which is when it takes effect.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The agreement has no fixed term; it runs until terminated on 90 days notice.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of Ohio",
+   "superseded": false,
+   "rationale": "Section 17 selects the internal laws of the State of Ohio.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "There is no renewal provision.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal, so no non-renewal notice period; 90 days is a termination-for-convenience notice.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  }
+ }
+}

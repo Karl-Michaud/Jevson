@@ -1,0 +1,45 @@
+{
+  "doc_id": "epmc-pmc11305709",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single patient.",
+  "processing_note": null,
+  "fields": {
+    "medical.diagnosis": {
+      "status": "present",
+      "value": "severe mitral stenosis and ASD secundum",
+      "superseded": false,
+      "rationale": "Echocardiography established severe mitral stenosis with ASD secundum (causing right heart failure); each alone is part of it.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "partial",
+        "c3": "partial",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "partial",
+        "c9": "partial",
+        "c10": "partial",
+        "c11": "correct",
+        "c12": "partial",
+        "c13": "partial"
+      }
+    },
+    "medical.treatment_drug": {
+      "status": "present",
+      "value": "furosemide",
+      "superseded": false,
+      "rationale": "Furosemide was prescribed for the resulting heart failure and continued at discharge.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct"
+      }
+    }
+  }
+}

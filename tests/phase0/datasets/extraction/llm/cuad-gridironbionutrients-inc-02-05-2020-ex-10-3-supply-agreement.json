@@ -1,0 +1,26 @@
+{
+ "doc_id": "cuad-gridironbionutrients-inc-02-05-2020-ex-10-3-supply-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "SUPPLY AGREEMENT"
+  ],
+  "contract.agreement_date": [
+   "1/26/2020",
+   "1/27/2020"
+  ],
+  "contract.effective_date": [
+   "1/26/2020",
+   "1/27/2020"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "State of Colorado",
+   "Colorado"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": []
+ }
+}

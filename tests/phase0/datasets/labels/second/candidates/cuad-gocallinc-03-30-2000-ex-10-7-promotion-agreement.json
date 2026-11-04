@@ -1,0 +1,42 @@
+{
+ "doc_id": "cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Go Call, Inc. and PageMaster Corporation (plus MetroCall, Motorola references).",
+ "processing_note": "Such notice or demand shall be deemed to have been given or made when actually received or seventy-two (72) hours after being sent, whichever occurs first.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "Promotion Agreement",
+   "superseded": false,
+   "rationale": "The contract calls itself this Promotion Agreement in its heading and preamble.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "partial",
+    "c3": "correct",
+    "c4": "correct"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The one-year extension is conditional on pager volume; no notice period to prevent renewal is stated.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  }
+ }
+}

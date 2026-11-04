@@ -1,0 +1,89 @@
+{
+ "requests": {
+  "generative": [
+   "f9a2b1efb723642a42345d5bb5ce360c6fb3324b9fb79c13aef12c124e5d2aea"
+  ],
+  "generative_and_enum": [
+   "02c4e6e60bb81af1bf8417309390a56e2eb533539e5cc0314b3e55691081e8b5",
+   "e46156c2bc8e395ccd67bb70503b416391d2685c2e6821ed8585c9f497898b95"
+  ],
+  "union_with_a_generative_branch": [
+   "76624f4d07ddd04f3330cfa3f96315721bfb55bd8cb54ba5fcf79b7580f078db",
+   "e22e303e08d24bd9525001a1a99c10623b34fe5a0de8480083f1aea0f8d3e8e6"
+  ]
+ },
+ "result": {
+  "absent": [],
+  "cost": {
+   "cache_hits": 0,
+   "decision_input_tokens": 20,
+   "decision_input_tokens_estimated": 8447,
+   "decision_request_ids": [
+    "r1",
+    "r2"
+   ],
+   "decision_requests": 2,
+   "decision_retries": 0,
+   "level_splits": 0,
+   "llm_input_tokens": 7,
+   "llm_output_tokens": 3,
+   "redrafts": 0,
+   "transport_retries": 0
+  },
+  "decided_by": {
+   "/mood": "decision",
+   "/summary": "llm+decision"
+  },
+  "decisions": {
+   "/mood#choice@0": {
+    "distribution_hundredths": {
+     "c0": 90,
+     "c1": 10
+    },
+    "kind": "choice",
+    "selected": "c0",
+    "target_pointer": "/mood",
+    "vendor_confidence": null
+   },
+   "/summary#criterion:0@0": {
+    "distribution_hundredths": {
+     "false": 10,
+     "true": 90
+    },
+    "kind": "predicate",
+    "selected": true,
+    "target_pointer": "/summary",
+    "vendor_confidence": null
+   }
+  },
+  "model": [
+   "recorder"
+  ],
+  "overflow": [],
+  "provenance": {
+   "/mood": {
+    "option_id": "c0"
+   }
+  },
+  "rejections": [],
+  "satisfies_schema": true,
+  "ungated": [],
+  "unresolved": [],
+  "value": {
+   "mood": "happy",
+   "summary": "Refunds take 5 days. Note: this summary includes the refund amount stated in the source."
+  },
+  "versions": {
+   "budget_estimator": "bytes/3+160q+8o+dw",
+   "default_extractor": "none",
+   "max_input_tokens": "900000",
+   "max_questions_per_request": "200",
+   "model": "gpt-6-luna",
+   "question_templates": "1.1.1",
+   "redraft_budget": "1",
+   "tie_margin_hundredths": "10",
+   "union_fanout": "true"
+  },
+  "violations": []
+ }
+}

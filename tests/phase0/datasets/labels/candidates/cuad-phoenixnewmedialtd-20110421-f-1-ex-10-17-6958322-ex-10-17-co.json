@@ -1,0 +1,142 @@
+{
+  "doc_id": "cuad-phoenixnewmedialtd-20110421-f-1-ex-10-17-6958322-ex-10-17-co",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Phoenix Satellite Television Company Limited (Party A) and Beijing Tianying Jiuzhou Network Technology Co., Ltd. (Party B), plus other referenced entities.",
+  "processing_note": "Any and all notices, approvals, requests, authorizations, instructions or other communications required hereunder (collectively, \"Written  Documents\") shall be made in writing and with a reference to this Agreement.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Program Content License Agreement",
+      "superseded": false,
+      "rationale": "The cover and preamble name it Program Content License Agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "November 24, 2009",
+      "superseded": false,
+      "rationale": "The agreement is entered into on November 24, 2009 per cover and preamble; c3 dates a different agreement and 4/21/2011 is the filing footer.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "correct",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Article 9.1 makes it effective on the date of signing and sealing, an event rather than a stated date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The term is five years from the effective date; no expiration date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "PRC Law",
+      "superseded": false,
+      "rationale": "Article 11.1 says the agreement is governed by the PRC Law; other mentions are incorporation, definition, or arbitration venue.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "correct",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Article 9.2 allows extension for a negotiated length only; no renewal term length is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No notice period to prevent renewal is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong"
+      }
+    }
+  }
+}

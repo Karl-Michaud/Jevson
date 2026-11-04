@@ -13,6 +13,7 @@ build/
 .pytest_cache/
 .ruff_cache/
 .coverage
+coverage.json
 htmlcov/
 
 # --- os / editor ---
@@ -22,3 +23,9 @@ htmlcov/
 
 # --- local vendor-doc snapshot (symlink, not committed) ---
 tests/probes/jevdocs
+
+# --- Phase 0 raw live results (summaries are committed under tests/phase0/results/) ---
+tests/phase0/out/
+
+# --- live integration outputs (numbers are recorded in docs/EVIDENCE.md) ---
+tests/integration/out/

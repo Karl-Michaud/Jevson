@@ -1,0 +1,24 @@
+{
+ "doc_id": "cuad-oldapiwind-downltd-01-08-2016-ex-1-3-agency-agreement2",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "AGENTS' CERTIFICATE",
+   "EXHIBIT I TO SCHEDULE A",
+   "Agency Agreement",
+   "Subscription Agreement"
+  ],
+  "contract.agreement_date": [
+   "May 22, 2015"
+  ],
+  "contract.effective_date": [
+   "May 22, 2015"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [],
+  "contract.renewal_term": [],
+  "contract.notice_period": []
+ }
+}

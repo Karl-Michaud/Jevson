@@ -1,0 +1,9 @@
+{"doc_id": "cuad-stwresourcesholdingcorp-08-06-2014-ex-10-1-cooperation-agree", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {
+"contract.document_name": ["COOPERATION AGREEMENT", "COOPERATION AGREEMENT BETWEEN THE CITY OF FORT STOCKTON, TEXAS AND STW RESOURCES HOLDING CORP. REGARDING DEVELOPMENT OF WATER WELL(S) IN THE CAPITAN REEF AQUIFER FORMATION", "AGREEMENT"],
+"contract.agreement_date": ["the last date of signature on the signature pages below", "2014"],
+"contract.effective_date": ["the last date of signature on the signature pages below", "Effective Date"],
+"contract.expiration_date": ["thirty (30) years from the Effective Date", "30-year", "twenty (20) years from the Effective Date", "ten (10) years from the Effective Date"],
+"contract.governing_law": ["State of Texas", "Texas"],
+"contract.renewal_term": ["year-to-year", "automatically renew from year-to-year"],
+"contract.notice_period": ["sixty (60) days", "ninety (90) days", "twenty-four (24) months"]
+}}

@@ -1,0 +1,45 @@
+{
+ "doc_id": "cuad-bioamberinc-04-10-2013-ex-10-34-development-agreement-first-",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Cargill and BioAmber, plus two amendment instruments and references to BRI, MCC.",
+ "processing_note": null,
+ "fields": {
+  "contract.effective_date": {
+   "status": "present",
+   "value": "July 5, 2011",
+   "superseded": false,
+   "rationale": "The First Amendment (the document itself) states it is effective as of July 5, 2011; April 15, 2010 is the underlying Development Agreement date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "correct",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No expiration date of an initial term is stated; September 30, 2011 ends only an FTE period.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong"
+   }
+  }
+ }
+}

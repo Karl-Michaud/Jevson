@@ -1,0 +1,46 @@
+{
+ "doc_id": "cuad-novointegratedsciences-inc-12-23-2019-ex-10-1-joint-venture-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "JOINT VENTURE AGREEMENT",
+   "Joint Venture Agreement",
+   "JOINT VENTURE AGREEMENT BETWEEN NOVO INTEGRATED SCIENCES INC. (\"NVOS\") AND HARVEST GOLD FARMS INC. (\"HGF\")"
+  ],
+  "contract.agreement_date": [
+   "December 19, 2019",
+   "December 18, 2019"
+  ],
+  "contract.effective_date": [
+   "the date of the most recent final signature on this Agreement",
+   "December 19, 2019",
+   "December 18, 2019"
+  ],
+  "contract.expiration_date": [
+   "five (5) years from the date of Effective Date",
+   "five (5) years",
+   "two (2) years"
+  ],
+  "contract.governing_law": [
+   "New Brunswick, Canada",
+   "Nevada",
+   "Arbitration Act No. 42 of 1965",
+   "Canadian jurisdiction",
+   "federal or provincial law"
+  ],
+  "contract.renewal_term": [
+   "five (5) year term",
+   "five (5) years",
+   "two (2) years"
+  ],
+  "contract.notice_period": [
+   "thirty (30) calendar days",
+   "ten (10) working days",
+   "two (2) years",
+   "three months",
+   "prior written notice"
+  ]
+ }
+}

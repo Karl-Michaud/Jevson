@@ -1,0 +1,31 @@
+{
+ "doc_id": "se-superuser-1824948",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user describing their own laptop; no other parties.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "MSI Katana GF66 12UCO",
+   "superseded": false,
+   "rationale": "The MSI Katana laptop sometimes keeps running with a black screen after the lid is closed.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong"
+   }
+  }
+ }
+}

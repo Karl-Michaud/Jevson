@@ -1,0 +1,39 @@
+{
+  "passage_id": "cuad-mjbiotech-inc-12-06-2018-ex-99-01-joint-venture-agreement#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "MJ Syndicated, Inc., Florida corporation",
+    "E2": "Simply Herbals / Nervanah Herbal Medicine Company, Tennessee participant",
+    "E3": "the Joint Venture formed by the agreement",
+    "E4": "JVP - the Joint Venture Participants collectively (both parties)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E4",
+      "role_noun": true,
+      "ambiguous": true
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+ "doc_id": "fjc-1393866",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Carter, Andrew Lamar, Jr.",
+   "Barack Obama",
+   "Victor Marrero"
+  ],
+  "resume.law_institution": [
+   "Harvard Law School",
+   "University of Texas"
+  ],
+  "resume.law_year": [
+   "1994",
+   "1991",
+   "1996",
+   "2005",
+   "2009"
+  ],
+  "resume.undergrad_institution": [
+   "University of Texas",
+   "Harvard Law School"
+  ],
+  "resume.undergrad_year": [
+   "1991",
+   "1994",
+   "1969"
+  ],
+  "resume.first_judgeship_start": [
+   "December 8, 2011",
+   "December 5, 2011",
+   "May 19, 2011"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the Southern District of New York",
+   "U.S. District Court for the Southern District of New York",
+   "U.S. Magistrate Judge, U.S. District Court for the Eastern District of New York"
+  ]
+ }
+}

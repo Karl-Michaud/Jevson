@@ -1,0 +1,1 @@
+{"doc_id": "se-superuser-1824924", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"ticket.affected_service": ["OpenVPN", "OpenVPNServer", "Reverse Proxy", "reverse proxy", "Caddy", "QNAP NAS", "NAS", "Raspberry PI's 5", "webserver", "OpenVPN Client"]}}

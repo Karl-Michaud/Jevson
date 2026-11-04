@@ -1,0 +1,97 @@
+{
+  "doc_id": "cuad-freecook-20180605-s-1-ex-10-3-11233807-ex-10-3-hosting-agree",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Agreement between Natalija Tunevic/FreeCook (Client) and Mitchell Vitalis/Mitchell's Web Advance (Company).",
+  "processing_note": "Any email or telephone correspondence received after normal business hours will be processed the following business day.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Website Design, Development and Hosting Agreement",
+      "superseded": false,
+      "rationale": "Every occurrence names the agreement itself (title, preamble, footers, exhibit header).",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "January 11, 2018",
+      "superseded": false,
+      "rationale": "Entered into on January 11, 2018 and signed Jan. 11, 2018 by both parties.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No separate effective date is stated; February 8, 2018 is the project start, not the agreement's effective date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No expiration of the agreement is stated; May 3, 2018 is the project delivery timeframe.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No governing law clause.",
+      "options": {}
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal provision; 12 weeks is the project timeframe.",
+      "options": {
+        "c0": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No non-renewal notice provision.",
+      "options": {
+        "c0": "wrong"
+      }
+    }
+  }
+}

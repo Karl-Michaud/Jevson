@@ -1,0 +1,135 @@
+{
+ "doc_id": "cord-test-048",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single receipt for one purchase transaction from one merchant.",
+ "processing_note": null,
+ "fields": {
+  "receipt.total_price": {
+   "status": "present",
+   "value": "25,000",
+   "superseded": false,
+   "rationale": "\"Total: 25,000\" is the amount due; the other 25,000s are unit and line prices.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  },
+  "receipt.subtotal_price": {
+   "status": "present",
+   "value": "22,728",
+   "superseded": false,
+   "rationale": "\"Subtotal: 22,728\" is the (pre-tax) subtotal.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "correct",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  },
+  "receipt.tax_price": {
+   "status": "present",
+   "value": "2,272",
+   "superseded": false,
+   "rationale": "\"PB1: 2,272\" is the restaurant tax.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  },
+  "receipt.service_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No service charge is printed.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  },
+  "receipt.discount_price": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No discount amount is printed; \"25%\" is a drink modifier (sugar level) next to \"Less Ice\".",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong"
+   }
+  },
+  "receipt.cashprice": {
+   "status": "present",
+   "value": "100,000",
+   "superseded": false,
+   "rationale": "\"Cash: 100,000\" is the cash tendered.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "wrong"
+   }
+  },
+  "receipt.changeprice": {
+   "status": "present",
+   "value": "75,000",
+   "superseded": false,
+   "rationale": "\"CHANGE: 75,000\" is the change.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct"
+   }
+  },
+  "receipt.menuqty_cnt": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No total quantity line is printed; only \"1X\" on the single item line.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "doc_id": "se-askubuntu-1499384",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user asking about a package installation; no other parties.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "conda",
+   "superseded": false,
+   "rationale": "The installation failure and pin-1 conflict are reported by the conda package manager.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "correct",
+    "c9": "wrong",
+    "c10": "correct",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong",
+    "c17": "wrong",
+    "c18": "wrong",
+    "c19": "wrong",
+    "c20": "wrong",
+    "c21": "wrong",
+    "c22": "correct",
+    "c23": "wrong",
+    "c24": "correct",
+    "c25": "wrong",
+    "c26": "wrong",
+    "c27": "wrong",
+    "c28": "wrong",
+    "c29": "wrong",
+    "c30": "wrong"
+   }
+  }
+ }
+}

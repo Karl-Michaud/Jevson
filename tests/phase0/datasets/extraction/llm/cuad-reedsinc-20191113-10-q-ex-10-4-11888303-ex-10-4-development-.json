@@ -1,0 +1,33 @@
+{
+ "doc_id": "cuad-reedsinc-20191113-10-q-ex-10-4-11888303-ex-10-4-development-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "RECIPE DEVELOPMENT AGREEMENT",
+   "Recipe Development Agreement",
+   "Amended and Restated Recipe Development Agreement"
+  ],
+  "contract.agreement_date": [
+   "October 11, 2019"
+  ],
+  "contract.effective_date": [
+   "October 11, 2019"
+  ],
+  "contract.expiration_date": [
+   "first anniversary of the Effective Date"
+  ],
+  "contract.governing_law": [
+   "State of New York",
+   "New York"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "30 days",
+   "thirty (30) days",
+   "seven (7) days",
+   "five (5) days"
+  ]
+ }
+}

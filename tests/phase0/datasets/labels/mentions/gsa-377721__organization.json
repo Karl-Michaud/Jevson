@@ -1,0 +1,33 @@
+{
+  "passage_id": "gsa-377721#organization",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Mercury Marine (Brunswick Corp), outboard motor manufacturer",
+    "E2": "the property custodian (a person/role, not an organization)",
+    "E3": "the selling/holding government agency (unnamed)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c3": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

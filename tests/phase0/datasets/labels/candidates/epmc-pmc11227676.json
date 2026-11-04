@@ -1,0 +1,37 @@
+{
+ "doc_id": "epmc-pmc11227676",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "pseudoaneurysm",
+   "superseded": false,
+   "rationale": "The lesions found and embolized were pulmonary artery pseudoaneurysms (in a patient with recurrent tuberculosis); the document names them only as 'pseudoaneurysm'.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "partial",
+    "c4": "correct",
+    "c5": "correct"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The pseudoaneurysms were treated by coil embolization; the ATT regimen names no specific drug.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  }
+ }
+}

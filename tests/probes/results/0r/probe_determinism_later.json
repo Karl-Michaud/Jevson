@@ -1,0 +1,106 @@
+{
+ "probe": "probe_determinism_later",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [
+  "gpt-6-luna"
+ ],
+ "n": {
+  "joint": 20,
+  "alone": 20,
+  "keyname": 3,
+  "order": 2,
+  "cobatch": 3
+ },
+ "requests": 80,
+ "input_tokens": 20640,
+ "cost_usd": 0.002064,
+ "refusals": 0,
+ "http_statuses": {
+  "200": 80
+ },
+ "measured": {
+  "joint": {
+   "n_refund": {
+    "type": "noul",
+    "values": [
+     0.04
+    ],
+    "max_abs_dev": 0.0,
+    "sd": 0.0,
+    "argmax_set": [
+     false
+    ]
+   },
+   "c_intent": {
+    "type": "choice",
+    "max_abs_dev_prob": 0.0,
+    "conf_range": [
+     1.0,
+     1.0
+    ],
+    "selected_set": [
+     "info"
+    ],
+    "n_distinct_distributions": 1
+   },
+   "s_frust": {
+    "type": "score",
+    "max_abs_dev_prob": 0.0,
+    "conf_range": [
+     0.9,
+     0.9
+    ],
+    "selected_set": [
+     "1"
+    ],
+    "n_distinct_distributions": 1,
+    "score_range": [
+     0.88,
+     0.88
+    ]
+   }
+  },
+  "alone": {
+   "n_refund": {
+    "type": "noul",
+    "values": [
+     0.04
+    ],
+    "max_abs_dev": 0.0,
+    "sd": 0.0,
+    "argmax_set": [
+     false
+    ]
+   },
+   "c_intent": {
+    "type": "choice",
+    "max_abs_dev_prob": 0.0,
+    "conf_range": [
+     1.0,
+     1.0
+    ],
+    "selected_set": [
+     "info"
+    ],
+    "n_distinct_distributions": 1
+   },
+   "s_frust": {
+    "type": "score",
+    "max_abs_dev_prob": 0.0,
+    "conf_range": [
+     0.9,
+     0.9
+    ],
+    "selected_set": [
+     "1"
+    ],
+    "n_distinct_distributions": 1,
+    "score_range": [
+     0.88,
+     0.88
+    ]
+   }
+  }
+ }
+}

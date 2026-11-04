@@ -1,0 +1,38 @@
+{
+  "passage_id": "epmc-pmc10912464#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "case 1: 59-year-old woman with ceramic head fragmentation",
+    "E2": "case 2: patient with ceramic liner fragmentation",
+    "E3": "the two patients together (group)"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c3": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c4": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

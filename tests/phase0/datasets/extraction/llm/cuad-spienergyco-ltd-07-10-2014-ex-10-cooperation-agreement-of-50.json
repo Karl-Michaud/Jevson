@@ -1,0 +1,21 @@
+{
+ "doc_id": "cuad-spienergyco-ltd-07-10-2014-ex-10-cooperation-agreement-of-50",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Cooperation Agreement of 50MWp Photovoltaic Grid-connected Power Generation Project in Yangqiao of Fenyi County"
+  ],
+  "contract.agreement_date": [
+   "June 25, 2014"
+  ],
+  "contract.effective_date": [
+   "June 25, 2014"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [],
+  "contract.renewal_term": [],
+  "contract.notice_period": []
+ }
+}

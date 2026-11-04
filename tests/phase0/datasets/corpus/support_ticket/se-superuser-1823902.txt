@@ -1,0 +1,46 @@
+NVIDIA Control Panel files missing (nvcplui.exe)
+
+I wanted to remove Geforce Experience and the Nvidia control panel because I thought that it would fix an issue with my computer where it would 70% of the time freeze after a few minutes of using it after a reboot.
+
+Also you probably should know that I recently switched from a laptop using an AMD Ryzen 7 3700U With Radeon Vega Mobile CPU to a PC with an Intel i7-8700K CPU and Geforce RTX 3700 GPU.
+
+Uninstallation process
+
+Anyways I deleted Geforce Experience and the Nvidia control panel using BCUninstaller. I would delete the Nvidia drivers and all of the services that started with the name "Nvidia" or "nv" and were signed by Nvidia Corporation. I also looked for Nvidia folders and files in my whole C: drive and removed as many of them as I could, and some of the files I couldn't delete, so I had to use a "Force delete" ability in a program called "Ultra Virus Killer" to remove them.
+
+After a while, I successfully removed Nvidia, and after rebooting there were no autostarting Nvidia processes or services running. There might have been some leftover files and registry entries though.
+
+After the uninstall
+
+I uninstalled the Nvidia control panel and Geforce experience and removed registry entries and drivers and services to ensure I didn't have any Nvidia software on my PC.
+
+All of this did not fix my issue so I decided to reinstall the Nvidia components. I still need help with the PC freezing issue, I have no clue how to fix it because I haven't been able to analyze what could be causing the issue. So please just give me some advice.
+
+Reninstalling Nvidia software
+
+So now I realize that the Nvidia programs and drivers were not the cause of the PC freezing issue. (I'm not 100% sure).
+
+So I decided to install Geforce Experience back from this website using the "Download now" button.
+
+After the installation, I restarted my PC and now I have Geforce experience succesfully installed on my PC and got all of the drivers back without errors.
+
+But every time I restart my PC, I get a message that "Nvidia control panel is not found"
+
+So I did some research and found out that I have to install the Nvidia control panel from the Microsoft store.
+
+After first removing the Nvidia control panel from the Settings app (Because it was there for some reason) And then rebooting and installing it back from the Microsoft store‎ I don't get the message saying "Nvidia control panel is not found" anymore.
+
+So now it seems that the Nvidia control panel is installed since it shows that it is installed in the Microsoft store, and I see the Nvidia control panel in my start menu.
+
+But when I try to open the Nvidia control panel itself, I get an error saying that C:\ProgramFiles\WindowsApps\NVlDlACorp.NVlDlAControlPanel_8.1.964.O_x64_56jybvy8sckcu\nvcplui.exe Was not found.
+
+I think that I removed this exact file when I was previously uninstalling Geforce Experience.
+And somehow the nvcplui.exe file did not get regenerated when I reinstalled the Nvidia control panel from the Microsoft store or in the Geforce Experience installation process.
+
+I went to the C:\Program Files\WindowsApps directory and actually found a folder named NVIDIACorp.NVIDIAControlPanel_8.1.964.0_x64__56jybvy8sckqj but inside it, there was no nvcplui.exe file. I only found these files that you can see in the screenshot.
+
+Can someone tell me how to get nvcplui.exe file back or explain now to get a copy of it?
+
+I searched my whole drive for nvcplui.exe and found nothing. (Because I deleted it while uninstalling Nvidia components before).
+
+And the "Control Panel Client" folder is missing in C:\Program Files\NVIDIA Corporation\.

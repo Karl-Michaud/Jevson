@@ -1,0 +1,1 @@
+{"doc_id": "gsa-377730", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["FUJIFILM 12.2 MP CAMERA", "Fujifilm 12.2 MP digital camera", "A220"], "product.inventory": ["12.2 MP"], "product.price": []}}

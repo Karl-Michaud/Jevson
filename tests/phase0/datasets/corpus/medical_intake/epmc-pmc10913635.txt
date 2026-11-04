@@ -1,0 +1,145 @@
+Case report
+
+A 12-year-old patient was admitted to the pediatric gynecology department with burning, itching and pain in the genital area. The girl complained of abdominal pain, nausea, vomiting and dysuria for a few days, later on accompanied by vulvar pain and fever. Her external genitalia were tender, her vulva was inflamed and swollen with bleeding subcutaneous ulcers on the labia minora. Her laboratory test results, indicative of inflammation (e.g. elevated C-reactive protein level (CRP), leukocytosis and neutrophilia) are shown in Table 1. The lesions affected the patient’s labia majora, labia minora, hymenal caruncle and vestibulum. They were separated from the surrounding tissues with a demarcation line (Fig. 1A). Nevertheless, the girl was in a generally good condition. The other mucous membranes were clean and properly moist. Abdominal examination showed no abnormalities. Pediatrician prescribed cefuroxime and analgesics, however, after three days due to symptoms exacerbation she was referred to Pediatric and Adolescents Gynecology Department. The therapy was complemented with topical medication, namely ointment with silver and sulfathiazole, and non-steroidal anti-inflammatory drugs. An ulcerated tissue sample was taken for histopathological examination, which revealed necrotic and purulent lesions with no neoplastic process. The patient was discharged three days later, after the pain had subsided and the wound healing had begun. She continued the antibiotic regimen and topical treatment at home.
+
+Results of the blood test with serological examination and urinalysis. The underlined results are abnormal
+
+Leucocytes
+
+23.38 × 103/ul
+
+[N: 3.98–10.04 × 103/ul]
+
+Color
+
+cloudy, dark yellow
+
+[N: clear to pale yellow]
+
+HSV
+
+IgG antibodies 3.38
+
+(result positive above 1.1)
+
+Hemoglobin
+
+14.4 g/dl
+
+[N: 11.8–16 g/dl]
+
+pH
+
+9.0
+
+[N:5–7]
+
+HSV
+
+IgM antibodies 0.85
+
+(doubtful result IgM antibodies 0.8–1.1)
+
+Neutrophiles
+
+19.33 × 103/ul
+
+[N: 1.82–7,47 × 103/ul]
+
+Gravity
+
+1.005
+
+[N:1.005–1.030]
+
+VZV
+
+Negative
+
+Monocytes
+
+2.15 × 103/ul
+
+[N: 0.19–0.72 × 103/ul]
+
+Protein
+
+258 mg/dl
+
+[N: absent]
+
+Toxoplasmosis
+
+Negative
+
+Lymphocytes
+
+1.83 × 103/ul
+
+[N:1.16–3.33 × 103/ul]
+
+Sediment
+
+Flat epithelia numerous, round epithelia 0-1hpfa
+
+[N:1–5 epithelial cells hpfa]
+
+WBCb 30–40 hpfa
+
+[N: 0–5 hpfa]
+
+CMV
+
+Negative
+
+Eosinophils
+
+Absent
+
+[N:0.02–0.32 × 103/ul]
+
+Mucus
+
+Abundant
+
+HIV
+
+Negative
+
+C-reactive protein
+
+59.7 mg/l
+
+[N:0-5 mg/l]
+
+Bacteria
+
+Abundant
+
+Rubella
+
+Negative
+
+Procalcitonin
+
+1.87 ng/ml
+
+[N: 0.05–0.1 ng/ml]
+
+SARS-CoV-2
+
+Negative
+
+The underlined results are abnormal. The complete blood count and biochemical values standardized by the laboratory which carried out the mentioned tests and adjusted them to gender and age have been attached
+
+ahpf per high power field b, WBC white blood cells, CMV cytomegalovirus, HIV human immunodeficiency virus, HSV herpes simplex virus, SARS-CoV-2 severe acute respiratory syndrome coronavirus 2, VZV Varicella Zoster Virus
+
+The healing process is shown in Fig. 2 Eventually, after 60 days, the lesions completely disappeared, and the appearance of the external genital area returned to normal. The girl remained asymptomatic over a one-year follow-up, during which she was regularly monitored.
+
+Vulvar ulceration. A Day of presentation. B Day 16 after presentation. C Day 23 after presentation. D Day 60 after presentation
+
+The patient had neither previous pathological symptoms of genital area nor a history of sexual intercourse. However, she had a history of autoimmune disorders. She had suffered from recurrent tonsillitis in the course of PFAPA syndrome and IgA vasculitis due to Streptococcus pyogenes bacteriemia. PFAPA manifestations include abdominal pain (similar to that on admission) and swollen cervical lymph nodes (not present on admission).
+
+It is worth mentioning, that she received the first dose of the vaccine against COVID-19 (Comirnaty Pfizer BioNTech (BNT162b2)) a week before the ulceration appeared. At that time, Poland was experiencing the fourth wave of COVID-19.
+
+The patient had not previously suffered from COVID-19. Vulvar pain and fever occurred 2 days after the vaccination. 7 days later, the vulvar ulcers had fully developed. Three months later the patient received the second dose of the vaccine without side effects.

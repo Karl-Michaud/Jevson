@@ -1,0 +1,44 @@
+{
+ "doc_id": "fjc-1394541",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "resume.name": [
+   "Hendricks, Bruce Howe",
+   "Barack Obama",
+   "Margaret B. Seymour"
+  ],
+  "resume.law_institution": [
+   "University of South Carolina School of Law",
+   "College of Charleston"
+  ],
+  "resume.law_year": [
+   "1990",
+   "1983",
+   "1991",
+   "2002",
+   "2014"
+  ],
+  "resume.undergrad_institution": [
+   "College of Charleston",
+   "University of South Carolina School of Law"
+  ],
+  "resume.undergrad_year": [
+   "1983",
+   "1990",
+   "1957"
+  ],
+  "resume.first_judgeship_start": [
+   "June 5, 2014",
+   "June 4, 2014",
+   "January 6, 2014",
+   "June 26, 2013"
+  ],
+  "resume.latest_position": [
+   "Judge, U.S. District Court for the District of South Carolina",
+   "U.S. District Court for the District of South Carolina",
+   "U.S. Magistrate Judge, U.S. District Court for the District of South Carolina"
+  ]
+ }
+}

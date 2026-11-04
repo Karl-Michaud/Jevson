@@ -1,0 +1,33 @@
+{
+  "passage_id": "cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "Marc B. Resnick, CEO of PageMaster Corporation",
+    "E2": "Ian Smith, President of Go Call, Inc.",
+    "E3": "Michael Ruge, signatory for Go Call, Inc."
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

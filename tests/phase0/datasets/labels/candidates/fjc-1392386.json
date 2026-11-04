@@ -1,0 +1,108 @@
+{
+ "doc_id": "fjc-1392386",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single-subject judicial biography; other people named (nominating president, predecessor) are incidental, not parties.",
+ "processing_note": null,
+ "fields": {
+  "resume.name": {
+   "status": "present",
+   "value": "Barrett, Michael Ryan",
+   "superseded": false,
+   "rationale": "The record heading gives the subject's full name; other names are the nominating president or predecessor/other people.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "resume.law_institution": {
+   "status": "present",
+   "value": "University of Cincinnati College of Law",
+   "superseded": false,
+   "rationale": "The Education entry with the J.D. names the law school; other schools awarded other degrees or are employers.",
+   "options": {
+    "c0": "wrong",
+    "c1": "partial",
+    "c2": "correct"
+   }
+  },
+  "resume.law_year": {
+   "status": "present",
+   "value": "1977",
+   "superseded": false,
+   "rationale": "The year follows the J.D. entry in Education. Other years are birth, judicial-service or career dates.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "correct",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "resume.undergrad_institution": {
+   "status": "present",
+   "value": "University of Cincinnati",
+   "superseded": false,
+   "rationale": "The Education entry with the bachelor's degree names the institution; the law school entry plays a different role.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong"
+   }
+  },
+  "resume.undergrad_year": {
+   "status": "present",
+   "value": "1974",
+   "superseded": false,
+   "rationale": "The year follows the bachelor's degree entry in Education. Other years are birth, judicial-service or career dates.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong"
+   }
+  },
+  "resume.first_judgeship_start": {
+   "status": "present",
+   "value": "May 5, 2006",
+   "superseded": false,
+   "rationale": "Commission date of the first listed federal judgeship; nomination, confirmation, senior-status and other dates play different roles.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "correct",
+    "c3": "wrong"
+   }
+  },
+  "resume.latest_position": {
+   "status": "present",
+   "value": "Judge, U.S. District Court for the Southern District of Ohio",
+   "superseded": false,
+   "rationale": "The latest listed federal judicial service is this position; the court name alone is partial.",
+   "options": {
+    "c0": "correct",
+    "c1": "partial"
+   }
+  }
+ }
+}

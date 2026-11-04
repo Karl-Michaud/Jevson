@@ -1,0 +1,164 @@
+{
+  "doc_id": "cuad-gridironbionutrientsinc-20171206-8-k-ex-10-1-10972555-ex-10-",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Agreement among NFLA-NC, NFL Alumni Inc., and Food For Athletes/Gridiron BioNutrients.",
+  "processing_note": "All notices or submissions to be made or delivered by the Company, the NFLA or the NFLA-NC pursuant to this Agreement shall be delivered to the agent's address below, free of all charges (for example, shipping charges and customs charges).",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "Endorsement Agreement",
+      "superseded": false,
+      "rationale": "The agreement calls itself the Endorsement Agreement; 'EXHIBIT 10.1' is the filing exhibit.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "October 30, 2017",
+      "superseded": false,
+      "rationale": "Made and executed on October 30, 2017.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "correct",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    },
+    "contract.effective_date": {
+      "status": "present",
+      "value": "November 1st, 2017",
+      "superseded": false,
+      "rationale": "The Contract Period and all terms commence on November 1st, 2017.",
+      "options": {
+        "c0": "wrong",
+        "c1": "correct",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "correct",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "present",
+      "value": "November 2nd, 2020",
+      "superseded": false,
+      "rationale": "The Contract Period concludes and the terms expire on November 2nd, 2020.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "correct",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "correct",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong",
+        "c20": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "California",
+      "superseded": false,
+      "rationale": "Section Twenty selects the laws of California; other California mentions are names, incorporation and addresses.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "wrong",
+        "c11": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal term; parties only agree to begin renewal discussions.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No non-renewal notice period is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

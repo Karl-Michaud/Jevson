@@ -1,0 +1,112 @@
+{
+ "doc_id": "cuad-tuniucorp-03-06-2014-ex-10-cooperation-agreement",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Agreement between Nanjing Tuniu Technology Co., Ltd. (Party A) and Beijing Tuniu Technology Co., Ltd. (Party B), amending an earlier agreement.",
+ "processing_note": "Such Service Fee shall be paid to the bank account designated by Party B in writing.",
+ "fields": {
+  "contract.document_name": {
+   "status": "present",
+   "value": "Cooperation Agreement (2014 Amendment)",
+   "superseded": true,
+   "rationale": "The contract names itself Cooperation Agreement (2014 Amendment); the Original Cooperation Agreement it replaces is a different, superseded document.",
+   "options": {
+    "c0": "partial",
+    "c1": "partial",
+    "c2": "correct",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong"
+   }
+  },
+  "contract.agreement_date": {
+   "status": "present",
+   "value": "January 24, 2014",
+   "superseded": true,
+   "rationale": "Entered into on January 24, 2014; September 17, 2008 is the date of the superseded original agreement.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong"
+   }
+  },
+  "contract.effective_date": {
+   "status": "present",
+   "value": "January 24, 2014",
+   "superseded": false,
+   "rationale": "It takes effect when signed, and it was executed on the date first mentioned, January 24, 2014.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  },
+  "contract.expiration_date": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "The term ends on the expiration of Party B operation term, not stated as a date.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "laws of the People's Republic of China",
+   "superseded": false,
+   "rationale": "Article 9 selects the laws of the People's Republic of China; other occurrences concern incorporation, a fallback condition or waiver.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "correct",
+    "c5": "correct",
+    "c6": "wrong",
+    "c7": "wrong",
+    "c8": "wrong",
+    "c9": "wrong"
+   }
+  },
+  "contract.renewal_term": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal provision.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  },
+  "contract.notice_period": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "No renewal provision, so no non-renewal notice.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  }
+ }
+}

@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378048", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["HP Printer", "HP PRINTER M479FDN", "M479FDN"], "product.inventory": ["(1)", "1", "(1) each"], "product.price": []}}

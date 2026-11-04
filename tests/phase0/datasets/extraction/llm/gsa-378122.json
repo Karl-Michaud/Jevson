@@ -1,0 +1,15 @@
+{
+ "doc_id": "gsa-378122",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Kodak Document Scanner",
+   "Kodak Alaris S2070 sheetfed duplex document scanner",
+   "S2070"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

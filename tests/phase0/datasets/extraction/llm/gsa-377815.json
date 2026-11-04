@@ -1,0 +1,20 @@
+{
+ "doc_id": "gsa-377815",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "HP Thunderbolt Dock G2 Docking stations",
+   "HP Thunderbolt Dock G2 docking stations",
+   "HSN-IX01"
+  ],
+  "product.inventory": [
+   "4",
+   "(1)",
+   "(2)",
+   "(3)"
+  ],
+  "product.price": []
+ }
+}

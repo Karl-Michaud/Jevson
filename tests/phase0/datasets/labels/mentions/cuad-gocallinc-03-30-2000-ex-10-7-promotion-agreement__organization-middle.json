@@ -1,0 +1,32 @@
+{
+  "passage_id": "cuad-gocallinc-03-30-2000-ex-10-7-promotion-agreement#organization-middle",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "PageMaster Corporation",
+    "E2": "Go Call, Inc."
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c2": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E1",
+      "role_noun": false,
+      "ambiguous": false
+    }
+  }
+}

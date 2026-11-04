@@ -1,0 +1,97 @@
+{
+  "doc_id": "cuad-gridironbionutrientsinc-20171206-8-k-ex-10-1-10972555-ex-10-",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Three parties: NFLA-NC, NFLA, and Food For Athletes / Gridiron BioNutrients (the Company).",
+  "processing_note": "All notices or submissions to be made or delivered by the Company, the NFLA or the NFLA-NC pursuant to this Agreement shall be delivered to the agent's address below, free of all charges (for example, shipping charges and customs charges).",
+  "fields": {
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "October 30, 2017",
+      "superseded": false,
+      "rationale": "The agreement was made and executed on October 30, 2017; November dates are the contract period, 12/6/2017 is the filing date.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "correct",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "present",
+      "value": "California",
+      "superseded": false,
+      "rationale": "Section Twenty: governed by the laws of California; other 'California' occurrences are incorporation, chapter names or arbitration location.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "wrong",
+        "c11": "wrong"
+      }
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The agreement only says the parties will begin renewal discussions; no renewal term length is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "There is no automatic renewal and no notice period to prevent renewal.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong"
+      }
+    }
+  }
+}

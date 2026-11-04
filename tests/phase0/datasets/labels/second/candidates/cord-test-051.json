@@ -1,0 +1,62 @@
+{
+  "doc_id": "cord-test-051",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": false,
+  "multi_entity_note": "Single point-of-sale receipt for one purchase transaction with one merchant and one payment.",
+  "processing_note": null,
+  "fields": {
+    "receipt.subtotal_price": {
+      "status": "present",
+      "value": "303,646",
+      "superseded": false,
+      "rationale": "The \"ITEMS: 8 303,646\" line is the pre-tax sum of the item prices, i.e. the subtotal before Pb1 tax.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "correct",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "receipt.service_price": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Only Pb1 tax and rounding are printed; there is no service charge.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    },
+    "receipt.cashprice": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "Payment is by BCA debit card; no cash amount is printed.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong"
+      }
+    }
+  }
+}

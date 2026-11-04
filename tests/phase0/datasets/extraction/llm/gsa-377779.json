@@ -1,0 +1,14 @@
+{
+ "doc_id": "gsa-377779",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "product.title": [
+   "Sun Pak heating unit",
+   "SUN PAK"
+  ],
+  "product.inventory": [],
+  "product.price": []
+ }
+}

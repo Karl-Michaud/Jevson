@@ -1,0 +1,33 @@
+{
+ "doc_id": "cuad-paxmedica-inc-07-02-2020-ex-10-12-master-service-agreement",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "Master Service Agreement"
+  ],
+  "contract.agreement_date": [
+   "May 25th, 2018",
+   "25/05/2008",
+   "13/04/2018"
+  ],
+  "contract.effective_date": [
+   "May 25th, 2018",
+   "25/05/2008",
+   "the date of signature of the Agreement by both parties"
+  ],
+  "contract.expiration_date": [],
+  "contract.governing_law": [
+   "State of Connecticut",
+   "Connecticut, U.S.A.",
+   "Connecticut"
+  ],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "thirty (30) days",
+   "thirty (30) days written notice",
+   "five (5) years"
+  ]
+ }
+}

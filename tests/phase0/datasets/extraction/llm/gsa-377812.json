@@ -1,0 +1,1 @@
+{"doc_id": "gsa-377812", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Digital Signage Media Player", "VideoTel VP70LTE plus industrial-grade looping digital signage media player", "VP70LTE"], "product.inventory": [], "product.price": []}}

@@ -1,0 +1,49 @@
+{
+ "doc_id": "epmc-pmc10910697",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single patient with tetralogy of Fallot and infective endocarditis.",
+ "processing_note": null,
+ "fields": {
+  "medical.diagnosis": {
+   "status": "present",
+   "value": "tetralogy of Fallot (TOF)",
+   "superseded": true,
+   "rationale": "'The final diagnosis was tetralogy of Fallot (TOF)', superseding the childhood diagnosis of VSD.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "correct",
+    "c9": "correct",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "wrong"
+   }
+  },
+  "medical.treatment_drug": {
+   "status": "absent",
+   "value": null,
+   "superseded": false,
+   "rationale": "TOF was treated surgically; ceftriaxone treated infective endocarditis and nifedipine/candesartan hypertension, so no drug for the final diagnosis is named.",
+   "options": {
+    "c0": "wrong",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong"
+   }
+  }
+ }
+}

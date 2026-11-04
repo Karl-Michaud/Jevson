@@ -1,0 +1,22 @@
+{
+ "probe": "check_tie_margin_pooled",
+ "backend": "decisions",
+ "model_requested": "gpt-6-luna",
+ "models_returned": [],
+ "n": 20,
+ "requests": 0,
+ "input_tokens": 0,
+ "cost_usd": 0,
+ "refusals": 0,
+ "http_statuses": {},
+ "measured": {
+  "by_file": {
+   "r5_sum_largek.json": {
+    "n": 20,
+    "margin_le_10": 1
+   }
+  },
+  "pooled_n": 20,
+  "pooled_margin_le_10": 1
+ }
+}

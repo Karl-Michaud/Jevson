@@ -1,0 +1,40 @@
+{
+ "doc_id": "cuad-bioamberinc-04-10-2013-ex-10-34-development-agreement-first-",
+ "extractor": "llm",
+ "prompt_version": "1",
+ "model": "claude-sonnet-5-5 (Claude Code subagent)",
+ "fields": {
+  "contract.document_name": [
+   "AMENDMENT 1 TO DEVELOPMENT AGREEMENT",
+   "Development Agreement",
+   "First Amendment",
+   "AMENDMENTS TO COMMERCIAL LICENSE AGREEMENT AND DEVELOPMENT   AGREEMENT",
+   "Commercial License Agreement",
+   "Amendment To the Development Agreement"
+  ],
+  "contract.agreement_date": [
+   "April 15, 2010",
+   "July 5, 2011",
+   "October 15, 2011",
+   "10/19/2011",
+   "7/14/11",
+   "7/18/11",
+   "April 15 , 2010",
+   "July 5 , 2011"
+  ],
+  "contract.effective_date": [
+   "July 5, 2011",
+   "April 15, 2010",
+   "April 15 , 2010",
+   "July 5 , 2011"
+  ],
+  "contract.expiration_date": [
+   "September 30, 2011"
+  ],
+  "contract.governing_law": [],
+  "contract.renewal_term": [],
+  "contract.notice_period": [
+   "thirty (30) days"
+  ]
+ }
+}

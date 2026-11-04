@@ -1,0 +1,45 @@
+How to get the list of vendor/CPU/FPU/ABI/etc. from LLVM CL, and their meaningI?
+
+I got all the "architectures" using this:
+
+llc --version
+
+It lists the architectures.
+
+Then for each architecture, you can get the CPUs and "features" (not sure what "features" are), like this:
+
+llc -march=arm -mattr=help # for arm architecture
+
+But https://clang.llvm.org/docs/CrossCompilation.html talks about vendors, FPUs, and other stuff, when it says:
+
+Target Triple
+
+The basic option is to define the target architecture. For that, use -target . If you don’t specify the target, CPU names won’t match (since Clang assumes the host triple), and the compilation will go ahead, creating code for the host platform, which will break later on when assembling or linking.
+
+The triple has the general format <arch><sub>-<vendor>-<sys>-<env>, where:
+
+arch = x86_64, i386, arm, thumb, mips, etc.
+
+sub = for ex. on ARM: v5, v6m, v7a, v7m, etc.
+
+vendor = pc, apple, nvidia, ibm, etc.
+
+sys = none, linux, win32, darwin, cuda, etc.
+
+env = eabi, gnu, android, macho, elf, etc.
+
+And it also talks about this:
+
+CPU, FPU, ABI
+
+Once your target is specified, it’s time to pick the hardware you’ll be compiling to. For every architecture, a default set of CPU/FPU/ABI will be chosen, so you’ll almost always have to change it via flags.
+
+Typical flags include:
+
+-mcpu=<cpu-name>, like x86-64, swift, cortex-a15
+
+-mfpu=<fpu-name>, like SSE3, NEON, controlling the FP unit available
+
+-mfloat-abi=<fabi>, like soft, hard, controlling which registers to use for floating-point
+
+So what are those 4 <sub>-<vendor>-<sys>-<env> and those 2 FPU and ABI? How can I list all of those through some CLI call? And generally what do they mean?

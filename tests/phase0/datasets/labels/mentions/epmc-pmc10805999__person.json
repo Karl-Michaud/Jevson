@@ -1,0 +1,39 @@
+{
+  "passage_id": "epmc-pmc10805999#person",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "entities": {
+    "E1": "case 1: 65-year-old woman with neurocysticercosis",
+    "E2": "daughters of the 65-year-old woman (group of persons)",
+    "E3": "case 2: 43-year-old man with neurocysticercosis",
+    "E4": "relative of the 43-year-old man"
+  },
+  "mentions": {
+    "c0": {
+      "entity": "E1",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c1": {
+      "entity": "E2",
+      "role_noun": true,
+      "ambiguous": true
+    },
+    "c2": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c3": {
+      "entity": "E3",
+      "role_noun": true,
+      "ambiguous": false
+    },
+    "c4": {
+      "entity": "E4",
+      "role_noun": true,
+      "ambiguous": false
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+ "doc_id": "se-askubuntu-1499366",
+ "labeller": "primary",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": false,
+ "multi_entity_note": "Single user asking about their own home server; no other parties.",
+ "processing_note": null,
+ "fields": {
+  "ticket.affected_service": {
+   "status": "present",
+   "value": "exFAT",
+   "superseded": false,
+   "rationale": "The problem is exFAT partitions mounting as root instead of the specified uid.",
+   "options": {
+    "c0": "correct",
+    "c1": "wrong",
+    "c2": "wrong",
+    "c3": "wrong",
+    "c4": "wrong",
+    "c5": "wrong",
+    "c6": "wrong",
+    "c7": "correct",
+    "c8": "wrong",
+    "c9": "wrong",
+    "c10": "wrong",
+    "c11": "wrong",
+    "c12": "wrong",
+    "c13": "wrong",
+    "c14": "wrong",
+    "c15": "wrong",
+    "c16": "correct"
+   }
+  }
+ }
+}

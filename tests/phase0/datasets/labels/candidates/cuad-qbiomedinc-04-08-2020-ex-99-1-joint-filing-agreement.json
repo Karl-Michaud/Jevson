@@ -1,0 +1,109 @@
+{
+  "doc_id": "cuad-qbiomedinc-04-08-2020-ex-99-1-joint-filing-agreement",
+  "labeller": "primary",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Many distinct reporting entities (YA II PN, Yorkville Advisors, D-Beta One funds, Matthew Beckman, etc.) sign.",
+  "processing_note": "The undersigned hereby further agree that this Joint Filing Agreement be included as an exhibit to such statement and any such amendment.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "JOINT FILING AGREEMENT",
+      "superseded": false,
+      "rationale": "The heading and the text call the document the Joint Filing Agreement.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct"
+      }
+    },
+    "contract.agreement_date": {
+      "status": "present",
+      "value": "4/8/2020",
+      "superseded": false,
+      "rationale": "The agreement is 'Dated: 4/8/2020' and each signatory signed on 4/8/2020.",
+      "options": {
+        "c0": "correct",
+        "c1": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "correct",
+        "c6": "correct",
+        "c7": "correct",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "correct",
+        "c11": "correct",
+        "c12": "correct",
+        "c13": "correct"
+      }
+    },
+    "contract.effective_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No separate effective date is stated; 4/8/2020 is only the dated/signing date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No term or expiration date is stated.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong"
+      }
+    },
+    "contract.governing_law": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No governing law clause.",
+      "options": {}
+    },
+    "contract.renewal_term": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal provision.",
+      "options": {}
+    },
+    "contract.notice_period": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "No renewal notice provision.",
+      "options": {}
+    }
+  }
+}

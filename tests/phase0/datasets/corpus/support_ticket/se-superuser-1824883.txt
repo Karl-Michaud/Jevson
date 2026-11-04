@@ -1,0 +1,29 @@
+Issues with two Netgear R7450 routers on one network
+
+Fiber ISP wired to Netgear R7450 #1, from Router #1 it is wired to a TV, Bedroom PC and 5 port switch. From the 5 port switch it is wired to my home office PC and to a detached office space where the Netgear R7450 #2 is located.
+
+Both routers are configured as if they are a single routers (out of the box setup), no special configuration.
+
+The Issues:
+
+No known issues within the home setup.
+
+But in the detached office where I conduct all of my Zoom meetings I sporadically have "you network connection is unstable" warnings popup on my Zoom meeting or my Zoom connection completely disconnects and reconnects (WiFi drops and picks up again). I have had an IP Conflict warning pop up on my PC but after a restart of the PC everything was fine.
+
+I only seem to have issue while in Zoom. If I am on YT or Netflix or Prime Movies or and other streaming service, no issues.
+
+Speed tests are consistent, 450 down - 450 up, ping 2ms
+
+This began all around the time I upgraded both routers to the R7450's and switching ISP's from Sprectrum - cable modem to a local CooP - fiber (Home Telcom). I upgraded routers to handle the fiber service.
+
+This may not be router related but that's where I'm starting because that's the only thing that has changed recently.
+
+Are there any further tests I can run or things to check before re-configuring routers?
+
+If I have to re-configure my routers, what is the best solution for my setup?
+
+Wiring Layout:
+
+Router #1 Config:
+
+Router #2 Config

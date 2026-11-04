@@ -1,0 +1,22 @@
+{
+  "doc_id": "cuad-rewalkroboticsltd-07-10-2014-ex-10-2-strategic-alliance-agre",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two companies (Yaskawa Electric Corporation and Argo Medical Technologies Ltd.) in different roles, with separate addresses and contact persons.",
+  "processing_note": "The address for all notices or other communications required to be sent to ARGO or YEC will be the mailing address stated on the signature page to this Agreement, or such other address as may be provided from one party to the other on at least ten (10) days prior written notice.",
+  "fields": {
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The initial term is expressed as ten years from the Effective Date; no expiration date is stated as a date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    }
+  }
+}

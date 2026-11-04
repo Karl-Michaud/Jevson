@@ -1,0 +1,68 @@
+{
+  "doc_id": "fjc-1380671",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Biography of one judge, but it also names other people in distinct roles (nominating president, predecessor judge, etc.).",
+  "processing_note": null,
+  "fields": {
+    "resume.name": {
+      "status": "present",
+      "value": "Fenner, Gary A.",
+      "superseded": false,
+      "rationale": "The heading names the biography subject.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "resume.law_institution": {
+      "status": "present",
+      "value": "University of Missouri-Kansas City School of Law",
+      "superseded": false,
+      "rationale": "The J.D. line names this school.",
+      "options": {
+        "c0": "correct"
+      }
+    },
+    "resume.undergrad_year": {
+      "status": "present",
+      "value": "1970",
+      "superseded": false,
+      "rationale": "The B.A. is dated 1970.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    },
+    "resume.latest_position": {
+      "status": "present",
+      "value": "Judge, U.S. District Court for the Western District of Missouri",
+      "superseded": false,
+      "rationale": "The only federal judicial service; the other judgeships are Missouri state courts.",
+      "options": {
+        "c0": "correct",
+        "c1": "wrong",
+        "c2": "wrong"
+      }
+    }
+  }
+}

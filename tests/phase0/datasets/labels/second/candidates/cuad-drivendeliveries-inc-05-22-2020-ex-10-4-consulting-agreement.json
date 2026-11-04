@@ -1,0 +1,29 @@
+{
+ "doc_id": "cuad-drivendeliveries-inc-05-22-2020-ex-10-4-consulting-agreement",
+ "labeller": "second",
+ "protocol_version": "1",
+ "model": "claude-opus-5-5 (Claude Code subagent)",
+ "multi_entity": true,
+ "multi_entity_note": "Driven Deliveries, Inc. (Company) and TruckThat LLC (Consultant).",
+ "processing_note": "If by mail, delivery shall be deemed effective three business days after mailing in accordance with this Section 12.7.",
+ "fields": {
+  "contract.effective_date": {
+   "status": "present",
+   "value": "May 1, 2019",
+   "superseded": false,
+   "rationale": "The agreement is entered into as of May 1, 2019, defined as the Effective Date.",
+   "options": {
+    "c0": "correct"
+   }
+  },
+  "contract.governing_law": {
+   "status": "present",
+   "value": "State of California",
+   "superseded": false,
+   "rationale": "Section 12.1 provides the agreement is governed by the laws of the State of California.",
+   "options": {
+    "c0": "correct"
+   }
+  }
+ }
+}

@@ -1,0 +1,47 @@
+{
+  "doc_id": "fjc-13263786",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Biography of one judge, but it also names other people in distinct roles (nominating president, predecessor judge, etc.).",
+  "processing_note": null,
+  "fields": {
+    "resume.law_year": {
+      "status": "present",
+      "value": "1993",
+      "superseded": false,
+      "rationale": "The J.D. from University of Texas School of Law is dated 1993.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "correct",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong"
+      }
+    },
+    "resume.undergrad_institution": {
+      "status": "present",
+      "value": "University of Arkansas",
+      "superseded": false,
+      "rationale": "The B.A. was awarded by the University of Arkansas.",
+      "options": {
+        "c0": "correct"
+      }
+    }
+  }
+}

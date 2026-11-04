@@ -1,0 +1,1 @@
+{"doc_id": "gsa-378099", "extractor": "llm", "prompt_version": "1", "model": "claude-sonnet-5-5 (Claude Code subagent)", "fields": {"product.title": ["Orthosis Apparatus (RH) w/Wireless Remote", "Bioness H200 Orthosis Apparatus with Wireless Remote", "H200"], "product.inventory": ["(1)", "1"], "product.price": []}}

@@ -1,0 +1,73 @@
+{
+  "doc_id": "cuad-smartrxsystemsinc-20180914-1-a-ex1a-6-mat-ctrct-11351705-ex1",
+  "labeller": "second",
+  "protocol_version": "1",
+  "model": "claude-opus-5-5 (Claude Code subagent)",
+  "multi_entity": true,
+  "multi_entity_note": "Two parties in different roles (Smart RX Systems, Inc. as Company and A3 Development Group, LLC as Distributor) with separate addresses.",
+  "processing_note": "All payments under this Agreement shall be made in lawful United States currency.",
+  "fields": {
+    "contract.document_name": {
+      "status": "present",
+      "value": "EXCLUSIVE DISTRIBUTOR AGREEMENT",
+      "superseded": false,
+      "rationale": "The title heading and the running page headers give EXCLUSIVE DISTRIBUTOR AGREEMENT; 'Distributor Agreement' is a shortened form of the name.",
+      "options": {
+        "c0": "correct",
+        "c2": "correct",
+        "c3": "correct",
+        "c4": "correct",
+        "c5": "correct",
+        "c6": "correct",
+        "c7": "correct",
+        "c8": "correct",
+        "c9": "correct",
+        "c10": "correct",
+        "c11": "correct",
+        "c12": "correct",
+        "c13": "correct",
+        "c18": "correct",
+        "c21": "correct",
+        "c22": "correct",
+        "c23": "correct",
+        "c24": "correct",
+        "c25": "correct",
+        "c1": "partial",
+        "c14": "partial",
+        "c15": "partial",
+        "c16": "partial",
+        "c17": "partial",
+        "c19": "partial",
+        "c20": "partial"
+      }
+    },
+    "contract.expiration_date": {
+      "status": "absent",
+      "value": null,
+      "superseded": false,
+      "rationale": "The initial term is a five-year period from signing; no expiration date is stated, and 9/14/2018 is the filing-source footer date.",
+      "options": {
+        "c0": "wrong",
+        "c1": "wrong",
+        "c2": "wrong",
+        "c3": "wrong",
+        "c4": "wrong",
+        "c5": "wrong",
+        "c6": "wrong",
+        "c7": "wrong",
+        "c8": "wrong",
+        "c9": "wrong",
+        "c10": "wrong",
+        "c11": "wrong",
+        "c12": "wrong",
+        "c13": "wrong",
+        "c14": "wrong",
+        "c15": "wrong",
+        "c16": "wrong",
+        "c17": "wrong",
+        "c18": "wrong",
+        "c19": "wrong"
+      }
+    }
+  }
+}
