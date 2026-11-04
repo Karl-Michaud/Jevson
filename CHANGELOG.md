@@ -8,6 +8,14 @@ that makes it, with what to change. The public API is exactly `jevson.__all__`; 
 change in any release. Behaviour that depends on the decision model's answers is not part of the
 API: `gpt-6-luna` cannot be pinned, and the model string each result records is the only version.
 
+## Archived — 2026-11-04
+
+Jevson is archived and will not be released. The decision model could not abstain reliably when
+the answer was absent (Phase 0 on Jev, Phase 0r on `gpt-6-luna`), so source selection was dropped,
+and the remaining v0 never met its injection and redraft bars. The README now explains why, lists
+the drawbacks, and adds architecture diagrams; `tests/unit/test_examples.py` finds the quickstart
+under the new heading.
+
 ## 0.1.0 — unreleased
 
 The first release: the v0 fallback product (DESIGN §10.1). Not yet published; the package name is

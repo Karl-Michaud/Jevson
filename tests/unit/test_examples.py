@@ -50,7 +50,7 @@ def test_example_runs_offline(name: str, capsys: pytest.CaptureFixture[str]) -> 
 
 def test_readme_quickstart_runs_offline(capsys: pytest.CaptureFixture[str]) -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    block = re.search(r"## Quickstart.*?```python\n(.*?)```", readme, re.S)
+    block = re.search(r"## [^\n]*Quickstart.*?```python\n(.*?)```", readme, re.S)
     assert block is not None
     exec(compile(block.group(1), "README.md", "exec", dont_inherit=True), {"__name__": "readme"})
     assert "'category': 'billing'" in capsys.readouterr().out
